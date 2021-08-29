@@ -1,0 +1,42 @@
+version: 1
+script:
+  - rm -rf AppDir  | true
+  - mkdir -p AppDir/usr/src
+  - mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
+  - cp pupgui AppDir/usr/src -r
+  - pyside6-uic ui/protonup_mainwindow.ui > AppDir/usr/src/pupgui/protonup_mainwindow.py
+  - cp ui/pupgui.png AppDir/usr/share/icons/hicolor/256x256/apps
+  - python3 -m pip install --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt
+
+
+AppDir:
+  path: ./AppDir
+
+  app_info:
+    id: net.davidotek.protonup-qt
+    name: ProtonUp-Qt
+    icon: pupgui
+    version: 1.4.0
+    exec: usr/bin/python3
+    exec_args: "$APPDIR/usr/src/pupgui/pupgui.py $@"
+
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
+
+    include:
+      - python3
+      - python3-pkg-resources
+    exclude: []
+
+  runtime:
+    env:
+      PYTHONHOME: '${APPDIR}/usr'
+      PYTHONPATH: '${APPDIR}/usr/lib/python3.9/site-packages'
+
+
+AppImage:
+  sign-key: None
+  arch: x86_64
