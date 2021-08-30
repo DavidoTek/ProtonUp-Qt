@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-import sys, threading
+import sys
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from protonup_mainwindow import Ui_MainWindow
+from pupgui_installdialog import PupguiInstallDialog
 
 import protonup.api as papi
 
@@ -11,18 +12,6 @@ import protonup.api as papi
 APP_NAME = 'ProtonUp-Qt'
 APP_VERSION = '1.4.0'
 PROTONUP_VERSION = '0.1.4'  # same as in requirements.txt
-
-
-class installProtonThread(threading.Thread):
-    def __init__(self, proton_version, main_window):
-        threading.Thread.__init__(self)
-        self.proton_version = proton_version
-        self.main_window = main_window
-    def run(self):
-        self.main_window.ui.statusBar.showMessage('Installing Proton-' + self.proton_version + '...')
-        papi.get_proton(self.proton_version)
-        self.main_window.ui.statusBar.showMessage('Installed Proton-' + self.proton_version)
-        self.main_window.updateInfo()
 
 
 class MainWindow(QMainWindow):
@@ -49,11 +38,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon.fromTheme('pupgui'))
 
     def btnAddVersionClicked(self):
-        result = QInputDialog.getItem(self, 'Install Proton', 'Select Proton-GE version to be installed', self._available_releases, editable=False)
-        if not result[1]:
-            return
-        install_thread = installProtonThread(result[0], self)
-        install_thread.start()
+        PupguiInstallDialog(self).show()
 
     def btnRemoveSelectedClicked(self):
         current = self.ui.listInstalledVersions.currentItem()
