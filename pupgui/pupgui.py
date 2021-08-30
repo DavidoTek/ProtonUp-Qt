@@ -10,6 +10,7 @@ import protonup.api as papi
 
 APP_NAME = 'ProtonUp-Qt'
 APP_VERSION = '1.4.0'
+PROTONUP_VERSION = '0.1.4'  # same as in requirements.txt
 
 
 class installProtonThread(threading.Thread):
@@ -35,6 +36,7 @@ class MainWindow(QMainWindow):
         self.ui.btnAddVersion.clicked.connect(self.btnAddVersionClicked)
         self.ui.btnRemoveSelected.clicked.connect(self.btnRemoveSelectedClicked)
         self.ui.btnClose.clicked.connect(self.btnCloseClicked)
+        self.ui.btnAbout.clicked.connect(self.btnAboutClicked)
 
         self.ui.comboInstallDirectory.addItem(papi.install_directory())
 
@@ -64,6 +66,10 @@ class MainWindow(QMainWindow):
 
     def btnCloseClicked(self):
         self.close()
+    
+    def btnAboutClicked(self):
+        QMessageBox.about(self, 'About ' + APP_NAME + ' ' + APP_VERSION, APP_NAME + ' v' + APP_VERSION + ' by DavidoTek: https://github.com/DavidoTek/ProtonUp-Qt\nGUI for ProtonUp v' + PROTONUP_VERSION + ': https://github.com/AUNaseef/protonup\n\nCopyright (C) 2021 DavidoTek, licensed under GPLv3')
+        QMessageBox.aboutQt(self)
 
     def updateInfo(self):
         # installed versions
