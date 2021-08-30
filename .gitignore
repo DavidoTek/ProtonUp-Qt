@@ -123,3 +123,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+.vscode/
+.qt_for_python/
+
+pupgui/protonup_mainwindow.py
