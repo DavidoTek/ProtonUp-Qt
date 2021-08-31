@@ -26,7 +26,7 @@ class PupguiInstallDialog(QDialog):
         self.setupUi()
     
     def setupUi(self):
-        self.resize(240, 100)
+        self.setFixedSize(250, 100)
         self.setWindowTitle('Install Proton')
 
         self.btnInfo = QPushButton('Info')
