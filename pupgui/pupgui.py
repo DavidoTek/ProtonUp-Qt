@@ -10,7 +10,7 @@ import protonup.api as papi
 
 
 APP_NAME = 'ProtonUp-Qt'
-APP_VERSION = '1.4.0'
+APP_VERSION = '1.4.1'
 PROTONUP_VERSION = '0.1.4'  # same as in requirements.txt
 
 
