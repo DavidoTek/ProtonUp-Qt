@@ -29,6 +29,7 @@ AppDir:
     include:
       - python3
       - python3-pkg-resources
+      - libopengl0
     exclude: []
 
   runtime:
