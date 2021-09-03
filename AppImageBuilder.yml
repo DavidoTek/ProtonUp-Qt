@@ -6,7 +6,7 @@ script:
   - cp pupgui AppDir/usr/src -r
   - pyside6-uic ui/protonup_mainwindow.ui > AppDir/usr/src/pupgui/protonup_mainwindow.py
   - cp ui/pupgui.png AppDir/usr/share/icons/hicolor/256x256/apps
-  - python3 -m pip install --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt
+  - python3 -m pip install --ignore-installed --prefix=/usr --no-cache-dir --root=AppDir -r ./requirements.txt
 
 
 AppDir:
@@ -35,7 +35,7 @@ AppDir:
   runtime:
     env:
       PYTHONHOME: '${APPDIR}/usr'
-      PYTHONPATH: '${APPDIR}/usr/lib/python3.9/site-packages'
+      PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages'
 
 
 AppImage:
