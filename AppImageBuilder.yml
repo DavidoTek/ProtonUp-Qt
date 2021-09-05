@@ -30,6 +30,10 @@ AppDir:
       - python3
       - python3-pkg-resources
       - libopengl0
+      - libssl1.1
+      - libk5crypto3
+      - libkrb5-3
+      - libgssapi-krb5-2
     exclude: []
 
   runtime:
