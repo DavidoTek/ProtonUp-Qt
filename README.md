@@ -1,5 +1,7 @@
 # ProtonUp-Qt
-Qt-based graphical user interface for [ProtonUp](https://github.com/AUNaseef/protonup).  
+Qt-based graphical user interface for [ProtonUp](https://github.com/AUNaseef/protonup). Download newest release AppImage from [here](https://github.com/DavidoTek/ProtonUp-Qt/releases).  
+
+![ProtonUp-Qt Screenshot](screenshot1.png)
 
 ## Run from source
 ### Install dependencies
