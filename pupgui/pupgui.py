@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys, os
+import sys, os, subprocess
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
@@ -92,8 +92,43 @@ class MainWindow(QMainWindow):
         for item in papi.installed_versions():
             self.ui.listInstalledVersions.addItem(item)
 
+
+def apply_dark_theme(app):
+    is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION')
+    darkmode_enabled = False
+    
+    try:
+        ret = subprocess.run(['gsettings', 'get', 'org.gnome.desktop.interface', 'gtk-theme'], capture_output=True).stdout.decode('utf-8').strip().strip("'").lower()
+        if ret.endswith('-dark'):
+            darkmode_enabled = True
+    except:
+        pass
+
+    if not is_plasma and darkmode_enabled:
+        app.setStyle("Fusion")
+
+        palette_dark = QPalette()
+        palette_dark.setColor(QPalette.Window, QColor(30, 30, 30))
+        palette_dark.setColor(QPalette.WindowText, Qt.white)
+        palette_dark.setColor(QPalette.Base, QColor(12, 12, 12))
+        palette_dark.setColor(QPalette.AlternateBase, QColor(30, 30, 30))
+        palette_dark.setColor(QPalette.ToolTipBase, Qt.white)
+        palette_dark.setColor(QPalette.ToolTipText, Qt.white)
+        palette_dark.setColor(QPalette.Text, Qt.white)
+        palette_dark.setColor(QPalette.Button, QColor(30, 30, 30))
+        palette_dark.setColor(QPalette.ButtonText, Qt.white)
+        palette_dark.setColor(QPalette.BrightText, Qt.red)
+        palette_dark.setColor(QPalette.Link, QColor(40, 120, 200))
+        palette_dark.setColor(QPalette.Highlight, QColor(40, 120, 200))
+        palette_dark.setColor(QPalette.HighlightedText, Qt.black)
+
+        app.setPalette(palette_dark)
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+
+    apply_dark_theme(app)
 
     window = MainWindow()
     window.show()
