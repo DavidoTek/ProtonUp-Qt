@@ -1,3 +1,6 @@
+[![Downloads](https://img.shields.io/github/downloads/DavidoTek/ProtonUp-Qt/total.svg)](https://github.com/DavidoTek/ProtonUp-Qt/releases)
+[![License](https://img.shields.io/github/license/DavidoTek/ProtonUp-Qt)](https://github.com/DavidoTek/ProtonUp-Qt/blob/main/LICENSE)
+
 # ProtonUp-Qt
 Qt-based graphical user interface to install and manage [Proton-GE](https://github.com/GloriousEggroll/proton-ge-custom) installations for Steam. Based on AUNaseef's [ProtonUp](https://github.com/AUNaseef/protonup).  
 **Download newest release AppImage from [here](https://github.com/DavidoTek/ProtonUp-Qt/releases).**  
