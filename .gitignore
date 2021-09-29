@@ -128,3 +128,7 @@ dmypy.json
 .qt_for_python/
 
 pupgui/protonup_mainwindow.py
+
+*.AppImage
+AppDir/
+appimage-builder-cache/
