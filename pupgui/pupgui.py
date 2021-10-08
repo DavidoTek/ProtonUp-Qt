@@ -66,13 +66,11 @@ class MainWindow(QMainWindow):
         PupguiInstallDialog(self).show()
 
     def btnRemoveSelectedClicked(self):
-        current = self.ui.listInstalledVersions.currentItem()
-        if not current:
-            return
-        ver = current.text().replace('Proton-', '')
-        papi.remove_proton(ver)
-        self.ui.statusBar.showMessage('Removed Proton-' + ver)
-        self.updateInfo()
+        for item in self.ui.listInstalledVersions.selectedItems():
+            ver = item.text().replace('Proton-', '')
+            papi.remove_proton(ver)
+            self.ui.statusBar.showMessage('Removed Proton-' + ver)
+            self.updateInfo()
 
     def btnCloseClicked(self):
         self.close()

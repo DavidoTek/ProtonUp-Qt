@@ -54,7 +54,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QListWidget" name="listInstalledVersions"/>
+     <widget class="QListWidget" name="listInstalledVersions">
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
