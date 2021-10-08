@@ -8,21 +8,28 @@ import protonup.api as papi
 
 
 class installProtonThread(threading.Thread):
-    def __init__(self, proton_version, main_window, is_reinstall=False):
+    def __init__(self, main_window):
         threading.Thread.__init__(self)
-        self.proton_version = proton_version
         self.main_window = main_window
-        self.is_reinstall = is_reinstall
     
     def run(self):
-        if self.is_reinstall:
-            papi.remove_proton(self.proton_version)
-            self.main_window.ui.statusBar.showMessage('Reinstalling Proton-' + self.proton_version + '...')
-        else:
-            self.main_window.ui.statusBar.showMessage('Installing Proton-' + self.proton_version + '...')
-        papi.get_proton(self.proton_version)
-        self.main_window.ui.statusBar.showMessage('Installed Proton-' + self.proton_version)
-        self.main_window.updateInfo()
+        while True:
+            if len(self.main_window.pending_proton_downloads) == 0:
+                break
+            proton_version = self.main_window.pending_proton_downloads[0]
+            try:
+                if proton_version in papi.installed_versions():
+                    papi.remove_proton(proton_version)
+                    self.main_window.ui.statusBar.showMessage('Reinstalling Proton-' + proton_version + '...')
+                else:
+                    self.main_window.ui.statusBar.showMessage('Installing Proton-' + proton_version + '...')
+                self.main_window.updateInfo(only_update_downloads=True)
+                papi.get_proton(proton_version)
+                self.main_window.ui.statusBar.showMessage('Installed Proton-' + proton_version)
+            except:
+                self.main_window.ui.statusBar.showMessage('Error installing Proton-' + proton_version + '...')
+            self.main_window.pending_proton_downloads.remove(proton_version)
+            self.main_window.updateInfo()
 
 
 class PupguiInstallDialog(QDialog):
@@ -66,9 +73,16 @@ class PupguiInstallDialog(QDialog):
     def btnInfoClicked(self):
         webbrowser.open('https://github.com/GloriousEggroll/proton-ge-custom/releases/tag/' + self.comboProtonVersion.currentText())
 
-    def btnInstallClicked(self):            
-        install_thread = installProtonThread(self.comboProtonVersion.currentText(), self.main_window, is_reinstall=self.checkCurrentVersionInstallStatus())
-        install_thread.start()
+    def btnInstallClicked(self):
+        current_version = self.comboProtonVersion.currentText()
+        if current_version in self.main_window.pending_proton_downloads:
+            self.close()
+            return
+        self.main_window.pending_proton_downloads.append(current_version)
+        self.main_window.updateInfo(only_update_downloads=True)
+        if len(self.main_window.pending_proton_downloads) == 1:
+            install_thread = installProtonThread(self.main_window)
+            install_thread.start()
         self.close()
 
     def btnCancelClicked(self):

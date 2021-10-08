@@ -37,6 +37,8 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.pending_proton_downloads = []
+
         self._available_releases = []
 
         self.ui.btnAddVersion.clicked.connect(self.btnAddVersionClicked)
@@ -84,7 +86,10 @@ class MainWindow(QMainWindow):
         self.ui.statusBar.showMessage('Changed install directory to ' + install_dir)
         self.updateInfo()
 
-    def updateInfo(self):
+    def updateInfo(self, only_update_downloads=False):
+        self.ui.txtActiveDownloads.setText(str(len(self.pending_proton_downloads)))
+        if only_update_downloads:
+            return
         # installed versions
         self.ui.listInstalledVersions.clear()
         for item in papi.installed_versions():
