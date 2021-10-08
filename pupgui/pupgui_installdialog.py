@@ -8,12 +8,18 @@ import protonup.api as papi
 
 
 class installProtonThread(threading.Thread):
-    def __init__(self, proton_version, main_window):
+    def __init__(self, proton_version, main_window, is_reinstall=False):
         threading.Thread.__init__(self)
         self.proton_version = proton_version
         self.main_window = main_window
+        self.is_reinstall = is_reinstall
+    
     def run(self):
-        self.main_window.ui.statusBar.showMessage('Installing Proton-' + self.proton_version + '...')
+        if self.is_reinstall:
+            papi.remove_proton(self.proton_version)
+            self.main_window.ui.statusBar.showMessage('Reinstalling Proton-' + self.proton_version + '...')
+        else:
+            self.main_window.ui.statusBar.showMessage('Installing Proton-' + self.proton_version + '...')
         papi.get_proton(self.proton_version)
         self.main_window.ui.statusBar.showMessage('Installed Proton-' + self.proton_version)
         self.main_window.updateInfo()
@@ -53,14 +59,29 @@ class PupguiInstallDialog(QDialog):
         self.btnInfo.clicked.connect(self.btnInfoClicked)
         self.btnInstall.clicked.connect(self.btnInstallClicked)
         self.btnCancel.clicked.connect(self.btnCancelClicked)
+        self.comboProtonVersion.currentIndexChanged.connect(self.comboProtonVersionCurrentIndexChanged)
+        
+        self.checkCurrentVersionInstallStatus()
     
     def btnInfoClicked(self):
         webbrowser.open('https://github.com/GloriousEggroll/proton-ge-custom/releases/tag/' + self.comboProtonVersion.currentText())
 
-    def btnInstallClicked(self):
-        install_thread = installProtonThread(self.comboProtonVersion.currentText(), self.main_window)
+    def btnInstallClicked(self):            
+        install_thread = installProtonThread(self.comboProtonVersion.currentText(), self.main_window, is_reinstall=self.checkCurrentVersionInstallStatus())
         install_thread.start()
         self.close()
 
     def btnCancelClicked(self):
         self.close()
+
+    def comboProtonVersionCurrentIndexChanged(self):
+        self.checkCurrentVersionInstallStatus()
+    
+    def checkCurrentVersionInstallStatus(self):
+        current_version = 'Proton-' + self.comboProtonVersion.currentText()
+        if current_version in papi.installed_versions():
+            self.btnInstall.setText('Reinstall')
+            return True
+        else:
+            self.btnInstall.setText('Install')
+            return False
