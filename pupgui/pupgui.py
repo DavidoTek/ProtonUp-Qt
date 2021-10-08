@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
             return
         ver = current.text().replace('Proton-', '')
         papi.remove_proton(ver)
-        self.ui.statusBar.showMessage('Removed Proton-' + ver, timeout=3000)
+        self.ui.statusBar.showMessage('Removed Proton-' + ver)
         self.updateInfo()
 
     def btnCloseClicked(self):
@@ -83,7 +83,7 @@ class MainWindow(QMainWindow):
 
     def comboInstallDirectoryCurrentIndexChanged(self):
         install_dir = papi.install_directory(self.ui.comboInstallDirectory.currentText())
-        self.ui.statusBar.showMessage('Changed install directory to ' + install_dir, timeout=3000)
+        self.ui.statusBar.showMessage('Changed install directory to ' + install_dir)
         self.updateInfo()
 
     def updateInfo(self):
