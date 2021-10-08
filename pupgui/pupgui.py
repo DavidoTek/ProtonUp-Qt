@@ -70,7 +70,6 @@ class MainWindow(QMainWindow):
             ver = item.text().replace('Proton-', '')
             papi.remove_proton(ver)
             self.ui.statusBar.showMessage('Removed Proton-' + ver)
-            self.updateInfo()
 
     def btnCloseClicked(self):
         self.close()
