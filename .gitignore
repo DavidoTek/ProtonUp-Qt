@@ -127,7 +127,7 @@ dmypy.json
 .vscode/
 .qt_for_python/
 
-pupgui/protonup_mainwindow.py
+pupgui/pupgui_mainwindow.py
 
 *.AppImage
 AppDir/

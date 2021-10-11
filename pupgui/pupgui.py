@@ -3,7 +3,7 @@ import sys, os, subprocess
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
-from protonup_mainwindow import Ui_MainWindow
+from pupgui_mainwindow import Ui_MainWindow
 from pupgui_installdialog import PupguiInstallDialog
 
 import protonup.api as papi

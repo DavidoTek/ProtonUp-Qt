@@ -11,7 +11,7 @@ Qt-based graphical user interface to install and manage [Proton-GE](https://gith
 ### Install dependencies
 `pip3 install -r ./requirements.txt`
 ### Compile GUI
-`pyside6-uic ui/protonup_mainwindow.ui > pupgui/protonup_mainwindow.py`
+`pyside6-uic ui/pupgui_mainwindow.ui > pupgui/pupgui_mainwindow.py`
 ### Run ProtonUp-Qt
 `python3 pupgui/pupgui.py`
 
