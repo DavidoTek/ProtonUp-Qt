@@ -88,6 +88,11 @@ class MainWindow(QMainWindow):
 
     def updateInfo(self, only_update_downloads=False):
         self.ui.txtActiveDownloads.setText(str(len(self.pending_proton_downloads)))
+        if(len(self.pending_proton_downloads) > 0):
+            self.ui.comboInstallDirectory.setEnabled(False)
+        else:
+            self.ui.comboInstallDirectory.setEnabled(True)
+        
         if only_update_downloads:
             return
         # installed versions
