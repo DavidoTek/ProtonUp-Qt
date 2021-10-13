@@ -39,8 +39,6 @@ class MainWindow(QMainWindow):
 
         self.pending_proton_downloads = []
 
-        self._available_releases = []
-
         self.ui.btnAddVersion.clicked.connect(self.btnAddVersionClicked)
         self.ui.btnRemoveSelected.clicked.connect(self.btnRemoveSelectedClicked)
         self.ui.btnClose.clicked.connect(self.btnCloseClicked)
@@ -57,7 +55,6 @@ class MainWindow(QMainWindow):
         self.ui.comboInstallDirectory.currentIndexChanged.connect(self.comboInstallDirectoryCurrentIndexChanged)
 
         self.updateInfo()
-        self._available_releases = papi.fetch_releases()    # ToDo: separate thread
 
         app_status_label = QLabel(APP_NAME + ' ' + APP_VERSION)
         self.ui.statusBar.addPermanentWidget(app_status_label)

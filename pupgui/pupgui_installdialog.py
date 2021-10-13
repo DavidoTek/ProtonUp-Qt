@@ -53,8 +53,13 @@ class PupguiInstallDialog(QDialog):
         button_box.addWidget(self.btnCancel)
 
         self.comboProtonVersion = QComboBox()
-        for item in self.main_window._available_releases:
-            self.comboProtonVersion.addItem(item)
+        self.main_window.ui.statusBar.showMessage('Fetching releases...')
+        try:
+            for item in papi.fetch_releases():
+                self.comboProtonVersion.addItem(item)
+            self.main_window.ui.statusBar.clearMessage()
+        except:
+            self.main_window.ui.statusBar.showMessage('Could not fetch releases.')
 
         vbox = QVBoxLayout()
         vbox.addWidget(QLabel('Select Proton-GE version to be installed'))
