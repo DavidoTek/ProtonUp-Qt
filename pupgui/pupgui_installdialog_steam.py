@@ -32,9 +32,9 @@ class installProtonThread(threading.Thread):
             self.main_window.updateInfo()
 
 
-class PupguiInstallDialog(QDialog):
+class PupguiInstallDialogSteam(QDialog):
     def __init__(self, parent=None):
-        super(PupguiInstallDialog, self).__init__(parent)
+        super(PupguiInstallDialogSteam, self).__init__(parent)
         self.main_window = parent
         self.setupUi()
     

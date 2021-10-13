@@ -4,7 +4,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from pupgui_mainwindow import Ui_MainWindow
-from pupgui_installdialog import PupguiInstallDialog
+from pupgui_installdialog_steam import PupguiInstallDialogSteam
 
 import protonup.api as papi
 
@@ -62,7 +62,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon.fromTheme('pupgui'))
 
     def btnAddVersionClicked(self):
-        PupguiInstallDialog(self).show()
+        PupguiInstallDialogSteam(self).show()
 
     def btnRemoveSelectedClicked(self):
         for item in self.ui.listInstalledVersions.selectedItems():
