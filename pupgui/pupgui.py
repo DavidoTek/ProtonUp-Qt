@@ -5,10 +5,11 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from pupgui_mainwindow import Ui_MainWindow
 from pupgui_installdialog_steam import PupguiInstallDialogSteam
-from pupgui_utils import available_install_directories, install_directory
+from pupgui_utils import available_install_directories, install_directory, get_install_location_from_directory_name
 from pupgui_constants import APP_NAME, APP_VERSION, PROTONUP_VERSION
 
 import protonup.api as papi
+import pupgui_lutrisup as wapi
 
 
 class MainWindow(QMainWindow):
@@ -28,7 +29,8 @@ class MainWindow(QMainWindow):
         current_install_dir = install_directory()
         papi.install_directory(current_install_dir)
         for install_dir in available_install_directories():
-            self.ui.comboInstallDirectory.addItem(QIcon.fromTheme('steam'), install_dir)
+            launcher_name = get_install_location_from_directory_name(install_dir)['launcher']
+            self.ui.comboInstallDirectory.addItem(QIcon.fromTheme(launcher_name), install_dir)
             if current_install_dir == install_dir:
                 self.ui.comboInstallDirectory.setCurrentIndex(i)
             i += 1
@@ -47,8 +49,12 @@ class MainWindow(QMainWindow):
 
     def btnRemoveSelectedClicked(self):
         for item in self.ui.listInstalledVersions.selectedItems():
-            ver = item.text().replace('Proton-', '')
-            papi.remove_proton(ver)
+            launcher_name = get_install_location_from_directory_name(install_directory())['launcher']
+            if launcher_name == 'steam':
+                ver = item.text().replace('Proton-', '')
+                papi.remove_proton(ver)
+            elif launcher_name == 'lutris':
+                wapi.remove_winege(install_directory(), ver)
             self.ui.statusBar.showMessage('Removed Proton-' + ver)
         self.updateInfo()
 
@@ -76,8 +82,14 @@ class MainWindow(QMainWindow):
             return
         # installed versions
         self.ui.listInstalledVersions.clear()
-        for item in papi.installed_versions():
-            self.ui.listInstalledVersions.addItem(item)
+
+        launcher_name = get_install_location_from_directory_name(install_directory())['launcher']
+        if launcher_name == 'steam':
+            for item in papi.installed_versions():
+                self.ui.listInstalledVersions.addItem(item)
+        elif launcher_name == 'lutris':    
+            for item in wapi.installed_versions(install_directory()):
+                self.ui.listInstalledVersions.addItem(item)
 
 
 def apply_dark_theme(app):

@@ -15,6 +15,18 @@ def available_install_directories():
             available_dirs.append(install_dir)
     return available_dirs
 
+
+def get_install_location_from_directory_name(install_dir):
+    """
+    Get install location dict from install directory name
+    Return Type: dict
+    """
+    for loc in POSSIBLE_INSTALL_LOCATIONS:
+        if os.path.expanduser(install_dir) == os.path.expanduser(loc['install_dir']):
+            return loc
+    return {'install_dir': install_dir, 'display_name': 'unknown', 'launcher': ''}
+
+
 # install_directory function from protonup 0.1.4
 def install_directory(target=None):
     """
