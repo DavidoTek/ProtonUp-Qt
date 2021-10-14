@@ -34,10 +34,14 @@ def install_directory(target=None):
         os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
         with open(CONFIG_FILE, 'w') as file:
             config.write(file)
-        return target
     elif os.path.exists(CONFIG_FILE):
         config.read(CONFIG_FILE)
         if config.has_option('pupgui', 'installdir'):
-            return os.path.expanduser(config['pupgui']['installdir'])
+            target = os.path.expanduser(config['pupgui']['installdir'])
 
-    return POSSIBLE_INSTALL_LOCATIONS[0]['install_dir']
+    if target in available_install_directories():
+        return target
+    elif len(available_install_directories()) > 0:
+        install_directory(available_install_directories()[0])
+        return available_install_directories()[0]
+    return ''

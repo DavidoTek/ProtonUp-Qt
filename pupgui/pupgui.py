@@ -26,6 +26,7 @@ class MainWindow(QMainWindow):
 
         i = 0
         current_install_dir = install_directory()
+        papi.install_directory(current_install_dir)
         for install_dir in available_install_directories():
             self.ui.comboInstallDirectory.addItem(QIcon.fromTheme('steam'), install_dir)
             if current_install_dir == install_dir:
