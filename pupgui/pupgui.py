@@ -5,7 +5,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from pupgui_mainwindow import Ui_MainWindow
 from pupgui_installdialog_steam import PupguiInstallDialogSteam
-from pupgui_utils import available_install_directories
+from pupgui_utils import available_install_directories, install_directory
 from pupgui_constants import APP_NAME, APP_VERSION, PROTONUP_VERSION
 
 import protonup.api as papi
@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
         self.ui.btnAbout.clicked.connect(self.btnAboutClicked)
 
         i = 0
-        current_install_dir = papi.install_directory()
+        current_install_dir = install_directory()
         for install_dir in available_install_directories():
             self.ui.comboInstallDirectory.addItem(QIcon.fromTheme('steam'), install_dir)
             if current_install_dir == install_dir:
@@ -59,7 +59,8 @@ class MainWindow(QMainWindow):
         QMessageBox.aboutQt(self)
 
     def comboInstallDirectoryCurrentIndexChanged(self):
-        install_dir = papi.install_directory(self.ui.comboInstallDirectory.currentText())
+        install_dir = install_directory(self.ui.comboInstallDirectory.currentText())
+        papi.install_directory(install_dir)
         self.ui.statusBar.showMessage('Changed install directory to ' + install_dir)
         self.updateInfo()
 
