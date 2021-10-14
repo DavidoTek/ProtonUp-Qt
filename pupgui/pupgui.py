@@ -5,30 +5,10 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from pupgui_mainwindow import Ui_MainWindow
 from pupgui_installdialog_steam import PupguiInstallDialogSteam
+from pupgui_utils import available_install_directories
+from pupgui_constants import APP_NAME, APP_VERSION, PROTONUP_VERSION
 
 import protonup.api as papi
-
-
-APP_NAME = 'ProtonUp-Qt'
-APP_VERSION = '1.4.4'
-PROTONUP_VERSION = '0.1.4'  # same as in requirements.txt
-
-
-POSSIBLE_INSTALL_LOCATIONS = [
-    {'install_dir': '~/.steam/root/compatibilitytools.d/', 'display_name': 'Steam'},
-    {'install_dir': '~/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/', 'display_name': 'Steam (Flatpak)'}
-]
-def available_install_directories():
-    """
-    List available install directories
-    Return Type: str[]
-    """
-    available_dirs = []
-    for loc in POSSIBLE_INSTALL_LOCATIONS:
-        install_dir = os.path.expanduser(loc['install_dir'])
-        if os.path.exists(install_dir):
-            available_dirs.append(install_dir)
-    return available_dirs
 
 
 class MainWindow(QMainWindow):
