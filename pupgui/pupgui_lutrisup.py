@@ -112,7 +112,7 @@ def get_winege(install_dir, version):
     if not data or 'download' not in data:
         return False
 
-    protondir = install_dir + 'wine-lutris-ge-' + data['version'] + '-x86_64'
+    protondir = install_dir + 'lutris-ge-' + data['version'].replace('GE-', '').lower() + '-x86_64'
     checksum_dir = protondir + '/sha512sum'
     source_checksum = requests.get(data['checksum']).text if 'checksum' in data else None
     local_checksum = open(checksum_dir).read() if os.path.exists(checksum_dir) else None

@@ -5,6 +5,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from pupgui_mainwindow import Ui_MainWindow
 from pupgui_installdialog_steam import PupguiInstallDialogSteam
+from pupgui_installdialog_lutris import PupguiInstallDialogLutris
 from pupgui_utils import available_install_directories, install_directory, get_install_location_from_directory_name
 from pupgui_constants import APP_NAME, APP_VERSION, PROTONUP_VERSION
 
@@ -45,7 +46,11 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon.fromTheme('pupgui'))
 
     def btnAddVersionClicked(self):
-        PupguiInstallDialogSteam(self).show()
+        launcher_name = get_install_location_from_directory_name(install_directory())['launcher']
+        if launcher_name == 'steam':
+            PupguiInstallDialogSteam(self).show()
+        elif launcher_name == 'lutris':
+            PupguiInstallDialogLutris(self).show()
 
     def btnRemoveSelectedClicked(self):
         for item in self.ui.listInstalledVersions.selectedItems():
@@ -54,6 +59,7 @@ class MainWindow(QMainWindow):
                 ver = item.text().replace('Proton-', '')
                 papi.remove_proton(ver)
             elif launcher_name == 'lutris':
+                ver = item.text()
                 wapi.remove_winege(install_directory(), ver)
             self.ui.statusBar.showMessage('Removed Proton-' + ver)
         self.updateInfo()
