@@ -7,7 +7,7 @@ from pupgui_mainwindow import Ui_MainWindow
 from pupgui_installdialog_steam import PupguiInstallDialogSteam
 from pupgui_installdialog_lutris import PupguiInstallDialogLutris
 from pupgui_utils import available_install_directories, install_directory, get_install_location_from_directory_name
-from pupgui_constants import APP_NAME, APP_VERSION, PROTONUP_VERSION, ABOUT_TEXT
+from pupgui_constants import APP_NAME, APP_VERSION, PROTONUP_VERSION, ABOUT_TEXT, POSSIBLE_INSTALL_LOCATIONS
 
 import protonup.api as papi
 import pupgui_lutrisup as wapi
@@ -98,6 +98,16 @@ class MainWindow(QMainWindow):
                 self.ui.listInstalledVersions.addItem(item)
 
 
+def create_steam_compatibilitytools_folder():
+    """
+    Create Steam compatibilitytools.d folder if Steam is installed but folder doesn't exist
+    """
+    for loc in POSSIBLE_INSTALL_LOCATIONS:
+        if loc['launcher'] == 'steam':
+            install_dir = os.path.expanduser(loc['install_dir'])
+            if os.path.exists(install_dir.replace('compatibilitytools.d/', '')) and not os.path.exists(install_dir):
+                os.mkdir(install_dir)
+
 def apply_dark_theme(app):
     is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION')
     darkmode_enabled = False
@@ -131,6 +141,8 @@ def apply_dark_theme(app):
 
 
 if __name__ == '__main__':
+    create_steam_compatibilitytools_folder()
+
     app = QApplication(sys.argv)
 
     apply_dark_theme(app)
