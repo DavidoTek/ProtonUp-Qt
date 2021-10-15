@@ -20,6 +20,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.pending_proton_downloads = []
+        self.dlstatus = 0.0
 
         self.ui.btnAddVersion.clicked.connect(self.btnAddVersionClicked)
         self.ui.btnRemoveSelected.clicked.connect(self.btnRemoveSelectedClicked)
@@ -38,12 +39,16 @@ class MainWindow(QMainWindow):
 
         self.ui.comboInstallDirectory.currentIndexChanged.connect(self.comboInstallDirectoryCurrentIndexChanged)
 
-        self.updateInfo()
+
+        self.progressBarDownload = QProgressBar()
+        self.ui.statusBar.addPermanentWidget(self.progressBarDownload)
 
         app_status_label = QLabel(APP_NAME + ' ' + APP_VERSION)
         self.ui.statusBar.addPermanentWidget(app_status_label)
 
         self.setWindowIcon(QIcon.fromTheme('pupgui'))
+        
+        self.updateInfo()
 
     def btnAddVersionClicked(self):
         launcher_name = get_install_location_from_directory_name(install_directory())['launcher']
@@ -81,8 +86,12 @@ class MainWindow(QMainWindow):
         self.ui.txtActiveDownloads.setText(str(len(self.pending_proton_downloads)))
         if(len(self.pending_proton_downloads) > 0):
             self.ui.comboInstallDirectory.setEnabled(False)
+            self.progressBarDownload.setVisible(True)
+            self.setMaximumSize(self.size())
         else:
             self.ui.comboInstallDirectory.setEnabled(True)
+            self.progressBarDownload.setVisible(False)
+            self.setMaximumSize(800, 600)
         
         if only_update_downloads:
             return
@@ -96,6 +105,15 @@ class MainWindow(QMainWindow):
         elif launcher_name == 'lutris':    
             for item in wapi.installed_versions(install_directory()):
                 self.ui.listInstalledVersions.addItem(item)
+    
+    def getDownloadStatus(self):
+        return self.dlstatus
+
+    def setDownloadStatus(self, status):
+        self.dlstatus = status
+        self.progressBarDownload.setValue(status * 100.0)
+
+    downloadStatus = Property(float, getDownloadStatus, setDownloadStatus)
 
 
 def create_steam_compatibilitytools_folder():

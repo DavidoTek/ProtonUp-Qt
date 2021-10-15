@@ -25,7 +25,7 @@ class installProtonThread(threading.Thread):
                 else:
                     self.main_window.ui.statusBar.showMessage('Installing WineGE-' + winege_version + '...')
                 self.main_window.updateInfo(only_update_downloads=True)
-                wapi.get_winege(install_directory(), winege_version)
+                wapi.get_winege(install_directory(), winege_version, main_window=self.main_window)
                 self.main_window.ui.statusBar.showMessage('Installed WineGE-' + winege_version)
             except:
                 self.main_window.ui.statusBar.showMessage('Error installing WineGE-' + winege_version + '...')

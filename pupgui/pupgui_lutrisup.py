@@ -14,13 +14,16 @@ TEMP_DIR = '/tmp/protonupqt/'
 BUFFER_SIZE = 65536  # Work with 64 kb chunks
 
 
-def download(url, destination):
+def download(url, destination, main_window=None):
     """Download files"""
     try:
         file = requests.get(url, stream=True)
     except OSError:
         return False  # Network error
     
+    f_size = int(file.headers.get('content-length'))
+    c_count = int(f_size / BUFFER_SIZE)
+    c_current = 1
     destination = os.path.expanduser(destination)
     os.makedirs(os.path.dirname(destination), exist_ok=True)
     with open(destination, 'wb') as dest:
@@ -28,6 +31,9 @@ def download(url, destination):
             if chunk:
                 dest.write(chunk)
                 dest.flush()
+            if main_window:
+                main_window.downloadStatus = min(c_current / c_count, 1.0)
+                c_current += 1
     return True
 
 
@@ -105,7 +111,7 @@ def remove_winege(install_dir, version):
     return False
 
 
-def get_winege(install_dir, version):
+def get_winege(install_dir, version, main_window=None):
     """Download and install WineGE"""
     data = fetch_data(tag=version)
 
@@ -133,7 +139,7 @@ def get_winege(install_dir, version):
     destination = os.path.expanduser(destination)
 
     # Download
-    if not download(url=data['download'], destination=destination):
+    if not download(url=data['download'], destination=destination, main_window=main_window):
         return
 
     download_checksum = sha512sum(destination)
