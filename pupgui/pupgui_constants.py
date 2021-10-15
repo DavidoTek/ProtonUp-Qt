@@ -1,7 +1,7 @@
 import os
 
 APP_NAME = 'ProtonUp-Qt'
-APP_VERSION = '1.4.4'
+APP_VERSION = '1.5.0'
 PROTONUP_VERSION = '0.1.4'  # same as in requirements.txt
 ABOUT_TEXT = '''\
 GUI for installing/updating Proton-GE for Steam and Wine-GE for Lutris.
