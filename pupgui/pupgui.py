@@ -7,7 +7,7 @@ from pupgui_mainwindow import Ui_MainWindow
 from pupgui_installdialog_steam import PupguiInstallDialogSteam
 from pupgui_installdialog_lutris import PupguiInstallDialogLutris
 from pupgui_utils import available_install_directories, install_directory, get_install_location_from_directory_name
-from pupgui_constants import APP_NAME, APP_VERSION, PROTONUP_VERSION
+from pupgui_constants import APP_NAME, APP_VERSION, PROTONUP_VERSION, ABOUT_TEXT
 
 import protonup.api as papi
 import pupgui_lutrisup as wapi
@@ -68,7 +68,7 @@ class MainWindow(QMainWindow):
         self.close()
     
     def btnAboutClicked(self):
-        QMessageBox.about(self, 'About ' + APP_NAME + ' ' + APP_VERSION, APP_NAME + ' v' + APP_VERSION + ' by DavidoTek: https://github.com/DavidoTek/ProtonUp-Qt\nGUI for ProtonUp v' + PROTONUP_VERSION + ': https://github.com/AUNaseef/protonup\n\nCopyright (C) 2021 DavidoTek, licensed under GPLv3')
+        QMessageBox.about(self, 'About ' + APP_NAME + ' ' + APP_VERSION, ABOUT_TEXT)
         QMessageBox.aboutQt(self)
 
     def comboInstallDirectoryCurrentIndexChanged(self):
