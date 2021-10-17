@@ -21,6 +21,7 @@ class MainWindow(QMainWindow):
 
         self.pending_proton_downloads = []
         self.dlstatus = 0.0
+        self.comboInstallDirectoryIndexMap = []
 
         self.ui.btnAddVersion.clicked.connect(self.btnAddVersionClicked)
         self.ui.btnRemoveSelected.clicked.connect(self.btnRemoveSelectedClicked)
@@ -32,7 +33,9 @@ class MainWindow(QMainWindow):
         papi.install_directory(current_install_dir)
         for install_dir in available_install_directories():
             launcher_name = get_install_location_from_directory_name(install_dir)['launcher']
-            self.ui.comboInstallDirectory.addItem(QIcon.fromTheme(launcher_name), install_dir)
+            display_name = get_install_location_from_directory_name(install_dir)['display_name']
+            self.ui.comboInstallDirectory.addItem(QIcon.fromTheme(launcher_name), display_name + ' (' + install_dir + ')')
+            self.comboInstallDirectoryIndexMap.append(install_dir)
             if current_install_dir == install_dir:
                 self.ui.comboInstallDirectory.setCurrentIndex(i)
             i += 1
@@ -77,7 +80,7 @@ class MainWindow(QMainWindow):
         QMessageBox.aboutQt(self)
 
     def comboInstallDirectoryCurrentIndexChanged(self):
-        install_dir = install_directory(self.ui.comboInstallDirectory.currentText())
+        install_dir = install_directory(self.comboInstallDirectoryIndexMap[self.ui.comboInstallDirectory.currentIndex()])
         papi.install_directory(install_dir)
         self.ui.statusBar.showMessage('Changed install directory to ' + install_dir)
         self.updateInfo()
