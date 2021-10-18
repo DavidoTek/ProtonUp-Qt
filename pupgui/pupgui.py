@@ -130,7 +130,7 @@ def create_steam_compatibilitytools_folder():
                 os.mkdir(install_dir)
 
 def apply_dark_theme(app):
-    is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION')
+    is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION', '')
     darkmode_enabled = False
     
     try:
