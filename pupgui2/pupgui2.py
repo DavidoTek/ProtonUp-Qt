@@ -29,7 +29,6 @@ class InstallWineThread(threading.Thread):
             except Exception as e:
                 print(e)
             self.main_window.pending_downloads.remove(compat_tool)
-            self.main_window.update_ui()
 
     def install_compat_tool(self, compat_tool):
         tool_name = compat_tool['name']
@@ -117,6 +116,7 @@ class MainWindow(QObject):
             return
 
         self.pending_downloads.append(compat_tool)
+        self.update_ui()
         if len(self.pending_downloads) == 1:
             install_thread = InstallWineThread(self)
             install_thread.start()
@@ -142,6 +142,7 @@ class MainWindow(QObject):
             self.ui.statusBar().showMessage('Extracting ' + self.current_compat_tool_name + '...')
         elif value == 100:
             self.ui.statusBar().showMessage('Installed ' + self.current_compat_tool_name)
+            self.update_ui()
 
     def btn_add_version_clicked(self):
         dialog = PupguiInstallDialog(get_install_location_from_directory_name(install_directory()), self.ct_loader, parent=self.ui)
