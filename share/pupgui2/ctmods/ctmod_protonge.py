@@ -106,7 +106,7 @@ class CtInstaller(QObject):
                 tags.append(release['tag_name'])
         return tags
 
-    def get_tool(self, version, install_dirinstall_dir):
+    def get_tool(self, version, install_dir, temp_dir):
         """
         Download and install the compatibility tool
         Return Type: bool
