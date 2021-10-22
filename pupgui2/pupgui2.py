@@ -44,7 +44,7 @@ class InstallWineThread(threading.Thread):
 
 
 class MainWindow(QObject):
-    
+
     def __init__(self, pupgui2_base_dir):
         super(MainWindow, self).__init__()
 
@@ -121,6 +121,12 @@ class MainWindow(QObject):
             install_thread = InstallWineThread(self)
             install_thread.start()
 
+    def set_fetching_releases(self, value):
+        if value:
+            self.ui.statusBar().showMessage('Fetching releases...')
+        else:
+            self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
+
     def set_download_progress_percent(self, value):
         """ set download progress bar value and update status bar text """
         self.progressBarDownload.setValue(value)
@@ -140,6 +146,8 @@ class MainWindow(QObject):
     def btn_add_version_clicked(self):
         dialog = PupguiInstallDialog(get_install_location_from_directory_name(install_directory()), self.ct_loader, parent=self.ui)
         dialog.compat_tool_selected.connect(self.install_compat_tool)
+        dialog.is_fetching_releases.connect(self.set_fetching_releases)
+        dialog.setup_ui()
         dialog.show()
 
     def btn_remove_selcted_clicked(self):

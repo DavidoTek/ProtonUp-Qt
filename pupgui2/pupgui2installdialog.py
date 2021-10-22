@@ -1,4 +1,5 @@
 import webbrowser
+import threading
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
@@ -6,13 +7,14 @@ from PySide6.QtGui import *
 
 
 class PupguiInstallDialog(QDialog):
+
+    is_fetching_releases = Signal(bool)
     compat_tool_selected = Signal(dict)
 
     def __init__(self, install_location, ct_loader, parent=None):
         super(PupguiInstallDialog, self).__init__(parent)
         self.install_location = install_location
         self.ct_objs = ct_loader.get_ctobjs(self.install_location['launcher'])
-        self.setup_ui()
     
     def setup_ui(self):
         self.setWindowTitle('Install Compatibility Tool')
@@ -65,6 +67,13 @@ class PupguiInstallDialog(QDialog):
         self.comboCompatToolVersion.clear()
         for ctobj in self.ct_objs:
             if ctobj['name'] == self.comboCompatTool.currentText():
-                for ver in ctobj['installer'].fetch_releases():
-                    self.comboCompatToolVersion.addItem(ver)
+                def update_releases():
+                    self.is_fetching_releases.emit(True)
+                    vers = ctobj['installer'].fetch_releases()
+                    for ver in vers:
+                        self.comboCompatToolVersion.addItem(ver)
+                    self.comboCompatToolVersion.setCurrentIndex(0)
+                    self.is_fetching_releases.emit(False)
+                t = threading.Thread(target=update_releases)
+                t.start()
                 return
