@@ -6,18 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>320</height>
+    <width>440</width>
+    <height>360</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>400</width>
-    <height>320</height>
+    <width>440</width>
+    <height>360</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>ProtonUp - Proton-GE Installer</string>
+   <string>ProtonUp-Qt - Wine/Proton Installer</string>
+  </property>
+  <property name="windowIcon">
+   <iconset theme="pupgui2">
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -37,11 +41,11 @@
      <number>9</number>
     </property>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QLabel" name="lblInstallDirectory">
         <property name="text">
-         <string>Install directory:</string>
+         <string>Install for:</string>
         </property>
        </widget>
       </item>
@@ -75,12 +79,12 @@
      </layout>
     </item>
     <item>
-     <widget class="QComboBox" name="comboInstallDirectory"/>
+     <widget class="QComboBox" name="comboInstallLocation"/>
     </item>
     <item>
      <widget class="QLabel" name="lblInstalledVersions">
       <property name="text">
-       <string>Installed Proton-GE versions:</string>
+       <string>Installed compatibility tools:</string>
       </property>
      </widget>
     </item>

@@ -2,18 +2,16 @@ version: 1
 script:
   - rm -rf AppDir  | true
   - mkdir -p AppDir/usr/src
-  - mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
-  - cp pupgui AppDir/usr/src -r
-  - pyside6-uic ui/pupgui_mainwindow.ui > AppDir/usr/src/pupgui/pupgui_mainwindow.py
-  - cp ui/pupgui.png AppDir/usr/share/icons/hicolor/256x256/apps
+  - cp pupgui2 AppDir/usr/src -r
+  - cp share AppDir/usr -r
   - python3 -m pip install --ignore-installed --prefix=/usr --no-cache-dir --root=AppDir -r ./requirements.txt
   - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/qml/
   - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/examples/
   - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/resources/
   - rm AppDir/usr/lib/python3.8/site-packages/PySide6/{assistant,designer,linguist,lrelease,lupdate}
-  - rm AppDir/usr/lib/python3.8/site-packages/PySide6/{Qt3D*,QtBluetooth*,QtCharts*,QtConcurrent*,QtDataVisualization*,QtDBus*,QtDesigner*,QtHelp*,QtMultimedia*,QtNetwork*,QtOpenGL*,QtPositioning*,QtPrintSupport*,QtQml*,QtQuick*,QtRemoteObjects*,QtScxml*,QtSensors*,QtSerialPort*,QtSql*,QtStateMachine*,QtSvg*,QtTest*,QtUiTools*,QtWeb*,QtXml*}
+  - rm AppDir/usr/lib/python3.8/site-packages/PySide6/{Qt3D*,QtBluetooth*,QtCharts*,QtConcurrent*,QtDataVisualization*,QtDBus*,QtDesigner*,QtHelp*,QtMultimedia*,QtNetwork*,QtOpenGL*,QtPositioning*,QtPrintSupport*,QtQml*,QtQuick*,QtRemoteObjects*,QtScxml*,QtSensors*,QtSerialPort*,QtSql*,QtStateMachine*,QtSvg*,QtTest*,QtWeb*,QtXml*}
   - shopt -s extglob
-  - rm AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/lib/!(libQt6OpenGL*|libQt6XcbQpa*|libQt6Wayland*|libQt6Egl*|libicudata*|libicuuc*|libicui18n*|libQt6DBus*|libQt6Network*|libQt6Qml*|libQt6Core*|libQt6Gui*|libQt6Widgets*|libQt6Svg*)
+  - rm AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/lib/!(libQt6OpenGL*|libQt6XcbQpa*|libQt6Wayland*|libQt6Egl*|libicudata*|libicuuc*|libicui18n*|libQt6DBus*|libQt6Network*|libQt6Qml*|libQt6Core*|libQt6Gui*|libQt6Widgets*|libQt6Svg*|libQt6UiTools*)
 
 AppDir:
   path: ./AppDir
@@ -21,10 +19,10 @@ AppDir:
   app_info:
     id: net.davidotek.protonup-qt
     name: ProtonUp-Qt
-    icon: pupgui
-    version: 1.5.0
+    icon: pupgui2
+    version: 2.0.0
     exec: usr/bin/python3
-    exec_args: "$APPDIR/usr/src/pupgui/pupgui.py $@"
+    exec_args: "$APPDIR/usr/src/pupgui2/pupgui2.py --pupgui2-base-dir $APPDIR/usr/share/pupgui2 $@"
 
   apt:
     arch: amd64

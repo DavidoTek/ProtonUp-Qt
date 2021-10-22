@@ -10,15 +10,12 @@ Qt-based graphical user interface to install and manage [Proton-GE](https://gith
 ## Run from source
 ### Install dependencies
 `pip3 install -r ./requirements.txt`
-### Compile GUI
-`pyside6-uic ui/pupgui_mainwindow.ui > pupgui/pupgui_mainwindow.py`
 ### Run ProtonUp-Qt
-`python3 pupgui/pupgui.py`
+`python3 pupgui2/pupgui2.py`
 
 ## Build AppImage
 ### Install dependencies
 1. Install appimage-builder: https://appimage-builder.readthedocs.io/en/latest/intro/install.html  
-2. Install PySide6: `pip3 install pyside6`
 ### Build AppImage
 `appimage-builder`
 
