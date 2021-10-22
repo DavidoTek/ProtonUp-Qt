@@ -14,6 +14,7 @@ from pupgui2installdialog import PupguiInstallDialog
 
 
 class InstallWineThread(threading.Thread):
+
     def __init__(self, main_window):
         threading.Thread.__init__(self)
         self.main_window = main_window
@@ -43,6 +44,7 @@ class InstallWineThread(threading.Thread):
 
 
 class MainWindow(QObject):
+    
     def __init__(self, pupgui2_base_dir):
         super(MainWindow, self).__init__()
 
@@ -110,6 +112,7 @@ class MainWindow(QObject):
             self.ui.comboInstallLocation.setEnabled(True)
 
     def install_compat_tool(self, compat_tool):
+        """ install compatibility tool (called by install dialog signal) """
         if compat_tool in self.pending_downloads:
             return
 
@@ -119,6 +122,7 @@ class MainWindow(QObject):
             install_thread.start()
 
     def set_download_progress_percent(self, value):
+        """ set download progress bar value and update status bar text """
         self.progressBarDownload.setValue(value)
         if len(self.pending_downloads):
             compat_tool = self.pending_downloads[0]

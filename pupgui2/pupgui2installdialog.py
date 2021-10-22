@@ -12,9 +12,9 @@ class PupguiInstallDialog(QDialog):
         super(PupguiInstallDialog, self).__init__(parent)
         self.install_location = install_location
         self.ct_objs = ct_loader.get_ctobjs(self.install_location['launcher'])
-        self.setupUi()
+        self.setup_ui()
     
-    def setupUi(self):
+    def setup_ui(self):
         self.setWindowTitle('Install Compatibility Tool')
         self.setWindowIcon(QIcon.fromTheme('pupgui2'))
 
@@ -61,6 +61,7 @@ class PupguiInstallDialog(QDialog):
         self.close()
     
     def combo_compat_tool_current_index_changed(self):
+        """ fetch and show available releases for selected compatibility tool """
         self.comboCompatToolVersion.clear()
         for ctobj in self.ct_objs:
             if ctobj['name'] == self.comboCompatTool.currentText():

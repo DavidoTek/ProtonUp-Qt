@@ -52,8 +52,10 @@ class CtLoader:
     
     def get_ctobjs(self, launcher=None):
         """
-        Get loaded ctmods, optionally sort by launcher
-        Return Type: []
+        Get loaded compatibility tools, optionally sort by launcher
+        Return Type: dict[]
+        Content(s):
+            'name', 'launchers', 'installer'
         """
         if launcher == None:
             return self.ctobjs

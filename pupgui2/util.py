@@ -8,6 +8,10 @@ from constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE
 
 
 def apply_dark_theme(app):
+    """
+    Apply custom dark mode to Qt application when not using KDE Plasma
+    and a dark GTK theme is selected (name ends with '-dark')
+    """
     is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION', '')
     darkmode_enabled = False
     
@@ -120,7 +124,12 @@ def list_installed_ctools(install_dir):
 
         return versions_found
 
+
 def remove_ctool(ver, install_dir):
+    """
+    Remove compatibility tool folder
+    Return Type: bool
+    """
     target = os.path.join(install_dir, ver)
     if os.path.exists(target):
         shutil.rmtree(target)
