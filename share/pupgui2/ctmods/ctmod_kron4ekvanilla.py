@@ -3,6 +3,7 @@
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
 import os, shutil, tarfile, requests, hashlib
+import subprocess
 from PySide6.QtCore import *
 
 CT_NAME = 'Kron4ek Wine-Builds Vanilla'
@@ -77,6 +78,15 @@ class CtInstaller(QObject):
         Are the system requirements met?
         Return Type: bool
         """
+        ldd = subprocess.run(['ldd', '--version'], capture_output=True)
+        ldd_out = ldd.stdout.split(b'\n')[0].split(b' ')
+        ldd_ver = ldd_out[len(ldd_out) - 1]
+        ldd_maj = int(ldd_ver.split(b'.')[0])
+        ldd_min = int(ldd_ver.split(b'.')[1])
+        if ldd_maj < 2:
+            return False
+        if ldd_min < 27 and ldd_maj == 2:
+            return False
         return True
 
     def fetch_releases(self, count=100):
