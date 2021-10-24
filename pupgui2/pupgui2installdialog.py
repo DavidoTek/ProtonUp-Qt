@@ -17,12 +17,12 @@ class PupguiInstallDialog(QDialog):
         self.ct_objs = ct_loader.get_ctobjs(self.install_location['launcher'])
     
     def setup_ui(self):
-        self.setWindowTitle('Install Compatibility Tool')
+        self.setWindowTitle(self.tr('Install Compatibility Tool'))
         self.setWindowIcon(QIcon.fromTheme('pupgui2'))
 
-        self.btnInfo = QPushButton('Info')
-        self.btnInstall = QPushButton('Install')
-        self.btnCancel = QPushButton('Cancel')
+        self.btnInfo = QPushButton(self.tr('Info'))
+        self.btnInstall = QPushButton(self.tr('Install'))
+        self.btnCancel = QPushButton(self.tr('Cancel'))
         button_box = QHBoxLayout()
         button_box.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
         button_box.addWidget(self.btnInfo)
@@ -31,9 +31,9 @@ class PupguiInstallDialog(QDialog):
         self.comboCompatTool = QComboBox()
         self.comboCompatToolVersion = QComboBox()
         vbox = QVBoxLayout()
-        vbox.addWidget(QLabel('Compatibility tool:'))
+        vbox.addWidget(QLabel(self.tr('Compatibility tool:')))
         vbox.addWidget(self.comboCompatTool)
-        vbox.addWidget(QLabel('Version:'))
+        vbox.addWidget(QLabel(self.tr('Version:')))
         vbox.addWidget(self.comboCompatToolVersion)
         vbox.addLayout(button_box)
         self.setLayout(vbox)

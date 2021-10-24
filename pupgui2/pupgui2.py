@@ -123,7 +123,7 @@ class MainWindow(QObject):
 
     def set_fetching_releases(self, value):
         if value:
-            self.ui.statusBar().showMessage('Fetching releases...')
+            self.ui.statusBar().showMessage(self.tr('Fetching releases...'))
         else:
             self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
 
@@ -137,11 +137,11 @@ class MainWindow(QObject):
             self.progressBarDownload.setVisible(True)
             self.ui.comboInstallLocation.setEnabled(False)
             self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
-            self.ui.statusBar().showMessage('Downloading ' + self.current_compat_tool_name + '...')
+            self.ui.statusBar().showMessage(self.tr('Downloading ') + self.current_compat_tool_name + '...')
         elif value == 99:
-            self.ui.statusBar().showMessage('Extracting ' + self.current_compat_tool_name + '...')
+            self.ui.statusBar().showMessage(self.tr('Extracting ') + self.current_compat_tool_name + '...')
         elif value == 100:
-            self.ui.statusBar().showMessage('Installed ' + self.current_compat_tool_name)
+            self.ui.statusBar().showMessage(self.tr('Installed ') + self.current_compat_tool_name)
             self.update_ui()
 
     def btn_add_version_clicked(self):
@@ -156,7 +156,7 @@ class MainWindow(QObject):
         for item in self.ui.listInstalledVersions.selectedItems():
             ver = item.text()
             remove_ctool(ver, install_directory())
-        self.ui.statusBar().showMessage('Removed selected versions')
+        self.ui.statusBar().showMessage(self.tr('Removed selected versions'))
         self.update_ui()
 
     def btn_about_clicked(self):
@@ -168,7 +168,7 @@ class MainWindow(QObject):
 
     def combo_install_location_current_index_changed(self):
         install_dir = install_directory(self.combo_install_location_index_map[self.ui.comboInstallLocation.currentIndex()])
-        self.ui.statusBar().showMessage('Changed install directory to ' + install_dir, timeout=3000)
+        self.ui.statusBar().showMessage(self.tr('Changed install directory to ') + install_dir, timeout=3000)
         self.update_ui()
 
 
