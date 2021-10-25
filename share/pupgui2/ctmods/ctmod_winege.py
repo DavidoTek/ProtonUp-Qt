@@ -6,7 +6,7 @@ import os, shutil, tarfile, requests, hashlib
 from PySide6.QtCore import *
 
 CT_NAME = 'Wine-GE'
-CT_LAUNCHERS = ['lutris']
+CT_LAUNCHERS = ['lutris', 'heroicwine']
 
 
 class CtInstaller(QObject):

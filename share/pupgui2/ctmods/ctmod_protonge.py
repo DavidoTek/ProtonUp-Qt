@@ -6,7 +6,7 @@ import os, shutil, tarfile, requests, hashlib
 from PySide6.QtCore import *
 
 CT_NAME = 'Proton-GE'
-CT_LAUNCHERS = ['steam']
+CT_LAUNCHERS = ['steam', 'heroicproton']
 
 
 class CtInstaller(QObject):
