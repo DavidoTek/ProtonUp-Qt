@@ -82,9 +82,9 @@ class MainWindow(QObject):
         i = 0
         current_install_dir = install_directory()
         for install_dir in available_install_directories():
-            launcher_name = get_install_location_from_directory_name(install_dir)['launcher']
+            icon_name = get_install_location_from_directory_name(install_dir)['icon']
             display_name = get_install_location_from_directory_name(install_dir)['display_name']
-            self.ui.comboInstallLocation.addItem(QIcon.fromTheme(launcher_name), display_name + ' (' + install_dir + ')')
+            self.ui.comboInstallLocation.addItem(QIcon.fromTheme(icon_name), display_name + ' (' + install_dir + ')')
             self.combo_install_location_index_map.append(install_dir)
             if current_install_dir == install_dir:
                 self.ui.comboInstallLocation.setCurrentIndex(i)
