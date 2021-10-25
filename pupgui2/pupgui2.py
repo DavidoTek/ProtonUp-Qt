@@ -11,6 +11,7 @@ from util import list_installed_ctools, remove_ctool
 from constants import APP_NAME, APP_VERSION, ABOUT_TEXT, TEMP_DIR
 import ctloader
 from pupgui2installdialog import PupguiInstallDialog
+from pupgui2aboutdialog import PupguiAboutDialog
 
 
 class InstallWineThread(threading.Thread):
@@ -160,8 +161,7 @@ class MainWindow(QObject):
         self.update_ui()
 
     def btn_about_clicked(self):
-        QMessageBox.about(self.ui, 'About ' + APP_NAME + ' ' + APP_VERSION, ABOUT_TEXT)
-        QMessageBox.aboutQt(self.ui)
+        PupguiAboutDialog(self.pupgui2_base_dir, self.ui)
 
     def btn_close_clicked(self):
         self.ui.close()
