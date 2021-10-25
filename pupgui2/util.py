@@ -120,7 +120,13 @@ def list_installed_ctools(install_dir):
         if os.path.exists(install_dir):
             folders = os.listdir(install_dir)
             for folder in folders:
-                versions_found.append(folder)
+                ver_file = os.path.join(install_dir, folder, 'VERSION.txt')
+                if os.path.exists(ver_file):
+                    with open(ver_file, 'r') as f:
+                        ver = f.read()
+                    versions_found.append(folder + ' - ' + ver.strip())
+                else:
+                    versions_found.append(folder)
 
         return versions_found
 
@@ -130,7 +136,7 @@ def remove_ctool(ver, install_dir):
     Remove compatibility tool folder
     Return Type: bool
     """
-    target = os.path.join(install_dir, ver)
+    target = os.path.join(install_dir, ver.split(' - ')[0])
     if os.path.exists(target):
         shutil.rmtree(target)
         return True
