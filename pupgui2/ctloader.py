@@ -17,7 +17,7 @@ class CtLoader:
         """
         if not os.path.exists(ctmod_dir):
             return False
-        files = os.listdir(ctmod_dir)
+        files = sorted(os.listdir(ctmod_dir))
         for file in files:
             if file.startswith('ctmod_'):
                 try:
