@@ -6,6 +6,7 @@ from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
 from constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT
+from util import config_theme, apply_dark_theme
 
 
 class PupguiAboutDialog(QObject):
@@ -35,10 +36,17 @@ class PupguiAboutDialog(QObject):
 
         self.ui.lblAppIcon.setPixmap(QIcon.fromTheme('pupgui2').pixmap(QSize(96, 96)))
         self.ui.lblAboutText.setText(ABOUT_TEXT)
+        self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)')])
+        self.ui.comboColorTheme.setCurrentIndex(['light', 'dark', 'system', None].index(config_theme()))
 
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
         self.ui.btnAboutQt.clicked.connect(self.btn_aboutqt_clicked)
         self.ui.btnCheckForUpdates.clicked.connect(self.btn_check_for_updates_clicked)
+        self.ui.comboColorTheme.currentIndexChanged.connect(self.combo_color_theme_current_index_changed)
+    
+    def combo_color_theme_current_index_changed(self):
+        config_theme(['light', 'dark', 'system'][self.ui.comboColorTheme.currentIndex()])
+        apply_dark_theme(QApplication.instance())
 
     def btn_close_clicked(self):
         self.ui.close()
