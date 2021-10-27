@@ -4,7 +4,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 
-from constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE
+from constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK
 
 
 def apply_dark_theme(app):
@@ -12,35 +12,49 @@ def apply_dark_theme(app):
     Apply custom dark mode to Qt application when not using KDE Plasma
     and a dark GTK theme is selected (name ends with '-dark')
     """
-    is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION', '')
-    darkmode_enabled = False
-    
-    try:
-        ret = subprocess.run(['gsettings', 'get', 'org.gnome.desktop.interface', 'gtk-theme'], capture_output=True).stdout.decode('utf-8').strip().strip("'").lower()
-        if ret.endswith('-dark'):
-            darkmode_enabled = True
-    except:
-        pass
+    theme = config_theme()
 
-    if not is_plasma and darkmode_enabled:
-        app.setStyle("Fusion")
+    if theme == 'light':
+        app.setStyle('Fusion')
+        app.setPalette(QStyleFactory.create('fusion').standardPalette())
+    elif theme == 'dark':
+        app.setStyle('Fusion')
+        app.setPalette(PALETTE_DARK())
+    else:
+        is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION', '')
+        darkmode_enabled = False
+        try:
+            ret = subprocess.run(['gsettings', 'get', 'org.gnome.desktop.interface', 'gtk-theme'], capture_output=True).stdout.decode('utf-8').strip().strip("'").lower()
+            if ret.endswith('-dark'):
+                darkmode_enabled = True
+        except:
+            pass
+        if not is_plasma and darkmode_enabled:
+            app.setStyle('Fusion')
+            app.setPalette(PALETTE_DARK())
+        elif is_plasma:
+            pass
 
-        palette_dark = QPalette()
-        palette_dark.setColor(QPalette.Window, QColor(30, 30, 30))
-        palette_dark.setColor(QPalette.WindowText, Qt.white)
-        palette_dark.setColor(QPalette.Base, QColor(12, 12, 12))
-        palette_dark.setColor(QPalette.AlternateBase, QColor(30, 30, 30))
-        palette_dark.setColor(QPalette.ToolTipBase, Qt.white)
-        palette_dark.setColor(QPalette.ToolTipText, Qt.white)
-        palette_dark.setColor(QPalette.Text, Qt.white)
-        palette_dark.setColor(QPalette.Button, QColor(30, 30, 30))
-        palette_dark.setColor(QPalette.ButtonText, Qt.white)
-        palette_dark.setColor(QPalette.BrightText, Qt.red)
-        palette_dark.setColor(QPalette.Link, QColor(40, 120, 200))
-        palette_dark.setColor(QPalette.Highlight, QColor(40, 120, 200))
-        palette_dark.setColor(QPalette.HighlightedText, Qt.black)
 
-        app.setPalette(palette_dark)
+def config_theme(theme=None):
+    """
+    Return Type: str
+    """
+    config = ConfigParser()
+
+    if theme:
+        config.read(CONFIG_FILE)
+        if not config.has_section('pupgui2'):
+            config.add_section('pupgui2')
+        config['pupgui2']['theme'] = theme
+        os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
+        with open(CONFIG_FILE, 'w') as file:
+            config.write(file)
+    elif os.path.exists(CONFIG_FILE):
+        config.read(CONFIG_FILE)
+        if config.has_option('pupgui2', 'theme'):
+            return config['pupgui2']['theme']
+    return theme
 
 
 def create_steam_compatibilitytools_folder():
@@ -91,6 +105,7 @@ def install_directory(target=None):
             target = POSSIBLE_INSTALL_LOCATIONS[0]['install_dir']
         if not target.endswith('/'):
             target += '/'
+        config.read(CONFIG_FILE)
         if not config.has_section('pupgui'):
             config.add_section('pupgui')
         config['pupgui']['installdir'] = target

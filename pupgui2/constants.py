@@ -1,5 +1,6 @@
 import os
-from PySide6.QtCore import QObject
+from PySide6.QtCore import QObject, Qt
+from PySide6.QtGui import QColor, QPalette
 
 APP_NAME = 'ProtonUp-Qt'
 APP_VERSION = '2.0.0'
@@ -23,3 +24,21 @@ POSSIBLE_INSTALL_LOCATIONS = [
     {'install_dir': '~/.config/heroic/tools/wine/', 'display_name': 'Heroic Wine', 'launcher': 'heroicwine', 'icon': 'heroic'},
     {'install_dir': '~/.config/heroic/tools/proton/', 'display_name': 'Heroic Proton', 'launcher': 'heroicproton', 'icon': 'heroic'}
 ]
+
+def PALETTE_DARK():
+    """ returns dark color palette """
+    palette_dark = QPalette()
+    palette_dark.setColor(QPalette.Window, QColor(30, 30, 30))
+    palette_dark.setColor(QPalette.WindowText, Qt.white)
+    palette_dark.setColor(QPalette.Base, QColor(12, 12, 12))
+    palette_dark.setColor(QPalette.AlternateBase, QColor(30, 30, 30))
+    palette_dark.setColor(QPalette.ToolTipBase, Qt.white)
+    palette_dark.setColor(QPalette.ToolTipText, Qt.white)
+    palette_dark.setColor(QPalette.Text, Qt.white)
+    palette_dark.setColor(QPalette.Button, QColor(30, 30, 30))
+    palette_dark.setColor(QPalette.ButtonText, Qt.white)
+    palette_dark.setColor(QPalette.BrightText, Qt.red)
+    palette_dark.setColor(QPalette.Link, QColor(40, 120, 200))
+    palette_dark.setColor(QPalette.Highlight, QColor(40, 120, 200))
+    palette_dark.setColor(QPalette.HighlightedText, Qt.black)
+    return palette_dark
