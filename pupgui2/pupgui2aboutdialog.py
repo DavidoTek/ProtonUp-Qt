@@ -62,12 +62,12 @@ class PupguiAboutDialog(QObject):
         v_current = self.tag_name_to_version(APP_VERSION)
         v_newest = self.tag_name_to_version(newest_release['tag_name'])
         if (10000 * v_current[0] + 100 * v_current[1] + v_current[2]) < (10000 * v_newest[0] + 100 * v_newest[1] + v_newest[2]):
-            QMessageBox.information(self.ui, 'Update available',
+            QMessageBox.information(self.ui, self.tr('Update available'),
             self.tr('There is a newer version available.\nYou are running {APP_VERSION} but {newest_version} is available.')
             .format(APP_VERSION='v' + APP_VERSION, newest_version=newest_release['tag_name']))
             webbrowser.open(newest_release['html_url'])
         else:
-            QMessageBox.information(self.ui, 'Up to date', self.tr('You are running the newest version!'))
+            QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
     
     def tag_name_to_version(self, tag_name : str):
         tag_name = tag_name.replace('v', '')
