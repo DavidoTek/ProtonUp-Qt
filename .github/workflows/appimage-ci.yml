@@ -1,0 +1,20 @@
+name: Build AppImage CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Install required dependencies
+      run: sudo apt install -y gtk-update-icon-cache python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse
+    
+    - name: Download AppImageBuilder etc.
+      run: |
+        wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O ~/.local/bin/appimagetool
+        chmod +x ~/.local/bin/appimagetool
+        pip3 install appimage-builder
+        appimage-builder
