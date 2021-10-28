@@ -14,7 +14,11 @@ jobs:
     
     - name: Download AppImageBuilder etc.
       run: |
+        mkdir -p ~/.local/bin
         wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O ~/.local/bin/appimagetool
         chmod +x ~/.local/bin/appimagetool
         pip3 install appimage-builder
+    
+    - name: Build AppImage
+      run: |
         appimage-builder
