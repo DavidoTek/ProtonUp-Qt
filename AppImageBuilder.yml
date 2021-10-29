@@ -47,5 +47,6 @@ AppDir:
 
 
 AppImage:
+  update-information: gh-releases-zsync|DavidoTek|ProtonUp-Qt|latest|ProtonUp-Qt-*x86_64.AppImage.zsync
   sign-key: None
   arch: x86_64
