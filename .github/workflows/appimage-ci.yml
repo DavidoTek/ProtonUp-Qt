@@ -31,4 +31,4 @@ jobs:
         prerelease: true
         title: "Continuous Build"
         files: |
-          ./ProtonUp-Qt*.AppImage
+          ./ProtonUp-Qt*.AppImage*
