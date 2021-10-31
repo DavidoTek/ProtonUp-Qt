@@ -38,6 +38,9 @@ class InstallWineThread(threading.Thread):
 
         for ctobj in self.main_window.ct_loader.get_ctobjs():
             if ctobj['name'] == tool_name:
+                if not ctobj['installer'].is_system_compatible():
+                    self.main_window.set_download_progress_percent(-1)
+                    break
                 ctobj['installer'].download_progress_percent.connect(self.main_window.set_download_progress_percent)
                 ctobj['installer'].get_tool(tool_ver, os.path.expanduser(install_dir), TEMP_DIR)
                 break
@@ -134,6 +137,9 @@ class MainWindow(QObject):
         if len(self.pending_downloads):
             compat_tool = self.pending_downloads[0]
             self.current_compat_tool_name = compat_tool['name'] + ' ' + compat_tool['version']
+        if value == -1:
+            self.ui.statusBar().showMessage(self.tr('Could not install {current_compat_tool_name}...').format(current_compat_tool_name=self.current_compat_tool_name))
+            return
         if value == 1:
             self.progressBarDownload.setVisible(True)
             self.ui.comboInstallLocation.setEnabled(False)
