@@ -5,7 +5,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
-from util import apply_dark_theme, create_steam_compatibilitytools_folder
+from util import apply_dark_theme, create_compatibilitytools_folder
 from util import install_directory, available_install_directories, get_install_location_from_directory_name
 from util import list_installed_ctools, remove_ctool
 from constants import APP_NAME, APP_VERSION, ABOUT_TEXT, TEMP_DIR
@@ -179,7 +179,7 @@ class MainWindow(QObject):
 
 
 if __name__ == '__main__':
-    create_steam_compatibilitytools_folder()
+    create_compatibilitytools_folder()
 
     app = QApplication(sys.argv)
     app.setApplicationName(APP_NAME)

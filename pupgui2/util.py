@@ -57,15 +57,16 @@ def config_theme(theme=None):
     return theme
 
 
-def create_steam_compatibilitytools_folder():
+def create_compatibilitytools_folder():
     """
-    Create Steam compatibilitytools.d folder if Steam is installed but folder doesn't exist
+    Create compatibilitytools folder if launcher is installed but compatibilitytools folder doesn't exist.
     """
     for loc in POSSIBLE_INSTALL_LOCATIONS:
-        if loc['launcher'] == 'steam':
-            install_dir = os.path.expanduser(loc['install_dir'])
-            if os.path.exists(install_dir.replace('compatibilitytools.d/', '')) and not os.path.exists(install_dir):
-                os.mkdir(install_dir)
+        install_dir = os.path.expanduser(loc['install_dir'])
+        parent_dir = os.path.abspath(os.path.join(install_dir, os.pardir))
+
+        if os.path.exists(parent_dir) and not os.path.exists(install_dir):
+            os.mkdir(install_dir)
 
 
 def available_install_directories():
