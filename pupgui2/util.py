@@ -1,4 +1,5 @@
 import os, subprocess, shutil
+import vdf
 from configparser import ConfigParser
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
@@ -157,3 +158,29 @@ def remove_ctool(ver, install_dir):
         shutil.rmtree(target)
         return True
     return False
+
+
+def get_steam_games_using_compat_tool(ver, vdf_dir):
+    """
+    Get all games using a specified compatibility tool from Steam config.vdf
+    'ver' should be the same as the internal name specified in compatibilitytool.vdf (Matches folder name in most cases)
+    Return Type: str[]
+    """
+    tools = []
+    
+    try:
+        vdf_file = os.path.expanduser(vdf_dir)
+        d = vdf.load(open(vdf_file))
+        c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
+
+        for t in c:
+            x = c.get(str(t))
+            if x is None:
+                continue
+            if x.get('name') == ver:
+                tools.append(t)
+    except Exception as e:
+        print('Error: Could not get list of Steam games using compat tool "' + str(ver) + '":', e)
+        tools = ['-1']  # don't return empty list else compat tool would be listed as unused
+
+    return tools

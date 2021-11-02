@@ -8,6 +8,7 @@ from PySide6.QtUiTools import QUiLoader
 from util import apply_dark_theme, create_compatibilitytools_folder
 from util import install_directory, available_install_directories, get_install_location_from_directory_name
 from util import list_installed_ctools, remove_ctool
+from util import get_steam_games_using_compat_tool
 from constants import APP_NAME, APP_VERSION, ABOUT_TEXT, TEMP_DIR
 import ctloader
 from pupgui2installdialog import PupguiInstallDialog
@@ -106,6 +107,13 @@ class MainWindow(QObject):
         self.ui.listInstalledVersions.clear()
 
         for ver in list_installed_ctools(install_directory()):
+            # Launcher specific
+            install_loc = get_install_location_from_directory_name(install_directory())
+            if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
+                games = get_steam_games_using_compat_tool(ver.split(' - ')[0], install_loc.get('vdf_dir'))
+                if len(games) == 0:
+                    ver += ' - ' + self.tr('unused')
+            
             self.ui.listInstalledVersions.addItem(ver)
         
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
