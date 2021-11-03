@@ -127,8 +127,7 @@ dmypy.json
 .vscode/
 .qt_for_python/
 
-pupgui/pupgui_mainwindow.py
-
 *.AppImage
+*.AppImage.zsync
 AppDir/
 appimage-builder-cache/
