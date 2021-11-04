@@ -43,6 +43,9 @@ class PupguiAboutDialog(QObject):
         self.ui.btnAboutQt.clicked.connect(self.btn_aboutqt_clicked)
         self.ui.btnCheckForUpdates.clicked.connect(self.btn_check_for_updates_clicked)
         self.ui.comboColorTheme.currentIndexChanged.connect(self.combo_color_theme_current_index_changed)
+
+        if os.getenv('APPIMAGE') is None:
+            self.ui.btnCheckForUpdates.setVisible(False)
     
     def combo_color_theme_current_index_changed(self):
         config_theme(['light', 'dark', 'system'][self.ui.comboColorTheme.currentIndex()])
