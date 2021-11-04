@@ -25,7 +25,7 @@ class PupguiAboutDialog(QObject):
         ui_file = QFile(ui_file_name)
         if not ui_file.open(QIODevice.ReadOnly):
             print(f'Cannot open {ui_file_name}: {ui_file.errorString()}')
-            sys.exit(-1)
+            return
         loader = QUiLoader()
         self.ui = loader.load(ui_file, self.parent)
         ui_file.close()
