@@ -1,5 +1,5 @@
 # pupgui2 compatibility tools module
-# Lutris-Wine
+# Luxtorpeda
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
 import os, shutil, tarfile, requests, hashlib
