@@ -1,4 +1,4 @@
-import sys, os, subprocess, shutil
+import sys, os, shutil
 import threading
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
@@ -9,7 +9,7 @@ from util import apply_dark_theme, create_compatibilitytools_folder
 from util import install_directory, available_install_directories, get_install_location_from_directory_name
 from util import list_installed_ctools, remove_ctool
 from util import get_steam_games_using_compat_tool
-from constants import APP_NAME, APP_VERSION, ABOUT_TEXT, TEMP_DIR
+from constants import APP_NAME, APP_VERSION, TEMP_DIR
 import ctloader
 from pupgui2installdialog import PupguiInstallDialog
 from pupgui2aboutdialog import PupguiAboutDialog
