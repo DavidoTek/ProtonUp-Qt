@@ -122,6 +122,8 @@ class MainWindow(QObject):
             self.progressBarDownload.setVisible(False)
             self.ui.comboInstallLocation.setEnabled(True)
 
+        self.show_launcher_specific_information()
+
     def install_compat_tool(self, compat_tool):
         """ install compatibility tool (called by install dialog signal) """
         if compat_tool in self.pending_downloads:
@@ -184,6 +186,12 @@ class MainWindow(QObject):
         install_dir = install_directory(self.combo_install_location_index_map[self.ui.comboInstallLocation.currentIndex()])
         self.ui.statusBar().showMessage(self.tr('Changed install directory to {install_dir}.').format(install_dir=install_dir), timeout=3000)
         self.update_ui()
+
+    def show_launcher_specific_information(self):
+        install_loc = get_install_location_from_directory_name(install_directory())
+        # For Steam Flatpak only: Show that Proton-GE and Boxtron are available directly from Flathub.
+        if 'steam' in install_loc.get('launcher') and 'Flatpak' in install_loc.get('display_name'):
+            self.ui.statusBar().showMessage(self.tr('Info: You can get Proton-GE / Boxtron directly from Flathub!'))
 
 
 if __name__ == '__main__':
