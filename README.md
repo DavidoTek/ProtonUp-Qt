@@ -1,5 +1,6 @@
 [![Downloads](https://img.shields.io/github/downloads/DavidoTek/ProtonUp-Qt/total.svg)](https://github.com/DavidoTek/ProtonUp-Qt/releases)
 [![License](https://img.shields.io/github/license/DavidoTek/ProtonUp-Qt)](https://github.com/DavidoTek/ProtonUp-Qt/blob/main/LICENSE)
+[![Build AppImage CI](https://github.com/DavidoTek/ProtonUp-Qt/actions/workflows/appimage-ci.yml/badge.svg)](https://github.com/DavidoTek/ProtonUp-Qt/actions/workflows/appimage-ci.yml)
 
 # ProtonUp-Qt
 Qt-based graphical user interface to install and manage [Proton-GE](https://github.com/GloriousEggroll/proton-ge-custom) installations for Steam and [Wine-GE](https://github.com/GloriousEggroll/wine-ge-custom) installations for Lutris. Based on AUNaseef's [ProtonUp](https://github.com/AUNaseef/protonup).  
