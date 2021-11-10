@@ -1,6 +1,9 @@
 name: Build AppImage CI
 
-on: [push]
+on:
+  push:
+    tags:
+    - '*'
 
 jobs:
   build:
