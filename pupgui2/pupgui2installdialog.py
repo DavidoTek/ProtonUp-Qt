@@ -41,6 +41,7 @@ class PupguiInstallDialog(QDialog):
         self.btnInstall.clicked.connect(self.btn_install_clicked)
         self.btnCancel.clicked.connect(self.btn_cancel_clicked)
         self.comboCompatTool.currentIndexChanged.connect(self.combo_compat_tool_current_index_changed)
+        self.is_fetching_releases.connect(lambda x: self.comboCompatTool.setEnabled(not x))
 
         for ctobj in self.ct_objs:
             self.comboCompatTool.addItem(ctobj['name'])
@@ -64,7 +65,6 @@ class PupguiInstallDialog(QDialog):
     
     def combo_compat_tool_current_index_changed(self):
         """ fetch and show available releases for selected compatibility tool """
-        self.comboCompatToolVersion.clear()
         for ctobj in self.ct_objs:
             if ctobj['name'] == self.comboCompatTool.currentText():
                 def update_releases():
