@@ -42,6 +42,8 @@ class PupguiInstallDialog(QDialog):
         self.btnCancel.clicked.connect(self.btn_cancel_clicked)
         self.comboCompatTool.currentIndexChanged.connect(self.combo_compat_tool_current_index_changed)
         self.is_fetching_releases.connect(lambda x: self.comboCompatTool.setEnabled(not x))
+        self.is_fetching_releases.connect(lambda x: self.btnInfo.setEnabled(not x))
+        self.is_fetching_releases.connect(lambda x: self.btnInstall.setEnabled(not x))
 
         for ctobj in self.ct_objs:
             self.comboCompatTool.addItem(ctobj['name'])
@@ -74,6 +76,7 @@ class PupguiInstallDialog(QDialog):
                 def update_releases():
                     self.is_fetching_releases.emit(True)
                     vers = ctobj['installer'].fetch_releases()
+                    self.comboCompatToolVersion.clear()
                     for ver in vers:
                         self.comboCompatToolVersion.addItem(ver)
                     self.comboCompatToolVersion.setCurrentIndex(0)
