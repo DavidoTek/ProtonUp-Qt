@@ -19,6 +19,7 @@ class PupguiInstallDialog(QDialog):
     def setup_ui(self):
         self.setWindowTitle(self.tr('Install Compatibility Tool'))
         self.setWindowIcon(QIcon.fromTheme('pupgui2'))
+        self.setModal(True)
 
         self.btnInfo = QPushButton(self.tr('Info'))
         self.btnInstall = QPushButton(self.tr('Install'))
