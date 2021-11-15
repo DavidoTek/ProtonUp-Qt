@@ -49,7 +49,11 @@ class PupguiInstallDialog(QDialog):
     def btn_info_clicked(self):
         for ctobj in self.ct_objs:
             if ctobj['name'] == self.comboCompatTool.currentText():
-                webbrowser.open(ctobj['installer'].get_info_url(self.comboCompatToolVersion.currentText()))
+                ver = self.comboCompatToolVersion.currentText()
+                if ver == '':
+                    webbrowser.open(ctobj['installer'].get_info_url(ver).replace('tag', ''))
+                else:
+                    webbrowser.open(ctobj['installer'].get_info_url(ver))
 
     def btn_install_clicked(self):
         current_version = self.comboCompatTool.currentText()
