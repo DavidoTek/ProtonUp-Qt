@@ -99,6 +99,7 @@ class MainWindow(QObject):
         self.ui.btnRemoveSelected.clicked.connect(self.btn_remove_selcted_clicked)
         self.ui.btnAbout.clicked.connect(self.btn_about_clicked)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
+        self.ui.listInstalledVersions.itemDoubleClicked.connect(self.list_installed_versions_item_double_clicked)
 
         self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
 
@@ -192,6 +193,14 @@ class MainWindow(QObject):
         # For Steam Flatpak only: Show that Proton-GE and Boxtron are available directly from Flathub.
         if 'steam' in install_loc.get('launcher') and 'Flatpak' in install_loc.get('display_name'):
             self.ui.statusBar().showMessage(self.tr('Info: You can get Proton-GE / Boxtron directly from Flathub!'))
+    
+    def list_installed_versions_item_double_clicked(self, item):
+        # Show info about compatibility tool when double clicked in list
+        install_loc = get_install_location_from_directory_name(install_directory())
+        if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
+            ver = item.text()
+            games = get_steam_games_using_compat_tool(ver.split(' - ')[0], install_loc.get('vdf_dir'))
+            print(games)
 
 
 if __name__ == '__main__':
