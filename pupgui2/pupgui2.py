@@ -31,6 +31,7 @@ class InstallWineThread(threading.Thread):
             except Exception as e:
                 print(e)
             self.main_window.pending_downloads.remove(compat_tool)
+            self.main_window.ui.txtActiveDownloads.setText(str(len(self.main_window.pending_downloads)))
 
     def install_compat_tool(self, compat_tool):
         tool_name = compat_tool['name']
