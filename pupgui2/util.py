@@ -184,3 +184,30 @@ def get_steam_games_using_compat_tool(ver, vdf_dir):
         tools = ['-1']  # don't return empty list else compat tool would be listed as unused
 
     return tools
+
+def sort_compatibility_tool_names(unsorted):
+    """
+    Sort the list of compatibility tools: First sort alphabetically using sorted() then sort by Proton version
+    Return Type: str[]
+    """
+    unsorted = sorted(unsorted)
+    ver_dict = {}
+    i = 0
+    for ver in unsorted:
+        i += 1
+        if 'Proton-' in ver:
+            try:
+                ver_string = ver.split('-')[1]
+                ver_major = int(ver_string.split('.')[0])
+                ver_minor = int(ver_string.split('.')[1])
+                ver_dict[ver_major * 100 + ver_minor] = ver
+            except:
+                ver_dict[i] = ver
+        else:
+            ver_dict[i] = ver
+    
+    sorted_vers = []
+    for v in sorted(ver_dict):
+        sorted_vers.append(ver_dict[v])
+
+    return sorted_vers

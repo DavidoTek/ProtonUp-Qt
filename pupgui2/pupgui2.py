@@ -8,7 +8,7 @@ from PySide6.QtUiTools import QUiLoader
 from util import apply_dark_theme, create_compatibilitytools_folder
 from util import install_directory, available_install_directories, get_install_location_from_directory_name
 from util import list_installed_ctools, remove_ctool
-from util import get_steam_games_using_compat_tool
+from util import get_steam_games_using_compat_tool, sort_compatibility_tool_names
 from constants import APP_NAME, APP_VERSION, TEMP_DIR
 import ctloader
 from pupgui2installdialog import PupguiInstallDialog
@@ -107,7 +107,9 @@ class MainWindow(QObject):
         """ update ui contents """
         self.ui.listInstalledVersions.clear()
 
-        for ver in list_installed_ctools(install_directory()):
+        ctools = sort_compatibility_tool_names(list_installed_ctools(install_directory()))
+
+        for ver in ctools:
             # Launcher specific
             install_loc = get_install_location_from_directory_name(install_directory())
             if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
