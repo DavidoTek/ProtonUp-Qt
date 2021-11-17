@@ -46,7 +46,7 @@ class PupguiCtInfoDialog(QObject):
 
         game_names = get_steam_game_names_by_ids(self.games)
         for game in self.games:
-            self.ui.listGames.addItem(str(game) + ': ' + game_names.get(int(game)))
+            self.ui.listGames.addItem(str(game) + ': ' + str(game_names.get(int(game))))
 
     def btn_close_clicked(self):
         self.ui.close()
