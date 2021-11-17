@@ -214,12 +214,15 @@ def sort_compatibility_tool_names(unsorted):
 
     return sorted_vers
 
-def download_steam_app_list_thread():
+def download_steam_app_list_thread(force_download=False):
     """
     Download Steam app list in a separe thread
     """
-    if os.path.exists(LOCAL_STEAM_APPLIST_FILE):
+    if os.path.exists(LOCAL_STEAM_APPLIST_FILE) and not force_download:
         return
+    
+    if os.path.exists(LOCAL_STEAM_APPLIST_FILE):
+        os.remove(LOCAL_STEAM_APPLIST_FILE)
 
     def _download_steam_app_list():
         r = requests.get(STEAM_API_GETAPPLIST_URL)

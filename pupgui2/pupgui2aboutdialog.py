@@ -7,6 +7,7 @@ from PySide6.QtUiTools import QUiLoader
 
 from constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT
 from util import config_theme, apply_dark_theme
+from util import download_steam_app_list_thread
 
 
 class PupguiAboutDialog(QObject):
@@ -71,6 +72,7 @@ class PupguiAboutDialog(QObject):
             webbrowser.open(newest_release['html_url'])
         else:
             QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
+        download_steam_app_list_thread(force_download=True)
     
     def tag_name_to_version(self, tag_name : str):
         tag_name = tag_name.replace('v', '')
