@@ -1,13 +1,10 @@
-import os, requests, webbrowser
-from re import S
+import os
+from util import get_steam_game_names_by_ids
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
-
-from constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT
-from util import config_theme, apply_dark_theme
 
 
 class PupguiCtInfoDialog(QObject):
@@ -47,8 +44,9 @@ class PupguiCtInfoDialog(QObject):
 
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
 
+        game_names = get_steam_game_names_by_ids(self.games)
         for game in self.games:
-            self.ui.listGames.addItem(game)
+            self.ui.listGames.addItem(str(game) + ': ' + game_names.get(int(game)))
 
     def btn_close_clicked(self):
         self.ui.close()

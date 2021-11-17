@@ -42,3 +42,6 @@ def PALETTE_DARK():
     palette_dark.setColor(QPalette.Highlight, QColor(40, 120, 200))
     palette_dark.setColor(QPalette.HighlightedText, Qt.black)
     return palette_dark
+
+STEAM_API_GETAPPLIST_URL = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'
+LOCAL_STEAM_APPLIST_FILE = os.path.expanduser('~/.config/pupgui/steam_applist.json')

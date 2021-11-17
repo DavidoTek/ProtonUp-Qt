@@ -9,6 +9,7 @@ from util import apply_dark_theme, create_compatibilitytools_folder
 from util import install_directory, available_install_directories, get_install_location_from_directory_name
 from util import list_installed_ctools, remove_ctool
 from util import get_steam_games_using_compat_tool, sort_compatibility_tool_names
+from util import download_steam_app_list_thread
 from constants import APP_NAME, APP_VERSION, TEMP_DIR
 import ctloader
 from pupgui2installdialog import PupguiInstallDialog
@@ -227,6 +228,8 @@ if __name__ == '__main__':
         app.installTranslator(translator)
 
     print(f'{APP_NAME} {APP_VERSION} by DavidoTek. Base directory: {pupgui2_base_dir}')
+
+    download_steam_app_list_thread()
 
     apply_dark_theme(app)
 

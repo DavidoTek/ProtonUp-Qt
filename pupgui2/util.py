@@ -1,4 +1,5 @@
 import os, subprocess, shutil
+import threading, requests, json
 import vdf
 from configparser import ConfigParser
 from PySide6.QtWidgets import *
@@ -6,6 +7,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 
 from constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK
+from constants import STEAM_API_GETAPPLIST_URL, LOCAL_STEAM_APPLIST_FILE
 
 
 def apply_dark_theme(app):
@@ -211,3 +213,41 @@ def sort_compatibility_tool_names(unsorted):
         sorted_vers.append(ver_dict[v])
 
     return sorted_vers
+
+def download_steam_app_list_thread():
+    """
+    Download Steam app list in a separe thread
+    """
+    if os.path.exists(LOCAL_STEAM_APPLIST_FILE):
+        return
+
+    def _download_steam_app_list():
+        r = requests.get(STEAM_API_GETAPPLIST_URL)
+        with open(LOCAL_STEAM_APPLIST_FILE, 'wb') as f:
+            f.write(r.content)
+
+    t = threading.Thread(target=_download_steam_app_list)
+    t.start()
+
+def get_steam_game_names_by_ids(ids_str=[]):
+    """
+    Get steam game names by ids
+    Return Type: dict[]
+    """
+    ids = []
+    for id in ids_str:
+        ids.append(int(id))
+    names = {}
+    try:
+        with open(LOCAL_STEAM_APPLIST_FILE) as f:
+            data = json.load(f)
+            steam_apps = data.get('applist').get('apps')
+            for steam_app in steam_apps:
+                if steam_app.get('appid') in ids:
+                    names[steam_app.get('appid')] = steam_app.get('name')
+                    ids.remove(steam_app.get('appid'))
+                if len(ids) == 0:
+                    break
+    except:
+        pass
+    return names
