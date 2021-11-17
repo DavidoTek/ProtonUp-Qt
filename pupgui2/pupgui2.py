@@ -13,6 +13,7 @@ from constants import APP_NAME, APP_VERSION, TEMP_DIR
 import ctloader
 from pupgui2installdialog import PupguiInstallDialog
 from pupgui2aboutdialog import PupguiAboutDialog
+from pupgui2ctinfodialog import PupguiCtInfoDialog
 
 
 class InstallWineThread(threading.Thread):
@@ -199,11 +200,12 @@ class MainWindow(QObject):
     
     def list_installed_versions_item_double_clicked(self, item):
         # Show info about compatibility tool when double clicked in list
+        games = []
+        ver = item.text().split(' - ')[0]
         install_loc = get_install_location_from_directory_name(install_directory())
         if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
-            ver = item.text()
-            games = get_steam_games_using_compat_tool(ver.split(' - ')[0], install_loc.get('vdf_dir'))
-            print(games)
+            games = get_steam_games_using_compat_tool(ver, install_loc.get('vdf_dir'))
+        PupguiCtInfoDialog(self.pupgui2_base_dir, self.ui, games=games, ctool=ver, install_loc=install_loc, install_dir=install_directory())
 
 
 if __name__ == '__main__':
