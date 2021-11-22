@@ -18,7 +18,7 @@ AppDir:
   path: ./AppDir
 
   app_info:
-    id: net.davidotek.protonup-qt
+    id: net.davidotek.pupgui2
     name: ProtonUp-Qt
     icon: pupgui2
     version: 2.3.0

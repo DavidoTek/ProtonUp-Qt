@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2021 DavidoTek -->
 <component type="desktop-application">
-  <id>net.davidotek.protonup-qt</id>
-  <metadata_license>FSFAP</metadata_license>
-  <project_license>GPL-3.0</project_license>
+  <id>net.davidotek.pupgui2</id>
+  
   <name>ProtonUp-Qt</name>
   <summary>Install Wine- and Proton-based compatibility tools</summary>
-
+  
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  
   <description>
     <p>
-      Install and manage Proton-GE and Luxtorpeda for Steam and Wine-GE for Lutris with this graphical user interface.
-      Partly based on AUNaseef's ProtonUp, made with Python 3 and Qt 6.
+      Install and manage Proton-GE and Luxtorpeda for Steam and Wine-GE for Lutris with this graphical user interface. Partly based on AUNaseef&apos;s ProtonUp, made with Python 3 and Qt 6.
     </p>
   </description>
-
+  
   <screenshots>
     <screenshot type="default">
       <image>https://davidotek.github.io/protonup-qt/images/screenshot143_dark1.png</image>
@@ -22,6 +22,4 @@
       <image>https://davidotek.github.io/protonup-qt/images/screenshot143_light1.png</image>
     </screenshot>
   </screenshots>
-
-  <url type="homepage">https://davidotek.github.io/protonup-qt</url>
 </component>
