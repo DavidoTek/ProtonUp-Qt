@@ -46,7 +46,7 @@ class PupguiAboutDialog(QObject):
         self.ui.comboColorTheme.currentIndexChanged.connect(self.combo_color_theme_current_index_changed)
 
         if os.getenv('APPIMAGE') is None:
-            self.ui.btnCheckForUpdates.setVisible(False)
+            self.ui.btnCheckForUpdates.setText(self.tr('Update Steam game list'))
     
     def combo_color_theme_current_index_changed(self):
         config_theme(['light', 'dark', 'system'][self.ui.comboColorTheme.currentIndex()])
@@ -59,19 +59,20 @@ class PupguiAboutDialog(QObject):
         QMessageBox.aboutQt(self.parent)
     
     def btn_check_for_updates_clicked(self):
-        releases = requests.get(APP_GHAPI_URL + '?per_page=1').json()
-        if len(releases) == 0:
-            return
-        newest_release = releases[0]
-        v_current = self.tag_name_to_version(APP_VERSION)
-        v_newest = self.tag_name_to_version(newest_release['tag_name'])
-        if (10000 * int(v_current[0]) + 100 * int(v_current[1]) + int(v_current[2])) < (10000 * int(v_newest[0]) + 100 * int(v_newest[1]) + int(v_newest[2])):
-            QMessageBox.information(self.ui, self.tr('Update available'),
-            self.tr('There is a newer version available.\nYou are running {APP_VERSION} but {newest_version} is available.')
-            .format(APP_VERSION='v' + APP_VERSION, newest_version=newest_release['tag_name']))
-            webbrowser.open(newest_release['html_url'])
-        else:
-            QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
+        if os.getenv('APPIMAGE'):
+            releases = requests.get(APP_GHAPI_URL + '?per_page=1').json()
+            if len(releases) == 0:
+                return
+            newest_release = releases[0]
+            v_current = self.tag_name_to_version(APP_VERSION)
+            v_newest = self.tag_name_to_version(newest_release['tag_name'])
+            if (10000 * int(v_current[0]) + 100 * int(v_current[1]) + int(v_current[2])) < (10000 * int(v_newest[0]) + 100 * int(v_newest[1]) + int(v_newest[2])):
+                QMessageBox.information(self.ui, self.tr('Update available'),
+                self.tr('There is a newer version available.\nYou are running {APP_VERSION} but {newest_version} is available.')
+                .format(APP_VERSION='v' + APP_VERSION, newest_version=newest_release['tag_name']))
+                webbrowser.open(newest_release['html_url'])
+            else:
+                QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
         download_steam_app_list_thread(force_download=True)
     
     def tag_name_to_version(self, tag_name : str):
