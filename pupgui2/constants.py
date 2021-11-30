@@ -17,8 +17,9 @@ Copyright (C) 2021 DavidoTek, licensed under GPLv3\
 CONFIG_FILE = os.path.expanduser('~/.config/pupgui/config.ini')
 TEMP_DIR = '/tmp/pupgui2.a70200/'
 
+_STEAM_ROOT = '~/.steam/root' if os.path.exists(os.path.expanduser('~/.steam/root')) else '~/.local/share/Steam'
 POSSIBLE_INSTALL_LOCATIONS = [
-    {'install_dir': '~/.steam/root/compatibilitytools.d/', 'display_name': 'Steam', 'launcher': 'steam', 'icon': 'steam', 'vdf_dir': '~/.steam/root/config/config.vdf'},
+    {'install_dir': _STEAM_ROOT + '/compatibilitytools.d/', 'display_name': 'Steam', 'launcher': 'steam', 'icon': 'steam', 'vdf_dir': _STEAM_ROOT + '/config/config.vdf'},
     {'install_dir': '~/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/', 'display_name': 'Steam Flatpak', 'launcher': 'steam', 'icon': 'steam'},
     {'install_dir': '~/.local/share/lutris/runners/wine/', 'display_name': 'Lutris', 'launcher': 'lutris', 'icon': 'lutris'},
     {'install_dir': '~/.config/heroic/tools/wine/', 'display_name': 'Heroic Wine', 'launcher': 'heroicwine', 'icon': 'heroic'},
