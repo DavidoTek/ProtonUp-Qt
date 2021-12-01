@@ -33,9 +33,9 @@ class PupguiAboutDialog(QObject):
     
     def setup_ui(self):
         self.ui.setWindowTitle(APP_NAME + ' ' + APP_VERSION)
-        self.ui.setWindowIcon(QIcon.fromTheme('pupgui2'))
+        self.ui.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
 
-        self.ui.lblAppIcon.setPixmap(QIcon.fromTheme('pupgui2').pixmap(QSize(96, 96)))
+        self.ui.lblAppIcon.setPixmap(QIcon.fromTheme('net.davidotek.pupgui2').pixmap(QSize(96, 96)))
         self.ui.lblAboutText.setText(ABOUT_TEXT)
         self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)')])
         self.ui.comboColorTheme.setCurrentIndex(['light', 'dark', 'system', None].index(config_theme()))

@@ -215,7 +215,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setApplicationName(APP_NAME)
     app.setApplicationVersion(APP_VERSION)
-    app.setWindowIcon(QIcon.fromTheme('pupgui2'))
+    app.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
 
     parser = QCommandLineParser()
     pupgui2_base_dir_option = QCommandLineOption(['pupgui2-base-dir'], 'directory containing pupgui2 files', 'pupgui2-base-dir', './share/pupgui2')
