@@ -33,7 +33,6 @@ class PupguiAboutDialog(QObject):
     
     def setup_ui(self):
         self.ui.setWindowTitle(APP_NAME + ' ' + APP_VERSION)
-        self.ui.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
 
         self.ui.lblAppIcon.setPixmap(QIcon.fromTheme('net.davidotek.pupgui2').pixmap(QSize(96, 96)))
         self.ui.lblAboutText.setText(ABOUT_TEXT)
