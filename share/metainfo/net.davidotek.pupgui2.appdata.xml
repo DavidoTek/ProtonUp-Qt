@@ -25,6 +25,13 @@
     </screenshot>
   </screenshots>
 
+  <content_rating type="oars-1.0" />
+
+  <releases>
+    <release version="2.3.1" date="2021-12-01"/>
+    <release version="2.3.0" date="2021-11-17"/>
+  </releases>
+
   <url type="homepage">https://davidotek.github.io/protonup-qt/</url>
   <url type="bugtracker">https://github.com/DavidoTek/ProtonUp-Qt/issues</url>
   <url type="donation">https://ko-fi.com/davidotek</url>
