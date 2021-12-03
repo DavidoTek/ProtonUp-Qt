@@ -85,6 +85,7 @@ class MainWindow(QObject):
         self.progressBarDownload = QProgressBar()
         self.progressBarDownload.setVisible(False)
         self.ui.statusBar().addPermanentWidget(self.progressBarDownload)
+        self.ui.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
 
         i = 0
         current_install_dir = install_directory()
