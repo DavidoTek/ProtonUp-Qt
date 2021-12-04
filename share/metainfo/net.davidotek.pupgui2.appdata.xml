@@ -33,6 +33,7 @@
     <release version="2.3.0" date="2021-11-17"/>
   </releases>
 
+  <developer_name>DavidoTek</developer_name>
   <url type="homepage">https://davidotek.github.io/protonup-qt/</url>
   <url type="bugtracker">https://github.com/DavidoTek/ProtonUp-Qt/issues</url>
   <url type="donation">https://ko-fi.com/davidotek</url>
