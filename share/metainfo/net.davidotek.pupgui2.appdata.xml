@@ -28,9 +28,28 @@
   <content_rating type="oars-1.0" />
 
   <releases>
-    <release version="2.3.2" date="2021-12-2"/>
-    <release version="2.3.1" date="2021-12-01"/>
-    <release version="2.3.0" date="2021-11-17"/>
+    <release version="2.3.2" date="2021-12-2">
+      <description>
+        <p>Add Flatpak as official install method</p>
+      </description>
+    </release>
+    <release version="2.3.1" date="2021-12-01">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Support different Steam install directory: ~/.local/share/Steam</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.3.0" date="2021-11-17">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Added Boxtron and Roberta support</li>
+          <li>Show compatibility tool info and games when double-clicking tool in list</li>
+        </ul>
+      </description>
+    </release>
   </releases>
 
   <developer_name>DavidoTek</developer_name>
