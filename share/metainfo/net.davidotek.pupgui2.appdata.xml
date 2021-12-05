@@ -10,8 +10,26 @@
   
   <description>
     <p>
-      Install and manage Proton-GE and Luxtorpeda for Steam and Wine-GE for Lutris with this graphical user interface. Partly based on AUNaseef&apos;s ProtonUp, made with Python 3 and Qt 6.
+      Install and manage Wine- and Proton-based compatibility tools for Steam and Lutris with this graphical user interface.
     </p>
+    <p>Supported launchers:</p>
+    <ul>
+      <li>Steam</li>
+      <li>Steam (Flatpak)</li>
+      <li>Lutris</li>
+      <li>Heroic Games Launcher</li>
+    </ul>
+    <p>Supported compatibility tools:</p>
+    <ul>
+      <li>Proton-GE</li>
+      <li>Luxtorpeda</li>
+      <li>Boxtron</li>
+      <li>Roberta</li>
+      <li>Wine-GE</li>
+      <li>Lutris-Wine</li>
+      <li>Kron4ek's Vanilla Wine-Builds</li>
+    </ul>
+    <p>Double click compatibility tools to show more information and games using the tool.</p>
   </description>
   
   <launchable type="desktop-id">net.davidotek.pupgui2.desktop</launchable>
