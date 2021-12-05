@@ -1,4 +1,5 @@
 import os
+from xdg.BaseDirectory import xdg_config_home
 from PySide6.QtCore import QObject, Qt
 from PySide6.QtGui import QColor, QPalette
 
@@ -14,7 +15,7 @@ Inspired by/partly based on AUNaseef's protonup.
 Copyright (C) 2021 DavidoTek, licensed under GPLv3\
 '''.format(APP_NAME=APP_NAME, APP_VERSION=APP_VERSION)
 
-CONFIG_FILE = os.path.expanduser('~/.config/pupgui/config.ini')
+CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')
 TEMP_DIR = '/tmp/pupgui2.a70200/'
 
 _STEAM_ROOT = '~/.steam/root' if os.path.exists(os.path.expanduser('~/.steam/root')) else '~/.local/share/Steam'
@@ -45,4 +46,4 @@ def PALETTE_DARK():
     return palette_dark
 
 STEAM_API_GETAPPLIST_URL = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'
-LOCAL_STEAM_APPLIST_FILE = os.path.expanduser('~/.config/pupgui/steam_applist.json')
+LOCAL_STEAM_APPLIST_FILE = os.path.join(xdg_config_home,'pupgui/steam_applist.json')
