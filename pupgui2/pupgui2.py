@@ -15,6 +15,7 @@ import ctloader
 from pupgui2installdialog import PupguiInstallDialog
 from pupgui2aboutdialog import PupguiAboutDialog
 from pupgui2ctinfodialog import PupguiCtInfoDialog
+from gamepadinputworker import GamepadInputWorker
 
 
 class InstallWineThread(threading.Thread):
@@ -106,6 +107,10 @@ class MainWindow(QObject):
         self.ui.listInstalledVersions.itemDoubleClicked.connect(self.list_installed_versions_item_double_clicked)
 
         self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
+
+        self.giw = GamepadInputWorker()
+        self.giw.start()
+        self.giw.press_virtual_key.connect(self.press_virtual_key)
 
     def update_ui(self):
         """ update ui contents """
@@ -208,6 +213,12 @@ class MainWindow(QObject):
         if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
             games = get_steam_games_using_compat_tool(ver, install_loc.get('vdf_dir'))
         PupguiCtInfoDialog(self.pupgui2_base_dir, self.ui, games=games, ctool=ver, install_loc=install_loc, install_dir=install_directory())
+
+    def press_virtual_key(self, key, mod):
+        e = QKeyEvent(QEvent.KeyPress, key, mod)
+        QCoreApplication.postEvent(QApplication.focusWidget(), e)
+        e = QKeyEvent(QEvent.KeyRelease, key, mod)
+        QCoreApplication.postEvent(QApplication.focusWidget(), e)
 
 
 if __name__ == '__main__':
