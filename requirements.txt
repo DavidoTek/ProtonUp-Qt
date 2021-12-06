@@ -2,4 +2,4 @@ PySide6==6.2.2
 requests==2.26.0
 vdf==3.4
 inputs==0.5
-xdg==5
+pyxdg==0.27
