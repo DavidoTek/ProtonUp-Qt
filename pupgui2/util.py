@@ -65,11 +65,14 @@ def create_compatibilitytools_folder():
     Create compatibilitytools folder if launcher is installed but compatibilitytools folder doesn't exist.
     """
     for loc in POSSIBLE_INSTALL_LOCATIONS:
-        install_dir = os.path.expanduser(loc['install_dir'])
+        install_dir = os.path.normpath(os.path.expanduser(loc['install_dir']))
         parent_dir = os.path.abspath(os.path.join(install_dir, os.pardir))
 
         if os.path.exists(parent_dir) and not os.path.exists(install_dir):
-            os.mkdir(install_dir)
+            try:
+                os.mkdir(install_dir)
+            except Exception as e:
+                print('Error trying to create compatibility tools folder ' + str(install_dir) + ': ' + str(e))
 
 
 def available_install_directories():
