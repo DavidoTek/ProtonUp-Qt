@@ -109,8 +109,9 @@ class MainWindow(QObject):
         self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
 
         self.giw = GamepadInputWorker()
-        self.giw.start()
-        self.giw.press_virtual_key.connect(self.press_virtual_key)
+        if os.getenv('PUPGUI2_DISABLE_GAMEPAD', '0') == '0':
+            self.giw.start()
+            self.giw.press_virtual_key.connect(self.press_virtual_key)
 
     def update_ui(self):
         """ update ui contents """
