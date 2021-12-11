@@ -49,6 +49,11 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.4.0" date="2021-12-11">
+      <description>
+        <p>Added Gamepad input method. Bug fixes.</p>
+      </description>
+    </release>
     <release version="2.3.2" date="2021-12-2">
       <description>
         <p>Add Flatpak as official install method</p>
@@ -72,6 +77,13 @@
       </description>
     </release>
   </releases>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+    <control>gamepad</control>
+  </supports>
 
   <developer_name>DavidoTek</developer_name>
   <url type="homepage">https://davidotek.github.io/protonup-qt/</url>
