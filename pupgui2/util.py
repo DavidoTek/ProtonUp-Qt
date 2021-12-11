@@ -28,7 +28,7 @@ def apply_dark_theme(app):
         darkmode_enabled = False
         try:
             ret = subprocess.run(['gsettings', 'get', 'org.gnome.desktop.interface', 'gtk-theme'], capture_output=True).stdout.decode('utf-8').strip().strip("'").lower()
-            if ret.endswith('-dark'):
+            if ret.endswith('-dark') or ret == 'HighContrastInverse':
                 darkmode_enabled = True
         except:
             pass
