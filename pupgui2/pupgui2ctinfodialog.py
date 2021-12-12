@@ -1,5 +1,6 @@
 import os
-from util import get_steam_game_names_by_ids
+from util import get_steam_game_names_by_ids, open_webbrowser_thread
+from constants import STEAM_APP_PAGE_URL
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
@@ -47,6 +48,13 @@ class PupguiCtInfoDialog(QObject):
         game_names = get_steam_game_names_by_ids(self.games)
         for game in self.games:
             self.ui.listGames.addItem(str(game) + ': ' + str(game_names.get(int(game))))
+        
+        self.ui.listGames.itemDoubleClicked.connect(self.list_games_item_double_clicked)
 
     def btn_close_clicked(self):
         self.ui.close()
+    
+    def list_games_item_double_clicked(self, item):
+        if self.install_loc.get('launcher') == 'steam':
+            steam_game_id = item.text().split(':')[0]
+            open_webbrowser_thread(STEAM_APP_PAGE_URL + steam_game_id)

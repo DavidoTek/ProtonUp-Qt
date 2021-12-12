@@ -47,3 +47,4 @@ def PALETTE_DARK():
 
 STEAM_API_GETAPPLIST_URL = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'
 LOCAL_STEAM_APPLIST_FILE = os.path.join(xdg_config_home,'pupgui/steam_applist.json')
+STEAM_APP_PAGE_URL = 'https://store.steampowered.com/app/'
