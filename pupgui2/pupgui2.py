@@ -180,6 +180,7 @@ class MainWindow(QObject):
         dialog.is_fetching_releases.connect(self.set_fetching_releases)
         dialog.setup_ui()
         dialog.show()
+        dialog.setFixedSize(dialog.size())
 
     def btn_remove_selcted_clicked(self):
         launcher_name = get_install_location_from_directory_name(install_directory())['launcher']
