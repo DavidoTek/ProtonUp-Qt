@@ -57,4 +57,5 @@ class PupguiCtInfoDialog(QObject):
     def list_games_item_double_clicked(self, item):
         if self.install_loc.get('launcher') == 'steam':
             steam_game_id = item.text().split(':')[0]
-            open_webbrowser_thread(STEAM_APP_PAGE_URL + steam_game_id)
+            if not steam_game_id == '-1':
+                open_webbrowser_thread(STEAM_APP_PAGE_URL + steam_game_id)
