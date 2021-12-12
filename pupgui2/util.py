@@ -1,5 +1,6 @@
 import os, subprocess, shutil
 import threading, requests, json
+import webbrowser
 import vdf
 from configparser import ConfigParser
 from PySide6.QtWidgets import *
@@ -257,3 +258,10 @@ def get_steam_game_names_by_ids(ids_str=[]):
     except:
         pass
     return names
+
+def open_webbrowser_thread(url):
+    try:
+        t = threading.Thread(target=webbrowser.open, args=[url])
+        t.start()
+    except:
+        print('Could not open webbrowser url ' + str(url))

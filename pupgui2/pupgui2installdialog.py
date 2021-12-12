@@ -1,9 +1,10 @@
-import webbrowser
 import threading
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
+
+from util import open_webbrowser_thread
 
 
 class PupguiInstallDialog(QDialog):
@@ -53,9 +54,9 @@ class PupguiInstallDialog(QDialog):
             if ctobj['name'] == self.comboCompatTool.currentText():
                 ver = self.comboCompatToolVersion.currentText()
                 if ver == '':
-                    webbrowser.open(ctobj['installer'].get_info_url(ver).replace('tag', ''))
+                    open_webbrowser_thread(ctobj['installer'].get_info_url(ver).replace('tag', ''))
                 else:
-                    webbrowser.open(ctobj['installer'].get_info_url(ver))
+                    open_webbrowser_thread(ctobj['installer'].get_info_url(ver))
 
     def btn_install_clicked(self):
         current_version = self.comboCompatTool.currentText()

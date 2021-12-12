@@ -1,4 +1,4 @@
-import os, requests, webbrowser
+import os, requests
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
@@ -8,6 +8,7 @@ from PySide6.QtUiTools import QUiLoader
 from constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT
 from util import config_theme, apply_dark_theme
 from util import download_steam_app_list_thread
+from util import open_webbrowser_thread
 
 
 class PupguiAboutDialog(QObject):
@@ -69,7 +70,7 @@ class PupguiAboutDialog(QObject):
                 QMessageBox.information(self.ui, self.tr('Update available'),
                 self.tr('There is a newer version available.\nYou are running {APP_VERSION} but {newest_version} is available.')
                 .format(APP_VERSION='v' + APP_VERSION, newest_version=newest_release['tag_name']))
-                webbrowser.open(newest_release['html_url'])
+                open_webbrowser_thread(newest_release['html_url'])
             else:
                 QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
         download_steam_app_list_thread(force_download=True)
