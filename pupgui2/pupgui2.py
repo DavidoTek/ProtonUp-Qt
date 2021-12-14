@@ -1,5 +1,6 @@
 import sys, os, shutil
 import threading
+from PySide6 import QtWidgets
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
@@ -183,10 +184,24 @@ class MainWindow(QObject):
         dialog.setFixedSize(dialog.size())
 
     def btn_remove_selcted_clicked(self):
-        launcher_name = get_install_location_from_directory_name(install_directory())['launcher']
+        install_loc = get_install_location_from_directory_name(install_directory())
+
+        vers_to_remove = []
+        games_using_tools = 0
         for item in self.ui.listInstalledVersions.selectedItems():
             ver = item.text()
+            if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
+                games_using_tools += len(get_steam_games_using_compat_tool(ver.split(' - ')[0], install_loc.get('vdf_dir')))
+            vers_to_remove.append(ver)
+
+        if games_using_tools > 0:
+            ret = QMessageBox.question(self.ui, self.tr('Remove compatibility tools?'), self.tr('You are trying to remove compatibility tools\nwhich are in use by {n} games. Continue?').format(n=games_using_tools))
+            if ret == QMessageBox.StandardButton.No:
+                return
+
+        for ver in vers_to_remove:
             remove_ctool(ver, install_directory())
+        
         self.ui.statusBar().showMessage(self.tr('Removed selected versions.'))
         self.update_ui()
 
