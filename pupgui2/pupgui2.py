@@ -1,6 +1,6 @@
 import sys, os, shutil
 import threading
-from PySide6 import QtWidgets
+
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
