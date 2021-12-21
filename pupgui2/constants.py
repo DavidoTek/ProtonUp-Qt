@@ -18,7 +18,14 @@ Copyright (C) 2021 DavidoTek, licensed under GPLv3\
 CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')
 TEMP_DIR = '/tmp/pupgui2.a70200/'
 
-_STEAM_ROOT = '~/.steam/root' if os.path.exists(os.path.expanduser('~/.steam/root')) else '~/.local/share/Steam'
+# support different Steam root directories
+_POSSIBLE_STEAM_ROOTS = ['~/.local/share/Steam', '~/.steam/root', '~/.steam/steam', '~/.steam/debian-installation']
+_STEAM_ROOT = _POSSIBLE_STEAM_ROOTS[0]
+for steam_root in _POSSIBLE_STEAM_ROOTS:
+    if os.path.exists(os.path.expanduser(steam_root)):
+        _STEAM_ROOT = steam_root
+        break
+
 POSSIBLE_INSTALL_LOCATIONS = [
     {'install_dir': _STEAM_ROOT + '/compatibilitytools.d/', 'display_name': 'Steam', 'launcher': 'steam', 'icon': 'steam', 'vdf_dir': _STEAM_ROOT + '/config/config.vdf'},
     {'install_dir': '~/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/', 'display_name': 'Steam Flatpak', 'launcher': 'steam', 'icon': 'steam'},
