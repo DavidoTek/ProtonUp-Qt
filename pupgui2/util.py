@@ -86,6 +86,9 @@ def available_install_directories():
         install_dir = os.path.expanduser(loc['install_dir'])
         if os.path.exists(install_dir):
             available_dirs.append(install_dir)
+    install_dir = config_custom_install_location().get('install_dir')
+    if install_dir and os.path.exists(install_dir):
+        available_dirs.append(install_dir)
     return available_dirs
 
 
@@ -97,6 +100,9 @@ def get_install_location_from_directory_name(install_dir):
     for loc in POSSIBLE_INSTALL_LOCATIONS:
         if os.path.expanduser(install_dir) == os.path.expanduser(loc['install_dir']):
             return loc
+    custom_install_location = config_custom_install_location()
+    if custom_install_location.get('install_dir') and os.path.expanduser(install_dir) == os.path.expanduser(custom_install_location.get('install_dir')) and custom_install_location.get('launcher'):
+        return custom_install_location
     return {'install_dir': install_dir, 'display_name': 'unknown', 'launcher': ''}
 
 
@@ -131,6 +137,32 @@ def install_directory(target=None):
         install_directory(available_install_directories()[0])
         return available_install_directories()[0]
     return ''
+
+
+def config_custom_install_location(install_dir=None, launcher=''):
+    """
+    Return Type: dict
+    """
+    config = ConfigParser()
+
+    if install_dir and launcher:
+        config.read(CONFIG_FILE)
+        if not config.has_section('pupgui2'):
+            config.add_section('pupgui2')
+        config['pupgui2']['custom_install_dir'] = install_dir
+        config['pupgui2']['custom_install_launcher'] = launcher
+        os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
+        with open(CONFIG_FILE, 'w') as file:
+            config.write(file)
+    elif os.path.exists(CONFIG_FILE):
+        config.read(CONFIG_FILE)
+        if config.has_option('pupgui2', 'custom_install_dir') and config.has_option('pupgui2', 'custom_install_launcher'):
+            install_dir = config['pupgui2']['custom_install_dir']
+            launcher = config['pupgui2']['custom_install_launcher']
+    
+    if install_dir and not install_dir.endswith('/'):
+        install_dir += '/'
+    return {'install_dir': install_dir, 'display_name': '', 'launcher': launcher}
 
 
 def list_installed_ctools(install_dir):
