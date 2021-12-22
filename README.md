@@ -6,8 +6,9 @@
 Qt-based graphical user interface to install and manage [Proton-GE](https://github.com/GloriousEggroll/proton-ge-custom) installations for Steam and [Wine-GE](https://github.com/GloriousEggroll/wine-ge-custom) installations for Lutris. Based on AUNaseef's [ProtonUp](https://github.com/AUNaseef/protonup).
 
 [<img width="225px" src="https://flathub.org/assets/badges/flathub-badge-en.png"/>](https://flathub.org/apps/details/net.davidotek.pupgui2).[<img width="225px" src="https://raw.githubusercontent.com/srevinsaju/get-appimage/master/static/badges/get-appimage-branding-dark.png"/>](https://github.com/DavidoTek/ProtonUp-Qt/releases) 
-.
-![ProtonUp-Qt Screenshot](screenshot1.png)
+
+
+[ProtonUp-Qt Screenshot](screenshot1.png)
 
 ## Run from source
 ### Install dependencies
