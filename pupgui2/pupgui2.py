@@ -17,6 +17,7 @@ from pupgui2installdialog import PupguiInstallDialog
 from pupgui2aboutdialog import PupguiAboutDialog
 from pupgui2ctinfodialog import PupguiCtInfoDialog
 from gamepadinputworker import GamepadInputWorker
+from pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
 
 
 class InstallWineThread(threading.Thread):
@@ -104,6 +105,8 @@ class MainWindow(QObject):
             i += 1
 
         self.ui.comboInstallLocation.currentIndexChanged.connect(self.combo_install_location_current_index_changed)
+        self.ui.btnManageInstallLocations.setVisible(False) # disable util gui completed
+        self.ui.btnManageInstallLocations.clicked.connect(self.btn_manage_install_locations_clicked)
         self.ui.btnAddVersion.clicked.connect(self.btn_add_version_clicked)
         self.ui.btnRemoveSelected.clicked.connect(self.btn_remove_selcted_clicked)
         self.ui.btnAbout.clicked.connect(self.btn_about_clicked)
@@ -218,6 +221,9 @@ class MainWindow(QObject):
         install_dir = install_directory(self.combo_install_location_index_map[self.ui.comboInstallLocation.currentIndex()])
         self.ui.statusBar().showMessage(self.tr('Changed install directory to {install_dir}.').format(install_dir=install_dir), timeout=3000)
         self.update_ui()
+    
+    def btn_manage_install_locations_clicked(self):
+        PupguiCustomInstallDirectoryDialog(parent=self.ui)
 
     def show_launcher_specific_information(self):
         install_loc = get_install_location_from_directory_name(install_directory())
