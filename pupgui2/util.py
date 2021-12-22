@@ -296,6 +296,30 @@ def get_steam_game_names_by_ids(ids_str=[]):
         pass
     return names
 
+def steam_update_ctool(game_id=0, new_ctool=None, vdf_dir=''):
+    """
+    Change compatibility tool for 'game_id' to 'new_ctool' in Steam config vdf
+    Return Type: bool
+    """
+    if new_ctool == None or not os.path.exists(vdf_dir):
+        return False
+    
+    try:
+        vdf_file = os.path.expanduser(vdf_dir)
+        d = vdf.load(open(vdf_file))
+        c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
+
+        if str(game_id) in c:
+            c.get(str(game_id))['name'] = str(new_ctool)
+        else:
+            return False
+        
+        vdf.dump(d, open(vdf_file, 'w'), pretty=True)
+    except Exception as e:
+        print('Error, could not update Steam compatibility tool to', new_ctool, 'for game', game_id, ':', e, ', vdf_dir=', vdf_dir)
+        return False
+    return True
+
 def open_webbrowser_thread(url):
     try:
         t = threading.Thread(target=webbrowser.open, args=[url])
