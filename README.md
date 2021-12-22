@@ -3,8 +3,7 @@
 [![Build AppImage CI](https://github.com/DavidoTek/ProtonUp-Qt/actions/workflows/appimage-ci.yml/badge.svg)](https://github.com/DavidoTek/ProtonUp-Qt/actions/workflows/appimage-ci.yml)
 
 # ProtonUp-Qt
-Qt-based graphical user interface to install and manage [Proton-GE](https://github.com/GloriousEggroll/proton-ge-custom) installations for Steam and [Wine-GE](https://github.com/GloriousEggroll/wine-ge-custom) installations for Lutris. Based on AUNaseef's [ProtonUp](https://github.com/AUNaseef/protonup).  
-**Download newest release AppImage from [here](https://github.com/DavidoTek/ProtonUp-Qt/releases).**  
+Qt-based graphical user interface to install and manage [Proton-GE](https://github.com/GloriousEggroll/proton-ge-custom) installations for Steam and [Wine-GE](https://github.com/GloriousEggroll/wine-ge-custom) installations for Lutris. Based on AUNaseef's [ProtonUp](https://github.com/AUNaseef/protonup).[![Get Appimage](https://raw.githubusercontent.com/srevinsaju/get-appimage/master/static/badges/get-appimage-branding-dark.png)](https://github.com/DavidoTek/ProtonUp-Qt/releases)  
 [<img width="225px" src="https://flathub.org/assets/badges/flathub-badge-en.png"/>](https://flathub.org/apps/details/net.davidotek.pupgui2)
 
 ![ProtonUp-Qt Screenshot](screenshot1.png)
