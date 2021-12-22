@@ -226,6 +226,7 @@ def get_steam_games_using_compat_tool(ver, vdf_dir):
 
     return tools
 
+
 def sort_compatibility_tool_names(unsorted):
     """
     Sort the list of compatibility tools: First sort alphabetically using sorted() then sort by Proton version
@@ -253,6 +254,7 @@ def sort_compatibility_tool_names(unsorted):
 
     return sorted_vers
 
+
 def download_steam_app_list_thread(force_download=False):
     """
     Download Steam app list in a separe thread
@@ -275,6 +277,7 @@ def download_steam_app_list_thread(force_download=False):
 
     t = threading.Thread(target=_download_steam_app_list)
     t.start()
+
 
 def get_steam_game_names_by_ids(ids_str=[]):
     """
@@ -299,6 +302,7 @@ def get_steam_game_names_by_ids(ids_str=[]):
         pass
     return names
 
+
 def steam_update_ctool(game_id=0, new_ctool=None, vdf_dir=''):
     """
     Change compatibility tool for 'game_id' to 'new_ctool' in Steam config vdf
@@ -322,6 +326,7 @@ def steam_update_ctool(game_id=0, new_ctool=None, vdf_dir=''):
         print('Error, could not update Steam compatibility tool to', new_ctool, 'for game', game_id, ':', e, ', vdf_dir=', vdf_dir)
         return False
     return True
+
 
 def open_webbrowser_thread(url):
     try:
