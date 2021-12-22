@@ -261,9 +261,14 @@ def download_steam_app_list_thread(force_download=False):
         os.remove(LOCAL_STEAM_APPLIST_FILE)
 
     def _download_steam_app_list():
-        r = requests.get(STEAM_API_GETAPPLIST_URL)
-        with open(LOCAL_STEAM_APPLIST_FILE, 'wb') as f:
-            f.write(r.content)
+        for i in range(0, 3): # try to download file, if download failed repeat (up to 3 times)
+            if os.path.exists(LOCAL_STEAM_APPLIST_FILE):
+                os.remove(LOCAL_STEAM_APPLIST_FILE)
+            r = requests.get(STEAM_API_GETAPPLIST_URL)
+            with open(LOCAL_STEAM_APPLIST_FILE, 'wb') as f:
+                f.write(r.content)
+            if os.path.exists(LOCAL_STEAM_APPLIST_FILE) and os.path.getsize(LOCAL_STEAM_APPLIST_FILE) > 5000000:
+                break
 
     t = threading.Thread(target=_download_steam_app_list)
     t.start()
