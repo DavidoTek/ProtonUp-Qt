@@ -38,6 +38,9 @@ def apply_dark_theme(app):
             app.setPalette(PALETTE_DARK())
         elif is_plasma:
             pass
+        else:
+            app.setStyle('Fusion')
+            app.setPalette(QStyleFactory.create('fusion').standardPalette())
 
 
 def config_theme(theme=None):
