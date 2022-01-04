@@ -1,5 +1,3 @@
-import inputs
-
 from PySide6.QtCore import *
 
 
@@ -13,6 +11,8 @@ class GamepadInputWorker(QThread):
     
     def run(self):
         try:
+            import inputs
+            
             while True:
                 events = inputs.get_gamepad()
                 for event in events:
