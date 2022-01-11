@@ -157,6 +157,14 @@ def config_custom_install_location(install_dir=None, launcher=''):
         os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
         with open(CONFIG_FILE, 'w') as file:
             config.write(file)
+    elif install_dir == 'remove' and os.path.exists(CONFIG_FILE):
+        config.read(CONFIG_FILE)
+        if config.has_option('pupgui2', 'custom_install_dir'):
+            config.remove_option('pupgui2', 'custom_install_dir')
+        if config.has_option('pupgui2', 'custom_install_launcher'):
+            config.remove_option('pupgui2', 'custom_install_launcher')
+        with open(CONFIG_FILE, 'w') as file:
+            config.write(file)
     elif os.path.exists(CONFIG_FILE):
         config.read(CONFIG_FILE)
         if config.has_option('pupgui2', 'custom_install_dir') and config.has_option('pupgui2', 'custom_install_launcher'):

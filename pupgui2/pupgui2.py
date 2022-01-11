@@ -64,6 +64,7 @@ class MainWindow(QObject):
         self.pupgui2_base_dir = pupgui2_base_dir
 
         self.combo_install_location_index_map = []
+        self.updating_combo_install_location = False
         self.pending_downloads = []
         
         self.load_ui()
@@ -90,6 +91,29 @@ class MainWindow(QObject):
         self.ui.statusBar().addPermanentWidget(self.progressBarDownload)
         self.ui.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
 
+        self.update_combo_install_location()
+
+        self.ui.comboInstallLocation.currentIndexChanged.connect(self.combo_install_location_current_index_changed)
+        self.ui.btnManageInstallLocations.clicked.connect(self.btn_manage_install_locations_clicked)
+        self.ui.btnAddVersion.clicked.connect(self.btn_add_version_clicked)
+        self.ui.btnRemoveSelected.clicked.connect(self.btn_remove_selcted_clicked)
+        self.ui.btnAbout.clicked.connect(self.btn_about_clicked)
+        self.ui.btnClose.clicked.connect(self.btn_close_clicked)
+        self.ui.listInstalledVersions.itemDoubleClicked.connect(self.list_installed_versions_item_double_clicked)
+
+        self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
+
+        self.giw = GamepadInputWorker()
+        if os.getenv('PUPGUI2_DISABLE_GAMEPAD', '0') == '0':
+            self.giw.start()
+            self.giw.press_virtual_key.connect(self.press_virtual_key)
+    
+    def update_combo_install_location(self):
+        self.updating_combo_install_location = True
+
+        self.ui.comboInstallLocation.clear()
+        self.combo_install_location_index_map = []
+
         i = 0
         current_install_dir = install_directory()
         for install_dir in available_install_directories():
@@ -104,21 +128,7 @@ class MainWindow(QObject):
                 self.ui.comboInstallLocation.setCurrentIndex(i)
             i += 1
 
-        self.ui.comboInstallLocation.currentIndexChanged.connect(self.combo_install_location_current_index_changed)
-        self.ui.btnManageInstallLocations.setVisible(False) # disable util gui completed
-        self.ui.btnManageInstallLocations.clicked.connect(self.btn_manage_install_locations_clicked)
-        self.ui.btnAddVersion.clicked.connect(self.btn_add_version_clicked)
-        self.ui.btnRemoveSelected.clicked.connect(self.btn_remove_selcted_clicked)
-        self.ui.btnAbout.clicked.connect(self.btn_about_clicked)
-        self.ui.btnClose.clicked.connect(self.btn_close_clicked)
-        self.ui.listInstalledVersions.itemDoubleClicked.connect(self.list_installed_versions_item_double_clicked)
-
-        self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
-
-        self.giw = GamepadInputWorker()
-        if os.getenv('PUPGUI2_DISABLE_GAMEPAD', '0') == '0':
-            self.giw.start()
-            self.giw.press_virtual_key.connect(self.press_virtual_key)
+        self.updating_combo_install_location = False
 
     def update_ui(self):
         """ update ui contents """
@@ -218,12 +228,14 @@ class MainWindow(QObject):
         self.ui.close()
 
     def combo_install_location_current_index_changed(self):
-        install_dir = install_directory(self.combo_install_location_index_map[self.ui.comboInstallLocation.currentIndex()])
-        self.ui.statusBar().showMessage(self.tr('Changed install directory to {install_dir}.').format(install_dir=install_dir), timeout=3000)
-        self.update_ui()
+        if not self.updating_combo_install_location:
+            install_dir = install_directory(self.combo_install_location_index_map[self.ui.comboInstallLocation.currentIndex()])
+            self.ui.statusBar().showMessage(self.tr('Changed install directory to {install_dir}.').format(install_dir=install_dir), timeout=3000)
+            self.update_ui()
     
     def btn_manage_install_locations_clicked(self):
-        PupguiCustomInstallDirectoryDialog(parent=self.ui)
+        customid_dialog = PupguiCustomInstallDirectoryDialog(parent=self.ui)
+        customid_dialog.custom_id_set.connect(self.update_combo_install_location)
 
     def show_launcher_specific_information(self):
         install_loc = get_install_location_from_directory_name(install_directory())
