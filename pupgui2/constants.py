@@ -4,7 +4,7 @@ from PySide6.QtCore import QObject, Qt
 from PySide6.QtGui import QColor, QPalette
 
 APP_NAME = 'ProtonUp-Qt'
-APP_VERSION = '2.4.1'
+APP_VERSION = '2.5.0'
 APP_GHAPI_URL = 'https://api.github.com/repos/Davidotek/ProtonUp-qt/releases'
 ABOUT_TEXT = '''\
 GUI for installing/updating Wine/Proton based compatibility tools.

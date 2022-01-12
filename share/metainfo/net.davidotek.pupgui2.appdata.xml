@@ -49,6 +49,23 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.5.0" date="2022-01-12">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Double click game to show Steam page</li>
+          <li>Support Lutris Flatpak</li>
+          <li>GUI for custom install directory</li>
+          <li>Added 'batch update' feature for Proton versions</li>
+        </ul>
+        <p>Bugs fixed:</p>
+        <ul>
+          <li>ProtonUp-Qt will no longer hang when opening webbrowser</li>
+          <li>Support Steam on more distros</li>
+          <li>Gamepad will no longer crash ProtonUp-Qt</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.4.1" date="2021-12-12">
       <description>
         <p>Bug fixes (app crashes when no gamepad is connected).</p>
