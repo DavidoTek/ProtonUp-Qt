@@ -83,8 +83,9 @@ class CtInstaller(QObject):
         msg = 'You need scummvm and inotify-tools for Roberta.\n\n'
         msg += 'scummvm: ' + str('missing' if shutil.which('scummvm') is None else 'found') + '\n'
         msg += 'inotify-tools: ' + str('missing' if shutil.which('inotifywait') is None else 'found')
+        msg += '\n\nWill continue installing Roberta anyway.'
         QMessageBox.warning(None, 'Missing dependencies!', msg)
-        return False
+        return True  # install Roberta anyway
 
     def fetch_releases(self, count=100):
         """

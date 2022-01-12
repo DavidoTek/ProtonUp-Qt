@@ -84,8 +84,9 @@ class CtInstaller(QObject):
         msg += 'dosbox: ' + str('missing' if shutil.which('dosbox') is None else 'found') + '\n'
         msg += 'inotify-tools: ' + str('missing' if shutil.which('inotifywait') is None else 'found') + '\n'
         msg += 'timidity: ' + str('missing' if shutil.which('timidity') is None else 'found')
+        msg += '\n\nWill continue installing Boxtron anyway.'
         QMessageBox.warning(None, 'Missing dependencies!', msg)
-        return False
+        return True  # install Boxtron anyway
 
     def fetch_releases(self, count=100):
         """
