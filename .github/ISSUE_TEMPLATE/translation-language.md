@@ -2,7 +2,7 @@
 name: Translation LANGUAGE
 about: Translate ProtonUp-Qt to other languages
 title: ''
-labels: ''
+labels: translation
 assignees: ''
 
 ---
