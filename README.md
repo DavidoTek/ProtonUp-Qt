@@ -23,6 +23,15 @@ Install and manage [Proton-GE](https://github.com/GloriousEggroll/proton-ge-cust
 ### Build AppImage
 `appimage-builder`
 
+## Translate ProtonUp-Qt
+1. Install PySide6: `pip3 install pyside6`
+2. Clone the repo and `mkdir i18n share/pupgui2/i18n`
+3. (Re-)generate translations file: ``pyside6-lupdate `ls pupgui2/*.py share/pupgui2/ui/*.ui` -ts i18n/pupgui2_ab.ts``
+   Replace **ab** with the language, for example **de**
+4. Translate using Qt Linguist: `pyside6-linguist i18n/pupgui2_ab.ts`
+5. Compile translation file: `pyside6-lrelease i18n/pupgui2_ab.ts -qm share/pupgui2/i18n/pupgui2_ab.qm`
+6. Create a PR with the translation
+
 ## Licensing
 Project|License
 -------|--------
