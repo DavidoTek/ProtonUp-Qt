@@ -6,6 +6,10 @@
   <summary>Install Wine- and Proton-based compatibility tools</summary>
   <summary lang="de_DE">Wine und Proton Kompatibilitätstools installieren</summary>
 
+  <keywords>
+    <keyword>Proton-GE</keyword>
+  </keywords>
+
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-3.0</project_license>
   
