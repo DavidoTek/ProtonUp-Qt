@@ -9,7 +9,7 @@ Install and manage [Proton-GE](https://github.com/GloriousEggroll/proton-ge-cust
 [<img height="56px" src="https://flathub.org/assets/badges/flathub-badge-en.png" alt="Download from Flathub" />](https://flathub.org/apps/details/net.davidotek.pupgui2) [<img height="56px" src="https://raw.githubusercontent.com/srevinsaju/get-appimage/master/static/badges/get-appimage-branding-dark.png" alt="Download AppImage" />](https://github.com/DavidoTek/ProtonUp-Qt/releases) 
 
 
-![ProtonUp-Qt Screenshot](screenshot1.png)
+![ProtonUp-Qt Screenshot](.github/images/pupgui2-screenshot2.png)
 
 ## Run from source
 ### Install dependencies
