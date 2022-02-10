@@ -24,13 +24,12 @@ Install and manage [Proton-GE](https://github.com/GloriousEggroll/proton-ge-cust
 `appimage-builder`
 
 ## Translate ProtonUp-Qt
-1. Install PySide6: `pip3 install pyside6`
-2. Clone the repo and `mkdir i18n share/pupgui2/i18n`
-3. (Re-)generate translations file: ``pyside6-lupdate `ls pupgui2/*.py share/pupgui2/ui/*.ui` -ts i18n/pupgui2_ab.ts``
-   Replace **ab** with the language, for example **de**
-4. Translate using Qt Linguist: `pyside6-linguist i18n/pupgui2_ab.ts`
-5. Compile translation file: `pyside6-lrelease i18n/pupgui2_ab.ts -qm share/pupgui2/i18n/pupgui2_ab.qm`
-6. Create a PR with the translation
+1. Generate an empty translation file *or* download it from [here].(https://github.com/DavidoTek/ProtonUp-Qt/blob/main/i18n/pupgui2_de.ts)
+2. Install [Qt Linguist](https://flathub.org/apps/details/io.qt.Linguist) (alternatively: edit the **.ts** file using a text editor).
+3. Open the translation file (.ts) with Qt Linguist and translate the app.
+4. Submit the translation:  
+   a) Simple method: Upload the **.ts** file [here](https://gist.github.com/) and [create a new issue](https://github.com/DavidoTek/ProtonUp-Qt/issues/new?labels=translation&title=Translation:%20language) with a link to your translation.  
+   b) Alternatively, compile the .ts file to .qm and create a PR with the translation (include both the .ts and .qm file).
 
 ## Licensing
 Project|License
