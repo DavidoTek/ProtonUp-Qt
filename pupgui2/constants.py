@@ -7,12 +7,16 @@ APP_NAME = 'ProtonUp-Qt'
 APP_VERSION = '2.5.0'
 APP_GHAPI_URL = 'https://api.github.com/repos/Davidotek/ProtonUp-qt/releases'
 ABOUT_TEXT = '''\
-GUI for installing/updating Wine/Proton based compatibility tools.
-
-{APP_NAME} v{APP_VERSION} by DavidoTek: https://github.com/DavidoTek/ProtonUp-Qt
-Inspired by/partly based on AUNaseef's protonup.
-
-Copyright (C) 2021 DavidoTek, licensed under GPLv3\
+GUI for installing/updating Wine/Proton based compatibility tools.<br />
+<br />
+{APP_NAME} v{APP_VERSION} by DavidoTek: <a href="https://github.com/DavidoTek/ProtonUp-Qt">https://github.com/DavidoTek/ProtonUp-Qt</a><br />
+Inspired by/partly based on AUNaseef's protonup.<br />
+<br />
+Copyright (C) 2021-2022 DavidoTek, licensed under GPLv3<br />
+<br />
+<b>Support ProtonUp-Qt development on <a href="https://github.com/DavidoTek/ProtonUp-Qt">GitHub</a> \
+or by <a href="https://ko-fi.com/davidotek">donating on Ko-fi</a>.</b>
+<br />\
 '''.format(APP_NAME=APP_NAME, APP_VERSION=APP_VERSION)
 
 CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')

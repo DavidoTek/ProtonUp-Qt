@@ -22,6 +22,8 @@ class PupguiAboutDialog(QObject):
         self.setup_ui()
         self.ui.show()
 
+        self.ui.setFixedSize(self.ui.size())
+
     def load_ui(self):
         ui_file_name = os.path.join(self.pupgui2_base_dir, 'ui/pupgui2_aboutdialog.ui')
         ui_file = QFile(ui_file_name)
@@ -31,12 +33,14 @@ class PupguiAboutDialog(QObject):
         loader = QUiLoader()
         self.ui = loader.load(ui_file, self.parent)
         ui_file.close()
-    
+
     def setup_ui(self):
         self.ui.setWindowTitle(APP_NAME + ' ' + APP_VERSION)
 
         self.ui.lblAppIcon.setPixmap(QIcon.fromTheme('net.davidotek.pupgui2').pixmap(QSize(96, 96)))
         self.ui.lblAboutText.setText(ABOUT_TEXT)
+        self.ui.lblAboutText.setTextFormat(Qt.RichText)
+        self.ui.lblAboutText.setOpenExternalLinks(True)
         self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)')])
         self.ui.comboColorTheme.setCurrentIndex(['light', 'dark', 'system', None].index(config_theme()))
 
@@ -47,17 +51,17 @@ class PupguiAboutDialog(QObject):
 
         if os.getenv('APPIMAGE') is None:
             self.ui.btnCheckForUpdates.setText(self.tr('Update Steam game list'))
-    
+
     def combo_color_theme_current_index_changed(self):
         config_theme(['light', 'dark', 'system'][self.ui.comboColorTheme.currentIndex()])
         apply_dark_theme(QApplication.instance())
 
     def btn_close_clicked(self):
         self.ui.close()
-    
+
     def btn_aboutqt_clicked(self):
         QMessageBox.aboutQt(self.parent)
-    
+
     def btn_check_for_updates_clicked(self):
         if os.getenv('APPIMAGE'):
             releases = requests.get(APP_GHAPI_URL + '?per_page=1').json()
@@ -74,7 +78,7 @@ class PupguiAboutDialog(QObject):
             else:
                 QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
         download_steam_app_list_thread(force_download=True)
-    
+
     def tag_name_to_version(self, tag_name : str):
         tag_name = tag_name.replace('v', '')
         vers = tag_name.split('.')
