@@ -37,8 +37,10 @@ class PupguiAboutDialog(QObject):
     def setup_ui(self):
         self.ui.setWindowTitle(APP_NAME + ' ' + APP_VERSION)
 
+        translator_text = QApplication.instance().translate('translator-text', 'Translated by DavidoTek')
+
         self.ui.lblAppIcon.setPixmap(QIcon.fromTheme('net.davidotek.pupgui2').pixmap(QSize(96, 96)))
-        self.ui.lblAboutText.setText(ABOUT_TEXT)
+        self.ui.lblAboutText.setText(ABOUT_TEXT + '\n' + translator_text)
         self.ui.lblAboutText.setTextFormat(Qt.RichText)
         self.ui.lblAboutText.setOpenExternalLinks(True)
         self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)')])
