@@ -1,8 +1,11 @@
 import os, subprocess, shutil
+import sys
+import platform
 import threading, requests, json
 import webbrowser
 import vdf
 from configparser import ConfigParser
+import PySide6
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
@@ -342,3 +345,10 @@ def open_webbrowser_thread(url):
         t.start()
     except:
         print('Could not open webbrowser url ' + str(url))
+
+
+def print_system_information():
+    ver_info = 'Python ' + sys.version.replace('\n', '')
+    ver_info += ', PySide ' + PySide6.__version__ + '\n'
+    ver_info += 'Platform: ' + str(platform.platform())
+    print(ver_info)
