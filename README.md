@@ -24,7 +24,7 @@ Install and manage [Proton-GE](https://github.com/GloriousEggroll/proton-ge-cust
 `appimage-builder`
 
 ## Translate ProtonUp-Qt
-1. Generate an empty translation file *or* download it from [here].(https://github.com/DavidoTek/ProtonUp-Qt/blob/main/i18n/pupgui2_de.ts)
+1. Generate an empty translation file *or* download it from [here](https://github.com/DavidoTek/ProtonUp-Qt/blob/main/i18n/pupgui2_de.ts).
 2. Install [Qt Linguist](https://flathub.org/apps/details/io.qt.Linguist) (alternatively: edit the **.ts** file using a text editor).
 3. Open the translation file (.ts) with Qt Linguist and translate the app.
 4. Submit the translation:  
