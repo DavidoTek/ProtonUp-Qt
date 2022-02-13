@@ -7,25 +7,32 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+**Describe the bug**  
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+**To Reproduce**  
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
+**Expected behavior**  
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
+**Screenshots**  
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
+**Desktop (please complete the following information):**  
  - OS: [e.g. Ubuntu 20.04]
  - Version [e.g. ProtonUp-Qt 2.5.0 AppImage or Flatpak]
 
-**Additional context**
+**Additional context**  
 Add any other context about the problem here.
+
+**Terminal output**  
+```
+Paste the output of running ProtonUp-Qt from the Terminal here.
+AppImage: ./ProtonUp-Qt*.AppImage
+Flatpak: flatpak run net.davidotek.pupgui2
+```
