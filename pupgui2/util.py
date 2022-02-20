@@ -350,5 +350,13 @@ def open_webbrowser_thread(url):
 def print_system_information():
     ver_info = 'Python ' + sys.version.replace('\n', '')
     ver_info += ', PySide ' + PySide6.__version__ + '\n'
-    ver_info += 'Platform: ' + str(platform.platform())
+    ver_info += 'Platform: '
+    try:
+        f = open('/etc/lsb-release')
+        l = f.readlines()
+        ver_info += l[0].strip().split('=')[1] + ' ' + l[1].strip().split('=')[1] + ' '
+        f.close()
+    except:
+        pass
+    ver_info += str(platform.platform())
     print(ver_info)
