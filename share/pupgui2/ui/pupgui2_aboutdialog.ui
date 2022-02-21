@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>PupguiAboutDialog</class>
- <widget class="QDialog" name="Dialog">
+ <widget class="QDialog" name="PupguiAboutDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
