@@ -238,6 +238,39 @@ def get_steam_games_using_compat_tool(ver, vdf_dir):
     return tools
 
 
+def get_steam_game_list(vdf_dir):
+    """
+    Returns a list of Steam games and which compatibility tools they are using.
+    (Only includes games which override the default compatibility tool. ToDo: Include all + natives)
+    Return Type: dict[]
+        Content: 'id', 'compat_tool', 'game_name'
+    """
+    games = []
+    game_ids_str = []
+    try:
+        vdf_file = os.path.expanduser(vdf_dir)
+        d = vdf.load(open(vdf_file))
+        c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
+
+        for t in c:
+            x = c.get(str(t))
+            if x is None:
+                continue
+            games.append({'id': str(t), 'compat_tool': x.get('name')})
+            game_ids_str.append(str(t))
+
+        game_names = get_steam_game_names_by_ids(game_ids_str)
+        for g in games:
+            if g.get('id') == '0':
+                g['game_name'] = 'Steam'
+            else:
+                g['game_name'] = game_names.get(int(g.get('id', -1)), '')
+    except Exception as e:
+        print('Error: Could not get a list of all Steam games:', e)
+
+    return games
+
+
 def sort_compatibility_tool_names(unsorted):
     """
     Sort the list of compatibility tools: First sort alphabetically using sorted() then sort by Proton version
