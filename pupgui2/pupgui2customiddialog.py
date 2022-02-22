@@ -19,9 +19,12 @@ class PupguiCustomInstallDirectoryDialog(QDialog):
     def setup_ui(self):
         self.setWindowTitle(self.tr('Custom Install Directory'))
         self.setModal(True)
+        self.setMinimumSize(320, 120)
 
         formLayout = QFormLayout()
         self.txtInstallDirectory = QLineEdit()
+        self.txtIdBrowseAction = self.txtInstallDirectory.addAction(QIcon.fromTheme('document-open'), QLineEdit.TrailingPosition)
+        self.txtIdBrowseAction.triggered.connect(self.txt_id_browse_action_triggered)
         self.comboLauncher = QComboBox()
         self.btnSave = QPushButton(self.tr('Save'))
         formLayout.addRow(QLabel(self.tr('Directory:')), self.txtInstallDirectory)
@@ -60,3 +63,11 @@ class PupguiCustomInstallDirectoryDialog(QDialog):
 
         self.custom_id_set.emit()
         self.close()
+    
+    def txt_id_browse_action_triggered(self):
+        dialog = QFileDialog(self)
+        dialog.setFileMode(QFileDialog.Directory)
+        dialog.setOption(QFileDialog.ShowDirsOnly)
+        dialog.setDirectory(os.path.expanduser('~'))
+        dialog.fileSelected.connect(self.txtInstallDirectory.setText)
+        dialog.open()
