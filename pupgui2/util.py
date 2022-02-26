@@ -355,7 +355,7 @@ def steam_update_ctool(game_id=0, new_ctool=None, vdf_dir=''):
     Change compatibility tool for 'game_id' to 'new_ctool' in Steam config vdf
     Return Type: bool
     """
-    if new_ctool == None or not os.path.exists(vdf_dir):
+    if not os.path.exists(vdf_dir):
         return False
     
     try:
@@ -364,7 +364,10 @@ def steam_update_ctool(game_id=0, new_ctool=None, vdf_dir=''):
         c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
 
         if str(game_id) in c:
-            c.get(str(game_id))['name'] = str(new_ctool)
+            if new_ctool is None:
+                c.pop(str(game_id))
+            else:
+                c.get(str(game_id))['name'] = str(new_ctool)
         else:
             return False
         
