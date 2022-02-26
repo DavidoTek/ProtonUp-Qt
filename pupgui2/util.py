@@ -271,7 +271,7 @@ def get_steam_game_list(vdf_dir):
     return games
 
 
-def sort_compatibility_tool_names(unsorted):
+def sort_compatibility_tool_names(unsorted, reverse=False):
     """
     Sort the list of compatibility tools: First sort alphabetically using sorted() then sort by Proton version
     Return Type: str[]
@@ -295,6 +295,9 @@ def sort_compatibility_tool_names(unsorted):
     sorted_vers = []
     for v in sorted(ver_dict):
         sorted_vers.append(ver_dict[v])
+
+    if reverse:
+        sorted_vers.reverse()
 
     return sorted_vers
 

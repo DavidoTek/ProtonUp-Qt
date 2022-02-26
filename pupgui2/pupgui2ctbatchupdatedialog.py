@@ -14,7 +14,7 @@ class PupguiCtBatchUpdateDialog(QDialog):
         self.games = games
         self.vdf_dir = vdf_dir
 
-        self.ctools = sort_compatibility_tool_names(list_installed_ctools(install_directory()))
+        self.ctools = sort_compatibility_tool_names(list_installed_ctools(install_directory()), reverse=True)
 
         self.setup_ui()
 
