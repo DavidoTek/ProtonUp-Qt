@@ -249,7 +249,8 @@ class MainWindow(QObject):
         games = []
         ver = item.text().split(' - ')[0]
         install_loc = get_install_location_from_directory_name(install_directory())
-        PupguiCtInfoDialog(self.pupgui2_base_dir, self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
+        cti_dialog = PupguiCtInfoDialog(self.pupgui2_base_dir, self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
+        cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def press_virtual_key(self, key, mod):
         e = QKeyEvent(QEvent.KeyPress, key, mod)

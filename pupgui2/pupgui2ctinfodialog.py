@@ -13,6 +13,8 @@ from pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
 
 class PupguiCtInfoDialog(QObject):
 
+    batch_update_complete = Signal(bool)
+
     def __init__(self, pupgui2_base_dir, parent=None, ctool='', install_loc=None, install_dir=''):
         super(PupguiCtInfoDialog, self).__init__(parent)
         self.pupgui2_base_dir = pupgui2_base_dir
@@ -64,6 +66,8 @@ class PupguiCtInfoDialog(QObject):
         game_names = get_steam_game_names_by_ids(self.games)
         for game in self.games:
             self.ui.listGames.addItem(str(game) + ': ' + str(game_names.get(int(game))))
+
+        self.batch_update_complete.emit(True)
 
     def btn_close_clicked(self):
         self.ui.close()
