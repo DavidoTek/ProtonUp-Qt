@@ -101,6 +101,7 @@ class MainWindow(QObject):
         self.ui.btnAbout.clicked.connect(self.btn_about_clicked)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
         self.ui.listInstalledVersions.itemDoubleClicked.connect(self.list_installed_versions_item_double_clicked)
+        self.ui.btnShowCtInfo.clicked.connect(self.btn_show_ct_info_clicked)
 
         self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
 
@@ -246,11 +247,17 @@ class MainWindow(QObject):
     
     def list_installed_versions_item_double_clicked(self, item):
         # Show info about compatibility tool when double clicked in list
-        games = []
         ver = item.text().split(' - ')[0]
         install_loc = get_install_location_from_directory_name(install_directory())
         cti_dialog = PupguiCtInfoDialog(self.pupgui2_base_dir, self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
         cti_dialog.batch_update_complete.connect(self.update_ui)
+
+    def btn_show_ct_info_clicked(self):
+        install_loc = get_install_location_from_directory_name(install_directory())
+        for item in self.ui.listInstalledVersions.selectedItems():
+            ver = item.text().split(' - ')[0]
+            cti_dialog = PupguiCtInfoDialog(self.pupgui2_base_dir, self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
+            cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def press_virtual_key(self, key, mod):
         e = QKeyEvent(QEvent.KeyPress, key, mod)
