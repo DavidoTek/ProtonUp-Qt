@@ -101,7 +101,11 @@ class MainWindow(QObject):
         self.ui.btnAbout.clicked.connect(self.btn_about_clicked)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
         self.ui.listInstalledVersions.itemDoubleClicked.connect(self.list_installed_versions_item_double_clicked)
+        self.ui.listInstalledVersions.itemSelectionChanged.connect(self.list_installed_versions_item_selection_changed)
         self.ui.btnShowCtInfo.clicked.connect(self.btn_show_ct_info_clicked)
+
+        self.ui.btnRemoveSelected.setEnabled(False)
+        self.ui.btnShowCtInfo.setEnabled(False)
 
         self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
 
@@ -251,6 +255,15 @@ class MainWindow(QObject):
         install_loc = get_install_location_from_directory_name(install_directory())
         cti_dialog = PupguiCtInfoDialog(self.pupgui2_base_dir, self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
         cti_dialog.batch_update_complete.connect(self.update_ui)
+
+    def list_installed_versions_item_selection_changed(self):
+        n_sel_items = len(self.ui.listInstalledVersions.selectedItems())
+        if n_sel_items == 0:
+            self.ui.btnRemoveSelected.setEnabled(False)
+            self.ui.btnShowCtInfo.setEnabled(False)
+        else:
+            self.ui.btnRemoveSelected.setEnabled(True)
+            self.ui.btnShowCtInfo.setEnabled(True)
 
     def btn_show_ct_info_clicked(self):
         install_loc = get_install_location_from_directory_name(install_directory())
