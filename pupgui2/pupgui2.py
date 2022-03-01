@@ -230,7 +230,7 @@ class MainWindow(QObject):
         self.update_ui()
 
     def btn_show_game_list_clicked(self):
-        PupguiGameListDialog(self.pupgui2_base_dir, self.ui)
+        PupguiGameListDialog(self.pupgui2_base_dir, install_directory(), self.ui)
 
     def btn_about_clicked(self):
         PupguiAboutDialog(self.pupgui2_base_dir, self.ui)

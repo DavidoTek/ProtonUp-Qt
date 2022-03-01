@@ -2,21 +2,25 @@ import os, requests
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
-from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
-from constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT
-from util import config_theme, apply_dark_theme
-from util import download_steam_app_list_thread
-from util import open_webbrowser_thread
+from util import list_installed_ctools, sort_compatibility_tool_names
+from util import steam_update_ctool
+from util import get_steam_game_list
+from util import get_install_location_from_directory_name
 
 
 class PupguiGameListDialog(QObject):
 
-    def __init__(self, pupgui2_base_dir, parent=None):
+    def __init__(self, pupgui2_base_dir, install_dir, parent=None):
         super(PupguiGameListDialog, self).__init__(parent)
         self.pupgui2_base_dir = pupgui2_base_dir
+        self.install_dir = install_dir
         self.parent = parent
+
+        install_loc = get_install_location_from_directory_name(self.install_dir)
+        if not 'vdf_dir' in install_loc:
+            return
 
         self.load_ui()
         self.setup_ui()
@@ -33,7 +37,30 @@ class PupguiGameListDialog(QObject):
         ui_file.close()
 
     def setup_ui(self):
+        self.update_game_list()
+
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
+
+    def update_game_list(self):
+        install_loc = get_install_location_from_directory_name(self.install_dir)
+        games = get_steam_game_list(vdf_dir=install_loc.get('vdf_dir'))
+        ctools = sort_compatibility_tool_names(list_installed_ctools(self.install_dir))
+
+        self.ui.tableGames.setRowCount(len(games))
+
+        i = 0
+        for game in games:
+            self.ui.tableGames.setCellWidget(i, 0, QLabel(game.get('game_name')))
+            combo = QComboBox()
+            combo.addItems(ctools)
+            combo.setCurrentText(game.get('compat_tool'))
+            # ToDo: connect currentTextChanged to update_tool ?
+            self.ui.tableGames.setCellWidget(i, 1, combo)
+            i += 1
 
     def btn_close_clicked(self):
         self.ui.close()
+
+    def update_ctool(self, ctool_name: str, game_id: str = '0'):
+        install_loc = get_install_location_from_directory_name(self.install_dir)
+        steam_update_ctool(int(game_id), ctool_name, vdf_dir=install_loc.get('vdf_dir'))
