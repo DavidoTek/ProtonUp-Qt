@@ -39,6 +39,7 @@ class PupguiGameListDialog(QObject):
     def setup_ui(self):
         self.update_game_list()
 
+        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool')])
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
 
     def update_game_list(self):
@@ -48,6 +49,7 @@ class PupguiGameListDialog(QObject):
 
         self.ui.tableGames.setRowCount(len(games))
 
+        game_id_table_lables = []
         i = 0
         for game in games:
             self.ui.tableGames.setCellWidget(i, 0, QLabel(game.get('game_name')))
@@ -58,7 +60,9 @@ class PupguiGameListDialog(QObject):
             combo.setCurrentText(game.get('compat_tool'))
             # ToDo: connect currentTextChanged to update_tool ?
             self.ui.tableGames.setCellWidget(i, 1, combo)
+            game_id_table_lables.append(game.get('id'))
             i += 1
+        self.ui.tableGames.setVerticalHeaderLabels(game_id_table_lables)
 
     def btn_close_clicked(self):
         self.ui.close()
