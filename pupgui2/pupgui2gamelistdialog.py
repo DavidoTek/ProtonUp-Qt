@@ -53,6 +53,8 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setCellWidget(i, 0, QLabel(game.get('game_name')))
             combo = QComboBox()
             combo.addItems(ctools)
+            if game.get('compat_tool') not in ctools:
+                combo.addItem(game.get('compat_tool'))
             combo.setCurrentText(game.get('compat_tool'))
             # ToDo: connect currentTextChanged to update_tool ?
             self.ui.tableGames.setCellWidget(i, 1, combo)
