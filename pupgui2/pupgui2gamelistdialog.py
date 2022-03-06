@@ -56,10 +56,14 @@ class PupguiGameListDialog(QObject):
         for game in games:
             self.ui.tableGames.setCellWidget(i, 0, QLabel(game.get('game_name')))
             combo = QComboBox()
+            combo.addItem('-')
             combo.addItems(ctools)
             if game.get('compat_tool') not in ctools:
                 combo.addItem(game.get('compat_tool'))
-            combo.setCurrentText(game.get('compat_tool'))
+            if game.get('compat_tool') is None:
+                combo.setCurrentText('-')
+            else:
+                combo.setCurrentText(game.get('compat_tool'))
             combo.currentTextChanged.connect(lambda text,id=game.get('id'): self.update_ctool(text, id))
             self.ui.tableGames.setCellWidget(i, 1, combo)
             game_id_table_lables.append(game.get('id'))
@@ -70,6 +74,8 @@ class PupguiGameListDialog(QObject):
         self.ui.close()
 
     def update_ctool(self, ctool_name: str, game_id: str = '0'):
+        if ctool_name == '-':
+            ctool_name = None
         install_loc = get_install_location_from_directory_name(self.install_dir)
         steam_update_ctool(int(game_id), ctool_name, steam_config_folder=install_loc.get('vdf_dir'))
         self.game_property_changed.emit(True)

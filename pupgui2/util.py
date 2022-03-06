@@ -390,7 +390,7 @@ def steam_update_ctool(game_id=0, new_ctool=None, steam_config_folder=''):
             else:
                 c.get(str(game_id))['name'] = str(new_ctool)
         else:
-            return False
+            c[str(game_id)] = {"name": str(new_ctool), "config": "", "priority": "250"}
         
         vdf.dump(d, open(config_vdf_file, 'w'), pretty=True)
     except Exception as e:
