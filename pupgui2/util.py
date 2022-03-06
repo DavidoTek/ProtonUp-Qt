@@ -304,12 +304,14 @@ def sort_compatibility_tool_names(unsorted, reverse=False):
     i = 0
     for ver in unsorted:
         i += 1
-        if 'Proton-' in ver:
+        if ver.startswith('GE-Proton'):
+            ver_dict[100+i] = ver
+        elif 'Proton-' in ver:
             try:
                 ver_string = ver.split('-')[1]
                 ver_major = int(ver_string.split('.')[0])
                 ver_minor = int(ver_string.split('.')[1])
-                ver_dict[ver_major * 100 + ver_minor] = ver
+                ver_dict[ver_major * 10 + ver_minor] = ver
             except:
                 ver_dict[i] = ver
         else:
