@@ -44,7 +44,7 @@ class PupguiGameListDialog(QObject):
 
     def update_game_list(self):
         install_loc = get_install_location_from_directory_name(self.install_dir)
-        games = get_steam_game_list(vdf_dir=install_loc.get('vdf_dir'))
+        games = get_steam_game_list(steam_config_folder=install_loc.get('vdf_dir'))
         ctools = sort_compatibility_tool_names(list_installed_ctools(self.install_dir))
 
         self.ui.tableGames.setRowCount(len(games))
@@ -69,4 +69,4 @@ class PupguiGameListDialog(QObject):
 
     def update_ctool(self, ctool_name: str, game_id: str = '0'):
         install_loc = get_install_location_from_directory_name(self.install_dir)
-        steam_update_ctool(int(game_id), ctool_name, vdf_dir=install_loc.get('vdf_dir'))
+        steam_update_ctool(int(game_id), ctool_name, steam_config_folder=install_loc.get('vdf_dir'))

@@ -9,10 +9,10 @@ class PupguiCtBatchUpdateDialog(QDialog):
 
     batch_update_complete = Signal(bool)
 
-    def __init__(self, parent=None, games=[], vdf_dir=''):
+    def __init__(self, parent=None, games=[], steam_config_folder=''):
         super(PupguiCtBatchUpdateDialog, self).__init__(parent)
         self.games = games
-        self.vdf_dir = vdf_dir
+        self.steam_config_folder = steam_config_folder
 
         self.ctools = sort_compatibility_tool_names(list_installed_ctools(install_directory()), reverse=True)
 
@@ -43,4 +43,4 @@ class PupguiCtBatchUpdateDialog(QDialog):
     
     def update_games_to_ctool(self, ctool):
         for game in self.games:
-            steam_update_ctool(game, ctool, self.vdf_dir)
+            steam_update_ctool(game, ctool, self.steam_config_folder)

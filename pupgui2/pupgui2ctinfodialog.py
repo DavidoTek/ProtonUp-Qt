@@ -79,6 +79,6 @@ class PupguiCtInfoDialog(QObject):
                 open_webbrowser_thread(STEAM_APP_PAGE_URL + steam_game_id)
 
     def btn_batch_update_clicked(self):
-        vdf_dir = self.install_loc.get('vdf_dir')
-        ctbu_dialog = PupguiCtBatchUpdateDialog(parent=self.ui, games=self.games, vdf_dir=vdf_dir)
+        steam_config_folder = self.install_loc.get('vdf_dir')
+        ctbu_dialog = PupguiCtBatchUpdateDialog(parent=self.ui, games=self.games, steam_config_folder=steam_config_folder)
         ctbu_dialog.batch_update_complete.connect(self.update_game_list)
