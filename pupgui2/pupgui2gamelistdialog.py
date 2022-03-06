@@ -12,6 +12,8 @@ from util import get_install_location_from_directory_name
 
 class PupguiGameListDialog(QObject):
 
+    game_property_changed = Signal(bool)
+
     def __init__(self, pupgui2_base_dir, install_dir, parent=None):
         super(PupguiGameListDialog, self).__init__(parent)
         self.pupgui2_base_dir = pupgui2_base_dir
@@ -58,7 +60,7 @@ class PupguiGameListDialog(QObject):
             if game.get('compat_tool') not in ctools:
                 combo.addItem(game.get('compat_tool'))
             combo.setCurrentText(game.get('compat_tool'))
-            # ToDo: connect currentTextChanged to update_tool ?
+            combo.currentTextChanged.connect(lambda text,id=game.get('id'): self.update_ctool(text, id))
             self.ui.tableGames.setCellWidget(i, 1, combo)
             game_id_table_lables.append(game.get('id'))
             i += 1
@@ -70,3 +72,4 @@ class PupguiGameListDialog(QObject):
     def update_ctool(self, ctool_name: str, game_id: str = '0'):
         install_loc = get_install_location_from_directory_name(self.install_dir)
         steam_update_ctool(int(game_id), ctool_name, steam_config_folder=install_loc.get('vdf_dir'))
+        self.game_property_changed.emit(True)
