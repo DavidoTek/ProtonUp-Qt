@@ -269,7 +269,9 @@ def get_steam_app_list(steam_config_folder):
             for a in apps:
                 if int(a.get('id', -1)) in game_names:
                     a['game_name'] = game_names.get(int(a.get('id', -1)))
-                    a['type'] = 'game'  # ToDo: Check if tool or game
+                    # Check if game or tool
+                    if 'steamworks' not in a['game_name'].lower() and 'proton' not in a['game_name'].lower():
+                        a['type'] = 'game'
     except Exception as e:
         print('Error: Could not get a list of all Steam apps:', e)
     
