@@ -19,6 +19,7 @@ from pupgui2aboutdialog import PupguiAboutDialog
 from pupgui2ctinfodialog import PupguiCtInfoDialog
 from gamepadinputworker import GamepadInputWorker
 from pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
+from pupgui2gamelistdialog import PupguiGameListDialog
 
 
 class InstallWineThread(threading.Thread):
@@ -98,6 +99,7 @@ class MainWindow(QObject):
         self.ui.btnManageInstallLocations.clicked.connect(self.btn_manage_install_locations_clicked)
         self.ui.btnAddVersion.clicked.connect(self.btn_add_version_clicked)
         self.ui.btnRemoveSelected.clicked.connect(self.btn_remove_selcted_clicked)
+        self.ui.btnShowGameList.clicked.connect(self.btn_show_game_list_clicked)
         self.ui.btnAbout.clicked.connect(self.btn_about_clicked)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
         self.ui.listInstalledVersions.itemDoubleClicked.connect(self.list_installed_versions_item_double_clicked)
@@ -226,6 +228,10 @@ class MainWindow(QObject):
         
         self.ui.statusBar().showMessage(self.tr('Removed selected versions.'))
         self.update_ui()
+
+    def btn_show_game_list_clicked(self):
+        gl_dialog = PupguiGameListDialog(self.pupgui2_base_dir, install_directory(), self.ui)
+        gl_dialog.game_property_changed.connect(self.update_ui)
 
     def btn_about_clicked(self):
         PupguiAboutDialog(self.pupgui2_base_dir, self.ui)

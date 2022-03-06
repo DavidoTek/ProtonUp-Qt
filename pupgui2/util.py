@@ -212,17 +212,17 @@ def remove_ctool(ver, install_dir):
     return False
 
 
-def get_steam_games_using_compat_tool(ver, vdf_dir):
+def get_steam_games_using_compat_tool(ver, steam_config_folder):
     """
     Get all games using a specified compatibility tool from Steam config.vdf
     'ver' should be the same as the internal name specified in compatibilitytool.vdf (Matches folder name in most cases)
     Return Type: str[]
     """
+    config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
     tools = []
     
     try:
-        vdf_file = os.path.expanduser(vdf_dir)
-        d = vdf.load(open(vdf_file))
+        d = vdf.load(open(config_vdf_file))
         c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
 
         for t in c:
@@ -238,35 +238,58 @@ def get_steam_games_using_compat_tool(ver, vdf_dir):
     return tools
 
 
-def get_steam_game_list(vdf_dir):
+def get_steam_app_list(steam_config_folder):
+    """
+    Returns a list of Steam apps and optionally game names and the compatibility tool they are using
+    steam_config_folder = e.g. '~/.steam/root/config'
+    Return Type: dict[]
+        Content: 'id', 'libraryfolder_id'
+        Optional-Content: 'game_name', 'compat_tool', 'type'
+    """
+    libraryfolders_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'libraryfolders.vdf')
+    config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
+
+    apps = []
+    app_ids_str = []
+
+    try:
+        v = vdf.load(open(libraryfolders_vdf_file))
+        c = vdf.load(open(config_vdf_file)).get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
+        for fid in v.get('libraryfolders'):
+            if 'apps' not in v.get('libraryfolders').get(fid):
+                continue
+            for appid in v.get('libraryfolders').get(fid).get('apps'):
+                app = {'id': str(appid), 'libraryfolder_id': str(fid)}
+                if appid in c:
+                    app['compat_tool'] = c.get(appid).get('name')
+                apps.append(app)
+                app_ids_str.append(str(appid))
+            
+            game_names = get_steam_game_names_by_ids(app_ids_str)
+            for a in apps:
+                if int(a.get('id', -1)) in game_names:
+                    a['game_name'] = game_names.get(int(a.get('id', -1)))
+                    # Check if game or tool
+                    if 'steamworks' not in a['game_name'].lower() and 'proton' not in a['game_name'].lower():
+                        a['type'] = 'game'
+    except Exception as e:
+        print('Error: Could not get a list of all Steam apps:', e)
+    
+    return apps
+
+
+def get_steam_game_list(steam_config_folder):
     """
     Returns a list of Steam games and which compatibility tools they are using.
-    (Only includes games which override the default compatibility tool. ToDo: Include all + natives)
     Return Type: dict[]
         Content: 'id', 'compat_tool', 'game_name'
     """
     games = []
-    game_ids_str = []
-    try:
-        vdf_file = os.path.expanduser(vdf_dir)
-        d = vdf.load(open(vdf_file))
-        c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
+    apps = get_steam_app_list(steam_config_folder)
 
-        for t in c:
-            x = c.get(str(t))
-            if x is None:
-                continue
-            games.append({'id': str(t), 'compat_tool': x.get('name')})
-            game_ids_str.append(str(t))
-
-        game_names = get_steam_game_names_by_ids(game_ids_str)
-        for g in games:
-            if g.get('id') == '0':
-                g['game_name'] = 'Steam'
-            else:
-                g['game_name'] = game_names.get(int(g.get('id', -1)), '')
-    except Exception as e:
-        print('Error: Could not get a list of all Steam games:', e)
+    for app in apps:
+        if app.get('type') == 'game':
+            games.append(app)
 
     return games
 
@@ -350,17 +373,17 @@ def get_steam_game_names_by_ids(ids_str=[]):
     return names
 
 
-def steam_update_ctool(game_id=0, new_ctool=None, vdf_dir=''):
+def steam_update_ctool(game_id=0, new_ctool=None, steam_config_folder=''):
     """
     Change compatibility tool for 'game_id' to 'new_ctool' in Steam config vdf
     Return Type: bool
     """
-    if not os.path.exists(vdf_dir):
+    config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
+    if not os.path.exists(config_vdf_file):
         return False
     
     try:
-        vdf_file = os.path.expanduser(vdf_dir)
-        d = vdf.load(open(vdf_file))
+        d = vdf.load(open(config_vdf_file))
         c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
 
         if str(game_id) in c:
@@ -369,11 +392,12 @@ def steam_update_ctool(game_id=0, new_ctool=None, vdf_dir=''):
             else:
                 c.get(str(game_id))['name'] = str(new_ctool)
         else:
-            return False
+            c[str(game_id)] = {"name": str(new_ctool), "config": "", "priority": "250"}
         
-        vdf.dump(d, open(vdf_file, 'w'), pretty=True)
+        vdf.dump(d, open(config_vdf_file, 'w'), pretty=True)
     except Exception as e:
-        print('Error, could not update Steam compatibility tool to', new_ctool, 'for game', game_id, ':', e, ', vdf_dir=', vdf_dir)
+        print('Error, could not update Steam compatibility tool to', new_ctool, 'for game',game_id, ':',
+              e, ', vdf:', config_vdf_file)
         return False
     return True
 
