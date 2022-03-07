@@ -54,6 +54,16 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.6.0" date="2022-03-07">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Added german, finnish and spanish translations</li>
+          <li>Added a game list dialog</li>
+        </ul>
+        <p>Few bugfixes</p>
+      </description>
+    </release>
     <release version="2.5.0" date="2022-01-12">
       <description>
         <p>Changes:</p>
