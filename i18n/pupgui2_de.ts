@@ -4,59 +4,59 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="148"/>
+        <location filename="../pupgui2/pupgui2.py" line="155"/>
         <source>unused</source>
         <translation>unbenutzt</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="171"/>
+        <location filename="../pupgui2/pupgui2.py" line="178"/>
         <source>Fetching releases...</source>
         <translation>Erneuere Veröffentlichungen...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="182"/>
+        <location filename="../pupgui2/pupgui2.py" line="189"/>
         <source>Could not install {current_compat_tool_name}...</source>
         <translation>Konnte {current_compat_tool_name} nicht installieren...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="188"/>
+        <location filename="../pupgui2/pupgui2.py" line="195"/>
         <source>Downloading {current_compat_tool_name}...</source>
         <translation>Lade {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="190"/>
+        <location filename="../pupgui2/pupgui2.py" line="197"/>
         <source>Extracting {current_compat_tool_name}...</source>
         <translation>Entpacke {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="192"/>
+        <location filename="../pupgui2/pupgui2.py" line="199"/>
         <source>Installed {current_compat_tool_name}.</source>
         <translation>{current_compat_tool_name} installiert.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="215"/>
+        <location filename="../pupgui2/pupgui2.py" line="222"/>
         <source>Remove compatibility tools?</source>
         <translation>Kompatibilitätstool entfernen?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="215"/>
+        <location filename="../pupgui2/pupgui2.py" line="222"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>Sie versuchen ein Kompatibilitätstool zu entfernen,
 welches von {n} Spiel(en) verwendet wird. Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="222"/>
+        <location filename="../pupgui2/pupgui2.py" line="229"/>
         <source>Removed selected versions.</source>
         <translation>Gewählte Versionen entfernt.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="234"/>
+        <location filename="../pupgui2/pupgui2.py" line="245"/>
         <source>Changed install directory to {install_dir}.</source>
         <translation>Installationsort zu {install_dir} geändert.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="245"/>
+        <location filename="../pupgui2/pupgui2.py" line="256"/>
         <source>Info: You can get Proton-GE / Boxtron directly from Flathub!</source>
         <translation>Info: Proton-GE / Boxtron ist direkt auf Flathub verfügbar!</translation>
     </message>
@@ -101,12 +101,22 @@ welches von {n} Spiel(en) verwendet wird. Fortfahren?</translation>
         <translation>Auswahl löschen</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="141"/>
+        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="128"/>
+        <source>Show info</source>
+        <translation>Info zeigen</translation>
+    </message>
+    <message>
+        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="165"/>
+        <source>Show game list</source>
+        <translation>Spieleliste</translation>
+    </message>
+    <message>
+        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="172"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="148"/>
+        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="179"/>
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
@@ -198,7 +208,7 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
 <context>
     <name>PupguiCtInfoDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="52"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="54"/>
         <source>todo</source>
         <translation>todo</translation>
     </message>
@@ -246,25 +256,48 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
         <translation>Eigener Installationsort</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="26"/>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="47"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="29"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="50"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="27"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="30"/>
         <source>Directory:</source>
         <translation>Ordner:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="28"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="31"/>
         <source>Launcher:</source>
         <translation>Launcher:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="45"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="48"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
+    </message>
+</context>
+<context>
+    <name>PupguiGameListDialog</name>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="44"/>
+        <source>Game</source>
+        <translation>Spiel</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="44"/>
+        <source>Compatibility Tool</source>
+        <translation>Kompatibilitätstool</translation>
+    </message>
+    <message>
+        <location filename="../share/pupgui2/ui/pupgui2_gamelistdialog.ui" line="17"/>
+        <source>Game List</source>
+        <translation>Spieleliste</translation>
+    </message>
+    <message>
+        <location filename="../share/pupgui2/ui/pupgui2_gamelistdialog.ui" line="53"/>
+        <source>Close</source>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
