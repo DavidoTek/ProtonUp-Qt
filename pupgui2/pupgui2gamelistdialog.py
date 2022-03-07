@@ -47,7 +47,7 @@ class PupguiGameListDialog(QObject):
     def update_game_list(self):
         install_loc = get_install_location_from_directory_name(self.install_dir)
         games = get_steam_game_list(steam_config_folder=install_loc.get('vdf_dir'))
-        ctools = sort_compatibility_tool_names(list_installed_ctools(self.install_dir))
+        ctools = sort_compatibility_tool_names(list_installed_ctools(self.install_dir), reverse=True)
 
         self.ui.tableGames.setRowCount(len(games))
 
