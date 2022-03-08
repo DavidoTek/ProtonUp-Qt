@@ -26,7 +26,8 @@ TEMP_DIR = '/tmp/pupgui2.a70200/'
 _POSSIBLE_STEAM_ROOTS = ['~/.local/share/Steam', '~/.steam/root', '~/.steam/steam', '~/.steam/debian-installation']
 _STEAM_ROOT = _POSSIBLE_STEAM_ROOTS[0]
 for steam_root in _POSSIBLE_STEAM_ROOTS:
-    if os.path.exists(os.path.expanduser(steam_root)):
+    ct_dir = os.path.join(os.path.expanduser(steam_root), 'compatibilitytools.d')
+    if os.path.exists(ct_dir):
         _STEAM_ROOT = steam_root
         break
 
