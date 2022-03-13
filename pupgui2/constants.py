@@ -37,7 +37,9 @@ POSSIBLE_INSTALL_LOCATIONS = [
     {'install_dir': '~/.local/share/lutris/runners/wine/', 'display_name': 'Lutris', 'launcher': 'lutris', 'icon': 'lutris'},
     {'install_dir': '~/.var/app/net.lutris.Lutris/data/lutris/runners/wine/', 'display_name': 'Lutris Flatpak', 'launcher': 'lutris', 'icon': 'lutris'},
     {'install_dir': '~/.config/heroic/tools/wine/', 'display_name': 'Heroic Wine', 'launcher': 'heroicwine', 'icon': 'heroic'},
-    {'install_dir': '~/.config/heroic/tools/proton/', 'display_name': 'Heroic Proton', 'launcher': 'heroicproton', 'icon': 'heroic'}
+    {'install_dir': '~/.config/heroic/tools/proton/', 'display_name': 'Heroic Proton', 'launcher': 'heroicproton', 'icon': 'heroic'},
+    {'install_dir': '~/.var/app/com.heroicgameslauncher.hgl/config/heroic/tools/wine/', 'display_name': 'Heroic Wine Flatpak', 'launcher': 'heroicwine', 'icon': 'heroic'},
+    {'install_dir': '~/.var/app/com.heroicgameslauncher.hgl/config/heroic/tools/proton/', 'display_name': 'Heroic Proton Flatpak', 'launcher': 'heroicproton', 'icon': 'heroic'}
 ]
 
 def PALETTE_DARK():
