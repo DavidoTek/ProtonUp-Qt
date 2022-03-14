@@ -115,6 +115,7 @@ class MainWindow(QObject):
         if os.getenv('PUPGUI2_DISABLE_GAMEPAD', '0') == '0':
             self.giw.start()
             self.giw.press_virtual_key.connect(self.press_virtual_key)
+        QApplication.instance().aboutToQuit.connect(self.giw.stop)
     
     def update_combo_install_location(self):
         self.updating_combo_install_location = True

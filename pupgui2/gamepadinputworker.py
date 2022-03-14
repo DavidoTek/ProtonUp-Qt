@@ -13,7 +13,7 @@ class GamepadInputWorker(QThread):
         try:
             import inputs
             
-            while True:
+            while not self.isInterruptionRequested():
                 events = inputs.get_gamepad()
                 for event in events:
                     if event.code == 'ABS_HAT0Y' or event.code == 'ABS_HAT0X':
@@ -51,3 +51,9 @@ class GamepadInputWorker(QThread):
                                 self.reset_pos = False
         except Exception as e:
             print('Gamepad error:', e)
+    
+    def stop(self):
+        self.requestInterruption()
+        self.setTerminationEnabled(True)
+        self.terminate()
+        self.wait()
