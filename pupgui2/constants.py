@@ -6,18 +6,12 @@ from PySide6.QtGui import QColor, QPalette
 APP_NAME = 'ProtonUp-Qt'
 APP_VERSION = '2.6.0'
 APP_GHAPI_URL = 'https://api.github.com/repos/Davidotek/ProtonUp-qt/releases'
+DAVIDOTEK_KOFI_URL = 'https://ko-fi.com/davidotek'
+PROTONUPQT_GITHUB_URL = 'https://github.com/DavidoTek/ProtonUp-Qt'
 ABOUT_TEXT = '''\
-GUI for installing/updating Wine/Proton based compatibility tools.<br />
-<br />
-{APP_NAME} v{APP_VERSION} by DavidoTek: <a href="https://github.com/DavidoTek/ProtonUp-Qt">https://github.com/DavidoTek/ProtonUp-Qt</a><br />
-Inspired by/partly based on AUNaseef's protonup.<br />
-<br />
-Copyright (C) 2021-2022 DavidoTek, licensed under GPLv3<br />
-<br />
-<b>Support ProtonUp-Qt development on <a href="https://github.com/DavidoTek/ProtonUp-Qt">GitHub</a> \
-or by <a href="https://ko-fi.com/davidotek">donating on Ko-fi</a>.</b>
-<br />\
-'''.format(APP_NAME=APP_NAME, APP_VERSION=APP_VERSION)
+{APP_NAME} v{APP_VERSION} by DavidoTek: <a href="{PROTONUPQT_GITHUB_URL}">https://github.com/DavidoTek/ProtonUp-Qt</a><br />
+Copyright (C) 2021-2022 DavidoTek, licensed under GPLv3
+'''.format(APP_NAME=APP_NAME, APP_VERSION=APP_VERSION, PROTONUPQT_GITHUB_URL=PROTONUPQT_GITHUB_URL)
 
 CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')
 TEMP_DIR = '/tmp/pupgui2.a70200/'

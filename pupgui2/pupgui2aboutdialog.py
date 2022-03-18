@@ -6,6 +6,7 @@ from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
 from constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT
+from constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
 from util import config_theme, apply_dark_theme
 from util import download_steam_app_list_thread
 from util import open_webbrowser_thread
@@ -40,9 +41,23 @@ class PupguiAboutDialog(QObject):
         translator_text = QApplication.instance().translate('translator-text', 'Translated by DavidoTek')
 
         self.ui.lblAppIcon.setPixmap(QIcon.fromTheme('net.davidotek.pupgui2').pixmap(QSize(96, 96)))
-        self.ui.lblAboutText.setText(ABOUT_TEXT + '\n' + translator_text)
-        self.ui.lblAboutText.setTextFormat(Qt.RichText)
-        self.ui.lblAboutText.setOpenExternalLinks(True)
+
+        self.ui.lblAboutTranslator.setText(translator_text)
+        self.ui.lblAboutVersion.setTextFormat(Qt.RichText)
+        self.ui.lblAboutVersion.setOpenExternalLinks(True)
+        self.ui.lblAboutVersion.setText(ABOUT_TEXT)
+        
+        try:
+            p = QPixmap(os.path.join(self.pupgui2_base_dir, 'img/kofi_button_blue.png'))
+            self.ui.btnDonate.setIcon(QIcon(p))
+            self.ui.btnDonate.setIconSize(p.rect().size())
+            self.ui.btnDonate.setFlat(True)
+        finally:
+            self.ui.btnDonate.setText('')
+        self.ui.btnDonate.clicked.connect(self.btn_donate_clicked)
+
+        self.ui.btnGitHub.clicked.connect(self.btn_github_clicked)
+
         self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)')])
         self.ui.comboColorTheme.setCurrentIndex(['light', 'dark', 'system', None].index(config_theme()))
 
@@ -63,6 +78,12 @@ class PupguiAboutDialog(QObject):
 
     def btn_aboutqt_clicked(self):
         QMessageBox.aboutQt(self.parent)
+    
+    def btn_donate_clicked(self):
+        open_webbrowser_thread(DAVIDOTEK_KOFI_URL)
+    
+    def btn_github_clicked(self):
+        open_webbrowser_thread(PROTONUPQT_GITHUB_URL)
 
     def btn_check_for_updates_clicked(self):
         if os.getenv('APPIMAGE'):
