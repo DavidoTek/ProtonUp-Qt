@@ -145,9 +145,9 @@ class MainWindow(QObject):
 
         ctools = sort_compatibility_tool_names(list_installed_ctools(install_directory()))
 
+        install_loc = get_install_location_from_directory_name(install_directory())
         for ver in ctools:
             # Launcher specific
-            install_loc = get_install_location_from_directory_name(install_directory())
             if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
                 games = get_steam_games_using_compat_tool(ver.split(' - ')[0], install_loc.get('vdf_dir'))
                 if len(games) == 0:
@@ -162,6 +162,11 @@ class MainWindow(QObject):
             self.ui.comboInstallLocation.setEnabled(True)
 
         self.show_launcher_specific_information()
+
+        if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
+            self.ui.btnShowGameList.setVisible(True)
+        else:
+            self.ui.btnShowGameList.setVisible(False)
 
     def install_compat_tool(self, compat_tool):
         """ install compatibility tool (called by install dialog signal) """
