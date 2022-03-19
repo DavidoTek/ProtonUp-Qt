@@ -4,59 +4,59 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="155"/>
+        <location filename="../pupgui2/pupgui2.py" line="156"/>
         <source>unused</source>
         <translation>käyttämätön</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="178"/>
+        <location filename="../pupgui2/pupgui2.py" line="179"/>
         <source>Fetching releases...</source>
         <translation>Noudetaan julkaisut...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="189"/>
+        <location filename="../pupgui2/pupgui2.py" line="190"/>
         <source>Could not install {current_compat_tool_name}...</source>
         <translation>Ei voitu asentaa {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="195"/>
+        <location filename="../pupgui2/pupgui2.py" line="196"/>
         <source>Downloading {current_compat_tool_name}...</source>
         <translation>Ladataan {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="197"/>
+        <location filename="../pupgui2/pupgui2.py" line="198"/>
         <source>Extracting {current_compat_tool_name}...</source>
         <translation>Puretaan {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="199"/>
+        <location filename="../pupgui2/pupgui2.py" line="200"/>
         <source>Installed {current_compat_tool_name}.</source>
         <translation>Asennetaan {current_compat_tool_name}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="222"/>
+        <location filename="../pupgui2/pupgui2.py" line="223"/>
         <source>Remove compatibility tools?</source>
         <translation>Poistetaanko yhteensopivuustyökalut?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="222"/>
+        <location filename="../pupgui2/pupgui2.py" line="223"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>Yrität poistaa yhteensopivuustyökaluja
 jotka ovat käytössä {n} pelien kanssa. Jatketaanko?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="229"/>
+        <location filename="../pupgui2/pupgui2.py" line="230"/>
         <source>Removed selected versions.</source>
         <translation>Valitut versiot poistettiin.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="245"/>
+        <location filename="../pupgui2/pupgui2.py" line="246"/>
         <source>Changed install directory to {install_dir}.</source>
         <translation>Asennuskansio vaihdettiin kohteeseen {install_dir}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="256"/>
+        <location filename="../pupgui2/pupgui2.py" line="257"/>
         <source>Info: You can get Proton-GE / Boxtron directly from Flathub!</source>
         <translation>Tietoisku: voit noutaa Proton-GE:n/Boxtron:in suoraan Flathub.ista!</translation>
     </message>
@@ -103,12 +103,12 @@ jotka ovat käytössä {n} pelien kanssa. Jatketaanko?</translation>
     <message>
         <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="128"/>
         <source>Show info</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä tiedot</translation>
     </message>
     <message>
         <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="165"/>
         <source>Show game list</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä pelilista</translation>
     </message>
     <message>
         <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="172"/>
@@ -124,44 +124,44 @@ jotka ovat käytössä {n} pelien kanssa. Jatketaanko?</translation>
 <context>
     <name>PupguiAboutDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="46"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>light</source>
         <translation>vaalea</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="46"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>dark</source>
         <translation>tumma</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="46"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>system (restart required)</source>
         <translation>järjestelmä (uudelleenkäynnistys vaaditaan)</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="55"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="70"/>
         <source>Update Steam game list</source>
         <translation>Päivitä Steam-pelien luettelo</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="76"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="97"/>
         <source>Update available</source>
         <translation>Päivitys on saatavilla</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="78"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="99"/>
         <source>There is a newer version available.
 You are running {APP_VERSION} but {newest_version} is available.</source>
         <translation>Uudempi julkaisu on tarjolla.
 Käytössäsi oleva julkaisu on {APP_VERSION} mutta {newest_version} on saatavissa.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="81"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="102"/>
         <source>Up to date</source>
         <translation>Ajan tasalla</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="81"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="102"/>
         <source>You are running the newest version!</source>
         <translation>Käytössäsi on tuorein julkaisu!</translation>
     </message>
@@ -171,22 +171,32 @@ Käytössäsi oleva julkaisu on {APP_VERSION} mutta {newest_version} on saatavis
         <translation>Ilmoite</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="65"/>
+        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="40"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="80"/>
+        <source>Support development on GitHub</source>
+        <translation>Tukea kehitystä GitHubissa</translation>
+    </message>
+    <message>
+        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="111"/>
         <source>Color Theme:</source>
         <translation>Väriaiheen malli:</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="86"/>
+        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="132"/>
         <source>Check for updates</source>
         <translation>Tarkista päivitykset</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="106"/>
+        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="152"/>
         <source>About Qt</source>
         <translation>Tietoja Qt:sta</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="113"/>
+        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="159"/>
         <source>Close</source>
         <translation>Sulje</translation>
     </message>
@@ -282,22 +292,22 @@ Käytössäsi oleva julkaisu on {APP_VERSION} mutta {newest_version} on saatavis
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="44"/>
         <source>Game</source>
-        <translation type="unfinished"></translation>
+        <translation>Peli</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="44"/>
         <source>Compatibility Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhteensopivuustyökalu</translation>
     </message>
     <message>
         <location filename="../share/pupgui2/ui/pupgui2_gamelistdialog.ui" line="17"/>
         <source>Game List</source>
-        <translation type="unfinished"></translation>
+        <translation>Pelilista</translation>
     </message>
     <message>
         <location filename="../share/pupgui2/ui/pupgui2_gamelistdialog.ui" line="53"/>
         <source>Close</source>
-        <translation type="unfinished">Sulje</translation>
+        <translation>Sulje</translation>
     </message>
 </context>
 <context>
@@ -336,9 +346,9 @@ Käytössäsi oleva julkaisu on {APP_VERSION} mutta {newest_version} on saatavis
 <context>
     <name>translator-text</name>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="42"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="43"/>
         <source>Translated by DavidoTek</source>
-        <translation>kääntänyt heidiwenger</translation>
+        <translation>kääntänyt heidiwenger, etc</translation>
     </message>
 </context>
 </TS>
