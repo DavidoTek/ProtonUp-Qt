@@ -4,7 +4,7 @@
   
   <name>ProtonUp-Qt</name>
   <summary>Install Wine- and Proton-based compatibility tools</summary>
-  <summary lang="de_DE">Wine und Proton Kompatibilitätstools installieren</summary>
+  <summary xml:lang="de_DE">Wine und Proton Kompatibilitätstools installieren</summary>
 
   <keywords>
     <keyword>Proton-GE</keyword>
