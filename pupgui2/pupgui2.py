@@ -37,7 +37,8 @@ class InstallWineThread(threading.Thread):
                 self.install_compat_tool(compat_tool)
             except Exception as e:
                 print(e)
-            self.main_window.pending_downloads.remove(compat_tool)
+            if compat_tool in self.main_window.pending_downloads:
+                self.main_window.pending_downloads.remove(compat_tool)
             self.main_window.ui.txtActiveDownloads.setText(str(len(self.main_window.pending_downloads)))
 
     def install_compat_tool(self, compat_tool):
@@ -68,6 +69,7 @@ class MainWindow(QObject):
         self.combo_install_location_index_map = []
         self.updating_combo_install_location = False
         self.pending_downloads = []
+        self.current_compat_tool_name = ""
         
         self.load_ui()
         self.setup_ui()
@@ -191,6 +193,9 @@ class MainWindow(QObject):
         if len(self.pending_downloads):
             compat_tool = self.pending_downloads[0]
             self.current_compat_tool_name = compat_tool['name'] + ' ' + compat_tool['version']
+        if value == -2:
+            self.ui.statusBar().showMessage(self.tr('Download canceled.'))
+            return
         if value == -1:
             self.ui.statusBar().showMessage(self.tr('Could not install {current_compat_tool_name}...').format(current_compat_tool_name=self.current_compat_tool_name))
             return
@@ -243,7 +248,13 @@ class MainWindow(QObject):
         PupguiAboutDialog(self.pupgui2_base_dir, self.ui)
 
     def btn_close_clicked(self):
-        self.ui.close()
+        if len(self.pending_downloads) == 0:
+            self.ui.close()
+        else:
+            r = QMessageBox.question(self.ui, self.tr('Exit?'), self.tr('There are pending downloads.\nCancel and exit anyway?'))
+            if r == QMessageBox.StandardButton.Yes:
+                self.cancel_download(cancel_all=True)
+                self.ui.close()
 
     def combo_install_location_current_index_changed(self):
         if not self.updating_combo_install_location:
@@ -289,6 +300,17 @@ class MainWindow(QObject):
         QCoreApplication.postEvent(QApplication.focusWidget(), e)
         e = QKeyEvent(QEvent.KeyRelease, key, mod)
         QCoreApplication.postEvent(QApplication.focusWidget(), e)
+
+    def cancel_download(self, cancel_all=False):
+        if len(self.pending_downloads) == 0:
+            return
+        if cancel_all:
+            self.pending_downloads = []
+        else:
+            self.pending_downloads = self.pending_downloads[1:]
+        for ctobj in self.ct_loader.get_ctobjs():
+            ctobj['installer'].download_canceled = True
+        self.update_ui()
 
 
 if __name__ == '__main__':

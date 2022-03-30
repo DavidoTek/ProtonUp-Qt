@@ -20,6 +20,15 @@ class CtInstaller(QObject):
 
     def __init__(self):
         super(CtInstaller, self).__init__()
+        self.p_download_canceled = False
+    
+    def get_download_canceled(self):
+        return self.p_download_canceled
+
+    def set_download_canceled(self, val):
+        self.p_download_canceled = val
+    
+    download_canceled = Property(bool, get_download_canceled, set_download_canceled)
     
     def __set_download_progress_percent(self, value : int):
         if self.p_download_progress_percent == value:
@@ -45,6 +54,10 @@ class CtInstaller(QObject):
         os.makedirs(os.path.dirname(destination), exist_ok=True)
         with open(destination, 'wb') as dest:
             for chunk in file.iter_content(chunk_size=self.BUFFER_SIZE):
+                if self.download_canceled:
+                    self.download_canceled = False
+                    self.__set_download_progress_percent(-2) # -2 download canceled
+                    return False
                 if chunk:
                     dest.write(chunk)
                     dest.flush()
