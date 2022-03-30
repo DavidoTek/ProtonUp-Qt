@@ -308,6 +308,10 @@ if __name__ == '__main__':
     translator = QTranslator()
     if translator.load(QLocale(), 'pupgui2', '_', os.path.join(pupgui2_base_dir, 'i18n')):
         app.installTranslator(translator)
+    
+    qtTranslator = QTranslator()
+    if qtTranslator.load(QLocale(), 'qt', '_', QLibraryInfo.location(QLibraryInfo.TranslationsPath)):
+        app.installTranslator(qtTranslator)
 
     print(f'{APP_NAME} {APP_VERSION} by DavidoTek. Base directory: {pupgui2_base_dir}')
     print_system_information()
