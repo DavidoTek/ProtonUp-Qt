@@ -4,59 +4,76 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="156"/>
+        <location filename="../pupgui2/pupgui2.py" line="158"/>
         <source>unused</source>
         <translation>unbenutzt</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="179"/>
+        <location filename="../pupgui2/pupgui2.py" line="186"/>
         <source>Fetching releases...</source>
         <translation>Erneuere Veröffentlichungen...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="190"/>
+        <location filename="../pupgui2/pupgui2.py" line="197"/>
+        <source>Download canceled.</source>
+        <translation>Download abgebrochen.</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2.py" line="200"/>
         <source>Could not install {current_compat_tool_name}...</source>
         <translation>Konnte {current_compat_tool_name} nicht installieren...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="196"/>
+        <location filename="../pupgui2/pupgui2.py" line="206"/>
         <source>Downloading {current_compat_tool_name}...</source>
         <translation>Lade {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="198"/>
+        <location filename="../pupgui2/pupgui2.py" line="208"/>
         <source>Extracting {current_compat_tool_name}...</source>
         <translation>Entpacke {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="200"/>
+        <location filename="../pupgui2/pupgui2.py" line="210"/>
         <source>Installed {current_compat_tool_name}.</source>
         <translation>{current_compat_tool_name} installiert.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="223"/>
+        <location filename="../pupgui2/pupgui2.py" line="233"/>
         <source>Remove compatibility tools?</source>
         <translation>Kompatibilitätstool entfernen?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="223"/>
+        <location filename="../pupgui2/pupgui2.py" line="233"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>Sie versuchen ein Kompatibilitätstool zu entfernen,
 welches von {n} Spiel(en) verwendet wird. Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="230"/>
+        <location filename="../pupgui2/pupgui2.py" line="240"/>
         <source>Removed selected versions.</source>
         <translation>Gewählte Versionen entfernt.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="246"/>
+        <location filename="../pupgui2/pupgui2.py" line="254"/>
+        <source>Exit?</source>
+        <translation>Beenden?</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2.py" line="254"/>
+        <source>There are pending downloads.
+Cancel and exit anyway?</source>
+        <translation>Es sind Downloads am laufen.
+Abbrechen und beenden?</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2.py" line="262"/>
         <source>Changed install directory to {install_dir}.</source>
         <translation>Installationsort zu {install_dir} geändert.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="257"/>
+        <location filename="../pupgui2/pupgui2.py" line="273"/>
         <source>Info: You can get Proton-GE / Boxtron directly from Flathub!</source>
         <translation>Info: Proton-GE / Boxtron ist direkt auf Flathub verfügbar!</translation>
     </message>
