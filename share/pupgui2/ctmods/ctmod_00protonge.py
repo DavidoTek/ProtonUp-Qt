@@ -7,6 +7,8 @@ from PySide6.QtCore import *
 
 CT_NAME = 'Proton-GE'
 CT_LAUNCHERS = ['steam', 'heroicproton']
+CT_DESCRIPTION = {}
+CT_DESCRIPTION['en'] = '''Steam compatibility tool for running Windows games with improvements over Valve's default Proton.<br/><br/><b>Use this when you don't know what to choose.</b>'''
 
 
 class CtInstaller(QObject):

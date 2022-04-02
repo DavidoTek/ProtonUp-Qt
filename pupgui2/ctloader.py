@@ -31,6 +31,7 @@ class CtLoader:
                     self.ctobjs.append({
                         'name': ctmod.CT_NAME,
                         'launchers': ctmod.CT_LAUNCHERS,
+                        'description': ctmod.CT_DESCRIPTION,
                         'installer': ctmod.CtInstaller()
                     })
                     print('Loaded ctmod', ctmod.CT_NAME)

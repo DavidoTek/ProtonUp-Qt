@@ -8,6 +8,8 @@ from PySide6.QtCore import *
 
 CT_NAME = 'Kron4ek Wine-Builds Vanilla'
 CT_LAUNCHERS = ['lutris']
+CT_DESCRIPTION = {}
+CT_DESCRIPTION['en'] = '''Compatibility tool "Wine" to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.'''
 
 
 class CtInstaller(QObject):

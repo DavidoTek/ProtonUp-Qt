@@ -7,6 +7,8 @@ from PySide6.QtCore import *
 
 CT_NAME = 'Wine-GE'
 CT_LAUNCHERS = ['lutris', 'heroicwine']
+CT_DESCRIPTION = {}
+CT_DESCRIPTION['en'] = '''Compatibility tool "Wine" to run Windows games on Linux. Based on Valve Proton Experimental's bleeding-edge Wine, built for Lutris.<br/><br/><b>Use this when you don't know what to choose.</b>'''
 
 
 class CtInstaller(QObject):

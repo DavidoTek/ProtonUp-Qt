@@ -31,11 +31,16 @@ class PupguiInstallDialog(QDialog):
         button_box.addWidget(self.btnCancel)
         self.comboCompatTool = QComboBox()
         self.comboCompatToolVersion = QComboBox()
+        self.txtDescription = QTextEdit()
+        self.txtDescription.setReadOnly(True)
+        self.txtDescription.setMaximumHeight(95)
         vbox = QVBoxLayout()
         vbox.addWidget(QLabel(self.tr('Compatibility tool:')))
         vbox.addWidget(self.comboCompatTool)
         vbox.addWidget(QLabel(self.tr('Version:')))
         vbox.addWidget(self.comboCompatToolVersion)
+        vbox.addWidget(QLabel(self.tr('Description:')))
+        vbox.addWidget(self.txtDescription)
         vbox.addLayout(button_box)
         self.setLayout(vbox)
         self.btnInfo.clicked.connect(self.btn_info_clicked)
@@ -84,4 +89,16 @@ class PupguiInstallDialog(QDialog):
                     self.is_fetching_releases.emit(False)
                 t = threading.Thread(target=update_releases)
                 t.start()
+                self.update_description(ctobj)
                 return
+    
+    def update_description(self, ctobj):
+        """ get (translated) description and update description text """
+        app_lang = QLocale.languageToCode(QLocale().language())
+
+        if app_lang in ctobj['description']:
+            desc = ctobj['description'][app_lang]
+        else:
+            desc = ctobj['description']['en']
+        
+        self.txtDescription.setHtml(desc)

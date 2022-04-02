@@ -7,6 +7,8 @@ from PySide6.QtCore import *
 
 CT_NAME = 'Luxtorpeda'
 CT_LAUNCHERS = ['steam']
+CT_DESCRIPTION = {}
+CT_DESCRIPTION['en'] = '''Luxtorpeda provides Linux-native game engines for specific Windows-only games.'''
 
 
 class CtInstaller(QObject):
