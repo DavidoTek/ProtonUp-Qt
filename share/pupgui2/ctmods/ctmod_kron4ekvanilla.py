@@ -10,6 +10,7 @@ CT_NAME = 'Kron4ek Wine-Builds Vanilla'
 CT_LAUNCHERS = ['lutris']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Compatibility tool "Wine" to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.'''
+CT_DESCRIPTION['de'] = '''Kompatibilitätstool "Wine" für Windows-Spiele unter Linux. Offizielle Version aus den WineHQ Quellen, kompiliert von Kron4ek.'''
 
 
 class CtInstaller(QObject):
