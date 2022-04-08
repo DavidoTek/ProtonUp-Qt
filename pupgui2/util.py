@@ -1,17 +1,18 @@
 import os, subprocess, shutil
 import sys
 import platform
-import threading, requests, json
+import threading
 import webbrowser
 import vdf
 from configparser import ConfigParser
+from steam.utils.appcache import parse_appinfo
+
 import PySide6
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 
 from constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK
-from constants import STEAM_API_GETAPPLIST_URL, LOCAL_STEAM_APPLIST_FILE
 
 
 def apply_dark_theme(app):
@@ -265,7 +266,7 @@ def get_steam_app_list(steam_config_folder):
                 apps.append(app)
                 app_ids_str.append(str(appid))
             
-            game_names = get_steam_game_names_by_ids(app_ids_str)
+            game_names = get_steam_game_names_by_ids(steam_config_folder, app_ids_str)
             for a in apps:
                 if int(a.get('id', -1)) in game_names:
                     a['game_name'] = game_names.get(int(a.get('id', -1)))
@@ -327,46 +328,26 @@ def sort_compatibility_tool_names(unsorted, reverse=False):
     return sorted_vers
 
 
-def download_steam_app_list_thread(force_download=False):
-    """
-    Download Steam app list in a separe thread
-    """
-    if os.path.exists(LOCAL_STEAM_APPLIST_FILE) and not force_download:
-        return
-    
-    if os.path.exists(LOCAL_STEAM_APPLIST_FILE):
-        os.remove(LOCAL_STEAM_APPLIST_FILE)
-
-    def _download_steam_app_list():
-        for i in range(0, 3): # try to download file, if download failed repeat (up to 3 times)
-            if os.path.exists(LOCAL_STEAM_APPLIST_FILE):
-                os.remove(LOCAL_STEAM_APPLIST_FILE)
-            r = requests.get(STEAM_API_GETAPPLIST_URL)
-            with open(LOCAL_STEAM_APPLIST_FILE, 'wb') as f:
-                f.write(r.content)
-            if os.path.exists(LOCAL_STEAM_APPLIST_FILE) and os.path.getsize(LOCAL_STEAM_APPLIST_FILE) > 5000000:
-                break
-
-    t = threading.Thread(target=_download_steam_app_list)
-    t.start()
-
-
-def get_steam_game_names_by_ids(ids_str=[]):
+def get_steam_game_names_by_ids(steam_config_folder, ids_str=[]):
     """
     Get steam game names by ids
     Return Type: dict[]
     """
+    appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
+    appinfo_file = os.path.realpath(appinfo_file)
     ids = []
     for id in ids_str:
         ids.append(int(id))
     names = {}
     try:
-        with open(LOCAL_STEAM_APPLIST_FILE) as f:
-            data = json.load(f)
-            steam_apps = data.get('applist').get('apps')
-            for steam_app in steam_apps:
+        with open(appinfo_file, 'rb') as f:
+            header, apps = parse_appinfo(f)
+            for steam_app in apps:
                 if steam_app.get('appid') in ids:
-                    names[steam_app.get('appid')] = steam_app.get('name')
+                    try:
+                        names[steam_app.get('appid')] = steam_app.get('data').get('appinfo').get('common').get('name')
+                    except:
+                        names[steam_app.get('appid')] = ''
                     ids.remove(steam_app.get('appid'))
                 if len(ids) == 0:
                     break

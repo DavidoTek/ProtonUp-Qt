@@ -8,7 +8,6 @@ from PySide6.QtUiTools import QUiLoader
 from constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT
 from constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
 from util import config_theme, apply_dark_theme
-from util import download_steam_app_list_thread
 from util import open_webbrowser_thread
 
 
@@ -67,7 +66,7 @@ class PupguiAboutDialog(QObject):
         self.ui.comboColorTheme.currentIndexChanged.connect(self.combo_color_theme_current_index_changed)
 
         if os.getenv('APPIMAGE') is None:
-            self.ui.btnCheckForUpdates.setText(self.tr('Update Steam game list'))
+            self.ui.btnCheckForUpdates.setVisible(False)
 
     def combo_color_theme_current_index_changed(self):
         config_theme(['light', 'dark', 'system'][self.ui.comboColorTheme.currentIndex()])
@@ -86,21 +85,19 @@ class PupguiAboutDialog(QObject):
         open_webbrowser_thread(PROTONUPQT_GITHUB_URL)
 
     def btn_check_for_updates_clicked(self):
-        if os.getenv('APPIMAGE'):
-            releases = requests.get(APP_GHAPI_URL + '?per_page=1').json()
-            if len(releases) == 0:
-                return
-            newest_release = releases[0]
-            v_current = self.tag_name_to_version(APP_VERSION)
-            v_newest = self.tag_name_to_version(newest_release['tag_name'])
-            if (10000 * int(v_current[0]) + 100 * int(v_current[1]) + int(v_current[2])) < (10000 * int(v_newest[0]) + 100 * int(v_newest[1]) + int(v_newest[2])):
-                QMessageBox.information(self.ui, self.tr('Update available'),
-                self.tr('There is a newer version available.\nYou are running {APP_VERSION} but {newest_version} is available.')
-                .format(APP_VERSION='v' + APP_VERSION, newest_version=newest_release['tag_name']))
-                open_webbrowser_thread(newest_release['html_url'])
-            else:
-                QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
-        download_steam_app_list_thread(force_download=True)
+        releases = requests.get(APP_GHAPI_URL + '?per_page=1').json()
+        if len(releases) == 0:
+            return
+        newest_release = releases[0]
+        v_current = self.tag_name_to_version(APP_VERSION)
+        v_newest = self.tag_name_to_version(newest_release['tag_name'])
+        if (10000 * int(v_current[0]) + 100 * int(v_current[1]) + int(v_current[2])) < (10000 * int(v_newest[0]) + 100 * int(v_newest[1]) + int(v_newest[2])):
+            QMessageBox.information(self.ui, self.tr('Update available'),
+            self.tr('There is a newer version available.\nYou are running {APP_VERSION} but {newest_version} is available.')
+            .format(APP_VERSION='v' + APP_VERSION, newest_version=newest_release['tag_name']))
+            open_webbrowser_thread(newest_release['html_url'])
+        else:
+            QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
 
     def tag_name_to_version(self, tag_name : str):
         tag_name = tag_name.replace('v', '')
