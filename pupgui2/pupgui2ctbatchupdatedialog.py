@@ -3,7 +3,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 
 from util import sort_compatibility_tool_names, list_installed_ctools, install_directory
-from util import steam_update_ctool
+from steamutil import steam_update_ctool
 
 class PupguiCtBatchUpdateDialog(QDialog):
 

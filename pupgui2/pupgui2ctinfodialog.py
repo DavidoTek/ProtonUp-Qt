@@ -1,5 +1,6 @@
 import os
-from util import get_steam_game_names_by_ids, open_webbrowser_thread
+from util import open_webbrowser_thread
+from steamutil import get_steam_games_using_compat_tool, get_steam_game_names_by_ids
 from constants import STEAM_APP_PAGE_URL
 
 from PySide6.QtWidgets import *
@@ -7,7 +8,6 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
-from util import get_steam_games_using_compat_tool
 from pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
 
 

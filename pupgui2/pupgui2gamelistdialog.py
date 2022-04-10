@@ -1,12 +1,12 @@
-import os, requests
+import os
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtUiTools import QUiLoader
 
 from util import list_installed_ctools, sort_compatibility_tool_names
-from util import steam_update_ctool
-from util import get_steam_game_list
+from steamutil import steam_update_ctool
+from steamutil import get_steam_game_list
 from util import get_install_location_from_directory_name
 
 
