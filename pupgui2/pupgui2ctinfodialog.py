@@ -1,6 +1,6 @@
 import os
 from util import open_webbrowser_thread
-from steamutil import get_steam_games_using_compat_tool, get_steam_game_names_by_ids
+from steamutil import get_steam_game_list, get_steam_game_names_by_ids
 from constants import STEAM_APP_PAGE_URL
 
 from PySide6.QtWidgets import *
@@ -59,13 +59,12 @@ class PupguiCtInfoDialog(QObject):
 
     def update_game_list(self):
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
-            self.games = get_steam_games_using_compat_tool(self.ctool, self.install_loc.get('vdf_dir'))
+            self.games = get_steam_game_list(self.install_loc.get('vdf_dir'), self.ctool)
             self.ui.txtNumGamesUsingTool.setText(str(len(self.games)))
         
         self.ui.listGames.clear()
-        game_names = get_steam_game_names_by_ids(self.install_dir, self.games)
         for game in self.games:
-            self.ui.listGames.addItem(str(game) + ': ' + str(game_names.get(int(game))))
+            self.ui.listGames.addItem(game.get_app_id_str() + ': ' + game.game_name)
 
         self.batch_update_complete.emit(True)
 

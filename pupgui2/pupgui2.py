@@ -9,7 +9,7 @@ from PySide6.QtUiTools import QUiLoader
 from util import apply_dark_theme, create_compatibilitytools_folder
 from util import install_directory, available_install_directories, get_install_location_from_directory_name
 from util import list_installed_ctools, remove_ctool, sort_compatibility_tool_names
-from steamutil import get_steam_games_using_compat_tool
+from steamutil import get_steam_game_list
 from util import print_system_information
 from constants import APP_NAME, APP_VERSION, TEMP_DIR
 import ctloader
@@ -150,7 +150,7 @@ class MainWindow(QObject):
         for ver in ctools:
             # Launcher specific
             if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
-                games = get_steam_games_using_compat_tool(ver.split(' - ')[0], install_loc.get('vdf_dir'))
+                games = get_steam_game_list(install_loc.get('vdf_dir'), ver.split(' - ')[0])
                 if len(games) == 0:
                     ver += ' - ' + self.tr('unused')
             
@@ -225,7 +225,7 @@ class MainWindow(QObject):
         for item in self.ui.listInstalledVersions.selectedItems():
             ver = item.text()
             if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
-                games_using_tools += len(get_steam_games_using_compat_tool(ver.split(' - ')[0], install_loc.get('vdf_dir')))
+                games_using_tools += len(get_steam_game_list(install_loc.get('vdf_dir'), ver.split(' - ')[0]))
             vers_to_remove.append(ver)
 
         if games_using_tools > 0:
