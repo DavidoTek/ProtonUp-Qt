@@ -4,7 +4,7 @@ from PySide6.QtCore import QObject, Qt
 from PySide6.QtGui import QColor, QPalette
 
 APP_NAME = 'ProtonUp-Qt'
-APP_VERSION = '2.6.0'
+APP_VERSION = '2.6.1'
 APP_GHAPI_URL = 'https://api.github.com/repos/Davidotek/ProtonUp-qt/releases'
 DAVIDOTEK_KOFI_URL = 'https://ko-fi.com/davidotek'
 PROTONUPQT_GITHUB_URL = 'https://github.com/DavidoTek/ProtonUp-Qt'

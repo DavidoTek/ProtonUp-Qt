@@ -54,6 +54,17 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.6.1" date="2022-04-14">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Add Heroic Games Launcher Flatpak support</li>
+          <li>Add tool description to install dialog</li>
+          <li>Various bug fixes and improvements</li>
+        </ul>
+        <p>Few bugfixes</p>
+      </description>
+    </release>
     <release version="2.6.0" date="2022-03-07">
       <description>
         <p>Changes:</p>
