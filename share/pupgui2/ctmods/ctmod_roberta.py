@@ -11,6 +11,7 @@ CT_LAUNCHERS = ['steam']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Steam Play compatibility tool to run adventure games using native Linux ScummVM.'''
 CT_DESCRIPTION['de'] = '''Steam Play Kompatibilitätstool, um Adventuregames mit Linux-nativer ScummVM zu spielen.'''
+CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności Steam Play do uruchamiania gier przygodowych poprzez natywny Linuksowy ScummVM.'''
 
 
 class CtInstaller(QObject):
