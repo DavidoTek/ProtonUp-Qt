@@ -10,6 +10,7 @@ CT_LAUNCHERS = ['lutris', 'heroicwine']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Compatibility tool "Wine" to run Windows games on Linux. Based on Valve Proton Experimental's bleeding-edge Wine, built for Lutris.<br/><br/><b>Use this when you don't know what to choose.</b>'''
 CT_DESCRIPTION['de'] = '''Kompatibilitätstool "Wine" für Windows-Spiele unter Linux. Basiert auf der neusten Wine Version von Value Proton Experimental, für Lutris.<br/><br/><b>Verwende dies, wenn du dir nicht sicher bist.</b>'''
+CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności "Wine" do uruchamiania Windowsowych gier na Linuksie. Bazuje na Valve'owym Protonie Experimental bleeding-edge Wine, zbudowane dla Lutrisa.<br/><br/><b>Użyj tego, jeśli nie wiesz co wybrać.</b>'''
 
 
 class CtInstaller(QObject):
