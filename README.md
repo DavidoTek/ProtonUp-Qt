@@ -28,8 +28,10 @@ Also available on AUR, maintained by yochananmarqos: https://aur.archlinux.org/p
 1. Generate an empty translation file *or* download it from [here](https://github.com/DavidoTek/ProtonUp-Qt/blob/main/i18n/pupgui2_de.ts).
 2. Install [Qt Linguist](https://flathub.org/apps/details/io.qt.Linguist) (alternatively: edit the **.ts** file using a text editor).
 3. Open the translation file (.ts) with Qt Linguist and translate the app.
-4. Submit the translation:  
-   a) Simple method: Upload the **.ts** file [here](https://gist.github.com/) and [create a new issue](https://github.com/DavidoTek/ProtonUp-Qt/issues/new?labels=translation&title=Translation:%20language) with a link to your translation.  
+4. The app summary can be translated [here](https://github.com/DavidoTek/ProtonUp-Qt/blob/main/share/metainfo/net.davidotek.pupgui2.appdata.xml#L7).
+5. Translations for the compatibility tool description can be found at the start of each file. See [here](https://github.com/DavidoTek/ProtonUp-Qt/tree/main/share/pupgui2/ctmods).
+6. Submit the translation:   
+   a) Simple method: Upload the **.ts** file/texts [here](https://gist.github.com/) and [create a new issue](https://github.com/DavidoTek/ProtonUp-Qt/issues/new?labels=translation&title=Translation:%20language) with a link to your translation.  
    b) Alternatively, compile the .ts file to .qm and create a PR with the translation (include both the .ts and .qm file).
 
 ## Licensing
