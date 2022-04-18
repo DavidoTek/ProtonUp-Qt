@@ -10,6 +10,7 @@ CT_LAUNCHERS = ['steam']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Luxtorpeda provides Linux-native game engines for specific Windows-only games.'''
 CT_DESCRIPTION['de'] = '''Luxtorpeda stellt Linux-native Spiele Engines für einige Windows-Spiele bereit.'''
+CT_DESCRIPTION['pl'] = '''Luxtorpeda dostarcza natywne Linuksowe silniki gier dla wybanych Windowsowych gier.'''
 
 
 class CtInstaller(QObject):
