@@ -124,7 +124,7 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="165"/>
         <source>Show game list</source>
-        <translation>Pokaż liste gier</translation>
+        <translation>Pokaż listę gier</translation>
     </message>
     <message>
         <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="172"/>
@@ -157,7 +157,7 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="70"/>
         <source>Update Steam game list</source>
-        <translation>Zaktualizuj liste gier Steam</translation>
+        <translation>Zaktualizuj listę gier Steam</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="97"/>
