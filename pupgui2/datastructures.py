@@ -4,7 +4,7 @@ class SteamApp:
     game_name = ''
     compat_tool = ''
     app_type = ''
-    deck_compatibility = 0
+    deck_compatibility = {}
 
     def get_app_id_str(self):
         return str(self.app_id)

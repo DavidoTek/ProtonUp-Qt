@@ -1,6 +1,6 @@
 import os
 from util import open_webbrowser_thread
-from steamutil import get_steam_game_list, get_steam_game_names_by_ids
+from steamutil import get_steam_game_list
 from constants import STEAM_APP_PAGE_URL
 
 from PySide6.QtWidgets import *
