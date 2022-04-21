@@ -8,6 +8,7 @@ from util import list_installed_ctools, sort_compatibility_tool_names
 from steamutil import steam_update_ctool
 from steamutil import get_steam_game_list
 from util import get_install_location_from_directory_name
+from datastructures import SteamDeckCompatEnum
 
 
 class PupguiGameListDialog(QObject):
@@ -41,7 +42,7 @@ class PupguiGameListDialog(QObject):
     def setup_ui(self):
         self.update_game_list()
 
-        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool')])
+        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility')])
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
 
     def update_game_list(self):
@@ -55,6 +56,7 @@ class PupguiGameListDialog(QObject):
         i = 0
         for game in games:
             self.ui.tableGames.setCellWidget(i, 0, QLabel(game.game_name))
+
             combo = QComboBox()
             combo.addItem('-')
             combo.addItems(ctools)
@@ -66,6 +68,26 @@ class PupguiGameListDialog(QObject):
                 combo.setCurrentText(game.compat_tool)
             combo.currentTextChanged.connect(lambda text,game=game: self.update_ctool(text, game))
             self.ui.tableGames.setCellWidget(i, 1, combo)
+
+            deckc = game.get_deck_compat_category()
+            deckt = game.get_deck_recommended_tool()
+            if deckc == SteamDeckCompatEnum.UNKNOWN:
+                self.ui.tableGames.setCellWidget(i, 2, QLabel(self.tr('Unknown')))
+            elif deckc == SteamDeckCompatEnum.UNSUPPORTED:
+                self.ui.tableGames.setCellWidget(i, 2, QLabel(self.tr('Unsupported')))
+            elif deckc == SteamDeckCompatEnum.PLAYABLE:
+                if deckt == '':
+                    lbltxt = self.tr('Playable')
+                else:
+                    lbltxt = self.tr('Playable using {compat_tool}').format(compat_tool=deckt)
+                self.ui.tableGames.setCellWidget(i, 2, QLabel(lbltxt))
+            elif deckc == SteamDeckCompatEnum.VERIFIED:
+                if deckt == '':
+                    lbltxt = self.tr('Verified')
+                else:
+                    lbltxt = self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
+                self.ui.tableGames.setCellWidget(i, 2, QLabel(lbltxt))
+
             game_id_table_lables.append(game.app_id)
             i += 1
         self.ui.tableGames.setVerticalHeaderLabels(game_id_table_lables)
