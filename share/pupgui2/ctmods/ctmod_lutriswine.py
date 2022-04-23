@@ -10,6 +10,7 @@ CT_LAUNCHERS = ['lutris']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Compatibility tool "Wine" to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.'''
 CT_DESCRIPTION['de'] = '''Kompatibilitätstool "Wine" für Windows-Spiele unter Linux. Verbessert von Lutris für bessere Kompatibilität und Leistung in einigen Spielen.'''
+CT_DESCRIPTION['nl'] = '''Compatibiliteitshulpmiddel 'Wine' voor het spelen van Windows-games op Linux. Deze versie is verbeterd door het Lutris-team en biedt verbeterde compatibiliteit met en prestaties in sommige games.'''
 CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności "Wine" do uruchamiania Windowsowych gier na Linuksie. Poprawione przez autorów Lutrisa dla lepszej kompatybilności lub wydajności w wybranych grach.'''
 
 
