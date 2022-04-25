@@ -147,10 +147,13 @@ class MainWindow(QObject):
         ctools = sort_compatibility_tool_names(list_installed_ctools(install_directory()))
 
         install_loc = get_install_location_from_directory_name(install_directory())
+        if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
+            get_steam_game_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
+
         for ver in ctools:
             # Launcher specific
             if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
-                games = get_steam_game_list(install_loc.get('vdf_dir'), ver.split(' - ')[0])
+                games = get_steam_game_list(install_loc.get('vdf_dir'), ver.split(' - ')[0], cached=True)
                 if len(games) == 0:
                     ver += ' - ' + self.tr('unused')
             

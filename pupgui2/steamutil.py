@@ -4,12 +4,19 @@ from steam.utils.appcache import parse_appinfo
 from datastructures import SteamApp
 
 
-def get_steam_app_list(steam_config_folder):
+_cached_app_list = []
+
+def get_steam_app_list(steam_config_folder, cached=False):
     """
     Returns a list of installed Steam apps and optionally game names and the compatibility tool they are using
     steam_config_folder = e.g. '~/.steam/root/config'
     Return Type: SteamApp[]
     """
+    global _cached_app_list
+
+    if cached and _cached_app_list != []:
+        return _cached_app_list
+
     libraryfolders_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'libraryfolders.vdf')
     config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
 
@@ -34,17 +41,18 @@ def get_steam_app_list(steam_config_folder):
     except Exception as e:
         print('Error: Could not get a list of all Steam apps:', e)
     
+    _cached_app_list = apps
     return apps
 
 
-def get_steam_game_list(steam_config_folder, compat_tool=''):
+def get_steam_game_list(steam_config_folder, compat_tool='', cached=False):
     """
     Returns a list of installed Steam games and which compatibility tools they are using.
     Specify compat_tool to only return games using the specified tool.
     Return Type: SteamApp[]
     """
     games = []
-    apps = get_steam_app_list(steam_config_folder)
+    apps = get_steam_app_list(steam_config_folder, cached=cached)
 
     for app in apps:
         if app.app_type == 'game':
@@ -56,13 +64,13 @@ def get_steam_game_list(steam_config_folder, compat_tool=''):
     return games
 
 
-def get_steam_ctool_list(steam_config_folder, only_proton=False):
+def get_steam_ctool_list(steam_config_folder, only_proton=False, cached=False):
     """
     Returns a list of installed Steam compatibility tools (official tools).
     Return Type: SteamApp[]
     """
     ctools = []
-    apps = get_steam_app_list(steam_config_folder)
+    apps = get_steam_app_list(steam_config_folder, cached=cached)
 
     # TODO
 
