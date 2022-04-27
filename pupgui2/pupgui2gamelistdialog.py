@@ -1,24 +1,23 @@
-import os
+import pkgutil
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtUiTools import QUiLoader
 
-from util import list_installed_ctools, sort_compatibility_tool_names
-from steamutil import steam_update_ctool
-from steamutil import get_steam_game_list
-from steamutil import get_steam_ctool_list
-from util import get_install_location_from_directory_name
-from datastructures import SteamDeckCompatEnum
+from .util import list_installed_ctools, sort_compatibility_tool_names
+from .steamutil import steam_update_ctool
+from .steamutil import get_steam_game_list
+from .steamutil import get_steam_ctool_list
+from .util import get_install_location_from_directory_name
+from .datastructures import SteamDeckCompatEnum
 
 
 class PupguiGameListDialog(QObject):
 
     game_property_changed = Signal(bool)
 
-    def __init__(self, pupgui2_base_dir, install_dir, parent=None):
+    def __init__(self, install_dir, parent=None):
         super(PupguiGameListDialog, self).__init__(parent)
-        self.pupgui2_base_dir = pupgui2_base_dir
         self.install_dir = install_dir
         self.parent = parent
 
@@ -31,14 +30,10 @@ class PupguiGameListDialog(QObject):
         self.ui.show()
 
     def load_ui(self):
-        ui_file_name = os.path.join(self.pupgui2_base_dir, 'ui/pupgui2_gamelistdialog.ui')
-        ui_file = QFile(ui_file_name)
-        if not ui_file.open(QIODevice.ReadOnly):
-            print(f'Cannot open {ui_file_name}: {ui_file.errorString()}')
-            return
+        data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_gamelistdialog.ui')
+        ui_file = QDataStream(QByteArray(data))
         loader = QUiLoader()
-        self.ui = loader.load(ui_file, self.parent)
-        ui_file.close()
+        self.ui = loader.load(ui_file.device())
 
     def setup_ui(self):
         self.update_game_list()

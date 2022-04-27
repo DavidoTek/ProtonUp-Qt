@@ -1,21 +1,21 @@
 import os, requests
+import pkgutil
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
-from constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT
-from constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
-from util import config_theme, apply_dark_theme
-from util import open_webbrowser_thread
+from .constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT
+from .constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
+from .util import config_theme, apply_dark_theme
+from .util import open_webbrowser_thread
 
 
 class PupguiAboutDialog(QObject):
 
-    def __init__(self, pupgui2_base_dir, parent=None):
+    def __init__(self, parent=None):
         super(PupguiAboutDialog, self).__init__(parent)
-        self.pupgui2_base_dir = pupgui2_base_dir
         self.parent = parent
 
         self.load_ui()
@@ -25,14 +25,10 @@ class PupguiAboutDialog(QObject):
         self.ui.setFixedSize(self.ui.size())
 
     def load_ui(self):
-        ui_file_name = os.path.join(self.pupgui2_base_dir, 'ui/pupgui2_aboutdialog.ui')
-        ui_file = QFile(ui_file_name)
-        if not ui_file.open(QIODevice.ReadOnly):
-            print(f'Cannot open {ui_file_name}: {ui_file.errorString()}')
-            return
+        data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_aboutdialog.ui')
+        ui_file = QDataStream(QByteArray(data))
         loader = QUiLoader()
-        self.ui = loader.load(ui_file, self.parent)
-        ui_file.close()
+        self.ui = loader.load(ui_file.device())
 
     def setup_ui(self):
         self.ui.setWindowTitle(APP_NAME + ' ' + APP_VERSION)
@@ -47,7 +43,8 @@ class PupguiAboutDialog(QObject):
         self.ui.lblAboutVersion.setText(ABOUT_TEXT)
         
         try:
-            p = QPixmap(os.path.join(self.pupgui2_base_dir, 'img/kofi_button_blue.png'))
+            p = QPixmap()
+            p.loadFromData(pkgutil.get_data(__name__, 'resources/img/kofi_button_blue.png'))
             self.ui.btnDonate.setIcon(QIcon(p))
             self.ui.btnDonate.setIconSize(p.rect().size())
             self.ui.btnDonate.setFlat(True)

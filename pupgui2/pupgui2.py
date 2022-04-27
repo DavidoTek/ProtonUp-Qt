@@ -1,24 +1,27 @@
 import sys, os, shutil
 import threading
+import pkgutil
+from typing import final
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
-from util import apply_dark_theme, create_compatibilitytools_folder
-from util import install_directory, available_install_directories, get_install_location_from_directory_name
-from util import list_installed_ctools, remove_ctool, sort_compatibility_tool_names
-from steamutil import get_steam_game_list
-from util import print_system_information
-from constants import APP_NAME, APP_VERSION, TEMP_DIR
-import ctloader
-from pupgui2installdialog import PupguiInstallDialog
-from pupgui2aboutdialog import PupguiAboutDialog
-from pupgui2ctinfodialog import PupguiCtInfoDialog
-from gamepadinputworker import GamepadInputWorker
-from pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
-from pupgui2gamelistdialog import PupguiGameListDialog
+from .util import apply_dark_theme, create_compatibilitytools_folder
+from .util import install_directory, available_install_directories, get_install_location_from_directory_name
+from .util import list_installed_ctools, remove_ctool, sort_compatibility_tool_names
+from .steamutil import get_steam_game_list
+from .util import print_system_information
+from .constants import APP_NAME, APP_VERSION, TEMP_DIR
+from . import ctloader
+from .pupgui2installdialog import PupguiInstallDialog
+from .pupgui2aboutdialog import PupguiAboutDialog
+from .pupgui2ctinfodialog import PupguiCtInfoDialog
+from .gamepadinputworker import GamepadInputWorker
+from .pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
+from .pupgui2gamelistdialog import PupguiGameListDialog
+from .resources import ui
 
 
 class InstallWineThread(threading.Thread):
@@ -57,13 +60,10 @@ class InstallWineThread(threading.Thread):
 
 class MainWindow(QObject):
 
-    def __init__(self, pupgui2_base_dir):
+    def __init__(self):
         super(MainWindow, self).__init__()
 
         self.ct_loader = ctloader.CtLoader()
-        self.ct_loader.load_ctmods(ctmod_dir=os.path.join(pupgui2_base_dir, 'ctmods'))
-
-        self.pupgui2_base_dir = pupgui2_base_dir
 
         self.combo_install_location_index_map = []
         self.updating_combo_install_location = False
@@ -78,14 +78,10 @@ class MainWindow(QObject):
 
     def load_ui(self):
         """ load the main window ui file """
-        ui_file_name = os.path.join(self.pupgui2_base_dir, 'ui/pupgui2_mainwindow.ui')
-        ui_file = QFile(ui_file_name)
-        if not ui_file.open(QIODevice.ReadOnly):
-            print(f'Cannot open {ui_file_name}: {ui_file.errorString()}')
-            sys.exit(-1)
+        data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_mainwindow.ui')
+        ui_file = QDataStream(QByteArray(data))
         loader = QUiLoader()
-        self.ui = loader.load(ui_file)
-        ui_file.close()
+        self.ui = loader.load(uidata.device())
 
     def setup_ui(self):
         """ setup ui - connect signals etc """
@@ -243,11 +239,11 @@ class MainWindow(QObject):
         self.update_ui()
 
     def btn_show_game_list_clicked(self):
-        gl_dialog = PupguiGameListDialog(self.pupgui2_base_dir, install_directory(), self.ui)
+        gl_dialog = PupguiGameListDialog(install_directory(), self.ui)
         gl_dialog.game_property_changed.connect(self.update_ui)
 
     def btn_about_clicked(self):
-        PupguiAboutDialog(self.pupgui2_base_dir, self.ui)
+        PupguiAboutDialog(self.ui)
 
     def btn_close_clicked(self):
         if len(self.pending_downloads) == 0:
@@ -278,7 +274,7 @@ class MainWindow(QObject):
         # Show info about compatibility tool when double clicked in list
         ver = item.text().split(' - ')[0]
         install_loc = get_install_location_from_directory_name(install_directory())
-        cti_dialog = PupguiCtInfoDialog(self.pupgui2_base_dir, self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
+        cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
         cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def list_installed_versions_item_selection_changed(self):
@@ -294,7 +290,7 @@ class MainWindow(QObject):
         install_loc = get_install_location_from_directory_name(install_directory())
         for item in self.ui.listInstalledVersions.selectedItems():
             ver = item.text().split(' - ')[0]
-            cti_dialog = PupguiCtInfoDialog(self.pupgui2_base_dir, self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
+            cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
             cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def press_virtual_key(self, key, mod):
@@ -315,7 +311,7 @@ class MainWindow(QObject):
         self.update_ui()
 
 
-if __name__ == '__main__':
+def main():
     create_compatibilitytools_folder()
 
     app = QApplication(sys.argv)
@@ -323,26 +319,28 @@ if __name__ == '__main__':
     app.setApplicationVersion(APP_VERSION)
     app.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
 
-    parser = QCommandLineParser()
-    pupgui2_base_dir_option = QCommandLineOption(['pupgui2-base-dir'], 'directory containing pupgui2 files', 'pupgui2-base-dir', './share/pupgui2')
-    parser.addOption(pupgui2_base_dir_option)
-    parser.process(app)
-    pupgui2_base_dir = os.path.abspath(parser.value(pupgui2_base_dir_option))
+    lang = QLocale.languageToCode(QLocale().language())
 
-    translator = QTranslator()
-    if translator.load(QLocale(), 'pupgui2', '_', os.path.join(pupgui2_base_dir, 'i18n')):
-        app.installTranslator(translator)
-    
+    ldata = None
+    try:
+        ldata = pkgutil.get_data(__name__, 'resources/i18n/pupgui2_' + lang + '.qm')
+    except:
+        pass
+    finally:
+        translator = QTranslator()
+        if translator.load(ldata):
+            app.installTranslator(translator)
+
     qtTranslator = QTranslator()
     if qtTranslator.load(QLocale(), 'qt', '_', QLibraryInfo.location(QLibraryInfo.TranslationsPath)):
         app.installTranslator(qtTranslator)
 
-    print(f'{APP_NAME} {APP_VERSION} by DavidoTek. Base directory: {pupgui2_base_dir}')
+    print(f'{APP_NAME} {APP_VERSION} by DavidoTek.')
     print_system_information()
-    
+
     apply_dark_theme(app)
 
-    window = MainWindow(pupgui2_base_dir)
+    window = MainWindow()
 
     ret = app.exec()
 
