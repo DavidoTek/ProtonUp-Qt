@@ -7,6 +7,7 @@ from PySide6.QtUiTools import QUiLoader
 from util import list_installed_ctools, sort_compatibility_tool_names
 from steamutil import steam_update_ctool
 from steamutil import get_steam_game_list
+from steamutil import get_steam_ctool_list
 from util import get_install_location_from_directory_name
 from datastructures import SteamDeckCompatEnum
 
@@ -48,7 +49,9 @@ class PupguiGameListDialog(QObject):
     def update_game_list(self):
         install_loc = get_install_location_from_directory_name(self.install_dir)
         games = get_steam_game_list(steam_config_folder=install_loc.get('vdf_dir'))
-        ctools = sort_compatibility_tool_names(list_installed_ctools(self.install_dir), reverse=True)
+        ctools = sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True)
+        for t in get_steam_ctool_list(steam_config_folder=install_loc.get('vdf_dir')):
+            ctools.append(t.ctool_name)
 
         self.ui.tableGames.setRowCount(len(games))
 

@@ -178,7 +178,7 @@ def config_custom_install_location(install_dir=None, launcher=''):
     return {'install_dir': install_dir, 'display_name': '', 'launcher': launcher}
 
 
-def list_installed_ctools(install_dir):
+def list_installed_ctools(install_dir, without_version=False):
         """
         List installed compatibility tool versions
         Return Type: str[]
@@ -189,7 +189,7 @@ def list_installed_ctools(install_dir):
             folders = os.listdir(install_dir)
             for folder in folders:
                 ver_file = os.path.join(install_dir, folder, 'VERSION.txt')
-                if os.path.exists(ver_file):
+                if os.path.exists(ver_file) and not without_version:
                     with open(ver_file, 'r') as f:
                         ver = f.read()
                     versions_found.append(folder + ' - ' + ver.strip())
