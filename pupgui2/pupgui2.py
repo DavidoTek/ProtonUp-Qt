@@ -81,7 +81,7 @@ class MainWindow(QObject):
         data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_mainwindow.ui')
         ui_file = QDataStream(QByteArray(data))
         loader = QUiLoader()
-        self.ui = loader.load(uidata.device())
+        self.ui = loader.load(ui_file.device())
 
     def setup_ui(self):
         """ setup ui - connect signals etc """
