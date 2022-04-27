@@ -5,6 +5,8 @@ from datastructures import SteamApp
 
 
 _cached_app_list = []
+_cached_steam_ctool_id_map = None
+
 
 def get_steam_app_list(steam_config_folder, cached=False):
     """
@@ -71,10 +73,50 @@ def get_steam_ctool_list(steam_config_folder, only_proton=False, cached=False):
     """
     ctools = []
     apps = get_steam_app_list(steam_config_folder, cached=cached)
+    ctool_map = _get_steam_ctool_info(steam_config_folder)
 
-    # TODO
+    for app in apps:
+        if app.app_id in ctool_map:
+            app.ctool_name = ctool_map.get(app.app_id).get('name')
+            app.ctool_from_oslist = ctool_map.get(app.app_id).get('from_oslist')
+            if only_proton and ctool_map.get(app.app_id).get('from_oslist') != 'windows':
+                continue
+            ctools.append(app)
 
     return ctools
+
+
+def _get_steam_ctool_info(steam_config_folder):
+    """
+    Returns a dict that maps the compatibility tool appid to tool info (name e.g. 'proton_7' and from_oslist)
+    Return Type: dict.dict
+        Contents: name, from_oslist
+    """
+    global _cached_steam_ctool_id_map
+
+    if _cached_steam_ctool_id_map is not None:
+        return _cached_steam_ctool_id_map
+
+    appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
+    appinfo_file = os.path.realpath(appinfo_file)
+
+    ctool_map = {}
+    compat_tools = None
+    try:
+        with open(appinfo_file, 'rb') as f:
+            header, apps = parse_appinfo(f)
+            for steam_app in apps:
+                if steam_app.get('appid') == 891390:
+                    compat_tools = steam_app.get('data').get('appinfo').get('extended').get('compat_tools')
+                    break
+    except:
+        pass
+    finally:
+        for t in compat_tools:
+            ctool_map[compat_tools.get(t).get('appid')] = {'name': t, 'from_oslist': compat_tools.get(t).get('from_oslist')}
+    
+    _cached_steam_ctool_id_map = ctool_map
+    return ctool_map
 
 
 def update_steamapp_info(steam_config_folder, steamapp_list):

@@ -15,6 +15,8 @@ class SteamApp:
     compat_tool = ''
     app_type = ''
     deck_compatibility = {}
+    ctool_name = ''  # Steam's internal compatiblity tool name, e.g. 'proton_7'
+    ctool_from_oslist = ''
 
     def get_app_id_str(self):
         return str(self.app_id)
