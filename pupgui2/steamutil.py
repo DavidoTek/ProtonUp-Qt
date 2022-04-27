@@ -131,6 +131,7 @@ def update_steamapp_info(steam_config_folder, steamapp_list):
         sapps[app.get_app_id_str()] = app
     cnt = 0
     try:
+        ctool_map = _get_steam_ctool_info(steam_config_folder)
         with open(appinfo_file, 'rb') as f:
             header, apps = parse_appinfo(f)
             for steam_app in apps:
@@ -145,7 +146,7 @@ def update_steamapp_info(steam_config_folder, steamapp_list):
                         a.deck_compatibility = steam_app.get('data').get('appinfo').get('common').get('steam_deck_compatibility')
                     except:
                         pass
-                    if 'steamworks' not in a.game_name.lower() and 'proton' not in a.game_name.lower():
+                    if steam_app.get('appid') not in ctool_map and 'steamworks' not in a.game_name.lower():
                         a.app_type = 'game'
                     cnt += 1
                 if cnt == len(sapps):
