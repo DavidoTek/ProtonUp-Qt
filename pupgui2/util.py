@@ -10,7 +10,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 
-from .constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK
+from .constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
 
 
 def apply_dark_theme(app):
@@ -265,3 +265,24 @@ def print_system_information():
         pass
     ver_info += str(platform.platform())
     print(ver_info)
+
+
+def single_instance() -> bool:
+    """
+    Creates Lockfile. Returns False when other instance is found.
+    """
+    lockfile = os.path.join(TEMP_DIR, 'lockfile')
+    if os.path.exists(lockfile):
+        f = open(lockfile, 'r')
+        pid = f.read()
+        f.close()
+        if os.path.isdir('/proc/' + pid):
+            return False
+    try:
+        os.mkdir(TEMP_DIR)
+        f = open(lockfile, 'w')
+        f.write(str(os.getpid()))
+        f.close()
+    except:
+        pass
+    return True
