@@ -1,23 +1,22 @@
-import os
-from util import open_webbrowser_thread
-from steamutil import get_steam_game_list
-from constants import STEAM_APP_PAGE_URL
+import pkgutil
+from .util import open_webbrowser_thread
+from .steamutil import get_steam_game_list
+from .constants import STEAM_APP_PAGE_URL
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
+from .pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
 
 
 class PupguiCtInfoDialog(QObject):
 
     batch_update_complete = Signal(bool)
 
-    def __init__(self, pupgui2_base_dir, parent=None, ctool='', install_loc=None, install_dir=''):
+    def __init__(self, parent=None, ctool='', install_loc=None, install_dir=''):
         super(PupguiCtInfoDialog, self).__init__(parent)
-        self.pupgui2_base_dir = pupgui2_base_dir
         self.parent = parent
         self.ctool = ctool
         self.games = []
@@ -29,14 +28,10 @@ class PupguiCtInfoDialog(QObject):
         self.ui.show()
 
     def load_ui(self):
-        ui_file_name = os.path.join(self.pupgui2_base_dir, 'ui/pupgui2_ctinfodialog.ui')
-        ui_file = QFile(ui_file_name)
-        if not ui_file.open(QIODevice.ReadOnly):
-            print(f'Cannot open {ui_file_name}: {ui_file.errorString()}')
-            return
+        data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_ctinfodialog.ui')
+        ui_file = QDataStream(QByteArray(data))
         loader = QUiLoader()
-        self.ui = loader.load(ui_file, self.parent)
-        ui_file.close()
+        self.ui = loader.load(ui_file.device())
     
     def setup_ui(self):
         self.ui.txtToolName.setText(self.ctool)

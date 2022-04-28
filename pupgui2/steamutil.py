@@ -1,7 +1,7 @@
 import os
 import vdf
 from steam.utils.appcache import parse_appinfo
-from datastructures import SteamApp
+from .datastructures import SteamApp
 
 
 _cached_app_list = []

@@ -4,7 +4,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 
-from util import open_webbrowser_thread
+from .util import open_webbrowser_thread
 
 
 class PupguiInstallDialog(QDialog):

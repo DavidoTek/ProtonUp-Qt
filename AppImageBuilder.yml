@@ -1,18 +1,14 @@
 version: 1
 script:
   - rm -rf AppDir  | true
-  - mkdir -p AppDir/usr/src
-  - cp pupgui2 AppDir/usr/src -r
+  - mkdir -p AppDir/usr/lib/python3.8/site-packages
+  - cp pupgui2 AppDir/usr/lib/python3.8/site-packages -r
   - cp share AppDir/usr -r
   - python3 -m pip install --ignore-installed --prefix=/usr --no-cache-dir --root=AppDir -r ./requirements.txt
   - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/qml/
   - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/examples/
   - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/resources/
   - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/translations/qtwebengine_locales/
-  - rm AppDir/usr/lib/python3.8/site-packages/PySide6/{assistant,designer,linguist,lrelease,lupdate}
-  - rm AppDir/usr/lib/python3.8/site-packages/PySide6/{Qt3D*,QtBluetooth*,QtCharts*,QtConcurrent*,QtDataVisualization*,QtDBus*,QtDesigner*,QtHelp*,QtMultimedia*,QtNetwork*,QtOpenGL*,QtPositioning*,QtPrintSupport*,QtQml*,QtQuick*,QtRemoteObjects*,QtScxml*,QtSensors*,QtSerialPort*,QtSql*,QtStateMachine*,QtSvg*,QtTest*,QtWeb*,QtXml*}
-  - shopt -s extglob
-  - rm AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/lib/!(libQt6OpenGL*|libQt6XcbQpa*|libQt6Wayland*|libQt6Egl*|libicudata*|libicuuc*|libicui18n*|libQt6DBus*|libQt6Network*|libQt6Qml*|libQt6Core*|libQt6Gui*|libQt6Widgets*|libQt6Svg*|libQt6UiTools*)
 
 AppDir:
   path: ./AppDir
@@ -23,7 +19,7 @@ AppDir:
     icon: net.davidotek.pupgui2
     version: 2.6.1
     exec: usr/bin/python3
-    exec_args: "$APPDIR/usr/src/pupgui2/pupgui2.py --pupgui2-base-dir $APPDIR/usr/share/pupgui2 $@"
+    exec_args: "-m pupgui2 $@"
 
   apt:
     arch: amd64

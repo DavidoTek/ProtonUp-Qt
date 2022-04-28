@@ -4,7 +4,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 
-from util import config_custom_install_location
+from .util import config_custom_install_location
 
 
 class PupguiCustomInstallDirectoryDialog(QDialog):

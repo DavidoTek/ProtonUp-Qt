@@ -1,6 +1,7 @@
-import os
-import importlib.util
+import pkgutil
+import importlib
 
+from .resources import ctmods
 
 class CtLoader:
     
@@ -8,25 +9,20 @@ class CtLoader:
     ctobjs = []
 
     def __init__(self):
-        pass
+        self.load_ctmods()
     
-    def load_ctmods(self, ctmod_dir):
+    def load_ctmods(self):
         """
-        Load ctmods from ctmod_dir
+        Load ctmods
         Return Type: bool
         """
-        if not os.path.exists(ctmod_dir):
-            return False
-        files = sorted(os.listdir(ctmod_dir))
-        for file in files:
-            if file.startswith('ctmod_'):
+        for _, mod, _ in pkgutil.iter_modules(ctmods.__path__):
+            if mod.startswith('ctmod_'):
                 try:
-                    ctmod_spec = importlib.util.spec_from_file_location(file.replace('.py', ''), os.path.join(ctmod_dir, file))
-                    ctmod = importlib.util.module_from_spec(ctmod_spec)
-                    ctmod_spec.loader.exec_module(ctmod)
-                except:
-                    print('Could not load ctmod', file)
-                finally:
+                    ctmod = importlib.import_module('pupgui2.resources.ctmods.' + mod)
+                    if ctmod is None:
+                        print('Could not load ctmod', mod)
+                        continue
                     self.ctmods.append(ctmod)
                     self.ctobjs.append({
                         'name': ctmod.CT_NAME,
@@ -35,6 +31,8 @@ class CtLoader:
                         'installer': ctmod.CtInstaller()
                     })
                     print('Loaded ctmod', ctmod.CT_NAME)
+                except Exception as e:
+                    print('Could not load ctmod', mod, ':', e)
         return True
     
     def get_ctmods(self, launcher=None):
