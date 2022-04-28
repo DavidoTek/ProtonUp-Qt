@@ -13,7 +13,7 @@ from .util import install_directory, available_install_directories, get_install_
 from .util import list_installed_ctools, remove_ctool, sort_compatibility_tool_names
 from .steamutil import get_steam_game_list
 from .util import print_system_information
-from .constants import APP_NAME, APP_VERSION, TEMP_DIR
+from .constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR
 from . import ctloader
 from .pupgui2installdialog import PupguiInstallDialog
 from .pupgui2aboutdialog import PupguiAboutDialog
@@ -335,7 +335,7 @@ def main():
     if qtTranslator.load(QLocale(), 'qt', '_', QLibraryInfo.location(QLibraryInfo.TranslationsPath)):
         app.installTranslator(qtTranslator)
 
-    print(f'{APP_NAME} {APP_VERSION} by DavidoTek.')
+    print(f'{APP_NAME} {APP_VERSION} by DavidoTek. Build Info: {BUILD_INFO}.')
     print_system_information()
 
     apply_dark_theme(app)

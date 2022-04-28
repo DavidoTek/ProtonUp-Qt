@@ -6,7 +6,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
-from .constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT
+from .constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO
 from .constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
 from .util import config_theme, apply_dark_theme
 from .util import open_webbrowser_thread
@@ -41,6 +41,8 @@ class PupguiAboutDialog(QObject):
         self.ui.lblAboutVersion.setTextFormat(Qt.RichText)
         self.ui.lblAboutVersion.setOpenExternalLinks(True)
         self.ui.lblAboutVersion.setText(ABOUT_TEXT)
+
+        self.ui.lblBuildInfo.setText(BUILD_INFO)
         
         try:
             p = QPixmap()

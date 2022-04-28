@@ -49,11 +49,22 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="lblAboutTranslator">
-         <property name="text">
-          <string notr="true"/>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="lblAboutTranslator">
+           <property name="text">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblBuildInfo">
+           <property name="text">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
