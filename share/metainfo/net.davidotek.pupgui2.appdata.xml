@@ -56,6 +56,17 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.6.2" date="2022-04-28">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Show official Proton versions in game list</li>
+          <li>Show Steam Deck compatibility in game list</li>
+          <li>Added Polish translations</li>
+          <li>Improved performance</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.6.1" date="2022-04-14">
       <description>
         <p>Changes:</p>
