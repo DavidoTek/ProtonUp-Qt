@@ -8,6 +8,14 @@ class SteamDeckCompatEnum(Enum):
     VERIFIED = 3
 
 
+class AWACYStatus(Enum):
+    UNKNOWN = 0
+    UNCONFIRMED = 1
+    CONFIRMED = 2
+    SUPPORTED = 3
+    DENIED = 4
+
+
 class SteamApp:
     app_id = -1
     libraryfolder_id = -1
@@ -17,6 +25,7 @@ class SteamApp:
     deck_compatibility = {}
     ctool_name = ''  # Steam's internal compatiblity tool name, e.g. 'proton_7'
     ctool_from_oslist = ''
+    awacy_status = AWACYStatus.UNKNOWN  # areweanticheatyet.com Status
 
     def get_app_id_str(self):
         return str(self.app_id)

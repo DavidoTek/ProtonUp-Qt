@@ -1,7 +1,9 @@
 import os
+import json
 import vdf
 from steam.utils.appcache import parse_appinfo
-from .datastructures import SteamApp
+from .datastructures import SteamApp, AWACYStatus
+from .constants import LOCAL_AWACY_GAME_LIST
 
 
 _cached_app_list = []
@@ -40,6 +42,7 @@ def get_steam_app_list(steam_config_folder, cached=False):
                 apps.append(app)
                 app_ids_str.append(str(appid))
             apps = update_steamapp_info(steam_config_folder, apps)
+            apps = update_steamapp_awacystatus(apps)
     except Exception as e:
         print('Error: Could not get a list of all Steam apps:', e)
     
@@ -154,6 +157,39 @@ def update_steamapp_info(steam_config_folder, steamapp_list):
     except:
         pass
     return list(sapps.values())
+
+
+def update_steamapp_awacystatus(steamapp_list: SteamApp):  # Download file in thread on start...
+    """
+    Set the areweanticheatyet.com for the games.
+    Return Type: SteamApp list
+    """
+    if not os.path.exists(LOCAL_AWACY_GAME_LIST):
+        return steamapp_list
+    
+    try:
+        f = open(LOCAL_AWACY_GAME_LIST, 'r')
+        gm = {}
+        for g in json.load(f):
+            gm[g.get('game')] = g.get('acStatus')
+        f.close()
+
+        for app in steamapp_list:
+            if app.game_name != '' and app.game_name in gm:
+                status = gm[app.game_name]
+                if 'Unconfirmed' in status:
+                    app.awacy_status = AWACYStatus.UNCONFIRMED
+                elif 'Confirmed' in status:
+                    app.awacy_status = AWACYStatus.CONFIRMED
+                elif 'Supported' in status:
+                    app.awacy_status = AWACYStatus.SUPPORTED
+                elif 'Denied' in status:
+                    app.awacy_status = AWACYStatus.DENIED
+    except Exception as e:
+        print('Error updating the areweanticheatyet.com status:', e)
+        return steamapp_list
+
+    return steamapp_list
 
 
 def steam_update_ctool(game:SteamApp, new_ctool=None, steam_config_folder=''):

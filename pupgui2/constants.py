@@ -57,3 +57,5 @@ def PALETTE_DARK():
 
 STEAM_API_GETAPPLIST_URL = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'
 STEAM_APP_PAGE_URL = 'https://store.steampowered.com/app/'
+AWACY_GAME_LIST_URL = 'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/master/src/static/games.json'
+LOCAL_AWACY_GAME_LIST = os.path.join(TEMP_DIR, 'awacy_games.json')

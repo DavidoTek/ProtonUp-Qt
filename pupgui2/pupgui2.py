@@ -14,6 +14,7 @@ from .util import list_installed_ctools, remove_ctool, sort_compatibility_tool_n
 from .steamutil import get_steam_game_list
 from .util import print_system_information
 from .util import single_instance
+from .util import download_awacy_gamelist
 from .constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR
 from . import ctloader
 from .pupgui2installdialog import PupguiInstallDialog
@@ -320,6 +321,7 @@ def main():
         return
 
     create_compatibilitytools_folder()
+    download_awacy_gamelist()
 
     app = QApplication(sys.argv)
     app.setApplicationName(APP_NAME)

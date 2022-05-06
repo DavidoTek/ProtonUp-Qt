@@ -3,6 +3,7 @@ import sys
 import platform
 import threading
 import webbrowser
+import requests
 from configparser import ConfigParser
 
 import PySide6
@@ -11,6 +12,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 
 from .constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
+from .constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 
 
 def apply_dark_theme(app):
@@ -286,3 +288,12 @@ def single_instance() -> bool:
     except:
         pass
     return True
+
+
+def download_awacy_gamelist():
+    def _download_awacy_gamelist_thread():
+        r = requests.get(AWACY_GAME_LIST_URL)
+        with open(LOCAL_AWACY_GAME_LIST, 'wb') as f:
+            f.write(r.content)
+    t = threading.Thread(target=_download_awacy_gamelist_thread)
+    t.start()
