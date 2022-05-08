@@ -77,62 +77,62 @@ Anulować i wyjść mimo to?</translation>
         <translation>Info: Możesz pobrać Proton-GE / Boxtron bezpośrednio z Flathuba!</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="20"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
         <source>ProtonUp-Qt - Wine/Proton Installer</source>
         <translation>ProtonUp-Qt - Wine/Proton Instalator</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="48"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="48"/>
         <source>Install for:</source>
         <translation>Zainstaluj dla:</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="68"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="68"/>
         <source>Active downloads:</source>
         <translation>Aktywne pobierania:</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="75"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="75"/>
         <source>0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="89"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="98"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="98"/>
         <source>Installed compatibility tools:</source>
         <translation>Zainstalowane narzędzia kompatybilności:</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="114"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="114"/>
         <source>Add version</source>
         <translation>Dodaj wersję</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="121"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="121"/>
         <source>Remove selected</source>
         <translation>Usuń wybrane</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="128"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="128"/>
         <source>Show info</source>
         <translation>Pokaż info</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="165"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="165"/>
         <source>Show game list</source>
         <translation>Pokaż listę gier</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="172"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="172"/>
         <source>About</source>
         <translation>O programie</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_mainwindow.ui" line="179"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="179"/>
         <source>Close</source>
         <translation>Zamknij</translation>
     </message>
@@ -140,79 +140,78 @@ Anulować i wyjść mimo to?</translation>
 <context>
     <name>PupguiAboutDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="59"/>
         <source>light</source>
         <translation>Jasny</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="59"/>
         <source>dark</source>
         <translation>Ciemny</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="59"/>
         <source>system (restart required)</source>
         <translation>Systemowy (wymagany restart)</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="70"/>
         <source>Update Steam game list</source>
-        <translation>Zaktualizuj listę gier Steam</translation>
+        <translation type="vanished">Zaktualizuj listę gier Steam</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="97"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="94"/>
         <source>Update available</source>
         <translation>Dostępna aktualizacja</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="99"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
         <source>There is a newer version available.
 You are running {APP_VERSION} but {newest_version} is available.</source>
         <translation>Dostępna jest nowsza wersja.
 Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="102"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="99"/>
         <source>Up to date</source>
         <translation>Brak dostępnych aktualizacji</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="102"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="99"/>
         <source>You are running the newest version!</source>
         <translation>Używasz najnowszej wersji!</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="14"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="14"/>
         <source>Dialog</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="40"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI do instalacji/aktualizacji narzędzi kompatybilności oparnych na Wine i Protonie.&lt;br/&gt;Zainspirowane przez/częściowo oparte na protonup&apos;ie od AUNaseef.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="80"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
         <source>Support development on GitHub</source>
         <translation>Wesprzyj rozwój na GitHubie</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="111"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="122"/>
         <source>Color Theme:</source>
         <translation>Motyw:</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="132"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="143"/>
         <source>Check for updates</source>
         <translation>Sprawdź dostępne aktualizacje</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="152"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="163"/>
         <source>About Qt</source>
         <translation>O Qt</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_aboutdialog.ui" line="159"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
         <source>Close</source>
         <translation>Zamknij</translation>
     </message>
@@ -234,42 +233,42 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
 <context>
     <name>PupguiCtInfoDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="54"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="49"/>
         <source>todo</source>
         <translation>todo</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_ctinfodialog.ui" line="14"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="14"/>
         <source>About compatibility tool</source>
         <translation>O narzędziu kompatybilności</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_ctinfodialog.ui" line="26"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="26"/>
         <source>Compatibility tool:</source>
         <translation>Narzędzie kompatybilności:</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_ctinfodialog.ui" line="40"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="40"/>
         <source>Game Launcher:</source>
         <translation>Program uruchamiający gry:</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_ctinfodialog.ui" line="54"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="54"/>
         <source>Install directory:</source>
         <translation>Katalog instalacji:</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_ctinfodialog.ui" line="79"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="79"/>
         <source>Games using compatibility tool:</source>
         <translation>Gry używające narzędzia kompatybilności:</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_ctinfodialog.ui" line="113"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="113"/>
         <source>Batch update</source>
         <translation>Aktualizacja wsadowa</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_ctinfodialog.ui" line="133"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="133"/>
         <source>Close</source>
         <translation>Zamknij</translation>
     </message>
@@ -306,22 +305,57 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
 <context>
     <name>PupguiGameListDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="44"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="41"/>
         <source>Game</source>
         <translation>Gra</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="44"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="41"/>
         <source>Compatibility Tool</source>
         <translation>Narzędzie kompatybilności</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_gamelistdialog.ui" line="17"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="41"/>
+        <source>Deck compatibility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="73"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="75"/>
+        <source>Unsupported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="79"/>
+        <source>Playable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="80"/>
+        <source>Playable using {compat_tool}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="85"/>
+        <source>Verified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="86"/>
+        <source>Verified for {compat_tool}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
         <source>Game List</source>
         <translation>Lista Gier</translation>
     </message>
     <message>
-        <location filename="../share/pupgui2/ui/pupgui2_gamelistdialog.ui" line="53"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="54"/>
         <source>Close</source>
         <translation>Zamknij</translation>
     </message>
@@ -349,20 +383,25 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
         <translation>Anuluj</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2installdialog.py" line="35"/>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="38"/>
         <source>Compatibility tool:</source>
         <translation>Narzędzie kompatybilności:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2installdialog.py" line="37"/>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="40"/>
         <source>Version:</source>
         <translation>Wersja:</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="42"/>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>translator-text</name>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="43"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="38"/>
         <source>Translated by DavidoTek</source>
         <translation>Przetłumaczone przez StarterX4</translation>
     </message>
