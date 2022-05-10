@@ -32,9 +32,13 @@ def apply_dark_theme(app):
         is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION', '')
         darkmode_enabled = False
         try:
-            ret = subprocess.run(['gsettings', 'get', 'org.gnome.desktop.interface', 'gtk-theme'], capture_output=True).stdout.decode('utf-8').strip().strip("'").lower()
-            if ret.endswith('-dark') or ret == 'HighContrastInverse':
+            ret = subprocess.run(['gsettings', 'get', 'org.gnome.desktop.interface', 'color-scheme'], capture_output=True).stdout.decode('utf-8').strip().strip("'")
+            if ret == 'prefer-dark':
                 darkmode_enabled = True
+            else:
+                ret = subprocess.run(['gsettings', 'get', 'org.gnome.desktop.interface', 'gtk-theme'], capture_output=True).stdout.decode('utf-8').strip().strip("'").lower()
+                if ret.endswith('-dark') or ret == 'HighContrastInverse':
+                    darkmode_enabled = True
         except:
             pass
         if not is_plasma and darkmode_enabled:
