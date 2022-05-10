@@ -37,7 +37,8 @@ class PupguiCustomInstallDirectoryDialog(QDialog):
             'steam',
             'lutris',
             'heroicwine',
-            'heroicproton'
+            'heroicproton',
+            'bottles'
             ])
         self.btnSave.clicked.connect(self.btn_save_clicked)
 
