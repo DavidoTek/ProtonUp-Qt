@@ -6,7 +6,7 @@ import os, shutil, tarfile, requests, hashlib
 from PySide6.QtCore import *
 
 CT_NAME = 'Proton-GE'
-CT_LAUNCHERS = ['steam', 'heroicproton']
+CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Steam compatibility tool for running Windows games with improvements over Valve's default Proton.<br/><br/><b>Use this when you don't know what to choose.</b>'''
 CT_DESCRIPTION['de'] = '''Steam Kompatibilitätstool für Windows-Spiele mit Verbesserungen gegenüber Valve's Proton.<br/><br/><b>Verwende dies, wenn du dir nicht sicher bist.</b>'''
