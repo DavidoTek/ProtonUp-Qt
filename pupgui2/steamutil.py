@@ -37,8 +37,9 @@ def get_steam_app_list(steam_config_folder, cached=False):
                 app = SteamApp()
                 app.app_id = int(appid)
                 app.libraryfolder_id = fid
-                if appid in c:
-                    app.compat_tool = c.get(appid).get('name')
+                ct = c.get(appid)
+                if ct:
+                    app.compat_tool = ct.get('name')
                 apps.append(app)
                 app_ids_str.append(str(appid))
             apps = update_steamapp_info(steam_config_folder, apps)
@@ -79,10 +80,11 @@ def get_steam_ctool_list(steam_config_folder, only_proton=False, cached=False):
     ctool_map = _get_steam_ctool_info(steam_config_folder)
 
     for app in apps:
-        if app.app_id in ctool_map:
-            app.ctool_name = ctool_map.get(app.app_id).get('name')
-            app.ctool_from_oslist = ctool_map.get(app.app_id).get('from_oslist')
-            if only_proton and ctool_map.get(app.app_id).get('from_oslist') != 'windows':
+        ct = ctool_map.get(app.app_id)
+        if ct:
+            app.ctool_name = ct.get('name')
+            app.ctool_from_oslist = ct.get('from_oslist')
+            if only_proton and ct.get('from_oslist') != 'windows':
                 continue
             ctools.append(app)
 
@@ -139,8 +141,8 @@ def update_steamapp_info(steam_config_folder, steamapp_list):
             header, apps = parse_appinfo(f)
             for steam_app in apps:
                 appid_str = str(steam_app.get('appid'))
-                if appid_str in sapps:
-                    a = sapps[appid_str]
+                a = sapps.get(appid_str)
+                if a:
                     try:
                         a.game_name = steam_app.get('data').get('appinfo').get('common').get('name')
                     except:
