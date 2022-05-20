@@ -16,7 +16,7 @@
     <message>
         <location filename="../pupgui2/pupgui2.py" line="197"/>
         <source>Download canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Descarga cancelada.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="200"/>
@@ -58,13 +58,14 @@ que están en uso por {n} juegos. ¿Continuar?</translation>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="254"/>
         <source>Exit?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Salir?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="254"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Hay descargas pendientes.
+¿Cancelar y salir de todos modos?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="262"/>
@@ -188,7 +189,7 @@ Está ejecutando {APP_VERSION} pero {newest_version} está disponible.</translat
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI para instalar/actualizar herramientas de compatibilidad basadas en Wine y Proton.&lt;br/&gt;Inspirado en/parcialmente basado en AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
@@ -317,37 +318,37 @@ Está ejecutando {APP_VERSION} pero {newest_version} está disponible.</translat
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="41"/>
         <source>Deck compatibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Compatilidad con Deck</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="73"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconocido</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="75"/>
         <source>Unsupported</source>
-        <translation type="unfinished"></translation>
+        <translation>No soportado</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="79"/>
         <source>Playable</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugable</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="80"/>
         <source>Playable using {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugable usando {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="85"/>
         <source>Verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificado</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="86"/>
         <source>Verified for {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificado para {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
@@ -395,7 +396,7 @@ Está ejecutando {APP_VERSION} pero {newest_version} está disponible.</translat
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="42"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción:</translation>
     </message>
 </context>
 <context>
