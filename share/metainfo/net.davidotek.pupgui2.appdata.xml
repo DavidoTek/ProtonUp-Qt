@@ -56,6 +56,16 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.6.4" date="2022-05-25">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Add support for Bottles</li>
+          <li>Add Proton-Tkg Steam compatibility tool</li>
+          <li>Bug fixes and minor improvements</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.6.2" date="2022-04-28">
       <description>
         <p>Changes:</p>
