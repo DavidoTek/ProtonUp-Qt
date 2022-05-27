@@ -2,6 +2,7 @@ import pkgutil
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
+from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
 from .util import list_installed_ctools, sort_compatibility_tool_names
@@ -9,7 +10,7 @@ from .steamutil import steam_update_ctool
 from .steamutil import get_steam_game_list
 from .steamutil import get_steam_ctool_list
 from .util import get_install_location_from_directory_name
-from .datastructures import SteamDeckCompatEnum
+from .datastructures import AWACYStatus, SteamDeckCompatEnum
 
 
 class PupguiGameListDialog(QObject):
@@ -38,7 +39,8 @@ class PupguiGameListDialog(QObject):
     def setup_ui(self):
         self.update_game_list()
 
-        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility')])
+        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat')])
+        self.ui.tableGames.setColumnWidth(3, 20)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
 
     def update_game_list(self):
@@ -85,6 +87,29 @@ class PupguiGameListDialog(QObject):
                 else:
                     lbltxt = self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
                 self.ui.tableGames.setCellWidget(i, 2, QLabel(lbltxt))
+
+            lblicon = QLabel()
+            p = QPixmap()
+            if game.awacy_status == AWACYStatus.ASUPPORTED:
+                lblicon.setToolTip(self.tr('Support was explicitly enabld / works out of the box'))
+                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_supported.png'))
+            elif game.awacy_status == AWACYStatus.PLANNED:
+                lblicon.setToolTip(self.tr('Game plans to support Proton/Wine'))
+                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_planned.png'))
+            elif game.awacy_status == AWACYStatus.RUNNING:
+                lblicon.setToolTip(self.tr('No official statement but runs fine (may require tinkering)'))
+                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_running.png'))
+            elif game.awacy_status == AWACYStatus.BROKEN:
+                lblicon.setToolTip(self.tr('Anti-Cheat stops game from running properly'))
+                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_broken.png'))
+            elif game.awacy_status == AWACYStatus.DENIED:
+                lblicon.setToolTip(self.tr('Linux support was explicitly denied'))
+                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_denied.png'))
+            else:
+                lblicon.setToolTip(self.tr('Anti-Cheat status unknown'))
+                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_unknown.png'))
+            lblicon.setPixmap(p)
+            self.ui.tableGames.setCellWidget(i, 3, lblicon)
 
             game_id_table_lables.append(game.app_id)
             i += 1
