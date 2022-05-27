@@ -10,10 +10,11 @@ class SteamDeckCompatEnum(Enum):
 
 class AWACYStatus(Enum):
     UNKNOWN = 0
-    UNCONFIRMED = 1
-    CONFIRMED = 2
-    SUPPORTED = 3
     DENIED = 4
+    ASUPPORTED = 5
+    PLANNED = 6
+    RUNNING = 7
+    BROKEN = 8
 
 
 class SteamApp:

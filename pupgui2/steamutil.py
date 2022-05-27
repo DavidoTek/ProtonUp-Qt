@@ -173,19 +173,21 @@ def update_steamapp_awacystatus(steamapp_list: SteamApp):  # Download file in th
         f = open(LOCAL_AWACY_GAME_LIST, 'r')
         gm = {}
         for g in json.load(f):
-            gm[g.get('game')] = g.get('acStatus')
+            gm[g.get('name')] = g.get('status')
         f.close()
 
         for app in steamapp_list:
             if app.game_name != '' and app.game_name in gm:
                 status = gm[app.game_name]
-                if 'Unconfirmed' in status:
-                    app.awacy_status = AWACYStatus.UNCONFIRMED
-                elif 'Confirmed' in status:
-                    app.awacy_status = AWACYStatus.CONFIRMED
-                elif 'Supported' in status:
-                    app.awacy_status = AWACYStatus.SUPPORTED
-                elif 'Denied' in status:
+                if status == 'Supported':
+                    app.awacy_status = AWACYStatus.ASUPPORTED
+                elif status == 'Planned':
+                    app.awacy_status = AWACYStatus.PLANNED
+                elif status == 'Running':
+                    app.awacy_status = AWACYStatus.RUNNING
+                elif status == 'Broken':
+                    app.awacy_status = AWACYStatus.BROKEN
+                elif status == 'Denied':
                     app.awacy_status = AWACYStatus.DENIED
     except Exception as e:
         print('Error updating the areweanticheatyet.com status:', e)
