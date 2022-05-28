@@ -318,72 +318,72 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="42"/>
         <source>Deck compatibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Steam Deck kompatibel</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="42"/>
         <source>Anticheat</source>
-        <translation type="unfinished"></translation>
+        <translation>Anticheat</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="75"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannt</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="77"/>
         <source>Unsupported</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht unterstützt</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Playable</source>
-        <translation type="unfinished"></translation>
+        <translation>Spielbar</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="82"/>
         <source>Playable using {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Spielbar mit {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="87"/>
         <source>Verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Verifiziert</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="88"/>
         <source>Verified for {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Verifiziert für {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="94"/>
         <source>Support was explicitly enabled / works out of the box</source>
-        <translation type="unfinished"></translation>
+        <translation>Offiziell unterstützt / funktioniert problemlos</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="97"/>
         <source>Game plans to support Proton/Wine</source>
-        <translation type="unfinished"></translation>
+        <translation>Zukünftige Proton/Wine Unterstützung geplant</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="100"/>
         <source>No official statement but runs fine (may require tinkering)</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine offizielle Angabe, funktioniert trotzdem</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Anti-Cheat stops game from running properly</source>
-        <translation type="unfinished"></translation>
+        <translation>Anti-Cheat hindert Spiel vom Laufen ab</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="106"/>
         <source>Linux support was explicitly denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Linux Unterstützung explizit ausgeschlossen</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="109"/>
         <source>Anti-Cheat status unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Anti Cheat Status unbekannt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
@@ -431,7 +431,7 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="42"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschreibung:</translation>
     </message>
 </context>
 <context>
