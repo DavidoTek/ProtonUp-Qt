@@ -91,7 +91,7 @@ class PupguiGameListDialog(QObject):
             lblicon = QLabel()
             p = QPixmap()
             if game.awacy_status == AWACYStatus.ASUPPORTED:
-                lblicon.setToolTip(self.tr('Support was explicitly enabld / works out of the box'))
+                lblicon.setToolTip(self.tr('Support was explicitly enabled / works out of the box'))
                 p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_supported.png'))
             elif game.awacy_status == AWACYStatus.PLANNED:
                 lblicon.setToolTip(self.tr('Game plans to support Proton/Wine'))

@@ -283,7 +283,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     </message>
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="29"/>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="50"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="51"/>
         <source>Save</source>
         <translation>Opslaan</translation>
     </message>
@@ -298,7 +298,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
         <translation>Starter:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="48"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="49"/>
         <source>Reset</source>
         <translation>Standaardwaarden</translation>
     </message>
@@ -306,48 +306,83 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
 <context>
     <name>PupguiGameListDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="41"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="42"/>
         <source>Game</source>
         <translation>Game</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="41"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="42"/>
         <source>Compatibility Tool</source>
         <translation>Compatibiliteitshulpmiddel</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="41"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="42"/>
         <source>Deck compatibility</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="73"/>
-        <source>Unknown</source>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="42"/>
+        <source>Anticheat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="75"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="77"/>
         <source>Unsupported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="79"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Playable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="80"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="82"/>
         <source>Playable using {compat_tool}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="85"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="87"/>
         <source>Verified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="86"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="88"/>
         <source>Verified for {compat_tool}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="94"/>
+        <source>Support was explicitly enabled / works out of the box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="97"/>
+        <source>Game plans to support Proton/Wine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="100"/>
+        <source>No official statement but runs fine (may require tinkering)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
+        <source>Anti-Cheat stops game from running properly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="106"/>
+        <source>Linux support was explicitly denied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="109"/>
+        <source>Anti-Cheat status unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -356,7 +391,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
         <translation>Gameslijst</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="54"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="55"/>
         <source>Close</source>
         <translation>Sluiten</translation>
     </message>
