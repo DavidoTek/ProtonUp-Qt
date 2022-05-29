@@ -8,9 +8,9 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
-from .util import apply_dark_theme, create_compatibilitytools_folder
+from .util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools
 from .util import install_directory, available_install_directories, get_install_location_from_directory_name
-from .util import list_installed_ctools, remove_ctool, sort_compatibility_tool_names
+from .util import remove_ctool
 from .steamutil import get_steam_game_list
 from .util import print_system_information
 from .util import single_instance
@@ -71,6 +71,7 @@ class MainWindow(QObject):
         self.updating_combo_install_location = False
         self.pending_downloads = []
         self.current_compat_tool_name = ""
+        self.compat_tool_index_map = []
         
         self.load_ui()
         self.setup_ui()
@@ -140,23 +141,29 @@ class MainWindow(QObject):
 
     def update_ui(self):
         """ update ui contents """
-        self.ui.listInstalledVersions.clear()
-
-        ctools = sort_compatibility_tool_names(list_installed_ctools(install_directory()))
-
         install_loc = get_install_location_from_directory_name(install_directory())
+
+        self.ui.listInstalledVersions.clear()
+        self.compat_tool_index_map = get_installed_ctools(install_directory())
+
+        # Launcher specific (Lutris): Show DXVK
+        if install_loc.get('launcher') == 'lutris':
+            dxvk_dir = os.path.join(install_directory(), '../../runtime/dxvk')
+            for ct in get_installed_ctools(dxvk_dir):
+                if not 'dxvk' in ct.get_displayname().lower():
+                    ct.displayname = 'DXVK ' + ct.displayname
+                self.compat_tool_index_map.append(ct)
+
+        # Launcher specific (Steam): Number of games using the compatibility tool
         if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
             get_steam_game_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
+            for ct in self.compat_tool_index_map:
+                games = get_steam_game_list(install_loc.get('vdf_dir'), ct.get_install_folder(), cached=True)
+                ct.no_games = len(games)
 
-        for ver in ctools:
-            # Launcher specific
-            if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
-                games = get_steam_game_list(install_loc.get('vdf_dir'), ver.split(' - ')[0], cached=True)
-                if len(games) == 0:
-                    ver += ' - ' + self.tr('unused')
-            
-            self.ui.listInstalledVersions.addItem(ver)
-        
+        for ct in self.compat_tool_index_map:
+            self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused')))
+
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
             self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
@@ -219,23 +226,21 @@ class MainWindow(QObject):
         dialog.setFixedSize(dialog.size())
 
     def btn_remove_selcted_clicked(self):
-        install_loc = get_install_location_from_directory_name(install_directory())
-
-        vers_to_remove = []
+        ctools_to_remove = []
         games_using_tools = 0
         for item in self.ui.listInstalledVersions.selectedItems():
-            ver = item.text()
-            if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
-                games_using_tools += len(get_steam_game_list(install_loc.get('vdf_dir'), ver.split(' - ')[0]))
-            vers_to_remove.append(ver)
+            ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
+            if ct.no_games > 0:
+                games_using_tools += 1
+            ctools_to_remove.append(ct)
 
         if games_using_tools > 0:
             ret = QMessageBox.question(self.ui, self.tr('Remove compatibility tools?'), self.tr('You are trying to remove compatibility tools\nwhich are in use by {n} games. Continue?').format(n=games_using_tools))
             if ret == QMessageBox.StandardButton.No:
                 return
 
-        for ver in vers_to_remove:
-            remove_ctool(ver, install_directory())
+        for ct in ctools_to_remove:
+            remove_ctool(ct.get_install_folder(), ct.get_install_dir())
         
         self.ui.statusBar().showMessage(self.tr('Removed selected versions.'))
         self.update_ui()
@@ -274,9 +279,9 @@ class MainWindow(QObject):
     
     def list_installed_versions_item_double_clicked(self, item):
         # Show info about compatibility tool when double clicked in list
-        ver = item.text().split(' - ')[0]
+        ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
         install_loc = get_install_location_from_directory_name(install_directory())
-        cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
+        cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ct.displayname, install_loc=install_loc, install_dir=ct.get_install_dir())
         cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def list_installed_versions_item_selection_changed(self):
@@ -291,8 +296,8 @@ class MainWindow(QObject):
     def btn_show_ct_info_clicked(self):
         install_loc = get_install_location_from_directory_name(install_directory())
         for item in self.ui.listInstalledVersions.selectedItems():
-            ver = item.text().split(' - ')[0]
-            cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ver, install_loc=install_loc, install_dir=install_directory())
+            ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
+            cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ct.displayname, install_loc=install_loc, install_dir=ct.get_install_dir())
             cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def press_virtual_key(self, key, mod):
