@@ -40,6 +40,8 @@ class PupguiGameListDialog(QObject):
         self.update_game_list()
 
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat')])
+        self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
+
         self.ui.tableGames.setColumnWidth(3, 20)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
 
