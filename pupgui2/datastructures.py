@@ -1,4 +1,5 @@
 from enum import Enum
+import os
 
 
 class SteamDeckCompatEnum(Enum):
@@ -73,7 +74,7 @@ class BasicCompatTool:
 
     def get_install_dir(self) -> str:
         """ Returns the install directory, e.g. .../compatibilitytools.d/ """
-        return self.install_dir
+        return os.path.normpath(self.install_dir)
     
     def get_install_folder(self) -> str:
         """ Returns the install folder, e.g. GE-Proton7-17 or luxtorpeda """
