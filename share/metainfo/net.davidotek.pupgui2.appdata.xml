@@ -22,19 +22,22 @@
     <p>Supported launchers:</p>
     <ul>
       <li>Steam</li>
-      <li>Steam (Flatpak)</li>
       <li>Lutris</li>
       <li>Heroic Games Launcher</li>
+      <li>Bottles</li>
+      <li>Both normal and Flatpak installations are supported</li>
     </ul>
     <p>Supported compatibility tools:</p>
     <ul>
       <li>Proton-GE</li>
+      <li>Proton-Tkg</li>
       <li>Luxtorpeda</li>
       <li>Boxtron</li>
       <li>Roberta</li>
       <li>Wine-GE</li>
       <li>Lutris-Wine</li>
       <li>Kron4ek's Vanilla Wine-Builds</li>
+      <li>DXVK and DXVK async</li>
     </ul>
     <p>Double click compatibility tools to show more information and games using the tool.</p>
   </description>
