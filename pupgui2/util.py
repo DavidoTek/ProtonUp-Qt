@@ -13,6 +13,7 @@ from PySide6.QtGui import *
 
 from .constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
 from .constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
+from .datastructures import BasicCompatTool
 
 
 def apply_dark_theme(app):
@@ -301,3 +302,30 @@ def download_awacy_gamelist():
             f.write(r.content)
     t = threading.Thread(target=_download_awacy_gamelist_thread)
     t.start()
+
+
+def get_installed_ctools(install_dir):
+    """
+    Returns installed compatibility tools
+    Return Type: BasicCompatTool[]
+    """
+    ctools = []
+
+    if os.path.exists(install_dir):
+        folders = os.listdir(install_dir)
+        folders = sort_compatibility_tool_names(folders)
+        for folder in folders:
+            if not os.path.isdir(os.path.join(install_dir, folder)):
+                continue
+
+            ct = BasicCompatTool(folder, install_dir, folder)
+
+            ver_file = os.path.join(install_dir, folder, 'VERSION.txt')
+            if os.path.exists(ver_file):
+                with open(ver_file, 'r') as f:
+                    ver = f.read().strip()
+                    ct.set_version(ver)
+
+            ctools.append(ct)
+
+    return ctools

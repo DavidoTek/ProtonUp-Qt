@@ -45,3 +45,36 @@ class SteamApp:
             return self.deck_compatibility.get('configuration').get('recommended_runtime', '')
         except:
             return ''
+
+
+class BasicCompatTool:
+    displayname = ''
+    version = ''
+    no_games = -1
+    install_dir = ''
+    install_folder = ''
+
+    def __init__(self, displayname, install_dir, install_folder) -> None:
+        self.displayname = displayname
+        self.install_dir = install_dir
+        self.install_folder = install_folder
+
+    def set_version(self, ver : str):
+        self.version = ver
+
+    def get_displayname(self, unused_tr='unused') -> str:
+        """ Returns the display name, e.g. GE-Proton7-17 or luxtorpeda v57 """
+        displayname = self.displayname
+        if self.version != '':
+            displayname += ' ' + self.version
+        if self.no_games == 0:
+            displayname += ' (' + unused_tr + ')'
+        return displayname
+
+    def get_install_dir(self) -> str:
+        """ Returns the install directory, e.g. .../compatibilitytools.d/ """
+        return self.install_dir
+    
+    def get_install_folder(self) -> str:
+        """ Returns the install folder, e.g. GE-Proton7-17 or luxtorpeda """
+        return self.install_folder
