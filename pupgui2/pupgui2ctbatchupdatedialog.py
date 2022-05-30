@@ -4,6 +4,7 @@ from PySide6.QtGui import *
 
 from .util import sort_compatibility_tool_names, list_installed_ctools, install_directory
 from .steamutil import steam_update_ctool
+from .steamutil import is_steam_running
 
 class PupguiCtBatchUpdateDialog(QDialog):
 
@@ -33,6 +34,11 @@ class PupguiCtBatchUpdateDialog(QDialog):
             if 'Proton' in ctool:
                 self.comboNewCtool.addItem(ctool)
         self.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
+
+        if is_steam_running():
+            lblSteamRunningWarning = QLabel(self.tr('Close the Steam client beforehand.'))
+            lblSteamRunningWarning.setStyleSheet('QLabel { color: orange; }')
+            formLayout.addRow(lblSteamRunningWarning)
 
         self.show()
     

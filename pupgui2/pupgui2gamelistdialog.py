@@ -9,6 +9,7 @@ from .util import list_installed_ctools, sort_compatibility_tool_names
 from .steamutil import steam_update_ctool
 from .steamutil import get_steam_game_list
 from .steamutil import get_steam_ctool_list
+from .steamutil import is_steam_running
 from .util import get_install_location_from_directory_name
 from .datastructures import AWACYStatus, SteamDeckCompatEnum
 
@@ -44,6 +45,8 @@ class PupguiGameListDialog(QObject):
 
         self.ui.tableGames.setColumnWidth(3, 20)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
+
+        self.ui.lblSteamRunningWarning.setVisible(is_steam_running())
 
     def update_game_list(self):
         install_loc = get_install_location_from_directory_name(self.install_dir)

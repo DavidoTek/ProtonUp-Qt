@@ -225,3 +225,20 @@ def steam_update_ctool(game:SteamApp, new_ctool=None, steam_config_folder=''):
               e, ', vdf:', config_vdf_file)
         return False
     return True
+
+
+def is_steam_running() -> bool:
+    """
+    Returns True if the Steam client is running, False otherwise
+    Return Type: bool
+    """
+    try:
+        procs = os.listdir('/proc')
+        for proc in procs:
+            exe = os.path.join('/proc', proc, 'exe')
+            if os.path.exists(exe):
+                if 'steam' in os.readlink(exe):
+                    return True
+    except:
+        pass
+    return False

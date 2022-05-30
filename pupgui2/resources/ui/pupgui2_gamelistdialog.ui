@@ -37,6 +37,16 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
+      <widget class="QLabel" name="lblSteamRunningWarning">
+       <property name="styleSheet">
+        <string notr="true">QLabel { color: orange; }</string>
+       </property>
+       <property name="text">
+        <string>Warning: Close the Steam client beforehand so that the changes can be applied!</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
