@@ -79,3 +79,9 @@ class BasicCompatTool:
     def get_install_folder(self) -> str:
         """ Returns the install folder, e.g. GE-Proton7-17 or luxtorpeda """
         return self.install_folder
+
+
+class LutrisGame:
+    slug = ''
+    name = ''
+    runner = ''

@@ -1,9 +1,12 @@
+import os
 import pkgutil
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
+
+from pupgui2.lutrisutil import get_lutris_game_list
 
 from .util import list_installed_ctools, sort_compatibility_tool_names
 from .steamutil import steam_update_ctool
@@ -23,9 +26,7 @@ class PupguiGameListDialog(QObject):
         self.install_dir = install_dir
         self.parent = parent
 
-        install_loc = get_install_location_from_directory_name(self.install_dir)
-        if not 'vdf_dir' in install_loc:
-            return
+        self.install_loc = get_install_location_from_directory_name(install_dir)
 
         self.load_ui()
         self.setup_ui()
@@ -38,21 +39,23 @@ class PupguiGameListDialog(QObject):
         self.ui = loader.load(ui_file.device())
 
     def setup_ui(self):
-        self.update_game_list()
+        if self.install_loc.get('launcher') == 'steam':
+            self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat')])
+            self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
+            self.update_game_list_steam()
+            self.ui.lblSteamRunningWarning.setVisible(is_steam_running())
 
-        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat')])
-        self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
+        elif self.install_loc.get('launcher') == 'lutris':
+            self.update_game_list_lutris()
+            self.ui.lblSteamRunningWarning.setVisible(False)
 
         self.ui.tableGames.setColumnWidth(3, 20)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
 
-        self.ui.lblSteamRunningWarning.setVisible(is_steam_running())
-
-    def update_game_list(self):
-        install_loc = get_install_location_from_directory_name(self.install_dir)
-        games = get_steam_game_list(steam_config_folder=install_loc.get('vdf_dir'))
+    def update_game_list_steam(self):
+        games = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'))
         ctools = sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True)
-        for t in get_steam_ctool_list(steam_config_folder=install_loc.get('vdf_dir')):
+        for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir')):
             ctools.append(t.ctool_name)
 
         self.ui.tableGames.setRowCount(len(games))
@@ -71,7 +74,7 @@ class PupguiGameListDialog(QObject):
                 combo.setCurrentText('-')
             else:
                 combo.setCurrentText(game.compat_tool)
-            combo.currentTextChanged.connect(lambda text,game=game: self.update_ctool(text, game))
+            combo.currentTextChanged.connect(lambda text,game=game: self.update_ctool_steam(text, game))
             self.ui.tableGames.setCellWidget(i, 1, combo)
 
             deckc = game.get_deck_compat_category()
@@ -120,12 +123,22 @@ class PupguiGameListDialog(QObject):
             i += 1
         self.ui.tableGames.setVerticalHeaderLabels(game_id_table_lables)
 
+    def update_game_list_lutris(self):
+        lutris_data_dir = os.path.join(self.install_dir, '../..')
+        games = get_lutris_game_list(lutris_data_dir)
+
+        self.ui.tableGames.setRowCount(len(games))
+
+        i = 0
+        for game in games:
+            self.ui.tableGames.setCellWidget(i, 0, QLabel(game.name))
+            i += 1
+
     def btn_close_clicked(self):
         self.ui.close()
 
-    def update_ctool(self, ctool_name: str, game):
+    def update_ctool_steam(self, ctool_name: str, game):
         if ctool_name == '-':
             ctool_name = None
-        install_loc = get_install_location_from_directory_name(self.install_dir)
-        steam_update_ctool(game, ctool_name, steam_config_folder=install_loc.get('vdf_dir'))
+        steam_update_ctool(game, ctool_name, steam_config_folder=self.install_loc.get('vdf_dir'))
         self.game_property_changed.emit(True)
