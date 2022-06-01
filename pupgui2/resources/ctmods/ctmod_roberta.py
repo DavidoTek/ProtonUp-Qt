@@ -16,7 +16,7 @@ CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności Steam Play do uruchamiania
 
 
 class CtInstaller(QObject):
-    
+
     BUFFER_SIZE = 4096
     CT_URL = 'https://api.github.com/repos/dreamer/roberta/releases'
     CT_INFO_URL = 'https://github.com/dreamer/roberta/releases/tag/'
@@ -33,15 +33,15 @@ class CtInstaller(QObject):
 
     def set_download_canceled(self, val):
         self.p_download_canceled = val
-    
+
     download_canceled = Property(bool, get_download_canceled, set_download_canceled)
-    
+
     def __set_download_progress_percent(self, value : int):
         if self.p_download_progress_percent == value:
             return
         self.p_download_progress_percent = value
         self.download_progress_percent.emit(value)
-    
+
     def __download(self, url, destination):
         """
         Download files from url to destination
@@ -51,7 +51,7 @@ class CtInstaller(QObject):
             file = requests.get(url, stream=True)
         except OSError:
             return False
-        
+
         self.__set_download_progress_percent(1) # 1 download started
         f_size = int(file.headers.get('content-length'))
         c_count = int(f_size / self.BUFFER_SIZE)
@@ -71,7 +71,7 @@ class CtInstaller(QObject):
                 c_current += 1
         self.__set_download_progress_percent(99) # 99 download complete
         return True
-    
+
     def __fetch_github_data(self, tag):
         """
         Fetch GitHub release information
@@ -90,7 +90,7 @@ class CtInstaller(QObject):
                 values['download'] = asset['browser_download_url']
                 values['size'] = asset['size']
         return values
-    
+
     def is_system_compatible(self):
         """
         Are the system requirements met?
@@ -125,7 +125,7 @@ class CtInstaller(QObject):
 
         if not data or 'download' not in data:
             return False
-        
+
         protondir = install_dir + 'roberta'
 
         destination = temp_dir
@@ -134,7 +134,7 @@ class CtInstaller(QObject):
 
         if not self.__download(url=data['download'], destination=destination):
             return False
-        
+
         if os.path.exists(protondir):
             shutil.rmtree(protondir)
         tarfile.open(destination, "r:xz").extractall(install_dir)

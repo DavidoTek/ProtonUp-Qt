@@ -43,7 +43,7 @@ class PupguiAboutDialog(QObject):
         self.ui.lblAboutVersion.setText(ABOUT_TEXT)
 
         self.ui.lblBuildInfo.setText(BUILD_INFO)
-        
+
         try:
             p = QPixmap()
             p.loadFromData(pkgutil.get_data(__name__, 'resources/img/kofi_button_blue.png'))
@@ -76,10 +76,10 @@ class PupguiAboutDialog(QObject):
 
     def btn_aboutqt_clicked(self):
         QMessageBox.aboutQt(self.parent)
-    
+
     def btn_donate_clicked(self):
         open_webbrowser_thread(DAVIDOTEK_KOFI_URL)
-    
+
     def btn_github_clicked(self):
         open_webbrowser_thread(PROTONUPQT_GITHUB_URL)
 

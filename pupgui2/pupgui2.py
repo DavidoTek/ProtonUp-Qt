@@ -72,7 +72,7 @@ class MainWindow(QObject):
         self.pending_downloads = []
         self.current_compat_tool_name = ""
         self.compat_tool_index_map = []
-        
+
         self.load_ui()
         self.setup_ui()
         self.update_ui()
@@ -116,7 +116,7 @@ class MainWindow(QObject):
             self.giw.start()
             self.giw.press_virtual_key.connect(self.press_virtual_key)
         QApplication.instance().aboutToQuit.connect(self.giw.stop)
-    
+
     def update_combo_install_location(self):
         self.updating_combo_install_location = True
 
@@ -243,7 +243,7 @@ class MainWindow(QObject):
 
         for ct in ctools_to_remove:
             remove_ctool(ct.get_install_folder(), ct.get_install_dir())
-        
+
         self.ui.statusBar().showMessage(self.tr('Removed selected versions.'))
         self.update_ui()
 
@@ -268,7 +268,7 @@ class MainWindow(QObject):
             install_dir = install_directory(self.combo_install_location_index_map[self.ui.comboInstallLocation.currentIndex()])
             self.ui.statusBar().showMessage(self.tr('Changed install directory to {install_dir}.').format(install_dir=install_dir), timeout=3000)
             self.update_ui()
-    
+
     def btn_manage_install_locations_clicked(self):
         customid_dialog = PupguiCustomInstallDirectoryDialog(parent=self.ui)
         customid_dialog.custom_id_set.connect(self.update_combo_install_location)

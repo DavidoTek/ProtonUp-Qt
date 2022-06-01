@@ -179,7 +179,7 @@ def config_custom_install_location(install_dir=None, launcher=''):
         if config.has_option('pupgui2', 'custom_install_dir') and config.has_option('pupgui2', 'custom_install_launcher'):
             install_dir = config['pupgui2']['custom_install_dir']
             launcher = config['pupgui2']['custom_install_launcher']
-    
+
     if install_dir and not install_dir.endswith('/'):
         install_dir += '/'
     return {'install_dir': install_dir, 'display_name': '', 'launcher': launcher}
@@ -240,7 +240,7 @@ def sort_compatibility_tool_names(unsorted, reverse=False):
                 ver_dict[i] = ver
         else:
             ver_dict[i] = ver
-    
+
     sorted_vers = []
     for v in sorted(ver_dict):
         sorted_vers.append(ver_dict[v])

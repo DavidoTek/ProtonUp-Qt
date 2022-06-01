@@ -16,7 +16,7 @@ class PupguiInstallDialog(QDialog):
         super(PupguiInstallDialog, self).__init__(parent)
         self.install_location = install_location
         self.ct_objs = ct_loader.get_ctobjs(self.install_location['launcher'])
-    
+
     def setup_ui(self):
         self.setWindowTitle(self.tr('Install Compatibility Tool'))
         self.setModal(True)
@@ -53,7 +53,7 @@ class PupguiInstallDialog(QDialog):
 
         for ctobj in self.ct_objs:
             self.comboCompatTool.addItem(ctobj['name'])
-    
+
     def btn_info_clicked(self):
         for ctobj in self.ct_objs:
             if ctobj['name'] == self.comboCompatTool.currentText():
@@ -74,7 +74,7 @@ class PupguiInstallDialog(QDialog):
 
     def btn_cancel_clicked(self):
         self.close()
-    
+
     def combo_compat_tool_current_index_changed(self):
         """ fetch and show available releases for selected compatibility tool """
         for ctobj in self.ct_objs:
@@ -91,7 +91,7 @@ class PupguiInstallDialog(QDialog):
                 t.start()
                 self.update_description(ctobj)
                 return
-    
+
     def update_description(self, ctobj):
         """ get (translated) description and update description text """
         app_lang = QLocale.languageToCode(QLocale().language())

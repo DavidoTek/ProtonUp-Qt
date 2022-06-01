@@ -8,11 +8,11 @@ class GamepadInputWorker(QThread):
     def __init__(self):
         super().__init__()
         self.reset_pos = 0
-    
+
     def run(self):
         try:
             import inputs
-            
+
             while not self.isInterruptionRequested():
                 events = inputs.get_gamepad()
                 for event in events:
@@ -21,12 +21,12 @@ class GamepadInputWorker(QThread):
                             self.press_virtual_key.emit(Qt.Key_Tab, Qt.ShiftModifier)
                         elif event.state == 1:
                             self.press_virtual_key.emit(Qt.Key_Tab, Qt.NoModifier)
-                    
+
                     elif event.code == 'BTN_SOUTH' and event.state == 1:
                         self.press_virtual_key.emit(Qt.Key_Space, Qt.NoModifier)
                     elif event.code == 'BTN_EAST' and event.state == 1:
                         self.press_virtual_key.emit(Qt.Key_Enter, Qt.NoModifier)
-                    
+
                     elif event.code == 'ABS_Y' or event.code == 'ABS_RY':
                         if event.state > -100 and event.state < 100:
                             self.reset_pos = True
@@ -51,7 +51,7 @@ class GamepadInputWorker(QThread):
                                 self.reset_pos = False
         except Exception as e:
             print('Gamepad error:', e)
-    
+
     def stop(self):
         self.requestInterruption()
         self.setTerminationEnabled(True)

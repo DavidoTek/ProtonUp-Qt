@@ -46,7 +46,7 @@ class PupguiCtBatchUpdateDialog(QDialog):
         self.update_games_to_ctool(self.comboNewCtool.currentText())
         self.batch_update_complete.emit(True)
         self.close()
-    
+
     def update_games_to_ctool(self, ctool):
         for game in self.games:
             steam_update_ctool(game, ctool, self.steam_config_folder)

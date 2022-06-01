@@ -32,7 +32,7 @@ class PupguiCtInfoDialog(QObject):
         ui_file = QDataStream(QByteArray(data))
         loader = QUiLoader()
         self.ui = loader.load(ui_file.device())
-    
+
     def setup_ui(self):
         self.ui.txtToolName.setText(self.ctool)
         self.ui.txtLauncherName.setText(self.install_loc.get('display_name'))
@@ -56,7 +56,7 @@ class PupguiCtInfoDialog(QObject):
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
             self.games = get_steam_game_list(self.install_loc.get('vdf_dir'), self.ctool)
             self.ui.txtNumGamesUsingTool.setText(str(len(self.games)))
-        
+
         self.ui.listGames.clear()
         for game in self.games:
             self.ui.listGames.addItem(game.get_app_id_str() + ': ' + game.game_name)

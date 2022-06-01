@@ -64,7 +64,7 @@ class PupguiCustomInstallDirectoryDialog(QDialog):
 
         self.custom_id_set.emit()
         self.close()
-    
+
     def txt_id_browse_action_triggered(self):
         dialog = QFileDialog(self)
         dialog.setFileMode(QFileDialog.Directory)

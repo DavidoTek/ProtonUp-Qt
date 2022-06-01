@@ -1,5 +1,4 @@
 import os
-from re import A
 import sqlite3
 
 from .datastructures import LutrisGame

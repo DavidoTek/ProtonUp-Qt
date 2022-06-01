@@ -46,7 +46,7 @@ def get_steam_app_list(steam_config_folder, cached=False):
             apps = update_steamapp_awacystatus(apps)
     except Exception as e:
         print('Error: Could not get a list of all Steam apps:', e)
-    
+
     _cached_app_list = apps
     return apps
 
@@ -119,7 +119,7 @@ def _get_steam_ctool_info(steam_config_folder):
     finally:
         for t in compat_tools:
             ctool_map[compat_tools.get(t).get('appid')] = {'name': t, 'from_oslist': compat_tools.get(t).get('from_oslist')}
-    
+
     _cached_steam_ctool_id_map = ctool_map
     return ctool_map
 
@@ -168,7 +168,7 @@ def update_steamapp_awacystatus(steamapp_list: SteamApp):  # Download file in th
     """
     if not os.path.exists(LOCAL_AWACY_GAME_LIST):
         return steamapp_list
-    
+
     try:
         f = open(LOCAL_AWACY_GAME_LIST, 'r')
         gm = {}
@@ -204,9 +204,9 @@ def steam_update_ctool(game:SteamApp, new_ctool=None, steam_config_folder=''):
     config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
     if not os.path.exists(config_vdf_file):
         return False
-    
+
     game_id = game.app_id
-    
+
     try:
         d = vdf.load(open(config_vdf_file))
         c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
@@ -218,7 +218,7 @@ def steam_update_ctool(game:SteamApp, new_ctool=None, steam_config_folder=''):
                 c.get(str(game_id))['name'] = str(new_ctool)
         else:
             c[str(game_id)] = {"name": str(new_ctool), "config": "", "priority": "250"}
-        
+
         vdf.dump(d, open(config_vdf_file, 'w'), pretty=True)
     except Exception as e:
         print('Error, could not update Steam compatibility tool to', new_ctool, 'for game',game_id, ':',

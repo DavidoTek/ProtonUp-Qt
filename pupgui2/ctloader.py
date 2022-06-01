@@ -10,7 +10,7 @@ class CtLoader:
 
     def __init__(self):
         self.load_ctmods()
-    
+
     def load_ctmods(self):
         """
         Load ctmods
@@ -34,7 +34,7 @@ class CtLoader:
                 except Exception as e:
                     print('Could not load ctmod', mod, ':', e)
         return True
-    
+
     def get_ctmods(self, launcher=None):
         """
         Get loaded ctmods, optionally sort by launcher
@@ -48,7 +48,7 @@ class CtLoader:
             if launcher in ctmod.CT_LAUNCHERS:
                 ctmods.append(ctmod)
         return ctmods
-    
+
     def get_ctobjs(self, launcher=None):
         """
         Get loaded compatibility tools, optionally sort by launcher

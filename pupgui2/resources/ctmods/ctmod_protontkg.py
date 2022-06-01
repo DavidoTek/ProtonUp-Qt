@@ -126,7 +126,7 @@ class CtInstaller(QObject):
         install_folder = install_dir + 'proton_tkg_' + data['version'].lower()
         if os.path.exists(install_folder):
             shutil.rmtree(install_folder)
-        
+
         if '.tar.gz' in destination:
             tarfile.open(destination, "r:gz").extractall(install_dir)
         elif '.zip' in destination:

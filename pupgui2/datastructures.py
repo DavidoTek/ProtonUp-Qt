@@ -31,16 +31,16 @@ class SteamApp:
 
     def get_app_id_str(self):
         return str(self.app_id)
-    
+
     def get_libraryfolder_id_str(self):
         return str(self.libraryfolder_id)
-    
+
     def get_deck_compat_category(self) -> SteamDeckCompatEnum:
         try:
             return SteamDeckCompatEnum(self.deck_compatibility.get('category'))
         except:
             return SteamDeckCompatEnum.UNKNOWN
-    
+
     def get_deck_recommended_tool(self) -> str:
         try:
             return self.deck_compatibility.get('configuration').get('recommended_runtime', '')
@@ -75,7 +75,7 @@ class BasicCompatTool:
     def get_install_dir(self) -> str:
         """ Returns the install directory, e.g. .../compatibilitytools.d/ """
         return os.path.normpath(self.install_dir)
-    
+
     def get_install_folder(self) -> str:
         """ Returns the install folder, e.g. GE-Proton7-17 or luxtorpeda """
         return self.install_folder
