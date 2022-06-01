@@ -2,6 +2,7 @@ import os, subprocess, shutil
 import sys
 import platform
 import threading
+from typing import Dict, List
 import webbrowser
 import requests
 from configparser import ConfigParser
@@ -16,7 +17,7 @@ from .constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from .datastructures import BasicCompatTool
 
 
-def apply_dark_theme(app):
+def apply_dark_theme(app: QApplication) -> None:
     """
     Apply custom dark mode to Qt application when not using KDE Plasma
     and a dark GTK theme is selected (name ends with '-dark')
@@ -52,8 +53,7 @@ def apply_dark_theme(app):
             app.setStyle('Fusion')
             app.setPalette(QStyleFactory.create('fusion').standardPalette())
 
-
-def config_theme(theme=None):
+def config_theme(theme=None) -> str:
     """
     Read/update config for the theme
     Write theme to config or read if theme=None
@@ -76,7 +76,7 @@ def config_theme(theme=None):
     return theme
 
 
-def create_compatibilitytools_folder():
+def create_compatibilitytools_folder() -> None:
     """
     Create compatibilitytools folder if launcher is installed but compatibilitytools folder doesn't exist
     Will check all launchers specified in constants.POSSIBLE_INSTALL_LOCATIONS
@@ -92,7 +92,7 @@ def create_compatibilitytools_folder():
                 print('Error trying to create compatibility tools folder ' + str(install_dir) + ': ' + str(e))
 
 
-def available_install_directories():
+def available_install_directories() -> List[str]:
     """
     List available install directories
     Return Type: List[str]
@@ -108,7 +108,7 @@ def available_install_directories():
     return available_dirs
 
 
-def get_install_location_from_directory_name(install_dir):
+def get_install_location_from_directory_name(install_dir: str) -> Dict[str, str]:
     """
     Get install location dict from install directory name
     Return Type: dict
@@ -124,7 +124,7 @@ def get_install_location_from_directory_name(install_dir):
 
 
 # modified install_directory function from protonup 0.1.4
-def install_directory(target=None):
+def install_directory(target=None) -> str:
     """
     Read/update config for the selected install directory
     Write target to config or read from config if target=None
@@ -157,7 +157,7 @@ def install_directory(target=None):
     return ''
 
 
-def config_custom_install_location(install_dir=None, launcher=''):
+def config_custom_install_location(install_dir=None, launcher='') -> Dict[str, str]:
     """
     Read/update config for the custom install location
     Write install_dir, launcher to config or read if install_dir=None or launcher=None
@@ -194,7 +194,7 @@ def config_custom_install_location(install_dir=None, launcher=''):
     return {'install_dir': install_dir, 'display_name': '', 'launcher': launcher}
 
 
-def list_installed_ctools(install_dir, without_version=False):
+def list_installed_ctools(install_dir: str, without_version=False) -> List[str]:
         """
         List installed compatibility tool versions
         Returns the name of the tool and the version from VERSION.txt if without_version=False
@@ -216,7 +216,7 @@ def list_installed_ctools(install_dir, without_version=False):
         return versions_found
 
 
-def remove_ctool(ver, install_dir):
+def remove_ctool(ver: str, install_dir: str) -> bool:
     """
     Remove compatibility tool folder
     Return Type: bool
@@ -228,7 +228,7 @@ def remove_ctool(ver, install_dir):
     return False
 
 
-def sort_compatibility_tool_names(unsorted, reverse=False):
+def sort_compatibility_tool_names(unsorted: List[str], reverse=False) -> List[str]:
     """
     Sort the list of compatibility tools: First sort alphabetically using sorted() then sort by Proton version
     Return Type: List[str]
@@ -261,7 +261,7 @@ def sort_compatibility_tool_names(unsorted, reverse=False):
     return sorted_vers
 
 
-def open_webbrowser_thread(url):
+def open_webbrowser_thread(url: str) -> None:
     """
     Open the specified URL in the default webbrowser. Non-blocking (using Threads)
     """
@@ -272,7 +272,7 @@ def open_webbrowser_thread(url):
         print('Could not open webbrowser url ' + str(url))
 
 
-def print_system_information():
+def print_system_information() -> None:
     """
     Print system information like Python/Qt/OS version to the console
     """
@@ -312,7 +312,7 @@ def single_instance() -> bool:
     return True
 
 
-def download_awacy_gamelist():
+def download_awacy_gamelist() -> None:
     """
     Download the areweanticheatyet.com gamelist
     """
@@ -324,7 +324,7 @@ def download_awacy_gamelist():
     t.start()
 
 
-def get_installed_ctools(install_dir):
+def get_installed_ctools(install_dir: str) -> List[BasicCompatTool]:
     """
     Returns installed compatibility tools sorted after name/version
     Return Type: List[BasicCompatTool]

@@ -1,7 +1,9 @@
 import os
 import json
+from typing import Dict, List
 import vdf
 from steam.utils.appcache import parse_appinfo
+
 from .datastructures import SteamApp, AWACYStatus
 from .constants import LOCAL_AWACY_GAME_LIST
 
@@ -10,7 +12,7 @@ _cached_app_list = []
 _cached_steam_ctool_id_map = None
 
 
-def get_steam_app_list(steam_config_folder, cached=False):
+def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]:
     """
     Returns a list of installed Steam apps and optionally game names and the compatibility tool they are using
     steam_config_folder = e.g. '~/.steam/root/config'
@@ -51,7 +53,7 @@ def get_steam_app_list(steam_config_folder, cached=False):
     return apps
 
 
-def get_steam_game_list(steam_config_folder, compat_tool='', cached=False):
+def get_steam_game_list(steam_config_folder: str, compat_tool='', cached=False) -> List[SteamApp]:
     """
     Returns a list of installed Steam games and which compatibility tools they are using.
     Specify compat_tool to only return games using the specified tool.
@@ -70,7 +72,7 @@ def get_steam_game_list(steam_config_folder, compat_tool='', cached=False):
     return games
 
 
-def get_steam_ctool_list(steam_config_folder, only_proton=False, cached=False):
+def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=False) -> List[SteamApp]:
     """
     Returns a list of installed Steam compatibility tools (official tools).
     Return Type: List[SteamApp]
@@ -91,7 +93,7 @@ def get_steam_ctool_list(steam_config_folder, only_proton=False, cached=False):
     return ctools
 
 
-def _get_steam_ctool_info(steam_config_folder):
+def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]:
     """
     Returns a dict that maps the compatibility tool appid to tool info (name e.g. 'proton_7' and from_oslist)
     Return Type: Dict[str, dict]
@@ -124,7 +126,7 @@ def _get_steam_ctool_info(steam_config_folder):
     return ctool_map
 
 
-def update_steamapp_info(steam_config_folder, steamapp_list):
+def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]) -> List[SteamApp]:
     """
     Get Steam game names and information for provided SteamApps
     Return Type: List[SteamApp]
@@ -161,7 +163,7 @@ def update_steamapp_info(steam_config_folder, steamapp_list):
     return list(sapps.values())
 
 
-def update_steamapp_awacystatus(steamapp_list: SteamApp):  # Download file in thread on start...
+def update_steamapp_awacystatus(steamapp_list: List[SteamApp]) -> List[SteamApp]:  # Download file in thread on start...
     """
     Set the areweanticheatyet.com for the games.
     Return Type: List[SteamApp]
@@ -196,7 +198,7 @@ def update_steamapp_awacystatus(steamapp_list: SteamApp):  # Download file in th
     return steamapp_list
 
 
-def steam_update_ctool(game:SteamApp, new_ctool=None, steam_config_folder=''):
+def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -> bool:
     """
     Change compatibility tool for 'game_id' to 'new_ctool' in Steam config vdf
     Return Type: bool

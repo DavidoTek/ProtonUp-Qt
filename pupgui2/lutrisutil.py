@@ -1,12 +1,13 @@
 import os
 import sqlite3
+from typing import List
 
 from .datastructures import LutrisGame
 
 LUTRIS_PGA_GAMELIST_QUERY = 'SELECT slug, name, runner FROM games'
 
 
-def get_lutris_game_list(lutris_data_dir: str):
+def get_lutris_game_list(lutris_data_dir: str) -> List[LutrisGame]:
     """
     Returns a list of installed games in Lutris
     Return Type: List[LutrisGame]

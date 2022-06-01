@@ -29,10 +29,10 @@ class SteamApp:
     ctool_from_oslist = ''
     awacy_status = AWACYStatus.UNKNOWN  # areweanticheatyet.com Status
 
-    def get_app_id_str(self):
+    def get_app_id_str(self) -> str:
         return str(self.app_id)
 
-    def get_libraryfolder_id_str(self):
+    def get_libraryfolder_id_str(self) -> str:
         return str(self.libraryfolder_id)
 
     def get_deck_compat_category(self) -> SteamDeckCompatEnum:
@@ -60,7 +60,7 @@ class BasicCompatTool:
         self.install_dir = install_dir
         self.install_folder = install_folder
 
-    def set_version(self, ver : str):
+    def set_version(self, ver : str) -> None:
         self.version = ver
 
     def get_displayname(self, unused_tr='unused') -> str:

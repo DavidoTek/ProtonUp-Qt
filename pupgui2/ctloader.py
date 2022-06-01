@@ -11,7 +11,7 @@ class CtLoader:
     def __init__(self):
         self.load_ctmods()
 
-    def load_ctmods(self):
+    def load_ctmods(self) -> bool:
         """
         Load ctmods
         Return Type: bool
