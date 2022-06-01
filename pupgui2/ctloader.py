@@ -52,7 +52,7 @@ class CtLoader:
     def get_ctobjs(self, launcher=None):
         """
         Get loaded compatibility tools, optionally sort by launcher
-        Return Type: dict[]
+        Return Type: List[dict]
         Content(s):
             'name', 'launchers', 'installer'
         """

@@ -20,6 +20,7 @@ def apply_dark_theme(app):
     """
     Apply custom dark mode to Qt application when not using KDE Plasma
     and a dark GTK theme is selected (name ends with '-dark')
+    Tries to detect the preference from org.gnome.desktop.interface color-scheme
     """
     theme = config_theme()
 
@@ -54,6 +55,8 @@ def apply_dark_theme(app):
 
 def config_theme(theme=None):
     """
+    Read/update config for the theme
+    Write theme to config or read if theme=None
     Return Type: str
     """
     config = ConfigParser()
@@ -75,7 +78,8 @@ def config_theme(theme=None):
 
 def create_compatibilitytools_folder():
     """
-    Create compatibilitytools folder if launcher is installed but compatibilitytools folder doesn't exist.
+    Create compatibilitytools folder if launcher is installed but compatibilitytools folder doesn't exist
+    Will check all launchers specified in constants.POSSIBLE_INSTALL_LOCATIONS
     """
     for loc in POSSIBLE_INSTALL_LOCATIONS:
         install_dir = os.path.normpath(os.path.expanduser(loc['install_dir']))
@@ -91,7 +95,7 @@ def create_compatibilitytools_folder():
 def available_install_directories():
     """
     List available install directories
-    Return Type: str[]
+    Return Type: List[str]
     """
     available_dirs = []
     for loc in POSSIBLE_INSTALL_LOCATIONS:
@@ -108,6 +112,7 @@ def get_install_location_from_directory_name(install_dir):
     """
     Get install location dict from install directory name
     Return Type: dict
+        Contents: 'install_dir', 'display_name', 'launcher'
     """
     for loc in POSSIBLE_INSTALL_LOCATIONS:
         if os.path.expanduser(install_dir) == os.path.expanduser(loc['install_dir']):
@@ -121,7 +126,8 @@ def get_install_location_from_directory_name(install_dir):
 # modified install_directory function from protonup 0.1.4
 def install_directory(target=None):
     """
-    Custom install directory
+    Read/update config for the selected install directory
+    Write target to config or read from config if target=None
     Return Type: str
     """
     config = ConfigParser()
@@ -153,7 +159,10 @@ def install_directory(target=None):
 
 def config_custom_install_location(install_dir=None, launcher=''):
     """
+    Read/update config for the custom install location
+    Write install_dir, launcher to config or read if install_dir=None or launcher=None
     Return Type: dict
+        Contents: 'install_dir', 'display_name' (always ''), 'launcher'
     """
     config = ConfigParser()
 
@@ -188,7 +197,8 @@ def config_custom_install_location(install_dir=None, launcher=''):
 def list_installed_ctools(install_dir, without_version=False):
         """
         List installed compatibility tool versions
-        Return Type: str[]
+        Returns the name of the tool and the version from VERSION.txt if without_version=False
+        Return Type: List[str]
         """
         versions_found = []
 
@@ -221,7 +231,7 @@ def remove_ctool(ver, install_dir):
 def sort_compatibility_tool_names(unsorted, reverse=False):
     """
     Sort the list of compatibility tools: First sort alphabetically using sorted() then sort by Proton version
-    Return Type: str[]
+    Return Type: List[str]
     """
     unsorted = sorted(unsorted)
     ver_dict = {}
@@ -252,6 +262,9 @@ def sort_compatibility_tool_names(unsorted, reverse=False):
 
 
 def open_webbrowser_thread(url):
+    """
+    Open the specified URL in the default webbrowser. Non-blocking (using Threads)
+    """
     try:
         t = threading.Thread(target=webbrowser.open, args=[url])
         t.start()
@@ -260,6 +273,9 @@ def open_webbrowser_thread(url):
 
 
 def print_system_information():
+    """
+    Print system information like Python/Qt/OS version to the console
+    """
     ver_info = 'Python ' + sys.version.replace('\n', '')
     ver_info += ', PySide ' + PySide6.__version__ + '\n'
     ver_info += 'Platform: '
@@ -276,7 +292,8 @@ def print_system_information():
 
 def single_instance() -> bool:
     """
-    Creates Lockfile. Returns False when other instance is found.
+    Creates a lockfile to detect other instances of the app. Returns False if another instance is found
+    Return Type: bool
     """
     lockfile = os.path.join(TEMP_DIR, 'lockfile')
     if os.path.exists(lockfile):
@@ -296,6 +313,9 @@ def single_instance() -> bool:
 
 
 def download_awacy_gamelist():
+    """
+    Download the areweanticheatyet.com gamelist
+    """
     def _download_awacy_gamelist_thread():
         r = requests.get(AWACY_GAME_LIST_URL)
         with open(LOCAL_AWACY_GAME_LIST, 'wb') as f:
@@ -306,8 +326,8 @@ def download_awacy_gamelist():
 
 def get_installed_ctools(install_dir):
     """
-    Returns installed compatibility tools
-    Return Type: BasicCompatTool[]
+    Returns installed compatibility tools sorted after name/version
+    Return Type: List[BasicCompatTool]
     """
     ctools = []
 

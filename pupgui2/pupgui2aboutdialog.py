@@ -99,6 +99,10 @@ class PupguiAboutDialog(QObject):
             QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
 
     def tag_name_to_version(self, tag_name : str):
+        """
+        Converts version string (e.g. 'v1.2.3') to str array ['1', '2', '3']
+        Return Type: List[str]
+        """
         tag_name = tag_name.replace('v', '')
         vers = tag_name.split('.')
         if len(vers) != 3:

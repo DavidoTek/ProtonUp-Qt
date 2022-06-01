@@ -14,7 +14,7 @@ def get_steam_app_list(steam_config_folder, cached=False):
     """
     Returns a list of installed Steam apps and optionally game names and the compatibility tool they are using
     steam_config_folder = e.g. '~/.steam/root/config'
-    Return Type: SteamApp[]
+    Return Type: List[SteamApp]
     """
     global _cached_app_list
 
@@ -55,7 +55,7 @@ def get_steam_game_list(steam_config_folder, compat_tool='', cached=False):
     """
     Returns a list of installed Steam games and which compatibility tools they are using.
     Specify compat_tool to only return games using the specified tool.
-    Return Type: SteamApp[]
+    Return Type: List[SteamApp]
     """
     games = []
     apps = get_steam_app_list(steam_config_folder, cached=cached)
@@ -73,7 +73,7 @@ def get_steam_game_list(steam_config_folder, compat_tool='', cached=False):
 def get_steam_ctool_list(steam_config_folder, only_proton=False, cached=False):
     """
     Returns a list of installed Steam compatibility tools (official tools).
-    Return Type: SteamApp[]
+    Return Type: List[SteamApp]
     """
     ctools = []
     apps = get_steam_app_list(steam_config_folder, cached=cached)
@@ -94,8 +94,8 @@ def get_steam_ctool_list(steam_config_folder, only_proton=False, cached=False):
 def _get_steam_ctool_info(steam_config_folder):
     """
     Returns a dict that maps the compatibility tool appid to tool info (name e.g. 'proton_7' and from_oslist)
-    Return Type: dict.dict
-        Contents: name, from_oslist
+    Return Type: Dict[str, dict]
+        Contents: appid str -> {'name', 'from_oslist'}
     """
     global _cached_steam_ctool_id_map
 
@@ -127,7 +127,7 @@ def _get_steam_ctool_info(steam_config_folder):
 def update_steamapp_info(steam_config_folder, steamapp_list):
     """
     Get Steam game names and information for provided SteamApps
-    Return Type: SteamApp list
+    Return Type: List[SteamApp]
     """
     appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
     appinfo_file = os.path.realpath(appinfo_file)
@@ -164,7 +164,7 @@ def update_steamapp_info(steam_config_folder, steamapp_list):
 def update_steamapp_awacystatus(steamapp_list: SteamApp):  # Download file in thread on start...
     """
     Set the areweanticheatyet.com for the games.
-    Return Type: SteamApp list
+    Return Type: List[SteamApp]
     """
     if not os.path.exists(LOCAL_AWACY_GAME_LIST):
         return steamapp_list

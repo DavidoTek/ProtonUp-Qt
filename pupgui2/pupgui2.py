@@ -303,12 +303,14 @@ class MainWindow(QObject):
             cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def press_virtual_key(self, key, mod):
+        """ Presses virtual key, used by GamepadInputWorker """
         e = QKeyEvent(QEvent.KeyPress, key, mod)
         QCoreApplication.postEvent(QApplication.focusWidget(), e)
         e = QKeyEvent(QEvent.KeyRelease, key, mod)
         QCoreApplication.postEvent(QApplication.focusWidget(), e)
 
     def cancel_download(self, cancel_all=False):
+        """ Cancel a compatibility tool download """
         if len(self.pending_downloads) == 0:
             return
         if cancel_all:
@@ -321,6 +323,7 @@ class MainWindow(QObject):
 
 
 def main():
+    """ ProtonUp-Qt main function. Called from __main__.py """
     print(f'{APP_NAME} {APP_VERSION} by DavidoTek. Build Info: {BUILD_INFO}.')
     print_system_information()
     if not single_instance():

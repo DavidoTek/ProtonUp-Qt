@@ -9,7 +9,7 @@ LUTRIS_PGA_GAMELIST_QUERY = 'SELECT slug, name, runner FROM games'
 def get_lutris_game_list(lutris_data_dir: str):
     """
     Returns a list of installed games in Lutris
-    Return Type: LutrisGame[]
+    Return Type: List[LutrisGame]
     """
     pga_db_file = os.path.join(lutris_data_dir, 'pga.db')
     lgs = []

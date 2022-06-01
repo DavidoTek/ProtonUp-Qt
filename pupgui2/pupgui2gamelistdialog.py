@@ -53,6 +53,7 @@ class PupguiGameListDialog(QObject):
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
 
     def update_game_list_steam(self):
+        """ update the game list for the Steam launcher """
         games = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'))
         ctools = sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True)
         for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir')):
@@ -124,6 +125,7 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setVerticalHeaderLabels(game_id_table_lables)
 
     def update_game_list_lutris(self):
+        """ update the game list for the Lutris launcher """
         lutris_data_dir = os.path.join(self.install_dir, '../..')
         games = get_lutris_game_list(lutris_data_dir)
 
