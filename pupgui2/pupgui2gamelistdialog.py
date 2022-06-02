@@ -43,7 +43,14 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat')])
             self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
             self.update_game_list_steam()
-            self.ui.lblSteamRunningWarning.setVisible(is_steam_running())
+
+            if os.path.exists('/.flatpak-info'):
+                self.ui.lblSteamRunningWarning.setVisible(True)
+                self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }')
+            elif is_steam_running():
+                self.ui.lblSteamRunningWarning.setVisible(True)
+            else:
+                self.ui.lblSteamRunningWarning.setVisible(False)
 
         elif self.install_loc.get('launcher') == 'lutris':
             self.update_game_list_lutris()
