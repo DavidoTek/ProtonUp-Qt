@@ -2,5 +2,5 @@ PySide6-Essentials==6.3.0
 requests==2.27.1
 vdf==3.4
 inputs==0.5
-pyxdg==0.27
+pyxdg==0.28
 steam==1.2.0
