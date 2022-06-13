@@ -94,12 +94,16 @@ class PupguiGameListDialog(QObject):
             elif deckc == SteamDeckCompatEnum.PLAYABLE:
                 if deckt == '':
                     lbltxt = self.tr('Playable')
+                elif deckt == 'native':
+                    lbltxt = self.tr('Native (playable)')
                 else:
                     lbltxt = self.tr('Playable using {compat_tool}').format(compat_tool=deckt)
                 self.ui.tableGames.setCellWidget(i, 2, QLabel(lbltxt))
             elif deckc == SteamDeckCompatEnum.VERIFIED:
                 if deckt == '':
                     lbltxt = self.tr('Verified')
+                elif deckt == 'native':
+                    lbltxt = self.tr('Native (verified)')
                 else:
                     lbltxt = self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
                 self.ui.tableGames.setCellWidget(i, 2, QLabel(lbltxt))
