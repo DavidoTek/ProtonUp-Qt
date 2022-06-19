@@ -85,4 +85,4 @@ class PupguiCtInfoDialog(QObject):
     def btn_batch_update_clicked(self):
         steam_config_folder = self.install_loc.get('vdf_dir')
         ctbu_dialog = PupguiCtBatchUpdateDialog(parent=self.ui, games=self.games, steam_config_folder=steam_config_folder)
-        ctbu_dialog.batch_update_complete.connect(self.update_game_list)
+        ctbu_dialog.batch_update_complete.connect(self.update_game_list_steam)
