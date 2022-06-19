@@ -137,8 +137,7 @@ class PupguiGameListDialog(QObject):
 
     def update_game_list_lutris(self):
         """ update the game list for the Lutris launcher """
-        lutris_data_dir = os.path.join(self.install_dir, '../..')
-        games = get_lutris_game_list(lutris_data_dir)
+        games = get_lutris_game_list(self.install_loc)
 
         self.ui.tableGames.setRowCount(len(games))
 

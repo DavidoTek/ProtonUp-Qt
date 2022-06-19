@@ -44,3 +44,4 @@ ProtonUp-Qt|GPL-3.0
 [pyxdg](https://pypi.org/project/pyxdg/)|LGPLv2
 [vdf](https://pypi.org/project/vdf/)|MIT
 [requests](https://pypi.org/project/requests/)|Apache 2.0
+[PyYAML](https://pypi.org/project/PyYAML/)|MIT

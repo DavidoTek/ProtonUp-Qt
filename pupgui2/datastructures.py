@@ -1,5 +1,6 @@
 from enum import Enum
 import os
+import yaml
 
 
 class SteamDeckCompatEnum(Enum):
@@ -85,3 +86,16 @@ class LutrisGame:
     slug = ''
     name = ''
     runner = ''
+    installer_slug = ''
+    installed_at = 0
+
+    install_loc = None
+
+    def get_game_config(self):
+        lutris_config_dir = self.install_loc.get('config_dir')
+        if not lutris_config_dir:
+            return {}
+        fn = self.installer_slug + '-' + str(self.installed_at) + '.yml'
+        lutris_game_cfg = os.path.join(os.path.expanduser(lutris_config_dir), 'games', fn)
+        with open(lutris_game_cfg, 'r') as f:
+            return yaml.safe_load(f)
