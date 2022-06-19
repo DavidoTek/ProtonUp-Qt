@@ -4,76 +4,76 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="158"/>
+        <location filename="../pupgui2/pupgui2.py" line="165"/>
         <source>unused</source>
         <translation>ongebruikt</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="186"/>
+        <location filename="../pupgui2/pupgui2.py" line="195"/>
         <source>Fetching releases...</source>
         <translation>Bezig met ophalen van uitgaven…</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="197"/>
+        <location filename="../pupgui2/pupgui2.py" line="206"/>
         <source>Download canceled.</source>
         <translation>Het downloaden is afgebroken.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="200"/>
+        <location filename="../pupgui2/pupgui2.py" line="209"/>
         <source>Could not install {current_compat_tool_name}...</source>
         <translation>De installatie van {current_compat_tool_name} is mislukt…</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="206"/>
+        <location filename="../pupgui2/pupgui2.py" line="215"/>
         <source>Downloading {current_compat_tool_name}...</source>
         <translation>Bezig met downloaden van {current_compat_tool_name}…</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="208"/>
+        <location filename="../pupgui2/pupgui2.py" line="217"/>
         <source>Extracting {current_compat_tool_name}...</source>
         <translation>Bezig met uitpakken van {current_compat_tool_name}…</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="210"/>
+        <location filename="../pupgui2/pupgui2.py" line="219"/>
         <source>Installed {current_compat_tool_name}.</source>
         <translation>{current_compat_tool_name} is geïnstalleerd.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="233"/>
+        <location filename="../pupgui2/pupgui2.py" line="240"/>
         <source>Remove compatibility tools?</source>
         <translation>Compatibiliteitshulpmiddel verwijderen?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="233"/>
+        <location filename="../pupgui2/pupgui2.py" line="240"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>Je staat op het punt om compatibiliteitshulpmiddelen te verwijderen
 die door {n} games in gebruik zijn. Weet je het zeker?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="240"/>
+        <location filename="../pupgui2/pupgui2.py" line="247"/>
         <source>Removed selected versions.</source>
         <translation>De geselecteerde versies zijn verwijderd.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="254"/>
+        <location filename="../pupgui2/pupgui2.py" line="261"/>
         <source>Exit?</source>
         <translation>Afsluiten?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="254"/>
+        <location filename="../pupgui2/pupgui2.py" line="261"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
         <translation>Er zijn actieve downloads.
 Weet je zeker dat je wilt annuleren en afsluiten?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="262"/>
+        <location filename="../pupgui2/pupgui2.py" line="269"/>
         <source>Changed install directory to {install_dir}.</source>
         <translation>De installatiemap is ingesteld op {install_dir}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="273"/>
+        <location filename="../pupgui2/pupgui2.py" line="280"/>
         <source>Info: You can get Proton-GE / Boxtron directly from Flathub!</source>
         <translation>Informatie: je kunt Proton-GE/Boxtron direct van Flathub downloaden!</translation>
     </message>
@@ -220,23 +220,27 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
 <context>
     <name>PupguiCtBatchUpdateDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="22"/>
-        <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="27"/>
+        <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="23"/>
+        <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="28"/>
         <source>Batch update</source>
         <translation>Reeksupdate</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="28"/>
+        <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="29"/>
         <source>New version:</source>
         <translation>Nieuwe versie:</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="39"/>
+        <source>Close the Steam client beforehand.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PupguiCtInfoDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="49"/>
         <source>todo</source>
-        <translation>taak</translation>
+        <translation type="vanished">taak</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="14"/>
@@ -306,82 +310,92 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
 <context>
     <name>PupguiGameListDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="42"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="43"/>
         <source>Game</source>
         <translation>Game</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="42"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="43"/>
         <source>Compatibility Tool</source>
         <translation>Compatibiliteitshulpmiddel</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="42"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="43"/>
         <source>Deck compatibility</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="42"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="43"/>
         <source>Anticheat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="75"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="91"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="77"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <source>Unsupported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="97"/>
         <source>Playable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="82"/>
-        <source>Playable using {compat_tool}</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="87"/>
-        <source>Verified</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="88"/>
-        <source>Verified for {compat_tool}</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="94"/>
-        <source>Support was explicitly enabled / works out of the box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="97"/>
-        <source>Game plans to support Proton/Wine</source>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="99"/>
+        <source>Native (playable)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="100"/>
+        <source>Playable using {compat_tool}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="105"/>
+        <source>Verified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="107"/>
+        <source>Native (verified)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="108"/>
+        <source>Verified for {compat_tool}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="114"/>
+        <source>Support was explicitly enabled / works out of the box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="117"/>
+        <source>Game plans to support Proton/Wine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="120"/>
         <source>No official statement but runs fine (may require tinkering)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="123"/>
         <source>Anti-Cheat stops game from running properly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="106"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="126"/>
         <source>Linux support was explicitly denied</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="109"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="129"/>
         <source>Anti-Cheat status unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -391,7 +405,12 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
         <translation>Gameslijst</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="55"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="45"/>
+        <source>Warning: Close the Steam client beforehand so that the changes can be applied!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="65"/>
         <source>Close</source>
         <translation>Sluiten</translation>
     </message>
