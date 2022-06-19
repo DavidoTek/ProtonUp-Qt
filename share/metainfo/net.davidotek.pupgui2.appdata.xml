@@ -59,6 +59,15 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.6.5" date="2022-06-19">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Show anticheat status in game list</li>
+          <li>Lutris compatibility info now shows games using the tool</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.6.4" date="2022-05-25">
       <description>
         <p>Changes:</p>
