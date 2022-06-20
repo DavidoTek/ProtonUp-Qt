@@ -73,8 +73,8 @@ Cancel and exit anyway?</source>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="280"/>
-        <source>Info: You can get Proton-GE / Boxtron directly from Flathub!</source>
-        <translation>Tietoisku: voit noutaa Proton-GE:n/Boxtron:in suoraan Flathub.ista!</translation>
+        <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
+        <translation>Tietoisku: voit noutaa GE-Proton:n/Boxtron:in suoraan Flathub.ista!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
