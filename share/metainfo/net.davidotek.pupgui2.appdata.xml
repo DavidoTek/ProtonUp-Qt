@@ -10,6 +10,7 @@
 
   <keywords>
     <keyword>Proton-GE</keyword>
+    <keyword>GE-Proton</keyword>
   </keywords>
 
   <metadata_license>FSFAP</metadata_license>
@@ -29,7 +30,7 @@
     </ul>
     <p>Supported compatibility tools:</p>
     <ul>
-      <li>Proton-GE</li>
+      <li>GE-Proton</li>
       <li>Proton-Tkg</li>
       <li>Luxtorpeda</li>
       <li>Boxtron</li>

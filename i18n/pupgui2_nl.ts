@@ -74,8 +74,8 @@ Weet je zeker dat je wilt annuleren en afsluiten?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="280"/>
-        <source>Info: You can get Proton-GE / Boxtron directly from Flathub!</source>
-        <translation>Informatie: je kunt Proton-GE/Boxtron direct van Flathub downloaden!</translation>
+        <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
+        <translation>Informatie: je kunt GE-Proton/Boxtron direct van Flathub downloaden!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
