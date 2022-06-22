@@ -11,7 +11,7 @@
     <message>
         <location filename="../pupgui2/pupgui2.py" line="195"/>
         <source>Fetching releases...</source>
-        <translation>Bezig met ophalen van uitgaven…</translation>
+        <translation>Bezig met ophalen van versies…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="206"/>
@@ -233,7 +233,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="39"/>
         <source>Close the Steam client beforehand.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluit Steam volledig af.</translation>
     </message>
 </context>
 <context>
@@ -322,92 +322,92 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="43"/>
         <source>Deck compatibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Deck-compatibiliteit</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="43"/>
         <source>Anticheat</source>
-        <translation type="unfinished"></translation>
+        <translation>Anti-cheat</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="91"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Onbekend</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <source>Unsupported</source>
-        <translation type="unfinished"></translation>
+        <translation>Niet-ondersteund</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="97"/>
         <source>Playable</source>
-        <translation type="unfinished"></translation>
+        <translation>Speelbaar</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="99"/>
         <source>Native (playable)</source>
-        <translation type="unfinished"></translation>
+        <translation>Platform-eigen (speelbaar)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="100"/>
         <source>Playable using {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Speelbaar middels {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="105"/>
         <source>Verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Geverifieerd</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="107"/>
         <source>Native (verified)</source>
-        <translation type="unfinished"></translation>
+        <translation>Platform-eigen (geverifieerd)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="108"/>
         <source>Verified for {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Geverifieerd middels {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="114"/>
         <source>Support was explicitly enabled / works out of the box</source>
-        <translation type="unfinished"></translation>
+        <translation>Ondersteuning is explicieit ingeschakeld/werkt zonder aanpassingen</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="117"/>
         <source>Game plans to support Proton/Wine</source>
-        <translation type="unfinished"></translation>
+        <translation>Game gaat Proton/Wine ondersteunen</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="120"/>
         <source>No official statement but runs fine (may require tinkering)</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen officiële aankondiging, maar werkt wel (mogelijk met enige aanpassingen)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="123"/>
         <source>Anti-Cheat stops game from running properly</source>
-        <translation type="unfinished"></translation>
+        <translation>Anti-cheat voorkomt dat de game start</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="126"/>
         <source>Linux support was explicitly denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Linux-ondersteuning is officieel geweigerd</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="129"/>
         <source>Anti-Cheat status unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Onbekende anti-cheatstatus</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
         <source>Game List</source>
-        <translation>Gameslijst</translation>
+        <translation>Gamelijst</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="45"/>
         <source>Warning: Close the Steam client beforehand so that the changes can be applied!</source>
-        <translation type="unfinished"></translation>
+        <translation>Waarschuwing: sluit Steam volledig af zodat de wijzigingen kunnen worden toegepast!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="65"/>
@@ -450,7 +450,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="42"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Omschrijving:</translation>
     </message>
 </context>
 <context>
