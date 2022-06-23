@@ -11,11 +11,11 @@
     <option name="IS_MODULE_SDK" value="false" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
-    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pupgui2/pupgui2.py" />
+    <option name="SCRIPT_NAME" value="pupgui2" />
     <option name="PARAMETERS" value="" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="false" />
-    <option name="MODULE_MODE" value="false" />
+    <option name="MODULE_MODE" value="true" />
     <option name="REDIRECT_INPUT" value="false" />
     <option name="INPUT_FILE" value="" />
     <method v="2" />
