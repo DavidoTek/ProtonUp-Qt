@@ -15,7 +15,7 @@ Copyright (C) 2021-2022 DavidoTek, licensed under GPLv3
 BUILD_INFO = 'built from source'
 
 CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')
-TEMP_DIR = '/tmp/pupgui2.a70200/'
+TEMP_DIR = os.path.join(os.getenv('XDG_CACHE_HOME'), 'tmp', 'pupgui2.a70200') if os.path.exists(os.getenv('XDG_CACHE_HOME', '')) else '/tmp/pupgui2.a70200/'
 
 # support different Steam root directories
 _POSSIBLE_STEAM_ROOTS = ['~/.local/share/Steam', '~/.steam/root', '~/.steam/steam', '~/.steam/debian-installation']
