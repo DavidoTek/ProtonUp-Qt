@@ -53,6 +53,7 @@ class PupguiInstallDialog(QDialog):
 
         for ctobj in self.ct_objs:
             self.comboCompatTool.addItem(ctobj['name'])
+        self.comboCompatToolVersion.setStyleSheet('QComboBox { combobox-popup: 0; }')
 
     def btn_info_clicked(self):
         for ctobj in self.ct_objs:
