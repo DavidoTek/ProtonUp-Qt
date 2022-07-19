@@ -60,9 +60,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btnClose">
+      <widget class="QPushButton" name="btnApply">
        <property name="text">
-        <string>Close</string>
+        <string>Apply</string>
        </property>
       </widget>
      </item>
