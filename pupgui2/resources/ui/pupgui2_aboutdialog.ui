@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>436</width>
-    <height>213</height>
+    <height>215</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -130,6 +130,13 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkAdvancedMode">
+       <property name="text">
+        <string>Enable advanced mode (show git-builds for compatibility tools etc.)</string>
        </property>
       </widget>
      </item>

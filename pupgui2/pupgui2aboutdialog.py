@@ -8,7 +8,7 @@ from PySide6.QtUiTools import QUiLoader
 
 from .constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO
 from .constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
-from .util import config_theme, apply_dark_theme
+from .util import config_theme, apply_dark_theme, config_advanced_mode
 from .util import open_webbrowser_thread
 
 
@@ -64,6 +64,9 @@ class PupguiAboutDialog(QObject):
         self.ui.btnCheckForUpdates.clicked.connect(self.btn_check_for_updates_clicked)
         self.ui.comboColorTheme.currentIndexChanged.connect(self.combo_color_theme_current_index_changed)
 
+        self.ui.checkAdvancedMode.setChecked(True if config_advanced_mode() == 'enabled' else False)
+        self.ui.checkAdvancedMode.stateChanged.connect(self.check_advanced_mode_state_changed)
+
         if os.getenv('APPIMAGE') is None:
             self.ui.btnCheckForUpdates.setVisible(False)
 
@@ -97,6 +100,9 @@ class PupguiAboutDialog(QObject):
             open_webbrowser_thread(newest_release['html_url'])
         else:
             QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
+
+    def check_advanced_mode_state_changed(self, state : int):
+        config_advanced_mode('enabled' if self.ui.checkAdvancedMode.isChecked() else 'disabled')
 
     def tag_name_to_version(self, tag_name : str):
         """
