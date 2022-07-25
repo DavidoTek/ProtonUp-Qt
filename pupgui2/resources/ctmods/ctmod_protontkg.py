@@ -202,7 +202,7 @@ class CtInstaller(QObject):
         Get link with info about version (eg. GitHub release page)
         Return Type: str
         """
-        if self.__get_artifact_from_commit(version):
+        if self.__get_artifact_from_id(version):
             return self.CT_INFO_URL_CI + version
 
         return self.CT_INFO_URL + version
