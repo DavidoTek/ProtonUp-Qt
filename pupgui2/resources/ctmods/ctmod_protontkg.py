@@ -20,7 +20,7 @@ class CtInstaller(QObject):
     CT_INFO_URL = 'https://github.com/Frogging-Family/wine-tkg-git/releases/tag/'
     CT_WORKFLOW_URL = 'https://api.github.com/repos/Frogging-Family/wine-tkg-git/actions/workflows'
     CT_ARTIFACT_URL = 'https://api.github.com/repos/Frogging-Family/wine-tkg-git/actions/runs/{}/artifacts'
-    CT_INFO_URL_CI = 'https://github.com/Frogging-Family/wine-tkg-git/commit/'
+    CT_INFO_URL_CI = 'https://github.com/Frogging-Family/wine-tkg-git/actions/runs/'
     PROTON_PACKAGE_NAME = 'proton-valvexbe-arch-nopackage'
 
     p_download_progress_percent = 0
