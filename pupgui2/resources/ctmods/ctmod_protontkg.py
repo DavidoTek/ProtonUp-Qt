@@ -2,7 +2,7 @@
 # Proton-Tkg https://github.com/Frogging-Family/wine-tkg-git
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests
+import os, shutil, tarfile, requests, glob
 from zipfile import ZipFile
 from PySide6.QtCore import *
 
@@ -18,6 +18,10 @@ class CtInstaller(QObject):
     BUFFER_SIZE = 65536
     CT_URL = 'https://api.github.com/repos/Frogging-Family/wine-tkg-git/releases'
     CT_INFO_URL = 'https://github.com/Frogging-Family/wine-tkg-git/releases/tag/'
+    CT_WORKFLOW_URL = 'https://api.github.com/repos/Frogging-Family/wine-tkg-git/actions/workflows'
+    CT_ARTIFACT_URL = 'https://api.github.com/repos/Frogging-Family/wine-tkg-git/actions/runs/{}/artifacts'
+    CT_INFO_URL_CI = 'https://github.com/Frogging-Family/wine-tkg-git/actions/runs/'
+    PROTON_PACKAGE_NAME = 'proton-valvexbe-arch-nopackage'
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
@@ -40,7 +44,7 @@ class CtInstaller(QObject):
         self.p_download_progress_percent = value
         self.download_progress_percent.emit(value)
 
-    def __download(self, url, destination):
+    def __download(self, url, destination, f_size=None):
         """
         Download files from url to destination
         Return Type: bool
@@ -51,7 +55,8 @@ class CtInstaller(QObject):
             return False
 
         self.__set_download_progress_percent(1) # 1 download started
-        f_size = int(file.headers.get('content-length'))
+        if not f_size:
+            f_size = int(file.headers.get('content-length'))
         c_count = int(f_size / self.BUFFER_SIZE)
         c_current = 1
         destination = os.path.expanduser(destination)
@@ -70,6 +75,34 @@ class CtInstaller(QObject):
         self.__set_download_progress_percent(99) # 99 download complete
         return True
 
+    def __get_artifact_from_id(self, commit):
+        """
+        Get artifact from workflow run id.
+        Return Type: str
+        """
+        artifact_info = requests.get(self.CT_ARTIFACT_URL.format(commit) + '?per_page=100').json()
+        if artifact_info.get("total_count") != 1:
+            return None
+        return artifact_info["artifacts"][0]
+
+    def __fetch_github_data_ci(self, tag):
+        """
+        Fetch GitHub CI information
+        Return Type: dict
+        Content(s):
+            'version', 'date', 'download', 'size', 'checksum'
+        """
+        # Tag in this case is the commit hash.
+        data = self.__get_artifact_from_id(tag)
+        if not data:
+            return
+        values = {'version': data['workflow_run']['head_sha'], 'date': data['updated_at'].split('T')[0]}
+        values['download'] = "https://nightly.link/Frogging-Family/wine-tkg-git/actions/runs/{}/{}.zip".format(
+            data["workflow_run"]["id"],  data["name"]
+        )
+        values['size'] = data['size_in_bytes']
+        return values
+
     def __fetch_github_data(self, tag):
         """
         Fetch GitHub release information
@@ -77,6 +110,10 @@ class CtInstaller(QObject):
         Content(s):
             'version', 'date', 'download', 'size', 'checksum'
         """
+        values = self.__fetch_github_data_ci(tag)
+        if values:
+            return values
+
         url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
         data = requests.get(url).json()
         if 'tag_name' not in data:
@@ -96,15 +133,28 @@ class CtInstaller(QObject):
         """
         return True
 
+    def __fetch_workflows(self, count=100):
+        tags = []
+        for workflow in requests.get(self.CT_WORKFLOW_URL + '?per_page=' + str(count)).json()["workflows"]:
+            if workflow['state'] != "active" or self.PROTON_PACKAGE_NAME not in workflow['path']:
+                continue
+            for run in requests.get(workflow["url"] + "/runs").json()["workflow_runs"]:
+                if run['conclusion'] != "success":
+                    continue
+                tags.append(str(run['id']))
+        return tags
+
     def fetch_releases(self, count=100):
         """
         List available releases
         Return Type: str[]
         """
-        tags = []
+        tags = self.__fetch_workflows(count=count)
         for release in requests.get(self.CT_URL + '?per_page=' + str(count)).json():
-            if 'tag_name' in release:
-                tags.append(release['tag_name'])
+            # Check assets length because latest release (7+) doesn't have assets.
+            if 'tag_name' not in release or len(release["assets"]) == 0:
+                continue
+            tags.append(release['tag_name'])
         return tags
 
     def get_tool(self, version, install_dir, temp_dir):
@@ -113,14 +163,13 @@ class CtInstaller(QObject):
         Return Type: bool
         """
         data = self.__fetch_github_data(version)
-
         if not data or 'download' not in data:
             return False
 
         destination = temp_dir
         destination += data['download'].split('/')[-1]
 
-        if not self.__download(url=data['download'], destination=destination):
+        if not self.__download(url=data['download'], destination=destination, f_size=data.get("size")):
             return False
 
         install_folder = install_dir + 'proton_tkg_' + data['version'].lower()
@@ -133,6 +182,13 @@ class CtInstaller(QObject):
             with ZipFile(destination) as z:
                 os.mkdir(install_folder)
                 z.extractall(install_folder)
+            # Workaround for artifact .zip archive is actually .tar inside, wtf.
+            f_count = 0
+            for f in glob.glob(install_folder + "/*.tar"):
+                f_count += 1
+                tarfile.open(f, "r").extractall(install_dir)
+            if f_count > 0:
+                shutil.rmtree(install_folder)
         else:
             self.__set_download_progress_percent(-1)
             return False
@@ -146,4 +202,7 @@ class CtInstaller(QObject):
         Get link with info about version (eg. GitHub release page)
         Return Type: str
         """
+        if self.__get_artifact_from_id(version):
+            return self.CT_INFO_URL_CI + version
+
         return self.CT_INFO_URL + version
