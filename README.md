@@ -16,7 +16,7 @@ Also available on AUR, maintained by yochananmarqos: https://aur.archlinux.org/p
 ### Install dependencies
 `pip3 install -r ./requirements.txt`
 ### Run ProtonUp-Qt
-`python3 pupgui2/pupgui2.py`
+`python3 -m pupgui2`
 
 ## Build AppImage
 ### Install dependencies
