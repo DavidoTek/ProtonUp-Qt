@@ -7,8 +7,8 @@ Install and manage [GE-Proton](https://github.com/GloriousEggroll/proton-ge-cust
 
 **Download from Flathub or as AppImage (portable):**  
 [<img height="56px" src="https://flathub.org/assets/badges/flathub-badge-en.png" alt="Download from Flathub" />](https://flathub.org/apps/details/net.davidotek.pupgui2) [<img height="56px" src="https://raw.githubusercontent.com/srevinsaju/get-appimage/master/static/badges/get-appimage-branding-dark.png" alt="Download AppImage" />](https://github.com/DavidoTek/ProtonUp-Qt/releases)  
-Also available on AUR, maintained by yochananmarqos: https://aur.archlinux.org/packages/protonup-qt
-
+Also available on AUR, maintained by yochananmarqos: https://aur.archlinux.org/packages/protonup-qt  
+Website: [https://davidotek.github.io/protonup-qt](https://davidotek.github.io/protonup-qt)
 
 ![ProtonUp-Qt Screenshot](.github/images/pupgui2-screenshot2.png)
 
