@@ -5,6 +5,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 
 from .util import open_webbrowser_thread
+from .util import config_advanced_mode
 
 
 class PupguiInstallDialog(QDialog):
@@ -15,7 +16,8 @@ class PupguiInstallDialog(QDialog):
     def __init__(self, install_location, ct_loader, parent=None):
         super(PupguiInstallDialog, self).__init__(parent)
         self.install_location = install_location
-        self.ct_objs = ct_loader.get_ctobjs(self.install_location['launcher'])
+        advanced_mode = (config_advanced_mode() == 'enabled')
+        self.ct_objs = ct_loader.get_ctobjs(self.install_location['launcher'], advanced_mode=advanced_mode)
 
     def setup_ui(self):
         self.setWindowTitle(self.tr('Install Compatibility Tool'))

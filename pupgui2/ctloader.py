@@ -35,7 +35,7 @@ class CtLoader:
                     print('Could not load ctmod', mod, ':', e)
         return True
 
-    def get_ctmods(self, launcher=None):
+    def get_ctmods(self, launcher=None, advanced_mode=True):
         """
         Get loaded ctmods, optionally sort by launcher
         Return Type: []
@@ -46,10 +46,12 @@ class CtLoader:
         ctmods = []
         for ctmod in self.ctmods:
             if launcher in ctmod.CT_LAUNCHERS:
+                if 'advmode' in ctmod.CT_LAUNCHERS and not advanced_mode:
+                    continue
                 ctmods.append(ctmod)
         return ctmods
 
-    def get_ctobjs(self, launcher=None):
+    def get_ctobjs(self, launcher=None, advanced_mode=True):
         """
         Get loaded compatibility tools, optionally sort by launcher
         Return Type: List[dict]
@@ -62,5 +64,7 @@ class CtLoader:
         ctobjs = []
         for ctobj in self.ctobjs:
             if launcher in ctobj['launchers']:
+                if 'advmode' in ctobj['launchers'] and not advanced_mode:
+                    continue
                 ctobjs.append(ctobj)
         return ctobjs

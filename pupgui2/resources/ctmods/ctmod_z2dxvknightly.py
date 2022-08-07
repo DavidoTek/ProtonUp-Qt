@@ -6,7 +6,7 @@ import os, shutil, zipfile, requests
 from PySide6.QtCore import *
 
 CT_NAME = 'DXVK (nightly)'
-CT_LAUNCHERS = ['lutris']
+CT_LAUNCHERS = ['lutris', 'advmode']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/><b>Warning: Nightly version is unstable, use with caution!</b>'''
 
