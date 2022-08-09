@@ -26,9 +26,10 @@ class CtInstaller(QObject):
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
 
-    def __init__(self):
+    def __init__(self, rs : requests.Session = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
+        self.rs = rs if rs else requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -50,7 +51,10 @@ class CtInstaller(QObject):
         Return Type: bool
         """
         try:
-            file = requests.get(url, stream=True)
+            if 'https://github.com' in url:
+                file = self.rs.get(url, stream=True)
+            else:
+                file = requests.get(url, stream=True)
         except OSError:
             return False
 
@@ -80,7 +84,7 @@ class CtInstaller(QObject):
         Get artifact from workflow run id.
         Return Type: str
         """
-        artifact_info = requests.get(self.CT_ARTIFACT_URL.format(commit) + '?per_page=100').json()
+        artifact_info = self.rs.get(self.CT_ARTIFACT_URL.format(commit) + '?per_page=100').json()
         if artifact_info.get("total_count") != 1:
             return None
         return artifact_info["artifacts"][0]
@@ -115,7 +119,7 @@ class CtInstaller(QObject):
             return values
 
         url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
-        data = requests.get(url).json()
+        data = self.rs.get(url).json()
         if 'tag_name' not in data:
             return None
 
@@ -135,10 +139,10 @@ class CtInstaller(QObject):
 
     def __fetch_workflows(self, count=100):
         tags = []
-        for workflow in requests.get(self.CT_WORKFLOW_URL + '?per_page=' + str(count)).json()["workflows"]:
+        for workflow in self.rs.get(self.CT_WORKFLOW_URL + '?per_page=' + str(count)).json()["workflows"]:
             if workflow['state'] != "active" or self.PROTON_PACKAGE_NAME not in workflow['path']:
                 continue
-            for run in requests.get(workflow["url"] + "/runs").json()["workflow_runs"]:
+            for run in self.rs.get(workflow["url"] + "/runs").json()["workflow_runs"]:
                 if run['conclusion'] != "success":
                     continue
                 tags.append(str(run['id']))
@@ -150,7 +154,7 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
         tags = self.__fetch_workflows(count=count)
-        for release in requests.get(self.CT_URL + '?per_page=' + str(count)).json():
+        for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json():
             # Check assets length because latest release (7+) doesn't have assets.
             if 'tag_name' not in release or len(release["assets"]) == 0:
                 continue

@@ -20,9 +20,10 @@ class CtInstaller(QObject):
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
 
-    def __init__(self):
+    def __init__(self, rs : requests.Session = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
+        self.rs = rs if rs else requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -73,7 +74,7 @@ class CtInstaller(QObject):
         Get artifact from commit
         Return Type: str
         """
-        for artifact in requests.get(self.CT_URL + '?per_page=100').json()["artifacts"]:
+        for artifact in self.rs.get(self.CT_URL + '?per_page=100').json()["artifacts"]:
             if artifact['workflow_run']['head_sha'] == commit:
                 return artifact
         return None
@@ -109,7 +110,7 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
         tags = []
-        for artifact in requests.get(self.CT_URL + '?per_page=' + str(count)).json()["artifacts"]:
+        for artifact in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json()["artifacts"]:
             workflow = artifact['workflow_run']
             if not workflow["head_branch"] == "master" or artifact["expired"]:
                 continue

@@ -1,7 +1,7 @@
 import sys, os, shutil
 import threading
 import pkgutil
-from typing import final
+import requests
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
@@ -65,7 +65,11 @@ class MainWindow(QObject):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.ct_loader = ctloader.CtLoader()
+        rs = requests.Session()
+        token = os.getenv('PUPGUI_GHA_TOKEN')
+        if token:
+            rs.headers.update({'Authorization': f'token {token}'})
+        self.ct_loader = ctloader.CtLoader(rs=rs)
 
         self.combo_install_location_index_map = []
         self.updating_combo_install_location = False

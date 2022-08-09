@@ -23,9 +23,10 @@ class CtInstaller(QObject):
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
 
-    def __init__(self):
+    def __init__(self, rs : requests.Session = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
+        self.rs = rs if rs else requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled

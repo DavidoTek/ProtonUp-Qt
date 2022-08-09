@@ -1,5 +1,6 @@
 import pkgutil
 import importlib
+import requests
 
 from .resources import ctmods
 
@@ -8,7 +9,8 @@ class CtLoader:
     ctmods = []
     ctobjs = []
 
-    def __init__(self):
+    def __init__(self, rs : requests.Session = None):
+        self.rs = rs
         self.load_ctmods()
 
     def load_ctmods(self) -> bool:
@@ -28,7 +30,7 @@ class CtLoader:
                         'name': ctmod.CT_NAME,
                         'launchers': ctmod.CT_LAUNCHERS,
                         'description': ctmod.CT_DESCRIPTION,
-                        'installer': ctmod.CtInstaller()
+                        'installer': ctmod.CtInstaller(rs=self.rs)
                     })
                     print('Loaded ctmod', ctmod.CT_NAME)
                 except Exception as e:

@@ -20,9 +20,10 @@ class CtInstaller(QObject):
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
 
-    def __init__(self):
+    def __init__(self, rs : requests.Session = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
+        self.rs = rs if rs else requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -44,7 +45,7 @@ class CtInstaller(QObject):
         Return Type: bool
         """
         try:
-            file = requests.get(url, stream=True)
+            file = self.rs.get(url, stream=True)
         except OSError:
             return False
 
@@ -76,7 +77,7 @@ class CtInstaller(QObject):
             'version', 'date', 'download', 'size', 'checksum'
         """
         url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
-        data = requests.get(url).json()
+        data = self.rs.get(url).json()
         if 'tag_name' not in data:
             return None
 
@@ -100,7 +101,7 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
         tags = []
-        for release in requests.get(self.CT_URL + '?per_page=' + str(count)).json():
+        for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json():
             if 'tag_name' in release:
                 tags.append(release['tag_name'])
         return tags
