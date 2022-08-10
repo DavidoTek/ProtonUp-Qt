@@ -95,7 +95,9 @@ class LutrisGame:
         lutris_config_dir = self.install_loc.get('config_dir')
         if not lutris_config_dir:
             return {}
-        fn = self.installer_slug + '-' + str(self.installed_at) + '.yml'
+        fn = str(self.installer_slug) + '-' + str(self.installed_at) + '.yml'
         lutris_game_cfg = os.path.join(os.path.expanduser(lutris_config_dir), 'games', fn)
+        if not os.path.exists(lutris_game_cfg):
+            return {}
         with open(lutris_game_cfg, 'r') as f:
             return yaml.safe_load(f)
