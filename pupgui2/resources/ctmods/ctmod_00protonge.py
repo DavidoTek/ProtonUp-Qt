@@ -135,7 +135,9 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        protondir = install_dir + 'Proton-' + data['version']
+        protondir = os.path.join(install_dir, data['version'])
+        if not os.path.exists(protondir):
+            protondir = os.path.join(install_dir, 'Proton-' + data['version'])
         checksum_dir = protondir + '/sha512sum'
         source_checksum = self.rs.get(data['checksum']).text if 'checksum' in data else None
         local_checksum = open(checksum_dir).read() if os.path.exists(checksum_dir) else None
