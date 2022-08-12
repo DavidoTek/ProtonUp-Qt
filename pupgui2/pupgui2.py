@@ -52,7 +52,7 @@ class InstallWineThread(threading.Thread):
 
         for ctobj in self.main_window.ct_loader.get_ctobjs():
             if ctobj['name'] == tool_name:
-                if not ctobj['installer'].is_system_compatible():
+                if not ctobj['installer'].is_system_compatible() and not os.path.exists('/.flatpak-info'):
                     self.main_window.set_download_progress_percent(-1)
                     break
                 ctobj['installer'].download_progress_percent.connect(self.main_window.set_download_progress_percent)
