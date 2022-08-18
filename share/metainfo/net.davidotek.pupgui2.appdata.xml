@@ -60,6 +60,21 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.7.0" date="2022-08-18">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Added DXVK Nightly builds</li>
+          <li>Added button to install Proton-GE for Steam Flatpak directly from Flathub</li>
+        </ul>
+        <p>Bugs fixed:</p>
+        <ul>
+          <li>Added <a href="https://github.com/Frogging-Family/wine-tkg-git/releases/tag/7.x%2B">Proton-Tkg CI builds</a></li>
+          <li>Fix bug where download would crash with error message 'no space left'</li>
+        </ul>
+        <p>Various bug fixes and performance improvements</p>
+      </description>
+    </release>
     <release version="2.6.5" date="2022-06-19">
       <description>
         <p>Changes:</p>
