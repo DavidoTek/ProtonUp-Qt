@@ -1,5 +1,5 @@
 PySide6-Essentials==6.3.1
-requests==2.28.0
+requests==2.28.1
 vdf==3.4
 inputs==0.5
 pyxdg==0.28
