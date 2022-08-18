@@ -4,78 +4,88 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="165"/>
+        <location filename="../pupgui2/pupgui2.py" line="172"/>
         <source>unused</source>
         <translation>unbenutzt</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="195"/>
+        <location filename="../pupgui2/pupgui2.py" line="202"/>
         <source>Fetching releases...</source>
         <translation>Erneuere Veröffentlichungen...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="206"/>
+        <location filename="../pupgui2/pupgui2.py" line="213"/>
         <source>Download canceled.</source>
         <translation>Download abgebrochen.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="209"/>
+        <location filename="../pupgui2/pupgui2.py" line="216"/>
         <source>Could not install {current_compat_tool_name}...</source>
         <translation>Konnte {current_compat_tool_name} nicht installieren...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="215"/>
+        <location filename="../pupgui2/pupgui2.py" line="222"/>
         <source>Downloading {current_compat_tool_name}...</source>
         <translation>Lade {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="217"/>
+        <location filename="../pupgui2/pupgui2.py" line="224"/>
         <source>Extracting {current_compat_tool_name}...</source>
         <translation>Entpacke {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="219"/>
+        <location filename="../pupgui2/pupgui2.py" line="226"/>
         <source>Installed {current_compat_tool_name}.</source>
         <translation>{current_compat_tool_name} installiert.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="240"/>
+        <location filename="../pupgui2/pupgui2.py" line="247"/>
         <source>Remove compatibility tools?</source>
         <translation>Kompatibilitätstool entfernen?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="240"/>
+        <location filename="../pupgui2/pupgui2.py" line="247"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>Sie versuchen ein Kompatibilitätstool zu entfernen,
 welches von {n} Spiel(en) verwendet wird. Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="247"/>
+        <location filename="../pupgui2/pupgui2.py" line="254"/>
         <source>Removed selected versions.</source>
         <translation>Gewählte Versionen entfernt.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="261"/>
+        <location filename="../pupgui2/pupgui2.py" line="268"/>
         <source>Exit?</source>
         <translation>Beenden?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="261"/>
+        <location filename="../pupgui2/pupgui2.py" line="268"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
         <translation>Es sind Downloads am laufen.
 Abbrechen und beenden?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="269"/>
+        <location filename="../pupgui2/pupgui2.py" line="276"/>
         <source>Changed install directory to {install_dir}.</source>
         <translation>Installationsort zu {install_dir} geändert.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="280"/>
+        <location filename="../pupgui2/pupgui2.py" line="287"/>
         <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
         <translation>Info: GE-Proton / Boxtron ist direkt auf Flathub verfügbar!</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2.py" line="318"/>
+        <source>Install tool from Flathub</source>
+        <translation>Tool von Flathub laden</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2.py" line="321"/>
+        <source>Click to open your app store</source>
+        <translation>Klicken, um den App Store zu öffnen</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
@@ -124,16 +134,21 @@ Abbrechen und beenden?</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="165"/>
+        <source>Get tools from Flathub</source>
+        <translation>Tools von Flathub laden</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="172"/>
         <source>Show game list</source>
         <translation>Spieleliste</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="172"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="179"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="179"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="186"/>
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
@@ -160,24 +175,24 @@ Abbrechen und beenden?</translation>
         <translation type="vanished">Erneuere Steamliste</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="94"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="97"/>
         <source>Update available</source>
         <translation>Aktualisierung verfügbar</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="99"/>
         <source>There is a newer version available.
 You are running {APP_VERSION} but {newest_version} is available.</source>
         <translation>Eine neuere Version ist verfügbar.
 Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="99"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="102"/>
         <source>Up to date</source>
         <translation>Keine Aktualisierung verfügbar</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="99"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="102"/>
         <source>You are running the newest version!</source>
         <translation>Sie verwenden die neuste Version!</translation>
     </message>
@@ -202,17 +217,22 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
         <translation>Farbschema:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="143"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="139"/>
+        <source>Enable advanced mode (show git-builds for compatibility tools etc.)</source>
+        <translation>Modus für Fortgeschrittene aktivieren (zeige Git Builds, etc.)</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="150"/>
         <source>Check for updates</source>
         <translation>Auf Updates prüfen</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="163"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="177"/>
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
@@ -422,37 +442,37 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
 <context>
     <name>PupguiInstallDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2installdialog.py" line="21"/>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="23"/>
         <source>Install Compatibility Tool</source>
         <translation>Installiere Kompatibilitätstool</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2installdialog.py" line="24"/>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="26"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2installdialog.py" line="25"/>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="27"/>
         <source>Install</source>
         <translation>Installieren</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2installdialog.py" line="26"/>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="28"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2installdialog.py" line="38"/>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="40"/>
         <source>Compatibility tool:</source>
         <translation>Kompatibilitätstool:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2installdialog.py" line="40"/>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="42"/>
         <source>Version:</source>
         <translation>Version:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2installdialog.py" line="42"/>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="44"/>
         <source>Description:</source>
         <translation>Beschreibung:</translation>
     </message>
