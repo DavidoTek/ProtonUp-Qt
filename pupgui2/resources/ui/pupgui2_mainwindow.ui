@@ -160,6 +160,13 @@
        </spacer>
       </item>
       <item>
+       <widget class="QPushButton" name="btnSteamFlatpakCtools">
+        <property name="text">
+         <string>Get tools from Flathub</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="btnShowGameList">
         <property name="text">
          <string>Show game list</string>

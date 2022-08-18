@@ -16,6 +16,7 @@ from .util import print_system_information
 from .util import single_instance
 from .util import download_awacy_gamelist
 from .constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR
+from .constants import STEAM_PROTONGE_FLATPAK_APPSTREAM, STEAM_BOXTRON_FLATPAK_APPSTREAM
 from . import ctloader
 from .pupgui2installdialog import PupguiInstallDialog
 from .pupgui2aboutdialog import PupguiAboutDialog
@@ -110,6 +111,7 @@ class MainWindow(QObject):
         self.ui.listInstalledVersions.itemDoubleClicked.connect(self.list_installed_versions_item_double_clicked)
         self.ui.listInstalledVersions.itemSelectionChanged.connect(self.list_installed_versions_item_selection_changed)
         self.ui.btnShowCtInfo.clicked.connect(self.btn_show_ct_info_clicked)
+        self.ui.btnSteamFlatpakCtools.clicked.connect(self.btn_steam_flatpak_ctools_clicked)
 
         self.ui.btnRemoveSelected.setEnabled(False)
         self.ui.btnShowCtInfo.setEnabled(False)
@@ -283,6 +285,9 @@ class MainWindow(QObject):
         # For Steam Flatpak only: Show that GE-Proton and Boxtron are available directly from Flathub.
         if 'steam' in install_loc.get('launcher') and 'Flatpak' in install_loc.get('display_name'):
             self.ui.statusBar().showMessage(self.tr('Info: You can get GE-Proton / Boxtron directly from Flathub!'))
+            self.ui.btnSteamFlatpakCtools.setVisible(True)
+        else:
+            self.ui.btnSteamFlatpakCtools.setVisible(False)
     
     def list_installed_versions_item_double_clicked(self, item):
         # Show info about compatibility tool when double clicked in list
@@ -306,6 +311,24 @@ class MainWindow(QObject):
             ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
             cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ct.displayname, install_loc=install_loc, install_dir=ct.get_install_dir())
             cti_dialog.batch_update_complete.connect(self.update_ui)
+
+    def btn_steam_flatpak_ctools_clicked(self):
+        """ Open dialog to open the appstore(appstream) to install Proton-GE/Boxtron from Flathub"""
+        iftdialog = QDialog(parent=self.ui)
+        iftdialog.setWindowTitle(self.tr('Install tool from Flathub'))
+        iftdialog.setFixedSize(250, 100)
+        iftdialog.setModal(True)
+        lbl_description = QLabel(self.tr('Click to open your app store'))
+        btn_dl_protonge = QPushButton('Proton-GE')
+        btn_dl_boxtron = QPushButton('Boxtron')
+        layout1 = QVBoxLayout()
+        layout1.addWidget(lbl_description)
+        layout1.addWidget(btn_dl_protonge)
+        layout1.addWidget(btn_dl_boxtron)
+        iftdialog.setLayout(layout1)
+        btn_dl_protonge.clicked.connect(lambda: os.system('xdg-open ' + STEAM_PROTONGE_FLATPAK_APPSTREAM))
+        btn_dl_boxtron.clicked.connect(lambda: os.system('xdg-open ' + STEAM_BOXTRON_FLATPAK_APPSTREAM))
+        iftdialog.show()
 
     def press_virtual_key(self, key, mod):
         """ Presses virtual key, used by GamepadInputWorker """
