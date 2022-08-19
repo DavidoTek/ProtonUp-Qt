@@ -153,7 +153,8 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                         a.deck_compatibility = steam_app.get('data').get('appinfo').get('common').get('steam_deck_compatibility')
                     except:
                         pass
-                    if steam_app.get('appid') not in ctool_map and 'steamworks' not in a.game_name.lower():
+                    if steam_app.get('appid') not in ctool_map and 'steamworks' not in a.game_name.lower() \
+                        and not ('Proton' in a.game_name and 'Runtime' in a.game_name):
                         a.app_type = 'game'
                     cnt += 1
                 if cnt == len(sapps):
