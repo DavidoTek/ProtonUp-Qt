@@ -5,3 +5,5 @@ inputs==0.5
 pyxdg==0.28
 steam==1.3.0
 PyYAML==6.0
+psutil==5.9.1
+setproctitle==1.3.2
