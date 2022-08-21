@@ -76,7 +76,8 @@ class CtInstaller(QObject):
         Return Type: str
         """
         for artifact in self.rs.get(self.CT_URL + '?per_page=100').json()["artifacts"]:
-            if artifact['workflow_run']['head_sha'] == commit:
+            if artifact['workflow_run']['head_sha'][:len(commit)] == commit:
+                artifact['workflow_run']['head_sha'] = commit
                 return artifact
         return None
 
@@ -91,7 +92,7 @@ class CtInstaller(QObject):
         data = self.__get_artifact_from_commit(tag)
         if not data:
             return
-        values = {'version': data['workflow_run']['head_sha'], 'date': data['updated_at'].split('T')[0]}
+        values = {'version': data['workflow_run']['head_sha'][:7], 'date': data['updated_at'].split('T')[0]}
         values['download'] = "https://nightly.link/doitsujin/dxvk/actions/runs/{}/{}.zip".format(
             data["workflow_run"]["id"],  data["name"]
         )
@@ -115,7 +116,7 @@ class CtInstaller(QObject):
             workflow = artifact['workflow_run']
             if not workflow["head_branch"] == "master" or artifact["expired"]:
                 continue
-            tags.append(workflow['head_sha'])
+            tags.append(workflow['head_sha'][:7])
         return tags
 
     def get_tool(self, version, install_dir, temp_dir):
@@ -128,7 +129,7 @@ class CtInstaller(QObject):
             return False
 
         dxvk_dir = os.path.join(install_dir, '../../runtime/dxvk')
-        dxvk_install_dir = os.path.join(dxvk_dir, 'dxvk-master-' + data['version'])
+        dxvk_install_dir = os.path.join(dxvk_dir, 'dxvk-git-' + data['version'])
         destination = temp_dir
         destination += data['download'].split('/')[-1]
         destination = destination
@@ -136,8 +137,8 @@ class CtInstaller(QObject):
         if not self.__download(url=data['download'], destination=destination, f_size=data['size']):
             return False
 
-        if os.path.exists(dxvk_dir + 'dxvk-master-' + data['version']):
-            shutil.rmtree(dxvk_dir + 'dxvk-master-' + data['version'])
+        if os.path.exists(dxvk_dir + 'dxvk-git-' + data['version']):
+            shutil.rmtree(dxvk_dir + 'dxvk-git-' + data['version'])
         with zipfile.ZipFile(destination) as zip:
             zip.extractall(dxvk_install_dir)
 
