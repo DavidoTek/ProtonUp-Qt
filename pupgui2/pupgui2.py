@@ -8,10 +8,11 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
+from .datastructures import BasicCompatTool, CTType
 from .util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools
 from .util import install_directory, available_install_directories, get_install_location_from_directory_name
 from .util import remove_ctool
-from .steamutil import get_steam_game_list
+from .steamutil import get_steam_acruntime_list, get_steam_game_list
 from .util import print_system_information
 from .util import single_instance
 from .util import download_awacy_gamelist
@@ -164,6 +165,7 @@ class MainWindow(QObject):
         # Launcher specific (Steam): Number of games using the compatibility tool
         if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
             get_steam_game_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
+            self.compat_tool_index_map += get_steam_acruntime_list(install_loc.get('vdf_dir'), cached=True)
             for ct in self.compat_tool_index_map:
                 games = get_steam_game_list(install_loc.get('vdf_dir'), ct.get_install_folder(), cached=True)
                 ct.no_games = len(games)
@@ -304,6 +306,12 @@ class MainWindow(QObject):
         else:
             self.ui.btnRemoveSelected.setEnabled(True)
             self.ui.btnShowCtInfo.setEnabled(True)
+        # Compatibility tools and runtimes installed by Steam (steamapps) cannot be removed
+        for item in self.ui.listInstalledVersions.selectedItems():
+            ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
+            if ct.ct_type == CTType.STEAM_CT or ct.ct_type == CTType.STEAM_RT:
+                self.ui.btnRemoveSelected.setEnabled(False)
+                break
 
     def btn_show_ct_info_clicked(self):
         install_loc = get_install_location_from_directory_name(install_directory())

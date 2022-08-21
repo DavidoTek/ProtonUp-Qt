@@ -4,7 +4,7 @@ from typing import Dict, List
 import vdf
 from steam.utils.appcache import parse_appinfo
 
-from .datastructures import SteamApp, AWACYStatus
+from .datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
 from .constants import LOCAL_AWACY_GAME_LIST
 
 
@@ -35,10 +35,14 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
         for fid in v.get('libraryfolders'):
             if 'apps' not in v.get('libraryfolders').get(fid):
                 continue
+            fid_path = v.get('libraryfolders').get(fid).get('path')
+            if fid == '0':
+                fid_path = os.path.join(fid_path, 'steamapps', 'common')
             for appid in v.get('libraryfolders').get(fid).get('apps'):
                 app = SteamApp()
                 app.app_id = int(appid)
                 app.libraryfolder_id = fid
+                app.libraryfolder_path = fid_path
                 ct = c.get(appid)
                 if ct:
                     app.compat_tool = ct.get('name')
@@ -91,6 +95,22 @@ def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=Fal
             ctools.append(app)
 
     return ctools
+
+
+def get_steam_acruntime_list(steam_config_folder: str, cached=False) -> List[BasicCompatTool]:
+    """
+    Returns a list of installed Steam Proton anticheat(EAC/BattlEye) Runtimes.
+    Return Type: List[BasicCompatTool]
+    """
+    runtimes = []
+    apps = get_steam_app_list(steam_config_folder, cached=cached)
+
+    for app in apps:
+        if app.app_type == 'acruntime':
+            ct = BasicCompatTool(app.game_name, app.libraryfolder_path, '', CTType.STEAM_RT)
+            runtimes.append(ct)
+
+    return runtimes
 
 
 def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]:
@@ -156,6 +176,10 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                     if steam_app.get('appid') not in ctool_map and 'steamworks' not in a.game_name.lower() \
                         and not ('Proton' in a.game_name and 'Runtime' in a.game_name):
                         a.app_type = 'game'
+                    elif a.game_name.startswith('Proton') and a.game_name.endswith('Runtime'):
+                        a.app_type = 'acruntime'
+                    elif 'Steam Linux Runtime' in a.game_name:
+                        a.app_type = 'runtime'
                     cnt += 1
                 if cnt == len(sapps):
                     break

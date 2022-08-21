@@ -19,9 +19,17 @@ class AWACYStatus(Enum):
     BROKEN = 8
 
 
+class CTType(Enum):
+    UNKNOWN = 0
+    CUSTOM = 10   # user installed ctool (e.g. GE-Proton in compatibilitytools.d)
+    STEAM_CT = 20 # Steam installed compatibility tool (e.g. Proton in steamapps)
+    STEAM_RT = 21 # Steam Runtime (e.g. BattlEye/EAC Runtime in steamapps)
+
+
 class SteamApp:
     app_id = -1
     libraryfolder_id = -1
+    libraryfolder_path = ''
     game_name = ''
     compat_tool = ''
     app_type = ''
@@ -55,11 +63,13 @@ class BasicCompatTool:
     no_games = -1
     install_dir = ''
     install_folder = ''
+    ct_type = CTType.UNKNOWN
 
-    def __init__(self, displayname, install_dir, install_folder) -> None:
+    def __init__(self, displayname, install_dir, install_folder, ct_type = CTType.UNKNOWN) -> None:
         self.displayname = displayname
         self.install_dir = install_dir
         self.install_folder = install_folder
+        self.ct_type = ct_type
 
     def set_version(self, ver : str) -> None:
         self.version = ver
