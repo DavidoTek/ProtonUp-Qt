@@ -1,6 +1,7 @@
 import pkgutil
 import os
 
+from .datastructures import BasicCompatTool, CTType
 from .util import open_webbrowser_thread
 from .steamutil import get_steam_game_list
 from .lutrisutil import get_lutris_game_list
@@ -18,13 +19,12 @@ class PupguiCtInfoDialog(QObject):
 
     batch_update_complete = Signal(bool)
 
-    def __init__(self, parent=None, ctool='', install_loc=None, install_dir=''):
+    def __init__(self, parent=None, ctool: BasicCompatTool = None, install_loc=None):
         super(PupguiCtInfoDialog, self).__init__(parent)
         self.parent = parent
         self.ctool = ctool
         self.games = []
         self.install_loc = install_loc
-        self.install_dir = install_dir
 
         self.load_ui()
         self.setup_ui()
@@ -37,16 +37,17 @@ class PupguiCtInfoDialog(QObject):
         self.ui = loader.load(ui_file.device())
 
     def setup_ui(self):
-        self.ui.txtToolName.setText(self.ctool)
+        self.ui.txtToolName.setText(self.ctool.displayname)
         self.ui.txtLauncherName.setText(self.install_loc.get('display_name'))
-        self.ui.txtInstallDirectory.setText(self.install_dir)
+        self.ui.txtInstallDirectory.setText(self.ctool.get_install_dir())
         self.ui.btnBatchUpdate.setVisible(False)
 
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
-            self.update_game_list_steam()
-            if 'Proton' in self.ctool:  # 'batch update' option for Proton-GE
-                self.ui.btnBatchUpdate.setVisible(True)
-                self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
+            if self.ctool.ct_type != CTType.STEAM_RT:
+                self.update_game_list_steam()
+                if 'Proton' in self.ctool.displayname and self.ctool.ct_type == CTType.CUSTOM:  # 'batch update' option for Proton-GE
+                    self.ui.btnBatchUpdate.setVisible(True)
+                    self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
         else:
             self.update_game_list_lutris()
 
@@ -56,7 +57,7 @@ class PupguiCtInfoDialog(QObject):
 
     def update_game_list_steam(self):
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
-            self.games = get_steam_game_list(self.install_loc.get('vdf_dir'), self.ctool)
+            self.games = get_steam_game_list(self.install_loc.get('vdf_dir'), self.ctool.displayname)
             self.ui.txtNumGamesUsingTool.setText(str(len(self.games)))
 
         self.ui.listGames.clear()
@@ -70,7 +71,7 @@ class PupguiCtInfoDialog(QObject):
         for game in get_lutris_game_list(self.install_loc):
             if game.runner == 'wine':
                 cfg = game.get_game_config()
-                if self.ctool == cfg.get('wine', {}).get('version'):
+                if self.ctool.displayname == cfg.get('wine', {}).get('version'):
                     self.ui.listGames.addItem(game.name)
 
     def btn_close_clicked(self):

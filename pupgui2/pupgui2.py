@@ -295,7 +295,7 @@ class MainWindow(QObject):
         # Show info about compatibility tool when double clicked in list
         ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
         install_loc = get_install_location_from_directory_name(install_directory())
-        cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ct.displayname, install_loc=install_loc, install_dir=ct.get_install_dir())
+        cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ct, install_loc=install_loc)
         cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def list_installed_versions_item_selection_changed(self):
@@ -317,7 +317,7 @@ class MainWindow(QObject):
         install_loc = get_install_location_from_directory_name(install_directory())
         for item in self.ui.listInstalledVersions.selectedItems():
             ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
-            cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ct.displayname, install_loc=install_loc, install_dir=ct.get_install_dir())
+            cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ct, install_loc=install_loc)
             cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def btn_steam_flatpak_ctools_clicked(self):
