@@ -6,7 +6,6 @@ from typing import Dict, List
 import webbrowser
 import requests
 from configparser import ConfigParser
-import psutil, setproctitle
 
 import PySide6
 from PySide6.QtWidgets import *
@@ -318,15 +317,18 @@ def single_instance() -> bool:
     Creates a lockfile to detect other instances of the app. Returns False if another instance is found
     Return Type: bool
     """
-    proctitle = 'pupgui2'
-    setproctitle.setproctitle(proctitle)
     lockfile = os.path.join(TEMP_DIR, 'lockfile')
     if os.path.exists(lockfile):
         f = open(lockfile, 'r')
-        pid = int(f.read())
+        pid = f.read()
         f.close()
-        if psutil.pid_exists(pid) and psutil.Process(pid).name() == proctitle:
-            return False
+        cmdline_file = os.path.join('/proc/' + pid + '/cmdline')
+        if os.path.exists(cmdline_file):
+            f = open(cmdline_file, 'r')
+            cmdline = f.read()
+            f.close()
+            if 'pupgui2' in cmdline:
+                return False
     try:
         os.mkdir(TEMP_DIR)
         f = open(lockfile, 'w')
