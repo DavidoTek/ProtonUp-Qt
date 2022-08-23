@@ -322,8 +322,13 @@ def single_instance() -> bool:
         f = open(lockfile, 'r')
         pid = f.read()
         f.close()
-        if os.path.isdir('/proc/' + pid):
-            return False
+        cmdline_file = os.path.join('/proc/', pid, 'cmdline')
+        if os.path.exists(cmdline_file):
+            f = open(cmdline_file, 'r')
+            cmdline = f.read()
+            f.close()
+            if 'pupgui2' in cmdline:
+                return False
     try:
         os.mkdir(TEMP_DIR)
         f = open(lockfile, 'w')
