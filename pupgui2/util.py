@@ -327,7 +327,7 @@ def single_instance() -> bool:
             f = open(cmdline_file, 'r')
             cmdline = f.read()
             f.close()
-            if 'pupgui2' in cmdline:
+            if 'pupgui2' in cmdline and int(pid) != os.getpid():
                 return False
     try:
         os.mkdir(TEMP_DIR)
