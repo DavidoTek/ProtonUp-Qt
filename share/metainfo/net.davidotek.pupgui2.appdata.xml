@@ -60,6 +60,14 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.7.1" date="2022-08-24">
+      <description>
+        <ul>
+          <li>Show Proton anti cheat runtimes as compatibility tools</li>
+          <li>Fix a bug where ProtonUp-Qt won't start due to a second instance being falsely detected</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.7.0" date="2022-08-18">
       <description>
         <p>Changes:</p>
