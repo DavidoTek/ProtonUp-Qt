@@ -60,6 +60,11 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.7.2" date="2022-08-24">
+      <description>
+        <p>Fix a bug where ProtonUp-Qt won't start due to a second instance being falsely detected.</p>
+      </description>
+    </release>
     <release version="2.7.1" date="2022-08-24">
       <description>
         <ul>
