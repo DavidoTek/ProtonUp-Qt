@@ -320,7 +320,7 @@ def single_instance() -> bool:
     lockfile = os.path.join(TEMP_DIR, 'lockfile')
     if os.path.exists(lockfile):
         f = open(lockfile, 'r')
-        pid = f.read()
+        pid = f.readline().strip()
         f.close()
         cmdline_file = os.path.join('/proc/', pid, 'cmdline')
         if os.path.exists(cmdline_file):
