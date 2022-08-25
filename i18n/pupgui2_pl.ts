@@ -232,7 +232,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="39"/>
         <source>Close the Steam client beforehand.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknij wpierw klienta Steam.</translation>
     </message>
 </context>
 <context>
@@ -321,82 +321,82 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="43"/>
         <source>Deck compatibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompatybilność z Deckiem</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="43"/>
         <source>Anticheat</source>
-        <translation type="unfinished"></translation>
+        <translation>Anticheat</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="91"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieznane</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <source>Unsupported</source>
-        <translation type="unfinished"></translation>
+        <translation>Niewspierane</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="97"/>
         <source>Playable</source>
-        <translation type="unfinished"></translation>
+        <translation>Grywalne</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="99"/>
         <source>Native (playable)</source>
-        <translation type="unfinished"></translation>
+        <translation>Natywnie (grywalne)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="100"/>
         <source>Playable using {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Grywalne poprzez {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="105"/>
         <source>Verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Zweryfikowane</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="107"/>
         <source>Native (verified)</source>
-        <translation type="unfinished"></translation>
+        <translation>Natywnie (zweryfikowane)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="108"/>
         <source>Verified for {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Zweryfikowane dla {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="114"/>
         <source>Support was explicitly enabled / works out of the box</source>
-        <translation type="unfinished"></translation>
+        <translation>Wsparcie zostało najwyraźniej włączone / odrazu działa</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="117"/>
         <source>Game plans to support Proton/Wine</source>
-        <translation type="unfinished"></translation>
+        <translation>Gra planuje wsparcie Protona/Wine</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="120"/>
         <source>No official statement but runs fine (may require tinkering)</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak oficjalnej deklaracji ale działa dobrze (może wymagać majstrowania)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="123"/>
         <source>Anti-Cheat stops game from running properly</source>
-        <translation type="unfinished"></translation>
+        <translation>Anticheat uniemożliwia poprawne uruchomienie gry</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="126"/>
         <source>Linux support was explicitly denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Wsparcie dla Linuksa zostało najwidoczniej odrzucone</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="129"/>
         <source>Anti-Cheat status unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Status Anticheata nieznany</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
@@ -406,7 +406,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="45"/>
         <source>Warning: Close the Steam client beforehand so that the changes can be applied!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostrzeżenie: Zamknij wpierw klienta Steam, aby zmiany mogły zostać zastosowane!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="65"/>
@@ -449,7 +449,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="42"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opis:</translation>
     </message>
 </context>
 <context>
