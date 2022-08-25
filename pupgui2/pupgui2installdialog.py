@@ -17,7 +17,7 @@ class PupguiInstallDialog(QDialog):
         super(PupguiInstallDialog, self).__init__(parent)
         self.install_location = install_location
         advanced_mode = (config_advanced_mode() == 'enabled')
-        self.ct_objs = ct_loader.get_ctobjs(self.install_location['launcher'], advanced_mode=advanced_mode)
+        self.ct_objs = ct_loader.get_ctobjs(self.install_location, advanced_mode=advanced_mode)
 
     def setup_ui(self):
         self.setWindowTitle(self.tr('Install Compatibility Tool'))

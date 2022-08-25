@@ -3,14 +3,15 @@ import json
 from typing import Dict, List
 import vdf
 from steam.utils.appcache import parse_appinfo
+import shutil
+import subprocess
 
 from .datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
-from .constants import LOCAL_AWACY_GAME_LIST
+from .constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
 
 
 _cached_app_list = []
 _cached_steam_ctool_id_map = None
-
 
 def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]:
     """
@@ -301,3 +302,69 @@ def is_steam_running() -> bool:
     except:
         pass
     return False
+
+
+get_fish_user_paths = lambda mfile: ([line.strip() for line in mfile.readlines() if 'fish_user_paths' in line] or ['SETUVAR fish_user_paths:\\x1d'])[0].split('fish_user_paths:')[1:][0].split('\\x1e')
+
+
+def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
+    """
+    Removes SteamTinkerLaunch from system by removing the downloaad, removing from path
+    removing config files at `$HOME/.config/steamtinkerlaunch`.
+    
+    Returns True if successfully removed.
+    Reutrn Type: bool
+    """
+
+    try:
+        os.chdir(os.path.expanduser('~'))
+        
+        if os.path.exists(compat_folder):
+            print('Removing SteamTinkerLaunch compatibility tool...')
+            shutil.rmtree(compat_folder)
+            if shutil.which('steamtinkerlaunch'):
+                subprocess.run(['steamtinkerlaunch', 'compat', 'del'])
+
+        if os.path.exists(STEAM_STL_INSTALL_PATH):
+            print('Removing SteamTinkerLaunch installation...')
+            shutil.rmtree(STEAM_STL_INSTALL_PATH)
+
+        if os.path.exists(STEAM_STL_CONFIG_PATH) and remove_config:
+            print('Removing SteamTInkerLaunch configuration folder...')
+            shutil.rmtree(STEAM_STL_CONFIG_PATH)
+
+
+        present_shell_files = [
+            os.path.join(os.path.expanduser('~'), f) for f in os.listdir(os.path.expanduser('~')) if os.path.isfile(os.path.join(os.path.expanduser('~'), f)) and f in STEAM_STL_SHELL_FILES
+        ]
+        if os.path.exists(STEAM_STL_FISH_VARIABLES) or shutil.which('fish'):
+            present_shell_files.append(STEAM_STL_FISH_VARIABLES)
+        
+        print('Removing SteamTinkerLaunch from path...')
+        for shell_file in present_shell_files:
+            with open(shell_file, 'r+') as mfile:                
+                mfile_lines = list(filter(lambda l: 'protonup-qt' not in l.lower() and STEAM_STL_INSTALL_PATH.lower() not in l.lower(), [line for line in mfile.readlines()]))
+                if len(mfile_lines) == 0:
+                    continue
+                mfile_lines = mfile_lines[:-1] if len(mfile_lines[-1].strip()) == 0 else mfile_lines
+
+                # Preserve any existing Fish user paths
+                if 'fish' in mfile.name:
+                    mfile.seek(0)
+                    curr_fish_user_paths = list(filter(lambda path: STEAM_STL_INSTALL_PATH not in path, [user_path for user_path in get_fish_user_paths(mfile)]))
+                    updated_fish_user_paths = '\\x1e'.join(curr_fish_user_paths)
+                    mfile_lines.append(f'SETUVAR fish_user_paths:{updated_fish_user_paths}')
+
+                mfile.seek(0)
+                prev_line = ''
+                for line in mfile_lines:
+                    if not (len(line.strip()) == 0 and len(prev_line.strip()) == 0):
+                        mfile.write(line)
+                    prev_line = line
+                mfile.truncate()
+
+        print('Successfully uninstalled SteamTinkerLaunch!')
+        return True
+    except IOError as e:
+        print('Something went wrong trying to uninstall SteamTinkerLaunch. Aborting...', e)
+        return False

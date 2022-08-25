@@ -65,8 +65,10 @@ class CtLoader:
 
         ctobjs = []
         for ctobj in self.ctobjs:
-            if launcher in ctobj['launchers']:
+            if launcher.get('launcher') in ctobj['launchers']:
                 if 'advmode' in ctobj['launchers'] and not advanced_mode:
+                    continue
+                if 'native-only' in ctobj['launchers'] and not launcher.get('type') == 'native':
                     continue
                 ctobjs.append(ctobj)
         return ctobjs

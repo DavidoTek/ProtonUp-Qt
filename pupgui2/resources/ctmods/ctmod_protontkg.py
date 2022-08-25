@@ -11,6 +11,7 @@ CT_LAUNCHERS = ['steam']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Custom Proton build for running Windows games, built with the Wine-tkg build system.'''
 CT_DESCRIPTION['de'] = '''Proton-Tkg Build für Windows-Spiele, erstellt mit dem Wine-tkg Build System.'''
+CT_DESCRIPTION['pl'] = '''Kompilacja Proton-Tkg do uruchamiania Windowsych gier, zbudowana z Wine-tkg.'''
 
 
 class CtInstaller(QObject):
