@@ -10,6 +10,7 @@ CT_LAUNCHERS = ['lutris']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.<br/><br/><b>Warning: Use only with singleplayer games!</b>'''
 CT_DESCRIPTION['de'] = '''Vulkan-basierte Implementierung von Direct3D 9, 10 und 11 für Linux/Wine mit Sporifs Async Patch.<br/><br/><b>Achtung: Nur für Singleplayer Spiele geeignet!</b>'''
+CT_DESCRIPTION['pl'] = '''Bazująca na Vulkanie implementacja Direct3D 9, 10 i 11 dla Linuksa/Wine z łatką Async od Sporifa.<br/><br/><b>Uwaga: Używaj wyłącznie z grami jednoosobowymi!</b>'''
 
 
 class CtInstaller(QObject):
