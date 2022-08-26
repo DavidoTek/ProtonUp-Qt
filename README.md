@@ -1,4 +1,5 @@
 [![Downloads](https://img.shields.io/github/downloads/DavidoTek/ProtonUp-Qt/total.svg)](https://github.com/DavidoTek/ProtonUp-Qt/releases)
+[![Flathub Downloads](https://img.shields.io/flathub/downloads/net.davidotek.pupgui2?label=Flathub%20installs)](https://flathub.org/apps/details/net.davidotek.pupgui2)
 [![License](https://img.shields.io/github/license/DavidoTek/ProtonUp-Qt)](https://github.com/DavidoTek/ProtonUp-Qt/blob/main/LICENSE)
 [![Build AppImage CI](https://github.com/DavidoTek/ProtonUp-Qt/actions/workflows/appimage-ci.yml/badge.svg)](https://github.com/DavidoTek/ProtonUp-Qt/actions/workflows/appimage-ci.yml)
 
