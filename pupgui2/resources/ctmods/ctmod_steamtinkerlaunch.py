@@ -224,7 +224,11 @@ class CtInstaller(QObject):
             os.chdir(tarname)
             
             # Location of SteamTinkerLaunch script to add to path later
-            stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, tarname)
+            old_stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, tarname)
+            stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, 'prefix')
+
+            # Rename folder ~/stl/<tarname> to ~/stl/prefix
+            os.rename(old_stl_path, stl_path)
 
             # If on Steam Deck, run script for initial Steam Deck config
             # On Steam Deck, STL is installed to "/home/deck/stl/prefix"
@@ -264,7 +268,7 @@ class CtInstaller(QObject):
                 if not os.path.isfile(os.path.join(stl_lang_path, stl_lang)):
                     shutil.copyfile(f'lang/{stl_lang}', os.path.join(stl_lang_path, stl_lang))
                 subprocess.run(['./steamtinkerlaunch', f'lang={stl_lang.removesuffix(".txt")}'])
-                #self.__stl_config_change_language(constants.STEAM_STL_CONFIG_PATH, stl_lang)
+                self.__stl_config_change_language(constants.STEAM_STL_CONFIG_PATH, stl_lang)
 
             # Add SteamTinkerLaunch to all available shell paths (native Linux)
             print('Adding SteamTinkerLaunch to shell paths...')
