@@ -17,7 +17,7 @@ from .util import print_system_information
 from .util import single_instance
 from .util import download_awacy_gamelist
 from .constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR
-from .constants import STEAM_PROTONGE_FLATPAK_APPSTREAM, STEAM_BOXTRON_FLATPAK_APPSTREAM
+from .constants import STEAM_PROTONGE_FLATPAK_APPSTREAM, STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
 from . import ctloader
 from .pupgui2installdialog import PupguiInstallDialog
 from .pupgui2aboutdialog import PupguiAboutDialog
@@ -167,7 +167,7 @@ class MainWindow(QObject):
             get_steam_game_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
             self.compat_tool_index_map += get_steam_acruntime_list(install_loc.get('vdf_dir'), cached=True)
             for ct in self.compat_tool_index_map:
-                games = get_steam_game_list(install_loc.get('vdf_dir'), ct.get_install_folder(), cached=True)
+                games = get_steam_game_list(install_loc.get('vdf_dir'), ct.get_internal_name(), cached=True)
                 ct.no_games = len(games)
 
         for ct in self.compat_tool_index_map:
@@ -224,6 +224,8 @@ class MainWindow(QObject):
             self.ui.statusBar().showMessage(self.tr('Downloading {current_compat_tool_name}...').format(current_compat_tool_name=self.current_compat_tool_name))
         elif value == 99:
             self.ui.statusBar().showMessage(self.tr('Extracting {current_compat_tool_name}...').format(current_compat_tool_name=self.current_compat_tool_name))
+        elif value == 99.5:
+            self.ui.statusBar().showMessage(self.tr('Installing {current_compat_tool_name}...').format(current_compat_tool_name=self.current_compat_tool_name))
         elif value == 100:
             self.ui.statusBar().showMessage(self.tr('Installed {current_compat_tool_name}.').format(current_compat_tool_name=self.current_compat_tool_name))
             self.update_ui()
@@ -329,13 +331,16 @@ class MainWindow(QObject):
         lbl_description = QLabel(self.tr('Click to open your app store'))
         btn_dl_protonge = QPushButton('Proton-GE')
         btn_dl_boxtron = QPushButton('Boxtron')
+        btn_dl_stl = QPushButton('Steam Tinker Launch')
         layout1 = QVBoxLayout()
         layout1.addWidget(lbl_description)
         layout1.addWidget(btn_dl_protonge)
         layout1.addWidget(btn_dl_boxtron)
+        layout1.addWidget(btn_dl_stl)
         iftdialog.setLayout(layout1)
         btn_dl_protonge.clicked.connect(lambda: os.system('xdg-open ' + STEAM_PROTONGE_FLATPAK_APPSTREAM))
         btn_dl_boxtron.clicked.connect(lambda: os.system('xdg-open ' + STEAM_BOXTRON_FLATPAK_APPSTREAM))
+        btn_dl_stl.clicked.connect(lambda: os.system('xdg-open ' + STEAM_STL_FLATPAK_APPSTREAM))
         iftdialog.show()
 
     def press_virtual_key(self, key, mod):

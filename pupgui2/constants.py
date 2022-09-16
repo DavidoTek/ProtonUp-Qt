@@ -27,17 +27,17 @@ for steam_root in _POSSIBLE_STEAM_ROOTS:
         break
 
 POSSIBLE_INSTALL_LOCATIONS = [
-    {'install_dir': _STEAM_ROOT + '/compatibilitytools.d/', 'display_name': 'Steam', 'launcher': 'steam', 'icon': 'steam', 'vdf_dir': _STEAM_ROOT + '/config'},
-    {'install_dir': '~/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/', 'display_name': 'Steam Flatpak', 'launcher': 'steam', 'icon': 'steam'},
-    {'install_dir': '~/snap/steam/common/.steam/root/compatibilitytools.d/', 'display_name': 'Steam Snap', 'launcher': 'steam', 'icon': 'steam', 'vdf_dir': '~/snap/steam/common/.steam/root/config'},
-    {'install_dir': '~/.local/share/lutris/runners/wine/', 'display_name': 'Lutris', 'launcher': 'lutris', 'icon': 'lutris', 'config_dir': '~/.config/lutris'},
-    {'install_dir': '~/.var/app/net.lutris.Lutris/data/lutris/runners/wine/', 'display_name': 'Lutris Flatpak', 'launcher': 'lutris', 'icon': 'lutris', 'config_dir': '~/.var/app/net.lutris.Lutris/config/lutris'},
-    {'install_dir': '~/.config/heroic/tools/wine/', 'display_name': 'Heroic Wine', 'launcher': 'heroicwine', 'icon': 'heroic'},
-    {'install_dir': '~/.config/heroic/tools/proton/', 'display_name': 'Heroic Proton', 'launcher': 'heroicproton', 'icon': 'heroic'},
-    {'install_dir': '~/.var/app/com.heroicgameslauncher.hgl/config/heroic/tools/wine/', 'display_name': 'Heroic Wine Flatpak', 'launcher': 'heroicwine', 'icon': 'heroic'},
-    {'install_dir': '~/.var/app/com.heroicgameslauncher.hgl/config/heroic/tools/proton/', 'display_name': 'Heroic Proton Flatpak', 'launcher': 'heroicproton', 'icon': 'heroic'},
-    {'install_dir': '~/.local/share/bottles/runners/', 'display_name': 'Bottles', 'launcher': 'bottles', 'icon': 'com.usebottles.bottles'},
-    {'install_dir': '~/.var/app/com.usebottles.bottles/data/bottles/runners/', 'display_name': 'Bottles Flatpak', 'launcher': 'bottles', 'icon': 'com.usebottles.bottles'}
+    {'install_dir': _STEAM_ROOT + '/compatibilitytools.d/', 'display_name': 'Steam', 'launcher': 'steam', 'type': 'native', 'icon': 'steam', 'vdf_dir': _STEAM_ROOT + '/config'},
+    {'install_dir': '~/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/', 'display_name': 'Steam Flatpak', 'launcher': 'steam', 'type': 'flatpak', 'icon': 'steam'},
+    {'install_dir': '~/snap/steam/common/.steam/root/compatibilitytools.d/', 'display_name': 'Steam Snap', 'launcher': 'steam', 'type': 'snap', 'icon': 'steam', 'vdf_dir': '~/snap/steam/common/.steam/root/config'},
+    {'install_dir': '~/.local/share/lutris/runners/wine/', 'display_name': 'Lutris', 'launcher': 'lutris', 'type': 'native', 'icon': 'lutris', 'config_dir': '~/.config/lutris'},
+    {'install_dir': '~/.var/app/net.lutris.Lutris/data/lutris/runners/wine/', 'display_name': 'Lutris Flatpak', 'launcher': 'lutris', 'type': 'flatpak', 'icon': 'lutris', 'config_dir': '~/.var/app/net.lutris.Lutris/config/lutris'},
+    {'install_dir': '~/.config/heroic/tools/wine/', 'display_name': 'Heroic Wine', 'launcher': 'heroicwine', 'type': 'native', 'icon': 'heroic'},
+    {'install_dir': '~/.config/heroic/tools/proton/', 'display_name': 'Heroic Proton', 'launcher': 'heroicproton', 'type': 'native', 'icon': 'heroic'},
+    {'install_dir': '~/.var/app/com.heroicgameslauncher.hgl/config/heroic/tools/wine/', 'display_name': 'Heroic Wine Flatpak', 'launcher': 'heroicwine', 'type': 'flatpak', 'icon': 'heroic'},
+    {'install_dir': '~/.var/app/com.heroicgameslauncher.hgl/config/heroic/tools/proton/', 'display_name': 'Heroic Proton Flatpak', 'launcher': 'heroicproton', 'type': 'flatpak', 'icon': 'heroic'},
+    {'install_dir': '~/.local/share/bottles/runners/', 'display_name': 'Bottles', 'launcher': 'bottles', 'type': 'native', 'icon': 'com.usebottles.bottles'},
+    {'install_dir': '~/.var/app/com.usebottles.bottles/data/bottles/runners/', 'display_name': 'Bottles Flatpak', 'launcher': 'bottles', 'type': 'flatpak', 'icon': 'com.usebottles.bottles'}
 ]
 
 def PALETTE_DARK():
@@ -65,3 +65,9 @@ LOCAL_AWACY_GAME_LIST = os.path.join(TEMP_DIR, 'awacy_games.json')
 
 STEAM_BOXTRON_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Boxtron'
 STEAM_PROTONGE_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Proton-GE'
+STEAM_STL_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.Utility.steamtinkerlaunch'
+
+STEAM_STL_INSTALL_PATH = os.path.join(os.path.expanduser('~'), 'stl')
+STEAM_STL_CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.config', 'steamtinkerlaunch')
+STEAM_STL_SHELL_FILES = [ '.bashrc', '.zshrc', '.kshrc' ]
+STEAM_STL_FISH_VARIABLES = os.path.join(os.path.expanduser('~'), '.config/fish/fish_variables')

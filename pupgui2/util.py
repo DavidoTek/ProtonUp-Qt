@@ -15,6 +15,7 @@ from PySide6.QtGui import *
 from .constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
 from .constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from .datastructures import BasicCompatTool, CTType
+from .steamutil import remove_steamtinkerlaunch
 
 
 def apply_dark_theme(app: QApplication) -> None:
@@ -244,7 +245,16 @@ def remove_ctool(ver: str, install_dir: str) -> bool:
     Return Type: bool
     """
     target = os.path.join(install_dir, ver.split(' - ')[0])
-    if os.path.exists(target):
+    # Special case hack to remove SteamTinkerLaunch
+    if 'steamtinkerlaunch' in target.lower():
+        mb = QMessageBox()
+        cb = QCheckBox(QObject.tr('Delete STL configuration'))
+        mb.setWindowTitle(QObject.tr('Uninstalling SteamTinkerLaunch'))
+        mb.setText(QObject.tr('STL will be removed from your system.\nDo you want the configuration to be removed?'))
+        mb.setCheckBox(cb)
+        mb.exec()
+        return remove_steamtinkerlaunch(compat_folder=target, remove_config=cb.isChecked())
+    elif os.path.exists(target):
         shutil.rmtree(target)
         return True
     return False
@@ -261,6 +271,8 @@ def sort_compatibility_tool_names(unsorted: List[str], reverse=False) -> List[st
     for ver in unsorted:
         i += 1
         if ver.startswith('GE-Proton'):
+            ver_dict[100+i] = ver
+        elif 'SteamTinkerLaunch' in ver:
             ver_dict[100+i] = ver
         elif 'Proton-' in ver:
             try:
@@ -364,7 +376,7 @@ def get_installed_ctools(install_dir: str) -> List[BasicCompatTool]:
         for folder in folders:
             if not os.path.isdir(os.path.join(install_dir, folder)):
                 continue
-
+            
             ct = BasicCompatTool(folder, install_dir, folder, ct_type=CTType.CUSTOM)
 
             ver_file = os.path.join(install_dir, folder, 'VERSION.txt')

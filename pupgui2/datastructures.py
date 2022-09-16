@@ -1,5 +1,6 @@
 from enum import Enum
 import os
+import vdf
 import yaml
 
 
@@ -82,6 +83,19 @@ class BasicCompatTool:
         if self.no_games == 0:
             displayname += ' (' + unused_tr + ')'
         return displayname
+
+    def get_internal_name(self) -> str:
+        """
+        Returns the internal name if available, e.g. Proton-stl.
+        If unavailable, returns the displayname
+        """
+        compat_tool_vdf_path = os.path.join(self.install_dir, self.install_folder, 'compatibilitytool.vdf')
+        if os.path.exists(compat_tool_vdf_path):
+            compat_tool_vdf = vdf.load(open(compat_tool_vdf_path))
+            if 'compatibilitytools' in  compat_tool_vdf and 'compat_tools' in compat_tool_vdf['compatibilitytools']:
+                return list(compat_tool_vdf['compatibilitytools']['compat_tools'].keys())[0]
+
+        return self.displayname
 
     def get_install_dir(self) -> str:
         """ Returns the install directory, e.g. .../compatibilitytools.d/ """
