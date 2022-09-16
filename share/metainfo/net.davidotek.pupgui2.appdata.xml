@@ -11,6 +11,7 @@
   <keywords>
     <keyword>Proton-GE</keyword>
     <keyword>GE-Proton</keyword>
+    <keyword>Steam Tinker Launch</keyword>
   </keywords>
 
   <metadata_license>FSFAP</metadata_license>
@@ -26,11 +27,12 @@
       <li>Lutris</li>
       <li>Heroic Games Launcher</li>
       <li>Bottles</li>
-      <li>Both normal and Flatpak installations are supported</li>
+      <li>Both normal, Snap and Flatpak installations are supported</li>
     </ul>
     <p>Supported compatibility tools:</p>
     <ul>
       <li>GE-Proton</li>
+      <li>SteamTinkerLaunch</li>
       <li>Proton-Tkg</li>
       <li>Luxtorpeda</li>
       <li>Boxtron</li>
@@ -41,6 +43,7 @@
       <li>DXVK and DXVK async</li>
     </ul>
     <p>Double click compatibility tools to show more information and games using the tool.</p>
+    <p>Advanced settings and the color theme can be managed in the About dialog.</p>
   </description>
   
   <launchable type="desktop-id">net.davidotek.pupgui2.desktop</launchable>
@@ -60,6 +63,15 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.7.3" date="2022-09-16">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Added support for installing SteamTinkerLaunch</li>
+          <li>Added support for Steam installed as Snap</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.7.2" date="2022-08-24">
       <description>
         <p>Fix a bug where ProtonUp-Qt won't start due to a second instance being falsely detected.</p>
