@@ -69,5 +69,7 @@ STEAM_STL_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.Utility.steam
 
 STEAM_STL_INSTALL_PATH = os.path.join(os.path.expanduser('~'), 'stl')
 STEAM_STL_CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.config', 'steamtinkerlaunch')
+STEAM_STL_CACHE_PATH = os.path.join(os.path.expanduser('~'), '.cache', 'steamtinkerlaunch')
+STEAM_STL_DATA_PATH = os.path.join(os.path.expanduser('~'), '.local', 'share', 'steamtinkerlaunch')
 STEAM_STL_SHELL_FILES = [ '.bashrc', '.zshrc', '.kshrc' ]
 STEAM_STL_FISH_VARIABLES = os.path.join(os.path.expanduser('~'), '.config/fish/fish_variables')

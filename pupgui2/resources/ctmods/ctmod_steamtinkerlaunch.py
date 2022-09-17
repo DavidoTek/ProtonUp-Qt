@@ -221,7 +221,6 @@ class CtInstaller(QObject):
             tar.extractall(constants.STEAM_STL_INSTALL_PATH)
 
             tarname = tar.getnames()[0]
-            os.chdir(tarname)
             
             # Location of SteamTinkerLaunch script to add to path later
             old_stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, tarname)
@@ -230,13 +229,22 @@ class CtInstaller(QObject):
             # Rename folder ~/stl/<tarname> to ~/stl/prefix
             os.rename(old_stl_path, stl_path)
 
+            os.chdir(stl_path)
+
+            stl_env = os.environ.copy()
+            # Flatpak: Override to store data in the user home
+            if os.path.exists('/.flatpak-info'):
+                stl_env['XDG_CONFIG_HOME'] = os.path.join(constants.STEAM_STL_CONFIG_PATH, os.pardir)
+                stl_env['XDG_CACHE_HOME'] = os.path.join(constants.STEAM_STL_CACHE_PATH, os.pardir)
+                stl_env['XDG_DATA_HOME'] = os.path.join(constants.STEAM_STL_DATA_PATH, os.pardir)
+
             # If on Steam Deck, run script for initial Steam Deck config
             # On Steam Deck, STL is installed to "/home/deck/stl/prefix"
             self.__set_download_progress_percent(99.5) # 99.5 installing tool
             print('Setting up SteamTinkerLaunch...')
             if "steamos" in self.distinfo:
                 subprocess.run(['chmod', '+x', 'steamtinkerlaunch'])
-                subprocess.run(['./steamtinkerlaunch'])
+                subprocess.run(['./steamtinkerlaunch'], env=stl_env)
 
                 # Change location of STL script to add to path as this is different on Steam Deck 
                 stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, 'prefix')
@@ -267,7 +275,7 @@ class CtInstaller(QObject):
                     shutil.copyfile('lang/english.txt', os.path.join(stl_lang_path, 'english.txt'))
                 if not os.path.isfile(os.path.join(stl_lang_path, stl_lang)):
                     shutil.copyfile(f'lang/{stl_lang}', os.path.join(stl_lang_path, stl_lang))
-                subprocess.run(['./steamtinkerlaunch', f'lang={stl_lang.removesuffix(".txt")}'])
+                subprocess.run(['./steamtinkerlaunch', f'lang={stl_lang.removesuffix(".txt")}'], env=stl_env)
                 self.__stl_config_change_language(constants.STEAM_STL_CONFIG_PATH, stl_lang)
 
             # Add SteamTinkerLaunch to all available shell paths (native Linux)
@@ -301,7 +309,7 @@ class CtInstaller(QObject):
 
             # Install Compatibility Tool (Proton games)
             print('Adding SteamTinkerLaunch as a compatibility tool...')
-            subprocess.run(['./steamtinkerlaunch', 'compat', 'add'])
+            subprocess.run(['./steamtinkerlaunch', 'compat', 'add'], env=stl_env)
 
             os.chdir(os.path.expanduser('~'))
 
