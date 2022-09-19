@@ -2,9 +2,10 @@
 # Roberta
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests, hashlib
+import os, shutil, tarfile, requests
 from PySide6.QtCore import *
 from PySide6.QtWidgets import QMessageBox
+from ...util import host_which
 
 CT_NAME = 'Roberta'
 CT_LAUNCHERS = ['steam']
@@ -97,11 +98,11 @@ class CtInstaller(QObject):
         Are the system requirements met?
         Return Type: bool
         """
-        if shutil.which('scummvm') and shutil.which('inotifywait'):
+        if host_which('scummvm') and host_which('inotifywait'):
             return True
         msg = 'You need scummvm and inotify-tools for Roberta.\n\n'
-        msg += 'scummvm: ' + str('missing' if shutil.which('scummvm') is None else 'found') + '\n'
-        msg += 'inotify-tools: ' + str('missing' if shutil.which('inotifywait') is None else 'found')
+        msg += 'scummvm: ' + str('missing' if host_which('scummvm') is None else 'found') + '\n'
+        msg += 'inotify-tools: ' + str('missing' if host_which('inotifywait') is None else 'found')
         msg += '\n\nWill continue installing Roberta anyway.'
         QMessageBox.warning(None, 'Missing dependencies!', msg)
         return True  # install Roberta anyway

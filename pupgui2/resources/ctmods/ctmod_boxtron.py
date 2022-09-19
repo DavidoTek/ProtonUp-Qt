@@ -5,6 +5,7 @@
 import os, shutil, tarfile, requests, hashlib
 from PySide6.QtCore import *
 from PySide6.QtWidgets import QMessageBox
+from ...util import host_which
 
 CT_NAME = 'Boxtron'
 CT_LAUNCHERS = ['steam']
@@ -97,12 +98,12 @@ class CtInstaller(QObject):
         Are the system requirements met?
         Return Type: bool
         """
-        if shutil.which('dosbox') and shutil.which('inotifywait') and shutil.which('timidity'):
+        if host_which('dosbox') and host_which('inotifywait') and host_which('timidity'):
             return True
         msg = 'You need dosbox, inotify-tools and timidity for Boxtron.\n\n'
-        msg += 'dosbox: ' + str('missing' if shutil.which('dosbox') is None else 'found') + '\n'
-        msg += 'inotify-tools: ' + str('missing' if shutil.which('inotifywait') is None else 'found') + '\n'
-        msg += 'timidity: ' + str('missing' if shutil.which('timidity') is None else 'found')
+        msg += 'dosbox: ' + str('missing' if host_which('dosbox') is None else 'found') + '\n'
+        msg += 'inotify-tools: ' + str('missing' if host_which('inotifywait') is None else 'found') + '\n'
+        msg += 'timidity: ' + str('missing' if host_which('timidity') is None else 'found')
         msg += '\n\nWill continue installing Boxtron anyway.'
         QMessageBox.warning(None, 'Missing dependencies!', msg)
         return True  # install Boxtron anyway
