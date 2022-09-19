@@ -7,6 +7,7 @@ from PySide6.QtCore import *
 from PySide6.QtWidgets import QMessageBox
 from ...steamutil import get_fish_user_paths, remove_steamtinkerlaunch
 from ... import constants
+from ...util import host_which
 
 CT_NAME = 'SteamTinkerLaunch'
 CT_LAUNCHERS = ['steam', 'native-only']
@@ -51,7 +52,8 @@ class CtInstaller(QObject):
         self.p_download_canceled = False
         self.rs = rs if rs else requests.Session()
         self.allow_git = allow_git
-        self.distinfo = subprocess.run(['cat', '/etc/lsb-release'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().lower()
+        proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
+        self.distinfo = subprocess.run(proc_prefix + ['cat', '/etc/lsb-release'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().lower()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -155,24 +157,25 @@ class CtInstaller(QObject):
         Return Type: bool
         """
         # Possibly excuse some of these if not on Steam Deck and ignore if Flatpak
-        yad_ver = shutil.which('yad')
+        proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
+        yad_ver = host_which('yad')
         if yad_ver:
-            yad_ver = float(subprocess.run(['yad', '--version'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().split(' ')[0])
+            yad_ver = float(subprocess.run(proc_prefix + ['yad', '--version'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().split(' ')[0])
 
         # Don't check dependencies on Steam Deck, STL will manage dependencies itself in that case
         deps_met = {}
         if "steamos" not in self.distinfo:
             deps_met = {
-                'awk-gawk': shutil.which('awk') or shutil.which('gawk'),
-                'git': shutil.which('git'),
-                'pgrep': shutil.which('pgrep'),
-                'unzip': shutil.which('unzip'),
-                'wget': shutil.which('wget'),
-                'xdotool': shutil.which('xdotool'),
-                'xprop': shutil.which('xprop'),
-                'xrandr': shutil.which('xrandr'),
-                'xxd': shutil.which('xxd'),
-                'xwinfo': shutil.which('xwininfo'),
+                'awk-gawk': host_which('awk') or host_which('gawk'),
+                'git': host_which('git'),
+                'pgrep': host_which('pgrep'),
+                'unzip': host_which('unzip'),
+                'wget': host_which('wget'),
+                'xdotool': host_which('xdotool'),
+                'xprop': host_which('xprop'),
+                'xrandr': host_which('xrandr'),
+                'xxd': host_which('xxd'),
+                'xwinfo': host_which('xwininfo'),
                 'yad >= 7.2': yad_ver and yad_ver >= 7.2
             }
 
@@ -231,12 +234,8 @@ class CtInstaller(QObject):
 
             os.chdir(stl_path)
 
-            stl_env = os.environ.copy()
-            # Flatpak: Override to store data in the user home
-            if os.path.exists('/.flatpak-info'):
-                stl_env['XDG_CONFIG_HOME'] = os.path.join(constants.STEAM_STL_CONFIG_PATH, os.pardir)
-                stl_env['XDG_CACHE_HOME'] = os.path.join(constants.STEAM_STL_CACHE_PATH, os.pardir)
-                stl_env['XDG_DATA_HOME'] = os.path.join(constants.STEAM_STL_DATA_PATH, os.pardir)
+            # ProtonUp-Qt Flatpak: Run STL on host system
+            stl_proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
 
             # If on Steam Deck, run script for initial Steam Deck config
             # On Steam Deck, STL is installed to "/home/deck/stl/prefix"
@@ -244,7 +243,7 @@ class CtInstaller(QObject):
             print('Setting up SteamTinkerLaunch...')
             if "steamos" in self.distinfo:
                 subprocess.run(['chmod', '+x', 'steamtinkerlaunch'])
-                subprocess.run(['./steamtinkerlaunch'], env=stl_env)
+                subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch'])
 
                 # Change location of STL script to add to path as this is different on Steam Deck 
                 stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, 'prefix')
@@ -275,7 +274,7 @@ class CtInstaller(QObject):
                     shutil.copyfile('lang/english.txt', os.path.join(stl_lang_path, 'english.txt'))
                 if not os.path.isfile(os.path.join(stl_lang_path, stl_lang)):
                     shutil.copyfile(f'lang/{stl_lang}', os.path.join(stl_lang_path, stl_lang))
-                subprocess.run(['./steamtinkerlaunch', f'lang={stl_lang.removesuffix(".txt")}'], env=stl_env)
+                subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch', f'lang={stl_lang.removesuffix(".txt")}'])
                 self.__stl_config_change_language(constants.STEAM_STL_CONFIG_PATH, stl_lang)
 
             # Add SteamTinkerLaunch to all available shell paths (native Linux)
@@ -285,7 +284,7 @@ class CtInstaller(QObject):
             present_shell_files = [
                 os.path.join(os.path.expanduser('~'), f) for f in os.listdir(os.path.expanduser('~')) if os.path.isfile(os.path.join(os.path.expanduser('~'), f)) and f in constants.STEAM_STL_SHELL_FILES
             ]
-            if os.path.exists(constants.STEAM_STL_FISH_VARIABLES) or shutil.which('fish'):
+            if os.path.exists(constants.STEAM_STL_FISH_VARIABLES) or host_which('fish'):
                 present_shell_files.append(constants.STEAM_STL_FISH_VARIABLES)
 
             for shell_file in present_shell_files:
@@ -309,7 +308,7 @@ class CtInstaller(QObject):
 
             # Install Compatibility Tool (Proton games)
             print('Adding SteamTinkerLaunch as a compatibility tool...')
-            subprocess.run(['./steamtinkerlaunch', 'compat', 'add'], env=stl_env)
+            subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch', 'compat', 'add'])
 
             os.chdir(os.path.expanduser('~'))
 
