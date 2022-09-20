@@ -135,7 +135,7 @@ class CtInstaller(QObject):
         Return Type: bool
         """
         stl_global_conf = os.path.join(os.path.expanduser(stl_cfg_path), 'global.conf')
-        new_lang = lang_file.removesuffix('.txt')
+        new_lang = lang_file.replace('.txt', '')
 
         if not os.path.isfile(stl_global_conf):
             return False
@@ -274,7 +274,7 @@ class CtInstaller(QObject):
                     shutil.copyfile('lang/english.txt', os.path.join(stl_lang_path, 'english.txt'))
                 if not os.path.isfile(os.path.join(stl_lang_path, stl_lang)):
                     shutil.copyfile(f'lang/{stl_lang}', os.path.join(stl_lang_path, stl_lang))
-                subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch', f'lang={stl_lang.removesuffix(".txt")}'])
+                subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch', f'lang={stl_lang.replace(".txt", "")}'])
                 self.__stl_config_change_language(constants.STEAM_STL_CONFIG_PATH, stl_lang)
 
             # Add SteamTinkerLaunch to all available shell paths (native Linux)
