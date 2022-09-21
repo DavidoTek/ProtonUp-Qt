@@ -2,6 +2,7 @@ import sys, os, shutil
 import threading
 import pkgutil
 import requests
+import subprocess
 
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
@@ -18,6 +19,7 @@ from .util import single_instance
 from .util import download_awacy_gamelist
 from .constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR
 from .constants import STEAM_PROTONGE_FLATPAK_APPSTREAM, STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
+from .constants import STEAM_STL_INSTALL_PATH
 from . import ctloader
 from .pupgui2installdialog import PupguiInstallDialog
 from .pupgui2aboutdialog import PupguiAboutDialog
@@ -403,5 +405,9 @@ def main():
     ret = app.exec()
 
     shutil.rmtree(TEMP_DIR, ignore_errors=True)
+
+    # Flatpak workaround: Delete STL dir if it isn't installed (folder is always created for sandbox access)
+    if os.path.exists('/.flatpak-info') and len(os.listdir(STEAM_STL_INSTALL_PATH)) == 0:
+        subprocess.run(['flatpak-spawn', '--host', 'rm', '-r', STEAM_STL_INSTALL_PATH])
 
     sys.exit(ret)
