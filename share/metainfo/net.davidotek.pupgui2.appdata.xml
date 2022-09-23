@@ -63,6 +63,11 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.7.4" date="2022-09-23">
+      <description>
+        <p>Added support for installing SteamTinkerLaunch</p>
+      </description>
+    </release>
     <release version="2.7.3" date="2022-09-16">
       <description>
         <p>Changes:</p>
