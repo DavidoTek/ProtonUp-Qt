@@ -218,7 +218,8 @@ class CtInstaller(QObject):
             if os.path.exists(constants.STEAM_STL_INSTALL_PATH):
                 remove_steamtinkerlaunch(remove_config=False)
             
-            os.mkdir(constants.STEAM_STL_INSTALL_PATH)
+            if not os.path.exists(constants.STEAM_STL_INSTALL_PATH):
+                os.mkdir(constants.STEAM_STL_INSTALL_PATH)
             os.chdir(constants.STEAM_STL_INSTALL_PATH)
 
             tar.extractall(constants.STEAM_STL_INSTALL_PATH)

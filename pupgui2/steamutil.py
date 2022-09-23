@@ -327,7 +327,11 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
 
         if os.path.exists(STEAM_STL_INSTALL_PATH):
             print('Removing SteamTinkerLaunch installation...')
-            shutil.rmtree(STEAM_STL_INSTALL_PATH)
+            if os.path.exists('/.flatpak-info'):
+                if os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')):
+                    shutil.rmtree(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix'))
+            else:
+                shutil.rmtree(STEAM_STL_INSTALL_PATH)
 
         if os.path.exists(STEAM_STL_CONFIG_PATH) and remove_config:
             print('Removing SteamTInkerLaunch configuration folder...')
