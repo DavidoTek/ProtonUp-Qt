@@ -158,9 +158,14 @@ class CtInstaller(QObject):
         """
         # Possibly excuse some of these if not on Steam Deck and ignore if Flatpak
         proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
-        yad_ver = host_which('yad')
-        if yad_ver:
-            yad_ver = float(subprocess.run(proc_prefix + ['yad', '--version'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().split(' ')[0])
+        yad_exe = host_which('yad')
+        if yad_exe:
+            try:
+                yad_vers = subprocess.run(proc_prefix + ['yad', '--version'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().split(' ')[0].split('.')
+                yad_ver = float(yad_vers[0] + '.' + yad_vers[1])
+            except Exception as e:
+                print('STL is_system_compatible Could not parse yad version:', e)
+                yad_ver = 0.0
 
         # Don't check dependencies on Steam Deck, STL will manage dependencies itself in that case
         deps_met = {}
@@ -176,7 +181,7 @@ class CtInstaller(QObject):
                 'xrandr': host_which('xrandr'),
                 'xxd': host_which('xxd'),
                 'xwinfo': host_which('xwininfo'),
-                'yad >= 7.2': yad_ver and yad_ver >= 7.2
+                'yad >= 7.2': yad_exe and yad_ver >= 7.2
             }
 
         if all(deps_met.values()):
