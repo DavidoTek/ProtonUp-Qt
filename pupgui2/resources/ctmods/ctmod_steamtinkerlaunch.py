@@ -290,7 +290,7 @@ class CtInstaller(QObject):
             present_shell_files = [
                 os.path.join(os.path.expanduser('~'), f) for f in os.listdir(os.path.expanduser('~')) if os.path.isfile(os.path.join(os.path.expanduser('~'), f)) and f in constants.STEAM_STL_SHELL_FILES
             ]
-            if os.path.exists(constants.STEAM_STL_FISH_VARIABLES) or host_which('fish'):
+            if os.path.exists(constants.STEAM_STL_FISH_VARIABLES):
                 present_shell_files.append(constants.STEAM_STL_FISH_VARIABLES)
 
             for shell_file in present_shell_files:
