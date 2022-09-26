@@ -46,6 +46,7 @@ class CtInstaller(QObject):
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(float)
+    message_box_message = Signal(str, str, QMessageBox.Icon)
 
     def __init__(self, rs : requests.Session = None, allow_git=False):
         super(CtInstaller, self).__init__()
@@ -188,8 +189,10 @@ class CtInstaller(QObject):
             return True
         msg = 'You have several unmet dependencies for SteamTinkerLaunch.\n\n'
         msg += '\n'.join([ f'{dep_name}: {("missing" if not is_dep_met else "found")}' for (dep_name, is_dep_met) in deps_met.items()])
-        QMessageBox.warning(None, 'Missing dependencies!', msg)
-        return True  # install SteamTinkerLaunch anyway
+        msg += '\n\nInstallation will be cancelled.'
+        self.message_box_message.emit('Missing dependencies!', msg, QMessageBox.Warning)
+
+        return False  # Installation would fail without dependencies.
 
     def fetch_releases(self, count=100):
         """

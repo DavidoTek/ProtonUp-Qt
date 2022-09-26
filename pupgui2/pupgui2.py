@@ -76,6 +76,11 @@ class MainWindow(QObject):
             rs.headers.update({'Authorization': f'token {token}'})
         self.ct_loader = ctloader.CtLoader(rs=rs)
 
+        for ctobj in self.ct_loader.get_ctobjs():
+            cti = ctobj.get('installer')
+            if hasattr(cti, 'message_box_message'):
+                cti.message_box_message.connect(self.show_msgbox)
+
         self.combo_install_location_index_map = []
         self.updating_combo_install_location = False
         self.pending_downloads = []
@@ -363,6 +368,15 @@ class MainWindow(QObject):
         for ctobj in self.ct_loader.get_ctobjs():
             ctobj['installer'].download_canceled = True
         self.update_ui()
+
+    @Slot(str, str, QMessageBox.Icon)
+    def show_msgbox(self, title: str, text: str, icon = QMessageBox.NoIcon):
+        """ Show a message box with main window as parent """
+        mb = QMessageBox(parent=self.ui)
+        mb.setWindowTitle(title)
+        mb.setText(text)
+        mb.setIcon(icon)
+        mb.show()
 
 
 def main():

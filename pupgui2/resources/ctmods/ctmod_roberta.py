@@ -24,6 +24,7 @@ class CtInstaller(QObject):
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
+    message_box_message = Signal(str, str, QMessageBox.Icon)
 
     def __init__(self, rs : requests.Session = None):
         super(CtInstaller, self).__init__()
@@ -104,7 +105,7 @@ class CtInstaller(QObject):
         msg += 'scummvm: ' + str('missing' if host_which('scummvm') is None else 'found') + '\n'
         msg += 'inotify-tools: ' + str('missing' if host_which('inotifywait') is None else 'found')
         msg += '\n\nWill continue installing Roberta anyway.'
-        QMessageBox.warning(None, 'Missing dependencies!', msg)
+        self.message_box_message.emit('Missing dependencies!', msg, QMessageBox.Warning)
         return True  # install Roberta anyway
 
     def fetch_releases(self, count=100):
