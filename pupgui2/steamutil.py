@@ -318,15 +318,29 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
 
     try:
         os.chdir(os.path.expanduser('~'))
-        
+
+        # If the Steam Deck/ProtonUp-Qt installation path doesn't exist
+        # Adding `prefix` to path to be especially sure the user didn't just make an `stl` folder
+        #
+        # STL script is always named `steamtinkerlaunch`    
+        stl_symlink_path = os.path.dirname(os.readlink(os.path.join(compat_folder, 'steamtinkerlaunch'))) if not os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')) else None
+
         if os.path.exists(compat_folder):
             print('Removing SteamTinkerLaunch compatibility tool...')
             shutil.rmtree(compat_folder)
             if shutil.which('steamtinkerlaunch'):
                 subprocess.run(['steamtinkerlaunch', 'compat', 'del'])
 
-        if os.path.exists(STEAM_STL_INSTALL_PATH):
-            print('Removing SteamTinkerLaunch installation...')
+        print('Removing SteamTinkerLaunch installation...')
+        if stl_symlink_path:
+            # If STL symlink isn't a regular install, try to remove if we can write to its install folder
+            if os.access(stl_symlink_path, os.W_OK):
+                shutil.rmtree(stl_symlink_path)
+            else:
+                print(f'Error: SteamTinkerLaunch is installed to {stl_symlink_path}, ProtonUp-Qt cannot modify this folder.')
+                raise IOError
+        elif os.path.exists(STEAM_STL_INSTALL_PATH):
+            # Regular Steam Deck/ProtonUp-Qt installation structure
             if os.path.exists('/.flatpak-info'):
                 if os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')):
                     shutil.rmtree(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix'))
