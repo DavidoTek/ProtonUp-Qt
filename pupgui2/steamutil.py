@@ -9,6 +9,7 @@ import subprocess
 from .datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
 from .constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
 
+from PySide6.QtWidgets import QMessageBox
 
 _cached_app_list = []
 _cached_steam_ctool_id_map = None
@@ -346,8 +347,14 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
             if os.access(stl_symlink_path, os.W_OK):
                 shutil.rmtree(stl_symlink_path)
             else:
-                print(f'Error: SteamTinkerLaunch is installed to {stl_symlink_path}, ProtonUp-Qt cannot modify this folder.')
-                raise IOError
+                # If we can't remove the actual installation folder, tell the user to remove it themselves and continue with the rest of the uninstallation
+                mb = QMessageBox()
+                mb.setWindowTitle('Unable to Remove SteamTinkerLaunch')
+                mb.setText(f'Access to SteamTinkerLaunch installation folder at \'{stl_symlink_path}\' was denied, please remove this folder manually.\n\n \
+                             The uninstallation will continue.')
+                mb.exec()
+
+                print(f'Error: SteamTinkerLaunch is installed to {stl_symlink_path}, ProtonUp-Qt cannot modify this folder. Folder must be removed manually.')
         elif os.path.exists(STEAM_STL_INSTALL_PATH):
             # Regular Steam Deck/ProtonUp-Qt installation structure
             if os.path.exists('/.flatpak-info'):
