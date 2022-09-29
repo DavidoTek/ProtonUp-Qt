@@ -80,6 +80,8 @@ class MainWindow(QObject):
             cti = ctobj.get('installer')
             if hasattr(cti, 'message_box_message'):
                 cti.message_box_message.connect(self.show_msgbox)
+            if hasattr(cti, 'install_question_box_message'):
+                cti.install_question_box_message.connect(self.show_question_msgbox)
 
         self.combo_install_location_index_map = []
         self.updating_combo_install_location = False
@@ -377,6 +379,26 @@ class MainWindow(QObject):
         mb.setText(text)
         mb.setIcon(icon)
         mb.show()
+
+    @Slot(str, str, bool, str, bool, QMessageBox.Icon)
+    def show_question_msgbox(self, title: str, text: str, checkbox: bool = False, checkbox_text: str = '', checked: bool = False, icon = QMessageBox.NoIcon):
+        """ Shows a Yes/No Question Dialog """
+        mb = QMessageBox(parent=self.ui)
+        mb.setWindowTitle(title)
+        mb.setText(text)
+        mb.setIcon(icon)
+
+        mb.addButton(QMessageBox.No)
+        mb.addButton(QMessageBox.Yes)
+
+        if checkbox:
+            cb = QCheckBox(checkbox_text)
+            cb.setChecked(checked)
+            mb.setCheckBox(cb)
+        
+        return mb.exec()    
+
+        # TODO return something
 
 
 def main():

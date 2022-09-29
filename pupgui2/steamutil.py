@@ -350,8 +350,7 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
                 # If we can't remove the actual installation folder, tell the user to remove it themselves and continue with the rest of the uninstallation
                 mb = QMessageBox()
                 mb.setWindowTitle('Unable to Remove SteamTinkerLaunch')
-                mb.setText(f'Access to SteamTinkerLaunch installation folder at \'{stl_symlink_path}\' was denied, please remove this folder manually.\n\n \
-                             The uninstallation will continue.')
+                mb.setText(f'Access to SteamTinkerLaunch installation folder at \'{stl_symlink_path}\' was denied, please remove this folder manually.\n\nThe uninstallation will continue.')
                 mb.exec()
 
                 print(f'Error: SteamTinkerLaunch is installed to {stl_symlink_path}, ProtonUp-Qt cannot modify this folder. Folder must be removed manually.')

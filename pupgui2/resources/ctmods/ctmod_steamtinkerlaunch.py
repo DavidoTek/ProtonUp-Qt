@@ -47,11 +47,13 @@ class CtInstaller(QObject):
     p_download_progress_percent = 0
     download_progress_percent = Signal(float)
     message_box_message = Signal(str, str, QMessageBox.Icon)
+    install_question_box_message = Signal(str, str, bool, str, bool, QMessageBox.Icon)
 
     def __init__(self, rs : requests.Session = None, allow_git=False):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
         self.rs = rs if rs else requests.Session()
+        self.remove_existing_installation = False
         self.allow_git = allow_git
         proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
         self.distinfo = subprocess.run(proc_prefix + ['cat', '/etc/lsb-release'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().lower()
@@ -209,21 +211,35 @@ class CtInstaller(QObject):
         """
 
         # If there's an existing STL installation that isn't installed by ProtonUp-Qt, ask the user if they still want to install
-        has_external_install = get_external_steamtinkerlaunch_intall(install_dir)
+        has_external_install = get_external_steamtinkerlaunch_intall(os.path.join(install_dir, 'SteamTinkerLaunch'))
         if has_external_install:
-            mb = QMessageBox()
-            mb.setWindowTitle(QObject.tr('Existing SteamTinkerLaunch Installation'))
-            mb.setText(QObject.tr(f'It looks like you have an existing SteamTinkerLaunch installation at \'{has_external_install}\' on your system that was not installed by ProtonUp-Qt.\n \
-                                    Reinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to {constants.STEAM_STL_INSTALL_PATH}. Do you wish to continue? (This will not affect your SteamTinkerLaunch configuration.)'))
-            mb.addButton(QMessageBox.Yes)
-            mb.addButton(QMessageBox.No)
-            mb.setDefaultButton(QMessageBox.No)
-            accept = mb.exec()
+            print('Non-ProtonUp-Qt installation of SteamTinkerLaunch detected. Asking the user what they want to do...')
+            continue_install = self.install_question_box_message.emit(
+                # Title and Text
+                'Existing SteamTinkerLaunch Installation',
+                f'It looks like you have an existing SteamTinkerLaunch installation at \'{has_external_install}\' that was not installed by ProtonUp-Qt.\n\nReinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to \'{constants.STEAM_STL_INSTALL_PATH}\'. Do you wish to continue? (This will not affect your SteamTinkerLaunch configuration.)',
+                
+                # Checkbox
+                True,
+                # Checkbox Text
+                "Remove existing SteamTinkerLaunch installation",
+                # Checkbox enabled
+                True,
 
-            if not accept:
-                print('Cancelling SteamTinkerLaunch installation...')
+                # Icon
+                QMessageBox.Warning
+            )
+
+            # TODO this doesn't stop the download yet so this does nothing yet really
+            print(f'Button selected: {continue_install}')
+            if continue_install == QMessageBox.Yes:
+                # TODO Set remove_existing_installation to True
+                # Use this to call remove_steamtinkerlaunch to remove the existing install
+
+                print('User opted to continue installing SteamTinkerLaunch.')
+            else:
+                print('User opted to not continue installing SteamTinkerLaunch. Aborting...')
                 return False
-        # User said Yes to installing anyway
 
         print('Downloading SteamTinkerLaunch...')
 
@@ -241,6 +257,11 @@ class CtInstaller(QObject):
         with tarfile.open(destination, "r:gz") as tar:
             print('Extracting SteamTinkerLaunch...')
             if os.path.exists(constants.STEAM_STL_INSTALL_PATH):
+                # TODO some kind of check for reinstalling with existing root installs
+                # because reinstalling with an existing root install will replace the symlink
+                # even if it can't remove the existing installation
+                #
+                # Maybe put this check in remove_steamtinkerlaunch itself
                 remove_steamtinkerlaunch(remove_config=False)
             
             if not os.path.exists(constants.STEAM_STL_INSTALL_PATH):
