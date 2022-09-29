@@ -5,7 +5,7 @@
 import datetime, locale, os, requests, shutil, subprocess, tarfile
 from PySide6.QtCore import *
 from PySide6.QtWidgets import QMessageBox
-from ...steamutil import get_fish_user_paths, remove_steamtinkerlaunch
+from ...steamutil import get_fish_user_paths, remove_steamtinkerlaunch, get_external_steamtinkerlaunch_intall
 from ... import constants
 from ...util import host_which
 
@@ -207,6 +207,23 @@ class CtInstaller(QObject):
         Download and install the compatibility tool
         Return Type: bool
         """
+
+        # If there's an existing STL installation that isn't installed by ProtonUp-Qt, ask the user if they still want to install
+        has_external_install = get_external_steamtinkerlaunch_intall(install_dir)
+        if has_external_install:
+            mb = QMessageBox()
+            mb.setWindowTitle(QObject.tr('Existing SteamTinkerLaunch Installation'))
+            mb.setText(QObject.tr(f'It looks like you have an existing SteamTinkerLaunch installation at \'{has_external_install}\' on your system that was not installed by ProtonUp-Qt.\n \
+                                    Reinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to {constants.STEAM_STL_INSTALL_PATH}. Do you wish to continue? (This will not affect your SteamTinkerLaunch configuration.)'))
+            mb.addButton(QMessageBox.Yes)
+            mb.addButton(QMessageBox.No)
+            mb.setDefaultButton(QMessageBox.No)
+            accept = mb.exec()
+
+            if not accept:
+                print('Cancelling SteamTinkerLaunch installation...')
+                return False
+        # User said Yes to installing anyway
 
         print('Downloading SteamTinkerLaunch...')
 

@@ -307,6 +307,14 @@ def is_steam_running() -> bool:
 get_fish_user_paths = lambda mfile: ([line.strip() for line in mfile.readlines() if 'fish_user_paths' in line] or ['SETUVAR fish_user_paths:\\x1d'])[0].split('fish_user_paths:')[1:][0].split('\\x1e')
 
 
+def get_external_steamtinkerlaunch_intall(compat_folder):
+
+    symlink_path = os.path.join(compat_folder, 'steamtinkerlaunch')
+    return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and not os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')) else None
+    
+    # os.path.dirname(os.readlink(os.path.join(compat_folder, 'steamtinkerlaunch'))) if not os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')) else None
+
+
 def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
     """
     Removes SteamTinkerLaunch from system by removing the downloaad, removing from path
@@ -323,7 +331,8 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
         # Adding `prefix` to path to be especially sure the user didn't just make an `stl` folder
         #
         # STL script is always named `steamtinkerlaunch`    
-        stl_symlink_path = os.path.dirname(os.readlink(os.path.join(compat_folder, 'steamtinkerlaunch'))) if not os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')) else None
+        # stl_symlink_path = os.path.dirname(os.readlink(os.path.join(compat_folder, 'steamtinkerlaunch'))) if not os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')) else None
+        stl_symlink_path = get_external_steamtinkerlaunch_intall(compat_folder)
 
         if os.path.exists(compat_folder):
             print('Removing SteamTinkerLaunch compatibility tool...')
