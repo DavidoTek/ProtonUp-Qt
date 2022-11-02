@@ -1,5 +1,4 @@
 import sys, os, shutil
-import threading
 import pkgutil
 import requests
 import subprocess
@@ -78,16 +77,18 @@ class MainWindow(QObject):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        rs = requests.Session()
+        self.rs = requests.Session()
         token = os.getenv('PUPGUI_GHA_TOKEN')
         if token:
-            rs.headers.update({'Authorization': f'token {token}'})
-        self.ct_loader = ctloader.CtLoader(rs=rs)
+            self.rs.headers.update({'Authorization': f'token {token}'})
+        self.ct_loader = ctloader.CtLoader(main_window=self)
 
         for ctobj in self.ct_loader.get_ctobjs():
             cti = ctobj.get('installer')
             if hasattr(cti, 'message_box_message'):
                 cti.message_box_message.connect(self.show_msgbox)
+            if hasattr(cti, 'cbquestion_box_message'):
+                cti.cbquestion_box_message.connect(self.show_msgbox_cbquestion, Qt.BlockingQueuedConnection)
             cti.download_progress_percent.connect(self.set_download_progress_percent)
 
         self.combo_install_location_index_map = []
@@ -95,6 +96,8 @@ class MainWindow(QObject):
         self.pending_downloads = []
         self.current_compat_tool_name = ""
         self.compat_tool_index_map = []
+        self.msgcb_answer = False
+        self.msgcb_answer_lock = QMutex()
 
         self.load_ui()
         self.setup_ui()
@@ -391,6 +394,29 @@ class MainWindow(QObject):
         mb.setText(text)
         mb.setIcon(icon)
         mb.show()
+
+    @Slot(str, str, str, QMessageBox.Icon)
+    def show_msgbox_cbquestion(self, title: str, text: str, checkbox_text: str, icon = QMessageBox.NoIcon) -> bool:
+        """ Show a message box with main window as parent """
+        mb = QMessageBox(parent=self.ui)
+        mb.setWindowTitle(title)
+        mb.setText(text)
+        mb.setIcon(icon)
+        cb = QCheckBox(checkbox_text)
+        mb.setCheckBox(cb)
+        mb.exec()
+        self.set_msgcb_answer(cb.isChecked())
+
+    def set_msgcb_answer(self, answer: bool):
+        self.msgcb_answer_lock.lock()
+        self.msgcb_answer = answer
+        self.msgcb_answer_lock.unlock()
+
+    def get_msgcb_answer(self) -> bool:
+        self.msgcb_answer_lock.lock()
+        answer = self.msgcb_answer
+        self.msgcb_answer_lock.unlock()
+        return answer
 
 
 def main():

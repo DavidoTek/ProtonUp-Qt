@@ -35,5 +35,5 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..'''
 
 class CtInstaller(stlCtInstaller):
 
- def __init__(self, rs : requests.Session = None):
-        super().__init__(rs, allow_git=True)
+    def __init__(self, main_window = None):
+        super().__init__(main_window, allow_git=True)

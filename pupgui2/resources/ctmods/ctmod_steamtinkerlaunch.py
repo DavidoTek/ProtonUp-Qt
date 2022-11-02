@@ -48,10 +48,11 @@ class CtInstaller(QObject):
     download_progress_percent = Signal(float)
     message_box_message = Signal(str, str, QMessageBox.Icon)
 
-    def __init__(self, rs : requests.Session = None, allow_git=False):
+
+    def __init__(self, main_window = None, allow_git=False):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = rs if rs else requests.Session()
+        self.rs = main_window.rs if main_window.rs else requests.Session()
         self.allow_git = allow_git
         proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
         self.distinfo = subprocess.run(proc_prefix + ['cat', '/etc/lsb-release'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().lower()

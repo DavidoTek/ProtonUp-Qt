@@ -9,8 +9,8 @@ class CtLoader:
     ctmods = []
     ctobjs = []
 
-    def __init__(self, rs : requests.Session = None):
-        self.rs = rs
+    def __init__(self, main_window = None):
+        self.main_window = main_window
         self.load_ctmods()
 
     def load_ctmods(self) -> bool:
@@ -30,7 +30,7 @@ class CtLoader:
                         'name': ctmod.CT_NAME,
                         'launchers': ctmod.CT_LAUNCHERS,
                         'description': ctmod.CT_DESCRIPTION,
-                        'installer': ctmod.CtInstaller(rs=self.rs)
+                        'installer': ctmod.CtInstaller(main_window=self.main_window)
                     })
                     print('Loaded ctmod', ctmod.CT_NAME)
                 except Exception as e:
