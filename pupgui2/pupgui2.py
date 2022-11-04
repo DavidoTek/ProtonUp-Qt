@@ -1,5 +1,4 @@
 import sys, os, shutil
-import threading
 import pkgutil
 import requests
 import subprocess
@@ -30,21 +29,27 @@ from .pupgui2gamelistdialog import PupguiGameListDialog
 from .resources import ui
 
 
-class InstallWineThread(threading.Thread):
+class InstallWineThread(QThread):
 
     def __init__(self, main_window):
-        threading.Thread.__init__(self)
+        super().__init__()
         self.main_window = main_window
+        self.buffer_not_empty = QWaitCondition()
+        self.buffer_mutex = QMutex()
 
     def run(self):
         while True:
-            if len(self.main_window.pending_downloads) == 0:
-                break
+            self.buffer_mutex.lock()
+            self.buffer_not_empty.wait(self.buffer_mutex)
+            self.buffer_mutex.unlock()
+
             compat_tool = self.main_window.pending_downloads[0]
+
             try:
                 self.install_compat_tool(compat_tool)
             except Exception as e:
                 print(e)
+
             if compat_tool in self.main_window.pending_downloads:
                 self.main_window.pending_downloads.remove(compat_tool)
             self.main_window.ui.txtActiveDownloads.setText(str(len(self.main_window.pending_downloads)))
@@ -56,13 +61,15 @@ class InstallWineThread(threading.Thread):
 
         for ctobj in self.main_window.ct_loader.get_ctobjs():
             if ctobj['name'] == tool_name:
-                # will not check system compatibility (and will not open message box) when running inside Flatpak
                 if not ctobj['installer'].is_system_compatible():
                     self.main_window.set_download_progress_percent(-1)
                     break
-                ctobj['installer'].download_progress_percent.connect(self.main_window.set_download_progress_percent)
                 ctobj['installer'].get_tool(tool_ver, os.path.expanduser(install_dir), TEMP_DIR)
                 break
+
+    def stop(self):
+        self.terminate()
+        self.wait()
 
 
 class MainWindow(QObject):
@@ -70,24 +77,28 @@ class MainWindow(QObject):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        rs = requests.Session()
+        self.rs = requests.Session()
         token = os.getenv('PUPGUI_GHA_TOKEN')
         if token:
-            rs.headers.update({'Authorization': f'token {token}'})
-        self.ct_loader = ctloader.CtLoader(rs=rs)
+            self.rs.headers.update({'Authorization': f'token {token}'})
+        self.ct_loader = ctloader.CtLoader(main_window=self)
 
         for ctobj in self.ct_loader.get_ctobjs():
             cti = ctobj.get('installer')
             if hasattr(cti, 'message_box_message'):
                 cti.message_box_message.connect(self.show_msgbox)
-            if hasattr(cti, 'install_question_box_message'):
-                cti.install_question_box_message.connect(self.show_question_msgbox)
+                
+            if hasattr(cti, 'cbquestion_box_message'):
+                cti.cbquestion_box_message.connect(self.show_msgbox_cbquestion, Qt.BlockingQueuedConnection)
+            cti.download_progress_percent.connect(self.set_download_progress_percent)
 
         self.combo_install_location_index_map = []
         self.updating_combo_install_location = False
         self.pending_downloads = []
         self.current_compat_tool_name = ""
         self.compat_tool_index_map = []
+        self.msgcb_answer = False
+        self.msgcb_answer_lock = QMutex()
 
         self.load_ui()
         self.setup_ui()
@@ -133,6 +144,10 @@ class MainWindow(QObject):
             self.giw.start()
             self.giw.press_virtual_key.connect(self.press_virtual_key)
         QApplication.instance().aboutToQuit.connect(self.giw.stop)
+
+        self.install_thread = InstallWineThread(self)
+        self.install_thread.start()
+        QApplication.instance().aboutToQuit.connect(self.install_thread.stop)
 
     def update_combo_install_location(self):
         self.updating_combo_install_location = True
@@ -204,9 +219,10 @@ class MainWindow(QObject):
 
         self.pending_downloads.append(compat_tool)
         self.update_ui()
-        if len(self.pending_downloads) == 1:
-            install_thread = InstallWineThread(self)
-            install_thread.start()
+
+        self.install_thread.buffer_mutex.lock()
+        self.install_thread.buffer_not_empty.wakeOne()
+        self.install_thread.buffer_mutex.unlock()
 
     def set_fetching_releases(self, value):
         if value:
@@ -380,25 +396,28 @@ class MainWindow(QObject):
         mb.setIcon(icon)
         mb.show()
 
-    @Slot(str, str, bool, str, bool, QMessageBox.Icon)
-    def show_question_msgbox(self, title: str, text: str, checkbox: bool = False, checkbox_text: str = '', checked: bool = False, icon = QMessageBox.NoIcon):
-        """ Shows a Yes/No Question Dialog """
+    @Slot(str, str, str, QMessageBox.Icon)
+    def show_msgbox_cbquestion(self, title: str, text: str, checkbox_text: str, icon = QMessageBox.NoIcon) -> bool:
+        """ Show a message box with main window as parent """
         mb = QMessageBox(parent=self.ui)
         mb.setWindowTitle(title)
         mb.setText(text)
         mb.setIcon(icon)
+        cb = QCheckBox(checkbox_text)
+        mb.setCheckBox(cb)
+        mb.exec()
+        self.set_msgcb_answer(cb.isChecked())
 
-        mb.addButton(QMessageBox.No)
-        mb.addButton(QMessageBox.Yes)
+    def set_msgcb_answer(self, answer: bool):
+        self.msgcb_answer_lock.lock()
+        self.msgcb_answer = answer
+        self.msgcb_answer_lock.unlock()
 
-        if checkbox:
-            cb = QCheckBox(checkbox_text)
-            cb.setChecked(checked)
-            mb.setCheckBox(cb)
-        
-        return mb.exec()    
-
-        # TODO return something
+    def get_msgcb_answer(self) -> bool:
+        self.msgcb_answer_lock.lock()
+        answer = self.msgcb_answer
+        self.msgcb_answer_lock.unlock()
+        return answer
 
 
 def main():

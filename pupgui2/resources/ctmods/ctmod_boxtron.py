@@ -26,10 +26,10 @@ class CtInstaller(QObject):
     download_progress_percent = Signal(int)
     message_box_message = Signal(str, str, QMessageBox.Icon)
 
-    def __init__(self, rs : requests.Session = None):
+    def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = rs if rs else requests.Session()
+        self.rs = main_window.rs if main_window.rs else requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled

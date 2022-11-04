@@ -39,9 +39,9 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..'''
 class CtInstaller(QObject):
 
     BUFFER_SIZE = 4096
-    CT_URL = 'https://api.github.com/repos/frostworx/steamtinkerlaunch/releases'
-    CT_BRANCHES_URL = 'https://api.github.com/repos/frostworx/steamtinkerlaunch/branches'
-    CT_GH_URL = 'https://github.com/frostworx/steamtinkerlaunch'
+    CT_URL = 'https://api.github.com/repos/sonic2kk/steamtinkerlaunch/releases'
+    CT_BRANCHES_URL = 'https://api.github.com/repos/sonic2kk/steamtinkerlaunch/branches'
+    CT_GH_URL = 'https://github.com/sonic2kk/steamtinkerlaunch'
     CT_INFO_URL = CT_GH_URL + '/releases/tag/'
 
     p_download_progress_percent = 0
@@ -49,11 +49,12 @@ class CtInstaller(QObject):
     message_box_message = Signal(str, str, QMessageBox.Icon)
     install_question_box_message = Signal(str, str, bool, str, bool, QMessageBox.Icon)
 
-    def __init__(self, rs : requests.Session = None, allow_git=False):
+
+    def __init__(self, main_window = None, allow_git=False):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = rs if rs else requests.Session()
         self.remove_existing_installation = False
+        self.rs = main_window.rs if main_window.rs else requests.Session()
         self.allow_git = allow_git
         proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
         self.distinfo = subprocess.run(proc_prefix + ['cat', '/etc/lsb-release'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().lower()
@@ -119,7 +120,7 @@ class CtInstaller(QObject):
             'version', 'download'
         """
         if self.allow_git:
-            values = { 'version': tag, 'download': f'https://github.com/frostworx/steamtinkerlaunch/archive/{tag}.tar.gz'}
+            values = { 'version': tag, 'download': f'https://github.com/sonic2kk/steamtinkerlaunch/archive/{tag}.tar.gz'}
         else:
             url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
             data = self.rs.get(url).json()
