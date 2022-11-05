@@ -403,10 +403,12 @@ class MainWindow(QObject):
         mb.setWindowTitle(title)
         mb.setText(text)
         mb.setIcon(icon)
-        cb = QCheckBox(checkbox_text)
-        mb.setCheckBox(cb)
+        cb = None
+        if len(checkbox_text.strip()) > 0:
+            cb = QCheckBox(checkbox_text)
+            mb.setCheckBox(cb)
         mb.exec()
-        self.set_msgcb_answer(cb.isChecked())
+        self.set_msgcb_answer(None if not cb else cb.isChecked())
 
     def set_msgcb_answer(self, answer: bool):
         self.msgcb_answer_lock.lock()

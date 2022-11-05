@@ -7,7 +7,7 @@ from PySide6.QtCore import *
 from PySide6.QtWidgets import QMessageBox
 from ...steamutil import get_fish_user_paths, remove_steamtinkerlaunch, get_external_steamtinkerlaunch_intall
 from ... import constants
-from ...util import host_which
+from ...util import host_which, config_advanced_mode
 
 CT_NAME = 'SteamTinkerLaunch'
 CT_LAUNCHERS = ['steam', 'native-only']
@@ -47,13 +47,14 @@ class CtInstaller(QObject):
     p_download_progress_percent = 0
     download_progress_percent = Signal(float)
     message_box_message = Signal(str, str, QMessageBox.Icon)
-    install_question_box_message = Signal(str, str, bool, str, bool, QMessageBox.Icon)
+    cbquestion_box_message = Signal(str, str, str, QMessageBox.Icon)
 
 
     def __init__(self, main_window = None, allow_git=False):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
         self.remove_existing_installation = False
+        self.main_window = main_window
         self.rs = main_window.rs if main_window.rs else requests.Session()
         self.allow_git = allow_git
         proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
@@ -215,28 +216,22 @@ class CtInstaller(QObject):
         has_external_install = get_external_steamtinkerlaunch_intall(os.path.join(install_dir, 'SteamTinkerLaunch'))
         if has_external_install:
             print('Non-ProtonUp-Qt installation of SteamTinkerLaunch detected. Asking the user what they want to do...')
-            continue_install = self.install_question_box_message.emit(
-                # Title and Text
+            self.cbquestion_box_message.emit(
                 'Existing SteamTinkerLaunch Installation',
                 f'It looks like you have an existing SteamTinkerLaunch installation at \'{has_external_install}\' that was not installed by ProtonUp-Qt.\n\nReinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to \'{constants.STEAM_STL_INSTALL_PATH}\'. Do you wish to continue? (This will not affect your SteamTinkerLaunch configuration.)',
-                
-                # Checkbox
-                True,
-                # Checkbox Text
-                "Remove existing SteamTinkerLaunch installation",
-                # Checkbox enabled
-                True,
-
-                # Icon
+                'Remove existing SteamTinkerLaunch installation',
                 QMessageBox.Warning
             )
 
-            # TODO this doesn't stop the download yet so this does nothing yet really
-            print(f'Button selected: {continue_install}')
-            if continue_install == QMessageBox.Yes:
-                # TODO Set remove_existing_installation to True
-                # Use this to call remove_steamtinkerlaunch to remove the existing install
+            remove_existing_installation = self.main_window.get_msgcb_answer()
 
+            continue_install = False
+            if continue_install == QMessageBox.Yes:
+                # Remove the Non-ProtonUp-Qt SteamTinkerLaunch if the user checked the box (disabled by defaukt)
+                if remove_existing_installation:
+                    remove_steamtinkerlaunch(remove_config=False)
+
+                # Nothing more to do here, just continue with the rest of the installation as normal
                 print('User opted to continue installing SteamTinkerLaunch.')
             else:
                 print('User opted to not continue installing SteamTinkerLaunch. Aborting...')
@@ -326,33 +321,48 @@ class CtInstaller(QObject):
                 self.__stl_config_change_language(constants.STEAM_STL_CONFIG_PATH, stl_lang)
 
             # Add SteamTinkerLaunch to all available shell paths (native Linux)
-            print('Adding SteamTinkerLaunch to shell paths...')
-            pup_stl_path_date = f'# Added by ProtonUp-Qt on {datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")}'
-            pup_stl_path_line = f'if [ -d "{stl_path}" ]; then export PATH="$PATH:{stl_path}"; fi'
-            present_shell_files = [
-                os.path.join(os.path.expanduser('~'), f) for f in os.listdir(os.path.expanduser('~')) if os.path.isfile(os.path.join(os.path.expanduser('~'), f)) and f in constants.STEAM_STL_SHELL_FILES
-            ]
-            if os.path.exists(constants.STEAM_STL_FISH_VARIABLES):
-                present_shell_files.append(constants.STEAM_STL_FISH_VARIABLES)
+            # Dialog warning
+            # TODO Maybe only show this if the user has never installed with ProtonUp-Qt before?
+            print(f'Advanced Mode is {config_advanced_mode()}')
+            shell_mod_cbtext = 'Allow Add/Update Path' if config_advanced_mode() == 'enabled' else ''
+            self.cbquestion_box_message.emit(
+                'Add SteamTinkerLaunch to PATH',
+                f'By default, ProtonUp-Qt will add SteamTinkerLaunch to all available Shell paths to make it easier to use with native Linux games. This also allows you to run SteamTinkerLaunch commands from anywhere in the command line.\n\nSome users may not want this functionality. Do you want to continue installing SteamTinkerLaunch?',
+                shell_mod_cbtext,
+                QMessageBox.Warning
+            )
 
-            for shell_file in present_shell_files:
-                with open(shell_file, 'r+') as mfile:
-                    stl_already_in_path = constants.STEAM_STL_INSTALL_PATH in [line for line in mfile.readlines()]
-                    if not stl_already_in_path:
-                        # Add Fish user path, preserving any existing paths 
-                        if 'fish' in mfile.name:
-                            mfile.seek(0)
-                            curr_fish_user_paths = get_fish_user_paths(mfile)
-                            curr_fish_user_paths.insert(0, stl_path)
-                            updated_fish_user_paths = '\\x1e'.join(curr_fish_user_paths)
-                            pup_stl_path_line = f'SETUVAR fish_user_paths:{updated_fish_user_paths}'
+            modify_shell = self.main_window.get_msgcb_answer()
+            if not modify_shell and modify_shell is not None:
+                print('User asked not to add ProtonUp-Qt to shell paths, skipping...')
+            else:
+                print('Adding SteamTinkerLaunch to shell paths...')
+                pup_stl_path_date = f'# Added by ProtonUp-Qt on {datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")}'
+                pup_stl_path_line = f'if [ -d "{stl_path}" ]; then export PATH="$PATH:{stl_path}"; fi'
+                present_shell_files = [
+                    os.path.join(os.path.expanduser('~'), f) for f in os.listdir(os.path.expanduser('~')) if os.path.isfile(os.path.join(os.path.expanduser('~'), f)) and f in constants.STEAM_STL_SHELL_FILES
+                ]
+                if os.path.exists(constants.STEAM_STL_FISH_VARIABLES):
+                    present_shell_files.append(constants.STEAM_STL_FISH_VARIABLES)
 
-                            mfile.seek(0)
-                            new_fish_contents = ''.join([line for line in mfile.readlines() if 'fish_user_paths:' not in line])
-                            mfile.seek(0)
-                            mfile.write(new_fish_contents)
-                        
-                        mfile.write(f'\n{pup_stl_path_date}\n{pup_stl_path_line}\n')
+                for shell_file in present_shell_files:
+                    with open(shell_file, 'r+') as mfile:
+                        stl_already_in_path = constants.STEAM_STL_INSTALL_PATH in [line for line in mfile.readlines()]
+                        if not stl_already_in_path:
+                            # Add Fish user path, preserving any existing paths 
+                            if 'fish' in mfile.name:
+                                mfile.seek(0)
+                                curr_fish_user_paths = get_fish_user_paths(mfile)
+                                curr_fish_user_paths.insert(0, stl_path)
+                                updated_fish_user_paths = '\\x1e'.join(curr_fish_user_paths)
+                                pup_stl_path_line = f'SETUVAR fish_user_paths:{updated_fish_user_paths}'
+
+                                mfile.seek(0)
+                                new_fish_contents = ''.join([line for line in mfile.readlines() if 'fish_user_paths:' not in line])
+                                mfile.seek(0)
+                                mfile.write(new_fish_contents)
+                            
+                            mfile.write(f'\n{pup_stl_path_date}\n{pup_stl_path_line}\n')
 
             # Install Compatibility Tool (Proton games)
             print('Adding SteamTinkerLaunch as a compatibility tool...')
