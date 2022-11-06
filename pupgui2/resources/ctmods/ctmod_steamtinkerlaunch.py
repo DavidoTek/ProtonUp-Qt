@@ -203,8 +203,12 @@ class CtInstaller(QObject):
         List available releases
         Return Type: str[]
         """
-
-        return [branch['name'] for branch in self.rs.get(self.CT_BRANCHES_URL).json()] if self.allow_git else [release['tag_name'] for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json()]
+        main_branch = 'master'
+        branches = [branch['name'] for branch in self.rs.get(self.CT_BRANCHES_URL).json()] if self.allow_git else [release['tag_name'] for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json()]
+        if self.allow_git and main_branch in branches:
+            branches.insert(0, branches.pop(branches.index(main_branch)))  # Force main branch to top of list
+        
+        return branches
 
     def get_tool(self, version, install_dir, temp_dir):
         """
