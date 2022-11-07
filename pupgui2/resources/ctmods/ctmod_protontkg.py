@@ -12,6 +12,7 @@ CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Custom Proton build for running Windows games, built with the Wine-tkg build system.'''
 CT_DESCRIPTION['de'] = '''Proton-Tkg Build für Windows-Spiele, erstellt mit dem Wine-tkg Build System.'''
 CT_DESCRIPTION['pl'] = '''Kompilacja Proton-Tkg do uruchamiania Windowsych gier, zbudowana z Wine-tkg.'''
+CT_DESCRIPTION['zh_TW'] = '''用於執行 Windows 遊戲的自訂 Proton 構建，使用 Wine-tkg 構建系統構建。'''
 
 
 class CtInstaller(QObject):
