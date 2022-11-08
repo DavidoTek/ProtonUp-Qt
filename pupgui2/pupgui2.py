@@ -437,16 +437,29 @@ def main():
     app.setDesktopFileName('net.davidotek.pupgui2.desktop')
 
     lang = QLocale.languageToCode(QLocale().language())
+    lname = QLocale().name()
+
+    print(f'Loading locale {lang} / {lname}')
 
     ldata = None
     try:
-        ldata = pkgutil.get_data(__name__, 'resources/i18n/pupgui2_' + lang + '.qm')
+        ldata = pkgutil.get_data(__name__, 'resources/i18n/pupgui2_' + lname + '.qm')  # Example: pupgui2_zh_TW.qm
     except:
         pass
     finally:
         translator = QTranslator()
         if translator.load(ldata):
             app.installTranslator(translator)
+
+    if ldata == None:
+        try:
+            ldata = pkgutil.get_data(__name__, 'resources/i18n/pupgui2_' + lang + '.qm')  # Example: pupgui2_de.qm
+        except:
+            pass
+        finally:
+            translator = QTranslator()
+            if translator.load(ldata):
+                app.installTranslator(translator)
 
     qtTranslator = QTranslator()
     if qtTranslator.load(QLocale(), 'qt', '_', QLibraryInfo.location(QLibraryInfo.TranslationsPath)):
