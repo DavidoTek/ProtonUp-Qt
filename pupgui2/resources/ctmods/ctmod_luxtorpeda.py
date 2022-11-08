@@ -12,6 +12,7 @@ CT_DESCRIPTION['en'] = '''Luxtorpeda provides Linux-native game engines for spec
 CT_DESCRIPTION['de'] = '''Luxtorpeda stellt Linux-native Spiele Engines für einige Windows-Spiele bereit.'''
 CT_DESCRIPTION['nl'] = '''Luxtorpeda biedt platform-eigen (Linux) game-aandrijvingen voor specifieke Windows-games.'''
 CT_DESCRIPTION['pl'] = '''Luxtorpeda dostarcza natywne Linuksowe silniki gier dla wybanych Windowsowych gier.'''
+CT_DESCRIPTION['zh_TW'] = '''Luxtorpeda 為特定的 Windows 限定遊戲提供 Linux 原生遊戲引擎。'''
 
 
 class CtInstaller(QObject):

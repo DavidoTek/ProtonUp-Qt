@@ -11,6 +11,7 @@ CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md'''
 CT_DESCRIPTION['de'] = '''Vulkan-basierte Implementierung von Direct3D 9, 10 und 11 für Linux/Wine.<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md'''
 CT_DESCRIPTION['pl'] = '''Bazująca na Vulkanie implementacja Direct3D 9, 10 i 11 dla Linuksa/Wine.<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md'''
+CT_DESCRIPTION['zh_TW'] = '''基於 Vulkan 的 Direct3D 9、10 和 11 的 Linux/Wine 實現。<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md'''
 
 class CtInstaller(QObject):
 

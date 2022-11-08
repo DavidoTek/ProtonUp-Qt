@@ -12,6 +12,7 @@ CT_DESCRIPTION['en'] = '''Steam compatibility tool for running Windows games wit
 CT_DESCRIPTION['de'] = '''Steam Kompatibilitätstool für Windows-Spiele mit Verbesserungen gegenüber Valve's Proton.<br/><br/><b>Verwende dies, wenn du dir nicht sicher bist.</b>'''
 CT_DESCRIPTION['nl'] = '''Steam-compatibiliteitshulpmiddel voor het spelen van Windows-games. Dit hulpmiddel bevat diverse verbeteringen ten opzichte van Valve's Proton.<br/><br/><b>Bij twijfel, kies dit hulpmiddel.</b>'''
 CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności Steam do uruchamiania Windowsowych gier z poprawkami nad Valve'owym domyślnym Protonem.<br/><br/><b>Użyj tego, jeśli nie wiesz co wybrać.</b>'''
+CT_DESCRIPTION['zh_TW'] = '''Steam 用於執行 Windows 遊戲的相容性工具，改善了 Valve 預設的 Proton。<br/><br/><b>當您不知道該選擇什麼時使用此工具。</b>'''
 
 
 class CtInstaller(QObject):
