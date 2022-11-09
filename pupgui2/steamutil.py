@@ -312,8 +312,6 @@ def get_external_steamtinkerlaunch_intall(compat_folder):
 
     symlink_path = os.path.join(compat_folder, 'steamtinkerlaunch')
     return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and not os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')) else None
-    
-    # os.path.dirname(os.readlink(os.path.join(compat_folder, 'steamtinkerlaunch'))) if not os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')) else None
 
 
 def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:

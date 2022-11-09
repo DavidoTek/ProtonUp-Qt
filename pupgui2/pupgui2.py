@@ -412,6 +412,7 @@ class MainWindow(QObject):
         if type in [MsgBoxType.OK_CB, MsgBoxType.OK_CANCEL_CB, MsgBoxType.OK_CB_CHECKED, MsgBoxType.OK_CANCEL_CB_CHECKED]:
             cb = QCheckBox(checkbox_text)
             mb.setCheckBox(cb)
+            
         if type in [MsgBoxType.OK_CB_CHECKED, MsgBoxType.OK_CANCEL_CB_CHECKED]:
             cb.setChecked(True)
 
