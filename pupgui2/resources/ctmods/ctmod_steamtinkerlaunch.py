@@ -253,12 +253,10 @@ class CtInstaller(QObject):
             )
 
             remove_existing_installation_result = self.main_window.get_msgcb_answer()
-
-            continue_install = False
             if remove_existing_installation_result.button_clicked == MsgBoxResult.BUTTON_OK:
                 # Remove the Non-ProtonUp-Qt SteamTinkerLaunch if the user checked the box (disabled by defaukt)
                 if remove_existing_installation_result.is_checked:
-                    remove_steamtinkerlaunch(remove_config=False)
+                    remove_steamtinkerlaunch(compat_folder=os.path.join(install_dir, 'SteamTinkerLaunch'), remove_config=False)
 
                 # Nothing more to do here, just continue with the rest of the installation as normal
                 print('User opted to continue installing SteamTinkerLaunch.')
@@ -347,10 +345,7 @@ class CtInstaller(QObject):
                 self.__stl_config_change_language(constants.STEAM_STL_CONFIG_PATH, stl_lang)
 
             # Add SteamTinkerLaunch to all available shell paths (native Linux)
-            # Dialog warning
-            # TODO only show for:
-            # - new install (no existing install anywhere)
-            # - update of existing manual install (user may have manually added to path, but still warn that it'll be updated) (could check on `has_external_install`)
+            # Dialog warning - Only warn on new installs or overwritten manual installs
             should_show_shellmod_dialog = has_external_install or not has_existing_install
             should_add_path = True
 
@@ -369,7 +364,7 @@ class CtInstaller(QObject):
                     # Cancel installation after shell modification warning
                     print('User asked to cancel installation. Not installing SteamTinkerLaunch...')
                     should_add_path = False  # Shouldn't matter since installation will end here, but setting for completeness
-                    remove_steamtinkerlaunch(remove_config=False)
+                    remove_steamtinkerlaunch(remove_config=False)  # shouldn't need compat_folder arg     -     (compat_folder=os.path.join(install_dir, 'SteamTinkerLaunch'))
                     return
                 elif not shellmod_msgbox_result.is_checked and shellmod_msgbox_result.button_clicked == MsgBoxResult.BUTTON_OK:
                     # Continue installation but skip adding to PATH
