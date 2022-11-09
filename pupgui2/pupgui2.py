@@ -402,7 +402,7 @@ class MainWindow(QObject):
         mb.setWindowTitle(title)
         mb.setText(text)
         mb.setIcon(icon)
-        cb = QCheckBox(checkbox_text)
+        cb = None
 
         if type in [MsgBoxType.OK_CANCEL, MsgBoxType.OK_CANCEL_CB, MsgBoxType.OK_CANCEL_CB_CHECKED]:
             mb.setStandardButtons(QMessageBox.StandardButton.Ok)
@@ -410,6 +410,7 @@ class MainWindow(QObject):
             mb.setDefaultButton(QMessageBox.StandardButton.Cancel)
 
         if type in [MsgBoxType.OK_CB, MsgBoxType.OK_CANCEL_CB, MsgBoxType.OK_CB_CHECKED, MsgBoxType.OK_CANCEL_CB_CHECKED]:
+            cb = QCheckBox(checkbox_text)
             mb.setCheckBox(cb)
         if type in [MsgBoxType.OK_CB_CHECKED, MsgBoxType.OK_CANCEL_CB_CHECKED]:
             cb.setChecked(True)
@@ -422,7 +423,8 @@ class MainWindow(QObject):
             result.button_clicked = MsgBoxResult.BUTTON_OK
         else:
             result.button_clicked = MsgBoxResult.BUTTON_CANCEL
-        result.is_checked = cb.isChecked()
+        if cb:
+            result.is_checked = cb.isChecked()
 
         self.set_msgcb_answer(result)
 
