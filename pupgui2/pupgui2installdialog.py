@@ -98,8 +98,11 @@ class PupguiInstallDialog(QDialog):
     def update_description(self, ctobj):
         """ get (translated) description and update description text """
         app_lang = QLocale.languageToCode(QLocale().language())
+        app_lname = QLocale().name()
 
-        if app_lang in ctobj['description']:
+        if app_lname in ctobj['description']:  # Examples: zh_TW, de_DE
+            desc = ctobj['description'][app_lname]
+        elif app_lang in ctobj['description']:  # Examples: de, nl
             desc = ctobj['description'][app_lang]
         else:
             desc = ctobj['description']['en']

@@ -27,6 +27,24 @@ class CTType(Enum):
     STEAM_RT = 21 # Steam Runtime (e.g. BattlEye/EAC Runtime in steamapps)
 
 
+class MsgBoxType(Enum):
+    OK = 0
+    OK_CANCEL = 1
+    OK_CB = 2
+    OK_CANCEL_CB = 3
+    OK_CB_CHECKED = 4
+    OK_CANCEL_CB_CHECKED = 5
+
+
+class MsgBoxResult:
+    BUTTON_OK = 0
+    BUTTON_CANCEL = 1
+
+    msgbox_type : MsgBoxType = None
+    button_clicked = None
+    is_checked : bool = None
+
+
 class SteamApp:
     app_id = -1
     libraryfolder_id = -1
