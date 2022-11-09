@@ -311,7 +311,7 @@ get_fish_user_paths = lambda mfile: ([line.strip() for line in mfile.readlines()
 def get_external_steamtinkerlaunch_intall(compat_folder):
 
     symlink_path = os.path.join(compat_folder, 'steamtinkerlaunch')
-    return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and not os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')) else None
+    return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and not os.readlink(symlink_path) == os.path.join(STEAM_STL_INSTALL_PATH, 'prefix', 'steamtinkerlaunch') else None
 
 
 def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
@@ -330,7 +330,6 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
         # Adding `prefix` to path to be especially sure the user didn't just make an `stl` folder
         #
         # STL script is always named `steamtinkerlaunch`    
-        # stl_symlink_path = os.path.dirname(os.readlink(os.path.join(compat_folder, 'steamtinkerlaunch'))) if not os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')) else None
         stl_symlink_path = get_external_steamtinkerlaunch_intall(compat_folder)
 
         if os.path.exists(compat_folder):
