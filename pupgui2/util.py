@@ -250,7 +250,7 @@ def remove_ctool(ver: str, install_dir: str) -> bool:
         mb = QMessageBox()
         cb = QCheckBox(QObject.tr('Delete SteamTinkerLaunch configuration'))
         mb.setWindowTitle(QObject.tr('Uninstalling SteamTinkerLaunch'))
-        mb.setText(QObject.tr('SteamTinkerLaunch will be removed from your system.\nDo you want the configuration to be removed?'))
+        mb.setText(QObject.tr('SteamTinkerLaunch will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove SteamTinkerLaunch.\nDo you want the configuration to be removed?'))
         mb.setCheckBox(cb)
         mb.exec()
         return remove_steamtinkerlaunch(compat_folder=target, remove_config=cb.isChecked())
