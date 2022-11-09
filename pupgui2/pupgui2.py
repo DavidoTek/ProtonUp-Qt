@@ -8,7 +8,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
-from .datastructures import BasicCompatTool, CTType
+from .datastructures import CTType, MsgBoxType, MsgBoxResult
 from .util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools
 from .util import install_directory, available_install_directories, get_install_location_from_directory_name
 from .util import remove_ctool
@@ -87,8 +87,8 @@ class MainWindow(QObject):
             cti = ctobj.get('installer')
             if hasattr(cti, 'message_box_message'):
                 cti.message_box_message.connect(self.show_msgbox)
-            if hasattr(cti, 'cbquestion_box_message'):
-                cti.cbquestion_box_message.connect(self.show_msgbox_cbquestion, Qt.BlockingQueuedConnection)
+            if hasattr(cti, 'question_box_message'):
+                cti.question_box_message.connect(self.show_msgbox_question, Qt.BlockingQueuedConnection)
             cti.download_progress_percent.connect(self.set_download_progress_percent)
 
         self.combo_install_location_index_map = []
@@ -96,7 +96,7 @@ class MainWindow(QObject):
         self.pending_downloads = []
         self.current_compat_tool_name = ""
         self.compat_tool_index_map = []
-        self.msgcb_answer = False
+        self.msgcb_answer : MsgBoxResult = None
         self.msgcb_answer_lock = QMutex()
 
         self.load_ui()
@@ -395,24 +395,43 @@ class MainWindow(QObject):
         mb.setIcon(icon)
         mb.show()
 
-    @Slot(str, str, str, QMessageBox.Icon)
-    def show_msgbox_cbquestion(self, title: str, text: str, checkbox_text: str, icon = QMessageBox.NoIcon) -> bool:
-        """ Show a message box with main window as parent """
+    @Slot(str, str, str, MsgBoxType, QMessageBox.Icon)
+    def show_msgbox_question(self, title: str, text: str, checkbox_text: str, type: MsgBoxType, icon = QMessageBox.NoIcon) -> bool:
+        """ Show a message box with main window as parent (blocking connection, with optional checkbox) """
         mb = QMessageBox(parent=self.ui)
         mb.setWindowTitle(title)
         mb.setText(text)
         mb.setIcon(icon)
         cb = QCheckBox(checkbox_text)
-        mb.setCheckBox(cb)
-        mb.exec()
-        self.set_msgcb_answer(cb.isChecked())
 
-    def set_msgcb_answer(self, answer: bool):
+        if type in [MsgBoxType.OK_CANCEL, MsgBoxType.OK_CANCEL_CB, MsgBoxType.OK_CANCEL_CB_CHECKED]:
+            mb.setStandardButtons(QMessageBox.StandardButton.Ok)
+            mb.addButton(QMessageBox.StandardButton.Cancel)
+            mb.setDefaultButton(QMessageBox.StandardButton.Cancel)
+
+        if type in [MsgBoxType.OK_CB, MsgBoxType.OK_CANCEL_CB, MsgBoxType.OK_CB_CHECKED, MsgBoxType.OK_CANCEL_CB_CHECKED]:
+            mb.setCheckBox(cb)
+        if type in [MsgBoxType.OK_CB_CHECKED, MsgBoxType.OK_CANCEL_CB_CHECKED]:
+            cb.setChecked(True)
+
+        res = mb.exec()
+
+        result = MsgBoxResult()
+        result.msgbox_type = type
+        if res == 1024:
+            result.button_clicked = MsgBoxResult.BUTTON_OK
+        else:
+            result.button_clicked = MsgBoxResult.BUTTON_CANCEL
+        result.is_checked = cb.isChecked()
+
+        self.set_msgcb_answer(result)
+
+    def set_msgcb_answer(self, answer: MsgBoxResult):
         self.msgcb_answer_lock.lock()
         self.msgcb_answer = answer
         self.msgcb_answer_lock.unlock()
 
-    def get_msgcb_answer(self) -> bool:
+    def get_msgcb_answer(self) -> MsgBoxResult:
         self.msgcb_answer_lock.lock()
         answer = self.msgcb_answer
         self.msgcb_answer_lock.unlock()
