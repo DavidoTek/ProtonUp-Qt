@@ -9,7 +9,7 @@ import subprocess
 from .datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
 from .constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
 
-from PySide6.QtWidgets import QMessageBox
+from PySide6.QtWidgets import QMessageBox, QApplication
 
 _cached_app_list = []
 _cached_steam_ctool_id_map = None
@@ -314,7 +314,7 @@ def get_external_steamtinkerlaunch_intall(compat_folder):
     return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and not os.readlink(symlink_path) == os.path.join(STEAM_STL_INSTALL_PATH, 'prefix', 'steamtinkerlaunch') else None
 
 
-def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
+def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=None) -> bool:
     """
     Removes SteamTinkerLaunch from system by removing the downloaad, removing from path
     removing config files at `$HOME/.config/steamtinkerlaunch`.
@@ -345,11 +345,15 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
                 shutil.rmtree(stl_symlink_path)
             else:
                 # If we can't remove the actual installation folder, tell the user to remove it themselves and continue with the rest of the uninstallation
-                # This currently segfaults
-                mb = QMessageBox()
-                mb.setWindowTitle('Unable to Remove SteamTinkerLaunch')
-                mb.setText(f'Access to SteamTinkerLaunch installation folder at \'{stl_symlink_path}\' was denied, please remove this folder manually.\n\nThe uninstallation will continue.')
-                mb.exec()
+                mb_title = QApplication.instance().translate('steamutil.py', 'Unable to Remove SteamTinkerLaunch')
+                mb_text = QApplication.instance().translate('steamutil.py', 'Access to SteamTinkerLaunch installation folder at {STL_SYMLINK_PATH} was denied, please remove this folder manually.\n\nThe uninstallation will continue.').format(STL_SYMLINK_PATH=stl_symlink_path)
+                if ctmod_object and hasattr(ctmod_object, 'message_box_message'):
+                    ctmod_object.message_box_message.emit(mb_title, mb_text, QMessageBox.Icon.Warning)
+                else:
+                    mb = QMessageBox()
+                    mb.setWindowTitle(mb_title)
+                    mb.setText(mb_text)
+                    mb.exec()
 
                 print(f'Error: SteamTinkerLaunch is installed to {stl_symlink_path}, ProtonUp-Qt cannot modify this folder. Folder must be removed manually.')
         elif os.path.exists(STEAM_STL_INSTALL_PATH):
