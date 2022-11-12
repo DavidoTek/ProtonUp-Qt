@@ -222,7 +222,7 @@ class CtInstaller(QObject):
 
     def fetch_releases(self, count=100):
         """
-        List available releases
+        List available releases or available branches for SteamTinkerLaunch-git
         Return Type: str[]
         """
         main_branch = 'master'
@@ -246,7 +246,7 @@ class CtInstaller(QObject):
             print('Non-ProtonUp-Qt installation of SteamTinkerLaunch detected. Asking the user what they want to do...')
             self.question_box_message.emit(
                 'Existing SteamTinkerLaunch Installation',
-                f'It looks like you have an existing SteamTinkerLaunch installation at \'{has_external_install}\' that was not installed by ProtonUp-Qt.\n\nReinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to \'{constants.STEAM_STL_INSTALL_PATH}\'. Do you wish to continue? (This will not affect your SteamTinkerLaunch configuration.)',
+                f'It looks like you have an existing SteamTinkerLaunch installation at \'{has_external_install}\' that was not installed by ProtonUp-Qt.\n\nReinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to \'{constants.STEAM_STL_INSTALL_PATH}\' if it has write access to this folder, otherwise it will continue installation as normal.\n\nDo you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)',
                 'Remove existing SteamTinkerLaunch installation',
                 MsgBoxType.OK_CANCEL_CB,
                 QMessageBox.Warning
@@ -254,12 +254,15 @@ class CtInstaller(QObject):
 
             remove_existing_installation_result = self.main_window.get_msgcb_answer()
             if remove_existing_installation_result.button_clicked == MsgBoxResult.BUTTON_OK:
-                # Remove the Non-ProtonUp-Qt SteamTinkerLaunch if the user checked the box (disabled by defaukt)
+                # Remove the Non-ProtonUp-Qt SteamTinkerLaunch if the user checked the box (disabled by default)
+                print('User opted to continue installing SteamTinkerLaunch.')
                 if remove_existing_installation_result.is_checked:
+                    # This will show a warning dialog if it can't be removed, but uninstallation will continue
+                    # The user was previously asked if they wanted to stop installation, so there is no need to pause installation and ask again
+                    print('User opted to remove the existing SteamTinkerLaunch installation as well - Attempting to do so')
                     remove_steamtinkerlaunch(compat_folder=os.path.join(install_dir, 'SteamTinkerLaunch'), remove_config=False, ctmod_object=self)
 
                 # Nothing more to do here, just continue with the rest of the installation as normal
-                print('User opted to continue installing SteamTinkerLaunch.')
             else:
                 # Don't remove anything
                 print('User opted to not continue installing SteamTinkerLaunch. Aborting...')
@@ -298,7 +301,6 @@ class CtInstaller(QObject):
 
             # Rename folder ~/stl/<tarname> to ~/stl/prefix
             os.rename(old_stl_path, stl_path)
-
             os.chdir(stl_path)
 
             # ProtonUp-Qt Flatpak: Run STL on host system
@@ -346,14 +348,16 @@ class CtInstaller(QObject):
 
             # Add SteamTinkerLaunch to all available shell paths (native Linux)
             # Dialog warning - Only warn on new installs or overwritten manual installs
+            # For background see this issue: https://github.com/DavidoTek/ProtonUp-Qt/issues/127
             should_show_shellmod_dialog = has_external_install or not has_existing_install
             should_add_path = True
 
+            # Checkbox is only shown to users who have ProtonUp-Qt Advanced mode enalbed
             if should_show_shellmod_dialog:
                 shellmod_msgbox_type = MsgBoxType.OK_CANCEL_CB_CHECKED if config_advanced_mode() == 'enabled' else MsgBoxType.OK_CANCEL
                 self.question_box_message.emit(
                     'Add SteamTinkerLaunch to PATH',
-                    f'By default, ProtonUp-Qt will add SteamTinkerLaunch to all available Shell paths to make it easier to use with native Linux games. This also allows you to run SteamTinkerLaunch commands from anywhere in the command line.\n\nSome users may not want this functionality. Do you want to continue installing SteamTinkerLaunch?',
+                    f'By default, ProtonUp-Qt will add SteamTinkerLaunch to all available Shell paths. This makes it easier to use with native Linux games. It also enables SteamTinkerLaunch commands from anywhere in the command line.\n\nSome users may not want this functionality. Do you want to continue installing SteamTinkerLaunch?',
                     'Allow PATH modification',
                     shellmod_msgbox_type,
                     QMessageBox.Warning
@@ -410,9 +414,7 @@ class CtInstaller(QObject):
             os.chdir(os.path.expanduser('~'))
 
         self.__set_download_progress_percent(100)
-
         print('Successfully installed SteamTinkerLaunch!')
-
         return True
     
     def get_info_url(self, version):
@@ -422,4 +424,5 @@ class CtInstaller(QObject):
 
         Return Type: str
         """
+
         return self.CT_INFO_URL + version if not self.allow_git else self.CT_GH_URL    

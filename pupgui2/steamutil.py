@@ -343,10 +343,14 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
             # If STL symlink isn't a regular install, try to remove if we can write to its install folder
             if os.access(stl_symlink_path, os.W_OK):
                 shutil.rmtree(stl_symlink_path)
+                print('Removed SteamTinkerLaunch installation folder pointed to by symlink')
             else:
                 # If we can't remove the actual installation folder, tell the user to remove it themselves and continue with the rest of the uninstallation
                 mb_title = QApplication.instance().translate('steamutil.py', 'Unable to Remove SteamTinkerLaunch')
-                mb_text = QApplication.instance().translate('steamutil.py', 'Access to SteamTinkerLaunch installation folder at {STL_SYMLINK_PATH} was denied, please remove this folder manually.\n\nThe uninstallation will continue.').format(STL_SYMLINK_PATH=stl_symlink_path)
+                mb_text = QApplication.instance().translate(
+                    'steamutil.py',
+                    'Access to SteamTinkerLaunch installation folder at \'{STL_SYMLINK_PATH}\' was denied, please remove this folder manually.\n\nThe uninstallation will continue.'
+                ).format(STL_SYMLINK_PATH=stl_symlink_path)
                 if ctmod_object and hasattr(ctmod_object, 'message_box_message'):
                     ctmod_object.message_box_message.emit(mb_title, mb_text, QMessageBox.Icon.Warning)
                 else:
@@ -364,11 +368,15 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
             else:
                 shutil.rmtree(STEAM_STL_INSTALL_PATH)
 
+        # Remove User config folder if the user requested it
         if os.path.exists(STEAM_STL_CONFIG_PATH) and remove_config:
             print('Removing SteamTInkerLaunch configuration folder...')
             shutil.rmtree(STEAM_STL_CONFIG_PATH)
 
-
+        # Remove the STL path modification that ProtonUp-Qt may have added during installation from Shell paths
+        #
+        # Works by getting all the lines in all the hardcoded Shell files that we write out to during installation and
+        # and filtering out any line(s) that reference ProtonUp-Qt, then it writes that updated file content back out to the Shell file
         present_shell_files = [
             os.path.join(os.path.expanduser('~'), f) for f in os.listdir(os.path.expanduser('~')) if os.path.isfile(os.path.join(os.path.expanduser('~'), f)) and f in STEAM_STL_SHELL_FILES
         ]
@@ -376,8 +384,10 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
             present_shell_files.append(STEAM_STL_FISH_VARIABLES)
         
         print('Removing SteamTinkerLaunch from path...')
+
         for shell_file in present_shell_files:
-            with open(shell_file, 'r+') as mfile:                
+            with open(shell_file, 'r+') as mfile:  
+                # Get all Shell file lines that are not the ProtonUp-Qt added STL path lines              
                 mfile_lines = list(filter(lambda l: 'protonup-qt' not in l.lower() and STEAM_STL_INSTALL_PATH.lower() not in l.lower(), [line for line in mfile.readlines()]))
                 if len(mfile_lines) == 0:
                     continue
@@ -390,6 +400,7 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
                     updated_fish_user_paths = '\\x1e'.join(curr_fish_user_paths)
                     mfile_lines.append(f'SETUVAR fish_user_paths:{updated_fish_user_paths}')
 
+                # Write out changes while preserving Shell file newlines
                 mfile.seek(0)
                 prev_line = ''
                 for line in mfile_lines:

@@ -267,8 +267,8 @@ class MainWindow(QObject):
         games_using_tools = 0
         for item in self.ui.listInstalledVersions.selectedItems():
             ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
-            if ct.no_games > 0:
-                games_using_tools += 1
+            ctgames = get_steam_game_list(get_install_location_from_directory_name(install_directory()).get('vdf_dir'), ct.get_internal_name())
+            games_using_tools += len(ctgames)
             ctools_to_remove.append(ct)
 
         if games_using_tools > 0:
