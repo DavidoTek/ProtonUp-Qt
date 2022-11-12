@@ -2,7 +2,7 @@
 # Boxtron
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests, hashlib
+import os, shutil, tarfile, requests
 from PySide6.QtCore import *
 from PySide6.QtWidgets import QMessageBox
 from ...util import host_which
@@ -100,15 +100,19 @@ class CtInstaller(QObject):
         Are the system requirements met?
         Return Type: bool
         """
+        tr_missing = QCoreApplication.instance().translate('ctmod_boxtron', 'missing')
+        tr_found = QCoreApplication.instance().translate('ctmod_boxtron', 'found')
+        msg_tr_title = QCoreApplication.instance().translate('ctmod_boxtron', 'Missing dependencies!')
+
         if host_which('dosbox') and host_which('inotifywait') and host_which('timidity'):
             return True
-        msg = 'You need dosbox, inotify-tools and timidity for Boxtron.\n\n'
-        msg += 'dosbox: ' + str('missing' if host_which('dosbox') is None else 'found') + '\n'
-        msg += 'inotify-tools: ' + str('missing' if host_which('inotifywait') is None else 'found') + '\n'
-        msg += 'timidity: ' + str('missing' if host_which('timidity') is None else 'found')
-        msg += '\n\nWill continue installing Boxtron anyway.'
+        msg = QCoreApplication.instance().translate('ctmod_boxtron', 'You need dosbox, inotify-tools and timidity for Boxtron.') + '\n\n'
+        msg += 'dosbox: ' + str(tr_missing if host_which('dosbox') is None else tr_found) + '\n'
+        msg += 'inotify-tools: ' + str(tr_missing if host_which('inotifywait') is None else tr_found) + '\n'
+        msg += 'timidity: ' + str(tr_missing if host_which('timidity') is None else tr_found)
+        msg += '\n\n' + QCoreApplication.instance().translate('ctmod_boxtron', 'Will continue installing Boxtron anyway.')
 
-        self.message_box_message.emit('Missing dependencies!', msg, QMessageBox.Warning)
+        self.message_box_message.emit(msg_tr_title, msg, QMessageBox.Warning)
 
         return True  # install Boxtron anyway
 
