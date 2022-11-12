@@ -12,7 +12,7 @@ from ...util import host_which
 CT_NAME = 'SteamTinkerLaunch'
 CT_LAUNCHERS = ['steam', 'native-only']
 CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = '''
+CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', '''
 Linux wrapper tool for use with the Steam client which allows for easy graphical configuration of game tools for Proton and native Linux games.
 <br/><br/>
 On <b>Steam Deck</b>, relevant dependencies will be installed for you. If you are not on Steam Deck, <b>ensure you have the following dependencies installed</b>:
@@ -33,7 +33,7 @@ On <b>Steam Deck</b>, relevant dependencies will be installed for you. If you ar
 More information is available on the SteamTinkerLaunch Installation wiki page.
 <br/><br/>
 SteamTinkerLaunch has a number of <b>Optional Dependencies</b> which have to be installed separately for extra functionality. Please see the Optional Dependencies section
-of the SteamTinkerLaunch Installation guide on its GitHub page..'''
+of the SteamTinkerLaunch Installation guide on its GitHub page..''')
 CT_DESCRIPTION['zh_TW'] = '''
 與 Steam 用戶端一起使用的 Linux 包裝工具，它允許對 Proton 和本機 Linux 遊戲的遊戲工具進行簡單的圖形配置。
 <br/><br/>

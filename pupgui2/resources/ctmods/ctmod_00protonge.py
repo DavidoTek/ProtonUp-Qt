@@ -8,7 +8,7 @@ from PySide6.QtCore import *
 CT_NAME = 'GE-Proton'
 CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles']
 CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = '''Steam compatibility tool for running Windows games with improvements over Valve's default Proton.<br/><br/><b>Use this when you don't know what to choose.</b>'''
+CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_00protonge', '''Steam compatibility tool for running Windows games with improvements over Valve's default Proton.<br/><br/><b>Use this when you don't know what to choose.</b>''')
 CT_DESCRIPTION['de'] = '''Steam Kompatibilitätstool für Windows-Spiele mit Verbesserungen gegenüber Valve's Proton.<br/><br/><b>Verwende dies, wenn du dir nicht sicher bist.</b>'''
 CT_DESCRIPTION['nl'] = '''Steam-compatibiliteitshulpmiddel voor het spelen van Windows-games. Dit hulpmiddel bevat diverse verbeteringen ten opzichte van Valve's Proton.<br/><br/><b>Bij twijfel, kies dit hulpmiddel.</b>'''
 CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności Steam do uruchamiania Windowsowych gier z poprawkami nad Valve'owym domyślnym Protonem.<br/><br/><b>Użyj tego, jeśli nie wiesz co wybrać.</b>'''
