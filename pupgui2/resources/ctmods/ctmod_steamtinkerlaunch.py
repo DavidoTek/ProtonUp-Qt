@@ -213,10 +213,10 @@ class CtInstaller(QObject):
 
         if all(deps_met.values()):
             return True
-        msg = 'You have several unmet dependencies for SteamTinkerLaunch.\n\n'
+        msg = QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'You have several unmet dependencies for SteamTinkerLaunch.\n\n')
         msg += '\n'.join([ f'{dep_name}: {("missing" if not is_dep_met else "found")}' for (dep_name, is_dep_met) in deps_met.items()])
-        msg += '\n\nInstallation will be cancelled.'
-        self.message_box_message.emit('Missing dependencies!', msg, QMessageBox.Warning)
+        msg += QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', '\n\nInstallation will be cancelled.')
+        self.message_box_message.emit(QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'Missing dependencies!'), msg, QMessageBox.Warning)
 
         return False  # Installation would fail without dependencies.
 
@@ -245,9 +245,9 @@ class CtInstaller(QObject):
         if has_external_install:
             print('Non-ProtonUp-Qt installation of SteamTinkerLaunch detected. Asking the user what they want to do...')
             self.question_box_message.emit(
-                'Existing SteamTinkerLaunch Installation',
-                f'It looks like you have an existing SteamTinkerLaunch installation at \'{has_external_install}\' that was not installed by ProtonUp-Qt.\n\nReinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to \'{constants.STEAM_STL_INSTALL_PATH}\' if it has write access to this folder, otherwise it will continue installation as normal.\n\nDo you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)',
-                'Remove existing SteamTinkerLaunch installation',
+                QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'Existing SteamTinkerLaunch Installation'),
+                QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'It looks like you have an existing SteamTinkerLaunch installation at \'{EXTERNAL_INSTALL_PATH}\' that was not installed by ProtonUp-Qt.\n\nReinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to \'{STL_INSTALL_PATH}\'\n\n. You may also choose to remove your existing installation, if ProtonUp-Qt has write access to this folder. Do you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)').format(EXTERNAL_INSTALL_PATH=has_external_install, STL_INSTALL_PATH=constants.STEAM_STL_INSTALL_PATH),
+                QCoreApplication.instance().translate('ctmod_steamtinkerlaunch' ,'Remove existing SteamTinkerLaunch installation'),
                 MsgBoxType.OK_CANCEL_CB,
                 QMessageBox.Warning
             )
@@ -356,9 +356,9 @@ class CtInstaller(QObject):
             if should_show_shellmod_dialog:
                 shellmod_msgbox_type = MsgBoxType.OK_CANCEL_CB_CHECKED if config_advanced_mode() == 'enabled' else MsgBoxType.OK_CANCEL
                 self.question_box_message.emit(
-                    'Add SteamTinkerLaunch to PATH',
-                    f'By default, ProtonUp-Qt will add SteamTinkerLaunch to all available Shell paths. This makes it easier to use with native Linux games. It also enables SteamTinkerLaunch commands from anywhere in the command line.\n\nSome users may not want this functionality. Do you want to continue installing SteamTinkerLaunch?',
-                    'Allow PATH modification',
+                    QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'Add SteamTinkerLaunch to PATH'),
+                    QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'By default, ProtonUp-Qt will add SteamTinkerLaunch to all available Shell paths. This makes it easier to use with native Linux games. It also enables SteamTinkerLaunch commands from anywhere in the command line.\n\nSome users may not want this functionality. Do you want to continue installing SteamTinkerLaunch?'),
+                    QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'Allow PATH modification'),
                     shellmod_msgbox_type,
                     QMessageBox.Warning
                 )
