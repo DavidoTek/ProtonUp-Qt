@@ -237,9 +237,11 @@ class MainWindow(QObject):
             self.current_compat_tool_name = compat_tool['name'] + ' ' + compat_tool['version']
         if value == -2:
             self.ui.statusBar().showMessage(self.tr('Download canceled.'))
+            self.progressBarDownload.setVisible(False)
             return
         if value == -1:
             self.ui.statusBar().showMessage(self.tr('Could not install {current_compat_tool_name}...').format(current_compat_tool_name=self.current_compat_tool_name))
+            self.progressBarDownload.setVisible(False)
             return
         if value == 1:
             self.progressBarDownload.setVisible(True)

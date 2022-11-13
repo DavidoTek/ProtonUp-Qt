@@ -369,6 +369,7 @@ class CtInstaller(QObject):
                     print('User asked to cancel installation. Not installing SteamTinkerLaunch...')
                     should_add_path = False  # Shouldn't matter since installation will end here, but setting for completeness
                     remove_steamtinkerlaunch(remove_config=False, ctmod_object=self)  # shouldn't need compat_folder arg     -     (compat_folder=os.path.join(install_dir, 'SteamTinkerLaunch'))
+                    self.__set_download_progress_percent(-2)
                     return
                 elif not shellmod_msgbox_result.is_checked and shellmod_msgbox_result.button_clicked == MsgBoxResult.BUTTON_OK:
                     # Continue installation but skip adding to PATH
