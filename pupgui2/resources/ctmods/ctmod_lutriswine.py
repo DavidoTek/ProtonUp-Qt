@@ -9,7 +9,6 @@ CT_NAME = 'Lutris-Wine'
 CT_LAUNCHERS = ['lutris', 'bottles']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_lutriswine', '''Compatibility tool "Wine" to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.''')
-CT_DESCRIPTION['de'] = '''Kompatibilitätstool "Wine" für Windows-Spiele unter Linux. Verbessert von Lutris für bessere Kompatibilität und Leistung in einigen Spielen.'''
 CT_DESCRIPTION['nl'] = '''Compatibiliteitshulpmiddel 'Wine' voor het spelen van Windows-games op Linux. Deze versie is verbeterd door het Lutris-team en biedt verbeterde compatibiliteit met en prestaties in sommige games.'''
 CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności "Wine" do uruchamiania Windowsowych gier na Linuksie. Poprawione przez autorów Lutrisa dla lepszej kompatybilności lub wydajności w wybranych grach.'''
 CT_DESCRIPTION['zh_TW'] = '''在 Linux 上執行 Windows 遊戲的相容性工具「Wine」。由 Lutris 改善以在某些遊戲中提供更好的相容性或性能。'''
