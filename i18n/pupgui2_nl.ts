@@ -487,7 +487,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="12"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Steam-compatibiliteitshulpmiddel voor het spelen van Windows-games. Dit hulpmiddel bevat diverse verbeteringen ten opzichte van Valve&apos;s Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Bij twijfel, kies dit hulpmiddel.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -495,7 +495,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00winege.py" line="12"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Based on Valve Proton Experimental&apos;s bleeding-edge Wine, built for Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Compatibiliteitshulpmiddel &apos;Wine&apos; voor het spelen van Windows-games op Linux. Dit hulpmiddel is gebaseerd op Valve Proton Experimental&apos;s Wine en is gemaakt voor Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Bij twijfel, kies dit hulpmiddel.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -503,7 +503,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="14"/>
         <source>Steam Play compatibility tool to run DOS games using native Linux DOSBox.</source>
-        <translation type="unfinished"></translation>
+        <translation>Steam Play-compatibiliteitshulpmiddel voor het spelen van DOS-games met behulp van de Linux-versie van DOSBox.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="104"/>
@@ -536,7 +536,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_kron4ekvanilla.py" line="13"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.</source>
-        <translation type="unfinished"></translation>
+        <translation>Compatibiliteitshulpmiddel &apos;Wine&apos; voor het spelen van Windows-games op Linux. Dit is de officiële versie van WineHQ en is gecompileerd door Kron4ek.</translation>
     </message>
 </context>
 <context>
@@ -544,7 +544,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="12"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
-        <translation type="unfinished"></translation>
+        <translation>Compatibiliteitshulpmiddel &apos;Wine&apos; voor het spelen van Windows-games op Linux. Deze versie is verbeterd door het Lutris-team en biedt verbeterde compatibiliteit met en prestaties in sommige games.</translation>
     </message>
 </context>
 <context>
@@ -552,7 +552,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="12"/>
         <source>Luxtorpeda provides Linux-native game engines for specific Windows-only games.</source>
-        <translation type="unfinished"></translation>
+        <translation>Luxtorpeda biedt platform-eigen (Linux) game-aandrijvingen voor specifieke Windows-games.</translation>
     </message>
 </context>
 <context>
@@ -568,7 +568,7 @@ Je beschikt over {APP_VERSION}, maar de nieuwste versie is {newest_version}.</tr
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="14"/>
         <source>Steam Play compatibility tool to run adventure games using native Linux ScummVM.</source>
-        <translation type="unfinished"></translation>
+        <translation>Steam Play-compatibiliteitshulpmiddel voor het spelen van avonturengames met behulp van de Linux-versie van ScummVM.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="104"/>

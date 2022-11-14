@@ -11,7 +11,6 @@ CT_NAME = 'Boxtron'
 CT_LAUNCHERS = ['steam']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_boxtron', '''Steam Play compatibility tool to run DOS games using native Linux DOSBox.''')
-CT_DESCRIPTION['nl'] = '''Steam Play-compatibiliteitshulpmiddel voor het spelen van DOS-games met behulp van de Linux-versie van DOSBox.'''
 CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności Steam Play do uruchamiania gier DOS poprzez natywny Linuksowy DOSBox.'''
 
 
