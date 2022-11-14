@@ -237,9 +237,11 @@ class MainWindow(QObject):
             self.current_compat_tool_name = compat_tool['name'] + ' ' + compat_tool['version']
         if value == -2:
             self.ui.statusBar().showMessage(self.tr('Download canceled.'))
+            self.progressBarDownload.setVisible(False)
             return
         if value == -1:
             self.ui.statusBar().showMessage(self.tr('Could not install {current_compat_tool_name}...').format(current_compat_tool_name=self.current_compat_tool_name))
+            self.progressBarDownload.setVisible(False)
             return
         if value == 1:
             self.progressBarDownload.setVisible(True)
@@ -268,7 +270,7 @@ class MainWindow(QObject):
         for item in self.ui.listInstalledVersions.selectedItems():
             ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
             if ct.no_games > 0:
-                games_using_tools += 1
+                games_using_tools += ct.no_games
             ctools_to_remove.append(ct)
 
         if games_using_tools > 0:
@@ -412,6 +414,7 @@ class MainWindow(QObject):
         if type in [MsgBoxType.OK_CB, MsgBoxType.OK_CANCEL_CB, MsgBoxType.OK_CB_CHECKED, MsgBoxType.OK_CANCEL_CB_CHECKED]:
             cb = QCheckBox(checkbox_text)
             mb.setCheckBox(cb)
+            
         if type in [MsgBoxType.OK_CB_CHECKED, MsgBoxType.OK_CANCEL_CB_CHECKED]:
             cb.setChecked(True)
 
