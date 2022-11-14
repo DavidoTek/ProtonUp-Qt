@@ -12,7 +12,6 @@ CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_kron4ekvanilla', '''Compatibility tool "Wine" to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.''')
 CT_DESCRIPTION['nl'] = '''Compatibiliteitshulpmiddel 'Wine' voor het spelen van Windows-games op Linux. Dit is de officiële versie van WineHQ en is gecompileerd door Kron4ek.'''
 CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności "Wine" do uruchamiania Windowsowych gier na Linuksie. Oficjalna wersja ze źródeł WineHQ, skompilowana przez Kron4ek.'''
-CT_DESCRIPTION['zh_TW'] = '''在 Linux 上執行 Windows 遊戲的相容性工具「Wine」。來自 WineHQ 來源的官方版本，由 Kron4ek 編譯。'''
 
 
 class CtInstaller(QObject):

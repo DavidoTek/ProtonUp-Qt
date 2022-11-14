@@ -486,7 +486,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="12"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Steam 用於執行 Windows 遊戲的相容性工具，改善了 Valve 預設的 Proton。&lt;br/&gt;&lt;br/&gt;&lt;b&gt;當您不知道該選擇什麼時使用此工具。&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -494,7 +494,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00winege.py" line="12"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Based on Valve Proton Experimental&apos;s bleeding-edge Wine, built for Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>在 Linux 上執行 Windows 遊戲的相容性工具「Wine」。基於 Valve Proton Experimental 的前沿 Wine，專為 Lutris 打造。&lt;br/&gt;&lt;br/&gt;&lt;b&gt;當您不知道該選擇什麼時使用它。&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -502,7 +502,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="14"/>
         <source>Steam Play compatibility tool to run DOS games using native Linux DOSBox.</source>
-        <translation type="unfinished"></translation>
+        <translation>使用原生 Linux DOSBox 執行 DOS 遊戲的 Steam Play 相容性工具。</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="104"/>
@@ -535,7 +535,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_kron4ekvanilla.py" line="13"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.</source>
-        <translation type="unfinished"></translation>
+        <translation>在 Linux 上執行 Windows 遊戲的相容性工具「Wine」。來自 WineHQ 來源的官方版本，由 Kron4ek 編譯。</translation>
     </message>
 </context>
 <context>
@@ -543,7 +543,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="12"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
-        <translation type="unfinished"></translation>
+        <translation>在 Linux 上執行 Windows 遊戲的相容性工具「Wine」。由 Lutris 改善以在某些遊戲中提供更好的相容性或性能。</translation>
     </message>
 </context>
 <context>
@@ -551,7 +551,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="12"/>
         <source>Luxtorpeda provides Linux-native game engines for specific Windows-only games.</source>
-        <translation type="unfinished"></translation>
+        <translation>Luxtorpeda 為特定的 Windows 限定遊戲提供 Linux 原生遊戲引擎。</translation>
     </message>
 </context>
 <context>
@@ -559,7 +559,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="13"/>
         <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation type="unfinished"></translation>
+        <translation>用於執行 Windows 遊戲的自訂 Proton 構建，使用 Wine-tkg 構建系統構建。</translation>
     </message>
 </context>
 <context>
@@ -567,7 +567,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="14"/>
         <source>Steam Play compatibility tool to run adventure games using native Linux ScummVM.</source>
-        <translation type="unfinished"></translation>
+        <translation>使用原生 Linux ScummVM 執行冒險遊戲的 Steam Play 相容性工具。</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="104"/>
@@ -621,7 +621,26 @@ More information is available on the SteamTinkerLaunch Installation wiki page.
 &lt;br/&gt;&lt;br/&gt;
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
 of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
-        <translation type="unfinished"></translation>
+        <translation>與 Steam 用戶端一起使用的 Linux 包裝工具，它允許對 Proton 和本機 Linux 遊戲的遊戲工具進行簡單的圖形配置。
+&lt;br/&gt;&lt;br/&gt;
+在 &lt;b&gt;Steam Deck&lt;/b&gt; 上，將為您安裝相關的依賴項。 如果您不是用 Steam Deck，&lt;b&gt;請確保您已安裝以下依賴項&lt;/b&gt;：
+&lt;ul&gt;
+  &lt;li&gt;awk (or gawk)&lt;/li&gt;
+  &lt;li&gt;bash&lt;/li&gt;
+  &lt;li&gt;git&lt;/li&gt;
+  &lt;li&gt;pgrep&lt;/li&gt;
+  &lt;li&gt;unzip&lt;/li&gt;
+  &lt;li&gt;wget&lt;/li&gt;
+  &lt;li&gt;xdotool&lt;/li&gt;
+  &lt;li&gt;xprop&lt;/li&gt;
+  &lt;li&gt;xrandr&lt;/li&gt;
+  &lt;li&gt;xwininfo&lt;/li&gt;
+  &lt;li&gt;xxd&lt;/li&gt;
+  &lt;li&gt;Yad &gt;= &lt;b&gt;v7.2&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+SteamTinkerLaunch 安裝 wiki 頁面上提供了更多資訊。
+&lt;br/&gt;&lt;br/&gt;
+SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安裝才能獲得額外功能。 請參閱其 GitHub 頁面上 SteamTinkerLaunch 安裝指南的可選依賴項部分。</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="217"/>
@@ -707,7 +726,26 @@ More information is available on the SteamTinkerLaunch Installation wiki page.
 &lt;br/&gt;&lt;br/&gt;
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
 of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
-        <translation type="unfinished"></translation>
+        <translation>與 Steam 用戶端一起使用的 Linux 包裝工具，它允許對 Proton 和本機 Linux 遊戲的遊戲工具進行簡單的圖形配置。
+&lt;br/&gt;&lt;br/&gt;
+在 &lt;b&gt;Steam Deck&lt;/b&gt; 上，將為您安裝相關的依賴項。 如果您不是用 Steam Deck，&lt;b&gt;請確保您已安裝以下依賴項&lt;/b&gt;：
+&lt;ul&gt;
+  &lt;li&gt;awk (or gawk)&lt;/li&gt;
+  &lt;li&gt;bash&lt;/li&gt;
+  &lt;li&gt;git&lt;/li&gt;
+  &lt;li&gt;pgrep&lt;/li&gt;
+  &lt;li&gt;unzip&lt;/li&gt;
+  &lt;li&gt;wget&lt;/li&gt;
+  &lt;li&gt;xdotool&lt;/li&gt;
+  &lt;li&gt;xprop&lt;/li&gt;
+  &lt;li&gt;xrandr&lt;/li&gt;
+  &lt;li&gt;xwininfo&lt;/li&gt;
+  &lt;li&gt;xxd&lt;/li&gt;
+  &lt;li&gt;Yad &gt;= &lt;b&gt;v7.2&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+SteamTinkerLaunch 安裝 wiki 頁面上提供了更多資訊。
+&lt;br/&gt;&lt;br/&gt;
+SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安裝才能獲得額外功能。 請參閱其 GitHub 頁面上 SteamTinkerLaunch 安裝指南的可選依賴項部分。</translation>
     </message>
 </context>
 <context>
@@ -715,7 +753,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="12"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>基於 Vulkan 的 Direct3D 9、10 和 11 的 Linux/Wine 實現。&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -723,7 +761,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="12"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>基於 Vulkan 的 Direct3D 9、10 和 11 的 Linux/Wine 實現，帶有 Sporif 的異步補丁。&lt;br/&gt;&lt;br/&gt;&lt;b&gt;警告：僅用於單人遊戲！&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -731,7 +769,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="12"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>每夜版本的 DXVK（master 分支），基於 Vulkan 的 Direct3D 9、10 和 11 的 Linux/Wine 實現。&lt;br/&gt;&lt;br/&gt;&lt;b&gt;警告：每夜版本不穩定，請謹慎使用！&lt;/b&gt;</translation>
     </message>
 </context>
 <context>

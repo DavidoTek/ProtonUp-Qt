@@ -10,7 +10,6 @@ CT_LAUNCHERS = ['lutris']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_z1dxvkasync', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.<br/><br/><b>Warning: Use only with singleplayer games!</b>''')
 CT_DESCRIPTION['pl'] = '''Bazująca na Vulkanie implementacja Direct3D 9, 10 i 11 dla Linuksa/Wine z łatką Async od Sporifa.<br/><br/><b>Uwaga: Używaj wyłącznie z grami jednoosobowymi!</b>'''
-CT_DESCRIPTION['zh_TW'] = '''基於 Vulkan 的 Direct3D 9、10 和 11 的 Linux/Wine 實現，帶有 Sporif 的異步補丁。<br/><br/><b>警告：僅用於單人遊戲！</b>'''
 
 
 class CtInstaller(QObject):

@@ -11,7 +11,6 @@ CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_luxtorpeda', '''Luxtorpeda provides Linux-native game engines for specific Windows-only games.''')
 CT_DESCRIPTION['nl'] = '''Luxtorpeda biedt platform-eigen (Linux) game-aandrijvingen voor specifieke Windows-games.'''
 CT_DESCRIPTION['pl'] = '''Luxtorpeda dostarcza natywne Linuksowe silniki gier dla wybanych Windowsowych gier.'''
-CT_DESCRIPTION['zh_TW'] = '''Luxtorpeda 為特定的 Windows 限定遊戲提供 Linux 原生遊戲引擎。'''
 
 
 class CtInstaller(QObject):
