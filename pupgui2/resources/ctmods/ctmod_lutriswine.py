@@ -9,7 +9,6 @@ CT_NAME = 'Lutris-Wine'
 CT_LAUNCHERS = ['lutris', 'bottles']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_lutriswine', '''Compatibility tool "Wine" to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.''')
-CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności "Wine" do uruchamiania Windowsowych gier na Linuksie. Poprawione przez autorów Lutrisa dla lepszej kompatybilności lub wydajności w wybranych grach.'''
 
 
 class CtInstaller(QObject):

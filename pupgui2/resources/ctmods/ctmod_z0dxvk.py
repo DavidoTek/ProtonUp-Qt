@@ -9,7 +9,6 @@ CT_NAME = 'DXVK'
 CT_LAUNCHERS = ['lutris']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_z0dxvk', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md''')
-CT_DESCRIPTION['pl'] = '''Bazująca na Vulkanie implementacja Direct3D 9, 10 i 11 dla Linuksa/Wine.<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md'''
 
 class CtInstaller(QObject):
 

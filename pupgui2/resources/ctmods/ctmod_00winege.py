@@ -9,7 +9,6 @@ CT_NAME = 'Wine-GE'
 CT_LAUNCHERS = ['lutris', 'heroicwine', 'bottles']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_00winege', '''Compatibility tool "Wine" to run Windows games on Linux. Based on Valve Proton Experimental's bleeding-edge Wine, built for Lutris.<br/><br/><b>Use this when you don't know what to choose.</b>''')
-CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności "Wine" do uruchamiania Windowsowych gier na Linuksie. Bazuje na Valve'owym Protonie Experimental bleeding-edge Wine, zbudowane dla Lutrisa.<br/><br/><b>Użyj tego, jeśli nie wiesz co wybrać.</b>'''
 
 
 class CtInstaller(QObject):

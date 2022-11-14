@@ -10,7 +10,6 @@ CT_NAME = 'Proton Tkg'
 CT_LAUNCHERS = ['steam']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_protontkg', '''Custom Proton build for running Windows games, built with the Wine-tkg build system.''')
-CT_DESCRIPTION['pl'] = '''Kompilacja Proton-Tkg do uruchamiania Windowsych gier, zbudowana z Wine-tkg.'''
 
 
 class CtInstaller(QObject):

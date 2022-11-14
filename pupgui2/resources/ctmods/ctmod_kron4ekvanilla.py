@@ -10,7 +10,6 @@ CT_NAME = 'Kron4ek Wine-Builds Vanilla'
 CT_LAUNCHERS = ['lutris']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_kron4ekvanilla', '''Compatibility tool "Wine" to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.''')
-CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności "Wine" do uruchamiania Windowsowych gier na Linuksie. Oficjalna wersja ze źródeł WineHQ, skompilowana przez Kron4ek.'''
 
 
 class CtInstaller(QObject):

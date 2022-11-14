@@ -9,7 +9,6 @@ CT_NAME = 'DXVK (nightly)'
 CT_LAUNCHERS = ['lutris', 'advmode']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_z2dxvknightly', '''Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/><b>Warning: Nightly version is unstable, use with caution!</b>''')
-CT_DESCRIPTION['pl'] = '''Wersja Nightly DXVK, Bazującej na Vulkanie implementacji Direct3D 9, 10 i 11 dla Linuksa/Wine.<br/><br/><b>Uwaga: Wersja Nightly jest niestabilna, używaj ostrożnie!</b>'''
 
 
 class CtInstaller(QObject):

@@ -9,7 +9,6 @@ CT_NAME = 'GE-Proton'
 CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_00protonge', '''Steam compatibility tool for running Windows games with improvements over Valve's default Proton.<br/><br/><b>Use this when you don't know what to choose.</b>''')
-CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności Steam do uruchamiania Windowsowych gier z poprawkami nad Valve'owym domyślnym Protonem.<br/><br/><b>Użyj tego, jeśli nie wiesz co wybrać.</b>'''
 
 
 class CtInstaller(QObject):

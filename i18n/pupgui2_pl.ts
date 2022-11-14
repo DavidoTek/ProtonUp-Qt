@@ -486,7 +486,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="12"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Narzędzie kompatybilności Steam do uruchamiania Windowsowych gier z poprawkami nad Valve&apos;owym domyślnym Protonem.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Użyj tego, jeśli nie wiesz co wybrać.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -494,7 +494,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00winege.py" line="12"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Based on Valve Proton Experimental&apos;s bleeding-edge Wine, built for Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Narzędzie kompatybilności &quot;Wine&quot; do uruchamiania Windowsowych gier na Linuksie. Bazuje na Valve&apos;owym Protonie Experimental bleeding-edge Wine, zbudowane dla Lutrisa.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Użyj tego, jeśli nie wiesz co wybrać.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -502,7 +502,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="14"/>
         <source>Steam Play compatibility tool to run DOS games using native Linux DOSBox.</source>
-        <translation type="unfinished"></translation>
+        <translation>Narzędzie kompatybilności Steam Play do uruchamiania gier DOS poprzez natywny Linuksowy DOSBox.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="104"/>
@@ -535,7 +535,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_kron4ekvanilla.py" line="13"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.</source>
-        <translation type="unfinished"></translation>
+        <translation>Narzędzie kompatybilności &quot;Wine&quot; do uruchamiania Windowsowych gier na Linuksie. Oficjalna wersja ze źródeł WineHQ, skompilowana przez Kron4ek.</translation>
     </message>
 </context>
 <context>
@@ -543,7 +543,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="12"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
-        <translation type="unfinished"></translation>
+        <translation>Narzędzie kompatybilności &quot;Wine&quot; do uruchamiania Windowsowych gier na Linuksie. Poprawione przez autorów Lutrisa dla lepszej kompatybilności lub wydajności w wybranych grach.</translation>
     </message>
 </context>
 <context>
@@ -551,7 +551,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="12"/>
         <source>Luxtorpeda provides Linux-native game engines for specific Windows-only games.</source>
-        <translation type="unfinished"></translation>
+        <translation>Luxtorpeda dostarcza natywne Linuksowe silniki gier dla wybanych Windowsowych gier.</translation>
     </message>
 </context>
 <context>
@@ -559,7 +559,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="13"/>
         <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompilacja Proton-Tkg do uruchamiania Windowsych gier, zbudowana z Wine-tkg.</translation>
     </message>
 </context>
 <context>
@@ -567,7 +567,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="14"/>
         <source>Steam Play compatibility tool to run adventure games using native Linux ScummVM.</source>
-        <translation type="unfinished"></translation>
+        <translation>Narzędzie kompatybilności Steam Play do uruchamiania gier przygodowych poprzez natywny Linuksowy ScummVM.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="104"/>
@@ -715,7 +715,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="12"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazująca na Vulkanie implementacja Direct3D 9, 10 i 11 dla Linuksa/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -723,7 +723,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="12"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Bazująca na Vulkanie implementacja Direct3D 9, 10 i 11 dla Linuksa/Wine z łatką Async od Sporifa.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Uwaga: Używaj wyłącznie z grami jednoosobowymi!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -731,7 +731,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="12"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Wersja Nightly DXVK, Bazującej na Vulkanie implementacji Direct3D 9, 10 i 11 dla Linuksa/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Uwaga: Wersja Nightly jest niestabilna, używaj ostrożnie!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
