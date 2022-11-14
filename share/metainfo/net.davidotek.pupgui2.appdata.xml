@@ -64,6 +64,16 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.7.5" date="2022-11-14">
+      <description>
+        <ul>
+          <li>Many SteamTinkerLaunch improvements, see PR#125 <a href="https://github.com/DavidoTek/ProtonUp-Qt/pull/125">here</a></li>
+          <li>ProtonUp-Qt Flatpak improvements</li>
+          <li>Added Traditional Chinese translation</li>
+          <li>Various small changes to enhance the experience of ProtonUp-Qt</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.7.4" date="2022-09-23">
       <description>
         <p>Added support for installing SteamTinkerLaunch</p>
