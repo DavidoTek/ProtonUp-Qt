@@ -269,7 +269,8 @@ class MainWindow(QObject):
         games_using_tools = 0
         for item in self.ui.listInstalledVersions.selectedItems():
             ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
-            games_using_tools += ct.no_games
+            if ct.no_games > 0:
+                games_using_tools += ct.no_games
             ctools_to_remove.append(ct)
 
         if games_using_tools > 0:
