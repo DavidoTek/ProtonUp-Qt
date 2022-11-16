@@ -9,6 +9,7 @@ import subprocess
 from .datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
 from .constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
 
+from PySide6.QtWidgets import QMessageBox, QApplication
 
 _cached_app_list = []
 _cached_steam_ctool_id_map = None
@@ -307,7 +308,13 @@ def is_steam_running() -> bool:
 get_fish_user_paths = lambda mfile: ([line.strip() for line in mfile.readlines() if 'fish_user_paths' in line] or ['SETUVAR fish_user_paths:\\x1d'])[0].split('fish_user_paths:')[1:][0].split('\\x1e')
 
 
-def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
+def get_external_steamtinkerlaunch_intall(compat_folder):
+
+    symlink_path = os.path.join(compat_folder, 'steamtinkerlaunch')
+    return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and not os.readlink(symlink_path) == os.path.join(STEAM_STL_INSTALL_PATH, 'prefix', 'steamtinkerlaunch') else None
+
+
+def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=None) -> bool:
     """
     Removes SteamTinkerLaunch from system by removing the downloaad, removing from path
     removing config files at `$HOME/.config/steamtinkerlaunch`.
@@ -318,26 +325,58 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
 
     try:
         os.chdir(os.path.expanduser('~'))
-        
+
+        # If the Steam Deck/ProtonUp-Qt installation path doesn't exist
+        # Adding `prefix` to path to be especially sure the user didn't just make an `stl` folder
+        #
+        # STL script is always named `steamtinkerlaunch`    
+        stl_symlink_path = get_external_steamtinkerlaunch_intall(compat_folder)
+
         if os.path.exists(compat_folder):
             print('Removing SteamTinkerLaunch compatibility tool...')
             shutil.rmtree(compat_folder)
             if shutil.which('steamtinkerlaunch'):
                 subprocess.run(['steamtinkerlaunch', 'compat', 'del'])
 
-        if os.path.exists(STEAM_STL_INSTALL_PATH):
-            print('Removing SteamTinkerLaunch installation...')
+        print('Removing SteamTinkerLaunch installation...')
+        if stl_symlink_path:
+            # If STL symlink isn't a regular install, try to remove if we can write to its install folder
+            if os.access(stl_symlink_path, os.W_OK):
+                shutil.rmtree(stl_symlink_path)
+                print('Removed SteamTinkerLaunch installation folder pointed to by symlink')
+            else:
+                # If we can't remove the actual installation folder, tell the user to remove it themselves and continue with the rest of the uninstallation
+                mb_title = QApplication.instance().translate('steamutil.py', 'Unable to Remove SteamTinkerLaunch')
+                mb_text = QApplication.instance().translate(
+                    'steamutil.py',
+                    'Access to SteamTinkerLaunch installation folder at \'{STL_SYMLINK_PATH}\' was denied, please remove this folder manually.\n\nThe uninstallation will continue.'
+                ).format(STL_SYMLINK_PATH=stl_symlink_path)
+                if ctmod_object and hasattr(ctmod_object, 'message_box_message'):
+                    ctmod_object.message_box_message.emit(mb_title, mb_text, QMessageBox.Icon.Warning)
+                else:
+                    mb = QMessageBox()
+                    mb.setWindowTitle(mb_title)
+                    mb.setText(mb_text)
+                    mb.exec()
+
+                print(f'Error: SteamTinkerLaunch is installed to {stl_symlink_path}, ProtonUp-Qt cannot modify this folder. Folder must be removed manually.')
+        elif os.path.exists(STEAM_STL_INSTALL_PATH):
+            # Regular Steam Deck/ProtonUp-Qt installation structure
             if os.path.exists('/.flatpak-info'):
                 if os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')):
                     shutil.rmtree(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix'))
             else:
                 shutil.rmtree(STEAM_STL_INSTALL_PATH)
 
+        # Remove User config folder if the user requested it
         if os.path.exists(STEAM_STL_CONFIG_PATH) and remove_config:
             print('Removing SteamTInkerLaunch configuration folder...')
             shutil.rmtree(STEAM_STL_CONFIG_PATH)
 
-
+        # Remove the STL path modification that ProtonUp-Qt may have added during installation from Shell paths
+        #
+        # Works by getting all the lines in all the hardcoded Shell files that we write out to during installation and
+        # and filtering out any line(s) that reference ProtonUp-Qt, then it writes that updated file content back out to the Shell file
         present_shell_files = [
             os.path.join(os.path.expanduser('~'), f) for f in os.listdir(os.path.expanduser('~')) if os.path.isfile(os.path.join(os.path.expanduser('~'), f)) and f in STEAM_STL_SHELL_FILES
         ]
@@ -345,8 +384,10 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
             present_shell_files.append(STEAM_STL_FISH_VARIABLES)
         
         print('Removing SteamTinkerLaunch from path...')
+
         for shell_file in present_shell_files:
-            with open(shell_file, 'r+') as mfile:                
+            with open(shell_file, 'r+') as mfile:  
+                # Get all Shell file lines that are not the ProtonUp-Qt added STL path lines              
                 mfile_lines = list(filter(lambda l: 'protonup-qt' not in l.lower() and STEAM_STL_INSTALL_PATH.lower() not in l.lower(), [line for line in mfile.readlines()]))
                 if len(mfile_lines) == 0:
                     continue
@@ -359,6 +400,7 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True) -> bool:
                     updated_fish_user_paths = '\\x1e'.join(curr_fish_user_paths)
                     mfile_lines.append(f'SETUVAR fish_user_paths:{updated_fish_user_paths}')
 
+                # Write out changes while preserving Shell file newlines
                 mfile.seek(0)
                 prev_line = ''
                 for line in mfile_lines:

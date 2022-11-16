@@ -10,10 +10,7 @@ from ...util import host_which
 CT_NAME = 'Roberta'
 CT_LAUNCHERS = ['steam']
 CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = '''Steam Play compatibility tool to run adventure games using native Linux ScummVM.'''
-CT_DESCRIPTION['de'] = '''Steam Play Kompatibilitätstool, um Adventuregames mit Linux-nativer ScummVM zu spielen.'''
-CT_DESCRIPTION['nl'] = '''Steam Play-compatibiliteitshulpmiddel voor het spelen van avonturengames met behulp van de Linux-versie van ScummVM.'''
-CT_DESCRIPTION['pl'] = '''Narzędzie kompatybilności Steam Play do uruchamiania gier przygodowych poprzez natywny Linuksowy ScummVM.'''
+CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_roberta', '''Steam Play compatibility tool to run adventure games using native Linux ScummVM.''')
 
 
 class CtInstaller(QObject):
@@ -99,13 +96,18 @@ class CtInstaller(QObject):
         Are the system requirements met?
         Return Type: bool
         """
+        tr_missing = QCoreApplication.instance().translate('ctmod_roberta', 'missing')
+        tr_found = QCoreApplication.instance().translate('ctmod_roberta', 'found')
+        msg_tr_title = QCoreApplication.instance().translate('ctmod_roberta', 'Missing dependencies!')
+
         if host_which('scummvm') and host_which('inotifywait'):
             return True
-        msg = 'You need scummvm and inotify-tools for Roberta.\n\n'
-        msg += 'scummvm: ' + str('missing' if host_which('scummvm') is None else 'found') + '\n'
-        msg += 'inotify-tools: ' + str('missing' if host_which('inotifywait') is None else 'found')
-        msg += '\n\nWill continue installing Roberta anyway.'
-        self.message_box_message.emit('Missing dependencies!', msg, QMessageBox.Warning)
+        msg = QCoreApplication.instance().translate('ctmod_roberta', 'You need scummvm and inotify-tools for Roberta.') + '\n\n'
+        msg += 'scummvm: ' + str(tr_missing if host_which('scummvm') is None else tr_found) + '\n'
+        msg += 'inotify-tools: ' + str(tr_missing if host_which('inotifywait') is None else tr_found)
+        msg += '\n\n' + QCoreApplication.instance().translate('ctmod_roberta', 'Will continue installing Roberta anyway.')
+
+        self.message_box_message.emit(msg_tr_title, msg, QMessageBox.Warning)
         return True  # install Roberta anyway
 
     def fetch_releases(self, count=100):
