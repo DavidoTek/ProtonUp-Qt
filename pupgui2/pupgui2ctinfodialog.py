@@ -53,7 +53,7 @@ class PupguiCtInfoDialog(QObject):
 
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
 
-        self.ui.listGames.cellDoubleClicked.connect(self.list_games_item_double_clicked)
+        self.ui.listGames.cellDoubleClicked.connect(self.list_games_cell_double_clicked)
 
     def update_game_list_steam(self):
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
@@ -64,8 +64,8 @@ class PupguiCtInfoDialog(QObject):
         self.ui.listGames.setRowCount(len(self.games))
         self.ui.listGames.setHorizontalHeaderLabels([self.tr('AppID'), self.tr('Name')])
         for i, game in enumerate(self.games):
-            self.ui.listGames.setItem(i, 0, QTableWidgetItem(self.tr(game.get_app_id_str())))
-            self.ui.listGames.setItem(i, 1, QTableWidgetItem(self.tr(game.game_name)))
+            self.ui.listGames.setItem(i, 0, QTableWidgetItem(game.get_app_id_str()))
+            self.ui.listGames.setItem(i, 1, QTableWidgetItem(game.game_name))
 
         self.batch_update_complete.emit(True)
 
@@ -76,13 +76,13 @@ class PupguiCtInfoDialog(QObject):
             if game.runner == 'wine':
                 cfg = game.get_game_config()
                 if self.ctool.displayname == cfg.get('wine', {}).get('version'):
-                    self.ui.listGames.setItem(i, 0, QTableWidgetItem(self.tr(game.slug)))
-                    self.ui.listGames.setItem(i, 1, QTableWidgetItem(self.tr(game.name)))
+                    self.ui.listGames.setItem(i, 0, QTableWidgetItem(game.slug))
+                    self.ui.listGames.setItem(i, 1, QTableWidgetItem(game.name))
 
     def btn_close_clicked(self):
         self.ui.close()
 
-    def list_games_item_double_clicked(self, row):
+    def list_games_cell_double_clicked(self, row):
         if self.install_loc.get('launcher') == 'steam':
             steam_game_id = str(self.ui.listGames.item(row, 0).text())
             open_webbrowser_thread(STEAM_APP_PAGE_URL + steam_game_id)
