@@ -262,7 +262,7 @@ class CtInstaller(QObject):
 
         with tarfile.open(destination, "r:gz") as tar:
             print('Extracting SteamTinkerLaunch...')
-            if os.path.exists(constants.STEAM_STL_INSTALL_PATH):
+            if os.path.exists(constants.STEAM_STL_INSTALL_PATH) and len(os.listdir(constants.STEAM_STL_INSTALL_PATH)) > 0:
                 has_existing_install = True  # This will also be True for users who installed normally on Steam Deck, but not sure how to differentiate between PUPQT and manual Steam Deck installs
                 remove_steamtinkerlaunch(remove_config=False, ctmod_object=self)
             
