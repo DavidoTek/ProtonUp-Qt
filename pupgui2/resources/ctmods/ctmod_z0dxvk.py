@@ -82,7 +82,7 @@ class CtInstaller(QObject):
 
         values = {'version': data['tag_name'], 'date': data['published_at'].split('T')[0]}
         for asset in data['assets']:
-            if asset['name'].endswith('tar.gz'):
+            if asset['name'].endswith('tar.gz') and 'native' not in asset['name']:
                 values['download'] = asset['browser_download_url']
                 values['size'] = asset['size']
         return values
