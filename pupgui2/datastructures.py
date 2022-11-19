@@ -136,8 +136,15 @@ class LutrisGame:
     def get_game_config(self):
         lutris_config_dir = self.install_loc.get('config_dir')
         if not lutris_config_dir:
+            print('no config dir')
             return {}
-        fn = str(self.installer_slug) + '-' + str(self.installed_at) + '.yml'
+
+        fn = ''
+        for lutris_cfg in os.listdir(os.path.join(os.path.expanduser(lutris_config_dir), 'games')):
+            if self.slug in lutris_cfg or str(self.installer_slug) in lutris_cfg:
+                fn = lutris_cfg
+                break
+
         lutris_game_cfg = os.path.join(os.path.expanduser(lutris_config_dir), 'games', fn)
         if not os.path.exists(lutris_game_cfg):
             return {}
