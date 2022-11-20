@@ -141,7 +141,7 @@ class LutrisGame:
 
         fn = ''
         for lutris_cfg in os.listdir(os.path.join(os.path.expanduser(lutris_config_dir), 'games')):
-            if self.slug in lutris_cfg or str(self.installer_slug) in lutris_cfg:
+            if str(self.installer_slug) in lutris_cfg or self.slug in lutris_cfg:
                 fn = lutris_cfg
                 break
 
