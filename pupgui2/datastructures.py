@@ -136,14 +136,19 @@ class LutrisGame:
     def get_game_config(self):
         lutris_config_dir = self.install_loc.get('config_dir')
         if not lutris_config_dir:
-            print('no config dir')
             return {}
-
+    
+        # search a *.yml game configuration file that contains either the install_slug+installed_at or, if not found, the game slug
         fn = ''
-        for lutris_cfg in os.listdir(os.path.join(os.path.expanduser(lutris_config_dir), 'games')):
-            if str(self.installer_slug) in lutris_cfg or self.slug in lutris_cfg:
-                fn = lutris_cfg
+        for game_cfg_file in os.listdir(os.path.join(os.path.expanduser(lutris_config_dir), 'games')):
+            if str(self.installer_slug) in game_cfg_file and str(self.installed_at) in game_cfg_file:
+                fn = game_cfg_file
                 break
+        else:
+            for game_cfg_file in os.listdir(os.path.join(os.path.expanduser(lutris_config_dir), 'games')):
+                if self.slug in game_cfg_file:
+                    fn = game_cfg_file
+                    break
 
         lutris_game_cfg = os.path.join(os.path.expanduser(lutris_config_dir), 'games', fn)
         if not os.path.exists(lutris_game_cfg):
