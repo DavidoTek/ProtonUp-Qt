@@ -64,6 +64,17 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.7.6" date="2022-11-21">
+      <description>
+        <ul>
+          <li>Fixed downloading DXVK 2.0 for Lutris</li>
+          <li>Improvements when installing STL using the ProtonUp-Qt Flatpak</li>
+          <li>Reworked the Info dialog</li>
+          <li>Improved the Lutris game detection</li>
+        </ul>
+        <p>Thanks also go to sonic2kk!</p>
+      </description>
+    </release>
     <release version="2.7.5" date="2022-11-14">
       <description>
         <ul>
