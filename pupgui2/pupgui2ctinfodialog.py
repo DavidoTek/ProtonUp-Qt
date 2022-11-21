@@ -71,13 +71,15 @@ class PupguiCtInfoDialog(QObject):
 
     def update_game_list_lutris(self):
         self.ui.listGames.clear()
+
+        lutris_games = [game for game in get_lutris_game_list(self.install_loc) if game.runner == 'wine' and game.get_game_config().get('wine', {}).get('version') == self.ctool.displayname]
+
+        self.ui.listGames.setRowCount(len(lutris_games))
         self.ui.listGames.setHorizontalHeaderLabels([self.tr('Slug'), self.tr('Name')])
-        for i, game in enumerate(get_lutris_game_list(self.install_loc)):
-            if game.runner == 'wine':
-                cfg = game.get_game_config()
-                if self.ctool.displayname == cfg.get('wine', {}).get('version'):
-                    self.ui.listGames.setItem(i, 0, QTableWidgetItem(game.slug))
-                    self.ui.listGames.setItem(i, 1, QTableWidgetItem(game.name))
+        self.ui.txtNumGamesUsingTool.setText(str(len(lutris_games)))
+        for i, game in enumerate(lutris_games):
+            self.ui.listGames.setItem(i, 0, QTableWidgetItem(game.slug))
+            self.ui.listGames.setItem(i, 1, QTableWidgetItem(game.name))
 
     def btn_close_clicked(self):
         self.ui.close()
