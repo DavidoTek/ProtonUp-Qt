@@ -31,7 +31,7 @@ class PupguiAboutDialog(QObject):
         self.ui = loader.load(ui_file.device())
 
     def setup_ui(self):
-        self.ui.setWindowTitle(APP_NAME + ' ' + APP_VERSION)
+        self.ui.setWindowTitle(f'{APP_NAME} {APP_VERSION}')
 
         translator_text = QApplication.instance().translate('translator-text', 'Translated by DavidoTek')
 
@@ -87,7 +87,7 @@ class PupguiAboutDialog(QObject):
         open_webbrowser_thread(PROTONUPQT_GITHUB_URL)
 
     def btn_check_for_updates_clicked(self):
-        releases = requests.get(APP_GHAPI_URL + '?per_page=1').json()
+        releases = requests.get(f'{APP_GHAPI_URL}?per_page=1').json()
         if len(releases) == 0:
             return
         newest_release = releases[0]
@@ -96,7 +96,7 @@ class PupguiAboutDialog(QObject):
         if (10000 * int(v_current[0]) + 100 * int(v_current[1]) + int(v_current[2])) < (10000 * int(v_newest[0]) + 100 * int(v_newest[1]) + int(v_newest[2])):
             QMessageBox.information(self.ui, self.tr('Update available'),
             self.tr('There is a newer version available.\nYou are running {APP_VERSION} but {newest_version} is available.')
-            .format(APP_VERSION='v' + APP_VERSION, newest_version=newest_release['tag_name']))
+            .format(APP_VERSION=f'v{APP_VERSION}', newest_version=newest_release['tag_name']))
             open_webbrowser_thread(newest_release['html_url'])
         else:
             QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))

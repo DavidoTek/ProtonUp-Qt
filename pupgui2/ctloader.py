@@ -21,7 +21,7 @@ class CtLoader:
         for _, mod, _ in pkgutil.iter_modules(ctmods.__path__):
             if mod.startswith('ctmod_'):
                 try:
-                    ctmod = importlib.import_module('pupgui2.resources.ctmods.' + mod)
+                    ctmod = importlib.import_module(f'pupgui2.resources.ctmods.{mod}')
                     if ctmod is None:
                         print('Could not load ctmod', mod)
                         continue

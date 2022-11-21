@@ -112,7 +112,7 @@ def create_compatibilitytools_folder() -> None:
             try:
                 os.mkdir(install_dir)
             except Exception as e:
-                print('Error trying to create compatibility tools folder ' + str(install_dir) + ': ' + str(e))
+                print(f'Error trying to create compatibility tools folder {str(install_dir)}: {str(e)}')
 
 
 def available_install_directories() -> List[str]:
@@ -218,25 +218,25 @@ def config_custom_install_location(install_dir=None, launcher='') -> Dict[str, s
 
 
 def list_installed_ctools(install_dir: str, without_version=False) -> List[str]:
-        """
+    """
         List installed compatibility tool versions
         Returns the name of the tool and the version from VERSION.txt if without_version=False
         Return Type: List[str]
         """
-        versions_found = []
+    versions_found = []
 
-        if os.path.exists(install_dir):
-            folders = os.listdir(install_dir)
-            for folder in folders:
-                ver_file = os.path.join(install_dir, folder, 'VERSION.txt')
-                if os.path.exists(ver_file) and not without_version:
-                    with open(ver_file, 'r') as f:
-                        ver = f.read()
-                    versions_found.append(folder + ' - ' + ver.strip())
-                else:
-                    versions_found.append(folder)
+    if os.path.exists(install_dir):
+        folders = os.listdir(install_dir)
+        for folder in folders:
+            ver_file = os.path.join(install_dir, folder, 'VERSION.txt')
+            if os.path.exists(ver_file) and not without_version:
+                with open(ver_file, 'r') as f:
+                    ver = f.read()
+                versions_found.append(f'{folder} - {ver.strip()}')
+            else:
+                versions_found.append(folder)
 
-        return versions_found
+    return versions_found
 
 
 def remove_ctool(ver: str, install_dir: str) -> bool:
@@ -303,7 +303,7 @@ def open_webbrowser_thread(url: str) -> None:
         t = threading.Thread(target=webbrowser.open, args=[url])
         t.start()
     except:
-        print('Could not open webbrowser url ' + str(url))
+        print(f'Could not open webbrowser url {url}')
 
 
 def print_system_information() -> None:
@@ -311,7 +311,7 @@ def print_system_information() -> None:
     Print system information like Python/Qt/OS version to the console
     """
     ver_info = 'Python ' + sys.version.replace('\n', '')
-    ver_info += ', PySide ' + PySide6.__version__ + '\n'
+    ver_info += f', PySide {PySide6.__version__}' + '\n'
     ver_info += 'Platform: '
     try:
         f = open('/etc/lsb-release')

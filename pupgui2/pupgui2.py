@@ -136,7 +136,7 @@ class MainWindow(QObject):
         self.ui.btnRemoveSelected.setEnabled(False)
         self.ui.btnShowCtInfo.setEnabled(False)
 
-        self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
+        self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
 
         self.giw = GamepadInputWorker()
         if os.getenv('PUPGUI2_DISABLE_GAMEPAD', '0') == '0':
@@ -198,7 +198,7 @@ class MainWindow(QObject):
 
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
-            self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
+            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
             self.progressBarDownload.setVisible(False)
             self.ui.comboInstallLocation.setEnabled(True)
 
@@ -227,7 +227,7 @@ class MainWindow(QObject):
         if value:
             self.ui.statusBar().showMessage(self.tr('Fetching releases...'))
         else:
-            self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
+            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
 
     def set_download_progress_percent(self, value):
         """ set download progress bar value and update status bar text """
@@ -364,9 +364,9 @@ class MainWindow(QObject):
         layout1.addWidget(btn_dl_boxtron)
         layout1.addWidget(btn_dl_stl)
         iftdialog.setLayout(layout1)
-        btn_dl_protonge.clicked.connect(lambda: os.system('xdg-open ' + STEAM_PROTONGE_FLATPAK_APPSTREAM))
-        btn_dl_boxtron.clicked.connect(lambda: os.system('xdg-open ' + STEAM_BOXTRON_FLATPAK_APPSTREAM))
-        btn_dl_stl.clicked.connect(lambda: os.system('xdg-open ' + STEAM_STL_FLATPAK_APPSTREAM))
+        btn_dl_protonge.clicked.connect(lambda: os.system(f'xdg-open {STEAM_PROTONGE_FLATPAK_APPSTREAM}'))
+        btn_dl_boxtron.clicked.connect(lambda: os.system(f'xdg-open {STEAM_BOXTRON_FLATPAK_APPSTREAM}'))
+        btn_dl_stl.clicked.connect(lambda: os.system(f'xdg-open {STEAM_STL_FLATPAK_APPSTREAM}'))
         iftdialog.show()
 
     def press_virtual_key(self, key, mod):
@@ -467,7 +467,7 @@ def main():
 
     ldata = None
     try:
-        ldata = pkgutil.get_data(__name__, 'resources/i18n/pupgui2_' + lname + '.qm')  # Example: pupgui2_zh_TW.qm
+        ldata = pkgutil.get_data(__name__, f'resources/i18n/pupgui2_{lname}.qm')  # Example: pupgui2_zh_TW.qm
     except:
         pass
     finally:
