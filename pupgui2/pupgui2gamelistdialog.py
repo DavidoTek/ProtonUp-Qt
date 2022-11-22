@@ -71,8 +71,7 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setRowCount(len(games))
 
         game_id_table_lables = []
-        i = 0
-        for game in games:
+        for i, game in enumerate(games):
             self.ui.tableGames.setCellWidget(i, 0, QLabel(game.game_name))
 
             combo = QComboBox()
@@ -134,7 +133,6 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setCellWidget(i, 3, lblicon)
 
             game_id_table_lables.append(game.app_id)
-            i += 1
         self.ui.tableGames.setVerticalHeaderLabels(game_id_table_lables)
 
     def update_game_list_lutris(self):
@@ -143,10 +141,8 @@ class PupguiGameListDialog(QObject):
 
         self.ui.tableGames.setRowCount(len(games))
 
-        i = 0
-        for game in games:
+        for i, game in enumerate(games):
             self.ui.tableGames.setCellWidget(i, 0, QLabel(game.name))
-            i += 1
 
     def btn_apply_clicked(self):
         self.update_queued_ctools_steam()

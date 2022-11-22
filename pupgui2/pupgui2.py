@@ -154,9 +154,8 @@ class MainWindow(QObject):
         self.ui.comboInstallLocation.clear()
         self.combo_install_location_index_map = []
 
-        i = 0
         current_install_dir = install_directory()
-        for install_dir in available_install_directories():
+        for i, install_dir in enumerate(available_install_directories()):
             icon_name = get_install_location_from_directory_name(install_dir).get('icon')
             display_name = get_install_location_from_directory_name(install_dir).get('display_name')
             if display_name and not display_name == '':
@@ -166,7 +165,6 @@ class MainWindow(QObject):
             self.combo_install_location_index_map.append(install_dir)
             if current_install_dir == install_dir:
                 self.ui.comboInstallLocation.setCurrentIndex(i)
-            i += 1
 
         self.updating_combo_install_location = False
 

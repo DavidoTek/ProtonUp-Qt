@@ -267,9 +267,7 @@ def sort_compatibility_tool_names(unsorted: List[str], reverse=False) -> List[st
     """
     unsorted = sorted(unsorted)
     ver_dict = {}
-    i = 0
-    for ver in unsorted:
-        i += 1
+    for i, ver in enumerate(unsorted, start=1):
         if ver.startswith('GE-Proton'):
             ver_dict[100+i] = ver
         elif 'SteamTinkerLaunch' in ver:
