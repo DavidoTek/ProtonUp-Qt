@@ -199,11 +199,10 @@ def update_steamapp_awacystatus(steamapp_list: List[SteamApp]) -> List[SteamApp]
         return steamapp_list
 
     try:
-        f = open(LOCAL_AWACY_GAME_LIST, 'r')
-        gm = {}
-        for g in json.load(f):
-            gm[g.get('name')] = g.get('status')
-        f.close()
+        with open(LOCAL_AWACY_GAME_LIST, 'r') as f:
+            gm = {}
+            for g in json.load(f):
+                gm[g.get('name')] = g.get('status')
 
         for app in steamapp_list:
             if app.game_name != '' and app.game_name in gm:

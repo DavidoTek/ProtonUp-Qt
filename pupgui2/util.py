@@ -314,10 +314,9 @@ def print_system_information() -> None:
     ver_info += f', PySide {PySide6.__version__}' + '\n'
     ver_info += 'Platform: '
     try:
-        f = open('/etc/lsb-release')
-        l = f.readlines()
-        ver_info += l[0].strip().split('=')[1] + ' ' + l[1].strip().split('=')[1] + ' '
-        f.close()
+        with open('/etc/lsb-release') as f:
+            l = f.readlines()
+            ver_info += l[0].strip().split('=')[1] + ' ' + l[1].strip().split('=')[1] + ' '
     except:
         pass
     ver_info += str(platform.platform())
@@ -331,21 +330,18 @@ def single_instance() -> bool:
     """
     lockfile = os.path.join(TEMP_DIR, 'lockfile')
     if os.path.exists(lockfile):
-        f = open(lockfile, 'r')
-        pid = f.readline().strip()
-        f.close()
+        with open(lockfile, 'r') as f:
+            pid = f.readline().strip()
         cmdline_file = os.path.join('/proc/', pid, 'cmdline')
         if os.path.exists(cmdline_file):
-            f = open(cmdline_file, 'r')
-            cmdline = f.read()
-            f.close()
+            with open(cmdline_file, 'r') as f:
+                cmdline = f.read()
             if 'pupgui2' in cmdline and int(pid) != os.getpid():
                 return False
     try:
         os.mkdir(TEMP_DIR)
-        f = open(lockfile, 'w')
-        f.write(str(os.getpid()))
-        f.close()
+        with open(lockfile, 'w') as f:
+            f.write(str(os.getpid()))
     except:
         pass
     return True
