@@ -45,14 +45,12 @@ def apply_dark_theme(app: QApplication) -> None:
                     darkmode_enabled = True
         except:
             pass
-        if not is_plasma and darkmode_enabled:
+        if not is_plasma:
             app.setStyle('Fusion')
-            app.setPalette(PALETTE_DARK())
-        elif is_plasma:
-            pass
-        else:
-            app.setStyle('Fusion')
-            app.setPalette(QStyleFactory.create('fusion').standardPalette())
+            if darkmode_enabled:
+                app.setPalette(PALETTE_DARK())
+            else:
+                app.setPalette(QStyleFactory.create('fusion').standardPalette())
 
 def config_theme(theme=None) -> str:
     """
@@ -283,9 +281,7 @@ def sort_compatibility_tool_names(unsorted: List[str], reverse=False) -> List[st
         else:
             ver_dict[i] = ver
 
-    sorted_vers = []
-    for v in sorted(ver_dict):
-        sorted_vers.append(ver_dict[v])
+    sorted_vers = [ver_dict[v] for v in sorted(ver_dict)]
 
     if reverse:
         sorted_vers.reverse()
@@ -384,12 +380,10 @@ def get_installed_ctools(install_dir: str) -> List[BasicCompatTool]:
     return ctools
 
 def host_which(name: str) -> str:
-        """
-        Runs 'which <name>' on the host system (either normal or using 'flatpak-spawn --host' when inside Flatpak)
-        Return Type: str
-        """
-        proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
-        which = subprocess.run(proc_prefix + ['which', name], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip()
-        if which == '':
-            return None
-        return which
+    """
+    Runs 'which <name>' on the host system (either normal or using 'flatpak-spawn --host' when inside Flatpak)
+    Return Type: str
+    """
+    proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
+    which = subprocess.run(proc_prefix + ['which', name], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip()
+    return None if which == '' else which

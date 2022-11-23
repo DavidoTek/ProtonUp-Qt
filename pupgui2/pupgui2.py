@@ -78,8 +78,7 @@ class MainWindow(QObject):
         super(MainWindow, self).__init__()
 
         self.rs = requests.Session()
-        token = os.getenv('PUPGUI_GHA_TOKEN')
-        if token:
+        if token := os.getenv('PUPGUI_GHA_TOKEN'):
             self.rs.headers.update({'Authorization': f'token {token}'})
         self.ct_loader = ctloader.CtLoader(main_window=self)
 
@@ -158,8 +157,8 @@ class MainWindow(QObject):
         for i, install_dir in enumerate(available_install_directories()):
             icon_name = get_install_location_from_directory_name(install_dir).get('icon')
             display_name = get_install_location_from_directory_name(install_dir).get('display_name')
-            if display_name and not display_name == '':
-                self.ui.comboInstallLocation.addItem(QIcon.fromTheme(icon_name), display_name + ' (' + install_dir + ')')
+            if display_name and display_name != '':
+                self.ui.comboInstallLocation.addItem(QIcon.fromTheme(icon_name), f'{display_name} ({install_dir})')
             else:
                 self.ui.comboInstallLocation.addItem(install_dir)
             self.combo_install_location_index_map.append(install_dir)
@@ -179,8 +178,8 @@ class MainWindow(QObject):
         if install_loc.get('launcher') == 'lutris':
             dxvk_dir = os.path.join(install_directory(), '../../runtime/dxvk')
             for ct in get_installed_ctools(dxvk_dir):
-                if not 'dxvk' in ct.get_displayname().lower():
-                    ct.displayname = 'DXVK ' + ct.displayname
+                if 'dxvk' not in ct.get_displayname().lower():
+                    ct.displayname = f'DXVK {ct.displayname}'
                 self.compat_tool_index_map.append(ct)
 
         # Launcher specific (Steam): Number of games using the compatibility tool
@@ -335,7 +334,7 @@ class MainWindow(QObject):
         # Compatibility tools and runtimes installed by Steam (steamapps) cannot be removed
         for item in self.ui.listInstalledVersions.selectedItems():
             ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
-            if ct.ct_type == CTType.STEAM_CT or ct.ct_type == CTType.STEAM_RT:
+            if ct.ct_type in [CTType.STEAM_CT, CTType.STEAM_RT]:
                 self.ui.btnRemoveSelected.setEnabled(False)
                 break
 
@@ -378,10 +377,7 @@ class MainWindow(QObject):
         """ Cancel a compatibility tool download """
         if len(self.pending_downloads) == 0:
             return
-        if cancel_all:
-            self.pending_downloads = []
-        else:
-            self.pending_downloads = self.pending_downloads[1:]
+        self.pending_downloads = [] if cancel_all else self.pending_downloads[1:]
         for ctobj in self.ct_loader.get_ctobjs():
             ctobj['installer'].download_canceled = True
         self.update_ui()
@@ -473,9 +469,9 @@ def main():
         if translator.load(ldata):
             app.installTranslator(translator)
 
-    if ldata == None:
+    if ldata is None:
         try:
-            ldata = pkgutil.get_data(__name__, 'resources/i18n/pupgui2_' + lang + '.qm')  # Example: pupgui2_de.qm
+            ldata = pkgutil.get_data(__name__, f'resources/i18n/pupgui2_{lang}.qm')
         except:
             pass
         finally:

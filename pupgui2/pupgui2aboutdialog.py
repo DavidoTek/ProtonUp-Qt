@@ -64,7 +64,7 @@ class PupguiAboutDialog(QObject):
         self.ui.btnCheckForUpdates.clicked.connect(self.btn_check_for_updates_clicked)
         self.ui.comboColorTheme.currentIndexChanged.connect(self.combo_color_theme_current_index_changed)
 
-        self.ui.checkAdvancedMode.setChecked(True if config_advanced_mode() == 'enabled' else False)
+        self.ui.checkAdvancedMode.setChecked(config_advanced_mode() == 'enabled')
         self.ui.checkAdvancedMode.stateChanged.connect(self.check_advanced_mode_state_changed)
 
         if os.getenv('APPIMAGE') is None:
@@ -111,6 +111,4 @@ class PupguiAboutDialog(QObject):
         """
         tag_name = tag_name.replace('v', '')
         vers = tag_name.split('.')
-        if len(vers) != 3:
-            return [0, 0, 0]
-        return vers
+        return [0, 0, 0] if len(vers) != 3 else vers

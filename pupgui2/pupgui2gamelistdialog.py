@@ -65,8 +65,7 @@ class PupguiGameListDialog(QObject):
         """ update the game list for the Steam launcher """
         games = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'))
         ctools = [c if c != 'SteamTinkerLaunch' else 'Proton-stl' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True) ]
-        for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir')):
-            ctools.append(t.ctool_name)
+        ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir')))
 
         self.ui.tableGames.setRowCount(len(games))
 
@@ -150,7 +149,7 @@ class PupguiGameListDialog(QObject):
 
     def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
         """ add compatibility tool changes to queue (Steam) """
-        if ctool_name == '-' or ctool_name == '':
+        if ctool_name in {'-', ''}:
             ctool_name = None
         self.queued_changes[game] = ctool_name
 
