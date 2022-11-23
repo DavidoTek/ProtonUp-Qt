@@ -9,8 +9,7 @@ from ...util import host_which
 
 CT_NAME = 'Boxtron'
 CT_LAUNCHERS = ['steam']
-CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_boxtron', '''Steam Play compatibility tool to run DOS games using native Linux DOSBox.''')
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_boxtron', '''Steam Play compatibility tool to run DOS games using native Linux DOSBox.''')}
 
 
 class CtInstaller(QObject):
@@ -26,7 +25,7 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs if main_window.rs else requests.Session()
+        self.rs = main_window.rs or requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -117,11 +116,7 @@ class CtInstaller(QObject):
         List available releases
         Return Type: str[]
         """
-        tags = []
-        for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json():
-            if 'tag_name' in release:
-                tags.append(release['tag_name'])
-        return tags
+        return [release['tag_name'] for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json() if 'tag_name' in release]
 
     def get_tool(self, version, install_dir, temp_dir):
         """

@@ -7,8 +7,7 @@ from PySide6.QtCore import *
 
 CT_NAME = 'Lutris-Wine'
 CT_LAUNCHERS = ['lutris', 'bottles']
-CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_lutriswine', '''Compatibility tool "Wine" to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.''')
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_lutriswine', '''Compatibility tool "Wine" to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.''')}
 
 
 class CtInstaller(QObject):
@@ -23,7 +22,7 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs if main_window.rs else requests.Session()
+        self.rs = main_window.rs or requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -117,10 +116,10 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
         tags = []
-        for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json():
+        for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json():
             if 'tag_name' in release:
-                tags.append(release['tag_name'])
-                tags.append(release['tag_name'].replace('lutris-', 'lutris-fshack-'))
+                tags.extend((release['tag_name'], release['tag_name'].replace('lutris-', 'lutris-fshack-')))
+
         return tags
 
     def get_tool(self, version, install_dir, temp_dir):
@@ -138,8 +137,8 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        protondir = install_dir + 'wine-' + data['version'].lower() + '-x86_64'
-        checksum_dir = protondir + '/sha512sum'
+        protondir = f'{install_dir}wine-{data["version"].lower()}-x86_64'
+        checksum_dir = f'{protondir}/sha512sum'
         source_checksum = self.rs.get(data['checksum']).text if 'checksum' in data else None
         local_checksum = open(checksum_dir).read() if os.path.exists(checksum_dir) else None
 

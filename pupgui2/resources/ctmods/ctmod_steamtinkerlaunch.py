@@ -12,8 +12,7 @@ from ...datastructures import MsgBoxType, MsgBoxResult
 
 CT_NAME = 'SteamTinkerLaunch'
 CT_LAUNCHERS = ['steam', 'native-only']
-CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', '''
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', '''
 Linux wrapper tool for use with the Steam client which allows for easy graphical configuration of game tools for Proton and native Linux games.
 <br/><br/>
 On <b>Steam Deck</b>, relevant dependencies will be installed for you. If you are not on Steam Deck, <b>ensure you have the following dependencies installed</b>:
@@ -34,7 +33,7 @@ On <b>Steam Deck</b>, relevant dependencies will be installed for you. If you ar
 More information is available on the SteamTinkerLaunch Installation wiki page.
 <br/><br/>
 SteamTinkerLaunch has a number of <b>Optional Dependencies</b> which have to be installed separately for extra functionality. Please see the Optional Dependencies section
-of the SteamTinkerLaunch Installation guide on its GitHub page..''')
+of the SteamTinkerLaunch Installation guide on its GitHub page..''')}
 
 
 class CtInstaller(QObject):
@@ -56,7 +55,7 @@ class CtInstaller(QObject):
         self.p_download_canceled = False
         self.remove_existing_installation = False
         self.main_window = main_window
-        self.rs = main_window.rs if main_window.rs else requests.Session()
+        self.rs = main_window.rs or requests.Session()
         self.allow_git = allow_git
         proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
         self.distinfo = subprocess.run(proc_prefix + ['cat', '/etc/lsb-release'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().lower()
@@ -122,17 +121,14 @@ class CtInstaller(QObject):
             'version', 'download'
         """
         if self.allow_git:
-            values = { 'version': tag, 'download': f'https://github.com/sonic2kk/steamtinkerlaunch/archive/{tag}.tar.gz'}
-        else:
-            url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
-            data = self.rs.get(url).json()
-            if 'tag_name' not in data:
-                return None
+            return {'version': tag, 'download': f'https://github.com/sonic2kk/steamtinkerlaunch/archive/{tag}.tar.gz'}
 
-            values = {'version': data['tag_name']}
-            values['download'] = data['tarball_url'] if 'tarball_url' in data else None
-            
-        return values
+        url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
+        data = self.rs.get(url).json()
+        if 'tag_name' not in data:
+            return None
+
+        return {'version': data['tag_name'], 'download': data['tarball_url'] if 'tarball_url' in data else None}
 
     def __stl_config_change_language(self, stl_cfg_path: str, lang_file: str) -> bool:
         """
@@ -168,7 +164,7 @@ class CtInstaller(QObject):
         if yad_exe:
             try:
                 yad_vers = subprocess.run(proc_prefix + ['yad', '--version'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().split(' ')[0].split('.')
-                yad_ver = float(yad_vers[0] + '.' + yad_vers[1])
+                yad_ver = float(f'{yad_vers[0]}.{yad_vers[1]}')
             except Exception as e:
                 print('STL is_system_compatible Could not parse yad version:', e)
                 yad_ver = 0.0
@@ -193,7 +189,7 @@ class CtInstaller(QObject):
         if all(deps_met.values()):
             return True
         msg = QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'You have several unmet dependencies for SteamTinkerLaunch.\n\n')
-        msg += '\n'.join([ f'{dep_name}: {("missing" if not is_dep_met else "found")}' for (dep_name, is_dep_met) in deps_met.items()])
+        msg += '\n'.join([f'{dep_name}: {"found" if is_dep_met else "missing"}' for (dep_name, is_dep_met) in deps_met.items()])
         msg += QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', '\n\nInstallation will be cancelled.')
         self.message_box_message.emit(QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'Missing dependencies!'), msg, QMessageBox.Warning)
 
@@ -205,10 +201,10 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
         main_branch = 'master'
-        branches = [branch['name'] for branch in self.rs.get(self.CT_BRANCHES_URL).json()] if self.allow_git else [release['tag_name'] for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json()]
+        branches = [branch['name'] for branch in self.rs.get(self.CT_BRANCHES_URL).json()] if self.allow_git else [release['tag_name'] for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()]
         if self.allow_git and main_branch in branches:
             branches.insert(0, branches.pop(branches.index(main_branch)))  # Force main branch to top of list
-        
+
         return branches
 
     def get_tool(self, version, install_dir, temp_dir):
@@ -405,4 +401,4 @@ class CtInstaller(QObject):
         Return Type: str
         """
 
-        return self.CT_INFO_URL + version if not self.allow_git else self.CT_GH_URL    
+        return self.CT_GH_URL if self.allow_git else self.CT_INFO_URL + version    

@@ -7,8 +7,7 @@ from PySide6.QtCore import *
 
 CT_NAME = 'DXVK Async'
 CT_LAUNCHERS = ['lutris']
-CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_z1dxvkasync', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.<br/><br/><b>Warning: Use only with singleplayer games!</b>''')
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z1dxvkasync', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.<br/><br/><b>Warning: Use only with singleplayer games!</b>''')}
 
 
 class CtInstaller(QObject):
@@ -23,7 +22,7 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs if main_window.rs else requests.Session()
+        self.rs = main_window.rs or requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -100,11 +99,7 @@ class CtInstaller(QObject):
         List available releases
         Return Type: str[]
         """
-        tags = []
-        for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json():
-            if 'tag_name' in release:
-                tags.append(release['tag_name'])
-        return tags
+        return [release['tag_name'] for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json() if 'tag_name' in release]
 
     def get_tool(self, version, install_dir, temp_dir):
         """
@@ -125,8 +120,8 @@ class CtInstaller(QObject):
         if not self.__download(url=data['download'], destination=destination):
             return False
 
-        if os.path.exists(dxvk_dir + 'dxvk-async-' + data['version'].lower()):
-            shutil.rmtree(dxvk_dir + 'dxvk-async-' + data['version'].lower())
+        if os.path.exists(f'{dxvk_dir}dxvk-async-{data["version"].lower()}'):
+            shutil.rmtree(f'{dxvk_dir}dxvk-async-{data["version"].lower()}')
         tarfile.open(destination, "r:gz").extractall(dxvk_dir)
 
         self.__set_download_progress_percent(100)

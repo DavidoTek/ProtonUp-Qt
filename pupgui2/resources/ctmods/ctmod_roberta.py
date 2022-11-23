@@ -9,8 +9,7 @@ from ...util import host_which
 
 CT_NAME = 'Roberta'
 CT_LAUNCHERS = ['steam']
-CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_roberta', '''Steam Play compatibility tool to run adventure games using native Linux ScummVM.''')
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_roberta', '''Steam Play compatibility tool to run adventure games using native Linux ScummVM.''')}
 
 
 class CtInstaller(QObject):
@@ -26,7 +25,7 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs if main_window.rs else requests.Session()
+        self.rs = main_window.rs or requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -115,11 +114,7 @@ class CtInstaller(QObject):
         List available releases
         Return Type: str[]
         """
-        tags = []
-        for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json():
-            if 'tag_name' in release:
-                tags.append(release['tag_name'])
-        return tags
+        return [release['tag_name'] for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json() if 'tag_name' in release]
 
     def get_tool(self, version, install_dir, temp_dir):
         """
@@ -131,7 +126,7 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        protondir = install_dir + 'roberta'
+        protondir = f'{install_dir}roberta'
 
         destination = temp_dir
         destination += data['download'].split('/')[-1]
