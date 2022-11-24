@@ -2,10 +2,8 @@
 # vkd3d-lutris for Lutris: https://github.com/lutris/vkd3d/
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests, tempfile
-import zstandard
+import os, shutil, tarfile, requests
 
-from pathlib import Path
 from PySide6.QtCore import *
 
 CT_NAME = 'vkd3d-lutris'
@@ -120,16 +118,14 @@ class CtInstaller(QObject):
 
         vkd3d_dir = os.path.join(install_dir, '../../runtime/vkd3d')
 
-        destination = temp_dir
-        destination += data['download'].split('/')[-1]
-        destination = destination
+        temp_download = os.path.join(temp_dir, data['download'].split('/')[-1])
 
-        if not self.__download(url=data['download'], destination=destination):
+        if not self.__download(url=data['download'], destination=temp_download):
             return False
 
         if os.path.exists(vkd3d_dir + 'vkd3d-' + data['version'].lower()):
             shutil.rmtree(vkd3d_dir + 'vkd3d-' + data['version'].lower())
-        tarfile.open(destination, "r:xz").extractall(vkd3d_dir)        
+        tarfile.open(temp_download, "r:xz").extractall(vkd3d_dir)        
 
         self.__set_download_progress_percent(100)
 
