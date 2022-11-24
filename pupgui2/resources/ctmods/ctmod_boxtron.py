@@ -128,7 +128,7 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        protondir = install_dir + 'boxtron'
+        protondir = f'{install_dir}boxtron'
 
         destination = temp_dir
         destination += data['download'].split('/')[-1]
