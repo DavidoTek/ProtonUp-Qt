@@ -2,11 +2,11 @@
 # vkd3d-proton for Lutris: https://github.com/HansKristian-Work/vkd3d-proton/
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests, tempfile
+import os, shutil, tarfile, requests
 import zstandard
 
-from pathlib import Path
 from PySide6.QtCore import *
+
 
 CT_NAME = 'vkd3d-proton'
 CT_LAUNCHERS = ['lutris']
@@ -118,32 +118,26 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        vkd3d_dir = os.path.join(install_dir, '../../runtime/vkd3d')
+        vkd3d_dir = os.path.abspath(os.path.join(install_dir, '../../runtime/vkd3d'))
 
-        destination = temp_dir
-        destination += data['download'].split('/')[-1]
-        destination = destination
+        temp_download = os.path.join(temp_dir, data['download'].split('/')[-1])  # e.g. /tmp/[...]/vkd3d-proton-2.7.tar.zst
+        temp_archive = temp_download.replace('.zst', '')  # e.g. /tmp/[...]/vkd3d-proton-2.7.tar
 
-        if not self.__download(url=data['download'], destination=destination):
+        if not self.__download(url=data['download'], destination=temp_download):
             return False
 
         if os.path.exists(vkd3d_dir + 'vkd3d-proton-' + data['version'].lower()):
             shutil.rmtree(vkd3d_dir + 'vkd3d-proton-' + data['version'].lower())
-        
-        # Setup zst paths
-        vkd3d_archive_path = Path(destination).expanduser()
-        vkd3d_extract_path = Path(os.path.abspath(vkd3d_dir)).expanduser().resolve()
 
-        vkd3d_decomp = zstandard.ZstdDecompressor()
-        
         # Extract .tar.zst file - Very convoluted, there is an open request to add support for this to Python tarfile: https://bugs.python.org/issue37095
-        with tempfile.TemporaryFile(suffix='.tar') as vkd3d_outfile:
-            with vkd3d_archive_path.open('rb') as vkd3d_infile:
-                vkd3d_decomp.copy_stream(vkd3d_infile, vkd3d_outfile)
-            vkd3d_outfile.seek(0)
+        vkd3d_decomp = zstandard.ZstdDecompressor()
 
+        with open(temp_download, 'rb') as vkd3d_infile, open(temp_archive, 'wb') as vkd3d_outfile:
+            vkd3d_decomp.copy_stream(vkd3d_infile, vkd3d_outfile)
+
+        with open(temp_archive, 'rb') as vkd3d_outfile:
             with tarfile.open(fileobj=vkd3d_outfile) as vkd3d_tarfile:
-                vkd3d_tarfile.extractall(vkd3d_extract_path)
+                vkd3d_tarfile.extractall(vkd3d_dir)
 
         self.__set_download_progress_percent(100)
 
