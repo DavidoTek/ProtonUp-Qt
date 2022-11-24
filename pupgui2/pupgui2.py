@@ -177,13 +177,13 @@ class MainWindow(QObject):
         self.ui.listInstalledVersions.clear()
         self.compat_tool_index_map = get_installed_ctools(install_directory())
 
-        # Launcher specific (Lutris): Show DXVK
+        # Launcher specific (Lutris): Show DXVK and vkd3d-proton
         if install_loc.get('launcher') == 'lutris':
             dxvk_dir = os.path.join(install_directory(), '../../runtime/dxvk')
-            for ct in get_installed_ctools(dxvk_dir):
-                if not 'dxvk' in ct.get_displayname().lower():
-                    ct.displayname = 'DXVK ' + ct.displayname
-                self.compat_tool_index_map.append(ct)
+            vkd3d_dir = os.path.join(install_directory(), '../../runtime/vkd3d')
+
+            self.get_installed_versions('dxvk', dxvk_dir)
+            self.get_installed_versions('vkd3d', vkd3d_dir)
 
         # Launcher specific (Steam): Number of games using the compatibility tool
         if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
@@ -210,6 +210,12 @@ class MainWindow(QObject):
         #    self.ui.btnShowGameList.setVisible(True)
         else:
             self.ui.btnShowGameList.setVisible(False)
+
+    def get_installed_versions(self, ctool_name, ctool_dir):
+        for ct in get_installed_ctools(ctool_dir):
+            if not ctool_name in ct.get_displayname().lower():
+                ct.displayname = f'{ctool_name} {ct.displayname}'
+            self.compat_tool_index_map.append(ct) 
 
     def install_compat_tool(self, compat_tool):
         """ install compatibility tool (called by install dialog signal) """
