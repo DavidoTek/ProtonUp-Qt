@@ -10,8 +10,7 @@ from PySide6.QtCore import *
 
 CT_NAME = 'vkd3d-proton'
 CT_LAUNCHERS = ['lutris']
-CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_vkd3d-proton', '''Fork of Wine's VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Valve Release).<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md''')
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_vkd3d-proton', '''Fork of Wine's VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Valve Release).<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md''')}
 
 class CtInstaller(QObject):
 
@@ -25,7 +24,7 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs if main_window.rs else requests.Session()
+        self.rs = main_window.rs or requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -102,11 +101,7 @@ class CtInstaller(QObject):
         List available releases
         Return Type: str[]
         """
-        tags = []
-        for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json():
-            if 'tag_name' in release:
-                tags.append(release['tag_name'])
-        return tags
+        return [release['tag_name'] for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json() if 'tag_name' in release]
 
     def get_tool(self, version, install_dir, temp_dir):
         """
@@ -126,8 +121,8 @@ class CtInstaller(QObject):
         if not self.__download(url=data['download'], destination=temp_download):
             return False
 
-        if os.path.exists(vkd3d_dir + 'vkd3d-proton-' + data['version'].lower()):
-            shutil.rmtree(vkd3d_dir + 'vkd3d-proton-' + data['version'].lower())
+        if os.path.exists(f'{vkd3d_dir}vkd3d-proton-{data["version"].lower()}'):
+            shutil.rmtree(f'{vkd3d_dir}vkd3d-proton-{data["version"].lower()}')
 
         # Extract .tar.zst file - Very convoluted, there is an open request to add support for this to Python tarfile: https://bugs.python.org/issue37095
         vkd3d_decomp = zstandard.ZstdDecompressor()
