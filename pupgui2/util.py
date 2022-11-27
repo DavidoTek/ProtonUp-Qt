@@ -314,9 +314,10 @@ def print_system_information() -> None:
     ver_info += ', PySide ' + PySide6.__version__ + '\n'
     ver_info += 'Platform: '
     try:
-        f = open('/etc/lsb-release')
+        f = open('/etc/lsb-release') if os.path.exists('/etc/lsb-release') else open('/etc/os-release')
         l = f.readlines()
         ver_info += l[0].strip().split('=')[1] + ' ' + l[1].strip().split('=')[1] + ' '
+        ver_info = ver_info.replace('"', '')
         f.close()
     except:
         pass
