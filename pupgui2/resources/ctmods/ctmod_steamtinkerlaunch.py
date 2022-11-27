@@ -60,7 +60,7 @@ class CtInstaller(QObject):
         self.allow_git = allow_git
         proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
         self.distinfo = subprocess.run(
-            proc_prefix + ['cat', '/etc/lsb-release' if os.path.exists('/etc/lsb-release') else '/etc/os-release'],
+            proc_prefix + ['cat', '/etc/lsb-release', '/etc/os-release'],
             universal_newlines=True,
             stdout=subprocess.PIPE
             ).stdout.strip().lower()
