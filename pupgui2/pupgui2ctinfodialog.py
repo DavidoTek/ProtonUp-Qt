@@ -48,8 +48,12 @@ class PupguiCtInfoDialog(QObject):
                 if 'Proton' in self.ctool.displayname and self.ctool.ct_type == CTType.CUSTOM:  # 'batch update' option for Proton-GE
                     self.ui.btnBatchUpdate.setVisible(True)
                     self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
-        else:
+        elif self.install_loc.get('launcher') == 'lutris':
             self.update_game_list_lutris()
+        else:
+            self.ui.txtNumGamesUsingTool.setText('-')
+            self.ui.listGames.setHorizontalHeaderLabels(['', ''])
+            self.ui.listGames.setEnabled(False)
 
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
 
