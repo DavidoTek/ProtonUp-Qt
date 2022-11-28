@@ -1,32 +1,31 @@
-import sys, os, shutil
+import os
+import sys
+import shutil
 import pkgutil
 import requests
 import subprocess
 
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import Qt, QCoreApplication, QObject, QThread, QWaitCondition, QMutex, QDataStream
+from PySide6.QtCore import QByteArray, QEvent, Slot, QTranslator, QLocale, QLibraryInfo
+from PySide6.QtGui import QIcon, QKeyEvent
+from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox, QProgressBar, QVBoxLayout
 from PySide6.QtUiTools import QUiLoader
 
-from .datastructures import CTType, MsgBoxType, MsgBoxResult
-from .util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools
-from .util import install_directory, available_install_directories, get_install_location_from_directory_name
-from .util import remove_ctool
-from .steamutil import get_steam_acruntime_list, get_steam_game_list
-from .util import print_system_information
-from .util import single_instance
-from .util import download_awacy_gamelist
-from .constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR
-from .constants import STEAM_PROTONGE_FLATPAK_APPSTREAM, STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
-from .constants import STEAM_STL_INSTALL_PATH
-from . import ctloader
-from .pupgui2installdialog import PupguiInstallDialog
-from .pupgui2aboutdialog import PupguiAboutDialog
-from .pupgui2ctinfodialog import PupguiCtInfoDialog
-from .gamepadinputworker import GamepadInputWorker
-from .pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
-from .pupgui2gamelistdialog import PupguiGameListDialog
-from .resources import ui
+from pupgui2.resources import ui
+from pupgui2.constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
+from pupgui2.constants import STEAM_PROTONGE_FLATPAK_APPSTREAM, STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
+from pupgui2 import ctloader
+from pupgui2.datastructures import CTType, MsgBoxType, MsgBoxResult
+from pupgui2.gamepadinputworker import GamepadInputWorker
+from pupgui2.pupgui2aboutdialog import PupguiAboutDialog
+from pupgui2.pupgui2ctinfodialog import PupguiCtInfoDialog
+from pupgui2.pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
+from pupgui2.pupgui2gamelistdialog import PupguiGameListDialog
+from pupgui2.pupgui2installdialog import PupguiInstallDialog
+from pupgui2.steamutil import get_steam_acruntime_list, get_steam_game_list
+from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
+from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
+from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist
 
 
 class InstallWineThread(QThread):

@@ -1,5 +1,7 @@
-import os, subprocess, shutil
+import os
 import sys
+import subprocess
+import shutil
 import platform
 import threading
 from typing import Dict, List
@@ -8,14 +10,13 @@ import requests
 from configparser import ConfigParser
 
 import PySide6
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import QCoreApplication
+from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBox
 
-from .constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
-from .constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
-from .datastructures import BasicCompatTool, CTType
-from .steamutil import remove_steamtinkerlaunch
+from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
+from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
+from pupgui2.datastructures import BasicCompatTool, CTType
+from pupgui2.steamutil import remove_steamtinkerlaunch
 
 
 def apply_dark_theme(app: QApplication) -> None:

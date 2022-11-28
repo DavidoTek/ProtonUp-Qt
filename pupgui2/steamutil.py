@@ -1,15 +1,16 @@
 import os
-import json
 from typing import Dict, List
-import vdf
-from steam.utils.appcache import parse_appinfo
 import shutil
 import subprocess
-
-from .datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
-from .constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
+import json
+import vdf
+from steam.utils.appcache import parse_appinfo
 
 from PySide6.QtWidgets import QMessageBox, QApplication
+
+from pupgui2.constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
+from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
+
 
 _cached_app_list = []
 _cached_steam_ctool_id_map = None

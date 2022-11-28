@@ -1,11 +1,10 @@
 import threading
 
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import Signal, QLocale
+from PySide6.QtWidgets import QDialog, QLabel, QPushButton, QTextEdit, QComboBox
+from PySide6.QtWidgets import QSizePolicy, QHBoxLayout, QVBoxLayout, QSpacerItem
 
-from .util import open_webbrowser_thread
-from .util import config_advanced_mode
+from pupgui2.util import open_webbrowser_thread, config_advanced_mode
 
 
 class PupguiInstallDialog(QDialog):

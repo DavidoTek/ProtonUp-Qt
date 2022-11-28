@@ -1,8 +1,8 @@
 import pkgutil
 import importlib
-import requests
 
-from .resources import ctmods
+from pupgui2.resources import ctmods
+
 
 class CtLoader:
     

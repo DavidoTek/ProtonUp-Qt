@@ -1,2 +1,2 @@
-from .pupgui2 import main
+from pupgui2.pupgui2 import main
 main()

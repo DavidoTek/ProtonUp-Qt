@@ -1,7 +1,9 @@
 import os
 from xdg.BaseDirectory import xdg_config_home
-from PySide6.QtCore import QObject, Qt
+
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor, QPalette
+
 
 APP_NAME = 'ProtonUp-Qt'
 APP_VERSION = '2.7.6'

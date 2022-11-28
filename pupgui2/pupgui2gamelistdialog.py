@@ -1,20 +1,17 @@
 import os
 import pkgutil
 
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QLabel, QComboBox
 from PySide6.QtUiTools import QUiLoader
 
+from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
 from pupgui2.lutrisutil import get_lutris_game_list
-
-from .util import list_installed_ctools, sort_compatibility_tool_names
-from .steamutil import steam_update_ctools
-from .steamutil import get_steam_game_list
-from .steamutil import get_steam_ctool_list
-from .steamutil import is_steam_running
-from .util import get_install_location_from_directory_name
-from .datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
+from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
+from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
+from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names
+from pupgui2.util import get_install_location_from_directory_name
 
 
 class PupguiGameListDialog(QObject):

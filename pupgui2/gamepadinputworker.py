@@ -1,4 +1,4 @@
-from PySide6.QtCore import *
+from PySide6.QtCore import Qt, QThread, Signal
 
 
 class GamepadInputWorker(QThread):

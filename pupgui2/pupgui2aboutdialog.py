@@ -1,15 +1,16 @@
-import os, requests
+import os
 import pkgutil
+import requests
 
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import Qt, QObject, QDataStream, QByteArray, QSize
+from PySide6.QtGui import QPixmap, QIcon
+from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtUiTools import QUiLoader
 
-from .constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO
-from .constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
-from .util import config_theme, apply_dark_theme, config_advanced_mode
-from .util import open_webbrowser_thread
+from pupgui2.constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO
+from pupgui2.constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
+from pupgui2.util import config_theme, apply_dark_theme, config_advanced_mode
+from pupgui2.util import open_webbrowser_thread
 
 
 class PupguiAboutDialog(QObject):
