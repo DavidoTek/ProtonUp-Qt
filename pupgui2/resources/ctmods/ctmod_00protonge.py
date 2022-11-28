@@ -2,8 +2,14 @@
 # Proton-GE
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests, hashlib
-from PySide6.QtCore import *
+import os
+import shutil
+import tarfile
+import requests
+import hashlib
+
+from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+
 
 CT_NAME = 'GE-Proton'
 CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles']

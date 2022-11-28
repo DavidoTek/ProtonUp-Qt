@@ -2,10 +2,13 @@
 # vkd3d-proton for Lutris: https://github.com/HansKristian-Work/vkd3d-proton/
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests
+import os
+import shutil
+import tarfile
+import requests
 import zstandard
 
-from PySide6.QtCore import *
+from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 
 CT_NAME = 'vkd3d-proton'

@@ -2,9 +2,14 @@
 # Kron4ek Wine-Builds Vanilla
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests, hashlib
+import os
 import subprocess
-from PySide6.QtCore import *
+import shutil
+import tarfile
+import requests
+
+from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+
 
 CT_NAME = 'Kron4ek Wine-Builds Vanilla'
 CT_LAUNCHERS = ['lutris']

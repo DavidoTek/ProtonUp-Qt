@@ -2,10 +2,16 @@
 # Boxtron
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests
-from PySide6.QtCore import *
+import os
+import shutil
+import tarfile
+import requests
+
+from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 from PySide6.QtWidgets import QMessageBox
-from ...util import host_which
+
+from pupgui2.util import host_which
+
 
 CT_NAME = 'Boxtron'
 CT_LAUNCHERS = ['steam']

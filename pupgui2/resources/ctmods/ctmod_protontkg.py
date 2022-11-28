@@ -2,9 +2,15 @@
 # Proton-Tkg https://github.com/Frogging-Family/wine-tkg-git
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests, glob
+import os
+import glob
+import shutil
+import tarfile
+import requests
 from zipfile import ZipFile
-from PySide6.QtCore import *
+
+from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+
 
 CT_NAME = 'Proton Tkg'
 CT_LAUNCHERS = ['steam']

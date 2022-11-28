@@ -2,10 +2,10 @@
 # SteamTinkerLaunch-git
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
-import requests
-from .ctmod_steamtinkerlaunch import CtInstaller as stlCtInstaller
-
 from PySide6.QtCore import QCoreApplication
+
+from pupgui2.resources.ctmods.ctmod_steamtinkerlaunch import CtInstaller as stlCtInstaller
+
 
 CT_NAME = 'SteamTinkerLaunch-git'
 CT_LAUNCHERS = ['steam', 'advmode', 'native-only']

@@ -3,12 +3,15 @@
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
 import datetime, locale, os, requests, shutil, subprocess, tarfile
-from PySide6.QtCore import *
+
+from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 from PySide6.QtWidgets import QMessageBox
-from ...steamutil import get_fish_user_paths, remove_steamtinkerlaunch, get_external_steamtinkerlaunch_intall
-from ... import constants
-from ...util import host_which, config_advanced_mode
-from ...datastructures import MsgBoxType, MsgBoxResult
+
+from pupgui2 import constants
+from pupgui2.datastructures import MsgBoxType, MsgBoxResult
+from pupgui2.steamutil import get_fish_user_paths, remove_steamtinkerlaunch, get_external_steamtinkerlaunch_intall
+from pupgui2.util import host_which, config_advanced_mode
+
 
 CT_NAME = 'SteamTinkerLaunch'
 CT_LAUNCHERS = ['steam', 'native-only']

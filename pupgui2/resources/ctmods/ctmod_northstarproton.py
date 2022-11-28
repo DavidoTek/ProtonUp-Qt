@@ -2,8 +2,13 @@
 # cyrv6737's NorthstarProton for TitalFall 2
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests, hashlib
-from PySide6.QtCore import *
+import os
+import shutil
+import tarfile
+import requests
+
+from PySide6.QtCore import QObject, Signal, Property
+
 
 CT_NAME = 'NorthStar Proton (TitalFall 2)'
 CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles', 'advmode']
