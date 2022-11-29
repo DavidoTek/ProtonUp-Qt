@@ -61,7 +61,11 @@ class CtInstaller(QObject):
         self.rs = main_window.rs or requests.Session()
         self.allow_git = allow_git
         proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
-        self.distinfo = subprocess.run(proc_prefix + ['cat', '/etc/lsb-release'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().lower()
+        self.distinfo = subprocess.run(
+            proc_prefix + ['cat', '/etc/lsb-release', '/etc/os-release'],
+            universal_newlines=True,
+            stdout=subprocess.PIPE
+            ).stdout.strip().lower()
 
     def get_download_canceled(self):
         return self.p_download_canceled
