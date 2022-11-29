@@ -1,8 +1,9 @@
 import os
-import sqlite3
 from typing import List
+import sqlite3
 
-from .datastructures import LutrisGame
+from pupgui2.datastructures import LutrisGame
+
 
 LUTRIS_PGA_GAMELIST_QUERY = 'SELECT slug, name, runner, installer_slug, installed_at FROM games'
 

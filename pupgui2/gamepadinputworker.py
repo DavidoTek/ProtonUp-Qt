@@ -1,4 +1,4 @@
-from PySide6.QtCore import *
+from PySide6.QtCore import Qt, QThread, Signal
 
 
 class GamepadInputWorker(QThread):
@@ -16,7 +16,7 @@ class GamepadInputWorker(QThread):
             while not self.isInterruptionRequested():
                 events = inputs.get_gamepad()
                 for event in events:
-                    if event.code == 'ABS_HAT0Y' or event.code == 'ABS_HAT0X':
+                    if event.code in ['ABS_HAT0Y', 'ABS_HAT0X']:
                         if event.state == -1:
                             self.press_virtual_key.emit(Qt.Key_Tab, Qt.ShiftModifier)
                         elif event.state == 1:
@@ -27,7 +27,7 @@ class GamepadInputWorker(QThread):
                     elif event.code == 'BTN_EAST' and event.state == 1:
                         self.press_virtual_key.emit(Qt.Key_Enter, Qt.NoModifier)
 
-                    elif event.code == 'ABS_Y' or event.code == 'ABS_RY':
+                    elif event.code in ['ABS_Y', 'ABS_RY']:
                         if event.state > -100 and event.state < 100:
                             self.reset_pos = True
                         elif event.state < 0:
@@ -38,7 +38,7 @@ class GamepadInputWorker(QThread):
                             if self.reset_pos:
                                 self.press_virtual_key.emit(Qt.Key_Down, Qt.NoModifier)
                                 self.reset_pos = False
-                    elif event.code == 'ABS_X' or event.code == 'ABS_RX':
+                    elif event.code in ['ABS_X', 'ABS_RX']:
                         if event.state > -100 and event.state < 100:
                             self.reset_pos = True
                         elif event.state < 0:

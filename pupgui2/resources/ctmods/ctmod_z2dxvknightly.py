@@ -2,13 +2,17 @@
 # DXVK for Lutris (nightly version): https://github.com/doitsujin/dxvk/
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, zipfile, requests
-from PySide6.QtCore import *
+import os
+import shutil
+import zipfile
+import requests
+
+from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+
 
 CT_NAME = 'DXVK (nightly)'
 CT_LAUNCHERS = ['lutris', 'advmode']
-CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_z2dxvknightly', '''Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/><b>Warning: Nightly version is unstable, use with caution!</b>''')
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z2dxvknightly', '''Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/><b>Warning: Nightly version is unstable, use with caution!</b>''')}
 
 
 class CtInstaller(QObject):
@@ -23,7 +27,7 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs if main_window.rs else requests.Session()
+        self.rs = main_window.rs or requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -74,7 +78,7 @@ class CtInstaller(QObject):
         Get artifact from commit
         Return Type: str
         """
-        for artifact in self.rs.get(self.CT_URL + '?per_page=100').json()["artifacts"]:
+        for artifact in self.rs.get(f'{self.CT_URL}?per_page=100').json()["artifacts"]:
             if artifact['workflow_run']['head_sha'][:len(commit)] == commit:
                 artifact['workflow_run']['head_sha'] = commit
                 return artifact
@@ -92,9 +96,8 @@ class CtInstaller(QObject):
         if not data:
             return
         values = {'version': data['workflow_run']['head_sha'][:7], 'date': data['updated_at'].split('T')[0]}
-        values['download'] = "https://nightly.link/doitsujin/dxvk/actions/runs/{}/{}.zip".format(
-            data["workflow_run"]["id"],  data["name"]
-        )
+        values['download'] = f'https://nightly.link/doitsujin/dxvk/actions/runs/{data["workflow_run"]["id"]}/{data["name"]}.zip'
+
         values['size'] = data['size_in_bytes']
         return values
 
@@ -111,9 +114,9 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
         tags = []
-        for artifact in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json()["artifacts"]:
+        for artifact in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()["artifacts"]:
             workflow = artifact['workflow_run']
-            if not workflow["head_branch"] == "master" or artifact["expired"]:
+            if workflow["head_branch"] != "master" or artifact["expired"]:
                 continue
             tags.append(workflow['head_sha'][:7])
         return tags
@@ -136,8 +139,8 @@ class CtInstaller(QObject):
         if not self.__download(url=data['download'], destination=destination, f_size=data['size']):
             return False
 
-        if os.path.exists(dxvk_dir + 'dxvk-git-' + data['version']):
-            shutil.rmtree(dxvk_dir + 'dxvk-git-' + data['version'])
+        if os.path.exists(f'{dxvk_dir}dxvk-git-{data["version"]}'):
+            shutil.rmtree(f'{dxvk_dir}dxvk-git{data["version"]}')
         with zipfile.ZipFile(destination) as zip:
             zip.extractall(dxvk_install_dir)
 

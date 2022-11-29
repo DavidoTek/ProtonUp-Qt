@@ -2,13 +2,17 @@
 # cyrv6737's NorthstarProton for TitalFall 2
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests, hashlib
-from PySide6.QtCore import *
+import os
+import shutil
+import tarfile
+import requests
+
+from PySide6.QtCore import QObject, Signal, Property
+
 
 CT_NAME = 'NorthStar Proton (TitalFall 2)'
 CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles', 'advmode']
-CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = '''Proton build based on TKG's proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.<br/><br/><b style="color:orange;">Read following before proceeding</b>:<br/><a href="https://github.com/cyrv6737/NorthstarProton">https://github.com/cyrv6737/NorthstarProton</a>'''
+CT_DESCRIPTION = {'en': '''Proton build based on TKG's proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.<br/><br/><b style="color:orange;">Read following before proceeding</b>:<br/><a href="https://github.com/cyrv6737/NorthstarProton">https://github.com/cyrv6737/NorthstarProton</a>'''}
 
 
 class CtInstaller(QObject):
@@ -23,7 +27,7 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs if main_window.rs else requests.Session()
+        self.rs = main_window.rs or requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -100,11 +104,7 @@ class CtInstaller(QObject):
         List available releases
         Return Type: str[]
         """
-        tags = []
-        for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json():
-            if 'tag_name' in release:
-                tags.append(release['tag_name'])
-        return tags
+        return [release['tag_name'] for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json() if 'tag_name' in release]
 
     def get_tool(self, version, install_dir, temp_dir):
         """
