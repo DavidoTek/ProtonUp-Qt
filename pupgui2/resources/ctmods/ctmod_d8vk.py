@@ -2,8 +2,13 @@
 # D8VK for Lutris (nightly version): https://github.com/AlpyneDreams/d8vk/
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, zipfile, requests
-from PySide6.QtCore import *
+import os
+import shutil
+import requests
+import zipfile
+
+from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+
 
 CT_NAME = 'D8VK (nightly)'
 CT_LAUNCHERS = ['lutris', 'advmode']

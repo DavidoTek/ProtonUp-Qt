@@ -2,14 +2,18 @@
 # Kron4ek Wine-Builds Vanilla
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
-import os, shutil, tarfile, requests, hashlib
+import os
 import subprocess
-from PySide6.QtCore import *
+import shutil
+import tarfile
+import requests
+
+from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+
 
 CT_NAME = 'Kron4ek Wine-Builds Vanilla'
 CT_LAUNCHERS = ['lutris']
-CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_kron4ekvanilla', '''Compatibility tool "Wine" to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.''')
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_kron4ekvanilla', '''Compatibility tool "Wine" to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.''')}
 
 
 class CtInstaller(QObject):
@@ -24,7 +28,7 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs if main_window.rs else requests.Session()
+        self.rs = main_window.rs or requests.Session()
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -84,7 +88,7 @@ class CtInstaller(QObject):
 
         values = {'version': data['tag_name'], 'date': data['published_at'].split('T')[0]}
         for asset in data['assets']:
-            if asset['name'].endswith('tar.xz') and 'amd64' in asset['name'] and not 'staging' in asset['name']:
+            if asset['name'].endswith('tar.xz') and 'amd64' in asset['name'] and 'staging' not in asset['name']:
                 values['download'] = asset['browser_download_url']
                 values['size'] = asset['size']
         return values
@@ -100,22 +104,14 @@ class CtInstaller(QObject):
         ldd_ver = ldd_out[len(ldd_out) - 1]
         ldd_maj = int(ldd_ver.split(b'.')[0])
         ldd_min = int(ldd_ver.split(b'.')[1])
-        if ldd_maj < 2:
-            return False
-        if ldd_min < 27 and ldd_maj == 2:
-            return False
-        return True
+        return False if ldd_maj < 2 else ldd_min >= 27 or ldd_maj != 2
 
     def fetch_releases(self, count=100):
         """
         List available releases
         Return Type: str[]
         """
-        tags = []
-        for release in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json():
-            if 'tag_name' in release:
-                tags.append(release['tag_name'])
-        return tags
+        return [release['tag_name'] for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json() if 'tag_name' in release]
 
     def get_tool(self, version, install_dir, temp_dir):
         """
@@ -127,8 +123,8 @@ class CtInstaller(QObject):
 
         if not data or 'download' not in data:
             return False
-        
-        protondir = install_dir + 'wine-' + data['version'].lower() + '-amd64'
+
+        protondir = f'{install_dir}wine-{data["version"].lower()}-amd64'
 
         destination = temp_dir
         destination += data['download'].split('/')[-1]

@@ -1,5 +1,5 @@
-from enum import Enum
 import os
+from enum import Enum
 import vdf
 import yaml
 
@@ -97,9 +97,9 @@ class BasicCompatTool:
         """ Returns the display name, e.g. GE-Proton7-17 or luxtorpeda v57 """
         displayname = self.displayname
         if self.version != '':
-            displayname += ' ' + self.version
+            displayname += f' {self.version}'
         if self.no_games == 0:
-            displayname += ' (' + unused_tr + ')'
+            displayname += f' ({unused_tr})'
         return displayname
 
     def get_internal_name(self) -> str:

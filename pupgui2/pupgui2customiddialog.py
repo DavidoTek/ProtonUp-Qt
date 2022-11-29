@@ -1,10 +1,10 @@
 import os
 
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import Signal
+from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QDialog, QFileDialog, QLabel, QPushButton, QLineEdit, QComboBox, QFormLayout
 
-from .util import config_custom_install_location
+from pupgui2.util import config_custom_install_location
 
 
 class PupguiCustomInstallDirectoryDialog(QDialog):

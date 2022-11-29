@@ -1,15 +1,16 @@
-import os, requests
+import os
 import pkgutil
+import requests
 
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import Qt, QObject, QDataStream, QByteArray, QSize
+from PySide6.QtGui import QPixmap, QIcon
+from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtUiTools import QUiLoader
 
-from .constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO
-from .constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
-from .util import config_theme, apply_dark_theme, config_advanced_mode
-from .util import open_webbrowser_thread
+from pupgui2.constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO
+from pupgui2.constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
+from pupgui2.util import config_theme, apply_dark_theme, config_advanced_mode
+from pupgui2.util import open_webbrowser_thread
 
 
 class PupguiAboutDialog(QObject):
@@ -31,7 +32,7 @@ class PupguiAboutDialog(QObject):
         self.ui = loader.load(ui_file.device())
 
     def setup_ui(self):
-        self.ui.setWindowTitle(APP_NAME + ' ' + APP_VERSION)
+        self.ui.setWindowTitle(f'{APP_NAME} {APP_VERSION}')
 
         translator_text = QApplication.instance().translate('translator-text', 'Translated by DavidoTek')
 
@@ -64,7 +65,7 @@ class PupguiAboutDialog(QObject):
         self.ui.btnCheckForUpdates.clicked.connect(self.btn_check_for_updates_clicked)
         self.ui.comboColorTheme.currentIndexChanged.connect(self.combo_color_theme_current_index_changed)
 
-        self.ui.checkAdvancedMode.setChecked(True if config_advanced_mode() == 'enabled' else False)
+        self.ui.checkAdvancedMode.setChecked(config_advanced_mode() == 'enabled')
         self.ui.checkAdvancedMode.stateChanged.connect(self.check_advanced_mode_state_changed)
 
         if os.getenv('APPIMAGE') is None:
@@ -87,7 +88,7 @@ class PupguiAboutDialog(QObject):
         open_webbrowser_thread(PROTONUPQT_GITHUB_URL)
 
     def btn_check_for_updates_clicked(self):
-        releases = requests.get(APP_GHAPI_URL + '?per_page=1').json()
+        releases = requests.get(f'{APP_GHAPI_URL}?per_page=1').json()
         if len(releases) == 0:
             return
         newest_release = releases[0]
@@ -96,7 +97,7 @@ class PupguiAboutDialog(QObject):
         if (10000 * int(v_current[0]) + 100 * int(v_current[1]) + int(v_current[2])) < (10000 * int(v_newest[0]) + 100 * int(v_newest[1]) + int(v_newest[2])):
             QMessageBox.information(self.ui, self.tr('Update available'),
             self.tr('There is a newer version available.\nYou are running {APP_VERSION} but {newest_version} is available.')
-            .format(APP_VERSION='v' + APP_VERSION, newest_version=newest_release['tag_name']))
+            .format(APP_VERSION=f'v{APP_VERSION}', newest_version=newest_release['tag_name']))
             open_webbrowser_thread(newest_release['html_url'])
         else:
             QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
@@ -111,6 +112,4 @@ class PupguiAboutDialog(QObject):
         """
         tag_name = tag_name.replace('v', '')
         vers = tag_name.split('.')
-        if len(vers) != 3:
-            return [0, 0, 0]
-        return vers
+        return [0, 0, 0] if len(vers) != 3 else vers

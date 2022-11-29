@@ -1,10 +1,9 @@
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import Signal
+from PySide6.QtWidgets import QDialog, QLabel, QPushButton, QComboBox, QFormLayout
 
-from .util import sort_compatibility_tool_names, list_installed_ctools, install_directory
-from .steamutil import steam_update_ctool
-from .steamutil import is_steam_running
+from pupgui2.steamutil import is_steam_running, steam_update_ctool
+from pupgui2.util import sort_compatibility_tool_names, list_installed_ctools, install_directory
+
 
 class PupguiCtBatchUpdateDialog(QDialog):
 
