@@ -1,7 +1,9 @@
 import os
 from xdg.BaseDirectory import xdg_config_home
-from PySide6.QtCore import QObject, Qt
+
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor, QPalette
+
 
 APP_NAME = 'ProtonUp-Qt'
 APP_VERSION = '2.7.6'
@@ -27,7 +29,7 @@ for steam_root in _POSSIBLE_STEAM_ROOTS:
         break
 
 POSSIBLE_INSTALL_LOCATIONS = [
-    {'install_dir': _STEAM_ROOT + '/compatibilitytools.d/', 'display_name': 'Steam', 'launcher': 'steam', 'type': 'native', 'icon': 'steam', 'vdf_dir': _STEAM_ROOT + '/config'},
+    {'install_dir': f'{_STEAM_ROOT}/compatibilitytools.d/', 'display_name': 'Steam', 'launcher': 'steam', 'type': 'native', 'icon': 'steam', 'vdf_dir': f'{_STEAM_ROOT}/config'},
     {'install_dir': '~/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/', 'display_name': 'Steam Flatpak', 'launcher': 'steam', 'type': 'flatpak', 'icon': 'steam', 'vdf_dir': '~/.var/app/com.valvesoftware.Steam/.local/share/Steam/config'},
     {'install_dir': '~/snap/steam/common/.steam/root/compatibilitytools.d/', 'display_name': 'Steam Snap', 'launcher': 'steam', 'type': 'snap', 'icon': 'steam', 'vdf_dir': '~/snap/steam/common/.steam/root/config'},
     {'install_dir': '~/.local/share/lutris/runners/wine/', 'display_name': 'Lutris', 'launcher': 'lutris', 'type': 'native', 'icon': 'lutris', 'config_dir': '~/.config/lutris'},

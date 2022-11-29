@@ -1,20 +1,17 @@
 import os
 import pkgutil
 
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QLabel, QComboBox
 from PySide6.QtUiTools import QUiLoader
 
+from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
 from pupgui2.lutrisutil import get_lutris_game_list
-
-from .util import list_installed_ctools, sort_compatibility_tool_names
-from .steamutil import steam_update_ctools
-from .steamutil import get_steam_game_list
-from .steamutil import get_steam_ctool_list
-from .steamutil import is_steam_running
-from .util import get_install_location_from_directory_name
-from .datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
+from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
+from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
+from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names
+from pupgui2.util import get_install_location_from_directory_name
 
 
 class PupguiGameListDialog(QObject):
@@ -65,14 +62,12 @@ class PupguiGameListDialog(QObject):
         """ update the game list for the Steam launcher """
         games = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'))
         ctools = [c if c != 'SteamTinkerLaunch' else 'Proton-stl' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True) ]
-        for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir')):
-            ctools.append(t.ctool_name)
+        ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir')))
 
         self.ui.tableGames.setRowCount(len(games))
 
         game_id_table_lables = []
-        i = 0
-        for game in games:
+        for i, game in enumerate(games):
             self.ui.tableGames.setCellWidget(i, 0, QLabel(game.game_name))
 
             combo = QComboBox()
@@ -134,7 +129,6 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setCellWidget(i, 3, lblicon)
 
             game_id_table_lables.append(game.app_id)
-            i += 1
         self.ui.tableGames.setVerticalHeaderLabels(game_id_table_lables)
 
     def update_game_list_lutris(self):
@@ -143,10 +137,8 @@ class PupguiGameListDialog(QObject):
 
         self.ui.tableGames.setRowCount(len(games))
 
-        i = 0
-        for game in games:
+        for i, game in enumerate(games):
             self.ui.tableGames.setCellWidget(i, 0, QLabel(game.name))
-            i += 1
 
     def btn_apply_clicked(self):
         self.update_queued_ctools_steam()
@@ -154,7 +146,7 @@ class PupguiGameListDialog(QObject):
 
     def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
         """ add compatibility tool changes to queue (Steam) """
-        if ctool_name == '-' or ctool_name == '':
+        if ctool_name in {'-', ''}:
             ctool_name = None
         self.queued_changes[game] = ctool_name
 

@@ -1,18 +1,15 @@
 import pkgutil
-import os
 
-from .datastructures import BasicCompatTool, CTType
-from .util import open_webbrowser_thread
-from .steamutil import get_steam_game_list
-from .lutrisutil import get_lutris_game_list
-from .constants import STEAM_APP_PAGE_URL
+from pupgui2.constants import STEAM_APP_PAGE_URL
+from pupgui2.datastructures import BasicCompatTool, CTType
+from pupgui2.lutrisutil import get_lutris_game_list
+from pupgui2.pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
+from pupgui2.steamutil import get_steam_game_list
+from pupgui2.util import open_webbrowser_thread
 
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
+from PySide6.QtWidgets import QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
-
-from .pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
 
 
 class PupguiCtInfoDialog(QObject):

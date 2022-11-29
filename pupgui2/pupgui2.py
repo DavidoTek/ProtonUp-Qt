@@ -1,32 +1,31 @@
-import sys, os, shutil
+import os
+import sys
+import shutil
 import pkgutil
 import requests
 import subprocess
 
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import Qt, QCoreApplication, QObject, QThread, QWaitCondition, QMutex, QDataStream
+from PySide6.QtCore import QByteArray, QEvent, Slot, QTranslator, QLocale, QLibraryInfo
+from PySide6.QtGui import QIcon, QKeyEvent
+from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox, QProgressBar, QVBoxLayout
 from PySide6.QtUiTools import QUiLoader
 
-from .datastructures import CTType, MsgBoxType, MsgBoxResult
-from .util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools
-from .util import install_directory, available_install_directories, get_install_location_from_directory_name
-from .util import remove_ctool
-from .steamutil import get_steam_acruntime_list, get_steam_game_list
-from .util import print_system_information
-from .util import single_instance
-from .util import download_awacy_gamelist
-from .constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR
-from .constants import STEAM_PROTONGE_FLATPAK_APPSTREAM, STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
-from .constants import STEAM_STL_INSTALL_PATH
-from . import ctloader
-from .pupgui2installdialog import PupguiInstallDialog
-from .pupgui2aboutdialog import PupguiAboutDialog
-from .pupgui2ctinfodialog import PupguiCtInfoDialog
-from .gamepadinputworker import GamepadInputWorker
-from .pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
-from .pupgui2gamelistdialog import PupguiGameListDialog
-from .resources import ui
+from pupgui2.resources import ui
+from pupgui2.constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
+from pupgui2.constants import STEAM_PROTONGE_FLATPAK_APPSTREAM, STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
+from pupgui2 import ctloader
+from pupgui2.datastructures import CTType, MsgBoxType, MsgBoxResult
+from pupgui2.gamepadinputworker import GamepadInputWorker
+from pupgui2.pupgui2aboutdialog import PupguiAboutDialog
+from pupgui2.pupgui2ctinfodialog import PupguiCtInfoDialog
+from pupgui2.pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
+from pupgui2.pupgui2gamelistdialog import PupguiGameListDialog
+from pupgui2.pupgui2installdialog import PupguiInstallDialog
+from pupgui2.steamutil import get_steam_acruntime_list, get_steam_game_list
+from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
+from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
+from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist
 
 
 class InstallWineThread(QThread):
@@ -78,8 +77,7 @@ class MainWindow(QObject):
         super(MainWindow, self).__init__()
 
         self.rs = requests.Session()
-        token = os.getenv('PUPGUI_GHA_TOKEN')
-        if token:
+        if token := os.getenv('PUPGUI_GHA_TOKEN'):
             self.rs.headers.update({'Authorization': f'token {token}'})
         self.ct_loader = ctloader.CtLoader(main_window=self)
 
@@ -136,7 +134,7 @@ class MainWindow(QObject):
         self.ui.btnRemoveSelected.setEnabled(False)
         self.ui.btnShowCtInfo.setEnabled(False)
 
-        self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
+        self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
 
         self.giw = GamepadInputWorker()
         if os.getenv('PUPGUI2_DISABLE_GAMEPAD', '0') == '0':
@@ -154,19 +152,17 @@ class MainWindow(QObject):
         self.ui.comboInstallLocation.clear()
         self.combo_install_location_index_map = []
 
-        i = 0
         current_install_dir = install_directory()
-        for install_dir in available_install_directories():
+        for i, install_dir in enumerate(available_install_directories()):
             icon_name = get_install_location_from_directory_name(install_dir).get('icon')
             display_name = get_install_location_from_directory_name(install_dir).get('display_name')
-            if display_name and not display_name == '':
-                self.ui.comboInstallLocation.addItem(QIcon.fromTheme(icon_name), display_name + ' (' + install_dir + ')')
+            if display_name and display_name != '':
+                self.ui.comboInstallLocation.addItem(QIcon.fromTheme(icon_name), f'{display_name} ({install_dir})')
             else:
                 self.ui.comboInstallLocation.addItem(install_dir)
             self.combo_install_location_index_map.append(install_dir)
             if current_install_dir == install_dir:
                 self.ui.comboInstallLocation.setCurrentIndex(i)
-            i += 1
 
         self.updating_combo_install_location = False
 
@@ -198,7 +194,7 @@ class MainWindow(QObject):
 
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
-            self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
+            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
             self.progressBarDownload.setVisible(False)
             self.ui.comboInstallLocation.setEnabled(True)
 
@@ -213,9 +209,9 @@ class MainWindow(QObject):
 
     def get_installed_versions(self, ctool_name, ctool_dir):
         for ct in get_installed_ctools(ctool_dir):
-            if not ctool_name in ct.get_displayname().lower():
+            if ctool_name not in ct.get_displayname().lower():
                 ct.displayname = f'{ctool_name} {ct.displayname}'
-            self.compat_tool_index_map.append(ct) 
+            self.compat_tool_index_map.append(ct)
 
     def install_compat_tool(self, compat_tool):
         """ install compatibility tool (called by install dialog signal) """
@@ -233,7 +229,7 @@ class MainWindow(QObject):
         if value:
             self.ui.statusBar().showMessage(self.tr('Fetching releases...'))
         else:
-            self.ui.statusBar().showMessage(APP_NAME + ' ' + APP_VERSION)
+            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
 
     def set_download_progress_percent(self, value):
         """ set download progress bar value and update status bar text """
@@ -343,7 +339,7 @@ class MainWindow(QObject):
         # Compatibility tools and runtimes installed by Steam (steamapps) cannot be removed
         for item in self.ui.listInstalledVersions.selectedItems():
             ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
-            if ct.ct_type == CTType.STEAM_CT or ct.ct_type == CTType.STEAM_RT:
+            if ct.ct_type in [CTType.STEAM_CT, CTType.STEAM_RT]:
                 self.ui.btnRemoveSelected.setEnabled(False)
                 break
 
@@ -370,9 +366,9 @@ class MainWindow(QObject):
         layout1.addWidget(btn_dl_boxtron)
         layout1.addWidget(btn_dl_stl)
         iftdialog.setLayout(layout1)
-        btn_dl_protonge.clicked.connect(lambda: os.system('xdg-open ' + STEAM_PROTONGE_FLATPAK_APPSTREAM))
-        btn_dl_boxtron.clicked.connect(lambda: os.system('xdg-open ' + STEAM_BOXTRON_FLATPAK_APPSTREAM))
-        btn_dl_stl.clicked.connect(lambda: os.system('xdg-open ' + STEAM_STL_FLATPAK_APPSTREAM))
+        btn_dl_protonge.clicked.connect(lambda: os.system(f'xdg-open {STEAM_PROTONGE_FLATPAK_APPSTREAM}'))
+        btn_dl_boxtron.clicked.connect(lambda: os.system(f'xdg-open {STEAM_BOXTRON_FLATPAK_APPSTREAM}'))
+        btn_dl_stl.clicked.connect(lambda: os.system(f'xdg-open {STEAM_STL_FLATPAK_APPSTREAM}'))
         iftdialog.show()
 
     def press_virtual_key(self, key, mod):
@@ -386,10 +382,7 @@ class MainWindow(QObject):
         """ Cancel a compatibility tool download """
         if len(self.pending_downloads) == 0:
             return
-        if cancel_all:
-            self.pending_downloads = []
-        else:
-            self.pending_downloads = self.pending_downloads[1:]
+        self.pending_downloads = [] if cancel_all else self.pending_downloads[1:]
         for ctobj in self.ct_loader.get_ctobjs():
             ctobj['installer'].download_canceled = True
         self.update_ui()
@@ -473,7 +466,7 @@ def main():
 
     ldata = None
     try:
-        ldata = pkgutil.get_data(__name__, 'resources/i18n/pupgui2_' + lname + '.qm')  # Example: pupgui2_zh_TW.qm
+        ldata = pkgutil.get_data(__name__, f'resources/i18n/pupgui2_{lname}.qm')  # Example: pupgui2_zh_TW.qm
     except:
         pass
     finally:
@@ -481,9 +474,9 @@ def main():
         if translator.load(ldata):
             app.installTranslator(translator)
 
-    if ldata == None:
+    if ldata is None:
         try:
-            ldata = pkgutil.get_data(__name__, 'resources/i18n/pupgui2_' + lang + '.qm')  # Example: pupgui2_de.qm
+            ldata = pkgutil.get_data(__name__, f'resources/i18n/pupgui2_{lang}.qm') # Example: pupgui2_de.qm
         except:
             pass
         finally:

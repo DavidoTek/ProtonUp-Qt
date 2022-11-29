@@ -2,15 +2,14 @@
 # SteamTinkerLaunch-git
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
-import requests
-from .ctmod_steamtinkerlaunch import CtInstaller as stlCtInstaller
-
 from PySide6.QtCore import QCoreApplication
+
+from pupgui2.resources.ctmods.ctmod_steamtinkerlaunch import CtInstaller as stlCtInstaller
+
 
 CT_NAME = 'SteamTinkerLaunch-git'
 CT_LAUNCHERS = ['steam', 'advmode', 'native-only']
-CT_DESCRIPTION = {}
-CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_steamtinkerlaunch_git', '''
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_steamtinkerlaunch_git', '''
 <b>Git release - May be unstable</b>
 <br/><br/>
 Linux wrapper tool for use with the Steam client which allows for easy graphical configuration of game tools for Proton and native Linux games.
@@ -33,7 +32,7 @@ On <b>Steam Deck</b>, relevant dependencies will be installed for you. If you ar
 More information is available on the SteamTinkerLaunch Installation wiki page.
 <br/><br/>
 SteamTinkerLaunch has a number of <b>Optional Dependencies</b> which have to be installed separately for extra functionality. Please see the Optional Dependencies section
-of the SteamTinkerLaunch Installation guide on its GitHub page..''')
+of the SteamTinkerLaunch Installation guide on its GitHub page..''')}
 
 
 class CtInstaller(stlCtInstaller):

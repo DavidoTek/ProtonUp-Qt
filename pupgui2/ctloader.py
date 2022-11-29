@@ -1,8 +1,8 @@
 import pkgutil
 import importlib
-import requests
 
-from .resources import ctmods
+from pupgui2.resources import ctmods
+
 
 class CtLoader:
     
@@ -21,7 +21,7 @@ class CtLoader:
         for _, mod, _ in pkgutil.iter_modules(ctmods.__path__):
             if mod.startswith('ctmod_'):
                 try:
-                    ctmod = importlib.import_module('pupgui2.resources.ctmods.' + mod)
+                    ctmod = importlib.import_module(f'pupgui2.resources.ctmods.{mod}')
                     if ctmod is None:
                         print('Could not load ctmod', mod)
                         continue
@@ -42,15 +42,11 @@ class CtLoader:
         Get loaded ctmods, optionally sort by launcher
         Return Type: []
         """
-        if launcher == None:
+        if launcher is None:
             return self.ctmods
 
-        ctmods = []
-        for ctmod in self.ctmods:
-            if launcher in ctmod.CT_LAUNCHERS:
-                if 'advmode' in ctmod.CT_LAUNCHERS and not advanced_mode:
-                    continue
-                ctmods.append(ctmod)
+        ctmods = [ctmod for ctmod in self.ctmods if launcher in ctmod.CT_LAUNCHERS and ('advmode' not in ctmod.CT_LAUNCHERS or advanced_mode)]
+
         return ctmods
 
     def get_ctobjs(self, launcher=None, advanced_mode=True):
@@ -60,7 +56,7 @@ class CtLoader:
         Content(s):
             'name', 'launchers', 'installer'
         """
-        if launcher == None:
+        if launcher is None:
             return self.ctobjs
 
         ctobjs = []
@@ -68,7 +64,7 @@ class CtLoader:
             if launcher.get('launcher') in ctobj['launchers']:
                 if 'advmode' in ctobj['launchers'] and not advanced_mode:
                     continue
-                if 'native-only' in ctobj['launchers'] and not launcher.get('type') == 'native':
+                if 'native-only' in ctobj['launchers'] and launcher.get('type') != 'native':
                     continue
                 ctobjs.append(ctobj)
         return ctobjs

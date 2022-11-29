@@ -1,15 +1,16 @@
 import os
-import json
 from typing import Dict, List
-import vdf
-from steam.utils.appcache import parse_appinfo
 import shutil
 import subprocess
-
-from .datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
-from .constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
+import json
+import vdf
+from steam.utils.appcache import parse_appinfo
 
 from PySide6.QtWidgets import QMessageBox, QApplication
+
+from pupgui2.constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
+from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
+
 
 _cached_app_list = []
 _cached_steam_ctool_id_map = None
@@ -45,8 +46,7 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
                 app.app_id = int(appid)
                 app.libraryfolder_id = fid
                 app.libraryfolder_path = fid_path
-                ct = c.get(appid)
-                if ct:
+                if ct := c.get(appid):
                     app.compat_tool = ct.get('name')
                 apps.append(app)
                 app_ids_str.append(str(appid))
@@ -65,17 +65,9 @@ def get_steam_game_list(steam_config_folder: str, compat_tool='', cached=False) 
     Specify compat_tool to only return games using the specified tool.
     Return Type: List[SteamApp]
     """
-    games = []
     apps = get_steam_app_list(steam_config_folder, cached=cached)
 
-    for app in apps:
-        if app.app_type == 'game':
-            if compat_tool != '':
-                if app.compat_tool != compat_tool:
-                    continue
-            games.append(app)
-
-    return games
+    return [app for app in apps if app.app_type == 'game' and (compat_tool == '' or app.compat_tool == compat_tool)]
 
 
 def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=False) -> List[SteamApp]:
@@ -88,8 +80,7 @@ def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=Fal
     ctool_map = _get_steam_ctool_info(steam_config_folder)
 
     for app in apps:
-        ct = ctool_map.get(app.app_id)
-        if ct:
+        if ct := ctool_map.get(app.app_id):
             app.ctool_name = ct.get('name')
             app.ctool_from_oslist = ct.get('from_oslist')
             if only_proton and ct.get('from_oslist') != 'windows':
@@ -155,9 +146,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
     """
     appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
     appinfo_file = os.path.realpath(appinfo_file)
-    sapps = {}
-    for app in steamapp_list:
-        sapps[app.get_app_id_str()] = app
+    sapps = {app.get_app_id_str(): app for app in steamapp_list}
     cnt = 0
     try:
         ctool_map = _get_steam_ctool_info(steam_config_folder)
@@ -165,8 +154,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
             header, apps = parse_appinfo(f)
             for steam_app in apps:
                 appid_str = str(steam_app.get('appid'))
-                a = sapps.get(appid_str)
-                if a:
+                if a := sapps.get(appid_str):
                     try:
                         a.game_name = steam_app.get('data').get('appinfo').get('common').get('name')
                     except:
@@ -199,11 +187,8 @@ def update_steamapp_awacystatus(steamapp_list: List[SteamApp]) -> List[SteamApp]
         return steamapp_list
 
     try:
-        f = open(LOCAL_AWACY_GAME_LIST, 'r')
-        gm = {}
-        for g in json.load(f):
-            gm[g.get('name')] = g.get('status')
-        f.close()
+        with open(LOCAL_AWACY_GAME_LIST, 'r') as f:
+            gm = {g.get('name'): g.get('status') for g in json.load(f)}
 
         for app in steamapp_list:
             if app.game_name != '' and app.game_name in gm:
@@ -268,11 +253,9 @@ def steam_update_ctools(games: Dict[SteamApp, str], steam_config_folder='') -> b
     try:
         d = vdf.load(open(config_vdf_file))
         c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
-        
-        for game in games:
-            game_id = game.app_id
-            new_ctool = games[game]
 
+        for game, new_ctool in games.items():
+            game_id = game.app_id
             if str(game_id) in c:
                 if new_ctool is None:
                     c.pop(str(game_id))
@@ -297,9 +280,8 @@ def is_steam_running() -> bool:
         procs = os.listdir('/proc')
         for proc in procs:
             exe = os.path.join('/proc', proc, 'exe')
-            if os.path.exists(exe):
-                if 'steam' in os.readlink(exe):
-                    return True
+            if os.path.exists(exe) and 'steam' in os.readlink(exe):
+                return True
     except:
         pass
     return False
@@ -311,7 +293,7 @@ get_fish_user_paths = lambda mfile: ([line.strip() for line in mfile.readlines()
 def get_external_steamtinkerlaunch_intall(compat_folder):
 
     symlink_path = os.path.join(compat_folder, 'steamtinkerlaunch')
-    return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and not os.readlink(symlink_path) == os.path.join(STEAM_STL_INSTALL_PATH, 'prefix', 'steamtinkerlaunch') else None
+    return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and os.readlink(symlink_path) != os.path.join(STEAM_STL_INSTALL_PATH, 'prefix', 'steamtinkerlaunch') else None
 
 
 def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=None) -> bool:
@@ -382,13 +364,13 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
         ]
         if os.path.exists(STEAM_STL_FISH_VARIABLES) or shutil.which('fish'):
             present_shell_files.append(STEAM_STL_FISH_VARIABLES)
-        
+
         print('Removing SteamTinkerLaunch from path...')
 
         for shell_file in present_shell_files:
             with open(shell_file, 'r+') as mfile:  
                 # Get all Shell file lines that are not the ProtonUp-Qt added STL path lines              
-                mfile_lines = list(filter(lambda l: 'protonup-qt' not in l.lower() and STEAM_STL_INSTALL_PATH.lower() not in l.lower(), [line for line in mfile.readlines()]))
+                mfile_lines = list(filter(lambda l: 'protonup-qt' not in l.lower() and STEAM_STL_INSTALL_PATH.lower() not in l.lower(), list(mfile.readlines())))
                 if len(mfile_lines) == 0:
                     continue
                 mfile_lines = mfile_lines[:-1] if len(mfile_lines[-1].strip()) == 0 else mfile_lines
@@ -396,7 +378,7 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
                 # Preserve any existing Fish user paths
                 if 'fish' in mfile.name:
                     mfile.seek(0)
-                    curr_fish_user_paths = list(filter(lambda path: STEAM_STL_INSTALL_PATH not in path, [user_path for user_path in get_fish_user_paths(mfile)]))
+                    curr_fish_user_paths = list(filter(lambda path: STEAM_STL_INSTALL_PATH not in path, list(get_fish_user_paths(mfile))))
                     updated_fish_user_paths = '\\x1e'.join(curr_fish_user_paths)
                     mfile_lines.append(f'SETUVAR fish_user_paths:{updated_fish_user_paths}')
 
@@ -404,7 +386,7 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
                 mfile.seek(0)
                 prev_line = ''
                 for line in mfile_lines:
-                    if not (len(line.strip()) == 0 and len(prev_line.strip()) == 0):
+                    if len(line.strip()) != 0 or len(prev_line.strip()) != 0:
                         mfile.write(line)
                     prev_line = line
                 mfile.truncate()
