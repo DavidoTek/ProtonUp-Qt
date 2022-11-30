@@ -11,7 +11,7 @@
     <message>
         <location filename="../pupgui2/pupgui2.py" line="228"/>
         <source>Fetching releases...</source>
-        <translation>取得 releases...</translation>
+        <translation>取得更新...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="239"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../pupgui2/pupgui2.py" line="254"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在安裝 {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="256"/>
@@ -507,27 +507,27 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="104"/>
         <source>missing</source>
-        <translation type="unfinished"></translation>
+        <translation>遺失</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="105"/>
         <source>found</source>
-        <translation type="unfinished"></translation>
+        <translation>發現</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="107"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>遺失依賴項！</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="109"/>
         <source>You need dosbox, inotify-tools and timidity for Boxtron.</source>
-        <translation type="unfinished"></translation>
+        <translation>您需要 dosbox、inotify-tools 和 timidity 才能使用 Boxtron。</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="115"/>
         <source>Will continue installing Boxtron anyway.</source>
-        <translation type="unfinished"></translation>
+        <translation>仍然會繼續安裝 Boxtron。</translation>
     </message>
 </context>
 <context>
@@ -572,27 +572,27 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="104"/>
         <source>missing</source>
-        <translation type="unfinished"></translation>
+        <translation>遺失</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="105"/>
         <source>found</source>
-        <translation type="unfinished"></translation>
+        <translation>發現</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="107"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>遺失依賴項！</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="109"/>
         <source>You need scummvm and inotify-tools for Roberta.</source>
-        <translation type="unfinished"></translation>
+        <translation>您需要 scummvm 和 inotify-tools 才能使用 Roberta。</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="114"/>
         <source>Will continue installing Roberta anyway.</source>
-        <translation type="unfinished"></translation>
+        <translation>仍然會繼續安裝 Roberta。</translation>
     </message>
 </context>
 <context>
@@ -647,24 +647,26 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
         <source>You have several unmet dependencies for SteamTinkerLaunch.
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>您有幾個依賴項未滿足 SteamTinkerLaunch。</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="219"/>
         <source>
 
 Installation will be cancelled.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+安裝即將取消。</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="219"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>遺失依賴項！</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="248"/>
         <source>Existing SteamTinkerLaunch Installation</source>
-        <translation type="unfinished"></translation>
+        <translation>已安裝 SteamTinkerLaunch</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="249"/>
@@ -673,29 +675,35 @@ Installation will be cancelled.</source>
 Reinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to &apos;{STL_INSTALL_PATH}&apos;
 
 . You may also choose to remove your existing installation, if ProtonUp-Qt has write access to this folder. Do you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)</source>
-        <translation type="unfinished"></translation>
+        <translation>看起來您在 &apos;{EXTERNAL_INSTALL_PATH}&apos; 安裝了一個 SteamTinkerLaunch，但不是由 ProtonUp-Qt 安裝。
+
+用 ProtonUp-Qt 重新安裝 SteamTinkerLaunch 會把您的安裝資料夾移到 &apos;{STL_INSTALL_PATH}&apos;
+
+。如果 ProtonUp-Qt 對這個資料夾有寫入權限，您也可以選擇刪除您現有的安裝文件。您想繼續安裝 SteamTinkerLaunch 嗎？ (這不會影響任何現有的 SteamTinkerLaunch 配置。)</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="250"/>
         <source>Remove existing SteamTinkerLaunch installation</source>
-        <translation type="unfinished"></translation>
+        <translation>移除已安裝的 SteamTinkerLaunch</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="359"/>
         <source>Add SteamTinkerLaunch to PATH</source>
-        <translation type="unfinished"></translation>
+        <translation>新增 SteamTinkerLaunch 到 PATH</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="360"/>
         <source>By default, ProtonUp-Qt will add SteamTinkerLaunch to all available Shell paths. This makes it easier to use with native Linux games. It also enables SteamTinkerLaunch commands from anywhere in the command line.
 
 Some users may not want this functionality. Do you want to continue installing SteamTinkerLaunch?</source>
-        <translation type="unfinished"></translation>
+        <translation>預設情況下，ProtonUp-Qt 會將 SteamTinkerLaunch 新增到所有可用的 Shell 路徑中。這使得它更容易與本機 Linux 遊戲一起使用。它還可以使 SteamTinkerLaunch 的指令在命令列的任何地方都能執行。
+
+有些使用者可能不想要這個功能。您想繼續安裝 SteamTinkerLaunch 嗎？</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="361"/>
         <source>Allow PATH modification</source>
-        <translation type="unfinished"></translation>
+        <translation>允許修改 PATH</translation>
     </message>
 </context>
 <context>
@@ -777,14 +785,16 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/steamutil.py" line="350"/>
         <source>Unable to Remove SteamTinkerLaunch</source>
-        <translation type="unfinished"></translation>
+        <translation>無法移除 SteamTinkerLaunch</translation>
     </message>
     <message>
         <location filename="../pupgui2/steamutil.py" line="353"/>
         <source>Access to SteamTinkerLaunch installation folder at &apos;{STL_SYMLINK_PATH}&apos; was denied, please remove this folder manually.
 
 The uninstallation will continue.</source>
-        <translation type="unfinished"></translation>
+        <translation>存取位於 &apos;{STL_SYMLINK_PATH}&apos; 的 SteamTinkerLaunch 安裝資料夾被拒絕，請手動刪除此資料夾。
+
+解除安裝將繼續進行。</translation>
     </message>
 </context>
 <context>
@@ -800,18 +810,19 @@ The uninstallation will continue.</source>
     <message>
         <location filename="../pupgui2/util.py" line="251"/>
         <source>Delete SteamTinkerLaunch configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>刪除 SteamTinkerLaunch 配置</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="252"/>
         <source>Uninstalling SteamTinkerLaunch</source>
-        <translation type="unfinished"></translation>
+        <translation>正在解除安裝 SteamTinkerLaunch</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="253"/>
         <source>SteamTinkerLaunch will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove SteamTinkerLaunch.
 Do you want the configuration to be removed?</source>
-        <translation type="unfinished"></translation>
+        <translation>SteamTinkerLaunch 將從您的系統中被移除。如果這個工具是和 ProtonUp-Qt 一起安裝的，這也會更新您的 PATH 以移除 SteamTinkerLaunch。
+您想移除配置嗎？</translation>
     </message>
 </context>
 </TS>
