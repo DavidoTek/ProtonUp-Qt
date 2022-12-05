@@ -1,7 +1,6 @@
 import pkgutil
-import os
 
-from .datastructures import BasicCompatTool, CTType
+from .api.compattool import *
 from .util import open_webbrowser_thread
 from .steamutil import get_steam_game_list
 from .lutrisutil import get_lutris_game_list
@@ -19,7 +18,7 @@ class PupguiCtInfoDialog(QObject):
 
     batch_update_complete = Signal(bool)
 
-    def __init__(self, parent=None, ctool: BasicCompatTool = None, install_loc=None):
+    def __init__(self, parent=None, ctool: CompatTool = None, install_loc=None):
         super(PupguiCtInfoDialog, self).__init__(parent)
         self.parent = parent
         self.ctool = ctool
@@ -37,15 +36,15 @@ class PupguiCtInfoDialog(QObject):
         self.ui = loader.load(ui_file.device())
 
     def setup_ui(self):
-        self.ui.txtToolName.setText(self.ctool.displayname)
+        self.ui.txtToolName.setText(self.ctool.get_displayname())
         self.ui.txtLauncherName.setText(self.install_loc.get('display_name'))
         self.ui.txtInstallDirectory.setText(self.ctool.get_install_dir())
         self.ui.btnBatchUpdate.setVisible(False)
 
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
-            if self.ctool.ct_type != CTType.STEAM_RT:
+            if self.ctool.get_ct_type() != CompatToolType.STEAM_RT:
                 self.update_game_list_steam()
-                if 'Proton' in self.ctool.displayname and self.ctool.ct_type == CTType.CUSTOM:  # 'batch update' option for Proton-GE
+                if 'Proton' in self.ctool.get_displayname() and self.ctool.get_ct_type() == CompatToolType.CUSTOM:  # 'batch update' option for Proton-GE
                     self.ui.btnBatchUpdate.setVisible(True)
                     self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
         else:

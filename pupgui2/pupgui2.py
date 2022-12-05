@@ -8,7 +8,8 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtUiTools import QUiLoader
 
-from .datastructures import CTType, MsgBoxType, MsgBoxResult
+from .api.compattool import *
+from .datastructures import MsgBoxType, MsgBoxResult
 from .util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools
 from .util import install_directory, available_install_directories, get_install_location_from_directory_name
 from .util import remove_ctool
@@ -191,10 +192,10 @@ class MainWindow(QObject):
             self.compat_tool_index_map += get_steam_acruntime_list(install_loc.get('vdf_dir'), cached=True)
             for ct in self.compat_tool_index_map:
                 games = get_steam_game_list(install_loc.get('vdf_dir'), ct.get_internal_name(), cached=True)
-                ct.no_games = len(games)
+                ct.add_games(games)
 
         for ct in self.compat_tool_index_map:
-            self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused')))
+            self.ui.listInstalledVersions.addItem(ct.get_displayname() + ("" if ct.get_game_count() > 0 else (" (" + self.tr('unused') + ")")))
 
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
@@ -213,8 +214,6 @@ class MainWindow(QObject):
 
     def get_installed_versions(self, ctool_name, ctool_dir):
         for ct in get_installed_ctools(ctool_dir):
-            if not ctool_name in ct.get_displayname().lower():
-                ct.displayname = f'{ctool_name} {ct.displayname}'
             self.compat_tool_index_map.append(ct) 
 
     def install_compat_tool(self, compat_tool):
@@ -275,8 +274,8 @@ class MainWindow(QObject):
         games_using_tools = 0
         for item in self.ui.listInstalledVersions.selectedItems():
             ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
-            if ct.no_games > 0:
-                games_using_tools += ct.no_games
+            if ct.get_game_count() > 0:
+                games_using_tools += ct.get_game_count()
             ctools_to_remove.append(ct)
 
         if games_using_tools > 0:
@@ -285,7 +284,7 @@ class MainWindow(QObject):
                 return
 
         for ct in ctools_to_remove:
-            remove_ctool(ct.get_install_folder(), ct.get_install_dir())
+            remove_ctool(ct.get_folder_name(), ct.get_install_dir())
 
         self.ui.statusBar().showMessage(self.tr('Removed selected versions.'))
         self.update_ui()
@@ -343,7 +342,7 @@ class MainWindow(QObject):
         # Compatibility tools and runtimes installed by Steam (steamapps) cannot be removed
         for item in self.ui.listInstalledVersions.selectedItems():
             ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
-            if ct.ct_type == CTType.STEAM_CT or ct.ct_type == CTType.STEAM_RT:
+            if ct.get_ct_type() == CompatToolType.STEAM_CT or ct.get_ct_type() == CompatToolType.STEAM_RT:
                 self.ui.btnRemoveSelected.setEnabled(False)
                 break
 

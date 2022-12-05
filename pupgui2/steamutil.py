@@ -6,7 +6,8 @@ from steam.utils.appcache import parse_appinfo
 import shutil
 import subprocess
 
-from .datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
+from .datastructures import SteamApp, AWACYStatus
+from .api.compattool import *
 from .constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
 
 from PySide6.QtWidgets import QMessageBox, QApplication
@@ -99,17 +100,25 @@ def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=Fal
     return ctools
 
 
-def get_steam_acruntime_list(steam_config_folder: str, cached=False) -> List[BasicCompatTool]:
+def get_steam_acruntime_list(steam_config_folder: str, cached=False) -> List[CompatTool]:
     """
     Returns a list of installed Steam Proton anticheat(EAC/BattlEye) Runtimes.
-    Return Type: List[BasicCompatTool]
+    Return Type: List[CompatTool]
     """
     runtimes = []
     apps = get_steam_app_list(steam_config_folder, cached=cached)
 
     for app in apps:
         if app.app_type == 'acruntime':
-            ct = BasicCompatTool(app.game_name, app.libraryfolder_path, '', CTType.STEAM_RT)
+            ct = CompatTool(
+                name=app.game_name,
+                version="",
+                ctinstaller=None,
+                install_dir=app.libraryfolder_path,
+                folder_name="",
+                display_name=app.game_name,
+                type=CompatToolType.STEAM_RT
+            )
             runtimes.append(ct)
 
     return runtimes

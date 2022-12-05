@@ -14,7 +14,7 @@ from PySide6.QtGui import *
 
 from .constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
 from .constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
-from .datastructures import BasicCompatTool, CTType
+from .api.compattool import *
 from .steamutil import remove_steamtinkerlaunch
 
 
@@ -363,10 +363,10 @@ def download_awacy_gamelist() -> None:
     t.start()
 
 
-def get_installed_ctools(install_dir: str) -> List[BasicCompatTool]:
+def get_installed_ctools(install_dir: str) -> List[CompatTool]:
     """
     Returns installed compatibility tools sorted after name/version
-    Return Type: List[BasicCompatTool]
+    Return Type: List[CompatTool]
     """
     ctools = []
 
@@ -376,14 +376,23 @@ def get_installed_ctools(install_dir: str) -> List[BasicCompatTool]:
         for folder in folders:
             if not os.path.isdir(os.path.join(install_dir, folder)):
                 continue
-            
-            ct = BasicCompatTool(folder, install_dir, folder, ct_type=CTType.CUSTOM)
 
+            ver = ""
             ver_file = os.path.join(install_dir, folder, 'VERSION.txt')
             if os.path.exists(ver_file):
                 with open(ver_file, 'r') as f:
                     ver = f.read().strip()
-                    ct.set_version(ver)
+
+            ct = CompatTool(
+                name=folder,
+                version=ver,
+                ctinstaller=None,
+                install_dir=install_dir,
+                folder_name=folder,
+                status=CompatToolStatus.INSTALLED,
+                ct_type=CompatToolType.CUSTOM
+            )
+
 
             ctools.append(ct)
 
