@@ -8,8 +8,8 @@ from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.lutrisutil import get_lutris_game_list
 
-from .util import list_installed_ctools, sort_compatibility_tool_names
-from .steamutil import steam_update_ctools
+from .util import get_installed_ctools
+from .api.steamutils import steam_update_ctools
 from .steamutil import get_steam_game_list
 from .steamutil import get_steam_ctool_list
 from .steamutil import is_steam_running
@@ -29,6 +29,7 @@ class PupguiGameListDialog(QObject):
         self.queued_changes = {}
 
         self.install_loc = get_install_location_from_directory_name(install_dir)
+        self.ctools = get_installed_ctools(self.install_dir)
 
         self.load_ui()
         self.setup_ui()
@@ -64,9 +65,9 @@ class PupguiGameListDialog(QObject):
     def update_game_list_steam(self):
         """ update the game list for the Steam launcher """
         games = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'))
-        ctools = [c if c != 'SteamTinkerLaunch' else 'Proton-stl' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True) ]
+        #ctools = [c if c != 'SteamTinkerLaunch' else 'Proton-stl' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True) ]
         for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir')):
-            ctools.append(t.ctool_name)
+            pass # ToDo: comvert to compattool# ctools.append(t.ctool_name)
 
         self.ui.tableGames.setRowCount(len(games))
 
@@ -77,14 +78,13 @@ class PupguiGameListDialog(QObject):
 
             combo = QComboBox()
             combo.addItem('-')
-            combo.addItems(ctools)
-            if game.compat_tool not in ctools:
-                combo.addItem(game.compat_tool)
+            for ctool in self.ctools:
+                combo.addItem(ctool.get_displayname())
             if game.compat_tool is None:
                 combo.setCurrentText('-')
             else:
                 combo.setCurrentText(game.compat_tool)
-            combo.currentTextChanged.connect(lambda text,game=game: self.queue_ctool_change_steam(text, game))
+            combo.currentIndexChanged.connect(lambda idx,game=game: self.queue_ctool_change_steam(idx, game))
             self.ui.tableGames.setCellWidget(i, 1, combo)
 
             deckc = game.get_deck_compat_category()
@@ -152,11 +152,9 @@ class PupguiGameListDialog(QObject):
         self.update_queued_ctools_steam()
         self.ui.close()
 
-    def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
+    def queue_ctool_change_steam(self, index: int, game: SteamApp):
         """ add compatibility tool changes to queue (Steam) """
-        if ctool_name == '-' or ctool_name == '':
-            ctool_name = None
-        self.queued_changes[game] = ctool_name
+        self.queued_changes[game] = self.ctools[index-1] if index != 0 else None  # None, ctool1, ctool2, ...
 
     def update_queued_ctools_steam(self):
         """ update the compatibility tools for all queued games (Steam) """
