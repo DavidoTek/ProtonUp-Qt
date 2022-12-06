@@ -2,8 +2,8 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 
-from .util import sort_compatibility_tool_names, list_installed_ctools, install_directory
-from .steamutil import steam_update_ctool
+from .util import get_installed_ctools, install_directory
+from .api.steamutils import steam_update_ctool
 from .steamutil import is_steam_running
 
 class PupguiCtBatchUpdateDialog(QDialog):
@@ -15,7 +15,7 @@ class PupguiCtBatchUpdateDialog(QDialog):
         self.games = games
         self.steam_config_folder = steam_config_folder
 
-        self.ctools = sort_compatibility_tool_names(list_installed_ctools(install_directory()), reverse=True)
+        self.ctools = get_installed_ctools(install_directory())
 
         self.setup_ui()
 
@@ -31,8 +31,8 @@ class PupguiCtBatchUpdateDialog(QDialog):
         self.setLayout(formLayout)
 
         for ctool in self.ctools:
-            if 'Proton' in ctool:
-                self.comboNewCtool.addItem(ctool)
+            if 'Proton' in ctool.get_folder_name():
+                self.comboNewCtool.addItem(ctool.get_displayname())
         self.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
 
         if is_steam_running():
@@ -47,6 +47,9 @@ class PupguiCtBatchUpdateDialog(QDialog):
         self.batch_update_complete.emit(True)
         self.close()
 
-    def update_games_to_ctool(self, ctool):
+    def update_games_to_ctool(self, ctool_displayname):
+        for ctool in self.ctools:
+            if ctool.get_displayname() == ctool_displayname:
+                break
         for game in self.games:
             steam_update_ctool(game, ctool, self.steam_config_folder)
