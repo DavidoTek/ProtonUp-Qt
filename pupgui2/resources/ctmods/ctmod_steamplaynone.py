@@ -17,7 +17,6 @@ CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_steamplayno
 
 class CtInstaller(QObject):
 
-    BUFFER_SIZE = 2048
     CT_URL = 'https://github.com/Scrumplex/Steam-Play-None/archive/refs/heads/main.tar.gz'  # no releases
     CT_INFO_URL = 'https://github.com/Scrumplex/Steam-Play-None'
 
@@ -48,28 +47,19 @@ class CtInstaller(QObject):
         Download files from url to destination
         Return Type: bool
         """
+        destination = os.path.expanduser(destination)
+
         try:
-            file = self.rs.get(url, stream=True)
+            file = self.rs.get(url)
         except OSError:
             return False
 
         self.__set_download_progress_percent(1) # 1 download started
-        f_size = int(file.headers.get('content-length'))
-        c_count = int(f_size / self.BUFFER_SIZE)
-        c_current = 1
-        destination = os.path.expanduser(destination)
+
         os.makedirs(os.path.dirname(destination), exist_ok=True)
         with open(destination, 'wb') as dest:
-            for chunk in file.iter_content(chunk_size=self.BUFFER_SIZE):
-                if self.download_canceled:
-                    self.download_canceled = False
-                    self.__set_download_progress_percent(-2) # -2 download canceled
-                    return False
-                if chunk:
-                    dest.write(chunk)
-                    dest.flush()
-                self.__set_download_progress_percent(int(min(c_current / c_count * 98.0, 98.0))) # 1-98, 100 after extract
-                c_current += 1
+            self.__set_download_progress_percent(50)
+            dest.write(file.content)
         self.__set_download_progress_percent(99) # 99 download complete
         return True
 
