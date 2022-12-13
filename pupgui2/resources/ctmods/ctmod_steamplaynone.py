@@ -12,7 +12,7 @@ from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 CT_NAME = 'Steam-Play-None'
 CT_LAUNCHERS = ['steam', 'advmode']
-CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_steamplaynone', '''Run Linux games as is, even if Valve recommends Proton for a game.<br/>Created by Scrumplex.<br/><br/>Useful for Steam Deck.''')}
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_steamplaynone', '''Run Linux games as is, even if Valve recommends Proton for a game.<br/>Created by Scrumplex.<br/><br/>Useful for Steam Deck.<br/><br/>Note: The internal name has been changed from <b>none</b> to <b>Steam-Play-None</b>!''')}
 
 
 class CtInstaller(QObject):
