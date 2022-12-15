@@ -96,19 +96,6 @@ class CtInstaller(QObject):
         # Rename folder Steam-Play-None-main to Steam-Play-None
         shutil.move(os.path.join(install_dir, 'Steam-Play-None-main'), os.path.join(install_dir, 'Steam-Play-None'))
 
-        # Change internal and display name to Steam-Play-None
-        spn_vdf = os.path.join(install_dir, 'Steam-Play-None', 'compatibilitytool.vdf')
-        with open(spn_vdf, 'r+') as f:
-            c = f.readlines()
-            f.seek(0)
-            for line in c:
-                if 'display_name' in line:
-                    f.write(line.replace('None', 'Steam-Play-None'))
-                elif '"none"' in line:
-                    f.write(line.replace('none', 'Steam-Play-None'))
-                else:
-                    f.write(line)
-
         self.__set_download_progress_percent(100)
 
         return True
