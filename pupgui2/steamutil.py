@@ -4,16 +4,21 @@ import shutil
 import subprocess
 import json
 import vdf
+import requests
+import threading
 from steam.utils.appcache import parse_appinfo
 
 from PySide6.QtWidgets import QMessageBox, QApplication
 
-from pupgui2.constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
+from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
+from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
 from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
 
 
 _cached_app_list = []
 _cached_steam_ctool_id_map = None
+_cached_protondb_status_map = {}  # Map: app_id -> protondb.com status summary
+
 
 def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]:
     """
@@ -65,7 +70,12 @@ def get_steam_game_list(steam_config_folder: str, compat_tool='', cached=False) 
     Specify compat_tool to only return games using the specified tool.
     Return Type: List[SteamApp]
     """
+    global _cached_protondb_status_map
     apps = get_steam_app_list(steam_config_folder, cached=cached)
+    if _cached_protondb_status_map == {}:  # download once
+        t = threading.Thread(target=download_protondbstatus_thread, args=[apps])
+        t.start()
+    apps = update_steamapp_protondbstatus(apps)
 
     return [app for app in apps if app.app_type == 'game' and (compat_tool == '' or app.compat_tool == compat_tool)]
 
@@ -207,6 +217,39 @@ def update_steamapp_awacystatus(steamapp_list: List[SteamApp]) -> List[SteamApp]
         print('Error updating the areweanticheatyet.com status:', e)
         return steamapp_list
 
+    return steamapp_list
+
+
+def download_protondbstatus_thread(steamapp_list: List[SteamApp]) -> None:
+    """
+    Download the protondb.com rating for the games to be used by update_steamapp_protondbstatus
+    Should be run in a separate thread and only once
+    Return Type: List[SteamApp]
+    """
+    global _cached_protondb_status_map
+    _cached_protondb_status_map = {-1: {}}
+    try:
+        for app in steamapp_list:
+            json_url = PROTONDB_API_URL.format(game_id=str(app.app_id))
+            r = requests.get(json_url)
+            if r.status_code == 200:
+                _cached_protondb_status_map[app.app_id] = r.json()
+    except Exception as e:
+        print('Error downloading the protondb.com status:', e)
+
+
+def update_steamapp_protondbstatus(steamapp_list: List[SteamApp]) -> List[SteamApp]:
+    """
+    Set the protondb.com rating for the games
+    Uses information downloaded from download_protondbstatus_thread if available
+    Return Type: List[SteamApp]
+    """
+    global _cached_protondb_status_map
+    try:
+        for app in steamapp_list:
+            app.protondb_summary = _cached_protondb_status_map.get(app.app_id, {})
+    except Exception as e:
+        print('Error updating the protondb.com status:', e)
     return steamapp_list
 
 
