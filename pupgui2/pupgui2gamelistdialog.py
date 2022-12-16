@@ -82,12 +82,18 @@ class PupguiGameListDialog(QObject):
             combo.currentTextChanged.connect(lambda text,game=game: self.queue_ctool_change_steam(text, game))
             self.ui.tableGames.setCellWidget(i, 1, combo)
 
+            lbl_deck_compat = QLabel()
+            # ProtonDB status
+            pdb_tier = game.protondb_summary.get('tier', '?')
+            lbl_deck_compat.setToolTip(f'ProtonDB.com: {pdb_tier}')
+
+            # SteamDeck compatibility
             deckc = game.get_deck_compat_category()
             deckt = game.get_deck_recommended_tool()
             if deckc == SteamDeckCompatEnum.UNKNOWN:
-                self.ui.tableGames.setCellWidget(i, 2, QLabel(self.tr('Unknown')))
+                lbl_deck_compat.setText(self.tr('Unknown'))
             elif deckc == SteamDeckCompatEnum.UNSUPPORTED:
-                self.ui.tableGames.setCellWidget(i, 2, QLabel(self.tr('Unsupported')))
+                lbl_deck_compat.setText(self.tr('Unsupported'))
             elif deckc == SteamDeckCompatEnum.PLAYABLE:
                 if deckt == '':
                     lbltxt = self.tr('Playable')
@@ -95,7 +101,7 @@ class PupguiGameListDialog(QObject):
                     lbltxt = self.tr('Native (playable)')
                 else:
                     lbltxt = self.tr('Playable using {compat_tool}').format(compat_tool=deckt)
-                self.ui.tableGames.setCellWidget(i, 2, QLabel(lbltxt))
+                lbl_deck_compat.setText(lbltxt)
             elif deckc == SteamDeckCompatEnum.VERIFIED:
                 if deckt == '':
                     lbltxt = self.tr('Verified')
@@ -103,8 +109,10 @@ class PupguiGameListDialog(QObject):
                     lbltxt = self.tr('Native (verified)')
                 else:
                     lbltxt = self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
-                self.ui.tableGames.setCellWidget(i, 2, QLabel(lbltxt))
+                lbl_deck_compat.setText(lbltxt)
+            self.ui.tableGames.setCellWidget(i, 2, lbl_deck_compat)
 
+            # AWACY status
             lblicon = QLabel()
             p = QPixmap()
             if game.awacy_status == AWACYStatus.ASUPPORTED:
