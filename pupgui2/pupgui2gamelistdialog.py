@@ -6,6 +6,7 @@ from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QLabel, QComboBox
 from PySide6.QtUiTools import QUiLoader
 
+from pupgui2.constants import PROTONDB_COLORS
 from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
 from pupgui2.lutrisutil import get_lutris_game_list
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
@@ -39,7 +40,7 @@ class PupguiGameListDialog(QObject):
 
     def setup_ui(self):
         if self.install_loc.get('launcher') == 'steam':
-            self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat')])
+            self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
             self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
             self.update_game_list_steam()
 
@@ -55,7 +56,8 @@ class PupguiGameListDialog(QObject):
             self.update_game_list_lutris()
             self.ui.lblSteamRunningWarning.setVisible(False)
 
-        self.ui.tableGames.setColumnWidth(3, 20)
+        self.ui.tableGames.setColumnWidth(3, 70)
+        self.ui.tableGames.setColumnWidth(4, 70)
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
 
     def update_game_list_steam(self):
@@ -82,12 +84,20 @@ class PupguiGameListDialog(QObject):
             combo.currentTextChanged.connect(lambda text,game=game: self.queue_ctool_change_steam(text, game))
             self.ui.tableGames.setCellWidget(i, 1, combo)
 
-            lbl_deck_compat = QLabel()
             # ProtonDB status
             pdb_tier = game.protondb_summary.get('tier', '?')
-            lbl_deck_compat.setToolTip(f'ProtonDB.com: {pdb_tier}')
+            lbl_protondb_compat = QLabel()
+            lbl_protondb_compat.setText(pdb_tier)
+            lbl_protondb_compat.setToolTip(self.tr('Confidence: {confidence}\nScore: {score}\nTrending: {trending}')
+                .format(confidence=game.protondb_summary.get('confidence', '?'),
+                        score=game.protondb_summary.get('score', '?'),
+                        trending=game.protondb_summary.get('trendingTier', '?')))
+            if pdb_tier in PROTONDB_COLORS:
+                lbl_protondb_compat.setStyleSheet('QLabel{color: ' + PROTONDB_COLORS.get(pdb_tier) + ';}')
+            self.ui.tableGames.setCellWidget(i, 4, lbl_protondb_compat)
 
             # SteamDeck compatibility
+            lbl_deck_compat = QLabel()
             deckc = game.get_deck_compat_category()
             deckt = game.get_deck_recommended_tool()
             if deckc == SteamDeckCompatEnum.UNKNOWN:

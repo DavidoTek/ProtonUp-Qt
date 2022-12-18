@@ -60,6 +60,8 @@ def PALETTE_DARK():
     palette_dark.setColor(QPalette.HighlightedText, Qt.black)
     return palette_dark
 
+PROTONDB_COLORS = {'platinum': '#b4c7dc', 'gold': '#4f492c', 'silver': '#a6a6a6', 'bronze': '#cd7f32', 'borked': '#ff0000'}
+
 STEAM_API_GETAPPLIST_URL = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'
 STEAM_APP_PAGE_URL = 'https://store.steampowered.com/app/'
 AWACY_GAME_LIST_URL = 'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/master/games.json'
