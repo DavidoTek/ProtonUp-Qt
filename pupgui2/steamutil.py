@@ -8,6 +8,7 @@ import requests
 import threading
 from steam.utils.appcache import parse_appinfo
 
+from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QMessageBox, QApplication
 
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
@@ -17,7 +18,6 @@ from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTTyp
 
 _cached_app_list = []
 _cached_steam_ctool_id_map = None
-_cached_protondb_status_map = {}  # Map: app_id -> protondb.com status summary
 
 
 def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]:
@@ -70,12 +70,7 @@ def get_steam_game_list(steam_config_folder: str, compat_tool='', cached=False) 
     Specify compat_tool to only return games using the specified tool.
     Return Type: List[SteamApp]
     """
-    global _cached_protondb_status_map
     apps = get_steam_app_list(steam_config_folder, cached=cached)
-    if _cached_protondb_status_map == {}:  # download once
-        t = threading.Thread(target=download_protondbstatus_thread, args=[apps])
-        t.start()
-    apps = update_steamapp_protondbstatus(apps)
 
     return [app for app in apps if app.app_type == 'game' and (compat_tool == '' or app.compat_tool == compat_tool)]
 
@@ -220,37 +215,23 @@ def update_steamapp_awacystatus(steamapp_list: List[SteamApp]) -> List[SteamApp]
     return steamapp_list
 
 
-def download_protondbstatus_thread(steamapp_list: List[SteamApp]) -> None:
-    """
-    Download the protondb.com rating for the games to be used by update_steamapp_protondbstatus
-    Should be run in a separate thread and only once
-    Return Type: List[SteamApp]
-    """
-    global _cached_protondb_status_map
-    _cached_protondb_status_map = {-1: {}}
+def get_protondb_status_thread(game: SteamApp, signal: Signal) -> None:
+    """ Downloads the ProtonDB.com status and calls the Qt Signal "signal" when done. Use with "get_protondb_status"!"""
     try:
-        for app in steamapp_list:
-            json_url = PROTONDB_API_URL.format(game_id=str(app.app_id))
-            r = requests.get(json_url)
-            if r.status_code == 200:
-                _cached_protondb_status_map[app.app_id] = r.json()
+        json_url = PROTONDB_API_URL.format(game_id=str(game.app_id))
+        r = requests.get(json_url)
+        if r.status_code == 200:
+            game.protondb_summary = r.json()
+        signal.emit(game)
     except Exception as e:
-        print('Error downloading the protondb.com status:', e)
+        print('Error getting the protondb.com status:', e)
+        signal.emit(None)
 
 
-def update_steamapp_protondbstatus(steamapp_list: List[SteamApp]) -> List[SteamApp]:
-    """
-    Set the protondb.com rating for the games
-    Uses information downloaded from download_protondbstatus_thread if available
-    Return Type: List[SteamApp]
-    """
-    global _cached_protondb_status_map
-    try:
-        for app in steamapp_list:
-            app.protondb_summary = _cached_protondb_status_map.get(app.app_id, {})
-    except Exception as e:
-        print('Error updating the protondb.com status:', e)
-    return steamapp_list
+def get_protondb_status(game: SteamApp, signal: Signal) -> None:
+    """ Downloads the ProtonDB.com status in a separate threads. When done the Qt Signal "signal" is called """
+    t = threading.Thread(target=get_protondb_status_thread, args=(game, signal))
+    t.start()
 
 
 def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -> bool:
