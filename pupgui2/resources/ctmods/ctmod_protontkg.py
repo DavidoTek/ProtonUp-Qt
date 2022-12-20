@@ -11,6 +11,8 @@ from zipfile import ZipFile
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
+from pupgui2.util import ghapi_rlcheck
+
 
 CT_NAME = 'Proton Tkg'
 CT_LAUNCHERS = ['steam']
@@ -142,7 +144,7 @@ class CtInstaller(QObject):
 
     def __fetch_workflows(self, count=100):
         tags = []
-        for workflow in self.rs.get(f'{self.CT_WORKFLOW_URL}?per_page={str(count)}').json()["workflows"]:
+        for workflow in self.rs.get(f'{self.CT_WORKFLOW_URL}?per_page={str(count)}').json().get("workflows", {}):
             if workflow['state'] != "active" or self.PROTON_PACKAGE_NAME not in workflow['path']:
                 continue
             tags.extend(str(run['id']) for run in self.rs.get(workflow["url"] + "/runs").json()["workflow_runs"] if run['conclusion'] == "success")
@@ -155,7 +157,7 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
         tags = self.__fetch_workflows(count=count)
-        for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json():
+        for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()):
             # Check assets length because latest release (7+) doesn't have assets.
             if 'tag_name' not in release or len(release["assets"]) == 0:
                 continue

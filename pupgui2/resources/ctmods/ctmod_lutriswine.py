@@ -10,6 +10,8 @@ import hashlib
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
+from pupgui2.util import ghapi_rlcheck
+
 
 CT_NAME = 'Lutris-Wine'
 CT_LAUNCHERS = ['lutris', 'bottles']
@@ -122,7 +124,7 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
         tags = []
-        for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json():
+        for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()):
             if 'tag_name' in release:
                 tags.extend((release['tag_name'], release['tag_name'].replace('lutris-', 'lutris-fshack-')))
 

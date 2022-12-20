@@ -9,6 +9,8 @@ import requests
 
 from PySide6.QtCore import QObject, Signal, Property
 
+from pupgui2.util import ghapi_rlcheck
+
 
 CT_NAME = 'NorthStar Proton (TitalFall 2)'
 CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles', 'advmode']
@@ -104,7 +106,7 @@ class CtInstaller(QObject):
         List available releases
         Return Type: str[]
         """
-        return [release['tag_name'] for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json() if 'tag_name' in release]
+        return [release['tag_name'] for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()) if 'tag_name' in release]
 
     def get_tool(self, version, install_dir, temp_dir):
         """

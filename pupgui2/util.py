@@ -389,3 +389,10 @@ def host_which(name: str) -> str:
     proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
     which = subprocess.run(proc_prefix + ['which', name], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip()
     return None if which == '' else which
+
+def ghapi_rlcheck(json: dict):
+    """ Checks if the given GitHub request response (JSON) contains a rate limit warning and warns the user """
+    if type(json) == dict:
+        if 'API rate limit exceeded' in json.get('message', ''):
+            print('Warning: GitHub API rate limit exceeded. See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.')
+    return json
