@@ -56,6 +56,7 @@ class SteamApp:
     ctool_name = ''  # Steam's internal compatiblity tool name, e.g. 'proton_7'
     ctool_from_oslist = ''
     awacy_status = AWACYStatus.UNKNOWN  # areweanticheatyet.com Status
+    protondb_summary = {}  # protondb status summary from JSON file
 
     def get_app_id_str(self) -> str:
         return str(self.app_id)
