@@ -4,9 +4,10 @@ import shutil
 import pkgutil
 import requests
 import subprocess
+import threading
 
 from PySide6.QtCore import Qt, QCoreApplication, QObject, QThread, QWaitCondition, QMutex, QDataStream
-from PySide6.QtCore import QByteArray, QEvent, Slot, QTranslator, QLocale, QLibraryInfo
+from PySide6.QtCore import QByteArray, QEvent, Signal, Slot, QTranslator, QLocale, QLibraryInfo
 from PySide6.QtGui import QIcon, QKeyEvent
 from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox, QProgressBar, QVBoxLayout
 from PySide6.QtUiTools import QUiLoader
@@ -73,6 +74,8 @@ class InstallWineThread(QThread):
 
 class MainWindow(QObject):
 
+    update_statusbar_message = Signal(str)
+
     def __init__(self):
         super(MainWindow, self).__init__()
 
@@ -99,6 +102,7 @@ class MainWindow(QObject):
 
         self.load_ui()
         self.setup_ui()
+        self.update_statusbar_message.connect(self.ui.statusBar().showMessage)
         self.update_ui()
 
         self.ui.show()
@@ -147,10 +151,14 @@ class MainWindow(QObject):
         QApplication.instance().aboutToQuit.connect(self.install_thread.stop)
 
     def set_default_statusbar(self):
-        if not is_online():
-            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION} (Offline)')
-        else:
-            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
+        """ Show the default text in the status bar - non-blocking using update_statusbar_message Signal """
+        def _set_default_statusbar_thread(update_statusbar_message: Signal):
+            if not is_online():
+                update_statusbar_message.emit(f'{APP_NAME} {APP_VERSION} (Offline)')
+            else:
+                update_statusbar_message.emit(f'{APP_NAME} {APP_VERSION}')
+        t = threading.Thread(target=_set_default_statusbar_thread, args=[self.update_statusbar_message])
+        t.start()
 
     def update_combo_install_location(self):
         self.updating_combo_install_location = True
