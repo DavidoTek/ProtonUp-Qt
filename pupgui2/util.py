@@ -390,7 +390,7 @@ def host_which(name: str) -> str:
     which = subprocess.run(proc_prefix + ['which', name], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip()
     return None if which == '' else which
 
-def is_online(host='https://google.com', timeout=10) -> bool:
+def is_online(host='https://api.github.com/repos/', timeout=3) -> bool:
     """
     Attempts to ping a given host using `requests`.
     Returns False if `requests` raises a `ConnectionError` or `Timeout` exception, otherwise returns True 
