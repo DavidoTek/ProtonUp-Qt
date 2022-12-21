@@ -9,6 +9,8 @@ import zipfile
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
+from pupgui2.util import ghapi_rlcheck
+
 
 CT_NAME = 'D8VK (nightly)'
 CT_LAUNCHERS = ['lutris', 'advmode']
@@ -116,7 +118,7 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
         tags = []
-        for artifact in self.rs.get(self.CT_URL + '?per_page=' + str(count)).json()["artifacts"]:
+        for artifact in ghapi_rlcheck(self.rs.get(self.CT_URL + '?per_page=' + str(count)).json()).get("artifacts", {}):
             workflow = artifact['workflow_run']
             if not workflow["head_branch"] == "master" or artifact["expired"]:
                 continue
