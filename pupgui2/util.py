@@ -396,3 +396,16 @@ def ghapi_rlcheck(json: dict):
         if 'API rate limit exceeded' in json.get('message', ''):
             print('Warning: GitHub API rate limit exceeded. See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.')
     return json
+
+def is_online(host='https://api.github.com/repos/', timeout=3) -> bool:
+    """
+    Attempts to ping a given host using `requests`.
+    Returns False if `requests` raises a `ConnectionError` or `Timeout` exception, otherwise returns True 
+    
+    Return Type: bool
+    """
+    try:
+        requests.get(host, timeout=timeout)
+        return True
+    except (requests.ConnectionError, requests.Timeout):
+        return False

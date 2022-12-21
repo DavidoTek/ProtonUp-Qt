@@ -4,9 +4,10 @@ import shutil
 import pkgutil
 import requests
 import subprocess
+import threading
 
 from PySide6.QtCore import Qt, QCoreApplication, QObject, QThread, QWaitCondition, QMutex, QDataStream
-from PySide6.QtCore import QByteArray, QEvent, Slot, QTranslator, QLocale, QLibraryInfo
+from PySide6.QtCore import QByteArray, QEvent, Signal, Slot, QTranslator, QLocale, QLibraryInfo
 from PySide6.QtGui import QIcon, QKeyEvent
 from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox, QProgressBar, QVBoxLayout
 from PySide6.QtUiTools import QUiLoader
@@ -25,7 +26,7 @@ from pupgui2.pupgui2installdialog import PupguiInstallDialog
 from pupgui2.steamutil import get_steam_acruntime_list, get_steam_game_list
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
-from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist
+from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online
 
 
 class InstallWineThread(QThread):
@@ -73,6 +74,8 @@ class InstallWineThread(QThread):
 
 class MainWindow(QObject):
 
+    update_statusbar_message = Signal(str)
+
     def __init__(self):
         super(MainWindow, self).__init__()
 
@@ -99,6 +102,7 @@ class MainWindow(QObject):
 
         self.load_ui()
         self.setup_ui()
+        self.update_statusbar_message.connect(self.ui.statusBar().showMessage)
         self.update_ui()
 
         self.ui.show()
@@ -134,7 +138,7 @@ class MainWindow(QObject):
         self.ui.btnRemoveSelected.setEnabled(False)
         self.ui.btnShowCtInfo.setEnabled(False)
 
-        self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
+        self.set_default_statusbar()
 
         self.giw = GamepadInputWorker()
         if os.getenv('PUPGUI2_DISABLE_GAMEPAD', '0') == '0':
@@ -145,6 +149,16 @@ class MainWindow(QObject):
         self.install_thread = InstallWineThread(self)
         self.install_thread.start()
         QApplication.instance().aboutToQuit.connect(self.install_thread.stop)
+
+    def set_default_statusbar(self):
+        """ Show the default text in the status bar - non-blocking using update_statusbar_message Signal """
+        def _set_default_statusbar_thread(update_statusbar_message: Signal):
+            if not is_online():
+                update_statusbar_message.emit(f'{APP_NAME} {APP_VERSION} (Offline)')
+            else:
+                update_statusbar_message.emit(f'{APP_NAME} {APP_VERSION}')
+        t = threading.Thread(target=_set_default_statusbar_thread, args=[self.update_statusbar_message])
+        t.start()
 
     def update_combo_install_location(self):
         self.updating_combo_install_location = True
@@ -194,7 +208,7 @@ class MainWindow(QObject):
 
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
-            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
+            self.set_default_statusbar()
             self.progressBarDownload.setVisible(False)
             self.ui.comboInstallLocation.setEnabled(True)
 
@@ -229,7 +243,7 @@ class MainWindow(QObject):
         if value:
             self.ui.statusBar().showMessage(self.tr('Fetching releases...'))
         else:
-            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
+            self.set_default_statusbar()
 
     def set_download_progress_percent(self, value):
         """ set download progress bar value and update status bar text """
