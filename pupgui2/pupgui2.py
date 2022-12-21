@@ -25,7 +25,7 @@ from pupgui2.pupgui2installdialog import PupguiInstallDialog
 from pupgui2.steamutil import get_steam_acruntime_list, get_steam_game_list
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
-from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist
+from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online
 
 
 class InstallWineThread(QThread):
@@ -134,7 +134,7 @@ class MainWindow(QObject):
         self.ui.btnRemoveSelected.setEnabled(False)
         self.ui.btnShowCtInfo.setEnabled(False)
 
-        self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
+        self.set_default_statusbar()
 
         self.giw = GamepadInputWorker()
         if os.getenv('PUPGUI2_DISABLE_GAMEPAD', '0') == '0':
@@ -145,6 +145,12 @@ class MainWindow(QObject):
         self.install_thread = InstallWineThread(self)
         self.install_thread.start()
         QApplication.instance().aboutToQuit.connect(self.install_thread.stop)
+
+    def set_default_statusbar(self):
+        if not is_online():
+            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION} (Offline)')
+        else:
+            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
 
     def update_combo_install_location(self):
         self.updating_combo_install_location = True
@@ -194,7 +200,7 @@ class MainWindow(QObject):
 
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
-            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
+            self.set_default_statusbar()
             self.progressBarDownload.setVisible(False)
             self.ui.comboInstallLocation.setEnabled(True)
 
@@ -229,7 +235,7 @@ class MainWindow(QObject):
         if value:
             self.ui.statusBar().showMessage(self.tr('Fetching releases...'))
         else:
-            self.ui.statusBar().showMessage(f'{APP_NAME} {APP_VERSION}')
+            self.set_default_statusbar()
 
     def set_download_progress_percent(self, value):
         """ set download progress bar value and update status bar text """

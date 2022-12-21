@@ -389,3 +389,16 @@ def host_which(name: str) -> str:
     proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
     which = subprocess.run(proc_prefix + ['which', name], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip()
     return None if which == '' else which
+
+def is_online(host='https://google.com', timeout=10) -> bool:
+    """
+    Attempts to ping a given host using `requests`.
+    Returns False if `requests` raises a `ConnectionError` or `Timeout` exception, otherwise returns True 
+    
+    Return Type: bool
+    """
+    try:
+        requests.get(host, timeout=timeout)
+        return True
+    except (requests.ConnectionError, requests.Timeout):
+        return False
