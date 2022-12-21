@@ -4,16 +4,21 @@ import shutil
 import subprocess
 import json
 import vdf
+import requests
+import threading
 from steam.utils.appcache import parse_appinfo
 
+from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QMessageBox, QApplication
 
-from pupgui2.constants import LOCAL_AWACY_GAME_LIST, STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
+from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
+from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
 from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
 
 
 _cached_app_list = []
 _cached_steam_ctool_id_map = None
+
 
 def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]:
     """
@@ -208,6 +213,25 @@ def update_steamapp_awacystatus(steamapp_list: List[SteamApp]) -> List[SteamApp]
         return steamapp_list
 
     return steamapp_list
+
+
+def get_protondb_status_thread(game: SteamApp, signal: Signal) -> None:
+    """ Downloads the ProtonDB.com status and calls the Qt Signal "signal" when done. Use with "get_protondb_status"!"""
+    try:
+        json_url = PROTONDB_API_URL.format(game_id=str(game.app_id))
+        r = requests.get(json_url)
+        if r.status_code == 200:
+            game.protondb_summary = r.json()
+        signal.emit(game)
+    except Exception as e:
+        print('Error getting the protondb.com status:', e)
+        signal.emit(None)
+
+
+def get_protondb_status(game: SteamApp, signal: Signal) -> None:
+    """ Downloads the ProtonDB.com status in a separate threads. When done the Qt Signal "signal" is called """
+    t = threading.Thread(target=get_protondb_status_thread, args=(game, signal))
+    t.start()
 
 
 def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -> bool:

@@ -11,6 +11,7 @@ from pupgui2 import constants
 from pupgui2.datastructures import MsgBoxType, MsgBoxResult
 from pupgui2.steamutil import get_fish_user_paths, remove_steamtinkerlaunch, get_external_steamtinkerlaunch_intall
 from pupgui2.util import host_which, config_advanced_mode
+from pupgui2.util import ghapi_rlcheck
 
 
 CT_NAME = 'SteamTinkerLaunch'
@@ -208,7 +209,10 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
         main_branch = 'master'
-        branches = [branch['name'] for branch in self.rs.get(self.CT_BRANCHES_URL).json()] if self.allow_git else [release['tag_name'] for release in self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()]
+        j = ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json())
+        if 'message' in j:
+            return []
+        branches = [branch['name'] for branch in self.rs.get(self.CT_BRANCHES_URL).json()] if self.allow_git else [release['tag_name'] for release in j]
         if self.allow_git and main_branch in branches:
             branches.insert(0, branches.pop(branches.index(main_branch)))  # Force main branch to top of list
 

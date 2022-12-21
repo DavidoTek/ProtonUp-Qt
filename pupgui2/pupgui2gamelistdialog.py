@@ -1,15 +1,17 @@
 import os
 import pkgutil
 
-from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
+from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray
 from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import QLabel, QComboBox
+from PySide6.QtWidgets import QLabel, QComboBox, QPushButton
 from PySide6.QtUiTools import QUiLoader
 
+from pupgui2.constants import PROTONDB_COLORS
 from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
 from pupgui2.lutrisutil import get_lutris_game_list
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
+from pupgui2.steamutil import get_protondb_status
 from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names
 from pupgui2.util import get_install_location_from_directory_name
 
@@ -17,6 +19,7 @@ from pupgui2.util import get_install_location_from_directory_name
 class PupguiGameListDialog(QObject):
 
     game_property_changed = Signal(bool)
+    protondb_status_fetched = Signal(SteamApp)
 
     def __init__(self, install_dir, parent=None):
         super(PupguiGameListDialog, self).__init__(parent)
@@ -29,6 +32,7 @@ class PupguiGameListDialog(QObject):
 
         self.load_ui()
         self.setup_ui()
+        self.protondb_status_fetched.connect(self.update_protondb_status)
         self.ui.show()
 
     def load_ui(self):
@@ -39,7 +43,7 @@ class PupguiGameListDialog(QObject):
 
     def setup_ui(self):
         if self.install_loc.get('launcher') == 'steam':
-            self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat')])
+            self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
             self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
             self.update_game_list_steam()
 
@@ -55,19 +59,20 @@ class PupguiGameListDialog(QObject):
             self.update_game_list_lutris()
             self.ui.lblSteamRunningWarning.setVisible(False)
 
-        self.ui.tableGames.setColumnWidth(3, 20)
+        self.ui.tableGames.setColumnWidth(3, 70)
+        self.ui.tableGames.setColumnWidth(4, 70)
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
 
     def update_game_list_steam(self):
         """ update the game list for the Steam launcher """
-        games = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'))
+        self.games = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'))
         ctools = [c if c != 'SteamTinkerLaunch' else 'Proton-stl' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True) ]
         ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir')))
 
-        self.ui.tableGames.setRowCount(len(games))
+        self.ui.tableGames.setRowCount(len(self.games))
 
         game_id_table_lables = []
-        for i, game in enumerate(games):
+        for i, game in enumerate(self.games):
             self.ui.tableGames.setCellWidget(i, 0, QLabel(game.game_name))
 
             combo = QComboBox()
@@ -82,12 +87,19 @@ class PupguiGameListDialog(QObject):
             combo.currentTextChanged.connect(lambda text,game=game: self.queue_ctool_change_steam(text, game))
             self.ui.tableGames.setCellWidget(i, 1, combo)
 
+            # ProtonDB status
+            btn_fetch_protondb = QPushButton(self.tr('click'))
+            btn_fetch_protondb.clicked.connect(lambda checked=False, game=game: self.btn_fetch_protondb_clicked(game))
+            self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
+
+            # SteamDeck compatibility
+            lbl_deck_compat = QLabel()
             deckc = game.get_deck_compat_category()
             deckt = game.get_deck_recommended_tool()
             if deckc == SteamDeckCompatEnum.UNKNOWN:
-                self.ui.tableGames.setCellWidget(i, 2, QLabel(self.tr('Unknown')))
+                lbl_deck_compat.setText(self.tr('Unknown'))
             elif deckc == SteamDeckCompatEnum.UNSUPPORTED:
-                self.ui.tableGames.setCellWidget(i, 2, QLabel(self.tr('Unsupported')))
+                lbl_deck_compat.setText(self.tr('Unsupported'))
             elif deckc == SteamDeckCompatEnum.PLAYABLE:
                 if deckt == '':
                     lbltxt = self.tr('Playable')
@@ -95,7 +107,7 @@ class PupguiGameListDialog(QObject):
                     lbltxt = self.tr('Native (playable)')
                 else:
                     lbltxt = self.tr('Playable using {compat_tool}').format(compat_tool=deckt)
-                self.ui.tableGames.setCellWidget(i, 2, QLabel(lbltxt))
+                lbl_deck_compat.setText(lbltxt)
             elif deckc == SteamDeckCompatEnum.VERIFIED:
                 if deckt == '':
                     lbltxt = self.tr('Verified')
@@ -103,8 +115,10 @@ class PupguiGameListDialog(QObject):
                     lbltxt = self.tr('Native (verified)')
                 else:
                     lbltxt = self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
-                self.ui.tableGames.setCellWidget(i, 2, QLabel(lbltxt))
+                lbl_deck_compat.setText(lbltxt)
+            self.ui.tableGames.setCellWidget(i, 2, lbl_deck_compat)
 
+            # AWACY status
             lblicon = QLabel()
             p = QPixmap()
             if game.awacy_status == AWACYStatus.ASUPPORTED:
@@ -143,6 +157,27 @@ class PupguiGameListDialog(QObject):
     def btn_apply_clicked(self):
         self.update_queued_ctools_steam()
         self.ui.close()
+
+    def btn_fetch_protondb_clicked(self, game: SteamApp):
+        get_protondb_status(game, self.protondb_status_fetched)
+
+    @Slot(SteamApp)
+    def update_protondb_status(self, game: SteamApp):
+        """ Slot is gets called when get_protondb_status finishes """
+        if not game:
+            print('Warning: update_protondb_status called with game=None')
+            return
+        pdb_tier = game.protondb_summary.get('tier', '?')
+        lbl_protondb_compat = QLabel()
+        lbl_protondb_compat.setText(pdb_tier)
+        lbl_protondb_compat.setToolTip(self.tr('Confidence: {confidence}\nScore: {score}\nTrending: {trending}')
+            .format(confidence=game.protondb_summary.get('confidence', '?'),
+                    score=game.protondb_summary.get('score', '?'),
+                    trending=game.protondb_summary.get('trendingTier', '?')))
+        if pdb_tier in PROTONDB_COLORS:
+            lbl_protondb_compat.setStyleSheet('QLabel{color: ' + PROTONDB_COLORS.get(pdb_tier) + ';}')
+        if i := self.games.index(game):
+            self.ui.tableGames.setCellWidget(i, 4, lbl_protondb_compat)
 
     def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
         """ add compatibility tool changes to queue (Steam) """
