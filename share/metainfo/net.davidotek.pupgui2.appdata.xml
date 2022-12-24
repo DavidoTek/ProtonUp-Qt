@@ -38,10 +38,14 @@
       <li>Luxtorpeda</li>
       <li>Boxtron</li>
       <li>Roberta</li>
+      <li>NorthstarProton</li>
+      <li>Scrumplex's Steam-Play-None</li>
       <li>Wine-GE</li>
       <li>Lutris-Wine</li>
       <li>Kron4ek's Vanilla Wine-Builds</li>
       <li>DXVK and DXVK async</li>
+      <li>D8VK</li>
+      <li>VKD3D</li>
     </ul>
     <p>Double click compatibility tools to show more information and games using the tool.</p>
     <p>Advanced settings and the color theme can be managed in the About dialog.</p>
@@ -64,6 +68,24 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.7.7" date="2022-12-24">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Add NorthstarProton compatibility tool</li>
+          <li>Add Steam-Play-None compatibility tool</li>
+          <li>Add D8VK for Lutris</li>
+          <li>Add VKD3D for Lutris</li>
+          <li>Add ProtonDB ratings to the game list</li>
+          <li>Add indicator if ProtonUp-Qt can't connect to the internet</li>
+        </ul>
+        <p>Bug fixes:</p>
+        <ul>
+          <li>Fix game list for Steam Flatpak</li>
+          <li>Fix that new Steam config file versions are not detected</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.7.6" date="2022-11-21">
       <description>
         <ul>
