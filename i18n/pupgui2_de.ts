@@ -305,18 +305,18 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="66"/>
         <source>AppID</source>
-        <translation type="unfinished"></translation>
+        <translation>AppID</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="66"/>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="79"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="79"/>
         <source>Slug</source>
-        <translation type="unfinished"></translation>
+        <translation>Slug</translation>
     </message>
 </context>
 <context>
@@ -373,7 +373,7 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="91"/>
         <source>click</source>
-        <translation type="unfinished"></translation>
+        <translation>klicken</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="100"/>
@@ -450,7 +450,9 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
         <source>Confidence: {confidence}
 Score: {score}
 Trending: {trending}</source>
-        <translation type="unfinished"></translation>
+        <translation>Zuversicht: {confidence}
+Bewertung: {score}
+Entwicklung: {trending}</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
@@ -564,7 +566,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_d8vk.py" line="21"/>
         <source>Vulkan-based implementation of Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Vulkan-basierte Implementierung von Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Achtung: Nightly Versionen sind instabil!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -637,7 +639,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="18"/>
         <source>Run Linux games as is, even if Valve recommends Proton for a game.&lt;br/&gt;Created by Scrumplex.&lt;br/&gt;&lt;br/&gt;Useful for Steam Deck.&lt;br/&gt;&lt;br/&gt;Note: The internal name has been changed from &lt;b&gt;none&lt;/b&gt; to &lt;b&gt;Steam-Play-None&lt;/b&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Spiele für Linux ausführen, auch wenn Value Proton empfiehlt.&lt;br/&gt;Erstellt von Scrumplex.&lt;br/&gt;&lt;br/&gt;Nützlich für das Steam Deck.&lt;br/&gt;&lt;br/&gt;Hinweis: Der interne Name des Tools ist &lt;b&gt;Steam-Play-None&lt;/b&gt;!</translation>
     </message>
 </context>
 <context>
@@ -810,7 +812,7 @@ SteamTinkerLaunch hat einige &lt;b&gt;optionale Abhängigkeiten&lt;/b&gt;, welch
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dlutris.py" line="19"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Lutris Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Fork von Wine&apos;s VKD3D, welches die ganze Direct3D 12 API auf Vulkan implementiert (Lutris Veröffentlichung).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -818,7 +820,7 @@ SteamTinkerLaunch hat einige &lt;b&gt;optionale Abhängigkeiten&lt;/b&gt;, welch
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dproton.py" line="20"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Valve Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Fork von Wine&apos;s VKD3D, welches die ganze Direct3D 12 API auf Vulkan implementiert (Valve Veröffentlichung).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
