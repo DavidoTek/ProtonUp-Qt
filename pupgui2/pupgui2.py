@@ -240,7 +240,7 @@ class MainWindow(QObject):
         self.install_thread.buffer_mutex.unlock()
 
     def set_fetching_releases(self, value):
-        if value:
+        if value and is_online():
             self.ui.statusBar().showMessage(self.tr('Fetching releases...'))
         else:
             self.set_default_statusbar()
