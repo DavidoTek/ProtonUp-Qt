@@ -7,15 +7,14 @@ import shutil
 import tarfile
 import requests
 
-from PySide6.QtCore import QObject, Signal, Property
+from PySide6.QtCore import QObject, Signal, Property, QCoreApplication
 
 from pupgui2.util import ghapi_rlcheck
 
 
 CT_NAME = 'NorthStar Proton (TitanFall 2)'
 CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles', 'advmode']
-CT_DESCRIPTION = {'en': '''Proton build based on TKG's proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.<br/><br/><b style="color:orange;">Read the following before proceeding</b>:<br/><a href="https://github.com/cyrv6737/NorthstarProton">https://github.com/cyrv6737/NorthstarProton</a>'''}
-CT_DESCRIPTION = {'de': '''Proton build auf basis von TKGs proton-tkg um den Northstar client + TitanFall 2 zu nutzen. Von cyrv6737.<br/><br/><b style="color:orange;">Vor dem Fortfahren bitte Folgendes lesen</b>:<br/><a href="https://github.com/cyrv6737/NorthstarProton">https://github.com/cyrv6737/NorthstarProton</a>'''}
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_northstarproton', '''Proton build based on TKG's proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.<br/><br/><b style="color:orange;">Read the following before proceeding</b>:<br/><a href="https://github.com/cyrv6737/NorthstarProton">https://github.com/cyrv6737/NorthstarProton</a>''')}
 
 
 class CtInstaller(QObject):
