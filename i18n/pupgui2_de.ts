@@ -594,6 +594,14 @@ Entwicklung: {trending}</translation>
     </message>
 </context>
 <context>
+    <name>ctmod_northstarproton</name>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="20"/>
+        <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</source>
+        <translation>Proton Build auf Basis von TKGs Proton-tkg, um den Northstar Client + TitanFall 2 zu nutzen. Von cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Vor dem Fortfahren bitte folgendes lesen&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</translation>
+    </message>
+</context>
+<context>
     <name>ctmod_protontkg</name>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="22"/>
