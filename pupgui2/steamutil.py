@@ -35,7 +35,6 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
     config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
 
     apps = []
-    app_ids_str = []
 
     try:
         v = vdf.load(open(libraryfolders_vdf_file))
@@ -54,9 +53,8 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
                 if ct := c.get(appid):
                     app.compat_tool = ct.get('name')
                 apps.append(app)
-                app_ids_str.append(str(appid))
-            apps = update_steamapp_info(steam_config_folder, apps)
-            apps = update_steamapp_awacystatus(apps)
+        apps = update_steamapp_info(steam_config_folder, apps)
+        apps = update_steamapp_awacystatus(apps)
     except Exception as e:
         print('Error: Could not get a list of all Steam apps:', e)
 
