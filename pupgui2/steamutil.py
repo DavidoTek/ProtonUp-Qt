@@ -150,6 +150,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
     appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
     appinfo_file = os.path.realpath(appinfo_file)
     sapps = {app.get_app_id_str(): app for app in steamapp_list}
+    len_sapps = len(sapps)
     cnt = 0
     try:
         ctool_map = _get_steam_ctool_info(steam_config_folder)
@@ -158,14 +159,8 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
             for steam_app in apps:
                 appid_str = str(steam_app.get('appid'))
                 if a := sapps.get(appid_str):
-                    try:
-                        a.game_name = steam_app.get('data').get('appinfo').get('common').get('name')
-                    except:
-                        a.game_name = ''
-                    try:
-                        a.deck_compatibility = steam_app.get('data').get('appinfo').get('common').get('steam_deck_compatibility')
-                    except:
-                        pass
+                    a.game_name = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('name', '')
+                    a.deck_compatibility = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('steam_deck_compatibility', {})
                     if steam_app.get('appid') not in ctool_map and 'steamworks' not in a.game_name.lower() \
                         and not ('Proton' in a.game_name and 'Runtime' in a.game_name):
                         a.app_type = 'game'
@@ -174,7 +169,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                     elif 'Steam Linux Runtime' in a.game_name:
                         a.app_type = 'runtime'
                     cnt += 1
-                if cnt == len(sapps):
+                if cnt == len_sapps:
                     break
     except:
         pass
