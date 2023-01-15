@@ -395,6 +395,11 @@ def ghapi_rlcheck(json: dict):
     if type(json) == dict:
         if 'API rate limit exceeded' in json.get('message', ''):
             print('Warning: GitHub API rate limit exceeded. See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.')
+            QApplication.instance().message_box_message.emit(
+                QCoreApplication.instance().translate('util.py', 'Warning: GitHub API rate limit exceeded!'),
+                QCoreApplication.instance().translate('util.py', 'GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.\n\nSee https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.'),
+                QMessageBox.Warning
+                )
     return json
 
 def is_online(host='https://api.github.com/repos/', timeout=3) -> bool:
