@@ -73,6 +73,26 @@ def get_steam_game_list(steam_config_folder: str, compat_tool='', cached=False) 
     return [app for app in apps if app.app_type == 'game' and (compat_tool == '' or app.compat_tool == compat_tool)]
 
 
+def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicCompatTool], cached=False) -> Dict[BasicCompatTool, List[SteamApp]]:
+    """
+    Returns a dict that maps a list of Steam games to each compatibility given in the compat_tools parameter.
+    Steam games without a selected compatibility tool are not included.
+    Informal Example: { GE-Proton7-43: [GTA V, Cyberpunk 2077], SteamTinkerLaunch: [Vecter, Terraria] }
+    Return Type: Dict[BasicCompatTool, List[SteamApp]]
+    """
+    map = {}
+
+    apps = get_steam_app_list(steam_config_folder, cached=cached)
+
+    ct_name_object_map = {ct.get_internal_name(): ct for ct in compat_tools}
+
+    for app in apps:
+        if app.app_type == 'game' and app.compat_tool in ct_name_object_map.keys():
+            map.setdefault(ct_name_object_map.get(app.compat_tool), []).append(app)
+
+    return map
+
+
 def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=False) -> List[SteamApp]:
     """
     Returns a list of installed Steam compatibility tools (official tools).
