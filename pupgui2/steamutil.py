@@ -178,17 +178,18 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                 if a := sapps.get(appid_str):
                     a.game_name = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('name', '')
                     a.deck_compatibility = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('steam_deck_compatibility', {})
-                    if steam_app.get('appid') not in ctool_map and 'steamworks' not in a.game_name.lower() \
-                        and not ('Proton' in a.game_name and 'Runtime' in a.game_name):
-                        a.app_type = 'game'
-                    elif a.game_name.startswith('Proton') and a.game_name.endswith('Runtime'):
+                    if a.game_name.startswith('Proton') and a.game_name.endswith('Runtime'):
                         a.app_type = 'acruntime'
                     elif 'Steam Linux Runtime' in a.game_name:
                         a.app_type = 'runtime'
+                    elif 'Steamworks' in a.game_name:
+                        a.app_type = 'steamworks'
                     elif steam_app.get('appid') in ctool_map:
                         ct = ctool_map.get(steam_app.get('appid'))
                         a.ctool_name = ct.get('name')
                         a.ctool_from_oslist = ct.get('from_oslist')
+                    else:
+                        a.app_type = 'game'
                     cnt += 1
                 if cnt == len_sapps:
                     break
