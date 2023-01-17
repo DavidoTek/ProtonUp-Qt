@@ -50,8 +50,8 @@ class CtInstaller(QObject):
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(float)
-    message_box_message = Signal(str, str, QMessageBox.Icon)
-    question_box_message = Signal(str, str, str, MsgBoxType, QMessageBox.Icon)
+    message_box_message = Signal((str, str, QMessageBox.Icon))
+    question_box_message = Signal((str, str, str, MsgBoxType, QMessageBox.Icon))
 
 
     def __init__(self, main_window = None, allow_git=False):
