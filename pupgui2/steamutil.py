@@ -100,13 +100,10 @@ def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=Fal
     """
     ctools = []
     apps = get_steam_app_list(steam_config_folder, cached=cached)
-    ctool_map = _get_steam_ctool_info(steam_config_folder)
 
     for app in apps:
-        if ct := ctool_map.get(app.app_id):
-            app.ctool_name = ct.get('name')
-            app.ctool_from_oslist = ct.get('from_oslist')
-            if only_proton and ct.get('from_oslist') != 'windows':
+        if app.ctool_name != '':
+            if only_proton and app.ctool_from_oslist != 'windows':
                 continue
             ctools.append(app)
 
@@ -188,6 +185,10 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                         a.app_type = 'acruntime'
                     elif 'Steam Linux Runtime' in a.game_name:
                         a.app_type = 'runtime'
+                    elif steam_app.get('appid') in ctool_map:
+                        ct = ctool_map.get(steam_app.get('appid'))
+                        a.ctool_name = ct.get('name')
+                        a.ctool_from_oslist = ct.get('from_oslist')
                     cnt += 1
                 if cnt == len_sapps:
                     break
