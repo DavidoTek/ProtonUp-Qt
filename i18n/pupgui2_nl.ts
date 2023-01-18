@@ -4,91 +4,91 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="207"/>
+        <location filename="../pupgui2/pupgui2.py" line="208"/>
         <source>unused</source>
         <translation>ongebruikt</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="244"/>
+        <location filename="../pupgui2/pupgui2.py" line="245"/>
         <source>Fetching releases...</source>
         <translation>Bezig met ophalen van versies…</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="255"/>
+        <location filename="../pupgui2/pupgui2.py" line="256"/>
         <source>Download canceled.</source>
         <translation>Het downloaden is afgebroken.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="259"/>
+        <location filename="../pupgui2/pupgui2.py" line="260"/>
         <source>Could not install {current_compat_tool_name}...</source>
         <translation>De installatie van {current_compat_tool_name} is mislukt…</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="266"/>
+        <location filename="../pupgui2/pupgui2.py" line="267"/>
         <source>Downloading {current_compat_tool_name}...</source>
         <translation>Bezig met downloaden van {current_compat_tool_name}…</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="268"/>
+        <location filename="../pupgui2/pupgui2.py" line="269"/>
         <source>Extracting {current_compat_tool_name}...</source>
         <translation>Bezig met uitpakken van {current_compat_tool_name}…</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="270"/>
+        <location filename="../pupgui2/pupgui2.py" line="271"/>
         <source>Installing {current_compat_tool_name}...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="272"/>
+        <location filename="../pupgui2/pupgui2.py" line="273"/>
         <source>Installed {current_compat_tool_name}.</source>
         <translation>{current_compat_tool_name} is geïnstalleerd.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="293"/>
+        <location filename="../pupgui2/pupgui2.py" line="294"/>
         <source>Remove compatibility tools?</source>
         <translation>Compatibiliteitshulpmiddel verwijderen?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="293"/>
+        <location filename="../pupgui2/pupgui2.py" line="294"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>Je staat op het punt om compatibiliteitshulpmiddelen te verwijderen
 die door {n} games in gebruik zijn. Weet je het zeker?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="300"/>
+        <location filename="../pupgui2/pupgui2.py" line="301"/>
         <source>Removed selected versions.</source>
         <translation>De geselecteerde versies zijn verwijderd.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="314"/>
+        <location filename="../pupgui2/pupgui2.py" line="315"/>
         <source>Exit?</source>
         <translation>Afsluiten?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="314"/>
+        <location filename="../pupgui2/pupgui2.py" line="315"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
         <translation>Er zijn actieve downloads.
 Weet je zeker dat je wilt annuleren en afsluiten?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="322"/>
+        <location filename="../pupgui2/pupgui2.py" line="323"/>
         <source>Changed install directory to {install_dir}.</source>
         <translation>De installatiemap is ingesteld op {install_dir}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="333"/>
+        <location filename="../pupgui2/pupgui2.py" line="334"/>
         <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
         <translation>Informatie: je kunt GE-Proton/Boxtron direct van Flathub downloaden!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="370"/>
+        <location filename="../pupgui2/pupgui2.py" line="371"/>
         <source>Install tool from Flathub</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="373"/>
+        <location filename="../pupgui2/pupgui2.py" line="374"/>
         <source>Click to open your app store</source>
         <translation type="unfinished"></translation>
     </message>
@@ -842,6 +842,18 @@ The uninstallation will continue.</source>
         <location filename="../pupgui2/util.py" line="252"/>
         <source>SteamTinkerLaunch will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove SteamTinkerLaunch.
 Do you want the configuration to be removed?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/util.py" line="399"/>
+        <source>Warning: GitHub API rate limit exceeded!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/util.py" line="400"/>
+        <source>GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.
+
+See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
