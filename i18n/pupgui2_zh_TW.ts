@@ -4,90 +4,90 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="207"/>
+        <location filename="../pupgui2/pupgui2.py" line="208"/>
         <source>unused</source>
         <translation>未使用</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="244"/>
+        <location filename="../pupgui2/pupgui2.py" line="245"/>
         <source>Fetching releases...</source>
         <translation>取得更新...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="255"/>
+        <location filename="../pupgui2/pupgui2.py" line="256"/>
         <source>Download canceled.</source>
         <translation>下載已取消。</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="259"/>
+        <location filename="../pupgui2/pupgui2.py" line="260"/>
         <source>Could not install {current_compat_tool_name}...</source>
         <translation>無法安裝 {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="266"/>
+        <location filename="../pupgui2/pupgui2.py" line="267"/>
         <source>Downloading {current_compat_tool_name}...</source>
         <translation>正在下載 {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="268"/>
+        <location filename="../pupgui2/pupgui2.py" line="269"/>
         <source>Extracting {current_compat_tool_name}...</source>
         <translation>解壓縮 {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="270"/>
+        <location filename="../pupgui2/pupgui2.py" line="271"/>
         <source>Installing {current_compat_tool_name}...</source>
         <translation>正在安裝 {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="272"/>
+        <location filename="../pupgui2/pupgui2.py" line="273"/>
         <source>Installed {current_compat_tool_name}.</source>
         <translation>已安裝 {current_compat_tool_name}。</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="293"/>
+        <location filename="../pupgui2/pupgui2.py" line="294"/>
         <source>Remove compatibility tools?</source>
         <translation>移除相容性工具？</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="293"/>
+        <location filename="../pupgui2/pupgui2.py" line="294"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>您正在刪除 {n} 個遊戲正在使用的相容工具。繼續嗎？</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="300"/>
+        <location filename="../pupgui2/pupgui2.py" line="301"/>
         <source>Removed selected versions.</source>
         <translation>移除所選版本。</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="314"/>
+        <location filename="../pupgui2/pupgui2.py" line="315"/>
         <source>Exit?</source>
         <translation>離開？</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="314"/>
+        <location filename="../pupgui2/pupgui2.py" line="315"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
         <translation>目前仍有下載進行中。
 取消下載並離開嗎？</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="322"/>
+        <location filename="../pupgui2/pupgui2.py" line="323"/>
         <source>Changed install directory to {install_dir}.</source>
         <translation>將安裝資料夾改為 {install_dir}。</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="333"/>
+        <location filename="../pupgui2/pupgui2.py" line="334"/>
         <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
         <translation>資訊：您可以直接從 Flathub 取得 GE-Proton / Boxtron！</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="370"/>
+        <location filename="../pupgui2/pupgui2.py" line="371"/>
         <source>Install tool from Flathub</source>
         <translation>從 Flathub 安裝工具</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="373"/>
+        <location filename="../pupgui2/pupgui2.py" line="374"/>
         <source>Click to open your app store</source>
         <translation>按此打開您的應用程式商店</translation>
     </message>
@@ -891,6 +891,18 @@ The uninstallation will continue.</source>
 Do you want the configuration to be removed?</source>
         <translation>SteamTinkerLaunch 將從您的系統中被移除。如果這個工具是和 ProtonUp-Qt 一起安裝的，這也會更新您的 PATH 以移除 SteamTinkerLaunch。
 您想移除配置嗎？</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/util.py" line="399"/>
+        <source>Warning: GitHub API rate limit exceeded!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/util.py" line="400"/>
+        <source>GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.
+
+See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

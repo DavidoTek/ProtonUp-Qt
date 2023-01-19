@@ -103,6 +103,7 @@ class MainWindow(QObject):
         self.load_ui()
         self.setup_ui()
         self.update_statusbar_message.connect(self.ui.statusBar().showMessage)
+        QApplication.instance().message_box_message.connect(self.show_msgbox)
         self.update_ui()
 
         self.ui.show()
@@ -456,6 +457,10 @@ class MainWindow(QObject):
         return answer
 
 
+class PupguiApp(QApplication):
+    message_box_message = Signal((str, str, QMessageBox.Icon))
+
+
 def main():
     """ ProtonUp-Qt main function. Called from __main__.py """
     print(f'{APP_NAME} {APP_VERSION} by DavidoTek. Build Info: {BUILD_INFO}.')
@@ -467,7 +472,7 @@ def main():
     create_compatibilitytools_folder()
     download_awacy_gamelist()
 
-    app = QApplication(sys.argv)
+    app = PupguiApp(sys.argv)
     app.setApplicationName(APP_NAME)
     app.setApplicationVersion(APP_VERSION)
     app.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
