@@ -902,14 +902,16 @@ Soll die Konfiguration ebenfalls gelöscht werden?</translation>
     <message>
         <location filename="../pupgui2/util.py" line="399"/>
         <source>Warning: GitHub API rate limit exceeded!</source>
-        <translation type="unfinished"></translation>
+        <translation>Warnung: GitHub API Limit erreicht!</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="400"/>
         <source>GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.
 
 See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Anfragelimit der GitHub API wurde erreicht. Warte eine Weile oder gib einen GitHub API Key an, falls vorhanden.
+
+Siehe https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 für mehr Infos.</translation>
     </message>
 </context>
 </TS>
