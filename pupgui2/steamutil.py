@@ -87,7 +87,7 @@ def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicComp
     ct_name_object_map = {ct.get_internal_name(): ct for ct in compat_tools}
 
     for app in apps:
-        if app.app_type == 'game' and app.compat_tool in ct_name_object_map.keys():
+        if app.app_type == 'game' and app.compat_tool in ct_name_object_map:
             map.setdefault(ct_name_object_map.get(app.compat_tool), []).append(app)
 
     return map
