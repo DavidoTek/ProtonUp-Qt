@@ -35,7 +35,6 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
     config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
 
     apps = []
-    app_ids_str = []
 
     try:
         v = vdf.load(open(libraryfolders_vdf_file))
@@ -54,9 +53,8 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
                 if ct := c.get(appid):
                     app.compat_tool = ct.get('name')
                 apps.append(app)
-                app_ids_str.append(str(appid))
-            apps = update_steamapp_info(steam_config_folder, apps)
-            apps = update_steamapp_awacystatus(apps)
+        apps = update_steamapp_info(steam_config_folder, apps)
+        apps = update_steamapp_awacystatus(apps)
     except Exception as e:
         print('Error: Could not get a list of all Steam apps:', e)
 
@@ -75,6 +73,26 @@ def get_steam_game_list(steam_config_folder: str, compat_tool='', cached=False) 
     return [app for app in apps if app.app_type == 'game' and (compat_tool == '' or app.compat_tool == compat_tool)]
 
 
+def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicCompatTool], cached=False) -> Dict[BasicCompatTool, List[SteamApp]]:
+    """
+    Returns a dict that maps a list of Steam games to each compatibility given in the compat_tools parameter.
+    Steam games without a selected compatibility tool are not included.
+    Informal Example: { GE-Proton7-43: [GTA V, Cyberpunk 2077], SteamTinkerLaunch: [Vecter, Terraria] }
+    Return Type: Dict[BasicCompatTool, List[SteamApp]]
+    """
+    map = {}
+
+    apps = get_steam_app_list(steam_config_folder, cached=cached)
+
+    ct_name_object_map = {ct.get_internal_name(): ct for ct in compat_tools}
+
+    for app in apps:
+        if app.app_type == 'game' and app.compat_tool in ct_name_object_map:
+            map.setdefault(ct_name_object_map.get(app.compat_tool), []).append(app)
+
+    return map
+
+
 def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=False) -> List[SteamApp]:
     """
     Returns a list of installed Steam compatibility tools (official tools).
@@ -82,13 +100,10 @@ def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=Fal
     """
     ctools = []
     apps = get_steam_app_list(steam_config_folder, cached=cached)
-    ctool_map = _get_steam_ctool_info(steam_config_folder)
 
     for app in apps:
-        if ct := ctool_map.get(app.app_id):
-            app.ctool_name = ct.get('name')
-            app.ctool_from_oslist = ct.get('from_oslist')
-            if only_proton and ct.get('from_oslist') != 'windows':
+        if app.ctool_name != '':
+            if only_proton and app.ctool_from_oslist != 'windows':
                 continue
             ctools.append(app)
 
@@ -152,6 +167,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
     appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
     appinfo_file = os.path.realpath(appinfo_file)
     sapps = {app.get_app_id_str(): app for app in steamapp_list}
+    len_sapps = len(sapps)
     cnt = 0
     try:
         ctool_map = _get_steam_ctool_info(steam_config_folder)
@@ -160,23 +176,22 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
             for steam_app in apps:
                 appid_str = str(steam_app.get('appid'))
                 if a := sapps.get(appid_str):
-                    try:
-                        a.game_name = steam_app.get('data').get('appinfo').get('common').get('name')
-                    except:
-                        a.game_name = ''
-                    try:
-                        a.deck_compatibility = steam_app.get('data').get('appinfo').get('common').get('steam_deck_compatibility')
-                    except:
-                        pass
-                    if steam_app.get('appid') not in ctool_map and 'steamworks' not in a.game_name.lower() \
-                        and not ('Proton' in a.game_name and 'Runtime' in a.game_name):
-                        a.app_type = 'game'
-                    elif a.game_name.startswith('Proton') and a.game_name.endswith('Runtime'):
+                    a.game_name = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('name', '')
+                    a.deck_compatibility = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('steam_deck_compatibility', {})
+                    if a.game_name.startswith('Proton') and a.game_name.endswith('Runtime'):
                         a.app_type = 'acruntime'
                     elif 'Steam Linux Runtime' in a.game_name:
                         a.app_type = 'runtime'
+                    elif 'Steamworks' in a.game_name:
+                        a.app_type = 'steamworks'
+                    elif steam_app.get('appid') in ctool_map:
+                        ct = ctool_map.get(steam_app.get('appid'))
+                        a.ctool_name = ct.get('name')
+                        a.ctool_from_oslist = ct.get('from_oslist')
+                    else:
+                        a.app_type = 'game'
                     cnt += 1
-                if cnt == len(sapps):
+                if cnt == len_sapps:
                     break
     except:
         pass
