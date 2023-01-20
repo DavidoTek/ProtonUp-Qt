@@ -400,6 +400,25 @@ class CtInstaller(QObject):
 
             os.chdir(os.path.expanduser('~'))
 
+        protondir = os.path.join(install_dir, 'SteamTinkerLaunch')
+
+        # We can't use the version arg to this method because we need to list the PROGVERS stored by the SteamTinkerLaunch script
+        if os.path.exists(protondir):
+            # Get PROGVERS from STL script
+            stl_filename = 'steamtinkerlaunch'
+            stl_ver = ''
+            with open(os.path.join(protondir, stl_filename)) as stl_script:
+                for line in stl_script:
+                    if 'PROGVERS' in line:
+                        stl_ver = line.split('=')[1].replace('"', '')  # E.g. turn `PROGVERS="v12.0"` into `v12.0`
+                        
+                        # Write version to file
+                        with open(os.path.join(protondir, 'VERSION.txt'), 'w') as f:
+                            f.write(stl_ver)
+                            f.write('\n')
+                        
+                        break
+
         self.__set_download_progress_percent(100)
         print('Successfully installed SteamTinkerLaunch!')
         return True

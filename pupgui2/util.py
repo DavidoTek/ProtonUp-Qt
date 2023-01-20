@@ -218,10 +218,10 @@ def config_custom_install_location(install_dir=None, launcher='') -> Dict[str, s
 
 def list_installed_ctools(install_dir: str, without_version=False) -> List[str]:
     """
-        List installed compatibility tool versions
-        Returns the name of the tool and the version from VERSION.txt if without_version=False
-        Return Type: List[str]
-        """
+    List installed compatibility tool versions
+    Returns the name of the tool and the version from VERSION.txt if without_version=False
+    Return Type: List[str]
+    """
     versions_found = []
 
     if os.path.exists(install_dir):
