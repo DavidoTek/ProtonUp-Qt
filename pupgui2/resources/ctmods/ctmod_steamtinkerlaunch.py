@@ -408,7 +408,7 @@ class CtInstaller(QObject):
             stl_filename = 'steamtinkerlaunch'
             stl_ver = ''
             with open(os.path.join(protondir, stl_filename)) as stl_script:
-                for line in stl_script:
+                for i, line in enumerate(stl_script):
                     if 'PROGVERS' in line:
                         stl_ver = line.split('=')[1].replace('"', '')  # E.g. turn `PROGVERS="v12.0"` into `v12.0`
                         
@@ -419,6 +419,10 @@ class CtInstaller(QObject):
                             f.write(stl_ver)
                             f.write('\n')
                         
+                        break
+                    
+                    if i > 19:
+                        print("Couldn't find SteamTinkerLaunch version in script file, quitting...")
                         break
 
         self.__set_download_progress_percent(100)
