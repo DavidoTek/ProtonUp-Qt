@@ -232,7 +232,7 @@ class CtInstaller(QObject):
             print('Non-ProtonUp-Qt installation of SteamTinkerLaunch detected. Asking the user what they want to do...')
             self.question_box_message.emit(
                 QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'Existing SteamTinkerLaunch Installation'),
-                QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'It looks like you have an existing SteamTinkerLaunch installation at \'{EXTERNAL_INSTALL_PATH}\' that was not installed by ProtonUp-Qt.\n\nReinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to \'{STL_INSTALL_PATH}\'\n\n. You may also choose to remove your existing installation, if ProtonUp-Qt has write access to this folder. Do you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)').format(EXTERNAL_INSTALL_PATH=has_external_install, STL_INSTALL_PATH=constants.STEAM_STL_INSTALL_PATH),
+                QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'It looks like you have an existing SteamTinkerLaunch installation at \'{EXTERNAL_INSTALL_PATH}\' that was not installed by ProtonUp-Qt.\n\nReinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to \'{STL_INSTALL_PATH}\'.\n\nYou may also choose to remove your existing installation, if ProtonUp-Qt has write access to this folder. Do you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)').format(EXTERNAL_INSTALL_PATH=has_external_install, STL_INSTALL_PATH=constants.STEAM_STL_INSTALL_PATH),
                 QCoreApplication.instance().translate('ctmod_steamtinkerlaunch' ,'Remove existing SteamTinkerLaunch installation'),
                 MsgBoxType.OK_CANCEL_CB,
                 QMessageBox.Warning
@@ -399,6 +399,31 @@ class CtInstaller(QObject):
             subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch', 'compat', 'add'])
 
             os.chdir(os.path.expanduser('~'))
+
+        protondir = os.path.join(install_dir, 'SteamTinkerLaunch')
+
+        # We can't use the version arg to this method because we need to list the PROGVERS stored by the SteamTinkerLaunch script
+        if os.path.exists(protondir):
+            # Get PROGVERS from STL script
+            stl_filename = 'steamtinkerlaunch'
+            stl_ver = ''
+            with open(os.path.join(protondir, stl_filename)) as stl_script:
+                for i, line in enumerate(stl_script):
+                    if 'PROGVERS' in line:
+                        stl_ver = line.split('=')[1].replace('"', '')  # E.g. turn `PROGVERS="v12.0"` into `v12.0`
+                        
+                        print(f'Storing SteamTinkerLaunch version from STL script file as {stl_ver}')
+
+                        # Write version to file
+                        with open(os.path.join(protondir, 'VERSION.txt'), 'w') as f:
+                            f.write(stl_ver)
+                            f.write('\n')
+                        
+                        break
+                    
+                    if i > 19:
+                        print("Couldn't find SteamTinkerLaunch version in script file, quitting...")
+                        break
 
         self.__set_download_progress_percent(100)
         print('Successfully installed SteamTinkerLaunch!')

@@ -704,9 +704,9 @@ Installation will be cancelled.</source>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="235"/>
         <source>It looks like you have an existing SteamTinkerLaunch installation at &apos;{EXTERNAL_INSTALL_PATH}&apos; that was not installed by ProtonUp-Qt.
 
-Reinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to &apos;{STL_INSTALL_PATH}&apos;
+Reinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to &apos;{STL_INSTALL_PATH}&apos;.
 
-. You may also choose to remove your existing installation, if ProtonUp-Qt has write access to this folder. Do you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)</source>
+You may also choose to remove your existing installation, if ProtonUp-Qt has write access to this folder. Do you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -806,12 +806,12 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
 <context>
     <name>steamutil.py</name>
     <message>
-        <location filename="../pupgui2/steamutil.py" line="356"/>
+        <location filename="../pupgui2/steamutil.py" line="371"/>
         <source>Unable to Remove SteamTinkerLaunch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/steamutil.py" line="359"/>
+        <location filename="../pupgui2/steamutil.py" line="374"/>
         <source>Access to SteamTinkerLaunch installation folder at &apos;{STL_SYMLINK_PATH}&apos; was denied, please remove this folder manually.
 
 The uninstallation will continue.</source>
