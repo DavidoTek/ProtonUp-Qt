@@ -36,7 +36,6 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
     users_folder = os.path.realpath(os.path.join(os.path.expanduser(steam_config_folder), '../userdata/'))
 
     apps = []
-
     
     try:
         v = vdf.load(open(libraryfolders_vdf_file))
@@ -59,44 +58,47 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
                 apps.append(app)
         apps = update_steamapp_info(steam_config_folder, apps)
         apps = update_steamapp_awacystatus(apps)
-    
 
-        #get non-steam apps
-        for file in os.listdir(users_folder):
-            user_directory = os.path.join(users_folder,file)
-            if not os.path.isdir(user_directory):
-                continue
-
-            shortcuts_file = os.path.join(user_directory,'config/shortcuts.vdf')
-            if not os.path.exists(shortcuts_file):
-                continue
-        
-            shortcuts_vdf = vdf.binary_load(open(shortcuts_file,'rb'))
-            if 'shortcuts' not in shortcuts_vdf:
-                continue
-
-            for sid,svalue in shortcuts_vdf.get('shortcuts').items():
-                app = SteamApp()
-                appid = svalue.get('appid')
-                if appid < 0:
-                    appid = appid +(1 << 32) #convert to unsigned
-                
-                app.app_id = appid
-                app.shortcut_id = sid
-                app.shortcut_path = svalue.get('StartDir')
-                app.app_type='game'
-                app.game_name = svalue.get('AppName')
-                app.deck_compatibility = 'Unknown'
-                if ct := c.get(str(appid)):
-                    app.compat_tool = ct.get('name')
-                    app.ctool_name = ct.get('name')
-                    app.ctool_from_oslist = ct.get('from_oslist')
-                apps.append(app)
-
+        #add steam shortcuts to the list
+        apps.extend(_get_steam_shortcuts_list(users_folder, c))
     except Exception as e:
         print('Error: Could not get a list of all Steam apps:', e)
 
     _cached_app_list = apps
+    return apps
+
+def _get_steam_shortcuts_list(users_folder: str, compat_tools: dict):
+    apps = []
+
+    #get non-steam apps
+    for file in os.listdir(users_folder):
+        user_directory = os.path.join(users_folder,file)
+        if not os.path.isdir(user_directory):
+            continue
+
+        shortcuts_file = os.path.join(user_directory,'config/shortcuts.vdf')
+        if not os.path.exists(shortcuts_file):
+            continue
+    
+        shortcuts_vdf = vdf.binary_load(open(shortcuts_file,'rb'))
+        if 'shortcuts' not in shortcuts_vdf:
+            continue
+
+        for sid,svalue in shortcuts_vdf.get('shortcuts').items():
+            app = SteamApp()
+            appid = svalue.get('appid')
+            if appid < 0:
+                appid = appid +(1 << 32) #convert to unsigned
+            
+            app.app_id = appid
+            app.shortcut_id = sid
+            app.shortcut_path = svalue.get('StartDir')
+            app.app_type='game'
+            app.game_name = svalue.get('AppName')
+            if ct := compat_tools.get(str(appid)):
+                app.compat_tool = ct.get('name')
+            apps.append(app)
+    
     return apps
 
 
