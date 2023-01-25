@@ -49,7 +49,7 @@ class SteamApp:
     app_id = -1
     libraryfolder_id = -1
     libraryfolder_path = ''
-    shortcut_id = -1
+    shortcut_id = -1  # Will be a number >=0 if it is a Non-Steam shortcut
     shortcut_path = ''
     game_name = ''
     compat_tool = ''
