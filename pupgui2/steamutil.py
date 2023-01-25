@@ -33,12 +33,16 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
 
     libraryfolders_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'libraryfolders.vdf')
     config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
+    users_folder = os.path.realpath(os.path.join(os.path.expanduser(steam_config_folder), '../userdata/'))
 
     apps = []
 
+    
     try:
         v = vdf.load(open(libraryfolders_vdf_file))
         c = vdf.load(open(config_vdf_file)).get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
+        
+        #get steam apps
         for fid in v.get('libraryfolders'):
             if 'apps' not in v.get('libraryfolders').get(fid):
                 continue
@@ -55,6 +59,30 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
                 apps.append(app)
         apps = update_steamapp_info(steam_config_folder, apps)
         apps = update_steamapp_awacystatus(apps)
+    
+
+        #get non-steam apps
+        for file in os.listdir(users_folder):
+            user_directory = os.path.join(users_folder,file)
+            if not os.path.isdir(user_directory):
+                continue
+
+            shortcuts_file = os.path.join(user_directory,'config/shortcuts.vdf')
+            shortcuts_vdf = vdf.binary_load(open(shortcuts_file,'rb'))
+            if 'shortcuts' not in shortcuts_vdf:
+                continue
+
+            for sid,svalue in shortcuts_vdf.get('shortcuts').items():
+                app = SteamApp()
+                appid = svalue.get('appid')+(1 << 32) #convert to unsigned
+                app.app_id = appid
+                app.shortcut_id = sid
+                app.shortcut_path = svalue.get('StartDir')
+                app.app_type='game'
+                if ct := c.get(str(appid)):
+                    app.compat_tool = ct.get('name')
+                apps.append(app)
+
     except Exception as e:
         print('Error: Could not get a list of all Steam apps:', e)
 

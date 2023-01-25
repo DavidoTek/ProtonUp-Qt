@@ -49,6 +49,8 @@ class SteamApp:
     app_id = -1
     libraryfolder_id = -1
     libraryfolder_path = ''
+    shortcut_id = -1
+    shortcut_path = ''
     game_name = ''
     compat_tool = ''
     app_type = ''
@@ -76,7 +78,9 @@ class SteamApp:
         except:
             return ''
 
-
+    def get_shortcut_id_str(self) -> str:
+        return str(self.shortcut_id)
+    
 class BasicCompatTool:
     displayname = ''
     version = ''
