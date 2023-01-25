@@ -11,6 +11,7 @@ from steam.utils.appcache import parse_appinfo
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QMessageBox, QApplication
 
+from pupgui2.constants import APP_NAME, APP_ID
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
 from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
 from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
@@ -488,3 +489,72 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
     except IOError as e:
         print('Something went wrong trying to uninstall SteamTinkerLaunch. Aborting...', e)
         return False
+
+
+def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=False) -> int:
+    """
+    Adds a shortcut to launch this app to the Steam Library
+    Return: 0=success, 1=error, 2=already installed
+    """
+    users_folder = os.path.realpath(os.path.join(os.path.expanduser(steam_config_folder), os.pardir, 'userdata'))
+
+    try:
+        for userf in os.listdir(users_folder):
+            user_cfg_dir = os.path.join(users_folder, userf, 'config')
+            shortcuts_file = os.path.join(user_cfg_dir, 'shortcuts.vdf')
+
+            if not os.path.exists(user_cfg_dir):
+                continue
+
+            with open(shortcuts_file, 'r+b') as f:
+                shortcuts_vdf = vdf.binary_load(f)
+                sid=-1
+                for sid in list(shortcuts_vdf.get('shortcuts', {}).keys()):
+                    svalue = shortcuts_vdf.get('shortcuts', {}).get(sid)
+                    if 'pupgui2' in svalue.get('ShortcutPath', ''):
+                        if remove_shortcut:
+                            shortcuts_vdf.get('shortcuts', {}).pop(sid)
+                        else:
+                            return 2
+
+                if not remove_shortcut:
+                    run_config = ['', '']
+                    if os.path.exists('/.flatpak-info'):
+                        run_config = [f'/usr/bin/flatpak', 'run {APP_ID}']
+                    elif exe := subprocess.run(['which', APP_ID], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip():
+                        run_config = [exe, '']
+                    elif exe := os.getenv('APPIMAGE'):
+                        if APP_NAME in exe:
+                            exe = os.path.join(exe, os.pardir, APP_NAME + '*.AppImage')  # remove version from file name
+                        run_config = [exe, '']
+                    else:
+                        return 1
+
+                    sid = str(int(sid) + 1)
+                    shortcuts_vdf.setdefault('shortcuts', {})[sid] = {
+                        'appid': 1621167219,
+                        'AppName': APP_NAME,
+                        'Exe': f'"{run_config[0]}"',
+                        'StartDir': './',
+                        'icon': '',
+                        'ShortcutPath': '',
+                        'LaunchOptions': run_config[1],
+                        'IsHidden': 0,
+                        'AllowDesktopConfig': 1,
+                        'AllowOverlay': 1,
+                        'OpenVR': 0,
+                        'Devkit': 0,
+                        'DevkitGameID': '',
+                        'DevkitOverrideAppID': 0,
+                        'LastPlayTime': 0,
+                        'FlatpakAppID': '',
+                        'tags': {}
+                    }
+
+                f.seek(0)
+
+                f.write(vdf.binary_dumps(shortcuts_vdf))
+    except Exception as e:
+        print(f'Error: Could not add {APP_NAME} as Steam shortcut:', e)
+
+    return 0
