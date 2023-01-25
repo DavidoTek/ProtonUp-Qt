@@ -89,6 +89,8 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
                 app.deck_compatibility = 'Unknown'
                 if ct := c.get(str(appid)):
                     app.compat_tool = ct.get('name')
+                    app.ctool_name = ct.get('name')
+                    app.ctool_from_oslist = ct.get('from_oslist')
                 apps.append(app)
 
     except Exception as e:
