@@ -79,6 +79,8 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
                 app.shortcut_id = sid
                 app.shortcut_path = svalue.get('StartDir')
                 app.app_type='game'
+                app.game_name = svalue.get('AppName')
+                app.deck_compatibility = 'Unknown'
                 if ct := c.get(str(appid)):
                     app.compat_tool = ct.get('name')
                 apps.append(app)
