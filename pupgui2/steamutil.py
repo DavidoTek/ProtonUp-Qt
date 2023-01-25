@@ -68,6 +68,9 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
                 continue
 
             shortcuts_file = os.path.join(user_directory,'config/shortcuts.vdf')
+            if not os.path.exists(shortcuts_file):
+                continue
+        
             shortcuts_vdf = vdf.binary_load(open(shortcuts_file,'rb'))
             if 'shortcuts' not in shortcuts_vdf:
                 continue
