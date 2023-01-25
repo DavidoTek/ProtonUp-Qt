@@ -77,7 +77,10 @@ def get_steam_app_list(steam_config_folder: str, cached=False) -> List[SteamApp]
 
             for sid,svalue in shortcuts_vdf.get('shortcuts').items():
                 app = SteamApp()
-                appid = svalue.get('appid')+(1 << 32) #convert to unsigned
+                appid = svalue.get('appid')
+                if appid < 0:
+                    appid = appid +(1 << 32) #convert to unsigned
+                
                 app.app_id = appid
                 app.shortcut_id = sid
                 app.shortcut_path = svalue.get('StartDir')
