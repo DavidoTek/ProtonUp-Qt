@@ -506,17 +506,21 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
             if not os.path.exists(user_cfg_dir):
                 continue
 
-            with open(shortcuts_file, 'r+b') as f:
-                shortcuts_vdf = vdf.binary_load(f)
-                sid=-1
-                for sid in list(shortcuts_vdf.get('shortcuts', {}).keys()):
-                    svalue = shortcuts_vdf.get('shortcuts', {}).get(sid)
-                    if 'pupgui2' in svalue.get('ShortcutPath', ''):
-                        if remove_shortcut:
-                            shortcuts_vdf.get('shortcuts', {}).pop(sid)
-                        else:
-                            return 2
+            shortcuts_vdf = {}
+            sid=-1
+            if os.path.exists(shortcuts_file):
+                with open(shortcuts_file, 'rb') as f:
+                    shortcuts_vdf = vdf.binary_load(f)
+                    
+                    for sid in list(shortcuts_vdf.get('shortcuts', {}).keys()):
+                        svalue = shortcuts_vdf.get('shortcuts', {}).get(sid)
+                        if APP_NAME in svalue.get('AppName', ''):
+                            if remove_shortcut:
+                                shortcuts_vdf.get('shortcuts', {}).pop(sid)
+                            else:
+                                return 2
 
+            with open(shortcuts_file, 'wb') as f:
                 if not remove_shortcut:
                     run_config = ['', '']
                     if os.path.exists('/.flatpak-info'):
@@ -550,8 +554,6 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
                         'FlatpakAppID': '',
                         'tags': {}
                     }
-
-                f.seek(0)
 
                 f.write(vdf.binary_dumps(shortcuts_vdf))
     except Exception as e:
