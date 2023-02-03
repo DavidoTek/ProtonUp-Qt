@@ -10,7 +10,7 @@ from pupgui2.util import open_webbrowser_thread
 from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
 from PySide6.QtWidgets import QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
-
+from PySide6.QtCore import Qt
 
 class PupguiCtInfoDialog(QObject):
 
@@ -65,7 +65,10 @@ class PupguiCtInfoDialog(QObject):
         self.ui.listGames.setRowCount(len(self.games))
         self.ui.listGames.setHorizontalHeaderLabels([self.tr('AppID'), self.tr('Name')])
         for i, game in enumerate(self.games):
-            self.ui.listGames.setItem(i, 0, QTableWidgetItem(game.get_app_id_str()))
+            dataitem_appid = QTableWidgetItem()
+            dataitem_appid.setData(Qt.DisplayRole, int(game.get_app_id_str()))
+
+            self.ui.listGames.setItem(i, 0, dataitem_appid)
             self.ui.listGames.setItem(i, 1, QTableWidgetItem(game.game_name))
 
         self.batch_update_complete.emit(True)
