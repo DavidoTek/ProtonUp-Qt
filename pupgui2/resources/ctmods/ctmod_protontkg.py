@@ -215,6 +215,13 @@ class CtInstaller(QObject):
 
                         shutil.rmtree(final_extract_dir)  # Remove extracted folder
                         os.rename(os.path.join(install_dir, 'usr'), final_extract_dir)  # Rename extracted 'usr' folder to match the .zip file extracted name for consistency / easier removal if redownloading
+
+                        # Remove lingering dotfiles
+                        remove_extractfiles = [ '.BUILDINFO', '.INSTALL', '.MTREE', '.PKGINFO' ]
+                        for rmfile in remove_extractfiles:
+                            rmfile_fullpath = os.path.join(install_dir, rmfile)
+                            if os.path.exists(rmfile_fullpath):
+                                os.remove(rmfile_fullpath)
             else:
                 # Regular .zip for Proton-tkg
                 #
