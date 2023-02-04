@@ -75,6 +75,7 @@ class PupguiGameListDialog(QObject):
         for i, game in enumerate(self.games):
             self.ui.tableGames.setItem(i, 0, QTableWidgetItem(game.game_name))
 
+            # Compat Tool combobox
             combo = QComboBox()
             combo.addItem('-')
             combo.addItems(ctools)
@@ -85,6 +86,11 @@ class PupguiGameListDialog(QObject):
             else:
                 combo.setCurrentText(game.compat_tool)
             combo.currentTextChanged.connect(lambda text,game=game: self.queue_ctool_change_steam(text, game))
+
+            compat_item = QTableWidgetItem()
+            compat_item.setData(Qt.DisplayRole, combo.currentText())
+
+            self.ui.tableGames.setItem(i, 1, compat_item)
             self.ui.tableGames.setCellWidget(i, 1, combo)
 
             # ProtonDB status
