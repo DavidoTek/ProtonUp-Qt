@@ -1,9 +1,9 @@
 import os
 import pkgutil
 
-from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray
+from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
 from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import QLabel, QComboBox, QPushButton
+from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS
@@ -73,7 +73,7 @@ class PupguiGameListDialog(QObject):
 
         game_id_table_lables = []
         for i, game in enumerate(self.games):
-            self.ui.tableGames.setCellWidget(i, 0, QLabel(game.game_name))
+            self.ui.tableGames.setItem(i, 0, QTableWidgetItem(game.game_name))
 
             combo = QComboBox()
             combo.addItem('-')
@@ -96,10 +96,13 @@ class PupguiGameListDialog(QObject):
             lbl_deck_compat = QLabel()
             deckc = game.get_deck_compat_category()
             deckt = game.get_deck_recommended_tool()
+            lbltxt = ''
             if deckc == SteamDeckCompatEnum.UNKNOWN:
-                lbl_deck_compat.setText(self.tr('Unknown'))
+                lbltxt = self.tr('Unknown')
+                # lbl_deck_compat.setText(self.tr('Unknown'))
             elif deckc == SteamDeckCompatEnum.UNSUPPORTED:
-                lbl_deck_compat.setText(self.tr('Unsupported'))
+                # lbl_deck_compat.setText(self.tr('Unsupported'))
+                lbltxt = self.tr('Unsupported')
             elif deckc == SteamDeckCompatEnum.PLAYABLE:
                 if deckt == '':
                     lbltxt = self.tr('Playable')
@@ -107,7 +110,7 @@ class PupguiGameListDialog(QObject):
                     lbltxt = self.tr('Native (playable)')
                 else:
                     lbltxt = self.tr('Playable using {compat_tool}').format(compat_tool=deckt)
-                lbl_deck_compat.setText(lbltxt)
+                # lbl_deck_compat.setText(lbltxt)
             elif deckc == SteamDeckCompatEnum.VERIFIED:
                 if deckt == '':
                     lbltxt = self.tr('Verified')
@@ -115,8 +118,9 @@ class PupguiGameListDialog(QObject):
                     lbltxt = self.tr('Native (verified)')
                 else:
                     lbltxt = self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
-                lbl_deck_compat.setText(lbltxt)
-            self.ui.tableGames.setCellWidget(i, 2, lbl_deck_compat)
+                # lbl_deck_compat.setText(lbltxt)
+
+            self.ui.tableGames.setItem(i, 2, QTableWidgetItem(lbltxt))
 
             # AWACY status
             lblicon = QLabel()
@@ -152,7 +156,7 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setRowCount(len(games))
 
         for i, game in enumerate(games):
-            self.ui.tableGames.setCellWidget(i, 0, QLabel(game.name))
+            self.ui.tableGames.setItem(i, 0, QTableWidgetItem(game.name))
 
     def btn_apply_clicked(self):
         self.update_queued_ctools_steam()
