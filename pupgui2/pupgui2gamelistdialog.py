@@ -187,8 +187,7 @@ class PupguiGameListDialog(QObject):
         if i := self.games.index(game):
             # Use QTableWidgetItem to replace Button widget
             pdb_item = self.ui.tableGames.item(self.ui.tableGames.currentRow(), 4)
-            # pdb_item.setData(Qt.UserRole, pdb_tier)
-            pdb_item.setText(pdb_tier)
+            pdb_item.setData(Qt.UserRole, pdb_tier)
             pdb_item.setForeground(QBrush(QColor(PROTONDB_COLORS.get(pdb_tier))))
             pdb_item.setToolTip(self.tr('Confidence: {confidence}\nScore: {score}\nTrending: {trending}')
                 .format(confidence=game.protondb_summary.get('confidence', '?'),
