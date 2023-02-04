@@ -196,6 +196,8 @@ class PupguiGameListDialog(QObject):
             ctool_name = None
         self.queued_changes[game] = ctool_name
 
+        self.ui.tableGames.item(self.ui.tableGames.currentRow(), 1).setData(Qt.DisplayRole, ctool_name)
+
     def update_queued_ctools_steam(self):
         """ update the compatibility tools for all queued games (Steam) """
         if len(self.queued_changes) == 0:
