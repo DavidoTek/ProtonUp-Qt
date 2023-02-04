@@ -188,7 +188,7 @@ class PupguiGameListDialog(QObject):
         if pdb_tier in PROTONDB_COLORS:
             lbl_protondb_compat.setStyleSheet('QLabel{color: ' + PROTONDB_COLORS.get(pdb_tier) + ';}')
         if i := self.games.index(game):
-            self.ui.tableGames.setCellWidget(i, 4, lbl_protondb_compat)
+            self.ui.tableGames.setCellWidget(self.ui.tableGames.currentRow(), 4, lbl_protondb_compat)
 
     def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
         """ add compatibility tool changes to queue (Steam) """
