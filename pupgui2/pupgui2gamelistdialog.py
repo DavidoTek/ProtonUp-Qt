@@ -2,7 +2,7 @@ import os
 import pkgutil
 
 from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QBrush, QColor
 from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
@@ -184,17 +184,17 @@ class PupguiGameListDialog(QObject):
             print('Warning: update_protondb_status called with game=None')
             return
         pdb_tier = game.protondb_summary.get('tier', '?')
-        lbl_protondb_compat = QLabel()
-        lbl_protondb_compat.setText(pdb_tier)
-        lbl_protondb_compat.setToolTip(self.tr('Confidence: {confidence}\nScore: {score}\nTrending: {trending}')
-            .format(confidence=game.protondb_summary.get('confidence', '?'),
-                    score=game.protondb_summary.get('score', '?'),
-                    trending=game.protondb_summary.get('trendingTier', '?')))
-        if pdb_tier in PROTONDB_COLORS:
-            lbl_protondb_compat.setStyleSheet('QLabel{color: ' + PROTONDB_COLORS.get(pdb_tier) + ';}')
         if i := self.games.index(game):
-            self.ui.tableGames.item(self.ui.tableGames.currentRow(), 4).setData(Qt.DisplayRole, pdb_tier)
-            self.ui.tableGames.setCellWidget(self.ui.tableGames.currentRow(), 4, lbl_protondb_compat)
+            # Use QTableWidgetItem to replace Button widget
+            pdb_item = self.ui.tableGames.item(self.ui.tableGames.currentRow(), 4)
+            pdb_item.setData(Qt.DisplayRole, pdb_tier)
+            pdb_item.setForeground(QBrush(QColor(PROTONDB_COLORS.get(pdb_tier))))
+            pdb_item.setToolTip(self.tr('Confidence: {confidence}\nScore: {score}\nTrending: {trending}')
+                .format(confidence=game.protondb_summary.get('confidence', '?'),
+                        score=game.protondb_summary.get('score', '?'),
+                        trending=game.protondb_summary.get('trendingTier', '?')))
+
+            self.ui.tableGames.removeCellWidget(self.ui.tableGames.currentRow(), 4)
 
     def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
         """ add compatibility tool changes to queue (Steam) """
