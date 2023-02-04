@@ -93,15 +93,12 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
 
             # SteamDeck compatibility
-            lbl_deck_compat = QLabel()
             deckc = game.get_deck_compat_category()
             deckt = game.get_deck_recommended_tool()
             lbltxt = ''
             if deckc == SteamDeckCompatEnum.UNKNOWN:
                 lbltxt = self.tr('Unknown')
-                # lbl_deck_compat.setText(self.tr('Unknown'))
             elif deckc == SteamDeckCompatEnum.UNSUPPORTED:
-                # lbl_deck_compat.setText(self.tr('Unsupported'))
                 lbltxt = self.tr('Unsupported')
             elif deckc == SteamDeckCompatEnum.PLAYABLE:
                 if deckt == '':
@@ -110,7 +107,6 @@ class PupguiGameListDialog(QObject):
                     lbltxt = self.tr('Native (playable)')
                 else:
                     lbltxt = self.tr('Playable using {compat_tool}').format(compat_tool=deckt)
-                # lbl_deck_compat.setText(lbltxt)
             elif deckc == SteamDeckCompatEnum.VERIFIED:
                 if deckt == '':
                     lbltxt = self.tr('Verified')
@@ -118,7 +114,6 @@ class PupguiGameListDialog(QObject):
                     lbltxt = self.tr('Native (verified)')
                 else:
                     lbltxt = self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
-                # lbl_deck_compat.setText(lbltxt)
 
             self.ui.tableGames.setItem(i, 2, QTableWidgetItem(lbltxt))
 
@@ -144,6 +139,12 @@ class PupguiGameListDialog(QObject):
                 lblicon.setToolTip(self.tr('Anti-Cheat status unknown'))
                 p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_unknown.png'))
             lblicon.setPixmap(p)
+
+            # Used for sorting
+            lblicon_item = QTableWidgetItem()
+            lblicon_item.setData(Qt.DisplayRole, game.awacy_status.value)
+
+            self.ui.tableGames.setItem(i, 3, lblicon_item)
             self.ui.tableGames.setCellWidget(i, 3, lblicon)
 
             game_id_table_lables.append(game.app_id)
