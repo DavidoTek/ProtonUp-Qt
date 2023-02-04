@@ -96,6 +96,11 @@ class PupguiGameListDialog(QObject):
             # ProtonDB status
             btn_fetch_protondb = QPushButton(self.tr('click'))
             btn_fetch_protondb.clicked.connect(lambda checked=False, game=game: self.btn_fetch_protondb_clicked(game))
+
+            fetch_protondb_item = QTableWidgetItem()
+            fetch_protondb_item.setData(Qt.DisplayRole, '')
+
+            self.ui.tableGames.setItem(i, 4, fetch_protondb_item)
             self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
 
             # SteamDeck compatibility
@@ -188,6 +193,7 @@ class PupguiGameListDialog(QObject):
         if pdb_tier in PROTONDB_COLORS:
             lbl_protondb_compat.setStyleSheet('QLabel{color: ' + PROTONDB_COLORS.get(pdb_tier) + ';}')
         if i := self.games.index(game):
+            self.ui.tableGames.item(self.ui.tableGames.currentRow(), 4).setData(Qt.DisplayRole, pdb_tier)
             self.ui.tableGames.setCellWidget(self.ui.tableGames.currentRow(), 4, lbl_protondb_compat)
 
     def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
