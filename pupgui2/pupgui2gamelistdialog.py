@@ -1,9 +1,9 @@
 import os
 import pkgutil
 
-from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray
-from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import QLabel, QComboBox, QPushButton
+from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
+from PySide6.QtGui import QPixmap, QBrush, QColor
+from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS
@@ -73,8 +73,9 @@ class PupguiGameListDialog(QObject):
 
         game_id_table_lables = []
         for i, game in enumerate(self.games):
-            self.ui.tableGames.setCellWidget(i, 0, QLabel(game.game_name))
+            self.ui.tableGames.setItem(i, 0, QTableWidgetItem(game.game_name))
 
+            # Compat Tool combobox
             combo = QComboBox()
             combo.addItem('-')
             combo.addItems(ctools)
@@ -85,21 +86,31 @@ class PupguiGameListDialog(QObject):
             else:
                 combo.setCurrentText(game.compat_tool)
             combo.currentTextChanged.connect(lambda text,game=game: self.queue_ctool_change_steam(text, game))
+
+            compat_item = QTableWidgetItem()
+            compat_item.setData(Qt.DisplayRole, combo.currentText())
+
+            self.ui.tableGames.setItem(i, 1, compat_item)
             self.ui.tableGames.setCellWidget(i, 1, combo)
 
             # ProtonDB status
             btn_fetch_protondb = QPushButton(self.tr('click'))
             btn_fetch_protondb.clicked.connect(lambda checked=False, game=game: self.btn_fetch_protondb_clicked(game))
+
+            fetch_protondb_item = QTableWidgetItem()
+            fetch_protondb_item.setData(Qt.DisplayRole, '')
+
+            self.ui.tableGames.setItem(i, 4, fetch_protondb_item)
             self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
 
             # SteamDeck compatibility
-            lbl_deck_compat = QLabel()
             deckc = game.get_deck_compat_category()
             deckt = game.get_deck_recommended_tool()
+            lbltxt = ''
             if deckc == SteamDeckCompatEnum.UNKNOWN:
-                lbl_deck_compat.setText(self.tr('Unknown'))
+                lbltxt = self.tr('Unknown')
             elif deckc == SteamDeckCompatEnum.UNSUPPORTED:
-                lbl_deck_compat.setText(self.tr('Unsupported'))
+                lbltxt = self.tr('Unsupported')
             elif deckc == SteamDeckCompatEnum.PLAYABLE:
                 if deckt == '':
                     lbltxt = self.tr('Playable')
@@ -107,7 +118,6 @@ class PupguiGameListDialog(QObject):
                     lbltxt = self.tr('Native (playable)')
                 else:
                     lbltxt = self.tr('Playable using {compat_tool}').format(compat_tool=deckt)
-                lbl_deck_compat.setText(lbltxt)
             elif deckc == SteamDeckCompatEnum.VERIFIED:
                 if deckt == '':
                     lbltxt = self.tr('Verified')
@@ -115,8 +125,8 @@ class PupguiGameListDialog(QObject):
                     lbltxt = self.tr('Native (verified)')
                 else:
                     lbltxt = self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
-                lbl_deck_compat.setText(lbltxt)
-            self.ui.tableGames.setCellWidget(i, 2, lbl_deck_compat)
+
+            self.ui.tableGames.setItem(i, 2, QTableWidgetItem(lbltxt))
 
             # AWACY status
             lblicon = QLabel()
@@ -140,6 +150,12 @@ class PupguiGameListDialog(QObject):
                 lblicon.setToolTip(self.tr('Anti-Cheat status unknown'))
                 p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_unknown.png'))
             lblicon.setPixmap(p)
+
+            # Used for sorting
+            lblicon_item = QTableWidgetItem()
+            lblicon_item.setData(Qt.DisplayRole, game.awacy_status.value)
+
+            self.ui.tableGames.setItem(i, 3, lblicon_item)
             self.ui.tableGames.setCellWidget(i, 3, lblicon)
 
             game_id_table_lables.append(game.app_id)
@@ -152,7 +168,7 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setRowCount(len(games))
 
         for i, game in enumerate(games):
-            self.ui.tableGames.setCellWidget(i, 0, QLabel(game.name))
+            self.ui.tableGames.setItem(i, 0, QTableWidgetItem(game.name))
 
     def btn_apply_clicked(self):
         self.update_queued_ctools_steam()
@@ -168,22 +184,25 @@ class PupguiGameListDialog(QObject):
             print('Warning: update_protondb_status called with game=None')
             return
         pdb_tier = game.protondb_summary.get('tier', '?')
-        lbl_protondb_compat = QLabel()
-        lbl_protondb_compat.setText(pdb_tier)
-        lbl_protondb_compat.setToolTip(self.tr('Confidence: {confidence}\nScore: {score}\nTrending: {trending}')
-            .format(confidence=game.protondb_summary.get('confidence', '?'),
-                    score=game.protondb_summary.get('score', '?'),
-                    trending=game.protondb_summary.get('trendingTier', '?')))
-        if pdb_tier in PROTONDB_COLORS:
-            lbl_protondb_compat.setStyleSheet('QLabel{color: ' + PROTONDB_COLORS.get(pdb_tier) + ';}')
         if i := self.games.index(game):
-            self.ui.tableGames.setCellWidget(i, 4, lbl_protondb_compat)
+            # Use QTableWidgetItem to replace Button widget
+            pdb_item = self.ui.tableGames.item(self.ui.tableGames.currentRow(), 4)
+            pdb_item.setData(Qt.UserRole, pdb_tier)
+            pdb_item.setForeground(QBrush(QColor(PROTONDB_COLORS.get(pdb_tier))))
+            pdb_item.setToolTip(self.tr('Confidence: {confidence}\nScore: {score}\nTrending: {trending}')
+                .format(confidence=game.protondb_summary.get('confidence', '?'),
+                        score=game.protondb_summary.get('score', '?'),
+                        trending=game.protondb_summary.get('trendingTier', '?')))
+
+            self.ui.tableGames.removeCellWidget(self.ui.tableGames.currentRow(), 4)
 
     def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
         """ add compatibility tool changes to queue (Steam) """
         if ctool_name in {'-', ''}:
             ctool_name = None
         self.queued_changes[game] = ctool_name
+
+        self.ui.tableGames.item(self.ui.tableGames.currentRow(), 1).setData(Qt.DisplayRole, ctool_name)
 
     def update_queued_ctools_steam(self):
         """ update the compatibility tools for all queued games (Steam) """

@@ -19,6 +19,9 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTableWidget" name="tableGames">
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
      <property name="columnCount">
       <number>5</number>
      </property>
