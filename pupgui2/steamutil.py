@@ -44,9 +44,17 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
             if 'apps' not in v.get('libraryfolders').get(fid):
                 continue
             fid_path = v.get('libraryfolders').get(fid).get('path')
+            fid_libraryfolder_path = fid_path
             if fid == '0':
                 fid_path = os.path.join(fid_path, 'steamapps', 'common')
             for appid in v.get('libraryfolders').get(fid).get('apps'):
+                # Skip if app isn't installed to `/path/to/steamapps/common` - Skips soundtracks
+                fid_steamapps_path = os.path.join(fid_libraryfolder_path, 'steamapps')  # e.g. /home/gaben/Games/steamapps
+                appmanifest_path = os.path.join(fid_steamapps_path, f'appmanifest_{appid}.acf')
+                appmanifest_install_path = vdf.load(open(appmanifest_path)).get('AppState').get('installdir')
+                if not os.path.isdir(os.path.join(fid_steamapps_path, 'common', appmanifest_install_path)):
+                    continue
+
                 app = SteamApp()
                 app.app_id = int(appid)
                 app.libraryfolder_id = fid
