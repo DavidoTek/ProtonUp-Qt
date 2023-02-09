@@ -6,13 +6,13 @@ from PySide6.QtGui import QPixmap, QBrush, QColor
 from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2.constants import PROTONDB_COLORS
+from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL
 from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
 from pupgui2.lutrisutil import get_lutris_game_list
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
 from pupgui2.steamutil import get_protondb_status
-from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names
+from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names, open_webbrowser_thread
 from pupgui2.util import get_install_location_from_directory_name
 
 
@@ -70,10 +70,16 @@ class PupguiGameListDialog(QObject):
         ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir')))
 
         self.ui.tableGames.setRowCount(len(self.games))
+        self.ui.tableGames.itemDoubleClicked.connect(self.item_doubleclick_action)
 
         game_id_table_lables = []
         for i, game in enumerate(self.games):
-            self.ui.tableGames.setItem(i, 0, QTableWidgetItem(game.game_name))
+            game_item = QTableWidgetItem()
+            game_item.setText(game.game_name)
+            game_item.setData(Qt.UserRole, f'{STEAM_APP_PAGE_URL}{game.app_id}')  # e.g. https://store.steampowered.com/app/620
+            game_item.setToolTip(f'{game.game_name} ({game.app_id})')
+
+            self.ui.tableGames.setItem(i, 0, game_item)
 
             # Compat Tool combobox
             combo = QComboBox()
@@ -98,7 +104,7 @@ class PupguiGameListDialog(QObject):
             btn_fetch_protondb.clicked.connect(lambda checked=False, game=game: self.btn_fetch_protondb_clicked(game))
 
             fetch_protondb_item = QTableWidgetItem()
-            fetch_protondb_item.setData(Qt.DisplayRole, '')
+            fetch_protondb_item.setData(Qt.DisplayRole, '')  # Shouldn't need to be set, should always be invisible
 
             self.ui.tableGames.setItem(i, 4, fetch_protondb_item)
             self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
@@ -154,6 +160,7 @@ class PupguiGameListDialog(QObject):
             # Used for sorting
             lblicon_item = QTableWidgetItem()
             lblicon_item.setData(Qt.DisplayRole, game.awacy_status.value)
+            lblicon_item.setData(Qt.UserRole, AWACY_WEB_URL)
 
             self.ui.tableGames.setItem(i, 3, lblicon_item)
             self.ui.tableGames.setCellWidget(i, 3, lblicon)
@@ -188,6 +195,7 @@ class PupguiGameListDialog(QObject):
             # Use QTableWidgetItem to replace Button widget
             pdb_item = self.ui.tableGames.item(self.ui.tableGames.currentRow(), 4)
             pdb_item.setData(Qt.DisplayRole, pdb_tier)
+            pdb_item.setData(Qt.UserRole, f'{PROTONDB_APP_PAGE_URL}{game.app_id}')  # e.g. https://www.protondb.com/app/412830
             pdb_item.setForeground(QBrush(QColor(PROTONDB_COLORS.get(pdb_tier))))
             pdb_item.setToolTip(self.tr('Confidence: {confidence}\nScore: {score}\nTrending: {trending}')
                 .format(confidence=game.protondb_summary.get('confidence', '?'),
@@ -210,3 +218,11 @@ class PupguiGameListDialog(QObject):
             return
         steam_update_ctools(self.queued_changes, steam_config_folder=self.install_loc.get('vdf_dir'))
         self.game_property_changed.emit(True)
+
+    def item_doubleclick_action(self, item):
+        """ open link attached for QTableWidgetItem in browser """
+
+        item_url = item.data(Qt.UserRole)
+        if isinstance(item_url, str):
+            # UserRole should always hold URL
+            open_webbrowser_thread(item_url)
