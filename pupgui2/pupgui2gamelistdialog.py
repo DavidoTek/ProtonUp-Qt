@@ -59,6 +59,7 @@ class PupguiGameListDialog(QObject):
             self.update_game_list_lutris()
             self.ui.lblSteamRunningWarning.setVisible(False)
 
+        self.ui.tableGames.setColumnWidth(0, 300)
         self.ui.tableGames.setColumnWidth(3, 70)
         self.ui.tableGames.setColumnWidth(4, 70)
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
