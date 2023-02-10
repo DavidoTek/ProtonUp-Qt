@@ -40,11 +40,10 @@ class PupguiCtInfoDialog(QObject):
         self.ui.btnBatchUpdate.setVisible(False)
 
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
-            if self.ctool.ct_type != CTType.STEAM_RT:
-                self.update_game_list_steam()
-                if 'Proton' in self.ctool.displayname and self.ctool.ct_type == CTType.CUSTOM:  # 'batch update' option for Proton-GE
-                    self.ui.btnBatchUpdate.setVisible(True)
-                    self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
+            self.update_game_list_steam()
+            if 'Proton' in self.ctool.displayname and self.ctool.ct_type == CTType.CUSTOM:  # 'batch update' option for Proton-GE
+                self.ui.btnBatchUpdate.setVisible(True)
+                self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
         elif self.install_loc.get('launcher') == 'lutris':
             self.update_game_list_lutris()
         else:
