@@ -192,7 +192,9 @@ class PupguiGameListDialog(QObject):
             print('Warning: update_protondb_status called with game=None')
             return
         pdb_tier = game.protondb_summary.get('tier', '?')
-        if i := self.games.index(game):
+
+        i = self.games.index(game)
+        if i != None:
             # Use QTableWidgetItem to replace Button widget
             pdb_item = self.ui.tableGames.item(self.ui.tableGames.currentRow(), 4)
             pdb_item.setData(Qt.DisplayRole, pdb_tier)
