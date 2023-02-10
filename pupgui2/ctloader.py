@@ -1,6 +1,9 @@
 import pkgutil
 import importlib
 
+from PySide6.QtWidgets import QMessageBox
+
+from pupgui2.util import create_msgbox
 from pupgui2.resources import ctmods
 
 
@@ -18,11 +21,13 @@ class CtLoader:
         Load ctmods
         Return Type: bool
         """
+        failed_ctmods = []
         for _, mod, _ in pkgutil.iter_modules(ctmods.__path__):
             if mod.startswith('ctmod_'):
                 try:
                     ctmod = importlib.import_module(f'pupgui2.resources.ctmods.{mod}')
                     if ctmod is None:
+                        failed_ctmods.append(mod.removeprefix("ctmod_"))
                         print('Could not load ctmod', mod)
                         continue
                     self.ctmods.append(ctmod)
@@ -34,7 +39,14 @@ class CtLoader:
                     })
                     print('Loaded ctmod', ctmod.CT_NAME)
                 except Exception as e:
+                    failed_ctmods.append(mod.removeprefix("ctmod_"))
                     print('Could not load ctmod', mod, ':', e)
+        if len(failed_ctmods) > 0:
+            create_msgbox(
+                text="Error", 
+                info_text=f"Couldn't load the following compatibility tool(s): {', '.join(failed_ctmods)}\n\nStart ProtonUp-Qt from command line to see debug logs.",
+                icon=QMessageBox.Warning
+            )
         return True
 
     def get_ctmods(self, launcher=None, advanced_mode=True):

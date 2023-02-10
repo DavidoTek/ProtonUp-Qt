@@ -19,6 +19,54 @@ from pupgui2.datastructures import BasicCompatTool, CTType
 from pupgui2.steamutil import remove_steamtinkerlaunch
 
 
+def create_msgbox(
+    text: str,
+    info_text: str = None,
+    buttons: QMessageBox.StandardButton | tuple[QMessageBox.StandardButton] = QMessageBox.Ok,
+    default_button: QMessageBox.StandardButton = QMessageBox.Ok,
+    detailed_text: str = None,
+    icon: QMessageBox.Icon = QMessageBox.Information,
+    execute: bool = True,
+) -> int | QMessageBox:
+    """
+    Show a new message box
+    Args:
+        text: The text to show.
+        info_text: The informative text to show.
+        buttons: The buttons to show, can be either a button or a tuple of buttons.
+        default_button: The default button to use when shown.
+        detailed_text: The detailed text to show.
+        icon: The icon to show, default is the 'information' icon.
+        execute: Whether to execute the message box after creating, default to True.
+    Returns:
+        A QMessageBox if execute is set to False, else returns the exit code from the message box.
+    """
+    msg_box = QMessageBox()
+    msg_box.setText(text)
+    if info_text:
+        msg_box.setInformativeText(info_text)
+    custom_buttons = []
+    if isinstance(buttons, (list, tuple, set)):
+        for btn in buttons:
+            if isinstance(btn[0], str):
+                custom_buttons.append(msg_box.addButton(btn[0], btn[1]))
+            else:
+                custom_buttons.append(msg_box.addButton(btn[0]))
+    else:
+        msg_box.setStandardButtons(buttons)
+    msg_box.setDefaultButton(default_button)
+    if detailed_text:
+        msg_box.setDetailedText(detailed_text)
+    msg_box.setIcon(icon)
+    if execute:
+        if custom_buttons:
+            return msg_box.exec(), custom_buttons
+        return msg_box.exec()
+
+    if custom_buttons:
+        return msg_box, custom_buttons
+    return msg_box
+
 def apply_dark_theme(app: QApplication) -> None:
     """
     Apply custom dark mode to Qt application when not using KDE Plasma
