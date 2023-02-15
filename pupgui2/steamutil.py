@@ -524,7 +524,7 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
                 if not remove_shortcut:
                     run_config = ['', '']
                     if os.path.exists('/.flatpak-info'):
-                        run_config = [f'/usr/bin/flatpak', 'run {APP_ID}']
+                        run_config = [f'/usr/bin/flatpak', f'run {APP_ID}']
                     elif exe := subprocess.run(['which', APP_ID], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip():
                         run_config = [exe, '']
                     elif exe := os.getenv('APPIMAGE'):
