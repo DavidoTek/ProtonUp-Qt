@@ -9,8 +9,10 @@ from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO
 from pupgui2.constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
+from pupgui2.steamutil import install_steam_library_shortcut
 from pupgui2.util import config_theme, apply_dark_theme, config_advanced_mode
 from pupgui2.util import open_webbrowser_thread
+from pupgui2.util import install_directory
 
 
 class PupguiAboutDialog(QObject):
@@ -68,6 +70,8 @@ class PupguiAboutDialog(QObject):
         self.ui.checkAdvancedMode.setChecked(config_advanced_mode() == 'enabled')
         self.ui.checkAdvancedMode.stateChanged.connect(self.check_advanced_mode_state_changed)
 
+        self.ui.btnAddSteamShortcut.clicked.connect(self.btn_add_steam_shortcut_clicked)
+
         if os.getenv('APPIMAGE') is None:
             self.ui.btnCheckForUpdates.setVisible(False)
 
@@ -113,3 +117,9 @@ class PupguiAboutDialog(QObject):
         tag_name = tag_name.replace('v', '')
         vers = tag_name.split('.')
         return [0, 0, 0] if len(vers) != 3 else vers
+
+    def btn_add_steam_shortcut_clicked(self):
+        result = install_steam_library_shortcut(install_directory())
+        if result != 1:
+            self.ui.btnAddSteamShortcut.setText(self.tr('Added shortcut!'))
+            self.ui.btnAddSteamShortcut.setEnabled(False)

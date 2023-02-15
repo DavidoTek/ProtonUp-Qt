@@ -165,6 +165,13 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="btnAddSteamShortcut">
+       <property name="text">
+        <string>Add Steam shortcut</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btnAboutQt">
        <property name="text">
         <string>About Qt</string>
