@@ -30,7 +30,7 @@ class CtLoader(QObject):
                 try:
                     ctmod = importlib.import_module(f'pupgui2.resources.ctmods.{mod}')
                     if ctmod is None:
-                        failed_ctmods.append((mod.replace('ctmod_', '')))
+                        failed_ctmods.append((mod.replace('ctmod_', ''), 'ctmod is None'))
                         print('Could not load ctmod', mod)
                         continue
                     self.ctmods.append(ctmod)
@@ -45,11 +45,11 @@ class CtLoader(QObject):
                     failed_ctmods.append((mod.replace('ctmod_', ''), e))
                     print('Could not load ctmod', mod, ':', e)
         if len(failed_ctmods) > 0:
-            detailed_text = ""
+            detailed_text = ''
             ctmods_name = []
             for ctmod, e in failed_ctmods:
                 ctmods_name.append(ctmod)
-                detailed_text += f"{ctmod}: {e}\n"
+                detailed_text += f'{ctmod}: {e}\n'
             detailed_text = detailed_text.strip()
             create_msgbox(
                 title=self.tr('Error!'),
