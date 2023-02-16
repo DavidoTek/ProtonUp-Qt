@@ -4,7 +4,7 @@ import subprocess
 import shutil
 import platform
 import threading
-from typing import Dict, List
+from typing import Dict, List, Union, Tuple
 import webbrowser
 import requests
 from configparser import ConfigParser
@@ -22,12 +22,12 @@ from pupgui2.steamutil import remove_steamtinkerlaunch
 def create_msgbox(
     text: str,
     info_text: str = None,
-    buttons: QMessageBox.StandardButton | tuple[QMessageBox.StandardButton] = QMessageBox.Ok,
+    buttons: Union[QMessageBox.StandardButton, Tuple[QMessageBox.StandardButton]] = QMessageBox.Ok,
     default_button: QMessageBox.StandardButton = QMessageBox.Ok,
     detailed_text: str = None,
     icon: QMessageBox.Icon = QMessageBox.Information,
     execute: bool = True,
-) -> int | QMessageBox:
+) -> Union[int, QMessageBox]:
     """
     Show a new message box
     Args:

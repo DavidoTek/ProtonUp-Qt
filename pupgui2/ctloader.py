@@ -1,6 +1,8 @@
 import pkgutil
 import importlib
 
+from typing import List, Tuple
+
 from PySide6.QtWidgets import QMessageBox
 
 from pupgui2.util import create_msgbox
@@ -21,13 +23,13 @@ class CtLoader:
         Load ctmods
         Return Type: bool
         """
-        failed_ctmods: list[tuple[str, Exception]] = []
+        failed_ctmods: List[Tuple[str, Exception]] = []
         for _, mod, _ in pkgutil.iter_modules(ctmods.__path__):
             if mod.startswith('ctmod_'):
                 try:
                     ctmod = importlib.import_module(f'pupgui2.resources.ctmods.{mod}')
                     if ctmod is None:
-                        failed_ctmods.append((mod.removeprefix("ctmod_")))
+                        failed_ctmods.append((mod.replace('ctmod_', '')))
                         print('Could not load ctmod', mod)
                         continue
                     self.ctmods.append(ctmod)
@@ -39,7 +41,7 @@ class CtLoader:
                     })
                     print('Loaded ctmod', ctmod.CT_NAME)
                 except Exception as e:
-                    failed_ctmods.append((mod.removeprefix("ctmod_"), e))
+                    failed_ctmods.append((mod.replace('ctmod_', ''), e))
                     print('Could not load ctmod', mod, ':', e)
         if len(failed_ctmods) > 0:
             detailed_text = ""
