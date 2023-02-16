@@ -3,13 +3,14 @@ import importlib
 
 from typing import List, Tuple
 
+from PySide6.QtCore import QObject
 from PySide6.QtWidgets import QMessageBox
 
 from pupgui2.util import create_msgbox
 from pupgui2.resources import ctmods
 
 
-class CtLoader:
+class CtLoader(QObject):
     
     ctmods = []
     ctobjs = []
@@ -51,8 +52,9 @@ class CtLoader:
                 detailed_text += f"{ctmod}: {e}\n"
             detailed_text = detailed_text.strip()
             create_msgbox(
-                text="Error", 
-                info_text=f"Couldn't load the following compatibility tool(s): {', '.join(ctmods_name)}\n\nIf you believe this is an error, please report a bug on GitHub",
+                title=self.tr('Error!'),
+                text=self.tr('Couldn\'t load the following compatibility tool(s):\n{TOOL_LIST}\n\nIf you believe this is an error, please report a bug on GitHub!')
+                    .format(TOOL_LIST=', '.join(ctmods_name)),
                 icon=QMessageBox.Warning,
                 detailed_text=detailed_text
             )

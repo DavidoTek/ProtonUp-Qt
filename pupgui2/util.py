@@ -20,6 +20,7 @@ from pupgui2.steamutil import remove_steamtinkerlaunch
 
 
 def create_msgbox(
+    title: str,
     text: str,
     info_text: str = None,
     buttons: Union[QMessageBox.StandardButton, Tuple[QMessageBox.StandardButton]] = QMessageBox.Ok,
@@ -42,6 +43,7 @@ def create_msgbox(
         A QMessageBox if execute is set to False, else returns the exit code from the message box.
     """
     msg_box = QMessageBox()
+    msg_box.setWindowTitle(title)
     msg_box.setText(text)
     if info_text:
         msg_box.setInformativeText(info_text)
@@ -66,6 +68,7 @@ def create_msgbox(
     if custom_buttons:
         return msg_box, custom_buttons
     return msg_box
+
 
 def apply_dark_theme(app: QApplication) -> None:
     """
@@ -101,6 +104,7 @@ def apply_dark_theme(app: QApplication) -> None:
             else:
                 app.setPalette(QStyleFactory.create('fusion').standardPalette())
 
+
 def config_theme(theme=None) -> str:
     """
     Read/update config for the theme
@@ -122,6 +126,7 @@ def config_theme(theme=None) -> str:
         if config.has_option('pupgui2', 'theme'):
             return config['pupgui2']['theme']
     return theme
+
 
 def config_advanced_mode(advmode=None) -> str:
     """
