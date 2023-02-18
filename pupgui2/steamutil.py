@@ -1,11 +1,12 @@
 import os
-from typing import Dict, List
+from typing import Dict, List, Tuple
 import shutil
 import subprocess
 import json
 import vdf
 import requests
 import threading
+import pkgutil
 from steam.utils.appcache import parse_appinfo
 
 from PySide6.QtCore import Signal
@@ -13,7 +14,7 @@ from PySide6.QtWidgets import QMessageBox, QApplication
 
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
 from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
-from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
+from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamDeckCompatEnum
 
 
 _cached_app_list = []
@@ -291,6 +292,33 @@ def update_steamapp_awacystatus(steamapp_list: List[SteamApp]) -> List[SteamApp]
     return steamapp_list
 
 
+def get_steamapp_awacystatus(game: SteamApp) -> Tuple[str, str]:
+    """ Return status string and icon representing Are We Anti-Cheat Yet status for a Steam game. """
+    awacy_status: str = ''
+    awacy_icon: str = ''
+
+    if game.awacy_status == AWACYStatus.ASUPPORTED:
+        awacy_status = 'Support was explicitly enabled / works out of the box'
+        awacy_icon = 'awacy_supported.png'
+    elif game.awacy_status == AWACYStatus.PLANNED:
+        awacy_status = 'Game plans to support Proton/Wine'
+        awacy_icon = 'awacy_planned.png'
+    elif game.awacy_status == AWACYStatus.RUNNING:
+        awacy_status = 'No official statement but runs fine (may require tinkering)'
+        awacy_icon = 'awacy_running.png'
+    elif game.awacy_status == AWACYStatus.BROKEN:
+        awacy_status = 'Anti-Cheat stops game from running properly'
+        awacy_icon = 'awacy_broken.png'
+    elif game.awacy_status == AWACYStatus.DENIED:
+        awacy_status = 'Linux support was explicitly denied'
+        awacy_status = 'awacy_denied.png'
+    else:
+        awacy_status = 'Anti-Cheat status unknown'
+        awacy_icon = 'awacy_unknown.png'
+
+    return awacy_status, os.path.join('resources/img', awacy_icon)
+
+
 def get_protondb_status_thread(game: SteamApp, signal: Signal) -> None:
     """ Downloads the ProtonDB.com status and calls the Qt Signal "signal" when done. Use with "get_protondb_status"!"""
     try:
@@ -308,6 +336,33 @@ def get_protondb_status(game: SteamApp, signal: Signal) -> None:
     """ Downloads the ProtonDB.com status in a separate threads. When done the Qt Signal "signal" is called """
     t = threading.Thread(target=get_protondb_status_thread, args=(game, signal))
     t.start()
+
+
+def get_steamdeck_compatibility(game: SteamApp) -> str:
+    """ Return Steam Deck compatibility rating for a Steam game. """
+    deckc = game.get_deck_compat_category()
+    deckt = game.get_deck_recommended_tool()
+
+    if deckc == SteamDeckCompatEnum.UNKNOWN:
+        return 'Unknown'
+    elif deckc == SteamDeckCompatEnum.UNSUPPORTED:
+        return 'Unsupported'
+    elif deckc == SteamDeckCompatEnum.PLAYABLE:
+        if deckt == '':
+            return 'Playable'
+        elif deckt == 'native':
+            return 'Native (playable)'
+        else:
+            return 'Playable using {COMPAT_TOOL}'.format(COMPAT_TOOL=deckt)
+    elif deckc == SteamDeckCompatEnum.VERIFIED:
+        if deckt == '':
+            return 'Verified'
+        elif deckt == 'native':
+            return 'Native (verified)'
+        else:
+            return 'Verified for {compat_tool}'.format(compat_tool=deckt)
+    else:
+        return ''
 
 
 def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -> bool:

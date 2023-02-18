@@ -7,11 +7,11 @@ from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL
-from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
+from pupgui2.datastructures import SteamApp
 from pupgui2.lutrisutil import get_lutris_game_list
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
-from pupgui2.steamutil import get_protondb_status
+from pupgui2.steamutil import get_protondb_status, get_steamdeck_compatibility, get_steamapp_awacystatus
 from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names, open_webbrowser_thread
 from pupgui2.util import get_install_location_from_directory_name
 
@@ -110,52 +110,15 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 4, fetch_protondb_item)
             self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
 
-            # SteamDeck compatibility
-            deckc = game.get_deck_compat_category()
-            deckt = game.get_deck_recommended_tool()
-            lbltxt = ''
-            if deckc == SteamDeckCompatEnum.UNKNOWN:
-                lbltxt = self.tr('Unknown')
-            elif deckc == SteamDeckCompatEnum.UNSUPPORTED:
-                lbltxt = self.tr('Unsupported')
-            elif deckc == SteamDeckCompatEnum.PLAYABLE:
-                if deckt == '':
-                    lbltxt = self.tr('Playable')
-                elif deckt == 'native':
-                    lbltxt = self.tr('Native (playable)')
-                else:
-                    lbltxt = self.tr('Playable using {compat_tool}').format(compat_tool=deckt)
-            elif deckc == SteamDeckCompatEnum.VERIFIED:
-                if deckt == '':
-                    lbltxt = self.tr('Verified')
-                elif deckt == 'native':
-                    lbltxt = self.tr('Native (verified)')
-                else:
-                    lbltxt = self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
-
+            lbltxt = self.tr(get_steamdeck_compatibility(game))
             self.ui.tableGames.setItem(i, 2, QTableWidgetItem(lbltxt))
 
             # AWACY status
             lblicon = QLabel()
             p = QPixmap()
-            if game.awacy_status == AWACYStatus.ASUPPORTED:
-                lblicon.setToolTip(self.tr('Support was explicitly enabled / works out of the box'))
-                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_supported.png'))
-            elif game.awacy_status == AWACYStatus.PLANNED:
-                lblicon.setToolTip(self.tr('Game plans to support Proton/Wine'))
-                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_planned.png'))
-            elif game.awacy_status == AWACYStatus.RUNNING:
-                lblicon.setToolTip(self.tr('No official statement but runs fine (may require tinkering)'))
-                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_running.png'))
-            elif game.awacy_status == AWACYStatus.BROKEN:
-                lblicon.setToolTip(self.tr('Anti-Cheat stops game from running properly'))
-                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_broken.png'))
-            elif game.awacy_status == AWACYStatus.DENIED:
-                lblicon.setToolTip(self.tr('Linux support was explicitly denied'))
-                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_denied.png'))
-            else:
-                lblicon.setToolTip(self.tr('Anti-Cheat status unknown'))
-                p.loadFromData(pkgutil.get_data(__name__, 'resources/img/awacy_unknown.png'))
+            awacy_tooltip, awacy_icon = get_steamapp_awacystatus(game)
+            p.loadFromData(pkgutil.get_data(__name__, awacy_icon))
+            lblicon.setToolTip(awacy_tooltip)
             lblicon.setPixmap(p)
 
             # Used for sorting
