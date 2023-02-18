@@ -1,14 +1,17 @@
 import os
 import pkgutil
 
+from typing import List, Callable
+from datetime import datetime
+
 from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
 from PySide6.QtGui import QPixmap, QBrush, QColor
 from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL
+from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL
 from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
-from pupgui2.lutrisutil import get_lutris_game_list
+from pupgui2.lutrisutil import get_lutris_game_list, LutrisGame
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
 from pupgui2.steamutil import get_protondb_status
@@ -25,10 +28,10 @@ class PupguiGameListDialog(QObject):
         super(PupguiGameListDialog, self).__init__(parent)
         self.install_dir = install_dir
         self.parent = parent
-
         self.queued_changes = {}
 
         self.install_loc = get_install_location_from_directory_name(install_dir)
+        self.launcher = self.install_loc.get('launcher')
 
         self.load_ui()
         self.setup_ui()
@@ -42,27 +45,44 @@ class PupguiGameListDialog(QObject):
         self.ui = loader.load(ui_file.device())
 
     def setup_ui(self):
-        if self.install_loc.get('launcher') == 'steam':
-            self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
-            self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
-            self.update_game_list_steam()
+        if self.launcher == 'steam':
+            self.setup_steam_list_ui()
+        elif self.launcher == 'lutris':
+            self.setup_lutris_list_ui()
 
-            if os.path.exists('/.flatpak-info'):
-                self.ui.lblSteamRunningWarning.setVisible(True)
-                self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }')
-            elif is_steam_running():
-                self.ui.lblSteamRunningWarning.setVisible(True)
-            else:
-                self.ui.lblSteamRunningWarning.setVisible(False)
+        self.ui.tableGames.itemDoubleClicked.connect(self.item_doubleclick_action)
+        self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
 
-        elif self.install_loc.get('launcher') == 'lutris':
-            self.update_game_list_lutris()
+    def setup_steam_list_ui(self):
+        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
+        self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
+        self.update_game_list_steam()
+
+        if os.path.exists('/.flatpak-info'):
+            self.ui.lblSteamRunningWarning.setVisible(True)
+            self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }')
+        elif is_steam_running():
+            self.ui.lblSteamRunningWarning.setVisible(True)
+        else:
             self.ui.lblSteamRunningWarning.setVisible(False)
 
         self.ui.tableGames.setColumnWidth(0, 300)
         self.ui.tableGames.setColumnWidth(3, 70)
         self.ui.tableGames.setColumnWidth(4, 70)
-        self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
+    
+    def setup_lutris_list_ui(self):
+        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Runner'), self.tr('Install Location'), self.tr('Installed Date'), ''])
+        self.update_game_list_lutris()
+
+        self.ui.lblSteamRunningWarning.setVisible(False)
+
+        self.ui.tableGames.setColumnWidth(0, 300)
+        self.ui.tableGames.setColumnWidth(1, 70)
+        self.ui.tableGames.setColumnWidth(2, 280)
+        self.ui.tableGames.setColumnWidth(3, 30)
+        self.ui.tableGames.setColumnHidden(4, True)
+
+        self.ui.btnApply.setText(self.tr('Close'))
 
     def update_game_list_steam(self):
         """ update the game list for the Steam launcher """
@@ -71,12 +91,10 @@ class PupguiGameListDialog(QObject):
         ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir')))
 
         self.ui.tableGames.setRowCount(len(self.games))
-        self.ui.tableGames.itemDoubleClicked.connect(self.item_doubleclick_action)
 
         game_id_table_lables = []
         for i, game in enumerate(self.games):
-            game_item = QTableWidgetItem()
-            game_item.setText(game.game_name)
+            game_item = QTableWidgetItem(game.game_name)
             game_item.setData(Qt.UserRole, f'{STEAM_APP_PAGE_URL}{game.app_id}')  # e.g. https://store.steampowered.com/app/620
             game_item.setToolTip(f'{game.game_name} ({game.app_id})')
 
@@ -167,16 +185,49 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setCellWidget(i, 3, lblicon)
 
             game_id_table_lables.append(game.app_id)
-        self.ui.tableGames.setVerticalHeaderLabels(game_id_table_lables)
 
     def update_game_list_lutris(self):
         """ update the game list for the Lutris launcher """
-        games = get_lutris_game_list(self.install_loc)
+        # Filter blank runners and Steam games, because we can't change any compat tool options for Steam games via Lutris
+        # Steam games can be seen from the Steam games list, so no need to duplicate it here
+        games: List[LutrisGame] = list(filter(lambda lutris_game: (lutris_game.runner is not None and lutris_game.runner != 'steam' and len(lutris_game.runner) > 0), get_lutris_game_list(self.install_loc)))
 
         self.ui.tableGames.setRowCount(len(games))
 
-        for i, game in enumerate(games):
-            self.ui.tableGames.setItem(i, 0, QTableWidgetItem(game.name))
+        # Not sure if we can allow compat tool updating from here, as Lutris allows configuring more than just Wine version
+        # It lets you set Wine/DXVK/vkd3d/etc independently, so for now the dialog just displays game information
+        for i, game in enumerate(games): 
+            name_item = QTableWidgetItem(game.name)
+            name_item.setToolTip(f'{game.name} ({game.slug})')
+            if game.installer_slug:
+                # Only games with an installer_slug will have a Lutris web URL - Could be an edge case that runners get removed/updated from lutris.net?
+                name_item.setData(Qt.UserRole, f'{LUTRIS_WEB_URL}{game.slug}')
+
+            # Some games may be in Lutris but not have a valid install path, though the yml should *usually* have some path
+            install_dir_text = game.install_dir or 'Unknown'
+            install_dir_item = QTableWidgetItem(install_dir_text)
+            if install_dir_text == 'Unknown':
+                install_dir_item.setForeground(QBrush(QColor(PROTONDB_COLORS.get('gold'))))
+            else:
+                if os.path.isdir(install_dir_text):
+                    # Set double click action to open valid install dir with xdg-open
+                    install_dir_item.setToolTip('Double-click to browse...')
+                    install_dir_item.setData(Qt.UserRole, lambda url: os.system(f'xdg-open "{url}"'))
+                else:
+                    install_dir_item.setToolTip('Install location does not exist!')
+
+            install_date = datetime.fromtimestamp(int(game.installed_at)).isoformat().split('T')
+            install_date_short = f'{install_date[0]}'
+            install_date_tooltip = f'Installed at {install_date[0]} ({install_date[1]})'
+
+            install_date_item = QTableWidgetItem(install_date_short)
+            install_date_item.setData(Qt.UserRole, int(game.installed_at))
+            install_date_item.setToolTip(install_date_tooltip)
+
+            self.ui.tableGames.setItem(i, 0, name_item)
+            self.ui.tableGames.setItem(i, 1, QTableWidgetItem(game.runner))
+            self.ui.tableGames.setItem(i, 2, install_dir_item)
+            self.ui.tableGames.setItem(i, 3, install_date_item)
 
     def btn_apply_clicked(self):
         self.update_queued_ctools_steam()
@@ -223,8 +274,9 @@ class PupguiGameListDialog(QObject):
 
     def item_doubleclick_action(self, item):
         """ open link attached for QTableWidgetItem in browser """
-
         item_url = item.data(Qt.UserRole)
         if isinstance(item_url, str):
-            # UserRole should always hold URL
-            open_webbrowser_thread(item_url)
+            open_webbrowser_thread(item_url)  # Str UserRole should always hold URL
+        elif isinstance(item_url, Callable):
+            item_url(item.text())
+

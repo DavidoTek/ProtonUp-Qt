@@ -217,8 +217,8 @@ class MainWindow(QObject):
 
         if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
             self.ui.btnShowGameList.setVisible(True)
-        #elif install_loc.get('launcher') == 'lutris':
-        #    self.ui.btnShowGameList.setVisible(True)
+        elif install_loc.get('launcher') == 'lutris':
+           self.ui.btnShowGameList.setVisible(True)
         else:
             self.ui.btnShowGameList.setVisible(False)
 

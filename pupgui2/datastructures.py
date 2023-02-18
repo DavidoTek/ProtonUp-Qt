@@ -135,6 +135,7 @@ class LutrisGame:
     runner = ''
     installer_slug = ''
     installed_at = 0
+    install_dir = ''
 
     install_loc = None
 
@@ -156,7 +157,7 @@ class LutrisGame:
                     break
 
         lutris_game_cfg = os.path.join(os.path.expanduser(lutris_config_dir), 'games', fn)
-        if not os.path.exists(lutris_game_cfg):
+        if not os.path.isfile(lutris_game_cfg):
             return {}
         with open(lutris_game_cfg, 'r') as f:
             return yaml.safe_load(f)
