@@ -203,6 +203,23 @@ class PupguiGameListDialog(QObject):
                 # Only games with an installer_slug will have a Lutris web URL - Could be an edge case that runners get removed/updated from lutris.net?
                 name_item.setData(Qt.UserRole, f'{LUTRIS_WEB_URL}{game.slug}')
 
+            runner_item = QTableWidgetItem(game.runner.capitalize())
+            # Display wine runner information in tooltip
+            if game.runner == 'wine':
+                game_cfg = game.get_game_config()
+                runnerinfo = game_cfg.get('wine', {})
+
+                wine_ver = runnerinfo.get('version')
+                dxvk_ver = runnerinfo.get('dxvk_version')
+                vkd3d_ver = runnerinfo.get('vkd3d_version')
+
+                tooltip = ''
+                tooltip += f'Wine version: {wine_ver}' if wine_ver else ''
+                tooltip += f'\nDXVK version: {dxvk_ver}' if dxvk_ver else ''
+                tooltip += f'\nvkd3d version: {vkd3d_ver}' if vkd3d_ver else ''
+
+                runner_item.setToolTip(tooltip)
+
             # Some games may be in Lutris but not have a valid install path, though the yml should *usually* have some path
             install_dir_text = game.install_dir or 'Unknown'
             install_dir_item = QTableWidgetItem(install_dir_text)
@@ -225,7 +242,7 @@ class PupguiGameListDialog(QObject):
             install_date_item.setToolTip(install_date_tooltip)
 
             self.ui.tableGames.setItem(i, 0, name_item)
-            self.ui.tableGames.setItem(i, 1, QTableWidgetItem(game.runner))
+            self.ui.tableGames.setItem(i, 1, runner_item)
             self.ui.tableGames.setItem(i, 2, install_dir_item)
             self.ui.tableGames.setItem(i, 3, install_date_item)
 
