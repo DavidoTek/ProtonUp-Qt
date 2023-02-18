@@ -204,6 +204,7 @@ class PupguiGameListDialog(QObject):
                 name_item.setData(Qt.UserRole, f'{LUTRIS_WEB_URL}{game.slug}')
 
             runner_item = QTableWidgetItem(game.runner.capitalize())
+            runner_item.setTextAlignment(Qt.AlignCenter)
             # Display wine runner information in tooltip
             if game.runner == 'wine':
                 game_cfg = game.get_game_config()
@@ -240,6 +241,7 @@ class PupguiGameListDialog(QObject):
             install_date_item = QTableWidgetItem(install_date_short)
             install_date_item.setData(Qt.UserRole, int(game.installed_at))
             install_date_item.setToolTip(install_date_tooltip)
+            install_date_item.setTextAlignment(Qt.AlignCenter)
 
             self.ui.tableGames.setItem(i, 0, name_item)
             self.ui.tableGames.setItem(i, 1, runner_item)
