@@ -79,14 +79,11 @@ class PupguiGameListDialog(QObject):
 
             # Compat Tool combobox
             combo = QComboBox()
-            combo.addItem('-')
-            combo.addItems(ctools)
+            combo.addItems(['-'] + ctools)
             if game.compat_tool not in ctools:
                 combo.addItem(game.compat_tool)
-            if game.compat_tool is None:
-                combo.setCurrentText('-')
-            else:
-                combo.setCurrentText(game.compat_tool)
+
+            combo.setCurrentText('-' if game.compat_tool is None else game.compat_tool)
             combo.currentTextChanged.connect(lambda text,game=game: self.queue_ctool_change_steam(text, game))
 
             compat_item = QTableWidgetItem()
