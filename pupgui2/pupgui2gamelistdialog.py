@@ -97,7 +97,7 @@ class PupguiGameListDialog(QObject):
 
             # ProtonDB status
             btn_fetch_protondb = QPushButton(self.tr('click'))
-            btn_fetch_protondb.clicked.connect(lambda checked=False, game=game: self.btn_fetch_protondb_clicked(game))
+            btn_fetch_protondb.clicked.connect(lambda checked=False, game=game: get_protondb_status(game, self.protondb_status_fetched))
 
             fetch_protondb_item = QTableWidgetItem()
             fetch_protondb_item.setData(Qt.DisplayRole, '')  # Shouldn't need to be set, should always be invisible
@@ -140,9 +140,6 @@ class PupguiGameListDialog(QObject):
         self.update_queued_ctools_steam()
         self.ui.close()
 
-    def btn_fetch_protondb_clicked(self, game: SteamApp):
-        get_protondb_status(game, self.protondb_status_fetched)
-
     @Slot(SteamApp)
     def update_protondb_status(self, game: SteamApp):
         """ Slot is gets called when get_protondb_status finishes """
@@ -167,7 +164,7 @@ class PupguiGameListDialog(QObject):
     def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
         """ add compatibility tool changes to queue (Steam) """
         ctool_name = None if ctool_name in {'-', ''} else ctool_name
-        
+
         self.queued_changes[game] = ctool_name
         self.ui.tableGames.item(self.ui.tableGames.currentRow(), 1).setData(Qt.DisplayRole, ctool_name)
 
