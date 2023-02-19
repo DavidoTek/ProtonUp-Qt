@@ -38,8 +38,7 @@ class PupguiGameListDialog(QObject):
     def load_ui(self):
         data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_gamelistdialog.ui')
         ui_file = QDataStream(QByteArray(data))
-        loader = QUiLoader()
-        self.ui = loader.load(ui_file.device())
+        self.ui = QUiLoader().load(ui_file.device())
 
     def setup_ui(self):
         if self.install_loc.get('launcher') == 'steam':
@@ -47,13 +46,9 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
             self.update_game_list_steam()
 
-            if os.path.exists('/.flatpak-info'):
-                self.ui.lblSteamRunningWarning.setVisible(True)
-                self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }')
-            elif is_steam_running():
-                self.ui.lblSteamRunningWarning.setVisible(True)
-            else:
-                self.ui.lblSteamRunningWarning.setVisible(False)
+            # Only show warning if Steam is running, and make it grey if we're running in Flatpak
+            self.ui.lblSteamRunningWarning.setVisible(is_steam_running() or os.path.exists('/.flatpak-info'))
+            self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }' if os.path.exists('/.flatpak-info') else self.ui.lblSteamRunningWarning.styleSheet())
 
         elif self.install_loc.get('launcher') == 'lutris':
             self.update_game_list_lutris()
@@ -171,18 +166,16 @@ class PupguiGameListDialog(QObject):
 
     def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
         """ add compatibility tool changes to queue (Steam) """
-        if ctool_name in {'-', ''}:
-            ctool_name = None
+        ctool_name = None if ctool_name in {'-', ''} else ctool_name
+        
         self.queued_changes[game] = ctool_name
-
         self.ui.tableGames.item(self.ui.tableGames.currentRow(), 1).setData(Qt.DisplayRole, ctool_name)
 
     def update_queued_ctools_steam(self):
         """ update the compatibility tools for all queued games (Steam) """
-        if len(self.queued_changes) == 0:
-            return
-        steam_update_ctools(self.queued_changes, steam_config_folder=self.install_loc.get('vdf_dir'))
-        self.game_property_changed.emit(True)
+        if len(self.queued_changes) > 0:
+            steam_update_ctools(self.queued_changes, steam_config_folder=self.install_loc.get('vdf_dir'))
+            self.game_property_changed.emit(True)
 
     def item_doubleclick_action(self, item):
         """ open link attached for QTableWidgetItem in browser """
