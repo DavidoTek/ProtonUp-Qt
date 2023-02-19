@@ -30,7 +30,7 @@ def create_msgbox(
     execute: bool = True,
 ) -> Union[int, QMessageBox]:
     """
-    Show a new message box
+    Create a new message box and show it (if execute=True) or return it (if execute=False)
     Args:
         text: The text to show.
         info_text: The informative text to show.
@@ -41,6 +41,8 @@ def create_msgbox(
         execute: Whether to execute the message box after creating, default to True.
     Returns:
         A QMessageBox if execute is set to False, else returns the exit code from the message box.
+        If custom buttons (parameter buttons) are specified, a tuple (QMessageBox, List[QMessageBox.StandardButton])
+            or (int, List[QMessageBox.StandardButton]) is returned.
     """
     msg_box = QMessageBox()
     msg_box.setWindowTitle(title)
