@@ -96,10 +96,7 @@ class PupguiGameListDialog(QObject):
             btn_fetch_protondb = QPushButton(self.tr('click'))
             btn_fetch_protondb.clicked.connect(lambda checked=False, game=game: get_protondb_status(game, self.protondb_status_fetched))
 
-            fetch_protondb_item = QTableWidgetItem()
-            fetch_protondb_item.setData(Qt.DisplayRole, '')  # Shouldn't need to be set, should always be invisible
-
-            self.ui.tableGames.setItem(i, 4, fetch_protondb_item)
+            self.ui.tableGames.setItem(i, 4, QTableWidgetItem())
             self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
 
             lbltxt = self.tr(get_steamdeck_compatibility(game))
@@ -113,7 +110,6 @@ class PupguiGameListDialog(QObject):
             lblicon.setToolTip(awacy_tooltip)
             lblicon.setPixmap(p)
 
-            # Used for sorting
             lblicon_item = QTableWidgetItem()
             lblicon_item.setData(Qt.DisplayRole, game.awacy_status.value)
             lblicon_item.setData(Qt.UserRole, AWACY_WEB_URL)
