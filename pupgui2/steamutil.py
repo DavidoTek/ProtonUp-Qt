@@ -6,12 +6,13 @@ import json
 import vdf
 import requests
 import threading
+import pkgutil
 from steam.utils.appcache import parse_appinfo
 
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QMessageBox, QApplication
 
-from pupgui2.constants import APP_NAME, APP_ID
+from pupgui2.constants import APP_NAME, APP_ID, APP_ICON_FILE
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
 from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
 from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
@@ -499,6 +500,10 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
     users_folder = os.path.realpath(os.path.join(os.path.expanduser(steam_config_folder), os.pardir, 'userdata'))
 
     try:
+        if not os.path.isfile(APP_ICON_FILE):
+            with open(APP_ICON_FILE, 'wb') as f:
+                f.write(pkgutil.get_data(__name__, 'resources/img/appicon256.png'))
+
         for userf in os.listdir(users_folder):
             user_cfg_dir = os.path.join(users_folder, userf, 'config')
             shortcuts_file = os.path.join(user_cfg_dir, 'shortcuts.vdf')
@@ -540,7 +545,7 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
                         'AppName': APP_NAME,
                         'Exe': f'"{run_config[0]}"',
                         'StartDir': './',
-                        'icon': '',
+                        'icon': APP_ICON_FILE,
                         'ShortcutPath': '',
                         'LaunchOptions': run_config[1],
                         'IsHidden': 0,

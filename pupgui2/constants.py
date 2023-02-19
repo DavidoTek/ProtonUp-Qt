@@ -8,6 +8,7 @@ from PySide6.QtGui import QColor, QPalette
 APP_NAME = 'ProtonUp-Qt'
 APP_VERSION = '2.7.7'
 APP_ID = 'net.davidotek.pupgui2'
+APP_ICON_FILE = os.path.join(xdg_config_home, 'pupgui/appicon256.png')
 APP_GHAPI_URL = 'https://api.github.com/repos/Davidotek/ProtonUp-qt/releases'
 DAVIDOTEK_KOFI_URL = 'https://ko-fi.com/davidotek'
 PROTONUPQT_GITHUB_URL = 'https://github.com/DavidoTek/ProtonUp-Qt'
