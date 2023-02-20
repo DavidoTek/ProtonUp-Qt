@@ -1,7 +1,7 @@
 import os
 import json
 
-from typing import List, Dict, Union
+from typing import List, Dict
 
 from pupgui2.datastructures import HeroicGame
 
@@ -69,6 +69,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:  # Optionally sp
 
 def is_heroic_launcher(launcher: str) -> bool:
     """ Returns True if the supplied launcher name is a valid name for Heroic Games Launcher, e.g. "heroicwine" """
+
     return any(hero in launcher for hero in ['heroicwine', 'heroicproton'])
 
 
@@ -79,8 +80,8 @@ def is_gog_game_installed(game: HeroicGame) -> bool:
     return bool(get_gog_installed_game_entry(game))
 
 
-def get_gog_installed_game_entry(game: HeroicGame) -> Union[Dict[str, str], None]:
-    """ Return 'install_path' for GOG game from heroic/gog_store/installed.json """
+def get_gog_installed_game_entry(game: HeroicGame) -> Dict:
+    """ Return JSON entry as dict for an installed GOG game from heroic/gog_store/installed.json """
 
     gog_installed_json_path = os.path.join(game.heroic_path, 'gog_store', 'installed.json')
     if not os.path.isfile(gog_installed_json_path) or not game.runner == 'gog':
