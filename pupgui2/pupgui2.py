@@ -24,6 +24,7 @@ from pupgui2.pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
 from pupgui2.pupgui2gamelistdialog import PupguiGameListDialog
 from pupgui2.pupgui2installdialog import PupguiInstallDialog
 from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_steam_ct_game_map
+from pupgui2.heroicutil import is_heroic_launcher
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
 from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online
@@ -195,9 +196,8 @@ class MainWindow(QObject):
 
             self.get_installed_versions('dxvk', dxvk_dir)
             self.get_installed_versions('vkd3d', vkd3d_dir)
-
         # Launcher specific (Steam): Number of games using the compatibility tool
-        if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
+        elif install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
             get_steam_app_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
             self.compat_tool_index_map += get_steam_acruntime_list(install_loc.get('vdf_dir'), cached=True)
             map = get_steam_ct_game_map(install_loc.get('vdf_dir'), self.compat_tool_index_map, cached=True)
@@ -217,8 +217,10 @@ class MainWindow(QObject):
 
         if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
             self.ui.btnShowGameList.setVisible(True)
-        #elif install_loc.get('launcher') == 'lutris':
-        #    self.ui.btnShowGameList.setVisible(True)
+        elif install_loc.get('launcher') == 'lutris':
+           self.ui.btnShowGameList.setVisible(True)
+        elif is_heroic_launcher(install_loc.get('launcher')):
+            self.ui.btnShowGameList.setVisible(True)
         else:
             self.ui.btnShowGameList.setVisible(False)
 

@@ -1,8 +1,10 @@
 import os
-from enum import Enum
 import vdf
 import yaml
+import json
 
+from enum import Enum
+from typing import Dict
 
 class SteamDeckCompatEnum(Enum):
     UNKNOWN = 0
@@ -160,3 +162,29 @@ class LutrisGame:
             return {}
         with open(lutris_game_cfg, 'r') as f:
             return yaml.safe_load(f)
+
+
+# Information for games is stored in a per-storefront 'library.json' - This has most of the information we need
+# Information about game config is stored in a 'GamesConfig/<app_name>.json' file, which is universal between GOG and sideloaded apps - This has Wine information
+#
+# TODO Epic support
+class HeroicGame:
+    runner: str  # can be 'GOG', 'sideload' - all known for now
+    app_name: str  # internal name encoded in some way, e.g. 'sPZQ5kmzYj5KnZKdxE2bR1'
+    title: str  # Real name for game
+    developer: str  # May be blank for side-loaded games
+    install: Dict[str, str]  # e.g. executable, platform details
+    folder_name: str
+    store_url: str  # May be blank for side-loaded games
+    art_cover: str  # Optional?
+    art_square: str  # Optional?
+    is_installed: bool  # Not always set properly by Heroic for GOG?
+    wine_info: Dict[str, str]  # can store bin, name, and type - Has to be fetched from GamesConfig/app_name.json
+
+    def get_game_config(self, install_path: str):
+        game_config = os.path.join(install_path, 'GamesConfig', f'{self.app_name}.json')
+        if not os.path.isfile(game_config):
+            return {}
+        
+        with open(game_config, 'r') as gcf:
+            return json.load(gcf).get(self.app_name, {})
