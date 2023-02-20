@@ -6,7 +6,7 @@ from typing import List, Dict
 from pupgui2.datastructures import HeroicGame
 
 
-def get_heroic_game_list(install_path: str, runner: str = '') -> List[HeroicGame]:  # Optionally specify a runner
+def get_heroic_game_list(install_path: str) -> List[HeroicGame]:  # Optionally specify a runner
     """
     Returns a list of installed games for Heroic Games
     Return Type: List[HeroicGame]
