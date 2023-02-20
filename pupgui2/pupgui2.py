@@ -121,6 +121,7 @@ class MainWindow(QObject):
         self.progressBarDownload.setVisible(False)
         self.ui.statusBar().addPermanentWidget(self.progressBarDownload)
         self.ui.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
+        self.ui.txtInstalledVersions.setText('0')
 
         self.update_combo_install_location()
 
@@ -221,6 +222,8 @@ class MainWindow(QObject):
         #    self.ui.btnShowGameList.setVisible(True)
         else:
             self.ui.btnShowGameList.setVisible(False)
+
+        self.ui.txtInstalledVersions.setText(str(len(self.compat_tool_index_map)))
 
     def get_installed_versions(self, ctool_name, ctool_dir):
         for ct in get_installed_ctools(ctool_dir):
