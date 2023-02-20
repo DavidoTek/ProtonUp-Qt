@@ -304,13 +304,13 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="66"/>
         <source>AppID</source>
-        <translation type="unfinished"></translation>
+        <translation>AppID</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="66"/>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="79"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>名稱</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="79"/>
@@ -372,7 +372,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="91"/>
         <source>click</source>
-        <translation type="unfinished"></translation>
+        <translation>按下</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="100"/>
@@ -449,7 +449,9 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
         <source>Confidence: {confidence}
 Score: {score}
 Trending: {trending}</source>
-        <translation type="unfinished"></translation>
+        <translation>可信度：{confidence}
+分數：{score}
+趨勢：{trending}</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
@@ -563,7 +565,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_d8vk.py" line="21"/>
         <source>Vulkan-based implementation of Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation">基於 Vulkan 的 Direct3D 8/9/10/11 實現。（每夜版）&lt;br/&gt;&lt;br/&gt;&lt;b&gt;警告：每夜版不穩定，謹慎使用！&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -595,7 +597,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="20"/>
         <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>基於 TKG 的 proton-tkg 構建的 Proton 以執行 Northstar 客戶端 + TitanFall 2。由 cyrv6737 製作。&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;在繼續之前閱讀以下內容 &lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -644,7 +646,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="18"/>
         <source>Run Linux games as is, even if Valve recommends Proton for a game.&lt;br/&gt;Created by Scrumplex.&lt;br/&gt;&lt;br/&gt;Useful for Steam Deck.&lt;br/&gt;&lt;br/&gt;Note: The internal name has been changed from &lt;b&gt;none&lt;/b&gt; to &lt;b&gt;Steam-Play-None&lt;/b&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>按原樣執行 Linux 遊戲，即使 Valve 有推薦用於遊戲的 Proton。&lt;br/&gt;由 Scrumplex 製作。&lt;br/&gt;&lt;br/&gt;適用於 Steam Deck。&lt;br/&gt;&lt;br/&gt;注意：內部名稱已從 &lt;b&gt;none&lt;/b&gt; 更改為 &lt;b&gt;Steam-Play-None&lt;/b&gt;！</translation>
     </message>
 </context>
 <context>
@@ -813,7 +815,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dlutris.py" line="19"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Lutris Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Wine 的 VKD3D 分支，目的是在 Vulkan 上實現完整的 Direct3D 12 API。（Lutris 發佈版）&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -821,7 +823,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dproton.py" line="20"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Valve Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Wine 的 VKD3D 分支，目的是在 Vulkan 上實現完整的 Direct3D 12 API。（Valve 發佈版）&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -895,14 +897,16 @@ Do you want the configuration to be removed?</source>
     <message>
         <location filename="../pupgui2/util.py" line="399"/>
         <source>Warning: GitHub API rate limit exceeded!</source>
-        <translation type="unfinished"></translation>
+        <translation>警告：超出 GitHub API 速率限制！</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="400"/>
         <source>GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.
 
 See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>超出 GitHub API 請求速率限制。 您可能需要等待一段時間或指定您的 GitHub API 密鑰。
+
+有關詳細資訊，請參閱 https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 。</translation>
     </message>
 </context>
 </TS>
