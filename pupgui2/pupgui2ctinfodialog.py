@@ -91,7 +91,7 @@ class PupguiCtInfoDialog(QObject):
 
     def update_game_list_heroic(self):
         heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
-        heroic_games = [game for game in get_heroic_game_list(heroic_dir) if self.ctool.displayname in game.wine_info.get('name', '')]
+        heroic_games = [game for game in get_heroic_game_list(heroic_dir) if game.is_installed and self.ctool.displayname in game.wine_info.get('name', '')]
 
         self.setup_game_list(len(heroic_games), [self.tr('Runner'), self.tr('Game')])
 
