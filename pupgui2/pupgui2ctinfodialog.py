@@ -83,7 +83,7 @@ class PupguiCtInfoDialog(QObject):
     def update_game_list_lutris(self):
         lutris_games = [game for game in get_lutris_game_list(self.install_loc) if game.runner == 'wine' and game.get_game_config().get('wine', {}).get('version') == self.ctool.displayname]
 
-        self.setup_game_list(len(lut), [self.tr('Slug'), self.tr('Name')])
+        self.setup_game_list(len(lutris_games), [self.tr('Slug'), self.tr('Name')])
 
         for i, game in enumerate(lutris_games):
             self.ui.listGames.setItem(i, 0, QTableWidgetItem(game.slug))
