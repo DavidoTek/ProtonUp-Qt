@@ -175,7 +175,6 @@ class HeroicGame:
     developer: str  # May be blank for side-loaded games
     install: Dict[str, str]  # e.g. executable, platform details
     install_path: str  # e.g. '~/.config/heroic', '~/.var/app/com.heroicgameslauncher.hgl/config/heroic'
-    folder_name: str
     store_url: str  # May be blank for side-loaded games
     art_cover: str  # Optional?
     art_square: str  # Optional?
