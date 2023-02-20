@@ -96,6 +96,7 @@ class PupguiCtInfoDialog(QObject):
         self.setup_game_list(len(heroic_games), [self.tr('Runner'), self.tr('Game')])
 
         for i, game in enumerate(heroic_games):
+            print(f'{game.title} -> {game.install_path}')
             self.ui.listGames.setItem(i, 0, QTableWidgetItem(game.runner))
             self.ui.listGames.setItem(i, 1, QTableWidgetItem(game.title))
 

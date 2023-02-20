@@ -174,7 +174,8 @@ class HeroicGame:
     title: str  # Real name for game
     developer: str  # May be blank for side-loaded games
     install: Dict[str, str]  # e.g. executable, platform details
-    install_path: str  # e.g. '~/.config/heroic', '~/.var/app/com.heroicgameslauncher.hgl/config/heroic'
+    heroic_path: str  # e.g. '~/.config/heroic', '~/.var/app/com.heroicgameslauncher.hgl/config/heroic'
+    install_path: str  # Path to game folder, e.g. '/home/Gaben/Games/Half-Life 3'
     store_url: str  # May be blank for side-loaded games
     art_cover: str  # Optional?
     art_square: str  # Optional?
@@ -182,7 +183,7 @@ class HeroicGame:
     wine_info: Dict[str, str]  # can store bin, name, and type - Has to be fetched from GamesConfig/app_name.json
 
     def get_game_config(self):
-        game_config = os.path.join(self.install_path, 'GamesConfig', f'{self.app_name}.json')
+        game_config = os.path.join(self.heroic_path, 'GamesConfig', f'{self.app_name}.json')
         if not os.path.isfile(game_config):
             return {}
         
