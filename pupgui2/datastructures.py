@@ -165,9 +165,8 @@ class LutrisGame:
 
 
 # Information for games is stored in a per-storefront 'library.json' - This has most of the information we need
-# Information about game config is stored in a 'GamesConfig/<app_name>.json' file, which is universal between GOG and sideloaded apps - This has Wine information
-#
-# TODO Epic support
+# Information for installed Epic games is stored at '<heroic_dir>/legendary/installed.json' and has a separate JSON format but the same data we need -  
+# Information about game config (sideload, GOG, Epic) is stored in a 'GamesConfig/<app_name>.json' file, which is universal between GOG and sideloaded apps - This has Wine information
 class HeroicGame:
     runner: str  # can be 'GOG', 'sideload' - all known for now
     app_name: str  # internal name encoded in some way, e.g. 'sPZQ5kmzYj5KnZKdxE2bR1'

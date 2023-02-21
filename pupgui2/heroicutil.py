@@ -85,7 +85,7 @@ def get_gog_installed_game_entry(game: HeroicGame) -> Dict:
 
     gog_installed_json_path = os.path.join(game.heroic_path, 'gog_store', 'installed.json')
     if not os.path.isfile(gog_installed_json_path) or not game.runner == 'gog':
-        return ''
+        return {}
     
     gog_installed_json = json.load(open(gog_installed_json_path)).get('installed', [])
     for gog_game in gog_installed_json:
