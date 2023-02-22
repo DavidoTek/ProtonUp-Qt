@@ -222,21 +222,21 @@ class PupguiGameListDialog(QObject):
                 runner_item.setToolTip(tooltip)
 
             # Some games may be in Lutris but not have a valid install path, though the yml should *usually* have some path
-            install_dir_text = game.install_dir or 'Unknown'
+            install_dir_text = game.install_dir or self.tr('Unknown')
             install_dir_item = QTableWidgetItem(install_dir_text)
             if not game.install_dir:
                 install_dir_item.setForeground(QBrush(QColor(PROTONDB_COLORS.get('gold'))))
             else:
                 if os.path.isdir(install_dir_text):
                     # Set double click action to open valid install dir with xdg-open
-                    install_dir_item.setToolTip('Double-click to browse...')
+                    install_dir_item.setToolTip(self.tr('Double-click to browse...'))
                     install_dir_item.setData(Qt.UserRole, lambda url: os.system(f'xdg-open "{url}"'))
                 else:
-                    install_dir_item.setToolTip('Install location does not exist!')
+                    install_dir_item.setToolTip(self.tr('Install location does not exist!'))
 
             install_date = datetime.fromtimestamp(int(game.installed_at)).isoformat().split('T')
             install_date_short = f'{install_date[0]}'
-            install_date_tooltip = f'Installed at {install_date[0]} ({install_date[1]})'
+            install_date_tooltip = self.tr('Installed at {DATE} ({TIME})').format(DATE=install_date[0], TIME=install_date[1])
 
             install_date_item = QTableWidgetItem(install_date_short)
             install_date_item.setData(Qt.UserRole, int(game.installed_at))
