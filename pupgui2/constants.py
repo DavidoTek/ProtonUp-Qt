@@ -80,3 +80,5 @@ STEAM_STL_CACHE_PATH = os.path.join(os.path.expanduser('~'), '.cache', 'steamtin
 STEAM_STL_DATA_PATH = os.path.join(os.path.expanduser('~'), '.local', 'share', 'steamtinkerlaunch')
 STEAM_STL_SHELL_FILES = [ '.bashrc', '.zshrc', '.kshrc' ]
 STEAM_STL_FISH_VARIABLES = os.path.join(os.path.expanduser('~'), '.config/fish/fish_variables')
+
+LUTRIS_WEB_URL='https://lutris.net/games/'
