@@ -39,10 +39,10 @@ def get_lutris_game_list(install_loc) -> List[LutrisGame]:
             if not lutris_install_dir:
                 lg_config = lg.get_game_config()
                 working_dir = lg_config.get('game', {}).get('working_dir')
-                exe_dir = os.path.dirname(str(lg_config.get('game', {}).get('exe')))
-                lutris_install_dir = working_dir or exe_dir or ''
+                exe_dir = lg_config.get('game', {}).get('exe')
+                lutris_install_dir = working_dir or (os.path.dirname(str(exe_dir)) if exe_dir else None)
 
-            lg.install_dir = os.path.abspath(lutris_install_dir)
+            lg.install_dir = os.path.abspath(lutris_install_dir) if lutris_install_dir else ''
             lgs.append(lg)
     except Exception as e:
         print('Error: Could not get lutris game list:', e)

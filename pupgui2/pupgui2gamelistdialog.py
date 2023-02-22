@@ -224,7 +224,7 @@ class PupguiGameListDialog(QObject):
             # Some games may be in Lutris but not have a valid install path, though the yml should *usually* have some path
             install_dir_text = game.install_dir or 'Unknown'
             install_dir_item = QTableWidgetItem(install_dir_text)
-            if install_dir_text == 'Unknown':
+            if not game.install_dir:
                 install_dir_item.setForeground(QBrush(QColor(PROTONDB_COLORS.get('gold'))))
             else:
                 if os.path.isdir(install_dir_text):
