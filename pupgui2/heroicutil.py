@@ -60,7 +60,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:  # Optionally sp
             lg.art_cover: str = ''  # Not stored or stored elsewhere?
             lg.art_square: str = ''  # Not stored or stored elsewhere?
             lg.is_installed: str = True  # Games in Legendary `installed.json` are always installed
-            lg.wine_info: Dict[str, str] = hg.get_game_config().get('wineVersion', {})  # Mirrors above, Legendary games should use the same GameConfig json structure
+            lg.wine_info: Dict[str, str] = lg.get_game_config().get('wineVersion', {})  # Mirrors above, Legendary games should use the same GameConfig json structure
 
             hgs.append(lg)
 
