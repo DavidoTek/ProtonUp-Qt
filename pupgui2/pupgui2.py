@@ -185,6 +185,7 @@ class MainWindow(QObject):
     def update_ui(self):
         """ update ui contents """
         install_loc = get_install_location_from_directory_name(install_directory())
+        unused_ctools = 0
 
         self.ui.listInstalledVersions.clear()
         self.compat_tool_index_map = get_installed_ctools(install_directory())
@@ -206,8 +207,12 @@ class MainWindow(QObject):
                 ct.no_games = len(map.get(ct, []))
 
         for ct in self.compat_tool_index_map:
-            self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused')))
+            ct_displayname = ct.get_displayname(unused_tr=self.tr('unused'))
+            if self.tr('unused') in ct_displayname:
+                unused_ctools += 1
 
+            self.ui.listInstalledVersions.addItem(ct_displayname)
+            
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
             self.set_default_statusbar()
@@ -223,7 +228,9 @@ class MainWindow(QObject):
         else:
             self.ui.btnShowGameList.setVisible(False)
 
-        self.ui.txtInstalledVersions.setText(str(len(self.compat_tool_index_map)))
+        # installed_versions_txt = f'{len(self.compat_tool_index_map)}'
+        self.ui.txtUnusedVersions.setText(f'{self.tr("Unused")}: {unused_ctools}' if unused_ctools > 0 else '')
+        self.ui.txtInstalledVersions.setText(f'{len(self.compat_tool_index_map)}')
 
     def get_installed_versions(self, ctool_name, ctool_dir):
         for ct in get_installed_ctools(ctool_dir):
