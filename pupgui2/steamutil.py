@@ -52,8 +52,8 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
                 fid_steamapps_path = os.path.join(fid_libraryfolder_path, 'steamapps')  # e.g. /home/gaben/Games/steamapps
                 appmanifest_path = os.path.join(fid_steamapps_path, f'appmanifest_{appid}.acf')
                 if os.path.isfile(appmanifest_path):
-                    appmanifest_install_path = vdf.load(open(appmanifest_path)).get('AppState', {}).get('installdir')    
-                    if not os.path.isdir(os.path.join(fid_steamapps_path, 'common', appmanifest_install_path)):
+                    appmanifest_install_path = vdf.load(open(appmanifest_path)).get('AppState', {}).get('installdir', None)
+                    if not appmanifest_install_path or not os.path.isdir(os.path.join(fid_steamapps_path, 'common', appmanifest_install_path)):
                         continue
 
                 app = SteamApp()
