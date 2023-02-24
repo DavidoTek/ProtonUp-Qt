@@ -6,7 +6,7 @@ from typing import List, Dict
 from pupgui2.datastructures import HeroicGame
 
 
-def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:  # Optionally specify a runner
+def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
     """
     Returns a list of installed games for Heroic Games at 'heroic_path' (e.g., '~/.config/heroic', '~/.var/app/com.heroicgameslauncher.hgl/config/heroic')
     Return Type: List[HeroicGame]
@@ -59,7 +59,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:  # Optionally sp
             lg.install_path: str = game_data.get('install_path', '') 
             lg.art_cover: str = ''  # Not stored or stored elsewhere?
             lg.art_square: str = ''  # Not stored or stored elsewhere?
-            lg.is_installed: str = True  # Games in Legendary `installed.json` are always installed
+            lg.is_installed: str = True  # Games in Legendary `installed.json` should always be installed
             lg.wine_info: Dict[str, str] = lg.get_game_config().get('wineVersion', {})  # Mirrors above, Legendary games should use the same GameConfig json structure
 
             hgs.append(lg)
