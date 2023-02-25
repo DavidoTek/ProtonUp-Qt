@@ -1,7 +1,7 @@
 import os
 import pkgutil
 
-from typing import List, Callable
+from typing import List, Callable, Tuple
 from datetime import datetime
 
 from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
@@ -10,11 +10,11 @@ from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL
-from pupgui2.datastructures import SteamApp
+from pupgui2.datastructures import SteamApp, AWACYStatus, SteamDeckCompatEnum
 from pupgui2.lutrisutil import get_lutris_game_list, LutrisGame
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
-from pupgui2.steamutil import get_protondb_status, get_steamdeck_compatibility, get_steamapp_awacystatus
+from pupgui2.steamutil import get_protondb_status
 from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names, open_webbrowser_thread
 from pupgui2.util import get_install_location_from_directory_name
 
@@ -117,14 +117,14 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 4, QTableWidgetItem())
             self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
 
-            lbltxt = self.tr(get_steamdeck_compatibility(game))
+            lbltxt = self.get_steamdeck_compatibility(game)
             self.ui.tableGames.setItem(i, 2, QTableWidgetItem(lbltxt))
 
             # AWACY status
             lblicon = QLabel()
             p = QPixmap()
-            awacy_tooltip, awacy_icon = get_steamapp_awacystatus(game)
-            p.loadFromData(pkgutil.get_data(__name__, awacy_icon))
+            awacy_tooltip, awacy_icon = self.get_steamapp_awacystatus(game)
+            p.loadFromData(pkgutil.get_data(__name__, os.path.join('resources/img', awacy_icon)))
             lblicon.setToolTip(awacy_tooltip)
             lblicon.setPixmap(p)
 
@@ -245,3 +245,54 @@ class PupguiGameListDialog(QObject):
         elif isinstance(item_url, Callable):
             item_url(item.text())
 
+    def get_steamapp_awacystatus(self, game: SteamApp) -> Tuple[str, str]:
+        """ Return translated status text and icon representing AreWeAntiCheatYet.com status for a Steam game """
+        awacy_status: str = ''
+        awacy_icon: str = ''
+
+        if game.awacy_status == AWACYStatus.ASUPPORTED:
+            awacy_status = self.tr('Support was explicitly enabled / works out of the box')
+            awacy_icon = 'awacy_supported.png'
+        elif game.awacy_status == AWACYStatus.PLANNED:
+            awacy_status = self.tr('Game plans to support Proton/Wine')
+            awacy_icon = 'awacy_planned.png'
+        elif game.awacy_status == AWACYStatus.RUNNING:
+            awacy_status = self.tr('No official statement but runs fine (may require tinkering)')
+            awacy_icon = 'awacy_running.png'
+        elif game.awacy_status == AWACYStatus.BROKEN:
+            awacy_status = self.tr('Anti-Cheat stops game from running properly')
+            awacy_icon = 'awacy_broken.png'
+        elif game.awacy_status == AWACYStatus.DENIED:
+            awacy_status = self.tr('Linux support was explicitly denied')
+            awacy_status = 'awacy_denied.png'
+        else:
+            awacy_status = self.tr('Anti-Cheat status unknown')
+            awacy_icon = 'awacy_unknown.png'
+
+        return awacy_status, awacy_icon
+
+    def get_steamdeck_compatibility(self, game: SteamApp) -> str:
+        """ Return translated Steam Deck compatibility rating text for a Steam game """
+        deckc = game.get_deck_compat_category()
+        deckt = game.get_deck_recommended_tool()
+
+        if deckc == SteamDeckCompatEnum.UNKNOWN:
+            return self.tr('Unknown')
+        elif deckc == SteamDeckCompatEnum.UNSUPPORTED:
+            return self.tr('Unsupported')
+        elif deckc == SteamDeckCompatEnum.PLAYABLE:
+            if deckt == '':
+                return self.tr('Playable')
+            elif deckt == 'native':
+                return self.tr('Native (playable)')
+            else:
+                return self.tr('Playable using {compat_tool}').format(compat_tool=deckt)
+        elif deckc == SteamDeckCompatEnum.VERIFIED:
+            if deckt == '':
+                return self.tr('Verified')
+            elif deckt == 'native':
+                return self.tr('Native (verified)')
+            else:
+                return self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
+        else:
+            return ''
