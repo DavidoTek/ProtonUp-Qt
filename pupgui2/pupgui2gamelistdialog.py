@@ -10,7 +10,7 @@ from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL
-from pupgui2.datastructures import SteamApp, AWACYStatus, SteamDeckCompatEnum
+from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
 from pupgui2.lutrisutil import get_lutris_game_list, LutrisGame
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
