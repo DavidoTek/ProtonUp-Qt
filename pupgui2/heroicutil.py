@@ -31,7 +31,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
         hg.app_name: str = game.get('app_name', '')
         hg.title: str = game.get('title', '')
         hg.developer: str = game.get('developer', '')
-        hg.install: str = game.get('install', {})
+        hg.install: Dict[str, str] = game.get('install', {})
         hg.heroic_path: str = heroic_path
         # Sideloaded games uses folder_name as their full install path, GOG games store a folder_name but this is *just* their install folder name
         # Prioritise getting install_path for GOG games as this is the GOG game equivalent to 'folder_name'
@@ -39,7 +39,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
         hg.store_url: str = game.get('store_url', '')
         hg.art_cover: str = game.get('art_cover', '')  # May need to replace path if it has 'file:///app/blah in name - See example in #168
         hg.art_square: str = game.get('art_square', '')
-        hg.is_installed: str = game.get('is_installed', False) or is_gog_game_installed(hg)  # Some installed gog games may not be marked properly in library.json, so cross-reference with installed.json
+        hg.is_installed: bool = game.get('is_installed', False) or is_gog_game_installed(hg)  # Some installed gog games may not be marked properly in library.json, so cross-reference with installed.json
         hg.wine_info: Dict[str, str] = hg.get_game_config().get('wineVersion', {})
 
         hgs.append(hg)
@@ -54,7 +54,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
             lg.app_name: str = app_name  # installed.json key is always the app_name 
             lg.title: str = game_data.get('title', '')
             lg.developer: str = ''  # Not stored or stored elsewhere?
-            lg.install = { 'executable': game_data.get('executable', ''), 'is_dlc': game_data.get('is_dlc', False), 'platform': game_data.get('platform', '') }
+            lg.install: Dict[str, str] = { 'executable': game_data.get('executable', ''), 'is_dlc': game_data.get('is_dlc', False), 'platform': game_data.get('platform', '') }
             lg.heroic_path: str = heroic_path
             lg.install_path: str = game_data.get('install_path', '') 
             lg.art_cover: str = ''  # Not stored or stored elsewhere?
