@@ -24,6 +24,7 @@ from pupgui2.pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
 from pupgui2.pupgui2gamelistdialog import PupguiGameListDialog
 from pupgui2.pupgui2installdialog import PupguiInstallDialog
 from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_steam_ct_game_map
+from pupgui2.heroicutil import is_heroic_launcher, get_heroic_game_list
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
 from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online
@@ -195,14 +196,19 @@ class MainWindow(QObject):
 
             self.get_installed_versions('dxvk', dxvk_dir)
             self.get_installed_versions('vkd3d', vkd3d_dir)
-
         # Launcher specific (Steam): Number of games using the compatibility tool
-        if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
+        elif install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
             get_steam_app_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
             self.compat_tool_index_map += get_steam_acruntime_list(install_loc.get('vdf_dir'), cached=True)
             map = get_steam_ct_game_map(install_loc.get('vdf_dir'), self.compat_tool_index_map, cached=True)
             for ct in self.compat_tool_index_map:
                 ct.no_games = len(map.get(ct, []))
+        # Launcher specific (Heroic): Set number of installed games using compat tool
+        elif is_heroic_launcher(install_loc.get('launcher')):
+            heroic_dir = os.path.join(os.path.expanduser(install_loc.get('install_dir')), '../..')
+            heroic_game_list = get_heroic_game_list(heroic_dir)
+            for ct in self.compat_tool_index_map:
+                ct.no_games = len([game for game in heroic_game_list if game.is_installed and ct.displayname in game.wine_info.get('name', '')])
 
         for ct in self.compat_tool_index_map:
             self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused')))
@@ -219,6 +225,8 @@ class MainWindow(QObject):
             self.ui.btnShowGameList.setVisible(True)
         elif install_loc.get('launcher') == 'lutris':
            self.ui.btnShowGameList.setVisible(True)
+        # elif is_heroic_launcher(install_loc.get('launcher')):
+        #     self.ui.btnShowGameList.setVisible(True)
         else:
             self.ui.btnShowGameList.setVisible(False)
 

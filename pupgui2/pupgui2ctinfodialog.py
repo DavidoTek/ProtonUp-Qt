@@ -1,4 +1,5 @@
 import pkgutil
+import os
 
 from pupgui2.constants import STEAM_APP_PAGE_URL
 from pupgui2.datastructures import BasicCompatTool, CTType
@@ -6,11 +7,15 @@ from pupgui2.lutrisutil import get_lutris_game_list
 from pupgui2.pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
 from pupgui2.steamutil import get_steam_game_list
 from pupgui2.util import open_webbrowser_thread
+from pupgui2.heroicutil import get_heroic_game_list, is_heroic_launcher
 
 from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
 from PySide6.QtWidgets import QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import Qt
+
+from typing import List
+
 
 class PupguiCtInfoDialog(QObject):
 
@@ -47,6 +52,8 @@ class PupguiCtInfoDialog(QObject):
                     self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
         elif self.install_loc.get('launcher') == 'lutris':
             self.update_game_list_lutris()
+        elif is_heroic_launcher(self.install_loc.get('launcher')):
+            self.update_game_list_heroic()
         else:
             self.ui.txtNumGamesUsingTool.setText('-')
             self.ui.listGames.setHorizontalHeaderLabels(['', ''])
@@ -74,16 +81,29 @@ class PupguiCtInfoDialog(QObject):
         self.batch_update_complete.emit(True)
 
     def update_game_list_lutris(self):
-        self.ui.listGames.clear()
-
         lutris_games = [game for game in get_lutris_game_list(self.install_loc) if game.runner == 'wine' and game.get_game_config().get('wine', {}).get('version') == self.ctool.displayname]
 
-        self.ui.listGames.setRowCount(len(lutris_games))
-        self.ui.listGames.setHorizontalHeaderLabels([self.tr('Slug'), self.tr('Name')])
-        self.ui.txtNumGamesUsingTool.setText(str(len(lutris_games)))
+        self.setup_game_list(len(lutris_games), [self.tr('Slug'), self.tr('Name')])
+
         for i, game in enumerate(lutris_games):
             self.ui.listGames.setItem(i, 0, QTableWidgetItem(game.slug))
             self.ui.listGames.setItem(i, 1, QTableWidgetItem(game.name))
+
+    def update_game_list_heroic(self):
+        heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
+        heroic_games = [game for game in get_heroic_game_list(heroic_dir) if game.is_installed and self.ctool.displayname in game.wine_info.get('name', '')]
+
+        self.setup_game_list(len(heroic_games), [self.tr('Runner'), self.tr('Game')])
+
+        for i, game in enumerate(heroic_games):
+            self.ui.listGames.setItem(i, 0, QTableWidgetItem(game.runner))
+            self.ui.listGames.setItem(i, 1, QTableWidgetItem(game.title))
+
+    def setup_game_list(self, row_count: int, header_labels: List[str]):
+        self.ui.listGames.clear()
+        self.ui.listGames.setRowCount(row_count)
+        self.ui.listGames.setHorizontalHeaderLabels(header_labels)
+        self.ui.txtNumGamesUsingTool.setText(str(row_count))
 
     def btn_close_clicked(self):
         self.ui.close()
