@@ -10,11 +10,12 @@ from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL
-from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum
-from pupgui2.lutrisutil import get_lutris_game_list, LutrisGame
+from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum, LutrisGame, HeroicGame
+from pupgui2.lutrisutil import get_lutris_game_list
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
 from pupgui2.steamutil import get_protondb_status
+from pupgui2.heroicutil import get_heroic_game_list, is_heroic_launcher
 from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names, open_webbrowser_thread
 from pupgui2.util import get_install_location_from_directory_name
 
@@ -48,6 +49,8 @@ class PupguiGameListDialog(QObject):
             self.setup_steam_list_ui()
         elif self.launcher == 'lutris':
             self.setup_lutris_list_ui()
+        elif is_heroic_launcher(self.launcher):
+            self.setup_heroic_list_ui()
 
         self.ui.tableGames.itemDoubleClicked.connect(self.item_doubleclick_action)
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
@@ -68,6 +71,23 @@ class PupguiGameListDialog(QObject):
     def setup_lutris_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Runner'), self.tr('Install Location'), self.tr('Installed Date'), ''])
         self.update_game_list_lutris()
+
+        self.ui.lblSteamRunningWarning.setVisible(False)
+
+        self.ui.tableGames.setColumnWidth(0, 300)
+        self.ui.tableGames.setColumnWidth(1, 70)
+        self.ui.tableGames.setColumnWidth(2, 280)
+        self.ui.tableGames.setColumnWidth(3, 30)
+        self.ui.tableGames.setColumnHidden(4, True)
+
+        self.ui.btnApply.setText(self.tr('Close'))
+
+    def setup_heroic_list_ui(self):
+        # TODO we probably want to only show Wine/Proton games in the games list depending on which launcher is selected
+        # e.g. only show Heroic Wine games if `heroicwine` etc 
+
+        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Runner'), self.tr('Compatibility Tool'), self.tr('Install Location'), ''])
+        self.update_game_list_heroic()
 
         self.ui.lblSteamRunningWarning.setVisible(False)
 
@@ -198,6 +218,24 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 1, runner_item)
             self.ui.tableGames.setItem(i, 2, install_dir_item)
             self.ui.tableGames.setItem(i, 3, install_date_item)
+
+    def update_game_list_heroic(self):
+
+        heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
+        games: List[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and len(heroic_game.wine_info.get('name', '')) > 0), get_heroic_game_list(heroic_dir)))
+
+        self.ui.tableGames.setRowCount(len(games))
+
+        for i, game in enumerate(games):
+            title_item = QTableWidgetItem(game.title)
+            compat_item = QTableWidgetItem(game.wine_info.get('name', ''))
+            install_path_item = QTableWidgetItem(game.install_path)
+            runner_item = QTableWidgetItem(game.runner)
+
+            self.ui.tableGames.setItem(i, 0, title_item)
+            self.ui.tableGames.setItem(i, 1, compat_item)
+            self.ui.tableGames.setItem(i, 2, install_path_item)
+            self.ui.tableGames.setItem(i, 3, runner_item)
 
     def btn_apply_clicked(self):
         self.update_queued_ctools_steam()

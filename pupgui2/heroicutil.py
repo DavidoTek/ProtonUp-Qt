@@ -13,7 +13,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
     """
 
     if not os.path.isdir(heroic_path):
-        return {}
+        return []
 
     store_paths: List[str] = [ os.path.join(heroic_path, 'sideload_apps', 'library.json'), os.path.join(heroic_path, 'gog_store', 'library.json') ]
     legendary_path: str = os.path.abspath(os.path.join(heroic_path, '..', 'legendary', 'installed.json'))
