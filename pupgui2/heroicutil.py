@@ -43,7 +43,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
         hg.wine_info: Dict[str, str] = hg.get_game_config().get('wineVersion', {})
 
         hgs.append(hg)
-    
+
     # Legendary Games uses a separate structure, so build separately
     if os.path.isfile(legendary_path):
         legendary_json = json.load(open(legendary_path))
@@ -86,7 +86,7 @@ def get_gog_installed_game_entry(game: HeroicGame) -> Dict:
     gog_installed_json_path = os.path.join(game.heroic_path, 'gog_store', 'installed.json')
     if not os.path.isfile(gog_installed_json_path) or not game.runner == 'gog':
         return {}
-    
+
     gog_installed_json = json.load(open(gog_installed_json_path)).get('installed', [])
     for gog_game in gog_installed_json:
         if gog_game.get('appName', '') == game.app_name:

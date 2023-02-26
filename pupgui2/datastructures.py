@@ -6,6 +6,7 @@ import json
 from enum import Enum
 from typing import Dict
 
+
 class SteamDeckCompatEnum(Enum):
     UNKNOWN = 0
     UNSUPPORTED = 1
@@ -82,7 +83,8 @@ class SteamApp:
 
     def get_shortcut_id_str(self) -> str:
         return str(self.shortcut_id)
-    
+
+
 class BasicCompatTool:
     displayname = ''
     version = ''
