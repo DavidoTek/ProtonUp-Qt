@@ -205,9 +205,10 @@ class MainWindow(QObject):
                 ct.no_games = len(map.get(ct, []))
         # Launcher specific (Heroic): Set number of installed games using compat tool
         elif is_heroic_launcher(install_loc.get('launcher')):
+            heroic_dir = os.path.join(os.path.expanduser(install_loc.get('install_dir')), '../..')
+            heroic_game_list = get_heroic_game_list(heroic_dir)
             for ct in self.compat_tool_index_map:
-                heroic_dir = os.path.join(os.path.expanduser(install_loc.get('install_dir')), '../..')
-                ct.no_games = len([game for game in get_heroic_game_list(heroic_dir) if game.is_installed and ct.displayname in game.wine_info.get('name', '')])
+                ct.no_games = len([game for game in heroic_game_list if game.is_installed and ct.displayname in game.wine_info.get('name', '')])
 
         for ct in self.compat_tool_index_map:
             self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused')))
