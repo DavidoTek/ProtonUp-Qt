@@ -212,9 +212,6 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 3, install_date_item)
 
     def update_game_list_heroic(self):
-
-        # TODO native games???
-
         heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
         games: List[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
 
@@ -223,8 +220,7 @@ class PupguiGameListDialog(QObject):
         for i, game in enumerate(games):
             title_item = QTableWidgetItem(game.title)
             if game.store_url:
-                # TODO only tested with a handful of GOG games
-                # Do Legendary games have this? How does Heroic store the "Store Page" value for games on EGS, if at all? 
+                # TODO only tested with a handful of GOG games - Do Legendary games have this? How does Heroic store the "Store Page" value for games on EGS, if at all? 
                 # Is there a way to set this for side-loaded games? I couldn't see one, but I would like this to be feasible for GOG and Epic games
                 title_item.setData(Qt.UserRole, game.store_url)
 
@@ -245,6 +241,7 @@ class PupguiGameListDialog(QObject):
 
             compat_item = QTableWidgetItem(compat_tool_prettyname)
             compat_item.setToolTip(compat_tool_tooltip)
+            compat_item.setTextAlignment(Qt.AlignCenter)
 
             install_path_item = QTableWidgetItem(game.install_path)
             self.set_item_data_directory(install_path_item, game.install_path)
