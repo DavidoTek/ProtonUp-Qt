@@ -44,11 +44,8 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
         # Sideloaded games store platform in its library.json (it has no installed.json) under the 'install' object
         # GOG games store the platform for the version of the installed game in `installed.json` (as GOG games can target multiple platforms, installed will show if the user has the Windows or Linux version)
         hg.platform: str = game.get('install', {}).get('platform', '').capitalize() if hg.runner.lower() == 'sideload' else get_gog_installed_game_entry(hg).get('platform', '').capitalize()  # Capitalize ensures consistency
-        # TODO get executable for GOG games? Seems to be stored in some game dir files with inconsistent structure?
-        # Wine games seem to have `goggame-<app_name>.info` file in their installed folder (JSON format), inside is a a "playTasks" list of objects -- The one with the "name" which matches the `folder_name` (can get from dirname(install_path)) has the `path` to the executable
-        # How do native games do it though?
-        #
         # GOG and Epic store the exe name on its own, but sideloaded stores the full path, so for consistency get the basename for sideloaded apps
+        # Native GOG games seem to just store the 'executable' as 'start.sh' script
         hg.executable: str = get_gog_game_executable(hg) if hg.runner == 'gog' else os.path.basename(game.get('install', {}).get('executable', ''))
         hg.is_dlc: bool = game.get('install', {}).get('is_dlc', False)
 
@@ -107,15 +104,20 @@ def get_gog_installed_game_entry(game: HeroicGame) -> Dict:
     else:
         return {}
 
-def get_gog_game_executable(game: HeroicGame) -> str:
-    """ Return the executable for a GOG game from its gameinfo file. Will return empty string if no executable found. """
 
-    # TODO this only works for Windows games, can't find out how to do this for native games?
+def get_gog_game_executable(game: HeroicGame) -> str:
+    """ Return the executable for a GOG game from its gameinfo file, or 'start.sh' for native Linux games. Will return empty string if no executable found. """
+
+    # Proton games store it in `/path/to/install/goggame-<app_name>.info`, which is a JSON formatted file
     gog_gameinfo_filename = f'goggame-{game.app_name}.info'
     gog_gameinfo_json_path = os.path.join(game.install_path, gog_gameinfo_filename)
 
     if not os.path.isfile(gog_gameinfo_json_path) or not game.runner.lower() == 'gog':
         return ''
+
+    # Native Linux games seem to only store 'start.sh' as their executable
+    if not game.wine_info:
+        return 'start.sh'
 
     gog_gameinfo_json = json.load(open(gog_gameinfo_json_path))
     gog_gameinfo_name = gog_gameinfo_json.get('name', '')
