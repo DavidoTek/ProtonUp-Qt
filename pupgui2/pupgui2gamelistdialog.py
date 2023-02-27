@@ -86,15 +86,15 @@ class PupguiGameListDialog(QObject):
         # TODO we probably want to only show Wine/Proton games in the games list depending on which launcher is selected
         # e.g. only show Heroic Wine games if `heroicwine` etc 
 
-        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Runner'), self.tr('Compatibility Tool'), self.tr('Install Location'), ''])
+        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Install Location'), self.tr('Runner'), ''])
         self.update_game_list_heroic()
 
         self.ui.lblSteamRunningWarning.setVisible(False)
 
-        self.ui.tableGames.setColumnWidth(0, 300)
-        self.ui.tableGames.setColumnWidth(1, 70)
-        self.ui.tableGames.setColumnWidth(2, 280)
-        self.ui.tableGames.setColumnWidth(3, 30)
+        self.ui.tableGames.setColumnWidth(0, 270)
+        self.ui.tableGames.setColumnWidth(1, 170)
+        self.ui.tableGames.setColumnWidth(2, 250)
+        self.ui.tableGames.setColumnWidth(3, 40)
         self.ui.tableGames.setColumnHidden(4, True)
 
         self.ui.btnApply.setText(self.tr('Close'))
@@ -195,15 +195,7 @@ class PupguiGameListDialog(QObject):
             # Some games may be in Lutris but not have a valid install path, though the yml should *usually* have some path
             install_dir_text = game.install_dir or self.tr('Unknown')
             install_dir_item = QTableWidgetItem(install_dir_text)
-            if not game.install_dir:
-                install_dir_item.setForeground(QBrush(QColor(PROTONDB_COLORS.get('gold'))))
-            else:
-                if os.path.isdir(install_dir_text):
-                    # Set double click action to open valid install dir with xdg-open
-                    install_dir_item.setToolTip(self.tr('Double-click to browse...'))
-                    install_dir_item.setData(Qt.UserRole, lambda url: os.system(f'xdg-open "{url}"'))
-                else:
-                    install_dir_item.setToolTip(self.tr('Install location does not exist!'))
+            self.set_item_data_directory(install_dir_item, install_dir_text)
 
             install_date = datetime.fromtimestamp(int(game.installed_at)).isoformat().split('T')
             install_date_short = f'{install_date[0]}'
@@ -228,9 +220,25 @@ class PupguiGameListDialog(QObject):
 
         for i, game in enumerate(games):
             title_item = QTableWidgetItem(game.title)
-            compat_item = QTableWidgetItem(game.wine_info.get('name', ''))
+            if game.store_url:
+                # TODO only tested with a handful of GOG games
+                # Do Legendary games have this? How does Heroic store the "Store Page" value for games on EGS, if at all? 
+                # Is there a way to set this for side-loaded games? I couldn't see one, but I would like this to be feasible for GOG and Epic games
+                title_item.setData(Qt.UserRole, game.store_url)
+
+            compat_tool_prettyname = game.wine_info.get('name', '').split('-', 1)[1].strip()
+            compat_tool_tooltip = f'Name: {compat_tool_prettyname}'
+            compat_tool_tooltip += f'\nPath: {game.wine_info.get("bin", "")}' if game.wine_info.get("bin", "") else ''
+            compat_tool_tooltip += f'\nType: {game.wine_info.get("type", "").capitalize()}' if game.wine_info.get("type", "") else ''
+
+            compat_item = QTableWidgetItem(compat_tool_prettyname)
+            compat_item.setToolTip(compat_tool_tooltip)
+
             install_path_item = QTableWidgetItem(game.install_path)
+            self.set_item_data_directory(install_path_item, game.install_path)
+            
             runner_item = QTableWidgetItem(game.runner)
+            runner_item.setTextAlignment(Qt.AlignCenter)
 
             self.ui.tableGames.setItem(i, 0, title_item)
             self.ui.tableGames.setItem(i, 1, compat_item)
@@ -282,6 +290,15 @@ class PupguiGameListDialog(QObject):
             open_webbrowser_thread(item_url)  # Str UserRole should always hold URL
         elif isinstance(item_url, Callable):
             item_url(item.text())
+
+    def set_item_data_directory(self, item: QTableWidgetItem, path: str, tooltip_exists: str = 'Double click to browse...', tooltip_invalid: str = 'Install location does not exist!'):
+        """ Set the Qt.UserRole data for a QTableWidgetItem to a lambda which uses xdg-open to open a given path, if it exists. """
+
+        if os.path.isdir(path):
+            item.setToolTip(self.tr(tooltip_exists))
+            item.setData(Qt.UserRole, lambda path: os.system(f'xdg-open "{path}"'))
+        else:
+            item.setToolTip(self.tr(tooltip_invalid))
 
     def get_steamapp_awacystatus(self, game: SteamApp) -> Tuple[str, str]:
         """ Return translated status text and icon representing AreWeAntiCheatYet.com status for a Steam game """
