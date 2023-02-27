@@ -213,8 +213,10 @@ class PupguiGameListDialog(QObject):
 
     def update_game_list_heroic(self):
 
+        # TODO native games???
+
         heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
-        games: List[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and len(heroic_game.wine_info.get('name', '')) > 0), get_heroic_game_list(heroic_dir)))
+        games: List[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
 
         self.ui.tableGames.setRowCount(len(games))
 
@@ -226,10 +228,20 @@ class PupguiGameListDialog(QObject):
                 # Is there a way to set this for side-loaded games? I couldn't see one, but I would like this to be feasible for GOG and Epic games
                 title_item.setData(Qt.UserRole, game.store_url)
 
-            compat_tool_prettyname = game.wine_info.get('name', '').split('-', 1)[1].strip()
-            compat_tool_tooltip = f'Name: {compat_tool_prettyname}'
-            compat_tool_tooltip += f'\nPath: {game.wine_info.get("bin", "")}' if game.wine_info.get("bin", "") else ''
-            compat_tool_tooltip += f'\nType: {game.wine_info.get("type", "").capitalize()}' if game.wine_info.get("type", "") else ''
+            title_tooltip = game.title
+            if game.executable:
+                title_tooltip += f' ({game.executable})'
+            title_item.setToolTip(title_tooltip)
+
+            # If no wine_info, assume this is a native game -- May be more reliable than checking a platform string
+            if game.wine_info.get('name', ''):
+                compat_tool_prettyname = game.wine_info.get('name', '').split('-', 1)[1].strip()
+                compat_tool_tooltip = f'Name: {compat_tool_prettyname}'
+                compat_tool_tooltip += f'\nPath: {game.wine_info.get("bin", "")}' if game.wine_info.get("bin", "") else ''
+                compat_tool_tooltip += f'\nType: {game.wine_info.get("type", "").capitalize()}' if game.wine_info.get("type", "") else ''
+            else:
+                compat_tool_prettyname = 'Native'
+                compat_tool_tooltip = f'Type: Native'
 
             compat_item = QTableWidgetItem(compat_tool_prettyname)
             compat_item.setToolTip(compat_tool_tooltip)

@@ -35,12 +35,22 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
         hg.heroic_path: str = heroic_path
         # Sideloaded games uses folder_name as their full install path, GOG games store a folder_name but this is *just* their install folder name
         # Prioritise getting install_path for GOG games as this is the GOG game equivalent to 'folder_name'
-        hg.install_path: str = get_gog_installed_game_entry(hg).get('install_path', '') if hg.runner == 'gog' else game.get('folder_name', '')
+        hg.install_path: str = get_gog_installed_game_entry(hg).get('install_path', '') if hg.runner.lower() == 'gog' else game.get('folder_name', '')
         hg.store_url: str = game.get('store_url', '')
         hg.art_cover: str = game.get('art_cover', '')  # May need to replace path if it has 'file:///app/blah in name - See example in #168
         hg.art_square: str = game.get('art_square', '')
         hg.is_installed: bool = game.get('is_installed', False) or is_gog_game_installed(hg)  # Some installed gog games may not be marked properly in library.json, so cross-reference with installed.json
         hg.wine_info: Dict[str, str] = hg.get_game_config().get('wineVersion', {})
+        # Sideloaded games store platform in its library.json (it has no installed.json) under the 'install' object
+        # GOG games store the platform for the version of the installed game in `installed.json` (as GOG games can target multiple platforms, installed will show if the user has the Windows or Linux version)
+        hg.platform: str = game.get('install', {}).get('platform', '').capitalize() if hg.runner.lower() == 'sideload' else get_gog_installed_game_entry(hg).get('platform', '').capitalize()  # Capitalize ensures consistency
+        # TODO get executable for GOG games? Seems to be stored in some game dir files with inconsistent structure?
+        # Wine games seem to have `goggame-<app_name>.info` file in their installed folder (JSON format), inside is a a "playTasks" list of objects -- The one with the "name" which matches the `folder_name` (can get from dirname(install_path)) has the `path` to the executable
+        # How do native games do it though?
+        #
+        # GOG and Epic store the exe name on its own, but sideloaded stores the full path, so for consistency get the basename for sideloaded apps
+        hg.executable: str = get_gog_game_executable(hg) if hg.runner == 'gog' else os.path.basename(game.get('install', {}).get('executable', ''))
+        hg.is_dlc: bool = game.get('install', {}).get('is_dlc', False)
 
         hgs.append(hg)
 
@@ -54,13 +64,16 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
             lg.app_name: str = app_name  # installed.json key is always the app_name 
             lg.title: str = game_data.get('title', '')
             lg.developer: str = ''  # Not stored or stored elsewhere?
-            lg.install: Dict[str, str] = { 'executable': game_data.get('executable', ''), 'is_dlc': game_data.get('is_dlc', False), 'platform': game_data.get('platform', '') }
             lg.heroic_path: str = heroic_path
             lg.install_path: str = game_data.get('install_path', '') 
             lg.art_cover: str = ''  # Not stored or stored elsewhere?
             lg.art_square: str = ''  # Not stored or stored elsewhere?
             lg.is_installed: str = True  # Games in Legendary `installed.json` should always be installed
             lg.wine_info: Dict[str, str] = lg.get_game_config().get('wineVersion', {})  # Mirrors above, Legendary games should use the same GameConfig json structure
+            lg.platform: str = game_data.get('platform', '').capitalize()  # Legendary stores this in `installed.json` and like GOG this stores the platform for the version the user downloaded
+            lg.executable: str = game_data.get('executable', '')
+            lg.store_url = ''  # TODO do legendary games have a store URL?
+            lg.is_dlc: bool = game_data.get('is_dlc', False)  # If not set for some reason, assume its not DLC
 
             hgs.append(lg)
 
@@ -84,7 +97,7 @@ def get_gog_installed_game_entry(game: HeroicGame) -> Dict:
     """ Return JSON entry as dict for an installed GOG game from heroic/gog_store/installed.json """
 
     gog_installed_json_path = os.path.join(game.heroic_path, 'gog_store', 'installed.json')
-    if not os.path.isfile(gog_installed_json_path) or not game.runner == 'gog':
+    if not os.path.isfile(gog_installed_json_path) or not game.runner.lower() == 'gog':
         return {}
 
     gog_installed_json = json.load(open(gog_installed_json_path)).get('installed', [])
@@ -93,3 +106,22 @@ def get_gog_installed_game_entry(game: HeroicGame) -> Dict:
             return gog_game    
     else:
         return {}
+
+def get_gog_game_executable(game: HeroicGame) -> str:
+    """ Return the executable for a GOG game from its gameinfo file. Will return empty string if no executable found. """
+
+    # TODO this only works for Windows games, can't find out how to do this for native games?
+    gog_gameinfo_filename = f'goggame-{game.app_name}.info'
+    gog_gameinfo_json_path = os.path.join(game.install_path, gog_gameinfo_filename)
+
+    if not os.path.isfile(gog_gameinfo_json_path) or not game.runner.lower() == 'gog':
+        return ''
+
+    gog_gameinfo_json = json.load(open(gog_gameinfo_json_path))
+    gog_gameinfo_name = gog_gameinfo_json.get('name', '')
+    gog_gameinfo_playtasks = gog_gameinfo_json.get('playTasks', {})
+    for playtasks in gog_gameinfo_playtasks:
+        if playtasks.get('name', '').lower() == gog_gameinfo_name.lower():
+            return playtasks.get('path', '')
+    else:
+        return ''
