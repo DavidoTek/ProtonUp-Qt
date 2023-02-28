@@ -1,9 +1,11 @@
 import os
 import json
+import re
 
 from typing import List, Dict
 
 from pupgui2.datastructures import HeroicGame
+from pupgui2.constants import EPIC_STORE_URL
 
 
 def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
@@ -63,6 +65,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
             lg.developer: str = ''  # Not stored or stored elsewhere?
             lg.heroic_path: str = heroic_path
             lg.install_path: str = game_data.get('install_path', '') 
+            lg.store_url: str = f'{EPIC_STORE_URL}{re.sub("[^a-zA-Z0-9]", "-", lg.title.lower())}'
             lg.art_cover: str = ''  # Not stored or stored elsewhere?
             lg.art_square: str = ''  # Not stored or stored elsewhere?
             lg.is_installed: str = True  # Games in Legendary `installed.json` should always be installed

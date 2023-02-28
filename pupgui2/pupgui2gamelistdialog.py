@@ -229,17 +229,24 @@ class PupguiGameListDialog(QObject):
                 title_tooltip += f' ({game.executable})'
             title_item.setToolTip(title_tooltip)
 
+            compat_item = QTableWidgetItem()
             # If no wine_info, assume this is a native game -- May be more reliable than checking a platform string
             if game.wine_info.get('name', ''):
-                compat_tool_prettyname = game.wine_info.get('name', '').split('-', 1)[1].strip()
-                compat_tool_tooltip = f'Name: {compat_tool_prettyname}'
-                compat_tool_tooltip += f'\nPath: {game.wine_info.get("bin", "")}' if game.wine_info.get("bin", "") else ''
-                compat_tool_tooltip += f'\nType: {game.wine_info.get("type", "").capitalize()}' if game.wine_info.get("type", "") else ''
+                compat_item_text = game.wine_info.get('name', '').split('-', 1)[1].strip()
+                compat_tool_bin_path = game.wine_info.get('bin', '')
+
+                compat_tool_tooltip = f'Name: {compat_item_text}'
+                if compat_tool_bin_path:
+                    compat_tool_tooltip += f'\nPath: {compat_tool_bin_path}'
+
+                    compat_tool_folder = os.path.join(compat_tool_bin_path.split(compat_item_text)[0], compat_item_text)  # wine_info name is always "<tool_type> - <tool_folder_name>", compat_text_item is always "<tool_folder_name>" if we have the path
+                    compat_item.setData(Qt.UserRole, lambda path: os.system(f'xdg-open "{compat_tool_folder}"'))
+                compat_tool_tooltip += f'\nType: {game.wine_info.get("type", "").capitalize()}' if game.wine_info.get('type', '') else ''
             else:
-                compat_tool_prettyname = 'Native'
+                compat_item_text = 'Native'
                 compat_tool_tooltip = f'Type: Native'
 
-            compat_item = QTableWidgetItem(compat_tool_prettyname)
+            compat_item.setText(compat_item_text)
             compat_item.setToolTip(compat_tool_tooltip)
             compat_item.setTextAlignment(Qt.AlignCenter)
 
