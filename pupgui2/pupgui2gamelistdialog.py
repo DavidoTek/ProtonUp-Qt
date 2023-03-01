@@ -307,14 +307,22 @@ class PupguiGameListDialog(QObject):
         elif isinstance(item_url, Callable):
             item_url(item.text())
 
-    def set_item_data_directory(self, item: QTableWidgetItem, path: str, tooltip_exists: str = 'Double click to browse...', tooltip_invalid: str = 'Install location does not exist!'):
+    def set_item_data_directory(self, item: QTableWidgetItem, path: str,
+                                    tooltip_exists: str = 'Double click to browse...',
+                                    tooltip_invalid: str = 'Install location does not exist!'):
         """ Set the Qt.UserRole data for a QTableWidgetItem to a lambda which uses xdg-open to open a given path, if it exists. """
 
+        # (hacky way to) show default tooltips in parameters while allowing translation (make sure they match the default parameters)
+        if tooltip_exists == 'Double click to browse...':
+            tooltip_exists = self.tr('Double click to browse...')
+        if tooltip_invalid == 'Install location does not exist!':
+            tooltip_invalid = self.tr('Install location does not exist!')
+
         if os.path.isdir(path):
-            item.setToolTip(self.tr(tooltip_exists))
+            item.setToolTip(tooltip_exists)
             item.setData(Qt.UserRole, lambda path: os.system(f'xdg-open "{path}"'))
         else:
-            item.setToolTip(self.tr(tooltip_invalid))
+            item.setToolTip(tooltip_invalid)
 
     def get_steamapp_awacystatus(self, game: SteamApp) -> Tuple[str, str]:
         """ Return translated status text and icon representing AreWeAntiCheatYet.com status for a Steam game """
