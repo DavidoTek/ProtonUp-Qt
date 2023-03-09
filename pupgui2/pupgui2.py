@@ -231,8 +231,8 @@ class MainWindow(QObject):
             self.ui.btnShowGameList.setVisible(True)
         elif install_loc.get('launcher') == 'lutris':
            self.ui.btnShowGameList.setVisible(True)
-        # elif is_heroic_launcher(install_loc.get('launcher')):
-        #     self.ui.btnShowGameList.setVisible(True)
+        elif is_heroic_launcher(install_loc.get('launcher')):
+            self.ui.btnShowGameList.setVisible(True)
         else:
             self.ui.btnShowGameList.setVisible(False)
 

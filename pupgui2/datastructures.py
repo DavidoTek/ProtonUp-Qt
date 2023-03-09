@@ -175,7 +175,6 @@ class HeroicGame:
     app_name: str  # internal name encoded in some way, e.g. 'sPZQ5kmzYj5KnZKdxE2bR1'
     title: str  # Real name for game
     developer: str  # May be blank for side-loaded games
-    install: Dict[str, str]  # e.g. executable, platform details
     heroic_path: str  # e.g. '~/.config/heroic', '~/.var/app/com.heroicgameslauncher.hgl/config/heroic'
     install_path: str  # Path to game folder, e.g. '/home/Gaben/Games/Half-Life 3'
     store_url: str  # May be blank for side-loaded games
@@ -183,6 +182,9 @@ class HeroicGame:
     art_square: str  # Optional?
     is_installed: bool  # Not always set properly by Heroic for GOG?
     wine_info: Dict[str, str]  # can store bin, name, and type - Has to be fetched from GamesConfig/app_name.json
+    platform: str  # Game platform, stored differently for sideload, GOG and legendary
+    executable: str  # Path to game executable, always stored at 'start.sh' for native Linux GOG games 
+    is_dlc: bool  # Stored for GOG and legendary, defaults to False for sideloaded
 
     def get_game_config(self):
         game_config = os.path.join(self.heroic_path, 'GamesConfig', f'{self.app_name}.json')
