@@ -236,7 +236,6 @@ class MainWindow(QObject):
         else:
             self.ui.btnShowGameList.setVisible(False)
 
-        # installed_versions_txt = f'{len(self.compat_tool_index_map)}'
         self.ui.txtUnusedVersions.setText(f'{self.tr("Unused")}: {unused_ctools}' if unused_ctools > 0 else '')
         self.ui.txtInstalledVersions.setText(f'{len(self.compat_tool_index_map)}')
 
