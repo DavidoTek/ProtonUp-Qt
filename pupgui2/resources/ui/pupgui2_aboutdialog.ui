@@ -166,6 +166,10 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnAddSteamShortcut">
+       <property name="toolTip">
+        <string>Adds a shortcut to open ProtonUp-Qt from your Steam library.
+To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</string>
+       </property>
        <property name="text">
         <string>Add Steam shortcut</string>
        </property>
