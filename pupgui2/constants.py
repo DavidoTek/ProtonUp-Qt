@@ -81,4 +81,5 @@ STEAM_STL_DATA_PATH = os.path.join(os.path.expanduser('~'), '.local', 'share', '
 STEAM_STL_SHELL_FILES = [ '.bashrc', '.zshrc', '.kshrc' ]
 STEAM_STL_FISH_VARIABLES = os.path.join(os.path.expanduser('~'), '.config/fish/fish_variables')
 
-LUTRIS_WEB_URL='https://lutris.net/games/'
+LUTRIS_WEB_URL = 'https://lutris.net/games/'
+EPIC_STORE_URL = 'https://store.epicgames.com/p/'
