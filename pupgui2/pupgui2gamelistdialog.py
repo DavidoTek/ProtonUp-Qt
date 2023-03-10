@@ -55,6 +55,7 @@ class PupguiGameListDialog(QObject):
 
         self.ui.txtGamesFound.setText(str(len(self.games)))
         self.ui.tableGames.itemDoubleClicked.connect(self.item_doubleclick_action)
+        self.ui.tableGames.horizontalHeaderItem(0).setToolTip(f'Installed games: {str(len(self.games))}')
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
 
     def setup_steam_list_ui(self):
