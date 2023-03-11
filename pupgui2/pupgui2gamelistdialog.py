@@ -53,7 +53,6 @@ class PupguiGameListDialog(QObject):
         elif is_heroic_launcher(self.launcher):
             self.setup_heroic_list_ui()
 
-        self.ui.txtGamesFound.setText(str(len(self.games)))
         self.ui.tableGames.itemDoubleClicked.connect(self.item_doubleclick_action)
         self.ui.tableGames.horizontalHeaderItem(0).setToolTip(f'Installed games: {str(len(self.games))}')
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
