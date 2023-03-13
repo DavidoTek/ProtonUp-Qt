@@ -213,11 +213,10 @@ class MainWindow(QObject):
                 ct.no_games = len([game for game in heroic_game_list if game.is_installed and ct.displayname in game.wine_info.get('name', '')])
 
         for ct in self.compat_tool_index_map:
-            ct_displayname = ct.get_displayname(unused_tr=self.tr('unused'))
-            if self.tr('unused') in ct_displayname:
+            self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused')))
+            if ct.no_games == 0:
                 unused_ctools += 1
 
-            self.ui.listInstalledVersions.addItem(ct_displayname)
             
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
@@ -236,7 +235,7 @@ class MainWindow(QObject):
         else:
             self.ui.btnShowGameList.setVisible(False)
 
-        self.ui.txtUnusedVersions.setText(f'{self.tr("Unused")}: {unused_ctools}' if unused_ctools > 0 else '')
+        self.ui.txtUnusedVersions.setText(self.tr('Unused: {unused_ctools}').format(unused_ctools=unused_ctools) if unused_ctools > 0 else '')
         self.ui.txtInstalledVersions.setText(f'{len(self.compat_tool_index_map)}')
 
     def get_installed_versions(self, ctool_name, ctool_dir):
