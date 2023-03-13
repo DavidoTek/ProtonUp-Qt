@@ -30,6 +30,7 @@ class PupguiGameListDialog(QObject):
         self.install_dir = install_dir
         self.parent = parent
         self.queued_changes = {}
+        self.games = []
 
         self.install_loc = get_install_location_from_directory_name(install_dir)
         self.launcher = self.install_loc.get('launcher')
@@ -53,6 +54,7 @@ class PupguiGameListDialog(QObject):
             self.setup_heroic_list_ui()
 
         self.ui.tableGames.itemDoubleClicked.connect(self.item_doubleclick_action)
+        self.ui.tableGames.horizontalHeaderItem(0).setToolTip(self.tr('Installed games: {NO_INSTALLED}').format(NO_INSTALLED=str(len(self.games))))
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
 
     def setup_steam_list_ui(self):
@@ -161,13 +163,13 @@ class PupguiGameListDialog(QObject):
         """ update the game list for the Lutris launcher """
         # Filter blank runners and Steam games, because we can't change any compat tool options for Steam games via Lutris
         # Steam games can be seen from the Steam games list, so no need to duplicate it here
-        games: List[LutrisGame] = list(filter(lambda lutris_game: (lutris_game.runner is not None and lutris_game.runner != 'steam' and len(lutris_game.runner) > 0), get_lutris_game_list(self.install_loc)))
+        self.games: List[LutrisGame] = list(filter(lambda lutris_game: (lutris_game.runner is not None and lutris_game.runner != 'steam' and len(lutris_game.runner) > 0), get_lutris_game_list(self.install_loc)))
 
-        self.ui.tableGames.setRowCount(len(games))
+        self.ui.tableGames.setRowCount(len(self.games))
 
         # Not sure if we can allow compat tool updating from here, as Lutris allows configuring more than just Wine version
         # It lets you set Wine/DXVK/vkd3d/etc independently, so for now the dialog just displays game information
-        for i, game in enumerate(games): 
+        for i, game in enumerate(self.games): 
             name_item = QTableWidgetItem(game.name)
             name_item.setToolTip(f'{game.name} ({game.slug})')
             if game.installer_slug:
@@ -213,11 +215,11 @@ class PupguiGameListDialog(QObject):
 
     def update_game_list_heroic(self):
         heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
-        games: List[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
+        self.games: List[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
 
-        self.ui.tableGames.setRowCount(len(games))
+        self.ui.tableGames.setRowCount(len(self.games))
 
-        for i, game in enumerate(games):
+        for i, game in enumerate(self.games):
             title_item = QTableWidgetItem(game.title)
             if game.store_url:
                 # TODO only tested with a handful of GOG games - Do Legendary games have this? How does Heroic store the "Store Page" value for games on EGS, if at all? 

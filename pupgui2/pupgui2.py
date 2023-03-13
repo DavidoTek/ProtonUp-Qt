@@ -122,6 +122,7 @@ class MainWindow(QObject):
         self.progressBarDownload.setVisible(False)
         self.ui.statusBar().addPermanentWidget(self.progressBarDownload)
         self.ui.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
+        self.ui.txtInstalledVersions.setText('0')
 
         self.update_combo_install_location()
 
@@ -185,6 +186,7 @@ class MainWindow(QObject):
     def update_ui(self):
         """ update ui contents """
         install_loc = get_install_location_from_directory_name(install_directory())
+        unused_ctools = 0
 
         self.ui.listInstalledVersions.clear()
         self.compat_tool_index_map = get_installed_ctools(install_directory())
@@ -212,7 +214,10 @@ class MainWindow(QObject):
 
         for ct in self.compat_tool_index_map:
             self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused')))
+            if ct.no_games == 0:
+                unused_ctools += 1
 
+            
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
             self.set_default_statusbar()
@@ -229,6 +234,9 @@ class MainWindow(QObject):
             self.ui.btnShowGameList.setVisible(True)
         else:
             self.ui.btnShowGameList.setVisible(False)
+
+        self.ui.txtUnusedVersions.setText(self.tr('Unused: {unused_ctools}').format(unused_ctools=unused_ctools) if unused_ctools > 0 else '')
+        self.ui.txtInstalledVersions.setText(f'{len(self.compat_tool_index_map)}')
 
     def get_installed_versions(self, ctool_name, ctool_dir):
         for ct in get_installed_ctools(ctool_dir):
