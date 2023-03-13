@@ -203,7 +203,7 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
     appinfo_file = os.path.realpath(appinfo_file)
 
     ctool_map = {}
-    compat_tools = None
+    compat_tools = {}
     try:
         with open(appinfo_file, 'rb') as f:
             header, apps = parse_appinfo(f)
