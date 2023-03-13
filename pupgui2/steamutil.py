@@ -211,8 +211,8 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
                 if steam_app.get('appid') == 891390:
                     compat_tools = steam_app.get('data').get('appinfo').get('extended').get('compat_tools')
                     break
-    except:
-        pass
+    except Exception as e:
+        print('Error getting ctool map from appinfo.vdf:', e)
     finally:
         for t in compat_tools:
             ctool_map[compat_tools.get(t).get('appid')] = {'name': t, 'from_oslist': compat_tools.get(t).get('from_oslist')}
@@ -255,8 +255,8 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                     cnt += 1
                 if cnt == len_sapps:
                     break
-    except:
-        pass
+    except Exception as e:
+        print('Error updating SteamApp info from appinfo.vdf:', e)
     return list(sapps.values())
 
 
