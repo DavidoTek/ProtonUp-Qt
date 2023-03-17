@@ -5,8 +5,8 @@ from typing import List, Callable, Tuple
 from datetime import datetime
 
 from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
-from PySide6.QtGui import QPixmap, QBrush, QColor
-from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem, QLineEdit
+from PySide6.QtGui import QPixmap, QBrush, QColor, QKeySequence
+from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL
@@ -33,12 +33,11 @@ class PupguiGameListDialog(QObject):
         self.games = []
 
         self.install_loc = get_install_location_from_directory_name(install_dir)
-        self.launcher = self.install_loc.get('launcher')
+        self.launcher = self.install_loc.get('launcher', '')
         self.should_show_steam_warning = (is_steam_running() or os.path.exists('/.flatpak-info')) and self.launcher == 'steam'
 
         self.load_ui()
         self.setup_ui()
-        self.protondb_status_fetched.connect(self.update_protondb_status)
         self.ui.show()
 
     def load_ui(self):
@@ -55,23 +54,26 @@ class PupguiGameListDialog(QObject):
             self.setup_heroic_list_ui()
 
         self.ui.searchBox.setVisible(False)  # Hide searchbox by default
-        self.ui.searchBox.textChanged.connect(self.search_gamelist_games)
 
         self.set_apply_btn_text()
+        self.ui.setWindowTitle(f'{self.launcher.capitalize() if not is_heroic_launcher(self.launcher) else "Heroic"} Games List')
+
         self.ui.lblSteamRunningWarning.setVisible(self.should_show_steam_warning)  # Only show warning if Steam is running, and make it grey if we're running in Flatpak
+        self.ui.tableGames.horizontalHeaderItem(0).setToolTip(self.tr('Installed games: {NO_INSTALLED}').format(NO_INSTALLED=str(len(self.games))))
 
         self.ui.tableGames.itemDoubleClicked.connect(self.item_doubleclick_action)
-        self.ui.tableGames.horizontalHeaderItem(0).setToolTip(self.tr('Installed games: {NO_INSTALLED}').format(NO_INSTALLED=str(len(self.games))))
-        
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
         self.ui.btnSearch.clicked.connect(self.btn_search_clicked)
+        self.ui.searchBox.textChanged.connect(self.search_gamelist_games)
+        self.ui.btnSearch.setShortcut(QKeySequence(QKeySequence.Find))
 
     def setup_steam_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
         self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
-        self.update_game_list_steam()
-
         self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }' if os.path.exists('/.flatpak-info') else self.ui.lblSteamRunningWarning.styleSheet())
+
+        self.update_game_list_steam()
+        self.protondb_status_fetched.connect(self.update_protondb_status)
 
         self.ui.tableGames.setColumnWidth(0, 300)
         self.ui.tableGames.setColumnWidth(3, 70)
