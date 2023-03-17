@@ -148,9 +148,11 @@ class PupguiGameListDialog(QObject):
             p.loadFromData(pkgutil.get_data(__name__, os.path.join('resources/img', awacy_icon)))
             lblicon.setToolTip(awacy_tooltip)
             lblicon.setPixmap(p)
+            lblicon.setAlignment(Qt.AlignCenter)
 
             lblicon_item = QTableWidgetItem()
             lblicon_item.setData(Qt.DisplayRole, game.awacy_status.value)
+            lblicon_item.setTextAlignment(Qt.AlignCenter)
             lblicon_item.setData(Qt.UserRole, AWACY_WEB_URL)
 
             self.ui.tableGames.setItem(i, 3, lblicon_item)
