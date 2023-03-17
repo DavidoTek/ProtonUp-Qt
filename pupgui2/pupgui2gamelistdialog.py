@@ -45,7 +45,6 @@ class PupguiGameListDialog(QObject):
         data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_gamelistdialog.ui')
         ui_file = QDataStream(QByteArray(data))
         self.ui = QUiLoader().load(ui_file.device())
-        self.ui.searchBox.setVisible(False)  # Hide searchbox by default
 
     def setup_ui(self):
         if self.launcher == 'steam':
@@ -54,6 +53,9 @@ class PupguiGameListDialog(QObject):
             self.setup_lutris_list_ui()
         elif is_heroic_launcher(self.launcher):
             self.setup_heroic_list_ui()
+
+        self.ui.searchBox.setVisible(False)  # Hide searchbox by default
+        self.ui.searchBox.textChanged.connect(self.search_gamelist_games)
 
         self.set_apply_btn_text()
         self.ui.lblSteamRunningWarning.setVisible(self.should_show_steam_warning)  # Only show warning if Steam is running, and make it grey if we're running in Flatpak
@@ -274,6 +276,16 @@ class PupguiGameListDialog(QObject):
         self.ui.searchBox.setVisible(not self.ui.searchBox.isVisible())
         self.ui.btnSearch.setText(self.tr('Done') if self.ui.searchBox.isVisible() else self.tr('Search'))  # "Done" is not good text, try something else
         self.ui.lblSteamRunningWarning.setVisible(self.should_show_steam_warning and not self.ui.searchBox.isVisible())
+        self.ui.searchBox.setFocus()
+
+    def search_gamelist_games(self, text):
+        for row in range(self.ui.tableGames.rowCount()):
+            if not text.lower() in self.ui.tableGames.item(row, 0).text().lower():
+                self.ui.tableGames.hideRow(row)
+            elif len(text.strip()) > 0:
+                self.ui.tableGames.showRow(row)
+            else:
+                self.ui.tableGames.showRow(row)
 
     @Slot(SteamApp)
     def update_protondb_status(self, game: SteamApp):
