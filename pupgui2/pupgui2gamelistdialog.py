@@ -6,7 +6,7 @@ from datetime import datetime
 
 from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
 from PySide6.QtGui import QPixmap, QBrush, QColor
-from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
+from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem, QLineEdit
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL
@@ -34,6 +34,7 @@ class PupguiGameListDialog(QObject):
 
         self.install_loc = get_install_location_from_directory_name(install_dir)
         self.launcher = self.install_loc.get('launcher')
+        self.should_show_steam_warning = (is_steam_running() or os.path.exists('/.flatpak-info')) and self.launcher == 'steam'
 
         self.load_ui()
         self.setup_ui()
@@ -44,6 +45,7 @@ class PupguiGameListDialog(QObject):
         data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_gamelistdialog.ui')
         ui_file = QDataStream(QByteArray(data))
         self.ui = QUiLoader().load(ui_file.device())
+        self.ui.searchBox.setVisible(False)  # Hide searchbox by default
 
     def setup_ui(self):
         if self.launcher == 'steam':
@@ -53,17 +55,20 @@ class PupguiGameListDialog(QObject):
         elif is_heroic_launcher(self.launcher):
             self.setup_heroic_list_ui()
 
+        self.set_apply_btn_text()
+        self.ui.lblSteamRunningWarning.setVisible(self.should_show_steam_warning)  # Only show warning if Steam is running, and make it grey if we're running in Flatpak
+
         self.ui.tableGames.itemDoubleClicked.connect(self.item_doubleclick_action)
         self.ui.tableGames.horizontalHeaderItem(0).setToolTip(self.tr('Installed games: {NO_INSTALLED}').format(NO_INSTALLED=str(len(self.games))))
+        
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
+        self.ui.btnSearch.clicked.connect(self.btn_search_clicked)
 
     def setup_steam_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
         self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
         self.update_game_list_steam()
 
-        # Only show warning if Steam is running, and make it grey if we're running in Flatpak
-        self.ui.lblSteamRunningWarning.setVisible(is_steam_running() or os.path.exists('/.flatpak-info'))
         self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }' if os.path.exists('/.flatpak-info') else self.ui.lblSteamRunningWarning.styleSheet())
 
         self.ui.tableGames.setColumnWidth(0, 300)
@@ -74,15 +79,11 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Runner'), self.tr('Install Location'), self.tr('Installed Date'), ''])
         self.update_game_list_lutris()
 
-        self.ui.lblSteamRunningWarning.setVisible(False)
-
         self.ui.tableGames.setColumnWidth(0, 300)
         self.ui.tableGames.setColumnWidth(1, 70)
         self.ui.tableGames.setColumnWidth(2, 280)
         self.ui.tableGames.setColumnWidth(3, 30)
         self.ui.tableGames.setColumnHidden(4, True)
-
-        self.ui.btnApply.setText(self.tr('Close'))
 
     def setup_heroic_list_ui(self):
         # TODO we probably want to only show Wine/Proton games in the games list depending on which launcher is selected
@@ -91,15 +92,11 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Install Location'), self.tr('Runner'), ''])
         self.update_game_list_heroic()
 
-        self.ui.lblSteamRunningWarning.setVisible(False)
-
         self.ui.tableGames.setColumnWidth(0, 270)
         self.ui.tableGames.setColumnWidth(1, 170)
         self.ui.tableGames.setColumnWidth(2, 250)
         self.ui.tableGames.setColumnWidth(3, 40)
         self.ui.tableGames.setColumnHidden(4, True)
-
-        self.ui.btnApply.setText(self.tr('Close'))
 
     def update_game_list_steam(self):
         """ update the game list for the Steam launcher """
@@ -263,9 +260,20 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 2, install_path_item)
             self.ui.tableGames.setItem(i, 3, runner_item)
 
+    def set_apply_btn_text(self):
+        """ Set text for Apply button to 'Close' if the games list is empty, if the current launcher is not Steam or if there are no queued changes."""
+
+        txt = self.tr('Close') if len(self.games) <= 0 or self.launcher != 'steam' or len(self.queued_changes) <= 0 else self.tr('Apply')
+        self.ui.btnApply.setText(txt)
+
     def btn_apply_clicked(self):
         self.update_queued_ctools_steam()
         self.ui.close()
+
+    def btn_search_clicked(self):
+        self.ui.searchBox.setVisible(not self.ui.searchBox.isVisible())
+        self.ui.btnSearch.setText(self.tr('Done') if self.ui.searchBox.isVisible() else self.tr('Search'))  # "Done" is not good text, try something else
+        self.ui.lblSteamRunningWarning.setVisible(self.should_show_steam_warning and not self.ui.searchBox.isVisible())
 
     @Slot(SteamApp)
     def update_protondb_status(self, game: SteamApp):
@@ -294,6 +302,7 @@ class PupguiGameListDialog(QObject):
 
         self.queued_changes[game] = ctool_name
         self.ui.tableGames.item(self.ui.tableGames.currentRow(), 1).setData(Qt.DisplayRole, ctool_name)
+        self.set_apply_btn_text()
 
     def update_queued_ctools_steam(self):
         """ update the compatibility tools for all queued games (Steam) """

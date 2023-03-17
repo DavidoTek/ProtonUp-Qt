@@ -60,6 +60,9 @@
       </widget>
      </item>
      <item>
+      <widget class="QLineEdit" name="searchBox"/>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -71,6 +74,13 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnSearch">
+       <property name="text">
+        <string>Search</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnApply">
