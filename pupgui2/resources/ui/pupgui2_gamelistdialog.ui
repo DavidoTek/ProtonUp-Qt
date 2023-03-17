@@ -61,6 +61,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="searchBox">
+       <property name="toolTip">
+        <string>e.g. Team Fortress 2</string>
+       </property>
        <property name="placeholderText">
         <string>Search for a game...</string>
        </property>
