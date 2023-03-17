@@ -88,9 +88,6 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setColumnHidden(4, True)
 
     def setup_heroic_list_ui(self):
-        # TODO we probably want to only show Wine/Proton games in the games list depending on which launcher is selected
-        # e.g. only show Heroic Wine games if `heroicwine` etc 
-
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Install Location'), self.tr('Runner'), ''])
         self.update_game_list_heroic()
 
@@ -223,8 +220,6 @@ class PupguiGameListDialog(QObject):
         for i, game in enumerate(self.games):
             title_item = QTableWidgetItem(game.title)
             if game.store_url:
-                # TODO only tested with a handful of GOG games - Do Legendary games have this? How does Heroic store the "Store Page" value for games on EGS, if at all? 
-                # Is there a way to set this for side-loaded games? I couldn't see one, but I would like this to be feasible for GOG and Epic games
                 title_item.setData(Qt.UserRole, game.store_url)
 
             title_tooltip = game.title
