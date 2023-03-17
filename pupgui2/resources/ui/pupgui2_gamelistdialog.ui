@@ -60,7 +60,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="searchBox"/>
+      <widget class="QLineEdit" name="searchBox">
+       <property name="placeholderText">
+        <string>Search for a game...</string>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="horizontalSpacer">
