@@ -5,7 +5,7 @@ from typing import List, Callable, Tuple
 from datetime import datetime
 
 from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
-from PySide6.QtGui import QPixmap, QBrush, QColor, QKeySequence
+from PySide6.QtGui import QPixmap, QBrush, QColor, QKeySequence, QShortcut
 from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
@@ -65,7 +65,9 @@ class PupguiGameListDialog(QObject):
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
         self.ui.btnSearch.clicked.connect(self.btn_search_clicked)
         self.ui.searchBox.textChanged.connect(self.search_gamelist_games)
-        self.ui.btnSearch.setShortcut(QKeySequence(QKeySequence.Find))
+
+        # Shortcuts
+        QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
 
     def setup_steam_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
@@ -274,7 +276,6 @@ class PupguiGameListDialog(QObject):
     def btn_search_clicked(self):
         self.ui.searchBox.setVisible(not self.ui.searchBox.isVisible())
         self.ui.btnSearch.setText(self.tr('Done') if self.ui.searchBox.isVisible() else self.tr('Search'))  # "Done" is not good text, try something else
-        self.ui.btnSearch.setShortcut(QKeySequence(QKeySequence.Find))
         self.ui.lblSteamRunningWarning.setVisible(self.should_show_steam_warning and not self.ui.searchBox.isVisible())
         self.ui.searchBox.setFocus()
 
