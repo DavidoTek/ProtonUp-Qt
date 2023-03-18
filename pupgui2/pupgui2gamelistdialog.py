@@ -286,12 +286,8 @@ class PupguiGameListDialog(QObject):
 
     def search_gamelist_games(self, text):
         for row in range(self.ui.tableGames.rowCount()):
-            if not text.lower() in self.ui.tableGames.item(row, 0).text().lower():
-                self.ui.tableGames.hideRow(row)
-            elif len(text.strip()) > 0:
-                self.ui.tableGames.showRow(row)
-            else:
-                self.ui.tableGames.showRow(row)
+            should_hide: bool = not text.lower() in self.ui.tableGames.item(row, 0).text().lower()
+            self.ui.tableGames.setRowHidden(row, should_hide)
 
     @Slot(SteamApp)
     def update_protondb_status(self, game: SteamApp):
