@@ -142,8 +142,7 @@ class MainWindow(QObject):
         self.ui.btnShowCtInfo.setEnabled(False)
 
         # Keyboard Shortcuts
-        quit_shortcut = QShortcut(QKeySequence.Quit, self.ui)
-        quit_shortcut.activated.connect(self.btn_close_clicked)
+        QShortcut(QKeySequence.Quit, self.ui).activated.connect(self.btn_close_clicked)
 
         self.set_default_statusbar()
 
