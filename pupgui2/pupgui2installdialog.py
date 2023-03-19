@@ -31,6 +31,7 @@ class PupguiInstallDialog(QDialog):
         button_box.addWidget(self.btnInstall)
         button_box.addWidget(self.btnCancel)
         self.comboCompatTool = QComboBox()
+        self.comboCompatTool.setFocus()
         self.comboCompatToolVersion = QComboBox()
         self.txtDescription = QTextEdit()
         self.txtDescription.setReadOnly(True)

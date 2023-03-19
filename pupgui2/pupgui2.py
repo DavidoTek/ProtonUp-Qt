@@ -148,6 +148,7 @@ class MainWindow(QObject):
         QShortcut(QKeySequence('Ctrl+Shift+N'), self.ui).activated.connect(self.btn_manage_install_locations_clicked)
         QShortcut(QKeySequence.New, self.ui).activated.connect(self.btn_add_version_clicked)
         QShortcut(QKeySequence.Delete, self.ui).activated.connect(self.btn_remove_selcted_clicked)
+        QShortcut(QKeySequence('Ctrl+Backspace'), self.ui).activated.connect(self.btn_remove_selcted_clicked)
         QShortcut(QKeySequence('Alt+Return'), self.ui).activated.connect(self.btn_show_ct_info_clicked)  # Uses 'Return' even though docs mention 'Enter' - https://doc.qt.io/qt-6/qkeysequence.html
         QShortcut(QKeySequence('Ctrl+G'), self.ui).activated.connect(self.btn_show_game_list_clicked)
 
