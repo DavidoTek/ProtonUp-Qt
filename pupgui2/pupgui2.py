@@ -308,12 +308,12 @@ class MainWindow(QObject):
 
     def btn_add_version_clicked(self, compat_tool=''):
         dialog = PupguiInstallDialog(get_install_location_from_directory_name(install_directory()), self.ct_loader, parent=self.ui)
+        dialog.compat_tool_selected.connect(self.install_compat_tool)
+        dialog.is_fetching_releases.connect(self.set_fetching_releases)
         dialog.setup_ui()
-        if dialog.set_selected_compat_tool(compat_tool):
-            dialog.compat_tool_selected.connect(self.install_compat_tool)
-            dialog.is_fetching_releases.connect(self.set_fetching_releases)
-            dialog.show()
-            dialog.setFixedSize(dialog.size())
+        dialog.set_selected_compat_tool(compat_tool)
+        dialog.show()
+        dialog.setFixedSize(dialog.size())
 
     def btn_remove_selcted_clicked(self):
         ctools_to_remove = []
