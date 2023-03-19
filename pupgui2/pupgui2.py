@@ -143,6 +143,12 @@ class MainWindow(QObject):
 
         # Keyboard Shortcuts
         QShortcut(QKeySequence.Quit, self.ui).activated.connect(self.btn_close_clicked)
+        QShortcut(QKeySequence('Ctrl+,'), self.ui).activated.connect(self.btn_about_clicked)
+        QShortcut(QKeySequence(QKeySequence.HelpContents), self.ui).activated.connect(self.btn_about_clicked)
+        QShortcut(QKeySequence('Ctrl+Shift+N'), self.ui).activated.connect(self.btn_manage_install_locations_clicked)
+        QShortcut(QKeySequence.New, self.ui).activated.connect(self.btn_add_version_clicked)
+        QShortcut(QKeySequence.Delete, self.ui).activated.connect(self.btn_remove_selcted_clicked)
+        QShortcut(QKeySequence('Alt+Return'), self.ui).activated.connect(self.btn_show_ct_info_clicked)  # Uses 'Return' even though docs mention 'Enter' - https://doc.qt.io/qt-6/qkeysequence.html
 
         self.set_default_statusbar()
 
