@@ -85,6 +85,9 @@
       </item>
       <item>
        <widget class="QToolButton" name="btnManageInstallLocations">
+        <property name="toolTip">
+         <string>Add Custom Install Directory...</string>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
