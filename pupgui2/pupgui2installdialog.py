@@ -109,10 +109,19 @@ class PupguiInstallDialog(QDialog):
         
         self.txtDescription.setHtml(desc)
 
-    def set_selected_compat_tool(self, ctool_name: str):
-        """ Set compat tool dropdown selected index to the index of the compat tool name passed """
+    def set_selected_compat_tool(self, ctool_name: str) -> bool:
+        """
+        Set compat tool dropdown selected index to the index of the compat tool name passed.
+        Returns True if the tool is in the compat tool combobox, otherwise returns False.
+        
+        Returns Type: Bool
+        """
         if ctool_name:
             for i in range(self.comboCompatTool.count()):
                 if ctool_name == self.comboCompatTool.itemText(i):
                     self.comboCompatTool.setCurrentIndex(i)
-                    return
+                    break
+            else:
+                return False
+
+        return True
