@@ -152,6 +152,12 @@ class MainWindow(QObject):
         QShortcut(QKeySequence('Alt+Return'), self.ui).activated.connect(self.btn_show_ct_info_clicked)  # Uses 'Return' even though docs mention 'Enter' - https://doc.qt.io/qt-6/qkeysequence.html
         QShortcut(QKeySequence('Ctrl+G'), self.ui).activated.connect(self.btn_show_game_list_clicked)
 
+        # TODO These are currently Steam-specific, need to be able to handle other launchers
+        QShortcut(QKeySequence('Ctrl+Shift+T'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Proton Tkg'))
+        QShortcut(QKeySequence('Ctrl+Shift+B'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Boxtron'))
+        QShortcut(QKeySequence('Ctrl+Shift+L'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Luxtorpeda'))
+        QShortcut(QKeySequence('Ctrl+Shift+S'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='SteamTinkerLaunch'))
+
         self.set_default_statusbar()
 
         self.giw = GamepadInputWorker()
@@ -300,11 +306,12 @@ class MainWindow(QObject):
             self.ui.statusBar().showMessage(self.tr('Installed {current_compat_tool_name}.').format(current_compat_tool_name=self.current_compat_tool_name))
             self.update_ui()
 
-    def btn_add_version_clicked(self):
+    def btn_add_version_clicked(self, compat_tool=''):
         dialog = PupguiInstallDialog(get_install_location_from_directory_name(install_directory()), self.ct_loader, parent=self.ui)
         dialog.compat_tool_selected.connect(self.install_compat_tool)
         dialog.is_fetching_releases.connect(self.set_fetching_releases)
         dialog.setup_ui()
+        dialog.set_selected_compat_tool(compat_tool)
         dialog.show()
         dialog.setFixedSize(dialog.size())
 
