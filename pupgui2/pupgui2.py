@@ -8,7 +8,7 @@ import threading
 
 from PySide6.QtCore import Qt, QCoreApplication, QObject, QThread, QWaitCondition, QMutex, QDataStream
 from PySide6.QtCore import QByteArray, QEvent, Signal, Slot, QTranslator, QLocale, QLibraryInfo
-from PySide6.QtGui import QIcon, QKeyEvent
+from PySide6.QtGui import QIcon, QKeyEvent, QKeySequence, QShortcut
 from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox, QProgressBar, QVBoxLayout
 from PySide6.QtUiTools import QUiLoader
 
@@ -140,6 +140,9 @@ class MainWindow(QObject):
 
         self.ui.btnRemoveSelected.setEnabled(False)
         self.ui.btnShowCtInfo.setEnabled(False)
+
+        # Keyboard Shortcuts
+        QShortcut(QKeySequence.Quit, self.ui).activated.connect(self.btn_close_clicked)
 
         self.set_default_statusbar()
 
