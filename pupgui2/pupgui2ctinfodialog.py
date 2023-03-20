@@ -13,6 +13,7 @@ from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
 from PySide6.QtWidgets import QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QShortcut, QKeySequence
 
 from typing import List
 
@@ -27,6 +28,7 @@ class PupguiCtInfoDialog(QObject):
         self.ctool = ctool
         self.games = []
         self.install_loc = install_loc
+        self.is_batch_update_available = False
 
         self.load_ui()
         self.setup_ui()
@@ -43,11 +45,14 @@ class PupguiCtInfoDialog(QObject):
         self.ui.txtLauncherName.setText(self.install_loc.get('display_name'))
         self.ui.txtInstallDirectory.setText(self.ctool.get_install_dir())
         self.ui.btnBatchUpdate.setVisible(False)
+        self.ui.btnSearch.setVisible(False)
+        self.ui.searchBox.setVisible(False)
 
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
             if self.ctool.ct_type != CTType.STEAM_RT:
                 self.update_game_list_steam()
                 if 'Proton' in self.ctool.displayname and self.ctool.ct_type == CTType.CUSTOM:  # 'batch update' option for Proton-GE
+                    self.is_batch_update_available = True
                     self.ui.btnBatchUpdate.setVisible(True)
                     self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
         elif self.install_loc.get('launcher') == 'lutris':
@@ -59,9 +64,14 @@ class PupguiCtInfoDialog(QObject):
             self.ui.listGames.setHorizontalHeaderLabels(['', ''])
             self.ui.listGames.setEnabled(False)
 
-        self.ui.btnClose.clicked.connect(self.btn_close_clicked)
-
+        self.ui.btnSearch.clicked.connect(self.btn_search_clicked)
+        self.ui.btnClose.clicked.connect(lambda: self.ui.close())
         self.ui.listGames.cellDoubleClicked.connect(self.list_games_cell_double_clicked)
+        self.ui.searchBox.textChanged.connect(self.search_ctinfo_games)
+
+        if self.ui.listGames.rowCount() > 0:
+            self.ui.btnSearch.setVisible(True)
+            QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
 
     def update_game_list_steam(self):
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
@@ -103,10 +113,7 @@ class PupguiCtInfoDialog(QObject):
         self.ui.listGames.clear()
         self.ui.listGames.setRowCount(row_count)
         self.ui.listGames.setHorizontalHeaderLabels(header_labels)
-        self.ui.txtNumGamesUsingTool.setText(str(row_count))
-
-    def btn_close_clicked(self):
-        self.ui.close()
+        self.ui.txtNumGamesUsingTool.setText(str(row_count))        
 
     def list_games_cell_double_clicked(self, row):
         if self.install_loc.get('launcher') == 'steam':
@@ -117,3 +124,13 @@ class PupguiCtInfoDialog(QObject):
         steam_config_folder = self.install_loc.get('vdf_dir')
         ctbu_dialog = PupguiCtBatchUpdateDialog(parent=self.ui, games=self.games, steam_config_folder=steam_config_folder)
         ctbu_dialog.batch_update_complete.connect(self.update_game_list_steam)
+
+    def btn_search_clicked(self):
+        self.ui.searchBox.setVisible(not self.ui.searchBox.isVisible())
+        self.ui.btnBatchUpdate.setVisible(self.is_batch_update_available and not self.ui.searchBox.isVisible())
+        self.ui.searchBox.setFocus()
+
+    def search_ctinfo_games(self, text):
+        for row in range(self.ui.listGames.rowCount()):
+            should_hide: bool = not text.lower() in self.ui.listGames.item(row, 1).text().lower()
+            self.ui.listGames.setRowHidden(row, should_hide)
