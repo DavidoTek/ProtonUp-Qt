@@ -31,6 +31,7 @@ class PupguiInstallDialog(QDialog):
         button_box.addWidget(self.btnInstall)
         button_box.addWidget(self.btnCancel)
         self.comboCompatTool = QComboBox()
+        self.comboCompatTool.setFocus()
         self.comboCompatToolVersion = QComboBox()
         self.txtDescription = QTextEdit()
         self.txtDescription.setReadOnly(True)
@@ -107,3 +108,11 @@ class PupguiInstallDialog(QDialog):
             desc = ctobj['description']['en']
         
         self.txtDescription.setHtml(desc)
+
+    def set_selected_compat_tool(self, ctool_name: str):
+        """ Set compat tool dropdown selected index to the index of the compat tool name passed """
+        if ctool_name:
+            for i in range(self.comboCompatTool.count()):
+                if ctool_name == self.comboCompatTool.itemText(i):
+                    self.comboCompatTool.setCurrentIndex(i)
+                    return

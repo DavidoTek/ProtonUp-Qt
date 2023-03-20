@@ -469,3 +469,8 @@ def is_online(host='https://api.github.com/repos/', timeout=3) -> bool:
         return True
     except (requests.ConnectionError, requests.Timeout):
         return False
+
+def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
+    """ Return whether a compat tool is available for a given launcher """
+
+    return compat_tool in [ctobj['name'] for ctobj in ctobjs]

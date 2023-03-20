@@ -27,7 +27,7 @@ from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_
 from pupgui2.heroicutil import is_heroic_launcher, get_heroic_game_list
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
-from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online
+from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online, config_advanced_mode, compat_tool_available
 
 
 class InstallWineThread(QThread):
@@ -143,6 +143,23 @@ class MainWindow(QObject):
 
         # Keyboard Shortcuts
         QShortcut(QKeySequence.Quit, self.ui).activated.connect(self.btn_close_clicked)
+        QShortcut(QKeySequence('Ctrl+,'), self.ui).activated.connect(self.btn_about_clicked)
+        QShortcut(QKeySequence(QKeySequence.HelpContents), self.ui).activated.connect(self.btn_about_clicked)
+        QShortcut(QKeySequence('Ctrl+Shift+N'), self.ui).activated.connect(self.btn_manage_install_locations_clicked)
+        QShortcut(QKeySequence.New, self.ui).activated.connect(self.btn_add_version_clicked)
+        QShortcut(QKeySequence.Delete, self.ui).activated.connect(self.btn_remove_selcted_clicked)
+        QShortcut(QKeySequence('Ctrl+Backspace'), self.ui).activated.connect(self.btn_remove_selcted_clicked)
+        QShortcut(QKeySequence('Alt+Return'), self.ui).activated.connect(self.btn_show_ct_info_clicked)  # Uses 'Return' even though docs mention 'Enter' - https://doc.qt.io/qt-6/qkeysequence.html
+        QShortcut(QKeySequence('Ctrl+G'), self.ui).activated.connect(self.btn_show_game_list_clicked)
+        ## Steam Compat Tool Shortcuts (Some overlap w/ Heroic)
+        QShortcut(QKeySequence('Ctrl+Shift+B'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Boxtron'))
+        QShortcut(QKeySequence('Ctrl+Shift+L'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Luxtorpeda'))
+        QShortcut(QKeySequence('Ctrl+Shift+T'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Proton Tkg'))
+        QShortcut(QKeySequence('Ctrl+Shift+S'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='SteamTinkerLaunch'))
+        ## Lutris Compat Tool Shortcuts (Some overlap w/ Heroic)
+        QShortcut(QKeySequence('Ctrl+Shift+D'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='DXVK'))
+        QShortcut(QKeySequence('Ctrl+Shift+L'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Lutris-Wine'))
+        QShortcut(QKeySequence('Ctrl+Shift+W'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Wine Tkg (Valve Wine)'))
 
         self.set_default_statusbar()
 
@@ -292,13 +309,19 @@ class MainWindow(QObject):
             self.ui.statusBar().showMessage(self.tr('Installed {current_compat_tool_name}.').format(current_compat_tool_name=self.current_compat_tool_name))
             self.update_ui()
 
-    def btn_add_version_clicked(self):
-        dialog = PupguiInstallDialog(get_install_location_from_directory_name(install_directory()), self.ct_loader, parent=self.ui)
-        dialog.compat_tool_selected.connect(self.install_compat_tool)
-        dialog.is_fetching_releases.connect(self.set_fetching_releases)
-        dialog.setup_ui()
-        dialog.show()
-        dialog.setFixedSize(dialog.size())
+    def btn_add_version_clicked(self, compat_tool: str = ''):
+        advanced_mode = (config_advanced_mode() == 'enabled')
+        install_loc = get_install_location_from_directory_name(install_directory())
+
+        if not compat_tool or compat_tool_available(compat_tool, self.ct_loader.get_ctobjs(install_loc, advanced_mode=advanced_mode)):
+            dialog = PupguiInstallDialog(install_loc, self.ct_loader, parent=self.ui)
+            dialog.compat_tool_selected.connect(self.install_compat_tool)
+            dialog.is_fetching_releases.connect(self.set_fetching_releases)
+            dialog.setup_ui()
+            dialog.set_selected_compat_tool(compat_tool)
+            dialog.show()
+            dialog.setFixedSize(dialog.size())
+
 
     def btn_remove_selcted_clicked(self):
         ctools_to_remove = []
