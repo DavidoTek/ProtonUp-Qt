@@ -56,7 +56,7 @@ class PupguiGameListDialog(QObject):
         self.ui.searchBox.setVisible(False)  # Hide searchbox by default
 
         self.set_apply_btn_text()
-        self.ui.setWindowTitle(f'{self.launcher.capitalize() if not is_heroic_launcher(self.launcher) else "Heroic"} Games List')
+        self.ui.setWindowTitle(self.tr('Game List for {LAUNCHER}').format(LAUNCHER=self.launcher.capitalize() if not is_heroic_launcher(self.launcher) else 'Heroic'))
 
         self.ui.lblSteamRunningWarning.setVisible(self.should_show_steam_warning)  # Only show warning if Steam is running, and make it grey if we're running in Flatpak
         self.ui.tableGames.horizontalHeaderItem(0).setToolTip(self.tr('Installed games: {NO_INSTALLED}').format(NO_INSTALLED=str(len(self.games))))
