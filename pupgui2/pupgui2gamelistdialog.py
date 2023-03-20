@@ -282,10 +282,7 @@ class PupguiGameListDialog(QObject):
         self.ui.lblSteamRunningWarning.setVisible(self.should_show_steam_warning and not self.ui.searchBox.isVisible())
         self.ui.searchBox.setFocus()
 
-        if not self.ui.searchBox.isVisible():
-            self.search_gamelist_games('')
-        else:
-            self.search_gamelist_games(self.ui.searchBox.text())
+        self.search_gamelist_games(self.ui.searchBox.text() if self.ui.searchBox.isVisible() else '')
 
     def search_gamelist_games(self, text):
         for row in range(self.ui.tableGames.rowCount()):

@@ -130,6 +130,8 @@ class PupguiCtInfoDialog(QObject):
         self.ui.btnBatchUpdate.setVisible(self.is_batch_update_available and not self.ui.searchBox.isVisible())
         self.ui.searchBox.setFocus()
 
+        self.search_ctinfo_games(self.ui.searchBox.text() if self.ui.searchBox.isVisible() else '')
+
     def search_ctinfo_games(self, text):
         for row in range(self.ui.listGames.rowCount()):
             should_hide: bool = not text.lower() in self.ui.listGames.item(row, 1).text().lower()
