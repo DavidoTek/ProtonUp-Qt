@@ -29,13 +29,12 @@ class PupguiInstallDialog(QDialog):
         self.ui = QUiLoader().load(ui_file.device())
 
     def setup_ui(self):
-        self.ui.setFixedSize(self.ui.size())
-
         self.ui.btnInfo.clicked.connect(self.btn_info_clicked)
         self.ui.btnInstall.clicked.connect(self.btn_install_clicked)
         self.ui.btnCancel.clicked.connect(lambda: self.ui.close())
         self.ui.comboCompatTool.currentIndexChanged.connect(self.combo_compat_tool_current_index_changed)
         self.is_fetching_releases.connect(lambda x: self.ui.comboCompatTool.setEnabled(not x))
+        self.is_fetching_releases.connect(lambda x: self.ui.comboCompatToolVersion.setEnabled(not x))
         self.is_fetching_releases.connect(lambda x: self.ui.btnInfo.setEnabled(not x))
         self.is_fetching_releases.connect(lambda x: self.ui.btnInstall.setEnabled(not x))
 
@@ -63,12 +62,13 @@ class PupguiInstallDialog(QDialog):
             if ctobj['name'] == self.ui.comboCompatTool.currentText():
                 def update_releases():
                     self.is_fetching_releases.emit(True)
-                    vers = ctobj['installer'].fetch_releases()
                     self.ui.comboCompatToolVersion.clear()
-                    for ver in vers:
-                        self.ui.comboCompatToolVersion.addItem(ver)
-                    self.ui.comboCompatToolVersion.setCurrentIndex(0)
-                    self.is_fetching_releases.emit(False)
+                    vers = ctobj['installer'].fetch_releases()
+                    # Stops install dialog UI elements from being enabled when rate-limited to prevent switching/installing tools
+                    if len(vers) > 0:
+                        self.ui.comboCompatToolVersion.addItems([ver for ver in vers])
+                        self.ui.comboCompatToolVersion.setCurrentIndex(0)
+                        self.is_fetching_releases.emit(False)
                 t = threading.Thread(target=update_releases)
                 t.start()
                 self.update_description(ctobj)
