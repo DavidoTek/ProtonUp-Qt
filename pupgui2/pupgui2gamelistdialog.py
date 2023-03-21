@@ -53,6 +53,7 @@ class PupguiGameListDialog(QObject):
         elif is_heroic_launcher(self.launcher):
             self.setup_heroic_list_ui()
 
+        self.ui.btnSearch.setVisible(False)
         self.ui.searchBox.setVisible(False)  # Hide searchbox by default
 
         self.set_apply_btn_text()
@@ -66,8 +67,10 @@ class PupguiGameListDialog(QObject):
         self.ui.btnSearch.clicked.connect(self.btn_search_clicked)
         self.ui.searchBox.textChanged.connect(self.search_gamelist_games)
 
-        # Shortcuts
-        QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
+        # Hide Search button and disable shortcut if no games
+        if len(self.games) > 0:
+            self.ui.btnSearch.setVisible(True)
+            QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
 
     def setup_steam_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
@@ -279,10 +282,7 @@ class PupguiGameListDialog(QObject):
         self.ui.lblSteamRunningWarning.setVisible(self.should_show_steam_warning and not self.ui.searchBox.isVisible())
         self.ui.searchBox.setFocus()
 
-        if not self.ui.searchBox.isVisible():
-            self.search_gamelist_games('')
-        else:
-            self.search_gamelist_games(self.ui.searchBox.text())
+        self.search_gamelist_games(self.ui.searchBox.text() if self.ui.searchBox.isVisible() else '')
 
     def search_gamelist_games(self, text):
         for row in range(self.ui.tableGames.rowCount()):
