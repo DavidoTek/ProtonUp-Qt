@@ -47,35 +47,28 @@ class PupguiInstallDialog(QDialog):
         self.setLayout(vbox)
         self.btnInfo.clicked.connect(self.btn_info_clicked)
         self.btnInstall.clicked.connect(self.btn_install_clicked)
-        self.btnCancel.clicked.connect(self.btn_cancel_clicked)
+        self.btnCancel.clicked.connect(lambda: self.close())
         self.comboCompatTool.currentIndexChanged.connect(self.combo_compat_tool_current_index_changed)
         self.is_fetching_releases.connect(lambda x: self.comboCompatTool.setEnabled(not x))
         self.is_fetching_releases.connect(lambda x: self.btnInfo.setEnabled(not x))
         self.is_fetching_releases.connect(lambda x: self.btnInstall.setEnabled(not x))
 
-        for ctobj in self.ct_objs:
-            self.comboCompatTool.addItem(ctobj['name'])
+        self.comboCompatTool.addItems([ctobj['name'] for ctobj in self.ct_objs])
         self.comboCompatToolVersion.setStyleSheet('QComboBox { combobox-popup: 0; }')
 
     def btn_info_clicked(self):
         for ctobj in self.ct_objs:
             if ctobj['name'] == self.comboCompatTool.currentText():
                 ver = self.comboCompatToolVersion.currentText()
-                if ver == '':
-                    open_webbrowser_thread(ctobj['installer'].get_info_url(ver).replace('tag', ''))
-                else:
-                    open_webbrowser_thread(ctobj['installer'].get_info_url(ver))
+                open_webbrowser_thread(ctobj['installer'].get_info_url(ver) if ver else ctobj['installer'].get_info_url(ver).replace('tag', ''))
+                return
 
     def btn_install_clicked(self):
-        current_version = self.comboCompatTool.currentText()
         self.compat_tool_selected.emit({
             'name': self.comboCompatTool.currentText(),
             'version': self.comboCompatToolVersion.currentText(),
             'install_dir': self.install_location['install_dir']
         })
-        self.close()
-
-    def btn_cancel_clicked(self):
         self.close()
 
     def combo_compat_tool_current_index_changed(self):
