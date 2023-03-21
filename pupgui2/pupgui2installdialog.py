@@ -1,8 +1,9 @@
 import threading
+import pkgutil
 
-from PySide6.QtCore import Signal, QLocale
-from PySide6.QtWidgets import QDialog, QLabel, QPushButton, QTextEdit, QComboBox
-from PySide6.QtWidgets import QSizePolicy, QHBoxLayout, QVBoxLayout, QSpacerItem
+from PySide6.QtCore import Signal, QLocale, QDataStream, QByteArray
+from PySide6.QtWidgets import QDialog
+from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.util import open_webbrowser_thread, config_advanced_mode
 
@@ -18,55 +19,40 @@ class PupguiInstallDialog(QDialog):
         advanced_mode = (config_advanced_mode() == 'enabled')
         self.ct_objs = ct_loader.get_ctobjs(self.install_location, advanced_mode=advanced_mode)
 
+        self.load_ui()
+        self.setup_ui()
+        self.ui.show()
+
+    def load_ui(self):
+        data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_ctinstalldialog.ui')
+        ui_file = QDataStream(QByteArray(data))
+        self.ui = QUiLoader().load(ui_file.device())
+
     def setup_ui(self):
-        self.setWindowTitle(self.tr('Install Compatibility Tool'))
-        self.setModal(True)
+        self.ui.setFixedSize(self.ui.size())
 
-        self.btnInfo = QPushButton(self.tr('Info'))
-        self.btnInstall = QPushButton(self.tr('Install'))
-        self.btnCancel = QPushButton(self.tr('Cancel'))
-        button_box = QHBoxLayout()
-        button_box.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
-        button_box.addWidget(self.btnInfo)
-        button_box.addWidget(self.btnInstall)
-        button_box.addWidget(self.btnCancel)
-        self.comboCompatTool = QComboBox()
-        self.comboCompatTool.setFocus()
-        self.comboCompatToolVersion = QComboBox()
-        self.txtDescription = QTextEdit()
-        self.txtDescription.setReadOnly(True)
-        self.txtDescription.setMaximumHeight(95)
-        vbox = QVBoxLayout()
-        vbox.addWidget(QLabel(self.tr('Compatibility tool:')))
-        vbox.addWidget(self.comboCompatTool)
-        vbox.addWidget(QLabel(self.tr('Version:')))
-        vbox.addWidget(self.comboCompatToolVersion)
-        vbox.addWidget(QLabel(self.tr('Description:')))
-        vbox.addWidget(self.txtDescription)
-        vbox.addLayout(button_box)
-        self.setLayout(vbox)
-        self.btnInfo.clicked.connect(self.btn_info_clicked)
-        self.btnInstall.clicked.connect(self.btn_install_clicked)
-        self.btnCancel.clicked.connect(lambda: self.close())
-        self.comboCompatTool.currentIndexChanged.connect(self.combo_compat_tool_current_index_changed)
-        self.is_fetching_releases.connect(lambda x: self.comboCompatTool.setEnabled(not x))
-        self.is_fetching_releases.connect(lambda x: self.btnInfo.setEnabled(not x))
-        self.is_fetching_releases.connect(lambda x: self.btnInstall.setEnabled(not x))
+        self.ui.btnInfo.clicked.connect(self.btn_info_clicked)
+        self.ui.btnInstall.clicked.connect(self.btn_install_clicked)
+        self.ui.btnCancel.clicked.connect(lambda: self.ui.close())
+        self.ui.comboCompatTool.currentIndexChanged.connect(self.combo_compat_tool_current_index_changed)
+        self.is_fetching_releases.connect(lambda x: self.ui.comboCompatTool.setEnabled(not x))
+        self.is_fetching_releases.connect(lambda x: self.ui.btnInfo.setEnabled(not x))
+        self.is_fetching_releases.connect(lambda x: self.ui.btnInstall.setEnabled(not x))
 
-        self.comboCompatTool.addItems([ctobj['name'] for ctobj in self.ct_objs])
-        self.comboCompatToolVersion.setStyleSheet('QComboBox { combobox-popup: 0; }')
+        self.ui.comboCompatTool.addItems([ctobj['name'] for ctobj in self.ct_objs])
+        self.ui.comboCompatToolVersion.setStyleSheet('QComboBox { combobox-popup: 0; }')
 
     def btn_info_clicked(self):
         for ctobj in self.ct_objs:
-            if ctobj['name'] == self.comboCompatTool.currentText():
-                ver = self.comboCompatToolVersion.currentText()
+            if ctobj['name'] == self.ui.comboCompatTool.currentText():
+                ver = self.ui.comboCompatToolVersion.currentText()
                 open_webbrowser_thread(ctobj['installer'].get_info_url(ver) if ver else ctobj['installer'].get_info_url(ver).replace('tag', ''))
                 return
 
     def btn_install_clicked(self):
         self.compat_tool_selected.emit({
-            'name': self.comboCompatTool.currentText(),
-            'version': self.comboCompatToolVersion.currentText(),
+            'name': self.ui.comboCompatTool.currentText(),
+            'version': self.ui.comboCompatToolVersion.currentText(),
             'install_dir': self.install_location['install_dir']
         })
         self.close()
@@ -74,14 +60,14 @@ class PupguiInstallDialog(QDialog):
     def combo_compat_tool_current_index_changed(self):
         """ fetch and show available releases for selected compatibility tool """
         for ctobj in self.ct_objs:
-            if ctobj['name'] == self.comboCompatTool.currentText():
+            if ctobj['name'] == self.ui.comboCompatTool.currentText():
                 def update_releases():
                     self.is_fetching_releases.emit(True)
                     vers = ctobj['installer'].fetch_releases()
-                    self.comboCompatToolVersion.clear()
+                    self.ui.comboCompatToolVersion.clear()
                     for ver in vers:
-                        self.comboCompatToolVersion.addItem(ver)
-                    self.comboCompatToolVersion.setCurrentIndex(0)
+                        self.ui.comboCompatToolVersion.addItem(ver)
+                    self.ui.comboCompatToolVersion.setCurrentIndex(0)
                     self.is_fetching_releases.emit(False)
                 t = threading.Thread(target=update_releases)
                 t.start()
@@ -100,12 +86,12 @@ class PupguiInstallDialog(QDialog):
         else:
             desc = ctobj['description']['en']
         
-        self.txtDescription.setHtml(desc)
+        self.ui.txtDescription.setHtml(desc)
 
     def set_selected_compat_tool(self, ctool_name: str):
         """ Set compat tool dropdown selected index to the index of the compat tool name passed """
         if ctool_name:
-            for i in range(self.comboCompatTool.count()):
-                if ctool_name == self.comboCompatTool.itemText(i):
-                    self.comboCompatTool.setCurrentIndex(i)
+            for i in range(self.ui.comboCompatTool.count()):
+                if ctool_name == self.ui.comboCompatTool.itemText(i):
+                    self.ui.comboCompatTool.setCurrentIndex(i)
                     return

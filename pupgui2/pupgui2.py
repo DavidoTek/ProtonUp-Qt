@@ -317,11 +317,7 @@ class MainWindow(QObject):
             dialog = PupguiInstallDialog(install_loc, self.ct_loader, parent=self.ui)
             dialog.compat_tool_selected.connect(self.install_compat_tool)
             dialog.is_fetching_releases.connect(self.set_fetching_releases)
-            dialog.setup_ui()
             dialog.set_selected_compat_tool(compat_tool)
-            dialog.show()
-            dialog.setFixedSize(dialog.size())
-
 
     def btn_remove_selcted_clicked(self):
         ctools_to_remove = []
