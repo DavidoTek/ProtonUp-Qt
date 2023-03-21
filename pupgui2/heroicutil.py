@@ -71,7 +71,6 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
             lg.wine_info = lg.get_game_config().get('wineVersion', {})  # Mirrors above, Legendary games should use the same GameConfig json structure
             lg.platform = game_data.get('platform', '').capitalize()  # Legendary stores this in `installed.json` and like GOG this stores the platform for the version the user downloaded
             lg.executable = game_data.get('executable', '')
-            lg.store_url = ''  # TODO do legendary games have a store URL?
             lg.is_dlc = game_data.get('is_dlc', False)  # If not set for some reason, assume its not DLC
 
             hgs.append(lg)
