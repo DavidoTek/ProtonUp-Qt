@@ -100,10 +100,30 @@
        </property>
       </spacer>
      </item>
+     <item>
+      <widget class="QPushButton" name="btnSearch">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Search games...</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset theme="search">
+         <normaloff>.</normaloff>.</iconset>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
     <widget class="QTableWidget" name="listGames">
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
@@ -145,8 +165,21 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="btnBatchUpdate">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
         <string>Batch update</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="searchBox">
+       <property name="toolTip">
+        <string>e.g. Half-Life 3</string>
+       </property>
+       <property name="placeholderText">
+        <string>Search for a game...</string>
        </property>
       </widget>
      </item>
@@ -165,6 +198,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnClose">
+       <property name="focusPolicy">
+        <enum>Qt::StrongFocus</enum>
+       </property>
        <property name="text">
         <string>Close</string>
        </property>

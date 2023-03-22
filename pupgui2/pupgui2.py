@@ -8,7 +8,7 @@ import threading
 
 from PySide6.QtCore import Qt, QCoreApplication, QObject, QThread, QWaitCondition, QMutex, QDataStream
 from PySide6.QtCore import QByteArray, QEvent, Signal, Slot, QTranslator, QLocale, QLibraryInfo
-from PySide6.QtGui import QIcon, QKeyEvent
+from PySide6.QtGui import QIcon, QKeyEvent, QKeySequence, QShortcut
 from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox, QProgressBar, QVBoxLayout
 from PySide6.QtUiTools import QUiLoader
 
@@ -24,9 +24,10 @@ from pupgui2.pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
 from pupgui2.pupgui2gamelistdialog import PupguiGameListDialog
 from pupgui2.pupgui2installdialog import PupguiInstallDialog
 from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_steam_ct_game_map
+from pupgui2.heroicutil import is_heroic_launcher, get_heroic_game_list
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
-from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online
+from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online, config_advanced_mode, compat_tool_available
 
 
 class InstallWineThread(QThread):
@@ -121,6 +122,7 @@ class MainWindow(QObject):
         self.progressBarDownload.setVisible(False)
         self.ui.statusBar().addPermanentWidget(self.progressBarDownload)
         self.ui.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
+        self.ui.txtInstalledVersions.setText('0')
 
         self.update_combo_install_location()
 
@@ -138,6 +140,26 @@ class MainWindow(QObject):
 
         self.ui.btnRemoveSelected.setEnabled(False)
         self.ui.btnShowCtInfo.setEnabled(False)
+
+        # Keyboard Shortcuts
+        QShortcut(QKeySequence.Quit, self.ui).activated.connect(self.btn_close_clicked)
+        QShortcut(QKeySequence('Ctrl+,'), self.ui).activated.connect(self.btn_about_clicked)
+        QShortcut(QKeySequence(QKeySequence.HelpContents), self.ui).activated.connect(self.btn_about_clicked)
+        QShortcut(QKeySequence('Ctrl+Shift+N'), self.ui).activated.connect(self.btn_manage_install_locations_clicked)
+        QShortcut(QKeySequence.New, self.ui).activated.connect(self.btn_add_version_clicked)
+        QShortcut(QKeySequence.Delete, self.ui).activated.connect(self.btn_remove_selcted_clicked)
+        QShortcut(QKeySequence('Ctrl+Backspace'), self.ui).activated.connect(self.btn_remove_selcted_clicked)
+        QShortcut(QKeySequence('Alt+Return'), self.ui).activated.connect(self.btn_show_ct_info_clicked)  # Uses 'Return' even though docs mention 'Enter' - https://doc.qt.io/qt-6/qkeysequence.html
+        QShortcut(QKeySequence('Ctrl+G'), self.ui).activated.connect(self.btn_show_game_list_clicked)
+        ## Steam Compat Tool Shortcuts (Some overlap w/ Heroic)
+        QShortcut(QKeySequence('Ctrl+Shift+B'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Boxtron'))
+        QShortcut(QKeySequence('Ctrl+Shift+L'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Luxtorpeda'))
+        QShortcut(QKeySequence('Ctrl+Shift+T'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Proton Tkg'))
+        QShortcut(QKeySequence('Ctrl+Shift+S'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='SteamTinkerLaunch'))
+        ## Lutris Compat Tool Shortcuts (Some overlap w/ Heroic)
+        QShortcut(QKeySequence('Ctrl+Shift+D'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='DXVK'))
+        QShortcut(QKeySequence('Ctrl+Shift+L'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Lutris-Wine'))
+        QShortcut(QKeySequence('Ctrl+Shift+W'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Wine Tkg (Valve Wine)'))
 
         self.set_default_statusbar()
 
@@ -184,6 +206,7 @@ class MainWindow(QObject):
     def update_ui(self):
         """ update ui contents """
         install_loc = get_install_location_from_directory_name(install_directory())
+        unused_ctools = 0
 
         self.ui.listInstalledVersions.clear()
         self.compat_tool_index_map = get_installed_ctools(install_directory())
@@ -195,18 +218,26 @@ class MainWindow(QObject):
 
             self.get_installed_versions('dxvk', dxvk_dir)
             self.get_installed_versions('vkd3d', vkd3d_dir)
-
         # Launcher specific (Steam): Number of games using the compatibility tool
-        if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
+        elif install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
             get_steam_app_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
             self.compat_tool_index_map += get_steam_acruntime_list(install_loc.get('vdf_dir'), cached=True)
             map = get_steam_ct_game_map(install_loc.get('vdf_dir'), self.compat_tool_index_map, cached=True)
             for ct in self.compat_tool_index_map:
                 ct.no_games = len(map.get(ct, []))
+        # Launcher specific (Heroic): Set number of installed games using compat tool
+        elif is_heroic_launcher(install_loc.get('launcher')):
+            heroic_dir = os.path.join(os.path.expanduser(install_loc.get('install_dir')), '../..')
+            heroic_game_list = get_heroic_game_list(heroic_dir)
+            for ct in self.compat_tool_index_map:
+                ct.no_games = len([game for game in heroic_game_list if game.is_installed and ct.displayname in game.wine_info.get('name', '')])
 
         for ct in self.compat_tool_index_map:
             self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused')))
+            if ct.no_games == 0:
+                unused_ctools += 1
 
+            
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
             self.set_default_statusbar()
@@ -217,10 +248,15 @@ class MainWindow(QObject):
 
         if install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
             self.ui.btnShowGameList.setVisible(True)
-        #elif install_loc.get('launcher') == 'lutris':
-        #    self.ui.btnShowGameList.setVisible(True)
+        elif install_loc.get('launcher') == 'lutris':
+           self.ui.btnShowGameList.setVisible(True)
+        elif is_heroic_launcher(install_loc.get('launcher')):
+            self.ui.btnShowGameList.setVisible(True)
         else:
             self.ui.btnShowGameList.setVisible(False)
+
+        self.ui.txtUnusedVersions.setText(self.tr('Unused: {unused_ctools}').format(unused_ctools=unused_ctools) if unused_ctools > 0 else '')
+        self.ui.txtInstalledVersions.setText(f'{len(self.compat_tool_index_map)}')
 
     def get_installed_versions(self, ctool_name, ctool_dir):
         for ct in get_installed_ctools(ctool_dir):
@@ -273,13 +309,19 @@ class MainWindow(QObject):
             self.ui.statusBar().showMessage(self.tr('Installed {current_compat_tool_name}.').format(current_compat_tool_name=self.current_compat_tool_name))
             self.update_ui()
 
-    def btn_add_version_clicked(self):
-        dialog = PupguiInstallDialog(get_install_location_from_directory_name(install_directory()), self.ct_loader, parent=self.ui)
-        dialog.compat_tool_selected.connect(self.install_compat_tool)
-        dialog.is_fetching_releases.connect(self.set_fetching_releases)
-        dialog.setup_ui()
-        dialog.show()
-        dialog.setFixedSize(dialog.size())
+    def btn_add_version_clicked(self, compat_tool: str = ''):
+        advanced_mode = (config_advanced_mode() == 'enabled')
+        install_loc = get_install_location_from_directory_name(install_directory())
+
+        if not compat_tool or compat_tool_available(compat_tool, self.ct_loader.get_ctobjs(install_loc, advanced_mode=advanced_mode)):
+            dialog = PupguiInstallDialog(install_loc, self.ct_loader, parent=self.ui)
+            dialog.compat_tool_selected.connect(self.install_compat_tool)
+            dialog.is_fetching_releases.connect(self.set_fetching_releases)
+            dialog.setup_ui()
+            dialog.set_selected_compat_tool(compat_tool)
+            dialog.show()
+            dialog.setFixedSize(dialog.size())
+
 
     def btn_remove_selcted_clicked(self):
         ctools_to_remove = []

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
-    <height>300</height>
+    <width>800</width>
+    <height>325</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,17 +19,29 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTableWidget" name="tableGames">
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
      <property name="sortingEnabled">
       <bool>true</bool>
      </property>
      <property name="columnCount">
       <number>5</number>
      </property>
+     <attribute name="horizontalHeaderVisible">
+      <bool>true</bool>
+     </attribute>
      <attribute name="horizontalHeaderDefaultSectionSize">
       <number>160</number>
      </attribute>
      <attribute name="horizontalHeaderStretchLastSection">
       <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
      </attribute>
      <column/>
      <column/>
@@ -51,6 +63,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QLineEdit" name="searchBox">
+       <property name="toolTip">
+        <string>e.g. Team Fortress 2</string>
+       </property>
+       <property name="placeholderText">
+        <string>Search for a game...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -62,6 +84,13 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnSearch">
+       <property name="text">
+        <string>Search</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnApply">
