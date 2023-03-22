@@ -101,6 +101,19 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="btnRefreshGames">
+       <property name="toolTip">
+        <string>Refresh Games</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset theme="view-refresh"/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btnSearch">
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
