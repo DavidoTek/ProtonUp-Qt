@@ -65,6 +65,7 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.itemDoubleClicked.connect(self.item_doubleclick_action)
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
         self.ui.btnSearch.clicked.connect(self.btn_search_clicked)
+        self.ui.btnRefreshGames.clicked.connect(self.btn_refresh_games_clicked)
         self.ui.searchBox.textChanged.connect(self.search_gamelist_games)
 
         # Hide Search button and disable shortcut if no games
@@ -104,9 +105,9 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setColumnWidth(3, 40)
         self.ui.tableGames.setColumnHidden(4, True)
 
-    def update_game_list_steam(self):
+    def update_game_list_steam(self, cached=True):
         """ update the game list for the Steam launcher """
-        self.games = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=True)
+        self.games = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=cached)
         ctools = [c if c != 'SteamTinkerLaunch' else 'Proton-stl' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True)]
         ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=True))
 
@@ -275,6 +276,15 @@ class PupguiGameListDialog(QObject):
     def btn_apply_clicked(self):
         self.update_queued_ctools_steam()
         self.ui.close()
+
+    def btn_refresh_games_clicked(self):
+        self.queued_changes = {}
+        if self.launcher == 'steam':
+            self.update_game_list_steam(cached=False)
+        elif self.launcher == 'lutris':
+            self.update_game_list_lutris()
+        elif is_heroic_launcher(self.launcher):
+            self.update_game_list_heroic()
 
     def btn_search_clicked(self):
         self.ui.searchBox.setVisible(not self.ui.searchBox.isVisible())
