@@ -218,6 +218,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>btnClose</tabstop>
+  <tabstop>btnBatchUpdate</tabstop>
+  <tabstop>btnSearch</tabstop>
+  <tabstop>searchBox</tabstop>
+  <tabstop>btnRefreshGames</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
