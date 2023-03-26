@@ -54,7 +54,7 @@ class PupguiInstallDialog(QDialog):
             'version': self.ui.comboCompatToolVersion.currentText(),
             'install_dir': self.install_location['install_dir']
         })
-        self.close()
+        self.ui.close()
 
     def combo_compat_tool_current_index_changed(self):
         """ fetch and show available releases for selected compatibility tool """
