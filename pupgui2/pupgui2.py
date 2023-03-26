@@ -237,7 +237,6 @@ class MainWindow(QObject):
             if ct.no_games == 0:
                 unused_ctools += 1
 
-            
         self.ui.txtActiveDownloads.setText(str(len(self.pending_downloads)))
         if len(self.pending_downloads) == 0:
             self.set_default_statusbar()
@@ -317,11 +316,7 @@ class MainWindow(QObject):
             dialog = PupguiInstallDialog(install_loc, self.ct_loader, parent=self.ui)
             dialog.compat_tool_selected.connect(self.install_compat_tool)
             dialog.is_fetching_releases.connect(self.set_fetching_releases)
-            dialog.setup_ui()
             dialog.set_selected_compat_tool(compat_tool)
-            dialog.show()
-            dialog.setFixedSize(dialog.size())
-
 
     def btn_remove_selcted_clicked(self):
         ctools_to_remove = []
@@ -372,14 +367,14 @@ class MainWindow(QObject):
     def show_launcher_specific_information(self):
         install_loc = get_install_location_from_directory_name(install_directory())
         # For Steam Flatpak only: Show that GE-Proton and Boxtron are available directly from Flathub.
-        if 'steam' in install_loc.get('launcher') and 'Flatpak' in install_loc.get('display_name'):
+        if 'steam' in install_loc.get('launcher', '') and 'Flatpak' in install_loc.get('display_name', ''):
             self.ui.statusBar().showMessage(self.tr('Info: You can get GE-Proton / Boxtron directly from Flathub!'))
             self.ui.btnSteamFlatpakCtools.setVisible(True)
         else:
             self.ui.btnSteamFlatpakCtools.setVisible(False)
     
     def list_installed_versions_item_double_clicked(self, item):
-        # Show info about compatibility tool when double clicked in list
+        """ Show info about compatibility tool when double clicked in list """
         ct = self.compat_tool_index_map[self.ui.listInstalledVersions.row(item)]
         install_loc = get_install_location_from_directory_name(install_directory())
         cti_dialog = PupguiCtInfoDialog(self.ui, ctool=ct, install_loc=install_loc)
@@ -551,10 +546,9 @@ def main():
 
     apply_dark_theme(app)
 
-    window = MainWindow()
+    MainWindow()
 
     ret = app.exec()
-
     shutil.rmtree(TEMP_DIR, ignore_errors=True)
 
     # Flatpak workaround: Delete STL dir if it isn't installed (folder is always created for sandbox access)
