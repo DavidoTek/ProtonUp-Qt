@@ -66,7 +66,7 @@ class PupguiInstallDialog(QDialog):
                     vers = ctobj['installer'].fetch_releases()
                     # Stops install dialog UI elements from being enabled when rate-limited to prevent switching/installing tools
                     if len(vers) > 0:
-                        self.ui.comboCompatToolVersion.addItems([ver for ver in vers])
+                        self.ui.comboCompatToolVersion.addItems(vers)
                         self.ui.comboCompatToolVersion.setCurrentIndex(0)
                         self.is_fetching_releases.emit(False)
                 t = threading.Thread(target=update_releases)
