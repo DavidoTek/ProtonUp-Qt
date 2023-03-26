@@ -24,7 +24,7 @@ class PupguiInstallDialog(QDialog):
         self.ui.show()
 
     def load_ui(self):
-        data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_ctinstalldialog.ui')
+        data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_installdialog.ui')
         ui_file = QDataStream(QByteArray(data))
         self.ui = QUiLoader().load(ui_file.device())
 
