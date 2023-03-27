@@ -319,6 +319,7 @@ class PupguiGameListDialog(QObject):
                         trending=game.protondb_summary.get('trendingTier', '?')))
 
             self.ui.tableGames.removeCellWidget(self.ui.tableGames.currentRow(), 4)
+            pdb_item.setSelected(False)
 
     def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
         """ add compatibility tool changes to queue (Steam) """
