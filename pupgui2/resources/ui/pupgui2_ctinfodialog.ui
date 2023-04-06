@@ -102,9 +102,6 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnRefreshGames">
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
        <property name="toolTip">
         <string>Refresh Games</string>
        </property>
@@ -119,9 +116,6 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnSearch">
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
        <property name="toolTip">
         <string>Search games...</string>
        </property>
@@ -182,9 +176,6 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="btnBatchUpdate">
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
        <property name="text">
         <string>Batch update</string>
        </property>
@@ -227,6 +218,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>btnClose</tabstop>
+  <tabstop>btnBatchUpdate</tabstop>
+  <tabstop>btnSearch</tabstop>
+  <tabstop>searchBox</tabstop>
+  <tabstop>btnRefreshGames</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
