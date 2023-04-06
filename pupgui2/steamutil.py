@@ -46,9 +46,18 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
             if 'apps' not in v.get('libraryfolders').get(fid):
                 continue
             fid_path = v.get('libraryfolders').get(fid).get('path')
+            fid_libraryfolder_path = fid_path
             if fid == '0':
                 fid_path = os.path.join(fid_path, 'steamapps', 'common')
             for appid in v.get('libraryfolders').get(fid).get('apps'):
+                # Skip if app isn't installed to `/path/to/steamapps/common` - Skips soundtracks
+                fid_steamapps_path = os.path.join(fid_libraryfolder_path, 'steamapps')  # e.g. /home/gaben/Games/steamapps
+                appmanifest_path = os.path.join(fid_steamapps_path, f'appmanifest_{appid}.acf')
+                if os.path.isfile(appmanifest_path):
+                    appmanifest_install_path = vdf.load(open(appmanifest_path)).get('AppState', {}).get('installdir', None)
+                    if not appmanifest_install_path or not os.path.isdir(os.path.join(fid_steamapps_path, 'common', appmanifest_install_path)):
+                        continue
+
                 app = SteamApp()
                 app.app_id = int(appid)
                 app.libraryfolder_id = fid
@@ -196,7 +205,7 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
     appinfo_file = os.path.realpath(appinfo_file)
 
     ctool_map = {}
-    compat_tools = None
+    compat_tools = {}
     try:
         with open(appinfo_file, 'rb') as f:
             header, apps = parse_appinfo(f)
@@ -204,8 +213,8 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
                 if steam_app.get('appid') == 891390:
                     compat_tools = steam_app.get('data').get('appinfo').get('extended').get('compat_tools')
                     break
-    except:
-        pass
+    except Exception as e:
+        print('Error getting ctool map from appinfo.vdf:', e)
     finally:
         for t in compat_tools:
             ctool_map[compat_tools.get(t).get('appid')] = {'name': t, 'from_oslist': compat_tools.get(t).get('from_oslist')}
@@ -248,8 +257,8 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                     cnt += 1
                 if cnt == len_sapps:
                     break
-    except:
-        pass
+    except Exception as e:
+        print('Error updating SteamApp info from appinfo.vdf:', e)
     return list(sapps.values())
 
 

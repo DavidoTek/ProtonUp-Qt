@@ -6,7 +6,7 @@ from PySide6.QtGui import QColor, QPalette
 
 
 APP_NAME = 'ProtonUp-Qt'
-APP_VERSION = '2.7.7'
+APP_VERSION = '2.8.0'
 APP_ID = 'net.davidotek.pupgui2'
 APP_ICON_FILE = os.path.join(xdg_config_home, 'pupgui/appicon256.png')
 APP_GHAPI_URL = 'https://api.github.com/repos/Davidotek/ProtonUp-qt/releases'
@@ -14,7 +14,7 @@ DAVIDOTEK_KOFI_URL = 'https://ko-fi.com/davidotek'
 PROTONUPQT_GITHUB_URL = 'https://github.com/DavidoTek/ProtonUp-Qt'
 ABOUT_TEXT = '''\
 {APP_NAME} v{APP_VERSION} by DavidoTek: <a href="{PROTONUPQT_GITHUB_URL}">https://github.com/DavidoTek/ProtonUp-Qt</a><br />
-Copyright (C) 2021-2022 DavidoTek, licensed under GPLv3
+Copyright (C) 2021-2023 DavidoTek, licensed under GPLv3
 '''.format(APP_NAME=APP_NAME, APP_VERSION=APP_VERSION, PROTONUPQT_GITHUB_URL=PROTONUPQT_GITHUB_URL)
 BUILD_INFO = 'built from source'
 
@@ -62,13 +62,15 @@ def PALETTE_DARK():
     palette_dark.setColor(QPalette.HighlightedText, Qt.black)
     return palette_dark
 
-PROTONDB_COLORS = {'platinum': '#b4c7dc', 'gold': '#4f492c', 'silver': '#a6a6a6', 'bronze': '#cd7f32', 'borked': '#ff0000'}
+PROTONDB_COLORS = {'platinum': '#b4c7dc', 'gold': '#cfb53b', 'silver': '#a6a6a6', 'bronze': '#cd7f32', 'borked': '#ff0000', 'pending': '#748472' }
 
 STEAM_API_GETAPPLIST_URL = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'
 STEAM_APP_PAGE_URL = 'https://store.steampowered.com/app/'
 AWACY_GAME_LIST_URL = 'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/master/games.json'
+AWACY_WEB_URL = 'https://areweanticheatyet.com/'
 LOCAL_AWACY_GAME_LIST = os.path.join(TEMP_DIR, 'awacy_games.json')
 PROTONDB_API_URL = 'https://www.protondb.com/api/v1/reports/summaries/{game_id}.json'
+PROTONDB_APP_PAGE_URL = 'https://protondb.com/app/'
 
 STEAM_BOXTRON_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Boxtron'
 STEAM_PROTONGE_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Proton-GE'
@@ -80,3 +82,6 @@ STEAM_STL_CACHE_PATH = os.path.join(os.path.expanduser('~'), '.cache', 'steamtin
 STEAM_STL_DATA_PATH = os.path.join(os.path.expanduser('~'), '.local', 'share', 'steamtinkerlaunch')
 STEAM_STL_SHELL_FILES = [ '.bashrc', '.zshrc', '.kshrc' ]
 STEAM_STL_FISH_VARIABLES = os.path.join(os.path.expanduser('~'), '.config/fish/fish_variables')
+
+LUTRIS_WEB_URL = 'https://lutris.net/games/'
+EPIC_STORE_URL = 'https://store.epicgames.com/p/'

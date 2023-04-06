@@ -100,10 +100,41 @@
        </property>
       </spacer>
      </item>
+     <item>
+      <widget class="QPushButton" name="btnRefreshGames">
+       <property name="toolTip">
+        <string>Refresh Games</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset theme="view-refresh">
+         <normaloff>.</normaloff>.</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnSearch">
+       <property name="toolTip">
+        <string>Search games...</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset theme="search">
+         <normaloff>.</normaloff>.</iconset>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
     <widget class="QTableWidget" name="listGames">
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
@@ -151,6 +182,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QLineEdit" name="searchBox">
+       <property name="toolTip">
+        <string>e.g. Half-Life 3</string>
+       </property>
+       <property name="placeholderText">
+        <string>Search for a game...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -165,6 +206,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnClose">
+       <property name="focusPolicy">
+        <enum>Qt::StrongFocus</enum>
+       </property>
        <property name="text">
         <string>Close</string>
        </property>
@@ -174,6 +218,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>btnClose</tabstop>
+  <tabstop>btnBatchUpdate</tabstop>
+  <tabstop>btnSearch</tabstop>
+  <tabstop>searchBox</tabstop>
+  <tabstop>btnRefreshGames</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -1,7 +1,10 @@
 import os
-from enum import Enum
 import vdf
 import yaml
+import json
+
+from enum import Enum
+from typing import Dict
 
 
 class SteamDeckCompatEnum(Enum):
@@ -80,7 +83,8 @@ class SteamApp:
 
     def get_shortcut_id_str(self) -> str:
         return str(self.shortcut_id)
-    
+
+
 class BasicCompatTool:
     displayname = ''
     version = ''
@@ -135,6 +139,7 @@ class LutrisGame:
     runner = ''
     installer_slug = ''
     installed_at = 0
+    install_dir = ''
 
     install_loc = None
 
@@ -156,7 +161,35 @@ class LutrisGame:
                     break
 
         lutris_game_cfg = os.path.join(os.path.expanduser(lutris_config_dir), 'games', fn)
-        if not os.path.exists(lutris_game_cfg):
+        if not os.path.isfile(lutris_game_cfg):
             return {}
         with open(lutris_game_cfg, 'r') as f:
             return yaml.safe_load(f)
+
+
+# Information for games is stored in a per-storefront 'library.json' - This has most of the information we need
+# Information for installed Epic games is stored at '<heroic_dir>/legendary/installed.json' and has a separate JSON format but the same data we need
+# Information about game config (sideload, GOG, Epic) is stored in a 'GamesConfig/<app_name>.json' file, which is universal - This has Wine information
+class HeroicGame:
+    runner: str  # can be 'GOG', 'sideload' - Epic is hardcoded to 'legendary'
+    app_name: str  # internal name encoded in some way, e.g. 'sPZQ5kmzYj5KnZKdxE2bR1'
+    title: str  # Real name for game
+    developer: str  # May be blank for side-loaded games
+    heroic_path: str  # e.g. '~/.config/heroic', '~/.var/app/com.heroicgameslauncher.hgl/config/heroic'
+    install_path: str  # Path to game folder, e.g. '/home/Gaben/Games/Half-Life 3'
+    store_url: str  # May be blank for side-loaded games
+    art_cover: str  # Optional?
+    art_square: str  # Optional?
+    is_installed: bool  # Not always set properly by Heroic for GOG?
+    wine_info: Dict[str, str]  # can store bin, name, and type - Has to be fetched from GamesConfig/app_name.json
+    platform: str  # Game platform, stored differently for sideload, GOG and legendary
+    executable: str  # Path to game executable, always stored at 'start.sh' for native Linux GOG games 
+    is_dlc: bool  # Stored for GOG and legendary, defaults to False for sideloaded
+
+    def get_game_config(self):
+        game_config = os.path.join(self.heroic_path, 'GamesConfig', f'{self.app_name}.json')
+        if not os.path.isfile(game_config):
+            return {}
+        
+        with open(game_config, 'r') as gcf:
+            return json.load(gcf).get(self.app_name, {})
