@@ -68,6 +68,22 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.8.0" date="2023-04-06">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Added Protok-Tkg (Wine Master) for Steam</li>
+          <li>Added Vanilla Wine for Lutris</li>
+          <li>Added sorting and searching functionality to game list</li>
+          <li>Added a game list for Lutris and Heroic Games Launcher</li>
+          <li>Added a compatibility tool info dialog for Heroic Games Launcher</li>
+          <li>ProtonUp-Qt now displays non-Steam games in the game list</li>
+          <li>Added various keyboard shortcuts</li>
+          <li>Added notification to display when GitHub API limit is reached</li>
+        </ul>
+        <p>Various performance and quality improvements. Also thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.7.7" date="2022-12-24">
       <description>
         <p>Changes:</p>
