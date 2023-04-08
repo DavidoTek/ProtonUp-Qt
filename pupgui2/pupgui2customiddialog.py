@@ -31,8 +31,6 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.setup_ui()
         self.ui.show()
 
-        self.ui.setFixedSize(self.ui.size())
-
     def load_ui(self):
         data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_custominstalldirectorydialog.ui')
         ui_file = QDataStream(QByteArray(data))
