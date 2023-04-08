@@ -75,6 +75,8 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         config_custom_install_location(install_dir='remove')
         print('custom install directory: removed')
 
+        self.custom_id_set.emit()
+
     def txt_id_browse_action_triggered(self):
         dialog = QFileDialog(self.ui)
         dialog.setFileMode(QFileDialog.Directory)
