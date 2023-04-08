@@ -3,7 +3,7 @@ import pkgutil
 
 from PySide6.QtCore import Signal, QDataStream, QByteArray, QObject
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QFileDialog, QLabel, QPushButton, QLineEdit, QComboBox, QFormLayout
+from PySide6.QtWidgets import QFileDialog, QLineEdit
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.util import config_custom_install_location, get_install_location_from_directory_name, get_dict_key_from_value
