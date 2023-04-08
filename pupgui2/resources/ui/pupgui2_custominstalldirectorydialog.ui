@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>350</width>
-    <height>150</height>
+    <height>250</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -82,6 +82,16 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
+       <widget class="QPushButton" name="btnDefault">
+        <property name="toolTip">
+         <string>Reset the custom install directory back to default for this launcher</string>
+        </property>
+        <property name="text">
+         <string>Default</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -96,6 +106,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnSave">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Save</string>
         </property>

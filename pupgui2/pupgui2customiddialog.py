@@ -34,38 +34,35 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.txtIdBrowseAction = self.ui.txtInstallDirectory.addAction(QIcon.fromTheme('document-open'), QLineEdit.TrailingPosition)
         self.txtIdBrowseAction.triggered.connect(self.txt_id_browse_action_triggered)
 
-        self.ui.txtInstallDirectory.textChanged.connect(self.txt_install_directory_text_changed)
         self.ui.comboLauncher.addItems([
             'steam',
             'lutris',
             'heroicwine',
             'heroicproton',
             'bottles'
-            ])
+        ])
 
         self.ui.btnSave.clicked.connect(self.btn_save_clicked)
+        self.ui.btnDefault.clicked.connect(self.btn_default_clicked)
         self.ui.btnCancel.clicked.connect(self.ui.close)
 
-    def txt_install_directory_text_changed(self, text):
-        if text.strip() == '':
-            self.ui.btnSave.setText(self.tr('Reset'))
-        else:
-            self.ui.btnSave.setText(self.tr('Save'))
+        self.is_valid_custom_install_path = lambda path: len(path.strip()) > 0 and os.path.isdir(path) and os.access(path, os.W_OK)  # Maybe too expensive?
+        self.ui.txtInstallDirectory.textChanged.connect(lambda text: self.ui.btnSave.setEnabled(self.is_valid_custom_install_path(text)))
 
     def btn_save_clicked(self):
         install_dir = self.ui.txtInstallDirectory.text().strip()
         launcher = self.ui.comboLauncher.currentText()
 
-        if install_dir == '':
-            config_custom_install_location(install_dir='remove')
-            print('custom install directory: removed')
-
-        if os.path.exists(install_dir):
+        if self.is_valid_custom_install_path(install_dir):
             config_custom_install_location(install_dir, launcher)
-            print('custom install directory: set to', install_dir)
+            print(f'New Custom Install Directory set to: {install_dir}')
 
         self.custom_id_set.emit()
         self.ui.close()
+
+    def btn_default_clicked(self):
+        config_custom_install_location(install_dir='remove')
+        print('custom install directory: removed')
 
     def txt_id_browse_action_triggered(self):
         dialog = QFileDialog(self.ui)
