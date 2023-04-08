@@ -55,7 +55,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
 
         self.ui.btnSave.clicked.connect(self.btn_save_clicked)
         self.ui.btnDefault.clicked.connect(self.btn_default_clicked)
-        self.ui.btnCancel.clicked.connect(self.ui.close)
+        self.ui.btnClose.clicked.connect(self.ui.close)
 
         self.is_valid_custom_install_path = lambda path: len(path.strip()) > 0 and os.path.isdir(path) and os.access(path, os.W_OK)  # Maybe too expensive?
         self.ui.txtInstallDirectory.textChanged.connect(lambda text: self.ui.btnSave.setEnabled(self.is_valid_custom_install_path(text)))
