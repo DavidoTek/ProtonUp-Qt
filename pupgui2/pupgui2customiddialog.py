@@ -11,7 +11,7 @@ from pupgui2.util import config_custom_install_location, get_install_location_fr
 
 class PupguiCustomInstallDirectoryDialog(QObject):
 
-    custom_id_set = Signal()
+    custom_id_set = Signal(str)
 
     def __init__(self, install_dir, parent=None):
         super(PupguiCustomInstallDirectoryDialog, self).__init__(parent)
@@ -45,7 +45,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.txtIdBrowseAction = self.ui.txtInstallDirectory.addAction(QIcon.fromTheme('document-open'), QLineEdit.TrailingPosition)
         self.txtIdBrowseAction.triggered.connect(self.txt_id_browse_action_triggered)
 
-        # TODO select new install directory by default on save? (e.g. if we're on Lutris and set a custom directory for Steam, switch to Steam?)
+        # TODO refresh to default directory when removing custom directory
         self.ui.comboLauncher.addItems([
             display_name for display_name in self.install_locations_dict.values()
         ])
@@ -61,20 +61,22 @@ class PupguiCustomInstallDirectoryDialog(QObject):
 
     def btn_save_clicked(self):
         install_dir = os.path.expanduser(self.ui.txtInstallDirectory.text().strip())
+        if not install_dir.endswith(os.sep):
+            install_dir += '/'
         launcher = get_dict_key_from_value(self.install_locations_dict, self.ui.comboLauncher.currentText()) or ''
 
         if self.is_valid_custom_install_path(install_dir):
             config_custom_install_location(install_dir, launcher)
             print(f'New Custom Install Directory set to: {install_dir}')
 
-        self.custom_id_set.emit()
+        self.custom_id_set.emit(install_dir)
         self.ui.close()
 
     def btn_default_clicked(self):
         config_custom_install_location(install_dir='remove')
         print(f'Removed custom install directory')
 
-        self.custom_id_set.emit()
+        self.custom_id_set.emit('')
 
     def txt_id_browse_action_triggered(self):
         dialog = QFileDialog(self.ui)

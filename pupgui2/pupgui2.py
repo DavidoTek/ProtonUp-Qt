@@ -183,13 +183,13 @@ class MainWindow(QObject):
         t = threading.Thread(target=_set_default_statusbar_thread, args=[self.update_statusbar_message])
         t.start()
 
-    def update_combo_install_location(self):
+    def update_combo_install_location(self, custom_install_dir = None):
         self.updating_combo_install_location = True
 
         self.ui.comboInstallLocation.clear()
         self.combo_install_location_index_map = []
 
-        current_install_dir = install_directory()
+        current_install_dir = custom_install_dir or install_directory()
         for i, install_dir in enumerate(available_install_directories()):
             icon_name = get_install_location_from_directory_name(install_dir).get('icon')
             display_name = get_install_location_from_directory_name(install_dir).get('display_name')
@@ -199,6 +199,8 @@ class MainWindow(QObject):
                 self.ui.comboInstallLocation.addItem(install_dir)
             self.combo_install_location_index_map.append(install_dir)
             if current_install_dir == install_dir:
+                if custom_install_dir is not None:
+                    self.updating_combo_install_location = False
                 self.ui.comboInstallLocation.setCurrentIndex(i)
 
         self.updating_combo_install_location = False
