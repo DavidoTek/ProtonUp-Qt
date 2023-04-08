@@ -6,7 +6,7 @@ from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QFileDialog, QLineEdit
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2.util import config_custom_install_location, get_install_location_from_directory_name, get_dict_key_from_value
+from pupgui2.util import config_custom_install_location, get_install_location_from_directory_name, get_dict_key_from_value, get_combobox_index_by_value
 
 
 class PupguiCustomInstallDirectoryDialog(QObject):
@@ -45,7 +45,6 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.txtIdBrowseAction = self.ui.txtInstallDirectory.addAction(QIcon.fromTheme('document-open'), QLineEdit.TrailingPosition)
         self.txtIdBrowseAction.triggered.connect(self.txt_id_browse_action_triggered)
 
-        # TODO refresh to default directory when removing custom directory
         self.ui.comboLauncher.addItems([
             display_name for display_name in self.install_locations_dict.values()
         ])
@@ -86,10 +85,8 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         dialog.fileSelected.connect(self.ui.txtInstallDirectory.setText)
         dialog.open()
 
-    # TODO break this out into a separate util function for use here and in install dialog?
     def set_selected_launcher(self, ctool_name: str):
         if ctool_name:
-            for i in range(self.ui.comboLauncher.count()):
-                if ctool_name == self.ui.comboLauncher.itemText(i):
-                    self.ui.comboLauncher.setCurrentIndex(i)
-                    return
+            index = get_combobox_index_by_value(self.ui.comboLauncher, ctool_name)
+            if index >= 0:
+                self.ui.comboLauncher.setCurrentIndex(index)

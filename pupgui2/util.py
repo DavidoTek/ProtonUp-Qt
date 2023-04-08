@@ -480,8 +480,23 @@ def get_dict_key_from_value(d, searchval):
     Fetch a given dictionary key from a given value.
     Returns the given value if found, otherwise None.
     """
-    for _, value in d.items():
+    for key, value in d.items():
         if value == searchval:
-            return searchval
+            return key
     else:
         return None
+
+def get_combobox_index_by_value(combobox, value: str) -> int:
+    """
+    Get the index in a combobox where a text value is located.
+    Returns an integer >= 0 if found, otherwise -1.
+
+    Return Type: int
+    """
+
+    if value:
+        for i in range(combobox.count()):
+            if value == combobox.itemText(i):
+                return i
+
+    return -1
