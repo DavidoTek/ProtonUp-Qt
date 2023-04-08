@@ -6,15 +6,26 @@ from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QFileDialog, QLabel, QPushButton, QLineEdit, QComboBox, QFormLayout
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2.util import config_custom_install_location
+from pupgui2.util import config_custom_install_location, get_install_location_from_directory_name, get_dict_key_from_value
 
 
 class PupguiCustomInstallDirectoryDialog(QObject):
 
     custom_id_set = Signal()
 
-    def __init__(self, parent=None):
+    def __init__(self, install_dir, parent=None):
         super(PupguiCustomInstallDirectoryDialog, self).__init__(parent)
+
+        self.install_loc = get_install_location_from_directory_name(install_dir)
+        self.launcher = self.install_loc.get('launcher', '')
+
+        self.install_locations_dict = {
+            'steam': 'Steam',
+            'lutris': 'Lutris',
+            'heroicwine': 'Heroic (Wine)',
+            'heroicproton': 'Heroic (Proton)',
+            'bottles': 'Bottles'
+        }
 
         self.load_ui()
         self.setup_ui()
@@ -34,13 +45,13 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.txtIdBrowseAction = self.ui.txtInstallDirectory.addAction(QIcon.fromTheme('document-open'), QLineEdit.TrailingPosition)
         self.txtIdBrowseAction.triggered.connect(self.txt_id_browse_action_triggered)
 
+        # TODO select new install directory by default on save? (e.g. if we're on Lutris and set a custom directory for Steam, switch to Steam?)
+
         self.ui.comboLauncher.addItems([
-            'steam',
-            'lutris',
-            'heroicwine',
-            'heroicproton',
-            'bottles'
+            display_name for display_name in self.install_locations_dict.values()
         ])
+
+        self.set_selected_launcher(get_dict_key_from_value(self.install_locations_dict, self.launcher) or '')
 
         self.ui.btnSave.clicked.connect(self.btn_save_clicked)
         self.ui.btnDefault.clicked.connect(self.btn_default_clicked)
@@ -51,7 +62,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
 
     def btn_save_clicked(self):
         install_dir = self.ui.txtInstallDirectory.text().strip()
-        launcher = self.ui.comboLauncher.currentText()
+        launcher = get_dict_key_from_value(self.install_locations_dict, self.ui.comboLauncher.currentText()) or ''
 
         if self.is_valid_custom_install_path(install_dir):
             config_custom_install_location(install_dir, launcher)
@@ -71,3 +82,11 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         dialog.setDirectory(os.path.expanduser('~'))
         dialog.fileSelected.connect(self.ui.txtInstallDirectory.setText)
         dialog.open()
+
+    # TODO break this out into a separate util function for use here and in install dialog?
+    def set_selected_launcher(self, ctool_name: str):
+        if ctool_name:
+            for i in range(self.ui.comboLauncher.count()):
+                if ctool_name == self.ui.comboLauncher.itemText(i):
+                    self.ui.comboLauncher.setCurrentIndex(i)
+                    return

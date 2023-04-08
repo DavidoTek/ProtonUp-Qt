@@ -361,7 +361,7 @@ class MainWindow(QObject):
             self.update_ui()
 
     def btn_manage_install_locations_clicked(self):
-        customid_dialog = PupguiCustomInstallDirectoryDialog(parent=self.ui)
+        customid_dialog = PupguiCustomInstallDirectoryDialog(install_directory(), parent=self.ui)
         customid_dialog.custom_id_set.connect(self.update_combo_install_location)
 
     def show_launcher_specific_information(self):

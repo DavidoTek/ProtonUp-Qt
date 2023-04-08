@@ -474,3 +474,14 @@ def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
     """ Return whether a compat tool is available for a given launcher """
 
     return compat_tool in [ctobj['name'] for ctobj in ctobjs]
+
+def get_dict_key_from_value(d, searchval):
+    """
+    Fetch a given dictionary key from a given value.
+    Returns the given value if found, otherwise None.
+    """
+    for _, value in d.items():
+        if value == searchval:
+            return searchval
+    else:
+        return None
