@@ -6,12 +6,20 @@
 # ProtonUp-Qt
 Install and manage [GE-Proton](https://github.com/GloriousEggroll/proton-ge-custom) and [Luxtorpeda](https://github.com/luxtorpeda-dev/luxtorpeda) for Steam and [Wine-GE](https://github.com/GloriousEggroll/wine-ge-custom) for Lutris with this graphical user interface. Based on AUNaseef's [ProtonUp](https://github.com/AUNaseef/protonup), made with Python 3 and Qt 6.  
 
-**Download from Flathub or as AppImage (portable):**  
-[<img height="56px" src="https://flathub.org/assets/badges/flathub-badge-en.png" alt="Download from Flathub" />](https://flathub.org/apps/details/net.davidotek.pupgui2) [<img height="56px" src="https://raw.githubusercontent.com/srevinsaju/get-appimage/master/static/badges/get-appimage-branding-dark.png" alt="Download AppImage" />](https://github.com/DavidoTek/ProtonUp-Qt/releases)  
-Also available on AUR, maintained by yochananmarqos: https://aur.archlinux.org/packages/protonup-qt  
+![ProtonUp-Qt Screenshot](.github/images/pupgui2-screenshot2.png)
+
+## Download from Flathub or as AppImage (portable):
+[<img height="56px" src="https://flathub.org/assets/badges/flathub-badge-en.png" alt="Download from Flathub" />](https://flathub.org/apps/details/net.davidotek.pupgui2) [<img height="56px" src="https://raw.githubusercontent.com/srevinsaju/get-appimage/master/static/badges/get-appimage-branding-dark.png" alt="Download AppImage" />](https://github.com/DavidoTek/ProtonUp-Qt/releases) 
+
 Website: [https://davidotek.github.io/protonup-qt](https://davidotek.github.io/protonup-qt)
 
-![ProtonUp-Qt Screenshot](.github/images/pupgui2-screenshot2.png)
+## Install from AUR: (Arch, Manjaro, EndeavourOS, etc.)
+
+### Source 
+https://aur.archlinux.org/packages/protonup-qt (Maintained by yochananmarqos)
+
+### Binary (Appimage)
+https://aur.archlinux.org/packages/protonup-qt-bin (Maintained by R1yuu)
 
 ## Run from source
 ### Install dependencies
