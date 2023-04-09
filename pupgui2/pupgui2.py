@@ -204,9 +204,8 @@ class MainWindow(QObject):
                 self.ui.comboInstallLocation.setCurrentIndex(i)
 
         self.updating_combo_install_location = False
-        # Update compat list when custom install directoy is removed
+        # Update compat list when custom install directoy is removed -- Not called because of `self.updating_combo_install_location = False` -- Could be improved?
         if custom_install_dir is not None and len(custom_install_dir) <= 0:
-            # currentIndexChanged is not emitted automatically?
             self.ui.comboInstallLocation.currentIndexChanged.emit(self.ui.comboInstallLocation.currentIndex())
 
     def update_ui(self):
