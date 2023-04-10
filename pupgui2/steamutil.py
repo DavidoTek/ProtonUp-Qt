@@ -40,8 +40,10 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
     
     try:
         v = vdf.load(open(libraryfolders_vdf_file))
+        print(f'Successfully loaded {libraryfolders_vdf_file}.')
         c = vdf.load(open(config_vdf_file)).get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
-        
+        print(f'Successfully loaded {config_vdf_file}.')
+
         for fid in v.get('libraryfolders'):
             if 'apps' not in v.get('libraryfolders').get(fid):
                 continue
@@ -67,11 +69,11 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
                 apps.append(app)
         apps = update_steamapp_info(steam_config_folder, apps)
         apps = update_steamapp_awacystatus(apps)
+
+        if not no_shortcuts:
+            apps.extend(get_steam_shortcuts_list(steam_config_folder, c))
     except Exception as e:
         print('Error: Could not get a list of all Steam apps:', e)
-
-    if not no_shortcuts:
-        apps.extend(get_steam_shortcuts_list(steam_config_folder, c))
 
     _cached_app_list = apps
     return apps
