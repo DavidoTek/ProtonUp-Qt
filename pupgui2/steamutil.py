@@ -215,7 +215,7 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
                     break
     except Exception as e:
         print('Error getting ctool map from appinfo.vdf:', e)
-    finally:
+    else:
         for t in compat_tools:
             ctool_map[compat_tools.get(t).get('appid')] = {'name': t, 'from_oslist': compat_tools.get(t).get('from_oslist')}
 

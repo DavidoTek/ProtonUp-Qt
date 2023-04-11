@@ -525,7 +525,7 @@ def main():
         ldata = pkgutil.get_data(__name__, f'resources/i18n/pupgui2_{lname}.qm')  # Example: pupgui2_zh_TW.qm
     except:
         pass
-    finally:
+    else:
         translator = QTranslator()
         if translator.load(ldata):
             app.installTranslator(translator)
@@ -535,7 +535,7 @@ def main():
             ldata = pkgutil.get_data(__name__, f'resources/i18n/pupgui2_{lang}.qm') # Example: pupgui2_de.qm
         except:
             pass
-        finally:
+        else:
             translator = QTranslator()
             if translator.load(ldata):
                 app.installTranslator(translator)
