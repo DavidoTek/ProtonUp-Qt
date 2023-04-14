@@ -22,6 +22,18 @@ _cached_app_list = []
 _cached_steam_ctool_id_map = None
 
 
+def get_steam_vdf_compat_tool_mapping(vdf_file: dict):
+
+    c = vdf_file.get('InstallConfigStore').get('Software')
+
+    # Sometimes the key is 'Valve', sometimes 'valve', see #226
+    c = c.get('Valve') or c.get('valve')
+    if not c:
+        raise KeyError('Error! config.vdf InstallConfigStore.Software neither contains key "Valve" nor "valve" - config.vdf file may be invalid!')
+
+    return c.get('Steam').get('CompatToolMapping')
+
+
 def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=False) -> List[SteamApp]:
     """
     Returns a list of installed Steam apps and optionally game names and the compatibility tool they are using
@@ -40,8 +52,8 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
 
     try:
         v = vdf.load(open(libraryfolders_vdf_file))
-        c = vdf.load(open(config_vdf_file)).get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
-
+        c = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
+        
         for fid in v.get('libraryfolders'):
             if 'apps' not in v.get('libraryfolders').get(fid):
                 continue
@@ -325,8 +337,7 @@ def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -
     game_id = game.app_id
 
     try:
-        d = vdf.load(open(config_vdf_file))
-        c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
+        c = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
 
         if str(game_id) in c:
             if new_ctool is None:
@@ -354,8 +365,7 @@ def steam_update_ctools(games: Dict[SteamApp, str], steam_config_folder='') -> b
         return False
 
     try:
-        d = vdf.load(open(config_vdf_file))
-        c = d.get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
+        c = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
 
         for game, new_ctool in games.items():
             game_id = game.app_id
