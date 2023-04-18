@@ -22,11 +22,14 @@ CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')
 TEMP_DIR = os.path.join(os.getenv('XDG_CACHE_HOME'), 'tmp', 'pupgui2.a70200/') if os.path.exists(os.getenv('XDG_CACHE_HOME', '')) else '/tmp/pupgui2.a70200/'
 
 # support different Steam root directories
+# valid install dir should have config.vdf and libraryfolders.vdf, to ensure it is not an unused folder with correct directory structure
 _POSSIBLE_STEAM_ROOTS = ['~/.local/share/Steam', '~/.steam/root', '~/.steam/steam', '~/.steam/debian-installation']
 _STEAM_ROOT = _POSSIBLE_STEAM_ROOTS[0]
 for steam_root in _POSSIBLE_STEAM_ROOTS:
     ct_dir = os.path.join(os.path.expanduser(steam_root), 'config')
-    if os.path.exists(ct_dir):
+    config_vdf = os.path.join(ct_dir, 'config.vdf')
+    libraryfolders_vdf = os.path.join(ct_dir, 'libraryfolders.vdf')
+    if os.path.exists(config_vdf) and os.path.exists(libraryfolders_vdf):
         _STEAM_ROOT = steam_root
         break
 
