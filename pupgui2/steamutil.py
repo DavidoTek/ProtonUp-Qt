@@ -337,7 +337,8 @@ def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -
     game_id = game.app_id
 
     try:
-        c = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
+        d = vdf.load(open(config_vdf_file))
+        c = get_steam_vdf_compat_tool_mapping(d)
 
         if str(game_id) in c:
             if new_ctool is None:
@@ -365,7 +366,8 @@ def steam_update_ctools(games: Dict[SteamApp, str], steam_config_folder='') -> b
         return False
 
     try:
-        c = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
+        d = vdf.load(open(config_vdf_file))
+        c = get_steam_vdf_compat_tool_mapping(d)
 
         for game, new_ctool in games.items():
             game_id = game.app_id
