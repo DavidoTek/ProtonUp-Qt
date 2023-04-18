@@ -103,7 +103,7 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
 
     try:
         if not compat_tools:
-            compat_tools = vdf.load(open(config_vdf_file)).get('InstallConfigStore').get('Software').get('Valve').get('Steam').get('CompatToolMapping')
+            compat_tools = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
 
         for file in os.listdir(users_folder):
             user_directory = os.path.join(users_folder,file)
