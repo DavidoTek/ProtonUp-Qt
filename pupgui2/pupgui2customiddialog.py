@@ -43,6 +43,8 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.txtIdBrowseAction = self.ui.txtInstallDirectory.addAction(QIcon.fromTheme('document-open'), QLineEdit.TrailingPosition)
         self.txtIdBrowseAction.triggered.connect(self.txt_id_browse_action_triggered)
 
+        self.ui.txtInstallDirectory.setText(config_custom_install_location().get('install_dir', ''))
+
         self.ui.comboLauncher.addItems([
             display_name for display_name in self.install_locations_dict.values()
         ])
@@ -70,6 +72,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.ui.close()
 
     def btn_default_clicked(self):
+        self.ui.txtInstallDirectory.setText('')
         config_custom_install_location(install_dir='remove')
         print(f'Removed custom install directory')
 
