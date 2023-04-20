@@ -234,7 +234,7 @@ def install_directory(target=None) -> str:
     return ''
 
 
-def config_custom_install_location(install_dir=None, launcher='') -> Dict[str, str]:
+def config_custom_install_location(install_dir=None, launcher='', remove=False) -> Dict[str, str]:
     """
     Read/update config for the custom install location
     Write install_dir, launcher to config or read if install_dir=None or launcher=None
@@ -243,7 +243,7 @@ def config_custom_install_location(install_dir=None, launcher='') -> Dict[str, s
     """
     config = ConfigParser()
 
-    if install_dir and launcher:
+    if install_dir and launcher and not remove:
         config.read(CONFIG_FILE)
         if not config.has_section('pupgui2'):
             config.add_section('pupgui2')
@@ -252,7 +252,7 @@ def config_custom_install_location(install_dir=None, launcher='') -> Dict[str, s
         os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
         with open(CONFIG_FILE, 'w') as file:
             config.write(file)
-    elif install_dir == 'remove' and os.path.exists(CONFIG_FILE):
+    elif remove and os.path.exists(CONFIG_FILE):
         config.read(CONFIG_FILE)
         if config.has_option('pupgui2', 'custom_install_dir'):
             config.remove_option('pupgui2', 'custom_install_dir')

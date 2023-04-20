@@ -73,7 +73,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
 
     def btn_default_clicked(self):
         self.ui.txtInstallDirectory.setText('')
-        config_custom_install_location(install_dir='remove')
+        config_custom_install_location(remove=True)
         print(f'Removed custom install directory')
 
         self.custom_id_set.emit('')
