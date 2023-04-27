@@ -16,7 +16,7 @@ from pupgui2.util import ghapi_rlcheck
 
 
 CT_NAME = 'Proton Tkg'
-CT_LAUNCHERS = ['steam']
+CT_LAUNCHERS = ['steam', 'heroicproton']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_protontkg', '''Custom Proton build for running Windows games, built with the Wine-tkg build system.''')}
 
 

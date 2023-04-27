@@ -8,7 +8,7 @@ from pupgui2.resources.ctmods.ctmod_protontkg import CtInstaller as TKGCtInstall
 
 
 CT_NAME = 'Proton Tkg (Wine Master)'
-CT_LAUNCHERS = ['steam', 'advmode']
+CT_LAUNCHERS = ['steam', 'heroicproton', 'advmode']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_protontkg_winemaster', '''Custom Proton build for running Windows games, built with the Wine-tkg build system.
 <br/>
 <br/>
