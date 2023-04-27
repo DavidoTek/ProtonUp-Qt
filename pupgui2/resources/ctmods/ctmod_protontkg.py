@@ -196,7 +196,8 @@ class CtInstaller(QObject):
             zst_glob = glob.glob(f'{install_folder}/*.tar.zst')
             if len(zst_glob) > 0:
                 # Wine-tkg is .tar.zst
-                tkg_dir = os.path.abspath(os.path.join(install_dir, '../../runners/wine'))
+                tkg_dir = os.path.abspath(os.path.join(install_dir, '../../runners/wine')) if 'lutris' in install_dir else install_dir
+
                 tkg_archive_name = zst_glob[0]  # Should only ever be 1 really, so assume the first is the zst archive we're looking for
 
                 temp_download = os.path.join(install_folder, tkg_archive_name)
