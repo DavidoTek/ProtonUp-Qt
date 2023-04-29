@@ -120,7 +120,7 @@ class CtInstaller(QObject):
         tags = []
         for artifact in ghapi_rlcheck(self.rs.get(self.CT_URL + '?per_page=' + str(count)).json()).get("artifacts", {}):
             workflow = artifact['workflow_run']
-            if not workflow["head_branch"] == "master" or artifact["expired"]:
+            if not workflow["head_branch"] == "main" or artifact["expired"]:
                 continue
             if workflow['head_sha'][:7] not in tags:  # Downloads wrong releases sometimes? Folder structure looks wrong -- Maybe wrong one downloaded from nightly link or wrong suite? (maybe only ever other entry is right and we're filtering the "proper" ones)
                 tags.append(workflow['head_sha'][:7])
