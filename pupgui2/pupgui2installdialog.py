@@ -5,7 +5,7 @@ from PySide6.QtCore import Signal, QLocale, QDataStream, QByteArray
 from PySide6.QtWidgets import QDialog
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2.util import open_webbrowser_thread, config_advanced_mode
+from pupgui2.util import open_webbrowser_thread, config_advanced_mode, get_combobox_index_by_value
 
 
 class PupguiInstallDialog(QDialog):
@@ -91,7 +91,6 @@ class PupguiInstallDialog(QDialog):
     def set_selected_compat_tool(self, ctool_name: str):
         """ Set compat tool dropdown selected index to the index of the compat tool name passed """
         if ctool_name:
-            for i in range(self.ui.comboCompatTool.count()):
-                if ctool_name == self.ui.comboCompatTool.itemText(i):
-                    self.ui.comboCompatTool.setCurrentIndex(i)
-                    return
+            index = get_combobox_index_by_value(self.ui.comboCompatTool, ctool_name)
+            if index >= 1:
+                self.ui.comboCompatTool.setCurrentIndex(index)

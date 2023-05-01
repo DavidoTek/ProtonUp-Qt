@@ -183,13 +183,13 @@ class MainWindow(QObject):
         t = threading.Thread(target=_set_default_statusbar_thread, args=[self.update_statusbar_message])
         t.start()
 
-    def update_combo_install_location(self):
+    def update_combo_install_location(self, custom_install_dir = None):
         self.updating_combo_install_location = True
 
         self.ui.comboInstallLocation.clear()
         self.combo_install_location_index_map = []
 
-        current_install_dir = install_directory()
+        current_install_dir = custom_install_dir or install_directory()
         for i, install_dir in enumerate(available_install_directories()):
             icon_name = get_install_location_from_directory_name(install_dir).get('icon')
             display_name = get_install_location_from_directory_name(install_dir).get('display_name')
@@ -199,9 +199,14 @@ class MainWindow(QObject):
                 self.ui.comboInstallLocation.addItem(install_dir)
             self.combo_install_location_index_map.append(install_dir)
             if current_install_dir == install_dir:
+                if custom_install_dir is not None:
+                    self.updating_combo_install_location = False
                 self.ui.comboInstallLocation.setCurrentIndex(i)
 
         self.updating_combo_install_location = False
+        # Update compat list when custom install directoy is removed -- Not called because of `self.updating_combo_install_location = False` -- Could be improved?
+        if custom_install_dir is not None and len(custom_install_dir) <= 0:
+            self.ui.comboInstallLocation.currentIndexChanged.emit(self.ui.comboInstallLocation.currentIndex())
 
     def update_ui(self):
         """ update ui contents """
@@ -361,7 +366,7 @@ class MainWindow(QObject):
             self.update_ui()
 
     def btn_manage_install_locations_clicked(self):
-        customid_dialog = PupguiCustomInstallDirectoryDialog(parent=self.ui)
+        customid_dialog = PupguiCustomInstallDirectoryDialog(install_directory(), parent=self.ui)
         customid_dialog.custom_id_set.connect(self.update_combo_install_location)
 
     def show_launcher_specific_information(self):

@@ -234,7 +234,7 @@ def install_directory(target=None) -> str:
     return ''
 
 
-def config_custom_install_location(install_dir=None, launcher='') -> Dict[str, str]:
+def config_custom_install_location(install_dir=None, launcher='', remove=False) -> Dict[str, str]:
     """
     Read/update config for the custom install location
     Write install_dir, launcher to config or read if install_dir=None or launcher=None
@@ -243,7 +243,7 @@ def config_custom_install_location(install_dir=None, launcher='') -> Dict[str, s
     """
     config = ConfigParser()
 
-    if install_dir and launcher:
+    if install_dir and launcher and not remove:
         config.read(CONFIG_FILE)
         if not config.has_section('pupgui2'):
             config.add_section('pupgui2')
@@ -252,7 +252,7 @@ def config_custom_install_location(install_dir=None, launcher='') -> Dict[str, s
         os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
         with open(CONFIG_FILE, 'w') as file:
             config.write(file)
-    elif install_dir == 'remove' and os.path.exists(CONFIG_FILE):
+    elif remove and os.path.exists(CONFIG_FILE):
         config.read(CONFIG_FILE)
         if config.has_option('pupgui2', 'custom_install_dir'):
             config.remove_option('pupgui2', 'custom_install_dir')
@@ -474,3 +474,29 @@ def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
     """ Return whether a compat tool is available for a given launcher """
 
     return compat_tool in [ctobj['name'] for ctobj in ctobjs]
+
+def get_dict_key_from_value(d, searchval):
+    """
+    Fetch a given dictionary key from a given value.
+    Returns the given value if found, otherwise None.
+    """
+    for key, value in d.items():
+        if value == searchval:
+            return key
+    else:
+        return None
+
+def get_combobox_index_by_value(combobox, value: str) -> int:
+    """
+    Get the index in a combobox where a text value is located.
+    Returns an integer >= 0 if found, otherwise -1.
+
+    Return Type: int
+    """
+
+    if value:
+        for i in range(combobox.count()):
+            if value == combobox.itemText(i):
+                return i
+
+    return -1
