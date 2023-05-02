@@ -196,7 +196,7 @@ class CtInstaller(QObject):
             zst_glob = glob.glob(f'{install_folder}/*.tar.zst')
             if len(zst_glob) > 0:
                 # Wine-tkg is .tar.zst
-                tkg_dir = os.path.abspath(os.path.join(install_dir, '../../runners/wine')) if 'lutris/runners' in install_dir else install_dir
+                tkg_dir = self.get_extract_dir(install_dir)
 
                 tkg_archive_name = zst_glob[0]  # Should only ever be 1 really, so assume the first is the zst archive we're looking for
 
@@ -240,6 +240,17 @@ class CtInstaller(QObject):
         self.__set_download_progress_percent(100)
 
         return True
+
+    def get_extract_dir(self, install_dir: str) -> str:
+        """
+        Return the directory to extract TkG archive based on the current launcher
+        Return Type: str
+        """
+
+        if 'lutris/runners' in install_dir:
+            return os.path.abspath(os.path.join(install_dir, '../../runners/wine'))
+        else:
+            return install_dir  # Default to install_dir
 
     def get_info_url(self, version):
         """
