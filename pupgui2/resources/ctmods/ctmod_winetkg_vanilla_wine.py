@@ -16,7 +16,7 @@ class CtInstaller(TKGCtInstaller):
 
     BUFFER_SIZE = 65536
     PROTON_PACKAGE_NAME = 'wine-ubuntu.yml'
-    TKG_EXTRACT_NAME = 'wine_tkg'
+    TKG_EXTRACT_NAME = 'wine-tkg'
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
