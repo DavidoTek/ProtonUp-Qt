@@ -149,7 +149,7 @@ class CtInstaller(QObject):
         for workflow in self.rs.get(f'{self.CT_WORKFLOW_URL}?per_page={str(count)}').json().get("workflows", {}):
             if workflow['state'] != "active" or self.PROTON_PACKAGE_NAME not in workflow['path']:
                 continue
-            tags.extend(str(run['id']) for run in self.rs.get(workflow["url"] + "/runs").json()["workflow_runs"] if run['conclusion'] == "success")
+            tags.extend(str(run['id']) for run in self.rs.get(workflow["url"] + f"/runs?per_page={str(count)}").json()["workflow_runs"] if run['conclusion'] == "success")
 
         return tags
 
