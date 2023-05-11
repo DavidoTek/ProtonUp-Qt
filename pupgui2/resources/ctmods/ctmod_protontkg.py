@@ -144,16 +144,27 @@ class CtInstaller(QObject):
         """
         return True
 
-    def __fetch_workflows(self, count=100):
+    def __fetch_workflows(self, count=30):
         tags = []
         for workflow in self.rs.get(f'{self.CT_WORKFLOW_URL}?per_page={str(count)}').json().get("workflows", {}):
             if workflow['state'] != "active" or self.PROTON_PACKAGE_NAME not in workflow['path']:
                 continue
-            tags.extend(str(run['id']) for run in self.rs.get(workflow["url"] + f"/runs?per_page={str(count)}").json()["workflow_runs"] if run['conclusion'] == "success")
+            page = 1
+            while page != -1 and page < 5:  # fetch more (up to 5 pages) if first releases all failed
+                at_least_one_failed = False  # ensure the reason that len(tags)=0 is that releases failed
+                for run in self.rs.get(workflow["url"] + f"/runs?per_page={str(count)}&page={page}").json()["workflow_runs"]:
+                    if run['conclusion'] == "success":
+                        tags.append(str(run['id']))
+                    elif run['conclusion'] == "failure":
+                        at_least_one_failed = True
+                if len(tags) == 0 and at_least_one_failed:
+                    page += 1
+                else:
+                    page = -1
 
         return tags
 
-    def fetch_releases(self, count=100):
+    def fetch_releases(self, count=30):
         """
         List available releases
         Return Type: str[]
