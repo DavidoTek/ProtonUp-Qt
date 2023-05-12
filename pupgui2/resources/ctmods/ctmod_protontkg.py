@@ -223,10 +223,6 @@ class CtInstaller(QObject):
 
                 with open(temp_archive, 'rb') as tkg_outfile:
                     with tarfile.open(fileobj=tkg_outfile) as tkg_tarfile:
-                        # Ensure tkg_dir doesn't exist before extraction
-                        # Helps duplicate prevention
-                        if os.path.isdir(tkg_dir):
-                            shutil.rmtree(tkg_dir)
                         tkg_tarfile.extractall(tkg_dir)
 
                         # Ensure final extract dir name (actual compat tool dir) based on archive name does not exist before extraction
