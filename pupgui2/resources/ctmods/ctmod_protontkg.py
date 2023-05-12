@@ -16,7 +16,7 @@ from pupgui2.util import ghapi_rlcheck
 
 
 CT_NAME = 'Proton Tkg'
-CT_LAUNCHERS = ['steam']
+CT_LAUNCHERS = ['steam', 'heroicproton']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_protontkg', '''Custom Proton build for running Windows games, built with the Wine-tkg build system.''')}
 
 
@@ -144,16 +144,27 @@ class CtInstaller(QObject):
         """
         return True
 
-    def __fetch_workflows(self, count=100):
+    def __fetch_workflows(self, count=30):
         tags = []
         for workflow in self.rs.get(f'{self.CT_WORKFLOW_URL}?per_page={str(count)}').json().get("workflows", {}):
             if workflow['state'] != "active" or self.PROTON_PACKAGE_NAME not in workflow['path']:
                 continue
-            tags.extend(str(run['id']) for run in self.rs.get(workflow["url"] + "/runs").json()["workflow_runs"] if run['conclusion'] == "success")
+            page = 1
+            while page != -1 and page < 5:  # fetch more (up to 5 pages) if first releases all failed
+                at_least_one_failed = False  # ensure the reason that len(tags)=0 is that releases failed
+                for run in self.rs.get(workflow["url"] + f"/runs?per_page={str(count)}&page={page}").json()["workflow_runs"]:
+                    if run['conclusion'] == "success":
+                        tags.append(str(run['id']))
+                    elif run['conclusion'] == "failure":
+                        at_least_one_failed = True
+                if len(tags) == 0 and at_least_one_failed:
+                    page += 1
+                else:
+                    page = -1
 
         return tags
 
-    def fetch_releases(self, count=100):
+    def fetch_releases(self, count=30):
         """
         List available releases
         Return Type: str[]
@@ -197,7 +208,8 @@ class CtInstaller(QObject):
             zst_glob = glob.glob(f'{install_folder}/*.tar.zst')
             if len(zst_glob) > 0:
                 # Wine-tkg is .tar.zst
-                tkg_dir = os.path.abspath(os.path.join(install_dir, '../../runners/wine'))
+                tkg_dir = self.get_extract_dir(install_dir)
+
                 tkg_archive_name = zst_glob[0]  # Should only ever be 1 really, so assume the first is the zst archive we're looking for
 
                 temp_download = os.path.join(install_folder, tkg_archive_name)
@@ -251,6 +263,17 @@ class CtInstaller(QObject):
         self.__set_download_progress_percent(100)
 
         return True
+
+    def get_extract_dir(self, install_dir: str) -> str:
+        """
+        Return the directory to extract TkG archive based on the current launcher
+        Return Type: str
+        """
+
+        if 'lutris/runners' in install_dir:
+            return os.path.abspath(os.path.join(install_dir, '../../runners/wine'))
+        else:
+            return install_dir  # Default to install_dir
 
     def get_info_url(self, version):
         """
