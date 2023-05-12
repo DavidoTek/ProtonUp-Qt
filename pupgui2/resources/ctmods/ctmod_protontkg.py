@@ -181,12 +181,13 @@ class CtInstaller(QObject):
         if not self.__download(url=data['download'], destination=destination, f_size=data.get("size")):
             return False
 
-        install_folder = f'{install_dir}{self.TKG_EXTRACT_NAME}' + data['version'].lower()
+        # Temp directory to extract archives into
+        install_folder = os.path.join(temp_dir, f'{self.TKG_EXTRACT_NAME}_tmp')
         if os.path.exists(install_folder):
             shutil.rmtree(install_folder)
 
         if '.tar.gz' in destination:
-            tarfile.open(destination, "r:gz").extractall(install_dir)
+            tarfile.open(destination, "r:gz").extractall(install_dir)  # Does this handle dupliactes at all?
         elif '.zip' in destination:
             with ZipFile(destination) as z:
                 os.mkdir(install_folder)
@@ -210,10 +211,19 @@ class CtInstaller(QObject):
 
                 with open(temp_archive, 'rb') as tkg_outfile:
                     with tarfile.open(fileobj=tkg_outfile) as tkg_tarfile:
+                        # Ensure tkg_dir doesn't exist before extraction
+                        # Helps duplicate prevention
+                        if os.path.isdir(tkg_dir):
+                            shutil.rmtree(tkg_dir)
                         tkg_tarfile.extractall(tkg_dir)
-                        final_extract_dir = os.path.dirname(tkg_archive_name)
 
-                        shutil.rmtree(final_extract_dir)  # Remove extracted folder
+                        # Ensure final extract dir name (actual compat tool dir) based on archive name does not exist before extraction
+                        # Helps prevent duplicates 
+                        final_extract_dir = os.path.dirname(tkg_archive_name)
+                        if os.path.isdir(final_extract_dir):
+                            shutil.rmtree(final_extract_dir)
+
+                        shutil.rmtree(final_extract_dir)  # Remove folder we just extracted from
                         os.rename(os.path.join(install_dir, 'usr'), final_extract_dir)  # Rename extracted 'usr' folder to match the .zip file extracted name for consistency / easier removal if redownloading
 
                         # Remove lingering dotfiles
@@ -226,12 +236,14 @@ class CtInstaller(QObject):
                 # Regular .zip for Proton-tkg
                 #
                 # Workaround for artifact .zip archive is actually .tar inside, wtf.
-                f_count = 0
                 for f in glob.glob(f"{install_folder}/*.tar"):
-                    f_count += 1
+                    # Remove archive if it already exists before extracting into real install dir
+                    # Maybe this could be split out into a common method at some point
+                    tar_extract_name = os.path.basename(f)
+                    if os.path.isdir(tar_extract_name):
+                        shutil.rmtree(tar_extract_name)
+
                     tarfile.open(f, "r").extractall(install_dir)
-                if f_count > 0:
-                    shutil.rmtree(install_folder)
         else:
             self.__set_download_progress_percent(-1)
             return False
