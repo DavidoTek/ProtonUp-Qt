@@ -29,7 +29,6 @@ class CtInstaller(QObject):
     CT_ARTIFACT_URL = 'https://api.github.com/repos/Frogging-Family/wine-tkg-git/actions/runs/{}/artifacts'
     CT_INFO_URL_CI = 'https://github.com/Frogging-Family/wine-tkg-git/actions/runs/'
     PROTON_PACKAGE_NAME = 'proton-valvexbe-arch-nopackage'
-    TKG_EXTRACT_NAME = 'proton_tkg'
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
@@ -193,7 +192,7 @@ class CtInstaller(QObject):
             return False
 
         # Temp directory to extract archives into
-        install_folder = os.path.join(temp_dir, f'{self.TKG_EXTRACT_NAME}_tmp')
+        install_folder = os.path.join(temp_dir, f'tkg_extract_tmp')
         if os.path.exists(install_folder):
             shutil.rmtree(install_folder)
 
