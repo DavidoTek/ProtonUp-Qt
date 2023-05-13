@@ -203,7 +203,6 @@ class CtInstaller(QObject):
             with ZipFile(destination) as z:
                 os.mkdir(install_folder)
                 z.extractall(install_folder)
-            
             # Supports both Wine-tkg and Proton-tkg
             zst_glob = glob.glob(f'{install_folder}/*.tar.zst')
             if len(zst_glob) > 0:
@@ -217,22 +216,20 @@ class CtInstaller(QObject):
 
                 # Extract .tar.zst file - Closely mirrors vkd3d-proton ctmod except for extraction logic
                 tkg_decomp = zstandard.ZstdDecompressor()
-
                 with open(temp_download, 'rb') as tkg_infile, open(temp_archive, 'wb') as tkg_outfile:
                     tkg_decomp.copy_stream(tkg_infile, tkg_outfile)
 
                 with open(temp_archive, 'rb') as tkg_outfile:
                     with tarfile.open(fileobj=tkg_outfile) as tkg_tarfile:
-                        tkg_tarfile.extractall(tkg_dir)
+                        tkg_tarfile.extractall(tkg_dir)  # Extract actual archive to current Wine tool dir, this will probably be named `usr` but we rename it to have the actual archive's name below
 
-                        # Ensure final extract dir name (actual compat tool dir) based on archive name does not exist before extraction
-                        # Helps prevent duplicates 
-                        final_extract_dir = os.path.dirname(tkg_archive_name)
-                        if os.path.isdir(final_extract_dir):
-                            shutil.rmtree(final_extract_dir)
+                        # Path should have '.tar.zst'
+                        final_extract_dir = os.path.basename(tkg_archive_name.replace('.tar.zst', ''))
+                        final_extract_path = os.path.join(install_dir, final_extract_dir)  # Path that the extracted folder will have after it is renamed from 'usr' to something matching the archive name
 
-                        shutil.rmtree(final_extract_dir)  # Remove folder we just extracted from
-                        os.rename(os.path.join(install_dir, 'usr'), final_extract_dir)  # Rename extracted 'usr' folder to match the .zip file extracted name for consistency / easier removal if redownloading
+                        if os.path.isdir(final_extract_path):  # Ensure this folder does not exist before we rename the extracted archive
+                            shutil.rmtree(final_extract_path)
+                        os.rename(os.path.join(install_dir, 'usr'), final_extract_path)  # Rename extracted 'usr' folder to match the .zip file extracted name for consistency / easier removal if redownloading
 
                         # Remove lingering dotfiles
                         remove_extractfiles = [ '.BUILDINFO', '.INSTALL', '.MTREE', '.PKGINFO' ]
@@ -242,14 +239,12 @@ class CtInstaller(QObject):
                                 os.remove(rmfile_fullpath)
             else:
                 # Regular .zip for Proton-tkg
-                #
-                # Workaround for artifact .zip archive is actually .tar inside, wtf.
                 for f in glob.glob(f"{install_folder}/*.tar"):
                     # Remove archive if it already exists before extracting into real install dir
-                    # Maybe this could be split out into a common method at some point
-                    tar_extract_name = os.path.basename(f)
-                    if os.path.isdir(tar_extract_name):
-                        shutil.rmtree(tar_extract_name)
+                    tar_extract_path = os.path.join(install_dir, os.path.basename(f).replace('.tar', ''))
+                    print(f'tar extract path is {tar_extract_path}')
+                    if os.path.isdir(tar_extract_path):
+                        shutil.rmtree(tar_extract_path)
 
                     tarfile.open(f, "r").extractall(install_dir)
         else:
