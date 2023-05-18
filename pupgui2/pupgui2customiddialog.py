@@ -82,6 +82,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         dialog = QFileDialog(self.ui)
         dialog.setFileMode(QFileDialog.Directory)
         dialog.setOption(QFileDialog.ShowDirsOnly)
+        dialog.setWindowTitle(self.tr('Select Custom Install Directory — ProtonUp-Qt'))
         dialog.setDirectory(os.path.expanduser('~'))
         dialog.fileSelected.connect(self.ui.txtInstallDirectory.setText)
         dialog.open()
