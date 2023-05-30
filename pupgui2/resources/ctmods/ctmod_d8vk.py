@@ -167,7 +167,7 @@ class CtInstaller(QObject):
         """
 
         if 'lutris/runners' in install_dir:
-            return os.path.abspath(os.path.join(install_dir, '../../runners/wine'))
+            return os.path.abspath(os.path.join(install_dir, '../../runtime/dxvk'))
         if 'heroic/tools' in install_dir:
             return os.path.abspath(os.path.join(install_dir, '../dxvk'))
         else:
