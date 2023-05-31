@@ -13,7 +13,7 @@ from pupgui2.util import ghapi_rlcheck
 
 
 CT_NAME = 'D8VK (nightly)'
-CT_LAUNCHERS = ['lutris', 'advmode']
+CT_LAUNCHERS = ['lutris', 'heroicwine', 'heroicproton', 'advmode']
 CT_DESCRIPTION = {}
 CT_DESCRIPTION['en'] = QCoreApplication.instance().translate('ctmod_d8vk', '''Vulkan-based implementation of Direct3D 8/9/10/11 (Nightly).<br/><br/><b>Warning: Nightly version is unstable, use with caution!</b>''')
 
@@ -135,7 +135,7 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        dxvk_dir = os.path.join(install_dir, '../../runtime/dxvk')
+        dxvk_dir = self.get_extract_dir(install_dir)
         dxvk_install_dir = os.path.join(dxvk_dir, 'd8vk-git-' + data['version'])
         destination = temp_dir
         destination += data['download'].split('/')[-1]
@@ -159,3 +159,16 @@ class CtInstaller(QObject):
         Return Type: str
         """
         return self.CT_INFO_URL + version
+
+    def get_extract_dir(self, install_dir: str) -> str:
+        """
+        Return the directory to extract D8VK archive based on the current launcher
+        Return Type: str
+        """
+
+        if 'lutris/runners' in install_dir:
+            return os.path.abspath(os.path.join(install_dir, '../../runtime/dxvk'))
+        if 'heroic/tools' in install_dir:
+            return os.path.abspath(os.path.join(install_dir, '../dxvk'))
+        else:
+            return install_dir  # Default to install_dir
