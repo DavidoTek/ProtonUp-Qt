@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/ctloader.py" line="55"/>
         <source>Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler!</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="57"/>
@@ -14,7 +14,10 @@
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte folgende Kompatibilitätstools nicht laden:
+{TOOL_LIST}
+
+Sollte dies ein Fehler sein, bitte einen GitHub Issue erstellen!</translation>
     </message>
 </context>
 <context>
@@ -27,7 +30,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="268"/>
         <source>Unused: {unused_ctools}</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbenutzt: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="291"/>
@@ -136,7 +139,7 @@ Abbrechen und beenden?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefinierten Installationsort...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="92"/>
@@ -189,42 +192,42 @@ Abbrechen und beenden?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="44"/>
         <source>Specify a custom location for downloading and displaying a launcher&apos;s compatibility tools.</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefinierten Ort angeben, um Kompatibilitätstools zu laden und anzuzeigen.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="56"/>
         <source>Directory:</source>
-        <translation type="unfinished">Ordner:</translation>
+        <translation>Ordner:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="66"/>
         <source>Launcher:</source>
-        <translation type="unfinished">Launcher:</translation>
+        <translation>Launcher:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="87"/>
         <source>Reset the custom install directory back to default for this launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefinierten Installationsort zurücksetzen</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="90"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="113"/>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="120"/>
         <source>Close</source>
-        <translation type="unfinished">Schließen</translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -273,7 +276,7 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="124"/>
         <source>Added shortcut!</source>
-        <translation type="unfinished"></translation>
+        <translation>Verknüpfung hinzugefügt!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="14"/>
@@ -309,12 +312,13 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt eine Verknüpfung zu ProtonUp-Qt zur Steam Bibliothek hinzu.
+Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel entfernen&quot;.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="174"/>
         <source>Add Steam shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Steam Shortcut</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="181"/>
@@ -380,12 +384,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="106"/>
         <source>Refresh Games</source>
-        <translation type="unfinished"></translation>
+        <translation>Spiele erneuern</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="120"/>
         <source>Search games...</source>
-        <translation type="unfinished"></translation>
+        <translation>Suche Spiele...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="180"/>
@@ -395,12 +399,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="187"/>
         <source>e.g. Half-Life 3</source>
-        <translation type="unfinished"></translation>
+        <translation>z.B. Half-Life 3</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="190"/>
         <source>Search for a game...</source>
-        <translation type="unfinished"></translation>
+        <translation>Suche nach einem Spiel...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="213"/>
@@ -426,12 +430,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="110"/>
         <source>Runner</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="110"/>
         <source>Game</source>
-        <translation type="unfinished">Spiel</translation>
+        <translation>Spiel</translation>
     </message>
 </context>
 <context>
@@ -444,7 +448,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="85"/>
         <source>Select Custom Install Directory — ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle einen benutzerdefinierten Ordner — ProtonUp-Qt</translation>
     </message>
     <message>
         <source>Save</source>
@@ -492,18 +496,18 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="89"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="99"/>
         <source>Runner</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="89"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="99"/>
         <source>Install Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Installationsort</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="89"/>
         <source>Installed Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Installationsdatum</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="140"/>
@@ -519,55 +523,57 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="210"/>
         <source>Installed at {DATE} ({TIME})</source>
-        <translation type="unfinished"></translation>
+        <translation>Installiert am {DATE} ({TIME})</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="244"/>
         <source>Name: {compat_item_text}</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="246"/>
         <source>
 Path: {compat_tool_bin_path}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Pfad: {compat_tool_bin_path}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="250"/>
         <source>
 Type: {wine_type}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Typ: {wine_type}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="253"/>
         <source>Native</source>
-        <translation type="unfinished"></translation>
+        <translation>Nativ</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="255"/>
         <source>Type: Native</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ: Nativ</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="291"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="291"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="105"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Suchen</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="354"/>
         <source>Double click to browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Doppelklick zum wählen...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="357"/>
         <source>Install location does not exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>Installationsort existiert nicht!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="398"/>
@@ -612,12 +618,12 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="60"/>
         <source>Game List for {LAUNCHER}</source>
-        <translation type="unfinished"></translation>
+        <translation>Spieleliste für {LAUNCHER}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="63"/>
         <source>Installed games: {NO_INSTALLED}</source>
-        <translation type="unfinished"></translation>
+        <translation>Installierte Spiele: {NO_INSTALLED}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="373"/>
@@ -666,17 +672,17 @@ Entwicklung: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="68"/>
         <source>e.g. Team Fortress 2</source>
-        <translation type="unfinished"></translation>
+        <translation>z.B. Team Fortress 2</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="71"/>
         <source>Search for a game...</source>
-        <translation type="unfinished"></translation>
+        <translation>Suche nach Spiel...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="91"/>
         <source>Refresh Games</source>
-        <translation type="unfinished"></translation>
+        <translation>Erneuere Spiele</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
@@ -833,7 +839,10 @@ Entwicklung: {trending}</translation>
 &lt;br/&gt;
 &lt;br/&gt;
 This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigener Proton Build für Windows-Spiele, erstellt mit dem Wine-Tkg Buildsystem.
+&lt;br/&gt;
+&lt;br/&gt;
+Basierend auf &lt;b&gt;Wine Master&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -903,7 +912,8 @@ More information is available on the SteamTinkerLaunch Installation wiki page.
 &lt;br/&gt;&lt;br/&gt;
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
 of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
-        <translation>Linux Werkzeug für den Steam Client, welches einfache Konfiguration für Spielwerkzeuge für Proton- und native Spiele erlaubt.
+        <translation>
+Linux Werkzeug für den Steam Client, welches einfache Konfiguration für Spielwerkzeuge für Proton- und native Spiele erlaubt.
 &lt;br/&gt;&lt;br/&gt;
 Auf dem &lt;b&gt;Steam Deck&lt;/b&gt; werden relevante Abhängigkeiten automatisch installiert. Am PC müssen &lt;b&gt;folgende Abhängigkeiten manuell installiert werden&lt;/b&gt;:
 &lt;ul&gt;
@@ -963,7 +973,7 @@ You may also choose to remove your existing installation, if ProtonUp-Qt has wri
 
 Eine Neuinstallation mit ProtonUp-Qt wird den Installationsordner nach &apos;{STL_INSTALL_PATH}&apos; verschieben.
 
-Sie können die vorhandene Installation entfernen, falls ProtonUp-Qt Schreibzugriff auf diesen Ordner hat. Möchten Sie mit der Installation von SteamTinkerLaunch fortfahren? (Ihre SteamTinkerLaunch Konfiguraiton wird nicht beeinträchtigt).</translation>
+Sie können die vorhandene Installation entfernen, falls ProtonUp-Qt Schreibzugriff auf diesen Ordner hat. Möchten Sie mit der Installation von SteamTinkerLaunch fortfahren? (Ihre SteamTinkerLaunch Konfiguraiton wird nicht beeinträchtigt.)</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="236"/>
@@ -1018,7 +1028,8 @@ More information is available on the SteamTinkerLaunch Installation wiki page.
 &lt;br/&gt;&lt;br/&gt;
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
 of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
-        <translation>Git Veröffentlichung - Könnte instabil sein!
+        <translation>
+Git Veröffentlichung - Könnte instabil sein!
 
 Linux Werkzeug für den Steam Client, welches einfache Konfiguration für Spielwerkzeuge für Proton- und native Spiele erlaubt.
 &lt;br/&gt;&lt;br/&gt;
@@ -1063,7 +1074,7 @@ SteamTinkerLaunch hat einige &lt;b&gt;optionale Abhängigkeiten&lt;/b&gt;, welch
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigener Wine Build für Windows-Spiele, erstellt mit dem Wine-Tkg Buildsystem.</translation>
     </message>
 </context>
 <context>
@@ -1071,7 +1082,7 @@ SteamTinkerLaunch hat einige &lt;b&gt;optionale Abhängigkeiten&lt;/b&gt;, welch
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_vanilla_wine.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigener Wine Build für Windows-Spiele, erstellt mit dem Wine-Tkg Buildsystem.</translation>
     </message>
 </context>
 <context>
