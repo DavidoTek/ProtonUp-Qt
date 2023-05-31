@@ -46,13 +46,13 @@
     <message>
         <location filename="../pupgui2/pupgui2.py" line="294"/>
         <source>Remove compatibility tools?</source>
-        <translation>Rimuovere gli strumenti di compatibilità?</translation>
+        <translation>Rimuovere i tool di compatibilità?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="294"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
-        <translation>Stai cercando di rimuovere gli strumenti di compatibilità
+        <translation>Stai cercando di rimuovere i tool di compatibilità
 utilizzati da {n} giochi. Continuare?</translation>
     </message>
     <message>
@@ -120,7 +120,7 @@ Annullare e uscire comunque?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="98"/>
         <source>Installed compatibility tools:</source>
-        <translation>Strumenti di compatibilità installati:</translation>
+        <translation>Tool di compatibilità installati:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="114"/>
@@ -135,7 +135,7 @@ Annullare e uscire comunque?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="128"/>
         <source>Show info</source>
-        <translation>Mostra informazioni</translation>
+        <translation>Mostra info</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="165"/>
@@ -150,7 +150,7 @@ Annullare e uscire comunque?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="179"/>
         <source>About</source>
-        <translation type="unfinished">Info</translation>
+        <translation>Info</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="186"/>
@@ -209,7 +209,7 @@ Stai utilizzando {APP_VERSION} ma è disponibile la versione {newest_version}.</
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI per installare/aggiornare strumenti di compatibilità basati su Wine e Proton.&lt;br/&gt;Ispirato da/in parte basato su protonup di AUNaseef&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI per installare/aggiornare i tool di compatibilità basati su Wine e Proton.&lt;br/&gt;Ispirato da/in parte basato su protonup di AUNaseef&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
@@ -248,7 +248,7 @@ Stai utilizzando {APP_VERSION} ma è disponibile la versione {newest_version}.</
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="22"/>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="27"/>
         <source>Batch update</source>
-        <translation type="unfinished">Aggiornamento per lotto</translation>
+        <translation>Aggiorna in lotto</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="28"/>
@@ -295,7 +295,7 @@ Stai utilizzando {APP_VERSION} ma è disponibile la versione {newest_version}.</
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="149"/>
         <source>Batch update</source>
-        <translation type="unfinished">Aggiornamenti per lotti</translation>
+        <translation>Aggiorna in lotto</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="169"/>
@@ -305,7 +305,7 @@ Stai utilizzando {APP_VERSION} ma è disponibile la versione {newest_version}.</
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="66"/>
         <source>AppID</source>
-        <translation type="unfinished"></translation>
+        <translation>AppID</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="66"/>
@@ -373,7 +373,7 @@ Stai utilizzando {APP_VERSION} ma è disponibile la versione {newest_version}.</
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="91"/>
         <source>click</source>
-        <translation type="unfinished"></translation>
+        <translation>clicca</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="100"/>
@@ -450,7 +450,9 @@ Stai utilizzando {APP_VERSION} ma è disponibile la versione {newest_version}.</
         <source>Confidence: {confidence}
 Score: {score}
 Trending: {trending}</source>
-        <translation type="unfinished"></translation>
+        <translation>Confidenza: {confidence}
+Punteggio: {score}
+Tendenza: {trending}</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
@@ -515,7 +517,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="21"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Tool di compatibilità Steam per eseguire giochi Windows con miglioramenti rispetto a Proton predefinito di Valve.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Usalo quando non sai cosa scegliere.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -523,7 +525,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00winege.py" line="21"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Based on Valve Proton Experimental&apos;s bleeding-edge Wine, built for Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Tool di compatibilità &quot;Wine&quot; per eseguire giochi Windows su Linux. Basato su Wine bleeding-edge di Valve Proton Experimental, creato per Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Usalo quando non sai cosa scegliere.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -531,7 +533,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="22"/>
         <source>Steam Play compatibility tool to run DOS games using native Linux DOSBox.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tool di compatibilità Steam Play per eseguire giochi DOS utilizzando DOSBox nativo Linux.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="106"/>
@@ -564,7 +566,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_d8vk.py" line="21"/>
         <source>Vulkan-based implementation of Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Implementazione basata su Vulkan di Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Attenzione: La versione Nightly è instabile, usare con cautela!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -572,7 +574,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_kron4ekvanilla.py" line="21"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tool di compatibilità &quot;Wine&quot; per eseguire giochi Windows su Linux. Versione ufficiale da WineHQ, compilata da Kron4ek.</translation>
     </message>
 </context>
 <context>
@@ -580,7 +582,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="21"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tool di compatibilità &quot;Wine&quot; per eseguire giochi Windows su Linux. Migliorato da Lutris per offrire migliore compatibilità o prestazioni in alcuni giochi.</translation>
     </message>
 </context>
 <context>
@@ -588,7 +590,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="20"/>
         <source>Luxtorpeda provides Linux-native game engines for specific Windows-only games.</source>
-        <translation type="unfinished"></translation>
+        <translation>Luxtorpeda fornisce motori di gioco nativi Linux per giochi specifici disponibili solo su Windows.</translation>
     </message>
 </context>
 <context>
@@ -596,7 +598,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="20"/>
         <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Build di Proton basata su proton-tkg di TKG per eseguire il Northstar client + TitanFall 2. Di cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Leggi quanto segue prima di procedere&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -604,7 +606,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="22"/>
         <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Versione personalizzata di Proton per eseguire giochi Windows, realizzata con il sistema di build di Wine-tkg.</translation>
     </message>
 </context>
 <context>
@@ -612,7 +614,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="22"/>
         <source>Steam Play compatibility tool to run adventure games using native Linux ScummVM.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tool di compatibilità Steam Play per eseguire giochi di avventura utilizzando ScummVM nativo Linux.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="106"/>
@@ -645,7 +647,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="18"/>
         <source>Run Linux games as is, even if Valve recommends Proton for a game.&lt;br/&gt;Created by Scrumplex.&lt;br/&gt;&lt;br/&gt;Useful for Steam Deck.&lt;br/&gt;&lt;br/&gt;Note: The internal name has been changed from &lt;b&gt;none&lt;/b&gt; to &lt;b&gt;Steam-Play-None&lt;/b&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Esegui giochi Linux così come sono, anche se Valve consiglia Proton per un gioco.&lt;br/&gt;Creato da Scrumplex.&lt;br/&gt;&lt;br/&gt;Utile per Steam Deck.&lt;br/&gt;&lt;br/&gt;Nota: Il nome interno è stato cambiato da &lt;b&gt;none&lt;/b&gt; a &lt;b&gt;Steam-Play-None&lt;/b&gt;!</translation>
     </message>
 </context>
 <context>
@@ -674,7 +676,28 @@ More information is available on the SteamTinkerLaunch Installation wiki page.
 &lt;br/&gt;&lt;br/&gt;
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
 of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Tool wrapper Linux per il client Steam che consente una facile configurazione grafica dei tool di gioco per Proton o per i giochi nativi Linux.
+&lt;br/&gt;&lt;br/&gt;
+Su &lt;b&gt;Steam Deck&lt;/b&gt;, le dipendeze rilevanti saranno installate per te. Se non sei su Steam Deck, &lt;b&gt;assicurati di avere queste dipendenze installate&lt;/b&gt;:
+&lt;ul&gt;
+  &lt;li&gt;awk (o gawk)&lt;/li&gt;
+  &lt;li&gt;bash&lt;/li&gt;
+  &lt;li&gt;git&lt;/li&gt;
+  &lt;li&gt;pgrep&lt;/li&gt;
+  &lt;li&gt;unzip&lt;/li&gt;
+  &lt;li&gt;wget&lt;/li&gt;
+  &lt;li&gt;xdotool&lt;/li&gt;
+  &lt;li&gt;xprop&lt;/li&gt;
+  &lt;li&gt;xrandr&lt;/li&gt;
+  &lt;li&gt;xwininfo&lt;/li&gt;
+  &lt;li&gt;xxd&lt;/li&gt;
+  &lt;li&gt;Yad &gt;= &lt;b&gt;v7.2&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+Altre informazioni sono disponibili sulla pagina wiki d&apos;Installatione di SteamTinkerLaunch.
+&lt;br/&gt;&lt;br/&gt;
+SteamTinkerLaunch ha alcune &lt;b&gt;Dipendenze Opzionali&lt;/b&gt; che devono essere installate separatamente per funzionalità extra. Si prega di consultare la sezione Dipendenze Opzionali della
+guida d&apos;Installazione di SteamTinkerLaunch sulla loro pagina GitHub..</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="200"/>
@@ -725,19 +748,21 @@ Puoi anche scegliere di rimuovere l&apos;installazione esistente, se ProtonUp-Qt
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="345"/>
         <source>Add SteamTinkerLaunch to PATH</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi SteamTinkerLaunch al PATH</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="346"/>
         <source>By default, ProtonUp-Qt will add SteamTinkerLaunch to all available Shell paths. This makes it easier to use with native Linux games. It also enables SteamTinkerLaunch commands from anywhere in the command line.
 
 Some users may not want this functionality. Do you want to continue installing SteamTinkerLaunch?</source>
-        <translation type="unfinished"></translation>
+        <translation>Di predefinito, ProtonUp-Qt aggiungerà SteamTinkerLaunch a tutti i percorsi Shell disponibili. Ciò rende più facile l&apos;uso con i giochi nativi Linux. Consente inoltre di eseguire i comandi SteamTinkerLaunch da qualsiasi punto da riga di comando.
+
+Alcuni utenti potrebbero non desiderare questa funzionalità. Vuoi continuare l&apos;installazione di SteamTinkerLaunch?</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="347"/>
         <source>Allow PATH modification</source>
-        <translation type="unfinished"></translation>
+        <translation>Consenti la modifica del PATH</translation>
     </message>
 </context>
 <context>
@@ -768,7 +793,30 @@ More information is available on the SteamTinkerLaunch Installation wiki page.
 &lt;br/&gt;&lt;br/&gt;
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
 of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
-        <translation type="unfinished"></translation>
+        <translation>
+&lt;b&gt;Release git - Potrebbe essere instabile&lt;/b&gt;
+&lt;br/&gt;&lt;br/&gt;
+Tool wrapper Linux per il client Steam che consente una facile configurazione grafica dei tool di gioco per Proton o per i giochi nativi Linux.
+&lt;br/&gt;&lt;br/&gt;
+Su &lt;b&gt;Steam Deck&lt;/b&gt;, le dipendeze rilevanti saranno installate per te. Se non sei su Steam Deck, &lt;b&gt;assicurati di avere queste dipendenze installate&lt;/b&gt;:
+&lt;ul&gt;
+  &lt;li&gt;awk (o gawk)&lt;/li&gt;
+  &lt;li&gt;bash&lt;/li&gt;
+  &lt;li&gt;git&lt;/li&gt;
+  &lt;li&gt;pgrep&lt;/li&gt;
+  &lt;li&gt;unzip&lt;/li&gt;
+  &lt;li&gt;wget&lt;/li&gt;
+  &lt;li&gt;xdotool&lt;/li&gt;
+  &lt;li&gt;xprop&lt;/li&gt;
+  &lt;li&gt;xrandr&lt;/li&gt;
+  &lt;li&gt;xwininfo&lt;/li&gt;
+  &lt;li&gt;xxd&lt;/li&gt;
+  &lt;li&gt;Yad &gt;= &lt;b&gt;v7.2&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+Altre informazioni sono disponibili sulla pagina wiki d&apos;Installatione di SteamTinkerLaunch.
+&lt;br/&gt;&lt;br/&gt;
+SteamTinkerLaunch ha alcune &lt;b&gt;Dipendenze Opzionali&lt;/b&gt; che devono essere installate separatamente per funzionalità extra. Si prega di consultare la sezione Dipendenze Opzionali della
+guida d&apos;Installazione di SteamTinkerLaunch sulla loro pagina GitHub..</translation>
     </message>
 </context>
 <context>
@@ -776,7 +824,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dlutris.py" line="19"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Lutris Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Fork di VKD3D di Wine che mira a implementare l&apos;intera API Direct3D 12 su Vulkan (Release di Lutris).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -784,7 +832,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dproton.py" line="20"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Valve Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Fork di VKD3D di Wine che mira a implementare l&apos;intera API Direct3D 12 su Vulkan (Release di Valve).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -792,7 +840,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="19"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Implementazione basata su Vulkan di Direct3D 9, 10 e 11 per Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -800,7 +848,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="20"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Implementazione basata su Vulkan di Direct3D 9, 10 e 11 per Linux/Wine con patch async di Sporif.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Attenzione: Usa solo sui giochi in giocatore singolo!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -808,7 +856,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="20"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Versione Nightly di DXVK (branch master), un&apos;implementazione basata su Vulkan di Direct3D 9, 10 e 11 per Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Attenzione: La versione Nightly è instabile, usare con cautela!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -841,7 +889,7 @@ La disinstallazione proseguirà.</translation>
     <message>
         <location filename="../pupgui2/util.py" line="250"/>
         <source>Delete SteamTinkerLaunch configuration</source>
-        <translation type="unfinished">Cancella configurazione SteamTinkerLaunch</translation>
+        <translation>Cancella configurazione SteamTinkerLaunch</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="251"/>
@@ -852,19 +900,22 @@ La disinstallazione proseguirà.</translation>
         <location filename="../pupgui2/util.py" line="252"/>
         <source>SteamTinkerLaunch will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove SteamTinkerLaunch.
 Do you want the configuration to be removed?</source>
-        <translation type="unfinished"></translation>
+        <translation>SteamTinkerLaunch verrà rimosso dal tuo sistema. Se questo tool è stato installato con ProtonUp-Qt, verrà aggiornato anche il tuo PATH per rimuovere SteamTinkerLaunch.
+Vuoi che la configurazione venga rimossa?</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="399"/>
         <source>Warning: GitHub API rate limit exceeded!</source>
-        <translation type="unfinished"></translation>
+        <translation>Attenzione: Superato il limite di velocità delle API di GitHub!</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="400"/>
         <source>GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.
 
 See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite di velocità delle API di GitHub superato. Potrebbe essere necessario attendere un po&apos; o specificare una chiave API GitHub se ne avete una.
+
+Vedi https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 per altri detagli.</translation>
     </message>
 </context>
 </TS>
