@@ -3,14 +3,11 @@
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-import shutil
-import tarfile
 import requests
-import zstandard
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import ghapi_rlcheck, extract_tar_zst
 
 
 CT_NAME = 'vkd3d-proton'
@@ -118,26 +115,13 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        vkd3d_dir = os.path.abspath(os.path.join(install_dir, '../../runtime/vkd3d'))
-
-        temp_download = os.path.join(temp_dir, data['download'].split('/')[-1])  # e.g. /tmp/[...]/vkd3d-proton-2.7.tar.zst
-        temp_archive = temp_download.replace('.zst', '')  # e.g. /tmp/[...]/vkd3d-proton-2.7.tar
-
-        if not self.__download(url=data['download'], destination=temp_download):
+        vkd3d_zst_archive = os.path.join(temp_dir, data['download'].split('/')[-1])  # e.g. /tmp/[...]/vkd3d-proton-2.7.tar.zst
+        if not self.__download(url=data['download'], destination=vkd3d_zst_archive):
             return False
 
-        if os.path.exists(f'{vkd3d_dir}vkd3d-proton-{data["version"].lower()}'):
-            shutil.rmtree(f'{vkd3d_dir}vkd3d-proton-{data["version"].lower()}')
-
-        # Extract .tar.zst file - Very convoluted, there is an open request to add support for this to Python tarfile: https://bugs.python.org/issue37095
-        vkd3d_decomp = zstandard.ZstdDecompressor()
-
-        with open(temp_download, 'rb') as vkd3d_infile, open(temp_archive, 'wb') as vkd3d_outfile:
-            vkd3d_decomp.copy_stream(vkd3d_infile, vkd3d_outfile)
-
-        with open(temp_archive, 'rb') as vkd3d_outfile:
-            with tarfile.open(fileobj=vkd3d_outfile) as vkd3d_tarfile:
-                vkd3d_tarfile.extractall(vkd3d_dir)
+        vkd3d_dir = os.path.abspath(os.path.join(install_dir, '../../runtime/vkd3d'))
+        if not extract_tar_zst(vkd3d_zst_archive, vkd3d_dir):
+            return False
 
         self.__set_download_progress_percent(100)
 
