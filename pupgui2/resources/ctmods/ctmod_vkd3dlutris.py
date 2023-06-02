@@ -7,7 +7,7 @@ import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck, remove_if_exists, extract_tar
+from pupgui2.util import ghapi_rlcheck, extract_tar
 
 
 CT_NAME = 'vkd3d-lutris'

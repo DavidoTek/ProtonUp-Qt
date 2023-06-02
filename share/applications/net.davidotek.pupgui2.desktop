@@ -4,6 +4,7 @@ Exec=net.davidotek.pupgui2
 Type=Application
 Comment=Install Wine and Proton-based Compatibility Tools
 Comment[de]=Wine und Proton Kompatibilitätstools installieren
+Comment[it]=Installa tool di compatibilità basati su Wine e Proton
 Comment[nl]=Installeer op Wine en Proton gebaseerde compatibiliteitshulpmiddelen
 Comment[pl]=Zainstaluj narzędzia kompatybilności oparte na Wine i Protonie
 Terminal=false

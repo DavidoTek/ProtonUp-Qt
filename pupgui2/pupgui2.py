@@ -236,6 +236,12 @@ class MainWindow(QObject):
             heroic_game_list = get_heroic_game_list(heroic_dir)
             for ct in self.compat_tool_index_map:
                 ct.no_games = len([game for game in heroic_game_list if game.is_installed and ct.displayname in game.wine_info.get('name', '')])
+            
+            # Get DXVK/VKD3D installs for Heroic
+            dxvk_dir = os.path.join(install_directory(), '../dxvk')
+            vkd3d_dir = os.path.join(install_directory(), '../vkd3d')
+            self.get_installed_versions('dxvk', dxvk_dir)
+            self.get_installed_versions('vkd3d', vkd3d_dir)
 
         for ct in self.compat_tool_index_map:
             self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused')))

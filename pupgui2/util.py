@@ -528,8 +528,9 @@ def remove_if_exists(path: str):
     except OSError as e:
         print(f'Could not remove folder at {path}: {e}')
 
-## Extraction utility methods
-## TODO return boolean values like __download for success/fail extraction
+
+## Extraction utility methods ##
+
 
 def extract_paths_exist(archive_path: str, extract_path: str) -> bool:
 

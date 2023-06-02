@@ -5,6 +5,7 @@
   <name>ProtonUp-Qt</name>
   <summary>Install Wine- and Proton-based compatibility tools</summary>
   <summary xml:lang="de_DE">Wine und Proton Kompatibilitätstools installieren</summary>
+  <summary xml:lang="it_IT">Installa tool di compatibilità basati su Wine e Proton</summary>
   <summary xml:lang="nl_NL">Installeer op Wine en Proton gebaseerde compatibiliteitshulpmiddelen</summary>
   <summary xml:lang="pl_PL">Zainstaluj narzędzia kompatybilności oparte na Wine i Protonie</summary>
   <summary xml:lang="zh_TW">安裝基於 Win 和 Proton 的相容工具</summary>
