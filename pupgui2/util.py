@@ -526,7 +526,7 @@ def remove_if_exists(path: str):
             elif os.path.isdir(path):
                 shutil.rmtree(path)
     except OSError as e:
-        print(f'Could not remove folder at {path}: {e}')
+        print(f'Could not remove item at {path}: {e}')
 
 
 ## Extraction utility methods ##
@@ -544,9 +544,9 @@ def extract_paths_exist(archive_path: str, extract_path: str) -> bool:
     extract_path_exists: bool = os.path.isdir(os.path.dirname(extract_path))  # Full path may not exist as this may be created during extraction
 
     if not archive_path_exists:
-        print('Archive file does not exist!')
+        print(f'Archive file does not exist: {archive_path}')
     if not extract_path_exists:
-        print('Extract path does not exist!')
+        print(f'Extract path does not exist: {extract_path}')
     
     return archive_path_exists and extract_path_exists
 
@@ -574,7 +574,7 @@ def extract_zip(zip_path: str, extract_path: str) -> bool:
     return False
 
 
-def extract_tar(tar_path: str, extract_path: str, mode: str = 'rb') -> bool:
+def extract_tar(tar_path: str, extract_path: str, mode: str = 'r') -> bool:
 
     """
     Extracts a Tar archive at tar_path to extract_path using tarfile. Returns True if tar extracts successfully, otherwise False.

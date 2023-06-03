@@ -84,7 +84,6 @@ class CtInstaller(QObject):
         """
         steam_play_none_tar = os.path.join(temp_dir, 'main.tar.gz')
         dl_url = self.CT_URL
-        # protondir = os.path.join(install_dir, 'Steam-Play-None-main')
 
         if not self.__download(url=dl_url, destination=steam_play_none_tar):
             return False
