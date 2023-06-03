@@ -9,7 +9,7 @@ import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import ghapi_rlcheck, extract_tar
 
 
 CT_NAME = 'Luxtorpeda'
@@ -118,23 +118,16 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        protondir = f'{install_dir}luxtorpeda'
-
-        destination = temp_dir
-        destination += data['download'].split('/')[-1]
-        destination = destination
-
-        if not self.__download(url=data['download'], destination=destination):
+        luxtorpeda_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
+        if not self.__download(url=data['download'], destination=luxtorpeda_tar):
             return False
 
-        if os.path.exists(protondir):
-            shutil.rmtree(protondir)
-        tarfile.open(destination, "r:xz").extractall(install_dir)
+        luxtorpeda_dir = os.path.join(install_dir, 'luxtorpeda')
+        if not extract_tar(luxtorpeda_tar, install_dir, mode='r:xz'):
+            return False
 
-        if os.path.exists(protondir):
-            with open(os.path.join(protondir, 'VERSION.txt'), 'w') as f:
-                f.write(version)
-                f.write('\n')
+        with open(os.path.join(luxtorpeda_dir, 'VERSION.txt'), 'w') as f:
+            f.write(f'{version}\n')
 
         self.__set_download_progress_percent(100)
 
