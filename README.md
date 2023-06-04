@@ -34,6 +34,8 @@ https://aur.archlinux.org/packages/protonup-qt-bin (Maintained by R1yuu)
 `appimage-builder`
 
 ## Translate ProtonUp-Qt
+**Recommended: You can translate ProtonUp-Qt on Weblate: https://hosted.weblate.org/projects/protonup-qt/**
+
 1. Generate an empty translation file *or* copy a template from [here](https://github.com/DavidoTek/ProtonUp-Qt/blob/main/i18n/pupgui2_de.ts).
 2. Install [Qt Linguist](https://flathub.org/apps/details/io.qt.Linguist) (alternatively: edit the **.ts** file using a text editor).
 3. Open the translation file (.ts) with Qt Linguist and translate the app.
