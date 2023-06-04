@@ -1029,8 +1029,8 @@ More information is available on the SteamTinkerLaunch Installation wiki page.
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
 of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
         <translation>
-Git Veröffentlichung - Könnte instabil sein!
-
+&lt;b&gt;Git Veröffentlichung - Könnte instabil sein!&lt;/b&gt;
+&lt;br/&gt;&lt;br/&gt;
 Linux Werkzeug für den Steam Client, welches einfache Konfiguration für Spielwerkzeuge für Proton- und native Spiele erlaubt.
 &lt;br/&gt;&lt;br/&gt;
 Auf dem &lt;b&gt;Steam Deck&lt;/b&gt; werden relevante Abhängigkeiten automatisch installiert. Am PC müssen &lt;b&gt;folgende Abhängigkeiten manuell installiert werden&lt;/b&gt;:
