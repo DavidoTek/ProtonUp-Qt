@@ -529,6 +529,16 @@ def remove_if_exists(path: str):
         print(f'Could not remove item at {path}: {e}')
 
 
+def write_tool_version(tool_dir: str, version: str):
+
+    """
+    Write the version of a tool to a VERSION.txt in tool_dir.
+    """
+
+    with open(os.path.join(tool_dir, 'VERSION.txt'), 'w') as f:
+        f.write(f'{version}\n')
+
+
 ## Extraction utility methods ##
 
 

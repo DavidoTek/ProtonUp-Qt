@@ -9,7 +9,7 @@ import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck, extract_tar
+from pupgui2.util import ghapi_rlcheck, extract_tar, write_tool_version
 
 
 CT_NAME = 'Luxtorpeda'
@@ -125,9 +125,7 @@ class CtInstaller(QObject):
         luxtorpeda_dir = os.path.join(install_dir, 'luxtorpeda')
         if not extract_tar(luxtorpeda_tar, install_dir, mode='xz'):
             return False
-
-        with open(os.path.join(luxtorpeda_dir, 'VERSION.txt'), 'w') as f:
-            f.write(f'{version}\n')
+        write_tool_version(luxtorpeda_dir, version)
 
         self.__set_download_progress_percent(100)
 
