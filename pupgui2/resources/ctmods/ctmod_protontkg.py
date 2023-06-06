@@ -200,7 +200,7 @@ class CtInstaller(QObject):
 
         # Extract tool
         if tkg_archive.endswith('.tar.gz'):  # Legacy archives from GitHub releases
-            if not extract_tar(tkg_archive, install_dir, mode='r:gz'):
+            if not extract_tar(tkg_archive, install_dir, mode='gz'):
                 return False
         elif tkg_archive.endswith('.zip'):  # GitHub Actions builds
             tkg_extract_tmp = os.path.join(temp_dir, f'tkg_extract_tmp')

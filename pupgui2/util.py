@@ -586,6 +586,9 @@ def extract_tar(tar_path: str, extract_path: str, mode: str = 'r') -> bool:
         return False
 
     try:
+        if not mode.startswith('r:'):
+            mode = f'r:{mode}'
+
         with tarfile.open(tar_path, mode) as tf:
             tf.extractall(extract_path)
         return True

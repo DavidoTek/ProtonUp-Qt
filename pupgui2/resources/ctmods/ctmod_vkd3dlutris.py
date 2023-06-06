@@ -120,7 +120,7 @@ class CtInstaller(QObject):
             return False
 
         vkd3d_dir = os.path.abspath(os.path.join(install_dir, '../../runtime/vkd3d'))
-        if not extract_tar(vkd3d_tar, vkd3d_dir, mode='r:xz'):
+        if not extract_tar(vkd3d_tar, vkd3d_dir, mode='xz'):
             return False
 
         self.__set_download_progress_percent(100)

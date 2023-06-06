@@ -88,7 +88,7 @@ class CtInstaller(QObject):
         if not self.__download(url=dl_url, destination=steam_play_none_tar):
             return False
 
-        if not extract_tar(steam_play_none_tar, install_dir, mode='r:gz'):
+        if not extract_tar(steam_play_none_tar, install_dir, mode='gz'):
             return False
 
         # Rename extracted Steam-Play-None-main to Steam-Play-None

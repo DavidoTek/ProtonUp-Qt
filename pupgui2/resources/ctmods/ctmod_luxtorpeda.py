@@ -123,7 +123,7 @@ class CtInstaller(QObject):
             return False
 
         luxtorpeda_dir = os.path.join(install_dir, 'luxtorpeda')
-        if not extract_tar(luxtorpeda_tar, install_dir, mode='r:xz'):
+        if not extract_tar(luxtorpeda_tar, install_dir, mode='xz'):
             return False
 
         with open(os.path.join(luxtorpeda_dir, 'VERSION.txt'), 'w') as f:
