@@ -3,8 +3,6 @@
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-import shutil
-import tarfile
 import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
@@ -15,6 +13,7 @@ from pupgui2.util import ghapi_rlcheck, extract_tar
 CT_NAME = 'DXVK'
 CT_LAUNCHERS = ['lutris']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z0dxvk', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md''')}
+
 
 class CtInstaller(QObject):
 
