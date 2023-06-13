@@ -164,6 +164,7 @@ class CtInstaller(QObject):
             return False
 
         if not extract_tar(proton_tar, install_dir, mode='xz'):
+            return False
 
         if os.path.exists(checksum_dir):
             open(checksum_dir, 'w').write(download_checksum)
