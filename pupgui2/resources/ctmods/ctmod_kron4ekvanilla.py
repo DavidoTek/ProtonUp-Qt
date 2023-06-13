@@ -4,8 +4,6 @@
 
 import os
 import subprocess
-import shutil
-import tarfile
 import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property

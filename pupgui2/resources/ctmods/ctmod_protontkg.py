@@ -4,11 +4,7 @@
 
 import os
 import glob
-import shutil
-import tarfile
 import requests
-import zstandard
-from zipfile import ZipFile
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
