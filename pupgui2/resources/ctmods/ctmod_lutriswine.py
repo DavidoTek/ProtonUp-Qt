@@ -10,7 +10,7 @@ import hashlib
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import ghapi_rlcheck, extract_tar
 
 
 CT_NAME = 'Lutris-Wine'
@@ -157,20 +157,16 @@ class CtInstaller(QObject):
             else:
                 return False
 
-        destination = temp_dir
-        destination += data['download'].split('/')[-1]
-        destination = destination
-
-        if not self.__download(url=data['download'], destination=destination):
+        proton_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
+        if not self.__download(url=data['download'], destination=proton_tar):
             return False
 
-        download_checksum = self.__sha512sum(destination)
+        download_checksum = self.__sha512sum(proton_tar)
         if source_checksum and (download_checksum not in source_checksum):
             return False
 
-        if os.path.exists(protondir):
-            shutil.rmtree(protondir)
-        tarfile.open(destination, "r:xz").extractall(install_dir)
+        if not extract_tar(proton_tar, install_dir, mode='xz'):
+
         if os.path.exists(checksum_dir):
             open(checksum_dir, 'w').write(download_checksum)
 
