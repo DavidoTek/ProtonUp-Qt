@@ -155,7 +155,7 @@ class CtInstaller(QObject):
         if source_checksum and (download_checksum not in source_checksum):
             return False
 
-        if not extract_tar(proton_tar, install_dir, 'gz'):
+        if not extract_tar(proton_tar, install_dir, mode='gz'):
             return False
 
         if os.path.exists(checksum_dir):
