@@ -123,7 +123,7 @@ class CtInstaller(QObject):
 
     def get_tool(self, version, install_dir, temp_dir):
         """
-        Download and install the compatibility tool
+    Download and install the compatibility tool
         Return Type: bool
         """
         data = self.__fetch_github_data(version)

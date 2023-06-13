@@ -610,29 +610,6 @@ def extract_tar(tar_path: str, extract_path: str, mode: str = 'r') -> bool:
     return False
 
 
-# TODO needed? may not be used...
-def extract_zst(zst_path: str, extract_path: str) -> bool:
-
-    """
-    Extracts a Zstandard archive at zst_path to extract_path using ZstdDecompressor. Returns True if zstd extracts successfully, otherwise False.
-
-    Return Type: bool
-    """
-
-    decomp = zstandard.ZstdDecompressor()
-    try:
-        with open(zst_path, 'rb') as zst_infile:
-            data = decomp.decompress(zst_infile.read())
-        with open(extract_path, 'wb') as zst_outfile:
-            zst_outfile.write(data)
-
-        return True
-    except zstandard.ZstdError as e:
-        print(f'Failed to extract zst file \'{zst_path}\': {e}')
-    
-    return False
-
-
 def extract_tar_zst(zst_path: str, extract_path: str) -> bool:
 
     """
