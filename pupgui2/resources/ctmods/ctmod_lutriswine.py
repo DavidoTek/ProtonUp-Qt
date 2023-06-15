@@ -126,7 +126,14 @@ class CtInstaller(QObject):
         tags = []
         for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()):
             if 'tag_name' in release:
-                tags.extend((release['tag_name'], release['tag_name'].replace('lutris-', 'lutris-fshack-')))
+                tags.append(release['tag_name'])  # regular release
+
+                # Get fshack builds (only for <= 7.2 currently) -- Only displays if we have an fshack release
+                if 'assets' in release and len(release['assets']) >= 2:
+                    for asset in release['assets']:
+                        if 'lutris-fshack' in asset['name']:
+                            tags.append(release['tag_name'].replace('lutris-', 'lutris-fshack-'))
+                            break
 
         return tags
 
