@@ -28,7 +28,7 @@ class GamepadInputWorker(QThread):
                         self.press_virtual_key.emit(Qt.Key_Enter, Qt.NoModifier)
 
                     elif event.code in ['ABS_Y', 'ABS_RY']:
-                        if event.state > -100 and event.state < 100:
+                        if event.state > -1800 and event.state < 1800:
                             self.reset_pos = True
                         elif event.state < 0:
                             if self.reset_pos:
@@ -39,7 +39,7 @@ class GamepadInputWorker(QThread):
                                 self.press_virtual_key.emit(Qt.Key_Down, Qt.NoModifier)
                                 self.reset_pos = False
                     elif event.code in ['ABS_X', 'ABS_RX']:
-                        if event.state > -100 and event.state < 100:
+                        if event.state > -1800 and event.state < 1800:
                             self.reset_pos = True
                         elif event.state < 0:
                             if self.reset_pos:
