@@ -195,6 +195,14 @@ def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=Fal
     return ctools
 
 
+def get_steam_global_ctool_name(steam_config_folder: str) -> str:
+
+    config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
+    d = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
+
+    return d.get('0').get('name', '')
+
+
 def get_steam_acruntime_list(steam_config_folder: str, cached=False) -> List[BasicCompatTool]:
     """
     Returns a list of installed Steam Proton anticheat(EAC/BattlEye) Runtimes.

@@ -116,6 +116,10 @@ class BasicCompatTool:
     def set_version(self, ver : str) -> None:
         self.version = ver
 
+    def set_global(self, global_tr='global'):
+
+        self.displayname += f' ({global_tr})'
+
     def get_displayname(self, unused_tr='unused') -> str:
         """ Returns the display name, e.g. GE-Proton7-17 or luxtorpeda v57 """
         displayname = self.displayname
