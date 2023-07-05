@@ -3,13 +3,11 @@
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-import shutil
-import zipfile
 import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import ghapi_rlcheck, extract_zip
 
 
 CT_NAME = 'DXVK (nightly)'
@@ -125,26 +123,20 @@ class CtInstaller(QObject):
 
     def get_tool(self, version, install_dir, temp_dir):
         """
-        Download and install the compatibility tool
+    Download and install the compatibility tool
         Return Type: bool
         """
         data = self.__fetch_github_data(version)
         if not data or 'download' not in data:
             return False
 
-        dxvk_dir = os.path.join(install_dir, '../../runtime/dxvk')
-        dxvk_install_dir = os.path.join(dxvk_dir, 'dxvk-git-' + data['version'])
-        destination = temp_dir
-        destination += data['download'].split('/')[-1]
-        destination = destination
-
-        if not self.__download(url=data['download'], destination=destination, f_size=data['size']):
+        dxvk_zip = os.path.join(temp_dir, data['download'].split('/')[-1])
+        if not self.__download(url=data['download'], destination=dxvk_zip, f_size=data['size']):
             return False
 
-        if os.path.exists(f'{dxvk_dir}dxvk-git-{data["version"]}'):
-            shutil.rmtree(f'{dxvk_dir}dxvk-git{data["version"]}')
-        with zipfile.ZipFile(destination) as zip:
-            zip.extractall(dxvk_install_dir)
+        dxvk_dir = os.path.join(install_dir, '../../runtime/dxvk', 'dxvk-git-' + data['version'])
+        if not extract_zip(dxvk_zip, dxvk_dir):
+            return False
 
         self.__set_download_progress_percent(100)
 

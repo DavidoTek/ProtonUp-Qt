@@ -4,13 +4,11 @@
 
 import os
 import subprocess
-import shutil
-import tarfile
 import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import ghapi_rlcheck, extract_tar
 
 
 CT_NAME = 'Kron4ek Wine-Builds Vanilla'
@@ -122,22 +120,15 @@ class CtInstaller(QObject):
         """
 
         data = self.__fetch_github_data(version)
-
         if not data or 'download' not in data:
             return False
 
-        protondir = f'{install_dir}wine-{data["version"].lower()}-amd64'
-
-        destination = temp_dir
-        destination += data['download'].split('/')[-1]
-        destination = destination
-
-        if not self.__download(url=data['download'], destination=destination):
+        kron4ek_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
+        if not self.__download(url=data['download'], destination=kron4ek_tar):
             return False
 
-        if os.path.exists(protondir):
-            shutil.rmtree(protondir)
-        tarfile.open(destination, "r:xz").extractall(install_dir)
+        if not extract_tar(kron4ek_tar, install_dir, mode='xz'):
+            return False
 
         self.__set_download_progress_percent(100)
 

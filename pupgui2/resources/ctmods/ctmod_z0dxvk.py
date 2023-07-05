@@ -3,18 +3,17 @@
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-import shutil
-import tarfile
 import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import ghapi_rlcheck, extract_tar
 
 
 CT_NAME = 'DXVK'
 CT_LAUNCHERS = ['lutris']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z0dxvk', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md''')}
+
 
 class CtInstaller(QObject):
 
@@ -117,18 +116,14 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        dxvk_dir = os.path.join(install_dir, '../../runtime/dxvk')
-
-        destination = temp_dir
-        destination += data['download'].split('/')[-1]
-        destination = destination
-
-        if not self.__download(url=data['download'], destination=destination):
+        # Should be updated to support Heroic, like ctmod_d8vk
+        dxvk_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
+        if not self.__download(url=data['download'], destination=dxvk_tar):
             return False
 
-        if os.path.exists(f'{dxvk_dir}dxvk-{data["version"].lower()}'):
-            shutil.rmtree(f'{dxvk_dir}dxvk-{data["version"].lower()}')
-        tarfile.open(destination, "r:gz").extractall(dxvk_dir)
+        dxvk_dir = os.path.join(install_dir, '../../runtime/dxvk')
+        if not extract_tar(dxvk_tar, dxvk_dir, mode='gz'):
+            return False
 
         self.__set_download_progress_percent(100)
 

@@ -3,13 +3,11 @@
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-import shutil
 import requests
-import zipfile
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import ghapi_rlcheck, extract_zip
 
 
 CT_NAME = 'D8VK (nightly)'
@@ -135,19 +133,13 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        dxvk_dir = self.get_extract_dir(install_dir)
-        dxvk_install_dir = os.path.join(dxvk_dir, 'd8vk-git-' + data['version'])
-        destination = temp_dir
-        destination += data['download'].split('/')[-1]
-        destination = destination
-
-        if not self.__download(url=data['download'], destination=destination, f_size=data['size']):
+        d8vk_zip = os.path.join(temp_dir, data['download'].split('/')[-1])
+        if not self.__download(url=data['download'], destination=d8vk_zip, f_size=data['size']):
             return False
 
-        if os.path.exists(dxvk_dir + 'd8vk-git-' + data['version']):
-            shutil.rmtree(dxvk_dir + 'd8vk-git-' + data['version'])
-        with zipfile.ZipFile(destination) as zip:
-            zip.extractall(dxvk_install_dir)
+        d8vk_dir = os.path.join(self.get_extract_dir(install_dir), 'd8vk-git-' + data['version'])
+        if not extract_zip(d8vk_zip, d8vk_dir):
+            return False
 
         self.__set_download_progress_percent(100)
 

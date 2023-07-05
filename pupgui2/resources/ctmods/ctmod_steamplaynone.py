@@ -3,11 +3,11 @@
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-import shutil
-import tarfile
 import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+
+from pupgui2.util import extract_tar
 
 
 CT_NAME = 'Steam-Play-None'
@@ -82,19 +82,19 @@ class CtInstaller(QObject):
         Download and install the compatibility tool
         Return Type: bool
         """
-        destination = os.path.join(temp_dir, 'main.tar.gz')
+        steam_play_none_tar = os.path.join(temp_dir, 'main.tar.gz')
         dl_url = self.CT_URL
-        protondir = os.path.join(install_dir, 'Steam-Play-None-main')
 
-        if not self.__download(url=dl_url, destination=destination):
+        if not self.__download(url=dl_url, destination=steam_play_none_tar):
             return False
 
-        if os.path.exists(protondir):
-            shutil.rmtree(protondir)
-        tarfile.open(destination, "r:gz").extractall(install_dir)
+        if not extract_tar(steam_play_none_tar, install_dir, mode='gz'):
+            return False
 
-        # Rename folder Steam-Play-None-main to Steam-Play-None
-        shutil.move(os.path.join(install_dir, 'Steam-Play-None-main'), os.path.join(install_dir, 'Steam-Play-None'))
+        # Rename extracted Steam-Play-None-main to Steam-Play-None
+        steam_play_none_main = os.path.join(install_dir, 'Steam-Play-None-main')
+        steam_play_none_dir = os.path.join(install_dir, 'Steam-Play-None')
+        os.rename(steam_play_none_main, steam_play_none_dir)
 
         self.__set_download_progress_percent(100)
 

@@ -4,15 +4,11 @@
 
 import os
 import glob
-import shutil
-import tarfile
 import requests
-import zstandard
-from zipfile import ZipFile
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import ghapi_rlcheck, extract_tar, extract_zip, extract_tar_zst, remove_if_exists
 
 
 CT_NAME = 'Proton Tkg'
@@ -185,73 +181,58 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        destination = temp_dir
-        destination += data['download'].split('/')[-1]
-
-        if not self.__download(url=data['download'], destination=destination, f_size=data.get("size")):
+        tkg_archive = os.path.abspath(os.path.join(temp_dir, data['download'].split('/')[-1]))
+        if not self.__download(url=data['download'], destination=tkg_archive, f_size=data.get("size")):
             return False
 
-        # Temp directory to extract archives into
-        install_folder = os.path.join(temp_dir, f'tkg_extract_tmp')
-        if os.path.exists(install_folder):
-            shutil.rmtree(install_folder)
+        # Tkg Archive Format Reference:
+        # Legacy GitHub Releases use .tar.gz files
+        # GitHub Actions releases use .zip files with various archive formats inside
+        # -----
+        # Proton-tkg: .tar
+        # Proton-tkg (Wine Master): .tar
+        # Wine-tkg (Valve Wine): .tar.zst
+        # Wine-tkg (Vanilla Wine): .tar
 
-        if '.tar.gz' in destination:
-            tarfile.open(destination, "r:gz").extractall(install_dir)  # Does this handle dupliactes at all?
-        elif '.zip' in destination:
-            with ZipFile(destination) as z:
-                os.mkdir(install_folder)
-                z.extractall(install_folder)
-            # Supports both Wine-tkg and Proton-tkg
-            zst_glob = glob.glob(f'{install_folder}/*.tar.zst')
-            if len(zst_glob) > 0:
-                # Wine-tkg is .tar.zst
-                tkg_dir = self.get_extract_dir(install_dir)
+        # Extract tool
+        if tkg_archive.endswith('.tar.gz'):  # Legacy archives from GitHub releases
+            if not extract_tar(tkg_archive, install_dir, mode='gz'):
+                return False
+        elif tkg_archive.endswith('.zip'):  # GitHub Actions builds
+            tkg_extract_tmp = os.path.join(temp_dir, f'tkg_extract_tmp')
+            if not extract_zip(tkg_archive, tkg_extract_tmp):
+                return False
 
-                tkg_archive_name = zst_glob[0]  # Should only ever be 1 really, so assume the first is the zst archive we're looking for
+            if zst_glob := glob.glob(f'{tkg_extract_tmp}/*.tar.zst'):
+                # Extract .tar.zst nested inside .zip
+                tkg_zst = zst_glob[0]
+                tkg_zst_basename = os.path.basename(tkg_zst.replace('.tar.zst', ''))
+                tkg_zst_extract_path = os.path.abspath(os.path.join(install_dir, 'usr'))
+                tkg_zst_dest_path = os.path.abspath(os.path.join(install_dir, tkg_zst_basename))
 
-                temp_download = os.path.join(install_folder, tkg_archive_name)
-                temp_archive = temp_download.replace('.zst', '')
+                # Extract and rename archive
+                remove_if_exists(tkg_zst_dest_path)
+                if not extract_tar_zst(tkg_zst, install_dir):
+                    return False
+                os.rename(tkg_zst_extract_path, tkg_zst_dest_path)
 
-                # Extract .tar.zst file - Closely mirrors vkd3d-proton ctmod except for extraction logic
-                tkg_decomp = zstandard.ZstdDecompressor()
-                with open(temp_download, 'rb') as tkg_infile, open(temp_archive, 'wb') as tkg_outfile:
-                    tkg_decomp.copy_stream(tkg_infile, tkg_outfile)
+                # Remove lingering dotfiles
+                remove_extractfiles = [ '.BUILDINFO', '.INSTALL', '.MTREE', '.PKGINFO' ]
+                for rmfile in remove_extractfiles:
+                    remove_if_exists(os.path.join(install_dir, rmfile))
+            elif tar_glob := glob.glob(f"{tkg_extract_tmp}/*.tar"): 
+                # Regular .tar
+                tkg_tar = tar_glob[0]
+                tkg_tar_extract_path = os.path.join(install_dir, os.path.basename(tkg_tar).replace('.tar', ''))
 
-                with open(temp_archive, 'rb') as tkg_outfile:
-                    with tarfile.open(fileobj=tkg_outfile) as tkg_tarfile:
-                        tkg_tarfile.extractall(tkg_dir)  # Extract actual archive to current Wine tool dir, this will probably be named `usr` but we rename it to have the actual archive's name below
-
-                        # Path should have '.tar.zst'
-                        final_extract_dir = os.path.basename(tkg_archive_name.replace('.tar.zst', ''))
-                        final_extract_path = os.path.join(install_dir, final_extract_dir)  # Path that the extracted folder will have after it is renamed from 'usr' to something matching the archive name
-
-                        if os.path.isdir(final_extract_path):  # Ensure this folder does not exist before we rename the extracted archive
-                            shutil.rmtree(final_extract_path)
-                        os.rename(os.path.join(install_dir, 'usr'), final_extract_path)  # Rename extracted 'usr' folder to match the .zip file extracted name for consistency / easier removal if redownloading
-
-                        # Remove lingering dotfiles
-                        remove_extractfiles = [ '.BUILDINFO', '.INSTALL', '.MTREE', '.PKGINFO' ]
-                        for rmfile in remove_extractfiles:
-                            rmfile_fullpath = os.path.join(install_dir, rmfile)
-                            if os.path.exists(rmfile_fullpath):
-                                os.remove(rmfile_fullpath)
-            else:
-                # Regular .zip for Proton-tkg
-                for f in glob.glob(f"{install_folder}/*.tar"):
-                    # Remove archive if it already exists before extracting into real install dir
-                    tar_extract_path = os.path.join(install_dir, os.path.basename(f).replace('.tar', ''))
-                    print(f'tar extract path is {tar_extract_path}')
-                    if os.path.isdir(tar_extract_path):
-                        shutil.rmtree(tar_extract_path)
-
-                    tarfile.open(f, "r").extractall(install_dir)
+                remove_if_exists(tkg_tar_extract_path)
+                if not extract_tar(tkg_tar, install_dir):
+                    return False
         else:
             self.__set_download_progress_percent(-1)
             return False
 
         self.__set_download_progress_percent(100)
-
         return True
 
     def get_extract_dir(self, install_dir: str) -> str:

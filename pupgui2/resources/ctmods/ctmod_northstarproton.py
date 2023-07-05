@@ -3,13 +3,11 @@
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-import shutil
-import tarfile
 import requests
 
 from PySide6.QtCore import QObject, Signal, Property, QCoreApplication
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import ghapi_rlcheck, extract_tar
 
 
 CT_NAME = 'NorthStar Proton (TitanFall 2)'
@@ -118,18 +116,12 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        protondir = os.path.join(install_dir, data['version'])
-
-        destination = temp_dir
-        destination += data['download'].split('/')[-1]
-        destination = destination
-
-        if not self.__download(url=data['download'], destination=destination):
+        northstar_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
+        if not self.__download(url=data['download'], destination=northstar_tar):
             return False
 
-        if os.path.exists(protondir):
-            shutil.rmtree(protondir)
-        tarfile.open(destination, "r:gz").extractall(install_dir)
+        if not extract_tar(northstar_tar, install_dir, mode='gz'):
+            return False
 
         self.__set_download_progress_percent(100)
 

@@ -4,10 +4,15 @@ import subprocess
 import shutil
 import platform
 import threading
-from typing import Dict, List, Union, Tuple
 import webbrowser
 import requests
+import zipfile
+import tarfile
+
+import zstandard
+
 from configparser import ConfigParser
+from typing import Dict, List, Union, Tuple
 
 import PySide6
 from PySide6.QtCore import QCoreApplication
@@ -436,6 +441,7 @@ def get_installed_ctools(install_dir: str) -> List[BasicCompatTool]:
 
     return ctools
 
+
 def host_which(name: str) -> str:
     """
     Runs 'which <name>' on the host system (either normal or using 'flatpak-spawn --host' when inside Flatpak)
@@ -444,6 +450,7 @@ def host_which(name: str) -> str:
     proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
     which = subprocess.run(proc_prefix + ['which', name], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip()
     return None if which == '' else which
+
 
 def ghapi_rlcheck(json: dict):
     """ Checks if the given GitHub request response (JSON) contains a rate limit warning and warns the user """
@@ -456,6 +463,7 @@ def ghapi_rlcheck(json: dict):
                 QMessageBox.Warning
                 )
     return json
+
 
 def is_online(host='https://api.github.com/repos/', timeout=3) -> bool:
     """
@@ -470,10 +478,12 @@ def is_online(host='https://api.github.com/repos/', timeout=3) -> bool:
     except (requests.ConnectionError, requests.Timeout):
         return False
 
+
 def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
     """ Return whether a compat tool is available for a given launcher """
 
     return compat_tool in [ctobj['name'] for ctobj in ctobjs]
+
 
 def get_dict_key_from_value(d, searchval):
     """
@@ -485,6 +495,7 @@ def get_dict_key_from_value(d, searchval):
             return key
     else:
         return None
+
 
 def get_combobox_index_by_value(combobox, value: str) -> int:
     """
@@ -500,3 +511,126 @@ def get_combobox_index_by_value(combobox, value: str) -> int:
                 return i
 
     return -1
+
+
+def remove_if_exists(path: str):
+
+    """
+    Remove a file or folder at a path if it exists.
+    """
+
+    try:
+        if os.path.exists(path):
+            if os.path.isfile(path):
+                os.remove(path)
+            elif os.path.isdir(path):
+                shutil.rmtree(path)
+    except OSError as e:
+        print(f'Could not remove item at {path}: {e}')
+
+
+def write_tool_version(tool_dir: str, version: str):
+
+    """
+    Write the version of a tool to a VERSION.txt in tool_dir.
+    """
+
+    with open(os.path.join(tool_dir, 'VERSION.txt'), 'w') as f:
+        f.write(f'{version}\n')
+
+
+## Extraction utility methods ##
+
+
+def extract_paths_exist(archive_path: str, extract_path: str) -> bool:
+
+    """
+    Checks if an archive exists at a path, and that an extraction path exists. Returns True if both exist, otherwise False.
+
+    Return Type: bool
+    """
+
+    archive_path_exists: bool = os.path.isfile(archive_path)
+    extract_path_exists: bool = os.path.isdir(os.path.dirname(extract_path))  # Full path may not exist as this may be created during extraction
+
+    if not archive_path_exists:
+        print(f'Archive file does not exist: {archive_path}')
+    if not extract_path_exists:
+        print(f'Extract path does not exist: {extract_path}')
+    
+    return archive_path_exists and extract_path_exists
+
+
+def extract_zip(zip_path: str, extract_path: str) -> bool:
+
+    """
+    Extracts a Zip archive at zip_path to extract_path using ZipFile. Returns True if the zip extracts successfully, otherwise False.
+
+    Return Type: bool
+    """
+
+    if not extract_paths_exist(zip_path, extract_path):
+        return False
+
+    try:
+        with zipfile.ZipFile(zip_path) as zf:
+            zf.extractall(extract_path)
+        return True
+    except zipfile.BadZipFile:
+        print(f'Zip file \'{zip_path}\' appears to be invalid!')
+    except Exception as e:
+        print(f'Failed to extract zip file \'{zip_path}\': {e}')
+
+    return False
+
+
+def extract_tar(tar_path: str, extract_path: str, mode: str = 'r') -> bool:
+
+    """
+    Extracts a Tar archive at tar_path to extract_path using tarfile. Returns True if tar extracts successfully, otherwise False.
+
+    Return Type: bool
+    """
+
+    if not extract_paths_exist(tar_path, extract_path):
+        return False
+
+    try:
+        if not mode.startswith('r:'):
+            mode = f'r:{mode}'
+
+        with tarfile.open(tar_path, mode) as tf:
+            tf.extractall(extract_path)
+        return True
+    except tarfile.ReadError:
+        print(f'Could not read tar file \'{tar_path}\'!')
+    except Exception as e:
+        print(f'Failed to extract tar file \'{tar_path}\': {e}')
+    
+    return False
+
+
+def extract_tar_zst(zst_path: str, extract_path: str) -> bool:
+
+    """
+    Extract a .tar.zst file at zst_path to extract_path using ZstdDecompressor and tarfile. Returns True if full archive extracts succesfully, otherwise False.
+    """
+
+    if not extract_paths_exist(zst_path, extract_path):
+        return False
+
+    try:
+        with open(zst_path, 'rb') as zf:
+            zf_data = zstandard.ZstdDecompressor().stream_reader(zf)
+            with tarfile.open(zst_path, 'r|', fileobj=zf_data) as tf:
+                tf.extractall(extract_path)
+
+        return True
+    except zstandard.ZstdError as zste:  # Error reading Zst file
+        print(f'Failed to extract zst file \'{zst_path}\': {zste}')
+    except tarfile.ReadError as tfe:  # Error reading tar file
+        print(f'Could not read tar file: {tfe}')
+    except Exception as e:  # General error
+        print(f'Could not extract archive \'{zst_path}\': {e}')
+
+    return False

@@ -3,13 +3,11 @@
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-import shutil
-import tarfile
 import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import ghapi_rlcheck, extract_tar
 
 
 CT_NAME = 'vkd3d-lutris'
@@ -117,16 +115,13 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        vkd3d_dir = os.path.join(install_dir, '../../runtime/vkd3d')
-
-        temp_download = os.path.join(temp_dir, data['download'].split('/')[-1])
-
-        if not self.__download(url=data['download'], destination=temp_download):
+        vkd3d_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
+        if not self.__download(url=data['download'], destination=vkd3d_tar):
             return False
 
-        if os.path.exists(f'{vkd3d_dir}vkd3d-{data["version"].lower()}'):
-            shutil.rmtree(f'{vkd3d_dir}vkd3d-{data["version"].lower()}')
-        tarfile.open(temp_download, "r:xz").extractall(vkd3d_dir)        
+        vkd3d_dir = os.path.abspath(os.path.join(install_dir, '../../runtime/vkd3d'))
+        if not extract_tar(vkd3d_tar, vkd3d_dir, mode='xz'):
+            return False
 
         self.__set_download_progress_percent(100)
 
