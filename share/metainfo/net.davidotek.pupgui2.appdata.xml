@@ -69,6 +69,26 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.8.1" date="2023-07-04">
+      <description>
+        <p>Changes:</p>
+        <ul>
+          <li>Added Heroic support for Wine-GE, Proton-GE and D8VK</li>
+          <li>Added Italian translations</li>
+        </ul>
+        <p>Improvements:</p>
+        <ul>
+          <li>Increase Gamepad deadzone to five percent</li>
+          <li>Improve logic for detecting the Steam root folder</li>
+          <li>Account for D8VK's rename of the master branch</li>
+          <li>Load more Proton-Tkg releases if none found on the first batch</li>
+          <li>Fix wrongly displayed Lutris Wine Fshack versions</li>
+          <li>Translations can now be done on Weblate!</li>
+          <li>Overhaul of the UI and internal functions</li>
+        </ul>
+        <p>Various improvements and bug fixes. See GitHub for more details.<br/>Also thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.8.0" date="2023-04-06">
       <description>
         <p>Changes:</p>
