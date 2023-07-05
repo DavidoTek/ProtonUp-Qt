@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/ctloader.py" line="55"/>
         <source>Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd!</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="57"/>
@@ -14,7 +14,10 @@
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można załadować narzędzi kompatybilności:
+{TOOL_LIST}
+
+Jeżeli uważasz to za błąd, proszę złożyć raport błędu na GitHub!</translation>
     </message>
 </context>
 <context>
@@ -27,7 +30,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="268"/>
         <source>Unused: {unused_ctools}</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieużywane: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="291"/>
@@ -42,7 +45,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="306"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation>Nie udało sie zainstalować {current_compat_tool_name}...</translation>
+        <translation>Nie udało się zainstalować {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="313"/>
@@ -57,7 +60,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="317"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalacja {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="319"/>
@@ -73,7 +76,8 @@ If you believe this is an error, please report a bug on GitHub!</source>
         <location filename="../pupgui2/pupgui2.py" line="342"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
-        <translation>Próbujesz usunąć narzędzia kompatybilności, które są w użyciu przez {n} gre/gry/gier. Kontynuować?</translation>
+        <translation>Próbujesz usunąć narzędzia kompatybilności
+które są w użyciu przez {n} grę/gry/gier. Czy kontynuować?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="349"/>
@@ -105,22 +109,22 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="419"/>
         <source>Install tool from Flathub</source>
-        <translation type="unfinished"></translation>
+        <translation>Zainstaluj z Flathub</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="422"/>
         <source>Click to open your app store</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij by otworzyć sklep z aplikacjami</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
         <source>ProtonUp-Qt - Wine/Proton Installer</source>
-        <translation>ProtonUp-Qt - Wine/Proton Instalator</translation>
+        <translation>ProtonUp-Qt - Instalator Wine/Proton</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="48"/>
         <source>Install for:</source>
-        <translation>Zainstaluj dla:</translation>
+        <translation>Instalacja dla:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="68"/>
@@ -135,7 +139,7 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj własny folder instalacyjny...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="92"/>
@@ -165,7 +169,7 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
         <source>Get tools from Flathub</source>
-        <translation type="unfinished"></translation>
+        <translation>Pobierz narzędzia z Flathub</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="206"/>
@@ -193,7 +197,7 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="44"/>
         <source>Specify a custom location for downloading and displaying a launcher&apos;s compatibility tools.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustaw folder pobierania i wyświetlania narzędzi kompatybilności.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="56"/>
@@ -208,12 +212,12 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="87"/>
         <source>Reset the custom install directory back to default for this launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Zresetuj folder instalacji do miejsca domyślnego</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="90"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Domyślne</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="113"/>
@@ -272,7 +276,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="124"/>
         <source>Added shortcut!</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodano skrót!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="14"/>
@@ -282,7 +286,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI do instalacji/aktualizacji narzędzi kompatybilności oparnych na Wine i Protonie.&lt;br/&gt;Zainspirowane przez/częściowo oparte na protonup&apos;ie od AUNaseef.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;p&gt;GUI do instalacji/aktualizacji narzędzi kompatybilności opartych na Wine i Protonie.&lt;br&gt;Zainspirowane przez/częściowo oparte na protonup&apos;ie od AUNaseef.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
@@ -297,23 +301,24 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="139"/>
         <source>Enable advanced mode (show git-builds for compatibility tools etc.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz tryb zaawansowany (pokaż wersje git dla narzędzi kompatybilności itp.)</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="150"/>
         <source>Check for updates</source>
-        <translation>Sprawdź dostępne aktualizacje</translation>
+        <translation>Sprawdź dostępność aktualizacji</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaje skrót by otworzyć ProtonUp-QT z twojej biblioteki Steam.
+By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze swojej biblioteki&quot;.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="174"/>
         <source>Add Steam shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj skrót na Steam</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="181"/>
@@ -379,12 +384,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="106"/>
         <source>Refresh Games</source>
-        <translation type="unfinished"></translation>
+        <translation>Odśwież listę gier</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="120"/>
         <source>Search games...</source>
-        <translation type="unfinished"></translation>
+        <translation>Szukaj gry...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="180"/>
@@ -394,12 +399,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="187"/>
         <source>e.g. Half-Life 3</source>
-        <translation type="unfinished"></translation>
+        <translation>np. Half-Life 3</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="190"/>
         <source>Search for a game...</source>
-        <translation type="unfinished"></translation>
+        <translation>Szukaj gry...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="213"/>
@@ -409,13 +414,13 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="87"/>
         <source>AppID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID Aplikacji</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="87"/>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="100"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="100"/>
