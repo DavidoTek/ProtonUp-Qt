@@ -14,11 +14,7 @@ CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_winetkg_val
 
 class CtInstaller(TKGCtInstaller):
 
-    BUFFER_SIZE = 65536
     PROTON_PACKAGE_NAME = 'wine-valvexbe'
-
-    p_download_progress_percent = 0
-    download_progress_percent = Signal(int)
 
     def __init__(self, main_window = None):
         super().__init__(main_window)

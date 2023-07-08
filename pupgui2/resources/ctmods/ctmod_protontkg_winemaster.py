@@ -17,11 +17,7 @@ This build is based on <b>Wine Master</b>.''')}
 
 class CtInstaller(TKGCtInstaller):
 
-    BUFFER_SIZE = 65536
     PROTON_PACKAGE_NAME = 'proton-arch-nopackage.yml'
-
-    p_download_progress_percent = 0
-    download_progress_percent = Signal(int)
 
     def __init__(self, main_window = None):
         super().__init__(main_window)
