@@ -2,7 +2,7 @@
 # Proton-Tkg https://github.com/Frogging-Family/wine-tkg-git
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-from PySide6.QtCore import QCoreApplication, Signal
+from PySide6.QtCore import QCoreApplication
 
 from pupgui2.resources.ctmods.ctmod_protontkg import CtInstaller as TKGCtInstaller  # Use ProtonTKg Ctmod as base
 
