@@ -448,7 +448,7 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="85"/>
         <source>Select Custom Install Directory — ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz własny folder instalacyjny — ProtonUp-Qt</translation>
     </message>
     <message>
         <source>Save</source>
