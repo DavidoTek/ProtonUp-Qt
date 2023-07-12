@@ -584,7 +584,8 @@ def extract_zip(zip_path: str, extract_path: str) -> bool:
     return False
 
 
-def extract_tar(tar_path: str, extract_path: str, mode: str = 'r') -> bool:
+# Default mode 'r:' is for regular tars
+def extract_tar(tar_path: str, extract_path: str, mode: str = 'r:') -> bool:
 
     """
     Extracts a Tar archive at tar_path to extract_path using tarfile. Returns True if tar extracts successfully, otherwise False.
