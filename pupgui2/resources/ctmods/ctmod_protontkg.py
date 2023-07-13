@@ -198,10 +198,12 @@ class CtInstaller(QObject):
         if tkg_archive.endswith('.tar.gz'):  # Legacy archives from GitHub releases
             if not extract_tar(tkg_archive, install_dir, mode='gz'):
                 return False
+            remove_if_exists(tkg_archive)
         elif tkg_archive.endswith('.zip'):  # GitHub Actions builds
             tkg_extract_tmp = os.path.join(temp_dir, f'tkg_extract_tmp')
             if not extract_zip(tkg_archive, tkg_extract_tmp):
                 return False
+            remove_if_exists(tkg_archive)
 
             if zst_glob := glob.glob(f'{tkg_extract_tmp}/*.tar.zst'):
                 # Extract .tar.zst nested inside .zip
@@ -220,6 +222,7 @@ class CtInstaller(QObject):
                 remove_extractfiles = [ '.BUILDINFO', '.INSTALL', '.MTREE', '.PKGINFO' ]
                 for rmfile in remove_extractfiles:
                     remove_if_exists(os.path.join(install_dir, rmfile))
+                remove_if_exists(tkg_zst)
             elif tar_glob := glob.glob(f"{tkg_extract_tmp}/*.tar"): 
                 # Regular .tar
                 tkg_tar = tar_glob[0]
@@ -228,6 +231,7 @@ class CtInstaller(QObject):
                 remove_if_exists(tkg_tar_extract_path)
                 if not extract_tar(tkg_tar, install_dir):
                     return False
+                remove_if_exists(tkg_tar)
         else:
             self.__set_download_progress_percent(-1)
             return False
