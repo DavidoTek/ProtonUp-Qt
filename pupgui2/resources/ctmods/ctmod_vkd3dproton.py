@@ -140,7 +140,7 @@ class CtInstaller(QObject):
 
     def get_extract_dir(self, install_dir: str) -> str:
         """
-        Return the directory to extract DXVK archive based on the current launcher
+        Return the directory to extract vkd3d archive based on the current launcher
         Return Type: str
         """
 
