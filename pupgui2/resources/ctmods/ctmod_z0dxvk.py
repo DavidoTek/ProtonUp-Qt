@@ -11,7 +11,7 @@ from pupgui2.util import ghapi_rlcheck, extract_tar
 
 
 CT_NAME = 'DXVK'
-CT_LAUNCHERS = ['lutris']
+CT_LAUNCHERS = ['lutris', 'heroicwine', 'heroicproton']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z0dxvk', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md''')}
 
 
@@ -121,7 +121,7 @@ class CtInstaller(QObject):
         if not self.__download(url=data['download'], destination=dxvk_tar):
             return False
 
-        dxvk_dir = os.path.join(install_dir, '../../runtime/dxvk')
+        dxvk_dir = self.get_extract_dir(install_dir)
         if not extract_tar(dxvk_tar, dxvk_dir, mode='gz'):
             return False
 
@@ -135,3 +135,16 @@ class CtInstaller(QObject):
         Return Type: str
         """
         return self.CT_INFO_URL + version
+
+    def get_extract_dir(self, install_dir: str) -> str:
+        """
+        Return the directory to extract DXVK archive based on the current launcher
+        Return Type: str
+        """
+
+        if 'lutris/runners' in install_dir:
+            return os.path.abspath(os.path.join(install_dir, '../../runtime/dxvk'))
+        if 'heroic/tools' in install_dir:
+            return os.path.abspath(os.path.join(install_dir, '../dxvk'))
+        else:
+            return install_dir  # Default to install_dir
