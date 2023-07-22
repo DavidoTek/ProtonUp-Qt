@@ -1,5 +1,5 @@
 # pupgui2 compatibility tools module
-# vkd3d-proton for Lutris: https://github.com/HansKristian-Work/vkd3d-proton/
+# vkd3d-proton and vkd3d for Lutris: https://github.com/HansKristian-Work/vkd3d-proton/
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
 import os
@@ -7,7 +7,7 @@ import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck, extract_tar_zst
+from pupgui2.util import ghapi_rlcheck, extract_tar, extract_tar_zst
 
 
 CT_NAME = 'vkd3d-proton'
@@ -86,7 +86,7 @@ class CtInstaller(QObject):
 
         values = {'version': data['tag_name'], 'date': data['published_at'].split('T')[0]}
         for asset in data['assets']:
-            if asset['name'].endswith('tar.zst'):
+            if asset['name'].endswith('.tar.zst') or asset['name'].endswith('.tar.xz'):
                 values['download'] = asset['browser_download_url']
                 values['size'] = asset['size']
         return values
@@ -115,12 +115,16 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return False
 
-        vkd3d_zst_archive = os.path.join(temp_dir, data['download'].split('/')[-1])  # e.g. /tmp/[...]/vkd3d-proton-2.7.tar.zst
-        if not self.__download(url=data['download'], destination=vkd3d_zst_archive):
+        vkd3d_archive = os.path.join(temp_dir, data['download'].split('/')[-1])  # e.g. /tmp/[...]/vkd3d-proton-2.7.tar.zst
+        if not self.__download(url=data['download'], destination=vkd3d_archive):
             return False
 
         vkd3d_dir = os.path.abspath(os.path.join(install_dir, '../../runtime/vkd3d'))
-        if not extract_tar_zst(vkd3d_zst_archive, vkd3d_dir):
+
+        has_extract_tar_zst = vkd3d_archive.endswith('.tar.zst') and extract_tar_zst(vkd3d_archive, vkd3d_dir)
+        has_extract_tar_xz = vkd3d_archive.endswith('.tar.xz') and extract_tar(vkd3d_archive, vkd3d_dir, mode='xz')
+
+        if not has_extract_tar_zst and not has_extract_tar_xz:
             return False
 
         self.__set_download_progress_percent(100)
