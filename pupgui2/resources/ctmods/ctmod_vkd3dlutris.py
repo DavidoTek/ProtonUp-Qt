@@ -8,7 +8,7 @@ from pupgui2.resources.ctmods.ctmod_vkd3dproton import CtInstaller as VKD3DInsta
 
 
 CT_NAME = 'vkd3d-lutris'
-CT_LAUNCHERS = ['lutris']
+CT_LAUNCHERS = ['lutris', 'heroicwine', 'heroicproton']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_vkd3d-lutris', '''Fork of Wine's VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Lutris Release).<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md''')}
 
 class CtInstaller(VKD3DInstaller):
