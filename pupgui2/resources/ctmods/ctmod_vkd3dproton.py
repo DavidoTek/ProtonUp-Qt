@@ -11,7 +11,7 @@ from pupgui2.util import ghapi_rlcheck, extract_tar, extract_tar_zst
 
 
 CT_NAME = 'vkd3d-proton'
-CT_LAUNCHERS = ['lutris']
+CT_LAUNCHERS = ['lutris', 'heroicwine', 'heroicproton']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_vkd3d-proton', '''Fork of Wine's VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Valve Release).<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md''')}
 
 class CtInstaller(QObject):
@@ -119,7 +119,7 @@ class CtInstaller(QObject):
         if not self.__download(url=data['download'], destination=vkd3d_archive):
             return False
 
-        vkd3d_dir = os.path.abspath(os.path.join(install_dir, '../../runtime/vkd3d'))
+        vkd3d_dir = self.get_extract_dir(install_dir)
 
         has_extract_tar_zst = vkd3d_archive.endswith('.tar.zst') and extract_tar_zst(vkd3d_archive, vkd3d_dir)
         has_extract_tar_xz = vkd3d_archive.endswith('.tar.xz') and extract_tar(vkd3d_archive, vkd3d_dir, mode='xz')
@@ -137,3 +137,16 @@ class CtInstaller(QObject):
         Return Type: str
         """
         return self.CT_INFO_URL + version
+
+    def get_extract_dir(self, install_dir: str) -> str:
+        """
+        Return the directory to extract vkd3d archive based on the current launcher
+        Return Type: str
+        """
+
+        if 'lutris/runners' in install_dir:
+            return os.path.abspath(os.path.join(install_dir, '../../runtime/vkd3d'))
+        if 'heroic/tools' in install_dir:
+            return os.path.abspath(os.path.join(install_dir, '../vkd3d'))
+        else:
+            return install_dir  # Default to install_dir
