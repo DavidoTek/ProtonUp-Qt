@@ -2,12 +2,9 @@
 # DXVK with async patch for Lutris: https://github.com/Sporif/dxvk-async/
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-import os
-import requests
+from PySide6.QtCore import QObject, QCoreApplication
 
-from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
-
-from pupgui2.util import ghapi_rlcheck, extract_tar
+from pupgui2.resources.ctmods.ctmod_z0dxvk import CtInstaller as DXVKInstaller
 
 
 CT_NAME = 'DXVK Async'
@@ -15,123 +12,10 @@ CT_LAUNCHERS = ['lutris']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z1dxvkasync', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.<br/><br/><b>Warning: Use only with singleplayer games!</b>''')}
 
 
-class CtInstaller(QObject):
+class CtInstaller(DXVKInstaller):
 
-    BUFFER_SIZE = 65536
     CT_URL = 'https://api.github.com/repos/Sporif/dxvk-async/releases'
     CT_INFO_URL = 'https://github.com/Sporif/dxvk-async/releases/tag/'
 
-    p_download_progress_percent = 0
-    download_progress_percent = Signal(int)
-
     def __init__(self, main_window = None):
-        super(CtInstaller, self).__init__()
-        self.p_download_canceled = False
-        self.rs = main_window.rs or requests.Session()
-
-    def get_download_canceled(self):
-        return self.p_download_canceled
-
-    def set_download_canceled(self, val):
-        self.p_download_canceled = val
-
-    download_canceled = Property(bool, get_download_canceled, set_download_canceled)
-
-    def __set_download_progress_percent(self, value : int):
-        if self.p_download_progress_percent == value:
-            return
-        self.p_download_progress_percent = value
-        self.download_progress_percent.emit(value)
-
-    def __download(self, url, destination):
-        """
-        Download files from url to destination
-        Return Type: bool
-        """
-        try:
-            file = self.rs.get(url, stream=True)
-        except OSError:
-            return False
-
-        self.__set_download_progress_percent(1) # 1 download started
-        f_size = int(file.headers.get('content-length'))
-        c_count = int(f_size / self.BUFFER_SIZE)
-        c_current = 1
-        destination = os.path.expanduser(destination)
-        os.makedirs(os.path.dirname(destination), exist_ok=True)
-        with open(destination, 'wb') as dest:
-            for chunk in file.iter_content(chunk_size=self.BUFFER_SIZE):
-                if self.download_canceled:
-                    self.download_canceled = False
-                    self.__set_download_progress_percent(-2) # -2 download canceled
-                    return False
-                if chunk:
-                    dest.write(chunk)
-                    dest.flush()
-                self.__set_download_progress_percent(int(min(c_current / c_count * 98.0, 98.0))) # 1-98, 100 after extract
-                c_current += 1
-        self.__set_download_progress_percent(99) # 99 download complete
-        return True
-
-    def __fetch_github_data(self, tag):
-        """
-        Fetch GitHub release information
-        Return Type: dict
-        Content(s):
-            'version', 'date', 'download', 'size', 'checksum'
-        """
-        url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
-        data = self.rs.get(url).json()
-        if 'tag_name' not in data:
-            return None
-
-        values = {'version': data['tag_name'], 'date': data['published_at'].split('T')[0]}
-        for asset in data['assets']:
-            if asset['name'].endswith('tar.gz'):
-                values['download'] = asset['browser_download_url']
-                values['size'] = asset['size']
-        return values
-
-    def is_system_compatible(self):
-        """
-        Are the system requirements met?
-        Return Type: bool
-        """
-        return True
-
-    def fetch_releases(self, count=100):
-        """
-        List available releases
-        Return Type: str[]
-        """
-        return [release['tag_name'] for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()) if 'tag_name' in release]
-
-    def get_tool(self, version, install_dir, temp_dir):
-        """
-        Download and install the compatibility tool
-        Return Type: bool
-        """
-        data = self.__fetch_github_data(version)
-
-        if not data or 'download' not in data:
-            return False
-
-
-        dxvk_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
-        if not self.__download(url=data['download'], destination=dxvk_tar):
-            return False
-
-        dxvk_dir = os.path.join(install_dir, '../../runtime/dxvk')
-        if not extract_tar(dxvk_tar, dxvk_dir, mode='gz'):
-            return False
-
-        self.__set_download_progress_percent(100)
-
-        return True
-
-    def get_info_url(self, version):
-        """
-        Get link with info about version (eg. GitHub release page)
-        Return Type: str
-        """
-        return self.CT_INFO_URL + version
+        super().__init__(main_window)
