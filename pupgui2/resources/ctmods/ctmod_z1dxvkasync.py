@@ -2,7 +2,7 @@
 # DXVK with async patch for Lutris: https://github.com/Sporif/dxvk-async/
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-from PySide6.QtCore import QObject, QCoreApplication
+from PySide6.QtCore import QCoreApplication
 
 from pupgui2.resources.ctmods.ctmod_z0dxvk import CtInstaller as DXVKInstaller
 
