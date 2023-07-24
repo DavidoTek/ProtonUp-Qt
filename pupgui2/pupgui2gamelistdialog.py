@@ -158,7 +158,9 @@ class PupguiGameListDialog(QObject):
             lblicon_item = QTableWidgetItem()
             lblicon_item.setData(Qt.DisplayRole, game.awacy_status.value)
             lblicon_item.setTextAlignment(Qt.AlignCenter)
-            lblicon_item.setData(Qt.UserRole, AWACY_WEB_URL)
+
+            search_str = ("" if game.awacy_status == AWACYStatus.UNKNOWN else game.game_name)
+            lblicon_item.setData(Qt.UserRole, AWACY_WEB_URL.format(GAMENAME=search_str))
 
             self.ui.tableGames.setItem(i, 3, lblicon_item)
             self.ui.tableGames.setCellWidget(i, 3, lblicon)
