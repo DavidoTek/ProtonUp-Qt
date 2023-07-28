@@ -36,7 +36,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
         hg.heroic_path = heroic_path
         # Sideloaded games uses folder_name as their full install path, GOG games store a folder_name but this is *just* their install folder name
         # Prioritise getting install_path for GOG games as this is the GOG game equivalent to 'folder_name'
-        hg.install_path = get_gog_installed_game_entry(hg).get('install_path', '') if hg.runner.lower() == 'gog' else game.get('folder_name', '')
+        hg.install_path = get_gog_installed_game_entry(hg).get('install_path', '') or game.get('install', []).get('install_path', '') or game.get('browserUrl', '') or game.get('folder_name', '')
         hg.store_url = game.get('store_url', '')
         hg.art_cover = game.get('art_cover', '')  # May need to replace path if it has 'file:///app/blah in name - See example in #168
         hg.art_square = game.get('art_square', '')
