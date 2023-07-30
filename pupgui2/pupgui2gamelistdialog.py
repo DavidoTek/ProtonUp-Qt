@@ -252,7 +252,7 @@ class PupguiGameListDialog(QObject):
                 compat_tool_tooltip += self.tr('\nType: {wine_type}').format(wine_type=game.wine_info.get("type", "").capitalize()) if game.wine_info.get('type', '') else ''
             else:
                 # Linux/Browser games
-                compat_item_text = self.tr(game.platform)
+                compat_item_text = self.tr('Browser') if game.platform.lower() == 'browser' else self.tr('Native')
                 compat_tool_tooltip = self.tr('Type: {PLATFORM}').format(PLATFORM=game.platform)
 
             compat_item.setText(compat_item_text)
