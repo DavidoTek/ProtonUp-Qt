@@ -17,13 +17,17 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
     if not os.path.isdir(heroic_path):
         return []
 
-    store_paths: List[str] = [ os.path.join(heroic_path, 'sideload_apps', 'library.json'), os.path.join(heroic_path, 'gog_store', 'library.json') ]
+    # "Nile" refers to Amazon Games
+    store_paths: List[str] = [ os.path.join(heroic_path, 'sideload_apps', 'library.json'), os.path.join(heroic_path, 'gog_store', 'library.json'), os.path.join(heroic_path, 'store_cache', 'nile_library.json') ]
     legendary_path: str = os.path.abspath(os.path.join(heroic_path, '..', 'legendary', 'installed.json'))
 
     games_json: List = []
     for sp in store_paths:
         if os.path.isfile(sp):
-            games_json += json.load(open(sp)).get('games', [])
+            games_json_file = json.load(open(sp))
+
+            games_json += games_json_file.get('games', [])  # GOG + sideload use 'games' as top-level object
+            games_json += games_json_file.get('library', [])  # Nile uses 'library' as top-level object
 
     hgs: List[HeroicGame] = []
     for game in games_json:
@@ -34,7 +38,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
         hg.title = game.get('title', '')
         hg.developer = game.get('developer', '')
         hg.heroic_path = heroic_path
-        # Sideloaded games uses folder_name as their full install path, GOG games store a folder_name but this is *just* their install folder name
+        # Sideloaded games uses folder_name as their full install path, GOG games store a folder_name but this is *just* their install folder name, Nile uses `"install": [ "install_path": "/foo/bar/foobar" ]`
         # Prioritise getting install_path for GOG games as this is the GOG game equivalent to 'folder_name'
         hg.install_path = get_gog_installed_game_entry(hg).get('install_path', '') or game.get('install', {}).get('install_path', '') or game.get('browserUrl', '') or game.get('folder_name', '')
         hg.store_url = game.get('store_url', '')
