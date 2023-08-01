@@ -223,7 +223,7 @@ class PupguiGameListDialog(QObject):
 
     def update_game_list_heroic(self):
         heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
-        self.games = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
+        self.games: List[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
 
         self.ui.tableGames.setRowCount(len(self.games))
 
@@ -238,8 +238,8 @@ class PupguiGameListDialog(QObject):
             title_item.setToolTip(title_tooltip)
 
             compat_item = QTableWidgetItem()
-            # If no wine_info, assume this is a native game -- May be more reliable than checking a platform string
-            if game.wine_info.get('name', ''):
+            # Wine games
+            if game.platform.lower() == 'windows':
                 compat_item_text = game.wine_info.get('name', '').split('-', 1)[1].strip()
                 compat_tool_bin_path = game.wine_info.get('bin', '')
 
@@ -251,15 +251,20 @@ class PupguiGameListDialog(QObject):
                     compat_item.setData(Qt.UserRole, lambda path: os.system(f'xdg-open "{compat_tool_folder}"'))
                 compat_tool_tooltip += self.tr('\nType: {wine_type}').format(wine_type=game.wine_info.get("type", "").capitalize()) if game.wine_info.get('type', '') else ''
             else:
-                compat_item_text = self.tr('Native')
-                compat_tool_tooltip = self.tr('Type: Native')
+                # Linux/Browser games
+                compat_item_text = self.tr('Browser') if game.platform.lower() == 'browser' else self.tr('Native')
+                compat_tool_tooltip = self.tr('Type: {PLATFORM}').format(PLATFORM=game.platform)
 
             compat_item.setText(compat_item_text)
             compat_item.setToolTip(compat_tool_tooltip)
             compat_item.setTextAlignment(Qt.AlignCenter)
 
             install_path_item = QTableWidgetItem(game.install_path)
-            self.set_item_data_directory(install_path_item, game.install_path)
+            if game.platform.lower() == 'browser':
+                # Browser game paths are browserUrl, so the path won't exist -- Ignore this and set the tooltip and xdg-open action to open the URL 
+                self.set_item_data_directory(install_path_item, game.install_path, tooltip_exists=self.tr('Double-click to open in browser'), ignore_invalid_path=True)
+            else:
+                self.set_item_data_directory(install_path_item, game.install_path)
             
             runner_item = QTableWidgetItem(game.runner)
             runner_item.setTextAlignment(Qt.AlignCenter)
@@ -347,7 +352,8 @@ class PupguiGameListDialog(QObject):
 
     def set_item_data_directory(self, item: QTableWidgetItem, path: str,
                                     tooltip_exists: str = 'Double click to browse...',
-                                    tooltip_invalid: str = 'Install location does not exist!'):
+                                    tooltip_invalid: str = 'Install location does not exist!',
+                                    ignore_invalid_path: bool = False):
         """ Set the Qt.UserRole data for a QTableWidgetItem to a lambda which uses xdg-open to open a given path, if it exists. """
 
         # (hacky way to) show default tooltips in parameters while allowing translation (make sure they match the default parameters)
@@ -356,7 +362,7 @@ class PupguiGameListDialog(QObject):
         if tooltip_invalid == 'Install location does not exist!':
             tooltip_invalid = self.tr('Install location does not exist!')
 
-        if os.path.isdir(path):
+        if os.path.isdir(path) or ignore_invalid_path:
             item.setToolTip(tooltip_exists)
             item.setData(Qt.UserRole, lambda path: os.system(f'xdg-open "{path}"'))
         else:
