@@ -79,11 +79,16 @@ class CtInstaller(QObject):
         Get artifact from commit
         Return Type: str
         """
+        dxvk_found = None
         for artifact in self.rs.get(self.CT_URL + '?per_page=100').json()["artifacts"]:
-            if artifact['workflow_run']['head_sha'][:len(commit)] == commit and 'd8vk' in artifact['name']:  # Only get D8VK artifacts and not DXVK native artifacts
+            if artifact['workflow_run']['head_sha'][:len(commit)] == commit and any(dvk in artifact['name'] for dvk in ['dxvk', 'd8vk']):
                 artifact['workflow_run']['head_sha'] = commit
-                return artifact
-        return None
+                if 'd8vk' in artifact['name']:
+                    return artifact  # "d8vk" in the name -> old naming scheme -> return the d8vk artifact
+                else:
+                    dxvk_found = artifact
+        # found one artifact with "dxvk" in the name, but didn't find a "d8vk" artifact -> new naming scheme -> return the dxvk artifact
+        return dxvk_found
 
     def __fetch_github_data(self, tag):
         """
