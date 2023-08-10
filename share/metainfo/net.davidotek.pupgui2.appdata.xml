@@ -69,11 +69,22 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.8.2" date="2023-08-06">
+      <description>
+        <p>Changes/Improvements:</p>
+        <ul>
+          <li>Heroic: Added support for DXVK and vkd3d</li>
+          <li>Heroic: Display Amazon Games and Browser Games correctly</li>
+          <li>Fix regression where Proton-Tkg could not be extracted</li>
+        </ul>
+        <p>Various improvements and bug fixes. See GitHub for more details.<br/>Also thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.8.1" date="2023-07-04">
       <description>
         <p>Changes:</p>
         <ul>
-          <li>Added Heroic support for Wine-GE, Proton-GE and D8VK</li>
+          <li>Added Heroic support for Wine-Tkg, Proton-Tkg and D8VK</li>
           <li>Added Italian translations</li>
         </ul>
         <p>Improvements:</p>
