@@ -628,12 +628,12 @@ Type : {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="373"/>
         <source>Game plans to support Proton/Wine</source>
-        <translation type="unfinished"></translation>
+        <translation>Plans de jeu pour supporter Proton/Wine</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="376"/>
         <source>No official statement but runs fine (may require tinkering)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de communiqués officiels mais fonctionne correctement (peut nécessiter du bricolage)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="379"/>
