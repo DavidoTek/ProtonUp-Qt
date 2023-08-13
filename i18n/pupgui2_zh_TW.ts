@@ -312,8 +312,8 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
-        <translation type="unfinished">新增一個可以從 Steam 打開 ProtonUp-QT 的捷徑。
-若要刪除捷徑，請打開 Steam，然後選擇「從庫中刪除非 Steam 遊戲」。</translation>
+        <translation>新增一個可以從 Steam 打開 ProtonUp-QT 的捷徑。
+若要刪除捷徑，請打開 Steam，然後選擇「將所選的非 Steam 遊戲從收藏庫中移除」。</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="174"/>
@@ -618,7 +618,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="60"/>
         <source>Game List for {LAUNCHER}</source>
-        <translation type="unfinished"></translation>
+        <translation>{LAUNCHER} 的遊戲列表</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="63"/>
