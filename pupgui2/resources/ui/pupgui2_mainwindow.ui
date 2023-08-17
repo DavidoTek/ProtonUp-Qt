@@ -72,7 +72,7 @@
       <item>
        <widget class="QLabel" name="txtActiveDownloads">
         <property name="text">
-         <string>0</string>
+         <string notr="true">0</string>
         </property>
        </widget>
       </item>
@@ -89,7 +89,7 @@
          <string>Add Custom Install Directory...</string>
         </property>
         <property name="text">
-         <string>...</string>
+         <string notr="true">...</string>
         </property>
        </widget>
       </item>
