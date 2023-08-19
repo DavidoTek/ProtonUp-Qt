@@ -254,6 +254,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                 if a := sapps.get(appid_str):
                     a.game_name = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('name', '')
                     a.deck_compatibility = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('steam_deck_compatibility', {})
+
                     if a.game_name.startswith('Proton') and a.game_name.endswith('Runtime'):
                         a.app_type = 'acruntime'
                     elif 'Steam Linux Runtime' in a.game_name:
@@ -264,6 +265,8 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                         ct = ctool_map.get(steam_app.get('appid'))
                         a.ctool_name = ct.get('name')
                         a.ctool_from_oslist = ct.get('from_oslist')
+                    elif a.app_id == 2230260:  # see https://github.com/DavidoTek/ProtonUp-Qt/pull/280
+                        a.app_type = 'useless-proton-next'
                     else:
                         a.app_type = 'game'
                     cnt += 1
