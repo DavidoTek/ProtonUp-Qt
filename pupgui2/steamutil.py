@@ -254,6 +254,15 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                 if a := sapps.get(appid_str):
                     a.game_name = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('name', '')
                     a.deck_compatibility = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('steam_deck_compatibility', {})
+
+                    # Skip Proton Next, which exists but is not selectable in the Steam Client when there is no valid Proton Next version in testing
+                    # In this case, it is not available in the Steam Play manifest parsed by _get_steam_ctool_info (it is listed as an alias for the latest stable Proton)
+                    #
+                    # If there is ever a case where Proton Next is in use, it should be found by _get_steam_ctool_info and skipped properly as it will be in the ctool_map,
+                    # so this check is only for when Proton Next is installed but not available as a compatibility tool
+                    if a.app_id == 2230260:
+                        continue
+
                     if a.game_name.startswith('Proton') and a.game_name.endswith('Runtime'):
                         a.app_type = 'acruntime'
                     elif 'Steam Linux Runtime' in a.game_name:
