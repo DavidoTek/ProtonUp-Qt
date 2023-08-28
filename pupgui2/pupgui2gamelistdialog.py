@@ -12,6 +12,7 @@ from PySide6.QtUiTools import QUiLoader
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL
 from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum, LutrisGame, HeroicGame
 from pupgui2.lutrisutil import get_lutris_game_list
+from pupgui2.pupgui2shortcutdialog import PupguiShortcutDialog
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
 from pupgui2.steamutil import get_protondb_status
@@ -66,6 +67,7 @@ class PupguiGameListDialog(QObject):
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
         self.ui.btnSearch.clicked.connect(self.btn_search_clicked)
         self.ui.btnRefreshGames.clicked.connect(self.btn_refresh_games_clicked)
+        self.ui.btnShortcutEditor.clicked.connect(self.btn_shortcut_editor_clicked)
         self.ui.searchBox.textChanged.connect(self.search_gamelist_games)
 
         # Hide Search button and disable shortcut if no games
@@ -84,6 +86,8 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setColumnWidth(0, 300)
         self.ui.tableGames.setColumnWidth(3, 70)
         self.ui.tableGames.setColumnWidth(4, 70)
+
+        self.ui.btnShortcutEditor.setVisible(True)
     
     def setup_lutris_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Runner'), self.tr('Install Location'), self.tr('Installed Date'), ''])
@@ -95,6 +99,8 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setColumnWidth(3, 30)
         self.ui.tableGames.setColumnHidden(4, True)
 
+        self.ui.btnShortcutEditor.setVisible(False)
+
     def setup_heroic_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Install Location'), self.tr('Runner'), ''])
         self.update_game_list_heroic()
@@ -104,6 +110,8 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setColumnWidth(2, 250)
         self.ui.tableGames.setColumnWidth(3, 40)
         self.ui.tableGames.setColumnHidden(4, True)
+
+        self.ui.btnShortcutEditor.setVisible(False)
 
     def update_game_list_steam(self, cached=True):
         """ update the game list for the Steam launcher """
@@ -300,6 +308,10 @@ class PupguiGameListDialog(QObject):
         self.ui.searchBox.setFocus()
 
         self.search_gamelist_games(self.ui.searchBox.text() if self.ui.searchBox.isVisible() else '')
+
+    def btn_shortcut_editor_clicked(self):
+        self.ui.close()
+        PupguiShortcutDialog(self.install_loc.get('vdf_dir'), self.ui)
 
     def search_gamelist_games(self, text):
         for row in range(self.ui.tableGames.rowCount()):
