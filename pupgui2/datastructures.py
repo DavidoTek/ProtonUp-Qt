@@ -53,7 +53,7 @@ class SteamApp:
     libraryfolder_id = -1
     libraryfolder_path = ''
     shortcut_id = -1  # Will be a number >=0 if it is a Non-Steam shortcut
-    shortcut_path = ''
+    shortcut_startdir = ''
     shortcut_exe = ''
     shortcut_icon = ''
     shortcut_user = ''

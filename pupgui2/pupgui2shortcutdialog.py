@@ -50,7 +50,7 @@ class PupguiShortcutDialog(QObject):
         for i, shortcut in enumerate(self.shortcuts):
             txt_name = QLineEdit(shortcut.game_name)
             txt_exe = QLineEdit(shortcut.shortcut_exe)
-            txt_path = QLineEdit(shortcut.shortcut_path)
+            txt_path = QLineEdit(shortcut.shortcut_startdir)
             txt_icon = QLineEdit(shortcut.shortcut_icon)
 
             txt_name.editingFinished.connect(lambda i=i: self.txt_changed(i, 0))
@@ -91,9 +91,9 @@ class PupguiShortcutDialog(QObject):
                 self.ui.tableShortcuts.cellWidget(index, col).setText(self.shortcuts[index].shortcut_exe)
         elif col == 2:
             if os.path.exists(text.replace('"', '')):
-                self.shortcuts[index].shortcut_path = text
+                self.shortcuts[index].shortcut_startdir = text
             else:
-                self.ui.tableShortcuts.cellWidget(index, col).setText(self.shortcuts[index].shortcut_path)
+                self.ui.tableShortcuts.cellWidget(index, col).setText(self.shortcuts[index].shortcut_startdir)
         elif col == 3:
             self.shortcuts[index].shortcut_icon = text
 

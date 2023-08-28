@@ -126,7 +126,7 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
                 
                 app.app_id = appid
                 app.shortcut_id = sid
-                app.shortcut_path = svalue.get('StartDir')
+                app.shortcut_startdir = svalue.get('StartDir')
                 app.shortcut_exe = svalue.get('Exe')
                 app.shortcut_icon = svalue.get('icon')
                 app.shortcut_user = userf
@@ -629,14 +629,14 @@ def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamAp
             if svalue:  # sid already exists, update shortcut
                 svalue['AppName'] = shortcuts_by_user[userf][sid].game_name
                 svalue['Exe'] = shortcuts_by_user[userf][sid].shortcut_exe
-                svalue['StartDir'] = shortcuts_by_user[userf][sid].shortcut_path
+                svalue['StartDir'] = shortcuts_by_user[userf][sid].shortcut_startdir
                 svalue['icon'] = shortcuts_by_user[userf][sid].shortcut_icon
             else:  # sid doesn't exist, add new shortcut
                 shortcuts_vdf.setdefault('shortcuts', {})[sid] = {
                     'appid': shortcuts_by_user[userf][sid].app_id,
                     'AppName': shortcuts_by_user[userf][sid].game_name,
                     'Exe': shortcuts_by_user[userf][sid].shortcut_exe,
-                    'StartDir': shortcuts_by_user[userf][sid].shortcut_path,
+                    'StartDir': shortcuts_by_user[userf][sid].shortcut_startdir,
                     'icon': shortcuts_by_user[userf][sid].shortcut_icon,
                     'ShortcutPath': '',
                     'LaunchOptions': '',
