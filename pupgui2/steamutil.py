@@ -105,8 +105,8 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
         if not compat_tools:
             compat_tools = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
 
-        for file in os.listdir(users_folder):
-            user_directory = os.path.join(users_folder,file)
+        for userf in os.listdir(users_folder):
+            user_directory = os.path.join(users_folder, userf)
             if not os.path.isdir(user_directory):
                 continue
 
@@ -127,6 +127,9 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
                 app.app_id = appid
                 app.shortcut_id = sid
                 app.shortcut_path = svalue.get('StartDir')
+                app.shortcut_exe = svalue.get('Exe')
+                app.shortcut_icon = svalue.get('icon')
+                app.shortcut_user = userf
                 app.app_type = 'game'
                 app.game_name = svalue.get('AppName') or svalue.get('appname')
                 if ct := compat_tools.get(str(appid)):
@@ -586,3 +589,76 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
         print(f'Error: Could not add {APP_NAME} as Steam shortcut:', e)
 
     return 0
+
+
+def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamApp], delete_sids: List[int]) -> None:
+    """
+    Updates the Steam shortcuts.vdf file with the provided shortcuts
+    It will update existing shortcuts and add new ones
+
+    Parameters:
+        steam_config_folder: str
+            Path to the Steam config folder, e.g. '/home/user/.steam/root/config'
+        shortcuts: List[SteamApp]
+            List of shortcuts to add/update
+        delete_sids: List[int]
+            List of shortcut ids to delete
+    """
+    users_folder = os.path.realpath(os.path.join(os.path.expanduser(steam_config_folder), os.pardir, 'userdata'))
+
+    # group shortcuts by user like this: {user1: {sid1: shortcut1, sid2: shortcut2}, user2: {sid3: shortcut3}}
+    shortcuts_by_user: Dict[Dict[SteamApp]] = {}
+    for shortcut in shortcuts:
+        if shortcut.shortcut_user not in shortcuts_by_user:
+            shortcuts_by_user[shortcut.shortcut_user] = {}
+        shortcuts_by_user[shortcut.shortcut_user][shortcut.shortcut_id] = shortcut
+
+    for userf in shortcuts_by_user:
+        shortcuts_file = os.path.join(users_folder, userf, 'config', 'shortcuts.vdf')
+
+        # read shortcuts.vdf
+        shortcuts_vdf = {}
+        with open(shortcuts_file, 'rb') as f:
+            shortcuts_vdf = vdf.binary_load(f)
+
+        # update existing shortcuts or create new ones
+        for sid in list(shortcuts_vdf.get('shortcuts', {}).keys()):
+            if not sid in shortcuts_by_user.get(userf, {}):
+                continue
+            svalue = shortcuts_vdf.get('shortcuts', {}).get(sid)
+            if svalue:  # sid already exists, update shortcut
+                svalue['AppName'] = shortcuts_by_user[userf][sid].game_name
+                svalue['Exe'] = shortcuts_by_user[userf][sid].shortcut_exe
+                svalue['StartDir'] = shortcuts_by_user[userf][sid].shortcut_path
+                svalue['icon'] = shortcuts_by_user[userf][sid].shortcut_icon
+            else:  # sid doesn't exist, add new shortcut
+                shortcuts_vdf.setdefault('shortcuts', {})[sid] = {
+                    'appid': shortcuts_by_user[userf][sid].app_id,
+                    'AppName': shortcuts_by_user[userf][sid].game_name,
+                    'Exe': shortcuts_by_user[userf][sid].shortcut_exe,
+                    'StartDir': shortcuts_by_user[userf][sid].shortcut_path,
+                    'icon': shortcuts_by_user[userf][sid].shortcut_icon,
+                    'ShortcutPath': '',
+                    'LaunchOptions': '',
+                    'IsHidden': 0,
+                    'AllowDesktopConfig': 1,
+                    'AllowOverlay': 1,
+                    'OpenVR': 0,
+                    'Devkit': 0,
+                    'DevkitGameID': '',
+                    'DevkitOverrideAppID': 0,
+                    'LastPlayTime': 0,
+                    'FlatpakAppID': '',
+                    'tags': {}
+                }
+
+        # delete shortcuts that are marked for deletion
+        for sid in delete_sids:
+            shortcuts_vdf.pop(sid)
+
+        # write shortcuts.vdf
+        try:
+            with open(shortcuts_file, 'wb') as f:
+                f.write(vdf.binary_dumps(shortcuts_vdf))
+        except Exception as e:
+            print(f'Error: Could not write_steam_shortcuts_list for user {userf}:', e)
