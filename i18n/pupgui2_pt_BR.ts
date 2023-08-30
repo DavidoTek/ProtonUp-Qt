@@ -839,7 +839,7 @@ Tendência: {trending}</translation>
 &lt;br/&gt;
 &lt;br/&gt;
 This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation type="unfinished">Compilação customizada do Proton para executar jogos do Windows, construída com o sistema de compilação Wine-tkg.
+        <translation>Compilação customizada do Proton para executar jogos do Windows, construída com o sistema de compilação Wine-tkg.
 &lt;br&gt;
 &lt;br&gt;
 Essa compilação é baseada no &lt;b&gt;Wine Master&lt;/b&gt;.</translation>
