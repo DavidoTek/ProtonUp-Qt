@@ -32,7 +32,7 @@ On <b>Steam Deck</b>, relevant dependencies will be installed for you. If you ar
 More information is available on the SteamTinkerLaunch Installation wiki page.
 <br/><br/>
 SteamTinkerLaunch has a number of <b>Optional Dependencies</b> which have to be installed separately for extra functionality. Please see the Optional Dependencies section
-of the SteamTinkerLaunch Installation guide on its GitHub page..''')}
+of the SteamTinkerLaunch Installation guide on its GitHub page.''')}
 
 
 class CtInstaller(stlCtInstaller):
