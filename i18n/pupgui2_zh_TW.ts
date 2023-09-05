@@ -911,7 +911,7 @@ On &lt;b&gt;Steam Deck&lt;/b&gt;, relevant dependencies will be installed for yo
 More information is available on the SteamTinkerLaunch Installation wiki page.
 &lt;br/&gt;&lt;br/&gt;
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
-of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
+of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
         <translation>
 與 Steam 用戶端一起使用的 Linux 包裝工具，它允許對 Proton 和本機 Linux 遊戲的遊戲工具進行簡單的圖形配置。
 &lt;br&gt;&lt;br&gt;
@@ -1028,7 +1028,7 @@ On &lt;b&gt;Steam Deck&lt;/b&gt;, relevant dependencies will be installed for yo
 More information is available on the SteamTinkerLaunch Installation wiki page.
 &lt;br/&gt;&lt;br/&gt;
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
-of the SteamTinkerLaunch Installation guide on its GitHub page..</source>
+of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
         <translation>
 &lt;b&gt;Git 版本——可能不穩定&lt;/b&gt;
 &lt;br&gt;&lt;br&gt;
