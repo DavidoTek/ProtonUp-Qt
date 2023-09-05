@@ -20,6 +20,7 @@ BUILD_INFO = 'built from source'
 
 CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')
 TEMP_DIR = os.path.join(os.getenv('XDG_CACHE_HOME'), 'tmp', 'pupgui2.a70200/') if os.path.exists(os.getenv('XDG_CACHE_HOME', '')) else '/tmp/pupgui2.a70200/'
+HOME_DIR = os.path.expanduser('~')
 
 # support different Steam root directories
 # valid install dir should have config.vdf and libraryfolders.vdf, to ensure it is not an unused folder with correct directory structure
@@ -79,12 +80,12 @@ STEAM_BOXTRON_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.Compatibi
 STEAM_PROTONGE_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Proton-GE'
 STEAM_STL_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.Utility.steamtinkerlaunch'
 
-STEAM_STL_INSTALL_PATH = os.path.join(os.path.expanduser('~'), 'stl')
-STEAM_STL_CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.config', 'steamtinkerlaunch')
-STEAM_STL_CACHE_PATH = os.path.join(os.path.expanduser('~'), '.cache', 'steamtinkerlaunch')
-STEAM_STL_DATA_PATH = os.path.join(os.path.expanduser('~'), '.local', 'share', 'steamtinkerlaunch')
+STEAM_STL_INSTALL_PATH = os.path.join(HOME_DIR, 'stl')
+STEAM_STL_CONFIG_PATH = os.path.join(HOME_DIR, '.config', 'steamtinkerlaunch')
+STEAM_STL_CACHE_PATH = os.path.join(HOME_DIR, '.cache', 'steamtinkerlaunch')
+STEAM_STL_DATA_PATH = os.path.join(HOME_DIR, '.local', 'share', 'steamtinkerlaunch')
 STEAM_STL_SHELL_FILES = [ '.bashrc', '.zshrc', '.kshrc' ]
-STEAM_STL_FISH_VARIABLES = os.path.join(os.path.expanduser('~'), '.config/fish/fish_variables')
+STEAM_STL_FISH_VARIABLES = os.path.join(HOME_DIR, '.config/fish/fish_variables')
 
 LUTRIS_WEB_URL = 'https://lutris.net/games/'
 EPIC_STORE_URL = 'https://store.epicgames.com/p/'
