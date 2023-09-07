@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/ctloader.py" line="55"/>
         <source>Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Hata!</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="57"/>
@@ -14,7 +14,10 @@
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation type="unfinished"></translation>
+        <translation>Aşağıdaki uyumluluk aracı/araçları yüklenemedi:
+{TOOL_LIST}
+
+Bunun bir hata olduğunu düşünüyorsanız lütfen GitHub&apos;da bu hatayı bildirin!</translation>
     </message>
 </context>
 <context>
@@ -22,164 +25,166 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="247"/>
         <source>unused</source>
-        <translation type="unfinished"></translation>
+        <translation>kullanılmamış</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="268"/>
         <source>Unused: {unused_ctools}</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanılmayan: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="291"/>
         <source>Fetching releases...</source>
-        <translation type="unfinished"></translation>
+        <translation>Yayınlamalar getiriliyor...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="302"/>
         <source>Download canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>İndirme iptal edildi.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="306"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} yüklenemedi...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="313"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} indiriliyor...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="315"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} ayıklanıyor...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="317"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} yükleniyor...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="319"/>
         <source>Installed {current_compat_tool_name}.</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} yüklendi.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="342"/>
         <source>Remove compatibility tools?</source>
-        <translation type="unfinished"></translation>
+        <translation>Uyumluluk araçları kaldırılsın mı?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="342"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>{n} oyunun kullandığı uyumluluk araçlarını
+kaldırmak üzeresiniz. Devam edilsin mi?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="349"/>
         <source>Removed selected versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seçilen sürümler kaldırıldı.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="363"/>
         <source>Exit?</source>
-        <translation type="unfinished"></translation>
+        <translation>Çıkış yapılsın mı?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="363"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bekleyen indirmeler var.
+İptal edilip yine de çıkılsın mı?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="371"/>
         <source>Changed install directory to {install_dir}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurulum dizini {install_dir} olarak değiştirildi.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="382"/>
         <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilgi: GE-Proton ve Boxtron&apos;u doğrudan Flathub&apos;dan indirebilirsiniz!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="419"/>
         <source>Install tool from Flathub</source>
-        <translation type="unfinished"></translation>
+        <translation>Aracı Flathub&apos;dan yükle</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="422"/>
         <source>Click to open your app store</source>
-        <translation type="unfinished"></translation>
+        <translation>Uygulama mağazanızı açmak için tıklayın</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
         <source>ProtonUp-Qt - Wine/Proton Installer</source>
-        <translation type="unfinished"></translation>
+        <translation>ProtonUp-Qt - Wine/Proton Yükleyici</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="48"/>
         <source>Install for:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Şunun için yükleyin:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="68"/>
         <source>Active downloads:</source>
-        <translation type="unfinished"></translation>
+        <translation>Etkin indirmeler:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="75"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation type="unfinished"></translation>
+        <translation>Özel Kurulum Dizini Ekle...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="92"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="103"/>
         <source>Installed compatibility tools:</source>
-        <translation type="unfinished"></translation>
+        <translation>Yüklü uyumluluk araçları:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
         <source>Add version</source>
-        <translation type="unfinished"></translation>
+        <translation>Sürüm ekle</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="155"/>
         <source>Remove selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Seçileni kaldır</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="162"/>
         <source>Show info</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilgi göster</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
         <source>Get tools from Flathub</source>
-        <translation type="unfinished"></translation>
+        <translation>Flathub&apos;dan araçları edinin</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="206"/>
         <source>Show game list</source>
-        <translation type="unfinished"></translation>
+        <translation>Oyun listesini göster</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="213"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Hakkında</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="220"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kapalı</translation>
     </message>
 </context>
 <context>
@@ -187,7 +192,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diyalog</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="44"/>
