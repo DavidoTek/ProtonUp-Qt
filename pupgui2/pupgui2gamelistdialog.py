@@ -54,6 +54,8 @@ class PupguiGameListDialog(QObject):
         elif is_heroic_launcher(self.launcher):
             self.setup_heroic_list_ui()
 
+        self.ui.btnShortcutEditor.setVisible(self.launcher == 'steam')
+
         self.ui.btnSearch.setVisible(False)
         self.ui.searchBox.setVisible(False)  # Hide searchbox by default
 
@@ -86,8 +88,6 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setColumnWidth(0, 300)
         self.ui.tableGames.setColumnWidth(3, 70)
         self.ui.tableGames.setColumnWidth(4, 70)
-
-        self.ui.btnShortcutEditor.setVisible(True)
     
     def setup_lutris_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Runner'), self.tr('Install Location'), self.tr('Installed Date'), ''])
@@ -99,8 +99,6 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setColumnWidth(3, 30)
         self.ui.tableGames.setColumnHidden(4, True)
 
-        self.ui.btnShortcutEditor.setVisible(False)
-
     def setup_heroic_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Install Location'), self.tr('Runner'), ''])
         self.update_game_list_heroic()
@@ -110,8 +108,6 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setColumnWidth(2, 250)
         self.ui.tableGames.setColumnWidth(3, 40)
         self.ui.tableGames.setColumnHidden(4, True)
-
-        self.ui.btnShortcutEditor.setVisible(False)
 
     def update_game_list_steam(self, cached=True):
         """ update the game list for the Steam launcher """
