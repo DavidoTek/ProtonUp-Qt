@@ -85,12 +85,22 @@ class PupguiShortcutDialog(QObject):
         if col == 0:
             self.shortcuts[index].game_name = text
         elif col == 1:
-            if os.path.isfile(text.replace('"', '')):
+            if os.path.isfile(text.replace('"', '', 2)):
+                if not text.startswith('"'):
+                    text = '"' + text
+                if not text.endswith('"'):
+                    text = text + '"'
+                self.ui.tableShortcuts.cellWidget(index, col).setText(text)
                 self.shortcuts[index].shortcut_exe = text
             else:
                 self.ui.tableShortcuts.cellWidget(index, col).setText(self.shortcuts[index].shortcut_exe)
         elif col == 2:
-            if os.path.exists(text.replace('"', '')):
+            if os.path.exists(text.replace('"', '', 2)):
+                if not text.startswith('"'):
+                    text = '"' + text
+                if not text.endswith('"'):
+                    text = text + '"'
+                self.ui.tableShortcuts.cellWidget(index, col).setText(text)
                 self.shortcuts[index].shortcut_startdir = text
             else:
                 self.ui.tableShortcuts.cellWidget(index, col).setText(self.shortcuts[index].shortcut_startdir)
