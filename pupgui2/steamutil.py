@@ -7,6 +7,7 @@ import vdf
 import requests
 import threading
 import pkgutil
+import binascii
 from steam.utils.appcache import parse_appinfo
 
 from PySide6.QtCore import Signal
@@ -669,3 +670,20 @@ def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamAp
                 f.write(vdf.binary_dumps(shortcuts_vdf))
         except Exception as e:
             print(f'Error: Could not write_steam_shortcuts_list for user {userf}:', e)
+
+def calc_shortcut_app_id(appname: str, exe: str) -> int:
+    """
+    Calculates an app id for a shortcut based on the app name and executable.
+    Based on https://github.com/SteamGridDB/steam-rom-manager/blob/master/src/lib/helpers/steam/generate-app-id.ts
+
+    Parameters:
+        appname: str
+            game_name of the shortcut
+        exe: str
+            shortcut_exe
+
+    Returns:
+        int
+    """
+    key = exe + appname
+    return (binascii.crc32(key.encode()) | 0x80000000) - 0x100000000

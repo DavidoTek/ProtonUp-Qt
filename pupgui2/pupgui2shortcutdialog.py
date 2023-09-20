@@ -1,10 +1,13 @@
 import os
 import pkgutil
+from collections import Counter
 
 from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
 from PySide6.QtWidgets import QLineEdit
 from PySide6.QtUiTools import QUiLoader
 
+from pupgui2.datastructures import SteamApp
+from pupgui2.steamutil import calc_shortcut_app_id
 from pupgui2.steamutil import get_steam_shortcuts_list, write_steam_shortcuts_list
 
 
@@ -43,7 +46,24 @@ class PupguiShortcutDialog(QObject):
 
         self.ui.btnSave.clicked.connect(self.btn_save_clicked)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
+        self.ui.btnAdd.clicked.connect(self.btn_add_clicked)
         self.ui.btnRemove.clicked.connect(self.btn_remove_clicked)
+
+    def prepare_table_row(self, i: int, shortcut: SteamApp):
+        txt_name = QLineEdit(shortcut.game_name)
+        txt_exe = QLineEdit(shortcut.shortcut_exe)
+        txt_path = QLineEdit(shortcut.shortcut_startdir)
+        txt_icon = QLineEdit(shortcut.shortcut_icon)
+
+        txt_name.editingFinished.connect(lambda i=i: self.txt_changed(i, 0))
+        txt_exe.editingFinished.connect(lambda i=i: self.txt_changed(i, 1))
+        txt_path.editingFinished.connect(lambda i=i: self.txt_changed(i, 2))
+        txt_icon.editingFinished.connect(lambda i=i: self.txt_changed(i, 3))
+
+        self.ui.tableShortcuts.setCellWidget(i, 0, txt_name)
+        self.ui.tableShortcuts.setCellWidget(i, 1, txt_exe)
+        self.ui.tableShortcuts.setCellWidget(i, 2, txt_path)
+        self.ui.tableShortcuts.setCellWidget(i, 3, txt_icon)
 
     def refresh_shortcut_list(self):
         self.shortcuts = get_steam_shortcuts_list(self.steam_config_folder)
@@ -51,20 +71,10 @@ class PupguiShortcutDialog(QObject):
         self.ui.tableShortcuts.setRowCount(len(self.shortcuts))
 
         for i, shortcut in enumerate(self.shortcuts):
-            txt_name = QLineEdit(shortcut.game_name)
-            txt_exe = QLineEdit(shortcut.shortcut_exe)
-            txt_path = QLineEdit(shortcut.shortcut_startdir)
-            txt_icon = QLineEdit(shortcut.shortcut_icon)
+            self.prepare_table_row(i, shortcut)
 
-            txt_name.editingFinished.connect(lambda i=i: self.txt_changed(i, 0))
-            txt_exe.editingFinished.connect(lambda i=i: self.txt_changed(i, 1))
-            txt_path.editingFinished.connect(lambda i=i: self.txt_changed(i, 2))
-            txt_icon.editingFinished.connect(lambda i=i: self.txt_changed(i, 3))
-
-            self.ui.tableShortcuts.setCellWidget(i, 0, txt_name)
-            self.ui.tableShortcuts.setCellWidget(i, 1, txt_exe)
-            self.ui.tableShortcuts.setCellWidget(i, 2, txt_path)
-            self.ui.tableShortcuts.setCellWidget(i, 3, txt_icon)
+        if len(self.shortcuts) == 0:
+            self.ui.btnAdd.setEnabled(False)
 
     def txt_changed(self, index: int, col: int) -> None:
         """
@@ -111,12 +121,36 @@ class PupguiShortcutDialog(QObject):
             self.shortcuts[index].shortcut_icon = text
 
     def btn_save_clicked(self):
+        for s in self.shortcuts:
+            if s.app_id == -1:  # calculate app_id for new shortcuts
+                s.app_id = calc_shortcut_app_id(s.game_name, s.shortcut_exe)
+
         write_steam_shortcuts_list(self.steam_config_folder, self.shortcuts, self.discarded_shortcuts)
         self.game_property_changed.emit(True)
         self.ui.close()
 
     def btn_close_clicked(self):
         self.ui.close()
+
+    def btn_add_clicked(self):
+        # new id should be higher than last one
+        highest_id = 0
+        for shortcut in self.shortcuts:
+            sid = int(shortcut.shortcut_id)
+            if sid > highest_id:
+                highest_id = sid
+
+        # assume that the most common user of other shortcuts is the correct one
+        # TODO: get this to work when there are no other shortcuts. Remember to change the tooltip.
+        most_common_user = Counter([s.shortcut_user for s in self.shortcuts]).most_common(1)[0][0]
+
+        new_shortcut = SteamApp()
+        new_shortcut.shortcut_id = str(highest_id+1)
+        new_shortcut.shortcut_user = most_common_user
+        self.shortcuts.append(new_shortcut)
+
+        self.ui.tableShortcuts.setRowCount(len(self.shortcuts))
+        self.prepare_table_row(len(self.shortcuts) - 1, new_shortcut)
 
     def btn_remove_clicked(self):
         for sr in self.ui.tableShortcuts.selectedRanges():

@@ -49,7 +49,20 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
+      <widget class="QPushButton" name="btnAdd">
+       <property name="toolTip">
+        <string>Add a new shortcut. Currently only works if there is at least one other shortcut</string>
+       </property>
+       <property name="text">
+        <string>Add new</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btnRemove">
+       <property name="toolTip">
+        <string>Click on a row, then click here to remove a shortcut</string>
+       </property>
        <property name="text">
         <string>Remove selected</string>
        </property>
@@ -70,6 +83,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnSave">
+       <property name="toolTip">
+        <string>Save changes and delete marked shortcuts</string>
+       </property>
        <property name="text">
         <string>Save</string>
        </property>
@@ -77,6 +93,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnClose">
+       <property name="toolTip">
+        <string>Close without saving changes or deleting shortcuts</string>
+       </property>
        <property name="text">
         <string>Close</string>
        </property>
