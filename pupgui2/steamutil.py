@@ -629,8 +629,7 @@ def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamAp
 
         # update/add new shortcuts
         modified_shorcuts = shortcuts_by_user.get(userf, {})
-        for sid in list(modified_shorcuts.keys()) :
-            print(sid, type(sid))
+        for sid in list(modified_shorcuts.keys()):
             shortcut_modified: SteamApp = modified_shorcuts.get(sid)
             if sid in current_shortcuts:  # update existing shortcut
                 svalue_current = current_shortcuts.get(sid)
