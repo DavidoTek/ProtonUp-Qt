@@ -24,14 +24,19 @@ _cached_steam_ctool_id_map = None
 
 def get_steam_vdf_compat_tool_mapping(vdf_file: dict):
 
-    c = vdf_file.get('InstallConfigStore').get('Software')
+    s = vdf_file.get('InstallConfigStore', {}).get('Software', {})
 
     # Sometimes the key is 'Valve', sometimes 'valve', see #226
-    c = c.get('Valve') or c.get('valve')
+    c = s.get('Valve') or s.get('valve')
     if not c:
         raise KeyError('Error! config.vdf InstallConfigStore.Software neither contains key "Valve" nor "valve" - config.vdf file may be invalid!')
 
-    return c.get('Steam').get('CompatToolMapping')
+    m = c.get('Steam', {}).get('CompatToolMapping', {})
+
+    if not m:  # equal to m == {} , may occur after fresh Steam installation
+        print('Warning: CompatToolMapping is empty')
+
+    return m
 
 
 def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=False) -> List[SteamApp]:
