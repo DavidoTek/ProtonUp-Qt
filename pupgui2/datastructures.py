@@ -52,7 +52,7 @@ class SteamApp:
     app_id = -1
     libraryfolder_id = -1
     libraryfolder_path = ''
-    shortcut_id = -1  # Will be a number >=0 if it is a Non-Steam shortcut
+    shortcut_id = ''  # dict key must be string (e.g. '1')
     shortcut_startdir = ''
     shortcut_exe = ''
     shortcut_icon = ''
@@ -83,9 +83,6 @@ class SteamApp:
             return self.deck_compatibility.get('configuration').get('recommended_runtime', '')
         except:
             return ''
-
-    def get_shortcut_id_str(self) -> str:
-        return str(self.shortcut_id)
 
 
 class BasicCompatTool:
