@@ -307,7 +307,7 @@ class PupguiGameListDialog(QObject):
 
     def btn_shortcut_editor_clicked(self):
         self.ui.close()
-        PupguiShortcutDialog(self.install_loc.get('vdf_dir'), self.ui)
+        PupguiShortcutDialog(self.install_loc.get('vdf_dir'), self.game_property_changed, self.ui)
 
     def search_gamelist_games(self, text):
         for row in range(self.ui.tableGames.rowCount()):

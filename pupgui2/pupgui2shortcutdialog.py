@@ -1,7 +1,7 @@
 import os
 import pkgutil
 
-from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
+from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
 from PySide6.QtWidgets import QLineEdit
 from PySide6.QtUiTools import QUiLoader
 
@@ -10,7 +10,7 @@ from pupgui2.steamutil import get_steam_shortcuts_list, write_steam_shortcuts_li
 
 class PupguiShortcutDialog(QObject):
 
-    def __init__(self, steam_config_folder: str, parent=None):
+    def __init__(self, steam_config_folder: str, game_property_changed: Signal, parent=None):
         """
         ProtonUp-Qt Dialog for editing Steam shortcuts
 
@@ -23,8 +23,10 @@ class PupguiShortcutDialog(QObject):
         super(PupguiShortcutDialog, self).__init__(parent)
 
         self.steam_config_folder = steam_config_folder
+        self.game_property_changed = game_property_changed
 
         self.shortcuts = []
+        self.discarded_shortcuts = []
 
         self.load_ui()
         self.setup_ui()
@@ -41,6 +43,7 @@ class PupguiShortcutDialog(QObject):
 
         self.ui.btnSave.clicked.connect(self.btn_save_clicked)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
+        self.ui.btnRemove.clicked.connect(self.btn_remove_clicked)
 
     def refresh_shortcut_list(self):
         self.shortcuts = get_steam_shortcuts_list(self.steam_config_folder)
@@ -108,8 +111,17 @@ class PupguiShortcutDialog(QObject):
             self.shortcuts[index].shortcut_icon = text
 
     def btn_save_clicked(self):
-        write_steam_shortcuts_list(self.steam_config_folder, self.shortcuts, [])
+        write_steam_shortcuts_list(self.steam_config_folder, self.shortcuts, self.discarded_shortcuts)
+        self.game_property_changed.emit(True)
         self.ui.close()
 
     def btn_close_clicked(self):
         self.ui.close()
+
+    def btn_remove_clicked(self):
+        for sr in self.ui.tableShortcuts.selectedRanges():
+            for i in range(sr.topRow(), sr.bottomRow()+1):
+                sid = self.shortcuts[i].shortcut_id
+                if sid not in self.discarded_shortcuts:
+                    self.discarded_shortcuts.append(sid)
+                self.ui.tableShortcuts.cellWidget(i, 0).setStyleSheet('QLineEdit { color: red; }')
