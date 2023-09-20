@@ -625,24 +625,26 @@ def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamAp
         shortcuts_vdf = {}
         with open(shortcuts_file, 'rb') as f:
             shortcuts_vdf = vdf.binary_load(f)
+        current_shortcuts = shortcuts_vdf.get('shortcuts', {})
 
-        # update existing shortcuts or create new ones
-        for sid in list(shortcuts_vdf.get('shortcuts', {}).keys()):
-            if not sid in shortcuts_by_user.get(userf, {}):
-                continue
-            svalue = shortcuts_vdf.get('shortcuts', {}).get(sid)
-            if svalue:  # sid already exists, update shortcut
-                svalue['AppName'] = shortcuts_by_user[userf][sid].game_name
-                svalue['Exe'] = shortcuts_by_user[userf][sid].shortcut_exe
-                svalue['StartDir'] = shortcuts_by_user[userf][sid].shortcut_startdir
-                svalue['icon'] = shortcuts_by_user[userf][sid].shortcut_icon
-            else:  # sid doesn't exist, add new shortcut
-                shortcuts_vdf.setdefault('shortcuts', {})[sid] = {
-                    'appid': shortcuts_by_user[userf][sid].app_id,
-                    'AppName': shortcuts_by_user[userf][sid].game_name,
-                    'Exe': shortcuts_by_user[userf][sid].shortcut_exe,
-                    'StartDir': shortcuts_by_user[userf][sid].shortcut_startdir,
-                    'icon': shortcuts_by_user[userf][sid].shortcut_icon,
+        # update/add new shortcuts
+        modified_shorcuts = shortcuts_by_user.get(userf, {})
+        for sid in list(modified_shorcuts.keys()) :
+            print(sid, type(sid))
+            shortcut_modified: SteamApp = modified_shorcuts.get(sid)
+            if sid in current_shortcuts:  # update existing shortcut
+                svalue_current = current_shortcuts.get(sid)
+                svalue_current['AppName'] = shortcut_modified.game_name
+                svalue_current['Exe'] = shortcut_modified.shortcut_exe
+                svalue_current['StartDir'] = shortcut_modified.shortcut_startdir
+                svalue_current['icon'] = shortcut_modified.shortcut_icon
+            else:  # add a new shortcut to shortcuts.vdf
+                svalue_new = {
+                    'appid': shortcut_modified.app_id,
+                    'AppName': shortcut_modified.game_name,
+                    'Exe': shortcut_modified.shortcut_exe,
+                    'StartDir': shortcut_modified.shortcut_startdir,
+                    'icon': shortcut_modified.shortcut_icon,
                     'ShortcutPath': '',
                     'LaunchOptions': '',
                     'IsHidden': 0,
@@ -656,10 +658,11 @@ def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamAp
                     'FlatpakAppID': '',
                     'tags': {}
                 }
+                current_shortcuts[sid] = svalue_new
 
         # delete shortcuts that are marked for deletion
         for sid in delete_sids:
-            shortcuts_vdf.pop(sid)
+            current_shortcuts.pop(sid)
 
         # write shortcuts.vdf
         try:
