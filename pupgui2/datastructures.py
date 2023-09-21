@@ -48,6 +48,20 @@ class MsgBoxResult:
     is_checked : bool = None
 
 
+class SteamUser:
+    long_id = -1
+    account_name = ''
+    persona_name = ''
+    most_recent = False
+    timestamp = -1
+
+    def get_short_id(self) -> int:
+        """
+        Returns the shortened Steam user id
+        """
+        return self.long_id & 0xFFFFFFFF
+
+
 class SteamApp:
     app_id = -1
     libraryfolder_id = -1

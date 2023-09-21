@@ -16,7 +16,7 @@ from PySide6.QtWidgets import QMessageBox, QApplication
 from pupgui2.constants import APP_NAME, APP_ID, APP_ICON_FILE
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
 from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
-from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
+from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamUser
 
 
 _cached_app_list = []
@@ -671,6 +671,7 @@ def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamAp
         except Exception as e:
             print(f'Error: Could not write_steam_shortcuts_list for user {userf}:', e)
 
+
 def calc_shortcut_app_id(appname: str, exe: str) -> int:
     """
     Calculates an app id for a shortcut based on the app name and executable.
@@ -687,3 +688,42 @@ def calc_shortcut_app_id(appname: str, exe: str) -> int:
     """
     key = exe + appname
     return (binascii.crc32(key.encode()) | 0x80000000) - 0x100000000
+
+
+def get_steam_user_list(steam_config_folder: str) -> List[SteamUser]:
+    """
+    Returns a list of Steam users
+
+    Parameters:
+        steam_config_folder: str
+            e.g. '~/.steam/root/config'
+
+    Return Type: List[SteamUser]
+    """
+    loginusers_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'loginusers.vdf')
+
+    users = []
+
+    if not os.path.exists(loginusers_vdf_file):
+        print(f'Warning: Loginusers file does not exist at {loginusers_vdf_file}')
+        return []
+
+    try:
+        with open(loginusers_vdf_file) as f:
+            d = vdf.load(f)
+            u = d.get('users', {})
+            for uid in list(u.keys()):
+                uvalue = u.get(uid, {})
+
+                user = SteamUser()
+                user.long_id = int(uid)
+                user.account_name = uvalue.get('AccountName', '')
+                user.persona_name = uvalue.get('PersonaName', '')
+                user.most_recent = bool(int(uvalue.get('MostRecent', '0')))
+                user.timestamp = int(uvalue.get('Timestamp', '-1'))
+
+                users.append(user)
+    except Exception as e:
+        print('Error: Could not get a list of Steam users:', e)
+
+    return users
