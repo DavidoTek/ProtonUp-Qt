@@ -524,7 +524,7 @@ def main():
     app.setApplicationName(APP_NAME)
     app.setApplicationVersion(APP_VERSION)
     app.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
-    app.setDesktopFileName('net.davidotek.pupgui2.desktop')
+    app.setDesktopFileName('net.davidotek.pupgui2')
 
     lang = QLocale.languageToCode(QLocale().language())
     lname = QLocale().name()

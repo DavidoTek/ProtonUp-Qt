@@ -37,7 +37,7 @@ On <b>Steam Deck</b>, relevant dependencies will be installed for you. If you ar
 More information is available on the SteamTinkerLaunch Installation wiki page.
 <br/><br/>
 SteamTinkerLaunch has a number of <b>Optional Dependencies</b> which have to be installed separately for extra functionality. Please see the Optional Dependencies section
-of the SteamTinkerLaunch Installation guide on its GitHub page..''')}
+of the SteamTinkerLaunch Installation guide on its GitHub page.''')}
 
 
 class CtInstaller(QObject):
@@ -370,7 +370,7 @@ class CtInstaller(QObject):
                 pup_stl_path_date = f'# Added by ProtonUp-Qt on {datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")}'
                 pup_stl_path_line = f'if [ -d "{stl_path}" ]; then export PATH="$PATH:{stl_path}"; fi'
                 present_shell_files = [
-                    os.path.join(os.path.expanduser('~'), f) for f in os.listdir(os.path.expanduser('~')) if os.path.isfile(os.path.join(os.path.expanduser('~'), f)) and f in constants.STEAM_STL_SHELL_FILES
+                    os.path.join(constants.HOME_DIR, f) for f in os.listdir(constants.HOME_DIR) if os.path.isfile(os.path.join(constants.HOME_DIR, f)) and f in constants.STEAM_STL_SHELL_FILES
                 ]
                 if os.path.exists(constants.STEAM_STL_FISH_VARIABLES):
                     present_shell_files.append(constants.STEAM_STL_FISH_VARIABLES)
@@ -398,7 +398,7 @@ class CtInstaller(QObject):
             print('Adding SteamTinkerLaunch as a compatibility tool...')
             subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch', 'compat', 'add'])
 
-            os.chdir(os.path.expanduser('~'))
+            os.chdir(constants.HOME_DIR)
 
         protondir = os.path.join(install_dir, 'SteamTinkerLaunch')
 

@@ -15,7 +15,7 @@ from PySide6.QtWidgets import QMessageBox, QApplication
 
 from pupgui2.constants import APP_NAME, APP_ID, APP_ICON_FILE
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
-from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES
+from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES, HOME_DIR
 from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamUser
 
 
@@ -263,6 +263,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                 if a := sapps.get(appid_str):
                     a.game_name = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('name', '')
                     a.deck_compatibility = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('steam_deck_compatibility', {})
+
                     if a.game_name.startswith('Proton') and a.game_name.endswith('Runtime'):
                         a.app_type = 'acruntime'
                     elif 'Steam Linux Runtime' in a.game_name:
@@ -273,6 +274,8 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                         ct = ctool_map.get(steam_app.get('appid'))
                         a.ctool_name = ct.get('name')
                         a.ctool_from_oslist = ct.get('from_oslist')
+                    elif a.app_id == 2230260:  # see https://github.com/DavidoTek/ProtonUp-Qt/pull/280
+                        a.app_type = 'useless-proton-next'
                     else:
                         a.app_type = 'game'
                     cnt += 1
@@ -430,7 +433,7 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
     """
 
     try:
-        os.chdir(os.path.expanduser('~'))
+        os.chdir(HOME_DIR)
 
         # If the Steam Deck/ProtonUp-Qt installation path doesn't exist
         # Adding `prefix` to path to be especially sure the user didn't just make an `stl` folder
@@ -484,7 +487,7 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
         # Works by getting all the lines in all the hardcoded Shell files that we write out to during installation and
         # and filtering out any line(s) that reference ProtonUp-Qt, then it writes that updated file content back out to the Shell file
         present_shell_files = [
-            os.path.join(os.path.expanduser('~'), f) for f in os.listdir(os.path.expanduser('~')) if os.path.isfile(os.path.join(os.path.expanduser('~'), f)) and f in STEAM_STL_SHELL_FILES
+            os.path.join(HOME_DIR, f) for f in os.listdir(HOME_DIR) if os.path.isfile(os.path.join(HOME_DIR, f)) and f in STEAM_STL_SHELL_FILES
         ]
         if os.path.exists(STEAM_STL_FISH_VARIABLES) or shutil.which('fish'):
             present_shell_files.append(STEAM_STL_FISH_VARIABLES)

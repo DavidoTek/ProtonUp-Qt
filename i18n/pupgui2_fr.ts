@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="pl_PL">
+<TS version="2.1" language="fr">
 <context>
     <name>CtLoader</name>
     <message>
         <location filename="../pupgui2/ctloader.py" line="55"/>
         <source>Error!</source>
-        <translation>Błąd!</translation>
+        <translation>Erreur!</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="57"/>
@@ -14,10 +14,10 @@
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation>Nie można załadować narzędzi kompatybilności:
-{TOOL_LIST}
+        <translation>Impossible de charger les outils de compatibilité suivants :
+{TOO_LIST}
 
-Jeżeli uważasz to za błąd, proszę złożyć raport błędu na GitHub!</translation>
+Si vous pensez que c&apos;est une erreur, merci de rapporter le bug sur GitHub !</translation>
     </message>
 </context>
 <context>
@@ -25,166 +25,166 @@ Jeżeli uważasz to za błąd, proszę złożyć raport błędu na GitHub!</tran
     <message>
         <location filename="../pupgui2/pupgui2.py" line="247"/>
         <source>unused</source>
-        <translation>nieużywane</translation>
+        <translation>inutilisé</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="268"/>
         <source>Unused: {unused_ctools}</source>
-        <translation>Nieużywane: {unused_ctools}</translation>
+        <translation>Inutilisé : {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="291"/>
         <source>Fetching releases...</source>
-        <translation>Pobieranie listy wydań...</translation>
+        <translation>Recherche de mise à jour...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="302"/>
         <source>Download canceled.</source>
-        <translation>Pobieranie anulowane.</translation>
+        <translation>Téléchargement annulé.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="306"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation>Nie udało się zainstalować {current_compat_tool_name}...</translation>
+        <translation>Impossible d&apos;installer {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="313"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation>Pobieranie {current_compat_tool_name}...</translation>
+        <translation>Téléchargement {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="315"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation>Wypakowywanie {current_compat_tool_name}...</translation>
+        <translation>Extraction {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="317"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation>Instalacja {current_compat_tool_name}...</translation>
+        <translation>Installation {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="319"/>
         <source>Installed {current_compat_tool_name}.</source>
-        <translation>{current_compat_tool_name} zainstalowany.</translation>
+        <translation>Installé {current_compat_tool_name}.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="342"/>
         <source>Remove compatibility tools?</source>
-        <translation>Usunąć narzędzia kompatybilności?</translation>
+        <translation>Supprimer l&apos;outil de compatibilité ?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="342"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
-        <translation>Próbujesz usunąć narzędzia kompatybilności
-które są w użyciu przez {n} grę/gry/gier. Czy kontynuować?</translation>
+        <translation>Nous essayons de supprimer l&apos;outils de compatibilité
+qui est utilisé par {n} jeux. Continuer ?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="349"/>
         <source>Removed selected versions.</source>
-        <translation>Usunięto wybrane wersje.</translation>
+        <translation>Versions sélectionnées supprimées.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="363"/>
         <source>Exit?</source>
-        <translation>Wyjść?</translation>
+        <translation>Quitter ?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="363"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
-        <translation>Trwa pobieranie.
-Anulować i wyjść mimo to?</translation>
+        <translation>Il y a des téléchargements en attente.
+Annuler et quitter ?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="371"/>
         <source>Changed install directory to {install_dir}.</source>
-        <translation>Zmieniono katalog instalacji na {install_dir}.</translation>
+        <translation>Emplacement d&apos;installation remplacé par {install_dir}.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="382"/>
         <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation>Info: Możesz pobrać GE-Proton / Boxtron bezpośrednio z Flathuba!</translation>
+        <translation>Info : Vous pouvez récupérer GE-Proton / Boxtron directement depuis Flathub !</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="419"/>
         <source>Install tool from Flathub</source>
-        <translation>Zainstaluj z Flathub</translation>
+        <translation>Installer l&apos;outil via Flathub</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="422"/>
         <source>Click to open your app store</source>
-        <translation>Kliknij by otworzyć sklep z aplikacjami</translation>
+        <translation>Cliquez pour ouvrir votre magasin d&apos;application</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
         <source>ProtonUp-Qt - Wine/Proton Installer</source>
-        <translation>ProtonUp-Qt - Instalator Wine/Proton</translation>
+        <translation>ProtonUp-Qt - Installateur de Wine/Proton</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="48"/>
         <source>Install for:</source>
-        <translation>Instalacja dla:</translation>
+        <translation>Installer pour:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="68"/>
         <source>Active downloads:</source>
-        <translation>Aktywne pobierania:</translation>
+        <translation>Téléchargements actifs:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="75"/>
         <source>0</source>
-        <translation></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation>Dodaj własny folder instalacyjny...</translation>
+        <translation>Ajouter un répertoire d&apos;installation personnalisé...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="92"/>
         <source>...</source>
-        <translation></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="103"/>
         <source>Installed compatibility tools:</source>
-        <translation>Zainstalowane narzędzia kompatybilności:</translation>
+        <translation>Outils de compatibilité installés:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
         <source>Add version</source>
-        <translation>Dodaj wersję</translation>
+        <translation>Ajouter une version</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="155"/>
         <source>Remove selected</source>
-        <translation>Usuń wybrane</translation>
+        <translation>Supprimer la sélection</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="162"/>
         <source>Show info</source>
-        <translation>Pokaż info</translation>
+        <translation>Afficher les informations</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
         <source>Get tools from Flathub</source>
-        <translation>Pobierz narzędzia z Flathub</translation>
+        <translation>Récupérer les outils sur Flathub</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="206"/>
         <source>Show game list</source>
-        <translation>Pokaż listę gier</translation>
+        <translation>Afficher la liste de jeux</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="213"/>
         <source>About</source>
-        <translation>O programie</translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="220"/>
         <source>Close</source>
-        <translation>Zamknij</translation>
+        <translation>Fermer</translation>
     </message>
 </context>
 <context>
@@ -192,42 +192,42 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Boite de dialogue</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="44"/>
         <source>Specify a custom location for downloading and displaying a launcher&apos;s compatibility tools.</source>
-        <translation>Ustaw folder pobierania i wyświetlania narzędzi kompatybilności.</translation>
+        <translation>Spécifiez un emplacement personnalisé pour télécharger et afficher les outils de compatibilité d&apos;un launcher.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="56"/>
         <source>Directory:</source>
-        <translation type="unfinished">Katalog:</translation>
+        <translation>Répertoire:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="66"/>
         <source>Launcher:</source>
-        <translation type="unfinished">Launcher:</translation>
+        <translation>Launcher:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="87"/>
         <source>Reset the custom install directory back to default for this launcher</source>
-        <translation>Zresetuj folder instalacji do miejsca domyślnego</translation>
+        <translation>Réinitialiser le répertoire d&apos;installation personnalisé de ce launcher par celui par défaut</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="90"/>
         <source>Default</source>
-        <translation>Domyślne</translation>
+        <translation>Par défaut</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="113"/>
         <source>Save</source>
-        <translation type="unfinished">Zapisz</translation>
+        <translation>Sauvegarder</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="120"/>
         <source>Close</source>
-        <translation type="unfinished">Zamknij</translation>
+        <translation>Fermer</translation>
     </message>
 </context>
 <context>
@@ -235,100 +235,100 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>light</source>
-        <translation>Jasny</translation>
+        <translation>clair</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>dark</source>
-        <translation>Ciemny</translation>
+        <translation>sombre</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>system (restart required)</source>
-        <translation>Systemowy (wymagany restart)</translation>
+        <translation>système (redémarrage nécessaire)</translation>
     </message>
     <message>
         <source>Update Steam game list</source>
-        <translation type="vanished">Zaktualizuj listę gier Steam</translation>
+        <translation type="vanished">Erneuere Steamliste</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="102"/>
         <source>Update available</source>
-        <translation>Dostępna aktualizacja</translation>
+        <translation>Mise à jour disponible</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="104"/>
         <source>There is a newer version available.
 You are running {APP_VERSION} but {newest_version} is available.</source>
-        <translation>Dostępna jest nowsza wersja.
-Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
+        <translation>Une nouvelle version est disponible.
+Vous utilisez {APP_VERSION] mais {newest_version] est disponible.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="107"/>
         <source>Up to date</source>
-        <translation>Brak dostępnych aktualizacji</translation>
+        <translation>À jour</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="107"/>
         <source>You are running the newest version!</source>
-        <translation>Używasz najnowszej wersji!</translation>
+        <translation>Vous utilisez la nouvelle version!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="124"/>
         <source>Added shortcut!</source>
-        <translation>Dodano skrót!</translation>
+        <translation>Raccourci ajouté!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation></translation>
+        <translation>Boite de dialogue</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;p&gt;GUI do instalacji/aktualizacji narzędzi kompatybilności opartych na Wine i Protonie.&lt;br&gt;Zainspirowane przez/częściowo oparte na protonup&apos;ie od AUNaseef.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Interface graphique permettant d&apos;installer/mettre à jour les outils de compatibilité Wine et Proton&lt;br&gt;Inspiré par/En partie basé par le protonup de AUNaseef&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
         <source>Support development on GitHub</source>
-        <translation>Wesprzyj rozwój na GitHubie</translation>
+        <translation>Aider au développement sur GitHub</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="122"/>
         <source>Color Theme:</source>
-        <translation>Motyw:</translation>
+        <translation>Thème de couleur:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="139"/>
         <source>Enable advanced mode (show git-builds for compatibility tools etc.)</source>
-        <translation>Włącz tryb zaawansowany (pokaż wersje git dla narzędzi kompatybilności itp.)</translation>
+        <translation>Activer le mode avancé (affiche le git-builds pour les outils de compatibilité etc.)</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="150"/>
         <source>Check for updates</source>
-        <translation>Sprawdź dostępność aktualizacji</translation>
+        <translation>Vérifier les mises à jour</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
-        <translation>Dodaje skrót by otworzyć ProtonUp-QT z twojej biblioteki Steam.
-By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze swojej biblioteki&quot;.</translation>
+        <translation>Ajoute un raccourci pour ouvrir ProtonUp-Qt depuis la librairie Steam.
+Pour supprimer le raccourci, ouvrez Steam et sélectionner &quot;supprimer le jeu non-Steam de votre librairie&quot;.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="174"/>
         <source>Add Steam shortcut</source>
-        <translation>Dodaj skrót na Steam</translation>
+        <translation>Ajouter un raccourci Steam</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="181"/>
         <source>About Qt</source>
-        <translation>O Qt</translation>
+        <translation>À propos de Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="188"/>
         <source>Close</source>
-        <translation>Zamknij</translation>
+        <translation>Fermer</translation>
     </message>
 </context>
 <context>
@@ -337,17 +337,17 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="22"/>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="27"/>
         <source>Batch update</source>
-        <translation>Aktualizacja wsadowa</translation>
+        <translation>Mise à jour groupée</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="28"/>
         <source>New version:</source>
-        <translation>Nowa wersja:</translation>
+        <translation>Nouvelle version :</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="38"/>
         <source>Close the Steam client beforehand.</source>
-        <translation>Zamknij wpierw klienta Steam.</translation>
+        <translation>Fermez le client Steam au préalable.</translation>
     </message>
 </context>
 <context>
@@ -359,83 +359,83 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="14"/>
         <source>About compatibility tool</source>
-        <translation>O narzędziu kompatybilności</translation>
+        <translation>À propos de l&apos;outil de compatibilité</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="26"/>
         <source>Compatibility tool:</source>
-        <translation>Narzędzie kompatybilności:</translation>
+        <translation>Outil de compatibilité :</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="40"/>
         <source>Game Launcher:</source>
-        <translation>Program uruchamiający gry:</translation>
+        <translation>Lanceur de jeu :</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="54"/>
         <source>Install directory:</source>
-        <translation>Katalog instalacji:</translation>
+        <translation>Répertoire d&apos;installation:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="79"/>
         <source>Games using compatibility tool:</source>
-        <translation>Gry używające narzędzia kompatybilności:</translation>
+        <translation>Jeux utilisant un outil de compatibilité :</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="106"/>
         <source>Refresh Games</source>
-        <translation>Odśwież listę gier</translation>
+        <translation>Rafraîchir les jeux</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="120"/>
         <source>Search games...</source>
-        <translation>Szukaj gry...</translation>
+        <translation>Rechercher des jeux...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="180"/>
         <source>Batch update</source>
-        <translation>Aktualizacja wsadowa</translation>
+        <translation>Mise à jour groupée</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="187"/>
         <source>e.g. Half-Life 3</source>
-        <translation>np. Half-Life 3</translation>
+        <translation>ex : Half-Life 3</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="190"/>
         <source>Search for a game...</source>
-        <translation>Szukaj gry...</translation>
+        <translation>Rechercher un jeu...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="213"/>
         <source>Close</source>
-        <translation>Zamknij</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="87"/>
         <source>AppID</source>
-        <translation>ID Aplikacji</translation>
+        <translation>Id de l&apos;application</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="87"/>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="100"/>
         <source>Name</source>
-        <translation>Nazwa</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="100"/>
         <source>Slug</source>
-        <translation type="unfinished"></translation>
+        <translation>Slug</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="110"/>
         <source>Runner</source>
-        <translation type="unfinished"></translation>
+        <translation>Exécuteur</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="110"/>
         <source>Game</source>
-        <translation type="unfinished">Gra</translation>
+        <translation>Jeu</translation>
     </message>
 </context>
 <context>
@@ -443,20 +443,20 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="41"/>
         <source>Custom Install Directory</source>
-        <translation>Niestandardowy Katalog Instalacji</translation>
+        <translation>Répertoire d&apos;installation personnalisé</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="85"/>
         <source>Select Custom Install Directory — ProtonUp-Qt</source>
-        <translation>Wybierz własny folder instalacyjny — ProtonUp-Qt</translation>
+        <translation>Sélectionner un répertoire d&apos;installation personnalisé — ProtonUp-Qt</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="vanished">Zapisz</translation>
+        <translation type="vanished">Speichern</translation>
     </message>
     <message>
         <source>Directory:</source>
-        <translation type="vanished">Katalog:</translation>
+        <translation type="vanished">Ordner:</translation>
     </message>
     <message>
         <source>Launcher:</source>
@@ -464,7 +464,7 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     </message>
     <message>
         <source>Reset</source>
-        <translation type="vanished">Reset</translation>
+        <translation type="vanished">Zurücksetzen</translation>
     </message>
 </context>
 <context>
@@ -474,179 +474,181 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="89"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="99"/>
         <source>Game</source>
-        <translation>Gra</translation>
+        <translation>Jeu</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="77"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="99"/>
         <source>Compatibility Tool</source>
-        <translation>Narzędzie kompatybilności</translation>
+        <translation>Outil de compatibilité</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="77"/>
         <source>Deck compatibility</source>
-        <translation>Kompatybilność z Deckiem</translation>
+        <translation>Compatibilité Steam Deck</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="77"/>
         <source>Anticheat</source>
-        <translation>Anticheat</translation>
+        <translation>Anti-triche</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="89"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="99"/>
         <source>Runner</source>
-        <translation type="unfinished"></translation>
+        <translation>Exécuteur</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="89"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="99"/>
         <source>Install Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Emplacement d&apos;installation</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="89"/>
         <source>Installed Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Date d&apos;installation</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="140"/>
         <source>click</source>
-        <translation type="unfinished"></translation>
+        <translation>clic</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="205"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="396"/>
         <source>Unknown</source>
-        <translation>Nieznane</translation>
+        <translation>Inconnu</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="210"/>
         <source>Installed at {DATE} ({TIME})</source>
-        <translation type="unfinished"></translation>
+        <translation>Installé le {DATE} ({TIME})</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="244"/>
         <source>Name: {compat_item_text}</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom : {compat_item_text}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="246"/>
         <source>
 Path: {compat_tool_bin_path}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Chemin : {compat_tool_bin_path}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="250"/>
         <source>
 Type: {wine_type}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Type : {wine_type}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="253"/>
         <source>Native</source>
-        <translation type="unfinished"></translation>
+        <translation>Natif</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="255"/>
         <source>Type: Native</source>
-        <translation type="unfinished"></translation>
+        <translation>Type : Natif</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="291"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Terminé</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="291"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="105"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="354"/>
         <source>Double click to browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Double-cliquer pour parcourir...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="357"/>
         <source>Install location does not exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;emplacement d&apos;installation n&apos;existe pas !</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="398"/>
         <source>Unsupported</source>
-        <translation>Niewspierane</translation>
+        <translation>Non supporté</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="401"/>
         <source>Playable</source>
-        <translation>Grywalne</translation>
+        <translation>Jouable</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="403"/>
         <source>Native (playable)</source>
-        <translation>Natywnie (grywalne)</translation>
+        <translation>Natif (jouable)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="404"/>
         <source>Playable using {compat_tool}</source>
-        <translation>Grywalne poprzez {compat_tool}</translation>
+        <translation>Jouable en utilisant {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="408"/>
         <source>Verified</source>
-        <translation>Zweryfikowane</translation>
+        <translation>Vérifié</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="410"/>
         <source>Native (verified)</source>
-        <translation>Natywnie (zweryfikowane)</translation>
+        <translation>Natif (vérifié)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="411"/>
         <source>Verified for {compat_tool}</source>
-        <translation>Zweryfikowane dla {compat_tool}</translation>
+        <translation>Vérifié pour {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="370"/>
         <source>Support was explicitly enabled / works out of the box</source>
-        <translation>Wsparcie zostało najwyraźniej włączone / odrazu działa</translation>
+        <translation>Le support a été activé / fonctionne immédiatement</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="60"/>
         <source>Game List for {LAUNCHER}</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste de jeux pour {LAUNCHER}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="63"/>
         <source>Installed games: {NO_INSTALLED}</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeux installés : {NO_INSTALLED}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="373"/>
         <source>Game plans to support Proton/Wine</source>
-        <translation>Gra planuje wsparcie Protona/Wine</translation>
+        <translation>Plans de jeu pour supporter Proton/Wine</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="376"/>
         <source>No official statement but runs fine (may require tinkering)</source>
-        <translation>Brak oficjalnej deklaracji ale działa dobrze (może wymagać majstrowania)</translation>
+        <translation>Pas de communiqués officiels mais fonctionne correctement (peut nécessiter du bricolage)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="379"/>
         <source>Anti-Cheat stops game from running properly</source>
-        <translation>Anticheat uniemożliwia poprawne uruchomienie gry</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="382"/>
         <source>Linux support was explicitly denied</source>
-        <translation>Wsparcie dla Linuksa zostało najwidoczniej odrzucone</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="385"/>
         <source>Anti-Cheat status unknown</source>
-        <translation>Status Anticheata nieznany</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="317"/>
@@ -658,12 +660,12 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
         <source>Game List</source>
-        <translation>Lista Gier</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="61"/>
         <source>Warning: Close the Steam client beforehand so that the changes can be applied!</source>
-        <translation>Ostrzeżenie: Zamknij wpierw klienta Steam, aby zmiany mogły zostać zastosowane!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="68"/>
@@ -689,7 +691,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="273"/>
         <source>Close</source>
-        <translation>Zamknij</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -697,37 +699,37 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="26"/>
         <source>Install Compatibility Tool</source>
-        <translation>Zainstaluj Narzędzie Kompatybilności</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="106"/>
         <source>Info</source>
-        <translation>Info</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="113"/>
         <source>Install</source>
-        <translation>Zainstaluj</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="120"/>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="47"/>
         <source>Compatibility tool:</source>
-        <translation>Narzędzie kompatybilności:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="61"/>
         <source>Version:</source>
-        <translation>Wersja:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="71"/>
         <source>Description:</source>
-        <translation>Opis:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -735,7 +737,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="21"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>Narzędzie kompatybilności Steam do uruchamiania Windowsowych gier z poprawkami nad Valve&apos;owym domyślnym Protonem.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Użyj tego, jeśli nie wiesz co wybrać.&lt;/b&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -743,7 +745,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00winege.py" line="21"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Based on Valve Proton Experimental&apos;s bleeding-edge Wine, built for Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>Narzędzie kompatybilności &quot;Wine&quot; do uruchamiania Windowsowych gier na Linuksie. Bazuje na Valve&apos;owym Protonie Experimental bleeding-edge Wine, zbudowane dla Lutrisa.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Użyj tego, jeśli nie wiesz co wybrać.&lt;/b&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -751,7 +753,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="22"/>
         <source>Steam Play compatibility tool to run DOS games using native Linux DOSBox.</source>
-        <translation>Narzędzie kompatybilności Steam Play do uruchamiania gier DOS poprzez natywny Linuksowy DOSBox.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="106"/>
@@ -792,7 +794,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_kron4ekvanilla.py" line="21"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.</source>
-        <translation>Narzędzie kompatybilności &quot;Wine&quot; do uruchamiania Windowsowych gier na Linuksie. Oficjalna wersja ze źródeł WineHQ, skompilowana przez Kron4ek.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -800,7 +802,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="21"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
-        <translation>Narzędzie kompatybilności &quot;Wine&quot; do uruchamiania Windowsowych gier na Linuksie. Poprawione przez autorów Lutrisa dla lepszej kompatybilności lub wydajności w wybranych grach.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -808,7 +810,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="20"/>
         <source>Luxtorpeda provides Linux-native game engines for specific Windows-only games.</source>
-        <translation>Luxtorpeda dostarcza natywne Linuksowe silniki gier dla wybanych Windowsowych gier.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -824,7 +826,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="23"/>
         <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>Kompilacja Proton-Tkg do uruchamiania Windowsych gier, zbudowana z Wine-tkg.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -843,7 +845,7 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="22"/>
         <source>Steam Play compatibility tool to run adventure games using native Linux ScummVM.</source>
-        <translation>Narzędzie kompatybilności Steam Play do uruchamiania gier przygodowych poprzez natywny Linuksowy ScummVM.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="106"/>
@@ -1031,7 +1033,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="19"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>Bazująca na Vulkanie implementacja Direct3D 9, 10 i 11 dla Linuksa/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1039,7 +1041,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="20"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation>Bazująca na Vulkanie implementacja Direct3D 9, 10 i 11 dla Linuksa/Wine z łatką Async od Sporifa.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Uwaga: Używaj wyłącznie z grami jednoosobowymi!&lt;/b&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1047,7 +1049,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="20"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation>Wersja Nightly DXVK, Bazującej na Vulkanie implementacji Direct3D 9, 10 i 11 dla Linuksa/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Uwaga: Wersja Nightly jest niestabilna, używaj ostrożnie!&lt;/b&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1070,7 +1072,7 @@ The uninstallation will continue.</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="41"/>
         <source>Translated by DavidoTek</source>
-        <translation>Przetłumaczone przez StarterX4</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
