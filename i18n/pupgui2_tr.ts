@@ -496,7 +496,7 @@ Kısayolu kaldırmak için Steam&apos;i açın ve &quot;Steam dışı oyunu kita
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="89"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="99"/>
         <source>Runner</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Runner</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="89"/>
