@@ -7,7 +7,7 @@ from PySide6.QtWidgets import QLineEdit
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.datastructures import SteamApp
-from pupgui2.steamutil import calc_shortcut_app_id
+from pupgui2.steamutil import calc_shortcut_app_id, get_steam_user_list, determine_most_recent_steam_user
 from pupgui2.steamutil import get_steam_shortcuts_list, write_steam_shortcuts_list
 
 
@@ -73,9 +73,6 @@ class PupguiShortcutDialog(QObject):
         for i, shortcut in enumerate(self.shortcuts):
             self.prepare_table_row(i, shortcut)
 
-        if len(self.shortcuts) == 0:
-            self.ui.btnAdd.setEnabled(False)
-
     def txt_changed(self, index: int, col: int) -> None:
         """
         Store changes in the table to self.shortcuts
@@ -140,13 +137,21 @@ class PupguiShortcutDialog(QObject):
             if sid > highest_id:
                 highest_id = sid
 
-        # assume that the most common user of other shortcuts is the correct one
-        # TODO: get this to work when there are no other shortcuts. Remember to change the tooltip.
-        most_common_user = Counter([s.shortcut_user for s in self.shortcuts]).most_common(1)[0][0]
-
         new_shortcut = SteamApp()
+
+        # guess for which user new shortcuts should be created
+        # if there are already other shortcuts, take the most common user
+        # otherwise, determine the most recent user (currently logged in)
+        if len(self.shortcuts) > 0:
+            new_shortcut.shortcut_user = Counter([s.shortcut_user for s in self.shortcuts]).most_common(1)[0][0]
+        else:
+            steam_users = get_steam_user_list(self.steam_config_folder)
+            most_recent_user = determine_most_recent_steam_user(steam_users)
+            if not most_recent_user:
+                return
+            new_shortcut.shortcut_user = str(most_recent_user.get_short_id())
+
         new_shortcut.shortcut_id = str(highest_id+1)
-        new_shortcut.shortcut_user = most_common_user
         self.shortcuts.append(new_shortcut)
 
         self.ui.tableShortcuts.setRowCount(len(self.shortcuts))

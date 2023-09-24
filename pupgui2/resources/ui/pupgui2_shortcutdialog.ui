@@ -51,7 +51,7 @@
      <item>
       <widget class="QPushButton" name="btnAdd">
        <property name="toolTip">
-        <string>Add a new shortcut. Currently only works if there is at least one other shortcut</string>
+        <string>Add a new shortcut</string>
        </property>
        <property name="text">
         <string>Add new</string>
