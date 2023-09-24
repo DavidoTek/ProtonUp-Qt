@@ -730,3 +730,26 @@ def get_steam_user_list(steam_config_folder: str) -> List[SteamUser]:
         print('Error: Could not get a list of Steam users:', e)
 
     return users
+
+
+def determine_most_recent_steam_user(steam_users: List[SteamUser]) -> SteamUser:
+    """
+    Returns the Steam user that was logged-in most recent, otherwise the first user or None.
+    Looks for the first user with most_recent=True.
+
+    Parameters:
+        steam_users: List[SteamUser]
+            list of steam users, from get_steam_user_list()
+
+    Return Type: SteamUser|None
+    """
+    for user in steam_users:
+        if user.most_recent == True:
+            return user
+
+    if len(steam_users) > 0:
+        print(f'Warning: There is no most recent Steam user. Returning the first user {steam_users[0].get_short_id()}')
+        return steam_users[0]
+
+    print('Warning: No Steam users found. Returning None')
+    return None
