@@ -119,11 +119,14 @@ class PupguiShortcutDialog(QObject):
             self.shortcuts[index].shortcut_icon = text
 
     def btn_save_clicked(self):
-        for s in self.shortcuts:
+        # remove all shortcuts that have no name or executable
+        filtered_shortcuts = list(filter(lambda s: s.game_name != '' and s.shortcut_exe != '', self.shortcuts))
+
+        for s in filtered_shortcuts:
             if s.app_id == -1:  # calculate app_id for new shortcuts
                 s.app_id = calc_shortcut_app_id(s.game_name, s.shortcut_exe)
 
-        write_steam_shortcuts_list(self.steam_config_folder, self.shortcuts, self.discarded_shortcuts)
+        write_steam_shortcuts_list(self.steam_config_folder, filtered_shortcuts, self.discarded_shortcuts)
         self.game_property_changed.emit(True)
         self.ui.close()
 
