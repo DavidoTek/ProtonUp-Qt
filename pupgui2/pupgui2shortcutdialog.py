@@ -9,6 +9,7 @@ from PySide6.QtUiTools import QUiLoader
 from pupgui2.datastructures import SteamApp
 from pupgui2.steamutil import calc_shortcut_app_id, get_steam_user_list, determine_most_recent_steam_user
 from pupgui2.steamutil import get_steam_shortcuts_list, write_steam_shortcuts_list
+from pupgui2.util import host_path_exists
 
 
 class PupguiShortcutDialog(QObject):
@@ -83,9 +84,9 @@ class PupguiShortcutDialog(QObject):
             col: int
                 Column index of the table
                 0 = App Name
-                1 = Executable Path (verified by os.path.exists before saving)
-                2 = Start Directory
-                3 = Icon Path (verified by os.path.exists before saving)
+                1 = Executable Path (verified by host_path_exists before saving)
+                2 = Start Directory (verified by host_path_exists before saving)
+                3 = Icon Path
 
         Returns:
             None
@@ -95,7 +96,7 @@ class PupguiShortcutDialog(QObject):
         if col == 0:
             self.shortcuts[index].game_name = text
         elif col == 1:
-            if os.path.isfile(text.replace('"', '', 2)):
+            if host_path_exists(text.replace('"', '', 2), is_file=True):
                 if not text.startswith('"'):
                     text = '"' + text
                 if not text.endswith('"'):
@@ -105,7 +106,7 @@ class PupguiShortcutDialog(QObject):
             else:
                 self.ui.tableShortcuts.cellWidget(index, col).setText(self.shortcuts[index].shortcut_exe)
         elif col == 2:
-            if os.path.exists(text.replace('"', '', 2)):
+            if host_path_exists(text.replace('"', '', 2), is_file=False):
                 if not text.startswith('"'):
                     text = '"' + text
                 if not text.endswith('"'):
