@@ -17,7 +17,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
         <translation>Seuraavia yhteensopivuustyökaluja ei voitu ladata:
 {TOOL_LIST}
 
-Mikäli arvelet kyseessä olevan virhe, ilmoitathan siitä GitHub:iin!</translation>
+Mikäli arvelet että kyseessä on virhe, ilmoitathan siitä GitHub:iin!</translation>
     </message>
 </context>
 <context>
@@ -25,7 +25,7 @@ Mikäli arvelet kyseessä olevan virhe, ilmoitathan siitä GitHub:iin!</translat
     <message>
         <location filename="../pupgui2/pupgui2.py" line="247"/>
         <source>unused</source>
-        <translation>käyttämätön</translation>
+        <translation>käyttämättömiä</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="268"/>
@@ -104,12 +104,12 @@ Keskeytetäänkö ja poistutaan silti?</translation>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="382"/>
         <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation>Tietoisku: voit noutaa GE-Proton:n/Boxtron:in suoraan Flathub.ista!</translation>
+        <translation>Tiedote: voit noutaa GE-Proton:n / Boxtron:in suoraan Flathub.ista!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="419"/>
         <source>Install tool from Flathub</source>
-        <translation>Asenna työkalu Flathubista</translation>
+        <translation>Asenna työkalu Flathub:ista</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="422"/>
@@ -119,12 +119,12 @@ Keskeytetäänkö ja poistutaan silti?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
         <source>ProtonUp-Qt - Wine/Proton Installer</source>
-        <translation>ProtonUp-Qt:n - Wine/Proton - asennusohjelma</translation>
+        <translation>ProtonUp-Qt:n - Wine/Proton-asennusohjelma</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="48"/>
         <source>Install for:</source>
-        <translation>Asenna palveluun:</translation>
+        <translation>Asenna tähän:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="68"/>
@@ -154,7 +154,7 @@ Keskeytetäänkö ja poistutaan silti?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
         <source>Add version</source>
-        <translation>Lisää versio</translation>
+        <translation>Lisää työkalu</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="155"/>
@@ -169,7 +169,7 @@ Keskeytetäänkö ja poistutaan silti?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
         <source>Get tools from Flathub</source>
-        <translation>Hae työkalut Flathubista</translation>
+        <translation>Työkaluhaku Flathub:ista</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="206"/>
@@ -276,7 +276,7 @@ Käytössäsi oleva julkaisu on {APP_VERSION} mutta {newest_version} on saatavis
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="124"/>
         <source>Added shortcut!</source>
-        <translation>Pikavalinta lisätty!</translation>
+        <translation>Oikopolku lisätty!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="14"/>
@@ -286,17 +286,17 @@ Käytössäsi oleva julkaisu on {APP_VERSION} mutta {newest_version} on saatavis
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;p&gt;Käyttöliittymä asentaa/päivittää Wine- ja Proton-pohjaisia yhteensopivuustyökaluja.&lt;br&gt;Osittain AUNaseef:in ProtonUp:in innoittama/siihen perustuva.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Käyttöliittymä jolla asennetaan/päivitetään Wine- ja Proton-pohjaisia yhteensopivuustyökaluja.&lt;br&gt;Osittain AUNaseef:in ProtonUp:in innoittama/siihen perustuva.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
         <source>Support development on GitHub</source>
-        <translation>Tukea kehitystä GitHubissa</translation>
+        <translation>Tue kehitystyötä GitHub:issa</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="122"/>
         <source>Color Theme:</source>
-        <translation>Väriaiheen malli:</translation>
+        <translation>Väriaihe:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="139"/>
@@ -485,7 +485,7 @@ Jos haluat poistaa tämän oikopolun, avaa Steam ja valitse &quot;poista muu kui
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="77"/>
         <source>Deck compatibility</source>
-        <translation>SteamDeck-yhteensopivuus</translation>
+        <translation>Steam Deck yhteensopivuus</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="77"/>
@@ -523,7 +523,7 @@ Jos haluat poistaa tämän oikopolun, avaa Steam ja valitse &quot;poista muu kui
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="210"/>
         <source>Installed at {DATE} ({TIME})</source>
-        <translation>Koska asennettu {DATE} ({TIME})</translation>
+        <translation>Asennettu {DATE} ({TIME})</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="244"/>
@@ -739,7 +739,7 @@ Trendaavuus: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="21"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>Steam-yhteensopivuustyökalu joka sisältää tuoreemmat lisäparannukset ajaa Windows-pelejä verrattuna Valve:n vakiolliseen viralliseen Protoniin.&lt;br&gt;&lt;br&gt;&lt;b&gt;Käytä tätä ellet tiedä mitä valita.&lt;/b&gt;</translation>
+        <translation>Steam-yhteensopivuustyökalu joka sisältää tuoreemmat parannukset Windows-pelien ajamiseen verrattuna Valve:n vakiolliseen viralliseen Protoniin.&lt;br&gt;&lt;br&gt;&lt;b&gt;Käytä tätä ellet tiedä mitä valita.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -828,7 +828,7 @@ Trendaavuus: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="23"/>
         <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>Räätälöity Proton-kokooma jonka kautta ajetaan Windows-pelejä, se on koottu Wine-tkg -rakennusjärjestelmällä.</translation>
+        <translation>Räätälöity Proton-kokooma jolla ajetaan Windows-pelejä, se on koottu Wine-tkg -rakennusjärjestelmällä.</translation>
     </message>
 </context>
 <context>
@@ -839,7 +839,7 @@ Trendaavuus: {trending}</translation>
 &lt;br/&gt;
 &lt;br/&gt;
 This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation>Räätälöity Proton-kokooma jonka kautta ajetaan Windows-pelejä, se on koottu Wine-tkg -rakennusjärjestelmällä.
+        <translation>Räätälöity Proton-kokooma jolla ajetaan Windows-pelejä, se on koottu Wine-tkg -rakennusjärjestelmällä.
 &lt;br&gt;
 &lt;br&gt;
 Tämä kokooma perustuu &lt;b&gt;Wine Master -haaraan&lt;/b&gt;.</translation>
@@ -850,7 +850,7 @@ Tämä kokooma perustuu &lt;b&gt;Wine Master -haaraan&lt;/b&gt;.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="22"/>
         <source>Steam Play compatibility tool to run adventure games using native Linux ScummVM.</source>
-        <translation>Steam Play -yhteensopivuustyökalu jonka kautta pelaat mm. klassisia seikkailupelejä käyttäen Linuxille kotoperäistä ScummVM:ää.</translation>
+        <translation>Steam Play -yhteensopivuustyökalu jonka kautta pelaat mm. seikkailupelejä käyttäen Linux-kotoperäistä ScummVM:ää.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="106"/>
@@ -940,7 +940,7 @@ lisätoimintoja varten. Lukaise vaihtoehtoiset riippuvaisuudet (Optional Depende
         <source>You have several unmet dependencies for SteamTinkerLaunch.
 
 </source>
-        <translation>Ilmeni useita riippuvaisuusvaatimuksien puutteita jotka eivät täsmää SteamTinkerLaunch:in ajamiseksi.
+        <translation>Ilmeni useita tarvittavien riippuvaisuuksien puutteita SteamTinkerLaunch:in ajamiseksi.
 
 </translation>
     </message>
@@ -1132,7 +1132,7 @@ Poisto jatkuu.</translation>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="41"/>
         <source>Translated by DavidoTek</source>
-        <translation>kääntänyt heidiwenger, etc</translation>
+        <translation>Kääntänyt Linus Virtanen, jne</translation>
     </message>
 </context>
 <context>
