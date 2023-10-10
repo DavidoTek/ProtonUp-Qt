@@ -452,6 +452,25 @@ def host_which(name: str) -> str:
     return None if which == '' else which
 
 
+def host_path_exists(path: str, is_file: bool) -> bool:
+    """
+    Returns whether the given path exists on the host system
+
+    Parameters:
+        path: str
+            Path which exists or not
+        is_file: bool
+            Whether to check for a file (is_file=True) or a directory (is_file=False)
+
+    Return Type: bool
+    """
+    path = os.path.expanduser(path)
+    proc_prefix = 'flatpak-spawn --host' if os.path.exists('/.flatpak-info') else ''
+    parameter = 'f' if is_file else 'd'  # check file using -f and directory using -d
+    ret = os.system(proc_prefix + ' bash -c \'if [ -' + parameter + ' "' + path + '" ]; then exit 1; else exit 0; fi\'')
+    return bool(ret) 
+
+
 def ghapi_rlcheck(json: dict):
     """ Checks if the given GitHub request response (JSON) contains a rate limit warning and warns the user """
     if type(json) == dict:

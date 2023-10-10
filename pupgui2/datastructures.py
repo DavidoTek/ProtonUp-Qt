@@ -48,12 +48,29 @@ class MsgBoxResult:
     is_checked : bool = None
 
 
+class SteamUser:
+    long_id = -1
+    account_name = ''
+    persona_name = ''
+    most_recent = False
+    timestamp = -1
+
+    def get_short_id(self) -> int:
+        """
+        Returns the shortened Steam user id
+        """
+        return self.long_id & 0xFFFFFFFF
+
+
 class SteamApp:
     app_id = -1
     libraryfolder_id = -1
     libraryfolder_path = ''
-    shortcut_id = -1  # Will be a number >=0 if it is a Non-Steam shortcut
-    shortcut_path = ''
+    shortcut_id = ''  # dict key must be string (e.g. '1')
+    shortcut_startdir = ''
+    shortcut_exe = ''
+    shortcut_icon = ''
+    shortcut_user = ''
     game_name = ''
     compat_tool = ''
     app_type = ''
@@ -80,9 +97,6 @@ class SteamApp:
             return self.deck_compatibility.get('configuration').get('recommended_runtime', '')
         except:
             return ''
-
-    def get_shortcut_id_str(self) -> str:
-        return str(self.shortcut_id)
 
 
 class BasicCompatTool:

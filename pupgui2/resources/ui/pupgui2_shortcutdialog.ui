@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PupguiGameListDialog</class>
- <widget class="QDialog" name="PupguiGameListDialog">
-  <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
-  </property>
+ <class>PupguiShortcutDialog</class>
+ <widget class="QDialog" name="PupguiShortcutDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>325</height>
+    <width>700</width>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Game List</string>
+   <string>Steam Shortcut Editor</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTableWidget" name="tableGames">
+    <widget class="QTableWidget" name="tableShortcuts">
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
      </property>
@@ -29,7 +26,7 @@
       <bool>true</bool>
      </property>
      <property name="columnCount">
-      <number>5</number>
+      <number>4</number>
      </property>
      <attribute name="horizontalHeaderVisible">
       <bool>true</bool>
@@ -47,28 +44,27 @@
      <column/>
      <column/>
      <column/>
-     <column/>
     </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="lblSteamRunningWarning">
-       <property name="styleSheet">
-        <string notr="true">QLabel { color: orange; }</string>
+      <widget class="QPushButton" name="btnAdd">
+       <property name="toolTip">
+        <string>Add a new shortcut</string>
        </property>
        <property name="text">
-        <string>Warning: Close the Steam client beforehand so that the changes can be applied!</string>
+        <string>Add new</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="searchBox">
+      <widget class="QPushButton" name="btnRemove">
        <property name="toolTip">
-        <string>e.g. Team Fortress 2</string>
+        <string>Click on a row, then click here to remove a shortcut</string>
        </property>
-       <property name="placeholderText">
-        <string>Search for a game...</string>
+       <property name="text">
+        <string>Remove selected</string>
        </property>
       </widget>
      </item>
@@ -86,37 +82,22 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btnRefreshGames">
+      <widget class="QPushButton" name="btnSave">
        <property name="toolTip">
-        <string>Refresh Games</string>
+        <string>Save changes and delete marked shortcuts</string>
        </property>
        <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset theme="view-refresh">
-         <normaloff>.</normaloff>.</iconset>
+        <string>Save</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnShortcutEditor">
-       <property name="text">
-        <string>Shortcut Editor</string>
+      <widget class="QPushButton" name="btnClose">
+       <property name="toolTip">
+        <string>Close without saving changes or deleting shortcuts</string>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnSearch">
        <property name="text">
-        <string>Search</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnApply">
-       <property name="text">
-        <string>Apply</string>
+        <string>Close</string>
        </property>
       </widget>
      </item>
@@ -124,12 +105,6 @@
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>btnApply</tabstop>
-  <tabstop>btnSearch</tabstop>
-  <tabstop>searchBox</tabstop>
-  <tabstop>btnRefreshGames</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -7,6 +7,7 @@ import vdf
 import requests
 import threading
 import pkgutil
+import binascii
 from steam.utils.appcache import parse_appinfo
 
 from PySide6.QtCore import Signal
@@ -15,7 +16,7 @@ from PySide6.QtWidgets import QMessageBox, QApplication
 from pupgui2.constants import APP_NAME, APP_ID, APP_ICON_FILE
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
 from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES, HOME_DIR
-from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType
+from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamUser
 
 
 _cached_app_list = []
@@ -24,14 +25,19 @@ _cached_steam_ctool_id_map = None
 
 def get_steam_vdf_compat_tool_mapping(vdf_file: dict):
 
-    c = vdf_file.get('InstallConfigStore').get('Software')
+    s = vdf_file.get('InstallConfigStore', {}).get('Software', {})
 
     # Sometimes the key is 'Valve', sometimes 'valve', see #226
-    c = c.get('Valve') or c.get('valve')
+    c = s.get('Valve') or s.get('valve')
     if not c:
         raise KeyError('Error! config.vdf InstallConfigStore.Software neither contains key "Valve" nor "valve" - config.vdf file may be invalid!')
 
-    return c.get('Steam').get('CompatToolMapping')
+    m = c.get('Steam', {}).get('CompatToolMapping', {})
+
+    if not m:  # equal to m == {} , may occur after fresh Steam installation
+        print('Warning: CompatToolMapping is empty')
+
+    return m
 
 
 def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=False) -> List[SteamApp]:
@@ -105,8 +111,8 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
         if not compat_tools:
             compat_tools = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
 
-        for file in os.listdir(users_folder):
-            user_directory = os.path.join(users_folder,file)
+        for userf in os.listdir(users_folder):
+            user_directory = os.path.join(users_folder, userf)
             if not os.path.isdir(user_directory):
                 continue
 
@@ -126,7 +132,10 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
                 
                 app.app_id = appid
                 app.shortcut_id = sid
-                app.shortcut_path = svalue.get('StartDir')
+                app.shortcut_startdir = svalue.get('StartDir')
+                app.shortcut_exe = svalue.get('Exe')
+                app.shortcut_icon = svalue.get('icon')
+                app.shortcut_user = userf
                 app.app_type = 'game'
                 app.game_name = svalue.get('AppName') or svalue.get('appname')
                 if ct := compat_tools.get(str(appid)):
@@ -589,3 +598,158 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
         print(f'Error: Could not add {APP_NAME} as Steam shortcut:', e)
 
     return 0
+
+
+def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamApp], delete_sids: List[int]) -> None:
+    """
+    Updates the Steam shortcuts.vdf file with the provided shortcuts
+    It will update existing shortcuts and add new ones
+
+    Parameters:
+        steam_config_folder: str
+            Path to the Steam config folder, e.g. '/home/user/.steam/root/config'
+        shortcuts: List[SteamApp]
+            List of shortcuts to add/update
+        delete_sids: List[int]
+            List of shortcut ids to delete
+    """
+    users_folder = os.path.realpath(os.path.join(os.path.expanduser(steam_config_folder), os.pardir, 'userdata'))
+
+    # group shortcuts by user like this: {user1: {sid1: shortcut1, sid2: shortcut2}, user2: {sid3: shortcut3}}
+    shortcuts_by_user: Dict[Dict[SteamApp]] = {}
+    for shortcut in shortcuts:
+        if shortcut.shortcut_user not in shortcuts_by_user:
+            shortcuts_by_user[shortcut.shortcut_user] = {}
+        shortcuts_by_user[shortcut.shortcut_user][shortcut.shortcut_id] = shortcut
+
+    for userf in shortcuts_by_user:
+        shortcuts_file = os.path.join(users_folder, userf, 'config', 'shortcuts.vdf')
+
+        # read shortcuts.vdf
+        shortcuts_vdf = {}
+        with open(shortcuts_file, 'rb') as f:
+            shortcuts_vdf = vdf.binary_load(f)
+        current_shortcuts = shortcuts_vdf.get('shortcuts', {})
+
+        # update/add new shortcuts
+        modified_shorcuts = shortcuts_by_user.get(userf, {})
+        for sid in list(modified_shorcuts.keys()):
+            shortcut_modified: SteamApp = modified_shorcuts.get(sid)
+            if sid in current_shortcuts:  # update existing shortcut
+                svalue_current = current_shortcuts.get(sid)
+                svalue_current['AppName'] = shortcut_modified.game_name
+                svalue_current['Exe'] = shortcut_modified.shortcut_exe
+                svalue_current['StartDir'] = shortcut_modified.shortcut_startdir
+                svalue_current['icon'] = shortcut_modified.shortcut_icon
+            else:  # add a new shortcut to shortcuts.vdf
+                svalue_new = {
+                    'appid': shortcut_modified.app_id,
+                    'AppName': shortcut_modified.game_name,
+                    'Exe': shortcut_modified.shortcut_exe,
+                    'StartDir': shortcut_modified.shortcut_startdir,
+                    'icon': shortcut_modified.shortcut_icon,
+                    'ShortcutPath': '',
+                    'LaunchOptions': '',
+                    'IsHidden': 0,
+                    'AllowDesktopConfig': 1,
+                    'AllowOverlay': 1,
+                    'OpenVR': 0,
+                    'Devkit': 0,
+                    'DevkitGameID': '',
+                    'DevkitOverrideAppID': 0,
+                    'LastPlayTime': 0,
+                    'FlatpakAppID': '',
+                    'tags': {}
+                }
+                current_shortcuts[sid] = svalue_new
+
+        # delete shortcuts that are marked for deletion
+        for sid in delete_sids:
+            current_shortcuts.pop(sid)
+
+        # write shortcuts.vdf
+        try:
+            with open(shortcuts_file, 'wb') as f:
+                f.write(vdf.binary_dumps(shortcuts_vdf))
+        except Exception as e:
+            print(f'Error: Could not write_steam_shortcuts_list for user {userf}:', e)
+
+
+def calc_shortcut_app_id(appname: str, exe: str) -> int:
+    """
+    Calculates an app id for a shortcut based on the app name and executable.
+    Based on https://github.com/SteamGridDB/steam-rom-manager/blob/master/src/lib/helpers/steam/generate-app-id.ts
+
+    Parameters:
+        appname: str
+            game_name of the shortcut
+        exe: str
+            shortcut_exe
+
+    Returns:
+        int
+    """
+    key = exe + appname
+    return (binascii.crc32(key.encode()) | 0x80000000) - 0x100000000
+
+
+def get_steam_user_list(steam_config_folder: str) -> List[SteamUser]:
+    """
+    Returns a list of Steam users
+
+    Parameters:
+        steam_config_folder: str
+            e.g. '~/.steam/root/config'
+
+    Return Type: List[SteamUser]
+    """
+    loginusers_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'loginusers.vdf')
+
+    users = []
+
+    if not os.path.exists(loginusers_vdf_file):
+        print(f'Warning: Loginusers file does not exist at {loginusers_vdf_file}')
+        return []
+
+    try:
+        with open(loginusers_vdf_file) as f:
+            d = vdf.load(f)
+            u = d.get('users', {})
+            for uid in list(u.keys()):
+                uvalue = u.get(uid, {})
+
+                user = SteamUser()
+                user.long_id = int(uid)
+                user.account_name = uvalue.get('AccountName', '')
+                user.persona_name = uvalue.get('PersonaName', '')
+                user.most_recent = bool(int(uvalue.get('MostRecent', '0')))
+                user.timestamp = int(uvalue.get('Timestamp', '-1'))
+
+                users.append(user)
+    except Exception as e:
+        print('Error: Could not get a list of Steam users:', e)
+
+    return users
+
+
+def determine_most_recent_steam_user(steam_users: List[SteamUser]) -> SteamUser:
+    """
+    Returns the Steam user that was logged-in most recent, otherwise the first user or None.
+    Looks for the first user with most_recent=True.
+
+    Parameters:
+        steam_users: List[SteamUser]
+            list of steam users, from get_steam_user_list()
+
+    Return Type: SteamUser|None
+    """
+    for user in steam_users:
+        if user.most_recent == True:
+            return user
+
+    if len(steam_users) > 0:
+        print(f'Warning: There is no most recent Steam user. Returning the first user {steam_users[0].get_short_id()}')
+        return steam_users[0]
+
+    print('Warning: No Steam users found. Returning None')
+    return None

@@ -12,6 +12,7 @@ from PySide6.QtUiTools import QUiLoader
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL
 from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum, LutrisGame, HeroicGame
 from pupgui2.lutrisutil import get_lutris_game_list
+from pupgui2.pupgui2shortcutdialog import PupguiShortcutDialog
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
 from pupgui2.steamutil import get_protondb_status
@@ -53,6 +54,8 @@ class PupguiGameListDialog(QObject):
         elif is_heroic_launcher(self.launcher):
             self.setup_heroic_list_ui()
 
+        self.ui.btnShortcutEditor.setVisible(self.launcher == 'steam')
+
         self.ui.btnSearch.setVisible(False)
         self.ui.searchBox.setVisible(False)  # Hide searchbox by default
 
@@ -66,6 +69,7 @@ class PupguiGameListDialog(QObject):
         self.ui.btnApply.clicked.connect(self.btn_apply_clicked)
         self.ui.btnSearch.clicked.connect(self.btn_search_clicked)
         self.ui.btnRefreshGames.clicked.connect(self.btn_refresh_games_clicked)
+        self.ui.btnShortcutEditor.clicked.connect(self.btn_shortcut_editor_clicked)
         self.ui.searchBox.textChanged.connect(self.search_gamelist_games)
 
         # Hide Search button and disable shortcut if no games
@@ -300,6 +304,10 @@ class PupguiGameListDialog(QObject):
         self.ui.searchBox.setFocus()
 
         self.search_gamelist_games(self.ui.searchBox.text() if self.ui.searchBox.isVisible() else '')
+
+    def btn_shortcut_editor_clicked(self):
+        self.ui.close()
+        PupguiShortcutDialog(self.install_loc.get('vdf_dir'), self.game_property_changed, self.ui)
 
     def search_gamelist_games(self, text):
         for row in range(self.ui.tableGames.rowCount()):
