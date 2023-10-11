@@ -10,16 +10,16 @@ from PySide6.QtCore import QObject, Signal, Property, QCoreApplication
 from pupgui2.util import ghapi_rlcheck, extract_tar
 
 
-CT_NAME = 'NorthStar Proton (TitanFall 2)'
+CT_NAME = 'Northstar Proton (Titanfall 2)'
 CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles', 'advmode']
-CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_northstarproton', '''Proton build based on TKG's proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.<br/><br/><b style="color:orange;">Read the following before proceeding</b>:<br/><a href="https://github.com/cyrv6737/NorthstarProton">https://github.com/cyrv6737/NorthstarProton</a>''')}
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_northstarproton', '''Proton build based on TKG's proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.<br/><br/><b style="color:orange;">Read the following before proceeding</b>:<br/><a href="https://github.com/R2NorthstarTools/NorthstarProton">https://github.com/R2NorthstarTools/NorthstarProton</a>''')}
 
 
 class CtInstaller(QObject):
 
     BUFFER_SIZE = 65536
-    CT_URL = 'https://api.github.com/repos/cyrv6737/NorthstarProton/releases'
-    CT_INFO_URL = 'https://github.com/cyrv6737/NorthstarProton/releases/tag/'
+    CT_URL = 'https://api.github.com/repos/R2NorthstarTools/NorthstarProton/releases'
+    CT_INFO_URL = 'https://github.com/R2NorthstarTools/NorthstarProton/releases/tag/'
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
