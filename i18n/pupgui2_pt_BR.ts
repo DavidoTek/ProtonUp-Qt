@@ -545,7 +545,7 @@ Tipo: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="259"/>
         <source>Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Navegador</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
@@ -630,7 +630,7 @@ Tipo: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
         <source>Type: {PLATFORM}</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo: {PLATFORM}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="269"/>
