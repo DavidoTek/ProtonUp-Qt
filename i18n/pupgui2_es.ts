@@ -537,7 +537,7 @@ Tipo: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="259"/>
         <source>Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Navegador</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
@@ -622,12 +622,12 @@ Tipo: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
         <source>Type: {PLATFORM}</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo: {PLATFORM}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="269"/>
         <source>Double-click to open in browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Doble clic para abrir en el navegador</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="389"/>
@@ -691,7 +691,7 @@ Tendencia: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="105"/>
         <source>Shortcut Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor de los accesos directos</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="285"/>
@@ -748,67 +748,67 @@ Tendencia: {trending}</translation>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="46"/>
         <source>App Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de la aplicación</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="46"/>
         <source>Executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Ejecutable</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="46"/>
         <source>Start Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Directorio de inicio</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="46"/>
         <source>Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Icono</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="14"/>
         <source>Steam Shortcut Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor de accesos directos Steam</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="54"/>
         <source>Add a new shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un nuevo acceso directo</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="57"/>
         <source>Add new</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir nuevo</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="64"/>
         <source>Click on a row, then click here to remove a shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Haz clic en una fila y, a continuación, haz clic aquí para eliminar un acceso directo</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
         <source>Remove selected</source>
-        <translation type="unfinished">Eliminar seleccionada</translation>
+        <translation>Eliminar la selección</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
         <source>Save changes and delete marked shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar los cambios y eliminar los accesos directos marcados</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="90"/>
         <source>Save</source>
-        <translation type="unfinished">Guardar</translation>
+        <translation>Guardar</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
         <source>Close without saving changes or deleting shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar sin guardar los cambios y no borrar los accesos directos</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="100"/>
         <source>Close</source>
-        <translation type="unfinished">Cerrar</translation>
+        <translation>Cerrar</translation>
     </message>
 </context>
 <context>
@@ -901,7 +901,7 @@ Tendencia: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="18"/>
         <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/R2NorthstarTools/NorthstarProton&quot;&gt;https://github.com/R2NorthstarTools/NorthstarProton&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Proton basado en proton-tkg de TKG para ejecutar el cliente Northstar + TitanFall 2. Por cyrv6737.&lt;br&gt;&lt;br&gt;&lt;b style=&quot;color:orange;&quot;&gt;Lea lo siguiente antes de continuar&lt;/b&gt;:&lt;br&gt;&lt;a href=&quot;https://github.com/R2NorthstarTools/NorthstarProton&quot;&gt;https://github.com/R2NorthstarTools/NorthstarProton&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
