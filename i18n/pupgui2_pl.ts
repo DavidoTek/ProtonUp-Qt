@@ -182,7 +182,7 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Okno dialogowe</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="44"/>
@@ -192,12 +192,12 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="56"/>
         <source>Directory:</source>
-        <translation type="unfinished">Katalog:</translation>
+        <translation>Katalog:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="66"/>
         <source>Launcher:</source>
-        <translation type="unfinished">Launcher:</translation>
+        <translation>Program uruchamiający:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="87"/>
@@ -212,12 +212,12 @@ Anulować i wyjść mimo to?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="113"/>
         <source>Save</source>
-        <translation type="unfinished">Zapisz</translation>
+        <translation>Zapisz</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="120"/>
         <source>Close</source>
-        <translation type="unfinished">Zamknij</translation>
+        <translation>Zamknij</translation>
     </message>
 </context>
 <context>
@@ -425,7 +425,7 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="110"/>
         <source>Game</source>
-        <translation type="unfinished">Gra</translation>
+        <translation>Gra</translation>
     </message>
 </context>
 <context>
@@ -492,7 +492,7 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Install Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokalizacja instalacji</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
@@ -502,7 +502,7 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="144"/>
         <source>click</source>
-        <translation type="unfinished"></translation>
+        <translation>kliknięcie</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="211"/>
@@ -513,50 +513,52 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="216"/>
         <source>Installed at {DATE} ({TIME})</source>
-        <translation type="unfinished"></translation>
+        <translation>Zainstalowano {DATE} ({TIME})</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="250"/>
         <source>Name: {compat_item_text}</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa: {compat_item_text}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="252"/>
         <source>
 Path: {compat_tool_bin_path}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Ścieżka: {compat_tool_bin_path}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="256"/>
         <source>
 Type: {wine_type}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Typ: {wine_type}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="259"/>
         <source>Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Przeglądarka</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
         <source>Native</source>
-        <translation type="unfinished"></translation>
+        <translation>Natywna</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="302"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Gotowe</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="302"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="112"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Szukaj</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="370"/>
         <source>Double click to browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij podwójnie, aby przeglądać...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="373"/>
