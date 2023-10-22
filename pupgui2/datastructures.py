@@ -207,3 +207,12 @@ class HeroicGame:
         
         with open(game_config, 'r') as gcf:
             return json.load(gcf).get(self.app_name, {})
+
+
+class Launcher(Enum):
+
+    STEAM = 0
+    LUTRIS = 1
+    BOTTLES = 2
+    HEROIC = 3
+    UNKNOWN = 4

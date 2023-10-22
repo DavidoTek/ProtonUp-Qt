@@ -8,7 +8,8 @@ import hashlib
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck, extract_tar
+from pupgui2.datastructures import Launcher
+from pupgui2.util import ghapi_rlcheck, extract_tar, get_launcher_from_installdir
 
 
 CT_NAME = 'Wine-GE'
@@ -179,10 +180,11 @@ class CtInstaller(QObject):
         """
 
         launcher_name = ''
-        if 'lutris/runners' in install_dir:
+        launcher = get_launcher_from_installdir(install_dir)
+        if launcher == Launcher.LUTRIS:
             # Lutris expects this name format for self-updating, see #294 -- ex: wine-ge-8-17-x86_64
             launcher_name = original_name.lower().replace('lutris', 'wine').replace('proton', '') or original_name
-        elif 'heroic/tools' in install_dir:
+        elif launcher == Launcher.HEROIC:
             # This matches Heroic Wine-GE naming convention -- ex: Wine-GE-Proton8-17
             launcher_name = original_name.replace('lutris', 'Wine').rsplit('-', 1)[0] or original_name
 
