@@ -190,7 +190,7 @@ class CtInstaller(QObject):
                 'xprop': host_which('xprop'),
                 'xrandr': host_which('xrandr'),
                 'xxd': host_which('xxd'),
-                'xwinfo': host_which('xwininfo'),
+                'xwininfo': host_which('xwininfo'),
                 'yad >= 7.2': yad_exe and yad_ver >= 7.2
             }
 
