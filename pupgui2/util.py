@@ -531,6 +531,8 @@ def fetch_project_releases(releases_url: str, rs: requests.Session, count=100) -
     """
     releases_api_url: str = f'{releases_url}?per_page={str(count)}'
 
+    print(rs.headers)
+
     releases: dict = {}
     tag_key: str = ''
     if GITHUB_API in releases_url:
@@ -617,6 +619,24 @@ def fetch_project_release_data(release_url: str, release_format: str, rs: reques
 
     return values
 
+
+def build_headers_with_authorization(request_headers: dict, authorization_tokens: dict, token_type: str):
+
+    request_headers['Authorization'] = ''  # Reset old authentication
+    token: str = authorization_tokens.get(token_type, '')
+    if not token:
+        print(f'No token of type {token_type} -- Returning')
+        
+        return request_headers
+
+    print(f'{token_type} token is {token}')
+
+    if token_type == 'github':
+        request_headers['Authorization'] = f'token {token}'
+    elif token_type == 'gitlab':
+        request_headers['Authorization'] = f'Bearer {token}'
+
+    return request_headers
 
 def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
     """ Return whether a compat tool is available for a given launcher """

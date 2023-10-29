@@ -82,8 +82,8 @@ class MainWindow(QObject):
 
         self.rs = requests.Session()
         self.web_access_tokens = {
-            'github': os.getenv('PUPGUI_GHA_TOKENS'),
-            'gitlab': os.getenv('PUPGUI_GLA_TOKENS'),
+            'github': os.getenv('PUPGUI_GHA_TOKEN'),
+            'gitlab': os.getenv('PUPGUI_GLA_TOKEN'),
         }
 
         self.ct_loader = ctloader.CtLoader(main_window=self)

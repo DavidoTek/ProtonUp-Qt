@@ -5,6 +5,7 @@
 from PySide6.QtCore import QCoreApplication
 
 from pupgui2.resources.ctmods.ctmod_z0dxvk import CtInstaller as DXVKInstaller
+from pupgui2.util import build_headers_with_authorization
 
 
 CT_NAME = 'DXVK Async'
@@ -18,7 +19,4 @@ class CtInstaller(DXVKInstaller):
     CT_INFO_URL = 'https://gitlab.com/Ph42oN/dxvk-gplasync/-/releases/'
 
     def __init__(self, main_window = None, request_headers = {}):
-        if main_window and main_window.web_access_tokens.get('gitlab', None) and 'Authorization' not in request_headers:
-            request_headers['Authorization'] = f'Authorization: Bearer {main_window.web_access_tokens.get("gitlab", None)}'
-
-        super().__init__(main_window, request_headers)
+        super().__init__(main_window, build_headers_with_authorization(request_headers, main_window.web_access_tokens, 'gitlab'))
