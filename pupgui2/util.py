@@ -533,7 +533,7 @@ def get_assets_from_release(release_url: str, release: dict) -> Dict:
     if GITHUB_API in release_url:
         return release.get('assets', {})
     elif GITLAB_API in release_url:
-        return release.get('assets', {}).get('sources', {})
+        return release.get('assets', {}).get('links', {})
     else:
         return {}
 
@@ -545,10 +545,11 @@ def get_download_url_from_asset(release_url: str, asset: dict, release_format: s
     Return Type: str
     """
 
+    # Checks are identical for now but may be different for other APIs
     valid_asset: str = ''
-    if GITHUB_API in release_url and asset['name'].endswith(release_format):
+    if GITHUB_API in release_url and asset.get('name', '').endswith(release_format):
         valid_asset = asset['browser_download_url']
-    elif GITLAB_API in release_url and release_format in asset.get('format', ''):
+    elif GITLAB_API in release_url and asset.get('name', '').endswith(release_format):
         valid_asset = asset['url']
     else:
         return ''

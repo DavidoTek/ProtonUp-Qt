@@ -87,45 +87,6 @@ class CtInstaller(QObject):
         asset_condition = lambda asset: 'native' not in [asset.get('name', ''), asset.get('url', '')]  # 'name' for github asset, 'url' for gitlab asset
         return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, asset_condition=asset_condition)
 
-    def __fetch_github_data(self, tag):
-        """
-        Fetch GitHub release information
-        Return Type: dict
-        Content(s):
-            'version', 'date', 'download'
-        """
-        url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
-        data = self.rs.get(url).json()
-        if 'tag_name' not in data:
-            return None
-
-        values = {'version': data['tag_name'], 'date': data['published_at'].split('T')[0]}
-        for asset in data['assets']:
-            if asset['name'].endswith('tar.gz') and 'native' not in asset['name']:
-                values['download'] = asset['browser_download_url']
-                values['size'] = asset['size']
-        return values
-
-    def __fetch_gitlab_data(self, tag):
-        """
-        Fetch GItLab release information
-        Return Type: dict
-        Content(s):
-            'version', 'date', 'download'
-        """
-
-        # GitLab docs: https://docs.gitlab.com/ee/api/releases/#get-a-release-by-a-tag-name
-        url = f'{self.CT_URL}/{tag if tag else "latest"}'
-        data = self.rs.get(url).json()
-        if 'tag_name' not in data:
-            return None
-
-        values = { 'version': data['tag_name'], 'date': data['released_at'].split('T')[0] }
-        for asset in data.get('assets', {}):
-            if 'tar.gz' in asset.get('sources', {}).get('format'):
-                values['download'] = asset['url']
-        return values
-
     def is_system_compatible(self):
         """
         Are the system requirements met?
@@ -145,11 +106,8 @@ class CtInstaller(QObject):
         Download and install the compatibility tool
         Return Type: bool
         """
+
         data = self.__fetch_data(version)
-        print(data)
-
-        return
-
         if not data or 'download' not in data:
             return False
 
