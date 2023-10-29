@@ -763,7 +763,7 @@ Entwicklung: {trending}</translation>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="46"/>
         <source>Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Symbol</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="14"/>
