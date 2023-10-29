@@ -624,12 +624,8 @@ def build_headers_with_authorization(request_headers: dict, authorization_tokens
 
     request_headers['Authorization'] = ''  # Reset old authentication
     token: str = authorization_tokens.get(token_type, '')
-    if not token:
-        print(f'No token of type {token_type} -- Returning')
-        
+    if not token:        
         return request_headers
-
-    print(f'{token_type} token is {token}')
 
     if token_type == 'github':
         request_headers['Authorization'] = f'token {token}'
