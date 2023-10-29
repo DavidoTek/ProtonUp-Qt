@@ -5,6 +5,8 @@
 import os
 import requests
 
+from typing import Dict
+
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.util import extract_tar, fetch_project_releases, fetch_project_release_data
@@ -75,7 +77,7 @@ class CtInstaller(QObject):
         self.__set_download_progress_percent(99) # 99 download complete
         return True
 
-    def __fetch_data(self, tag: str = '') -> dict:
+    def __fetch_data(self, tag: str = '') -> Dict:
 
         """
         Fetch release information
