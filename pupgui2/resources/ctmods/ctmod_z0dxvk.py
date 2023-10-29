@@ -26,11 +26,22 @@ class CtInstaller(QObject):
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
 
-    def __init__(self, main_window = None):
+    def __init__(self, main_window = None, request_headers = {}):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
         self.rs = main_window.rs or requests.Session()
         self.release_format = 'tar.gz'
+
+        # If we didn't give any custom authorization in our request_headers parameter (or if we didn't pass any to begin with),
+        # check if we should create our own authorization header using default GitHub access token
+        # This will also preserve any other custom headers, which may not include authorization, so we can insert the auth token
+        # from the environment into the headers if given even if not specified in request_headers
+        if 'Authorization' not in request_headers:
+            if main_window and main_window.web_access_tokens.get('github', None):
+                request_headers['Authorization'] = f'token {main_window.web_access_tokens.get("github", None)}'
+                print(f'Got updated token from: {request_headers["Authorization"]}')
+
+        self.rs.headers.update(request_headers)
 
     def get_download_canceled(self):
         return self.p_download_canceled

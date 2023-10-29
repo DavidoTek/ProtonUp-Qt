@@ -17,5 +17,8 @@ class CtInstaller(DXVKInstaller):
     CT_URL = 'https://gitlab.com/api/v4/projects/43488626/releases'
     CT_INFO_URL = 'https://gitlab.com/Ph42oN/dxvk-gplasync/-/releases/'
 
-    def __init__(self, main_window = None):
-        super().__init__(main_window)
+    def __init__(self, main_window = None, request_headers = {}):
+        if main_window and main_window.web_access_tokens.get('gitlab', None) and 'Authorization' not in request_headers:
+            request_headers['Authorization'] = f'Authorization: Bearer {main_window.web_access_tokens.get("gitlab", None)}'
+
+        super().__init__(main_window, request_headers)
