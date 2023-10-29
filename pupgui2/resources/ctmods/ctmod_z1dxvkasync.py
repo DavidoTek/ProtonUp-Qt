@@ -9,7 +9,7 @@ from pupgui2.resources.ctmods.ctmod_z0dxvk import CtInstaller as DXVKInstaller
 
 CT_NAME = 'DXVK Async'
 CT_LAUNCHERS = ['lutris']
-CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z1dxvkasync', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.<br/><br/><b>Warning: Use only with singleplayer games!</b>''')}
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z1dxvkasync', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with gplasync patch by Ph42oN.<br/><br/><b>Warning: Use only with singleplayer games!</b>''')}
 
 
 class CtInstaller(DXVKInstaller):
