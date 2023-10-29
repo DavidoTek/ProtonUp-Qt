@@ -7,7 +7,7 @@ import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck, extract_tar
+from pupgui2.util import extract_tar, fetch_project_releases, fetch_project_release_data
 
 
 CT_NAME = 'DXVK'
@@ -28,6 +28,7 @@ class CtInstaller(QObject):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
         self.rs = main_window.rs or requests.Session()
+        self.release_format = 'tar.gz'
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -54,7 +55,8 @@ class CtInstaller(QObject):
             return False
 
         self.__set_download_progress_percent(1) # 1 download started
-        f_size = int(file.headers.get('content-length'))
+        # https://stackoverflow.com/questions/53797628/request-has-no-content-length#53797919
+        f_size = len(file.content)
         c_count = int(f_size / self.BUFFER_SIZE)
         c_current = 1
         destination = os.path.expanduser(destination)
@@ -73,12 +75,24 @@ class CtInstaller(QObject):
         self.__set_download_progress_percent(99) # 99 download complete
         return True
 
+    def __fetch_data(self, tag: str = '') -> dict:
+
+        """
+        Fetch release information
+        Return Type: dict
+        Content(s):
+            'version', 'date', 'download', 'size'
+        """
+
+        asset_condition = lambda asset: 'native' not in [asset.get('name', ''), asset.get('url', '')]  # 'name' for github asset, 'url' for gitlab asset
+        return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, asset_condition=asset_condition)
+
     def __fetch_github_data(self, tag):
         """
         Fetch GitHub release information
         Return Type: dict
         Content(s):
-            'version', 'date', 'download', 'size', 'checksum'
+            'version', 'date', 'download'
         """
         url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
         data = self.rs.get(url).json()
@@ -92,6 +106,26 @@ class CtInstaller(QObject):
                 values['size'] = asset['size']
         return values
 
+    def __fetch_gitlab_data(self, tag):
+        """
+        Fetch GItLab release information
+        Return Type: dict
+        Content(s):
+            'version', 'date', 'download'
+        """
+
+        # GitLab docs: https://docs.gitlab.com/ee/api/releases/#get-a-release-by-a-tag-name
+        url = f'{self.CT_URL}/{tag if tag else "latest"}'
+        data = self.rs.get(url).json()
+        if 'tag_name' not in data:
+            return None
+
+        values = { 'version': data['tag_name'], 'date': data['released_at'].split('T')[0] }
+        for asset in data.get('assets', {}):
+            if 'tar.gz' in asset.get('sources', {}).get('format'):
+                values['download'] = asset['url']
+        return values
+
     def is_system_compatible(self):
         """
         Are the system requirements met?
@@ -102,16 +136,19 @@ class CtInstaller(QObject):
     def fetch_releases(self, count=100):
         """
         List available releases
-        Return Type: str[]
+        Return Type: list[str]
         """
-        return [release['tag_name'] for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()) if 'tag_name' in release]
+        return fetch_project_releases(self.CT_URL, self.rs, count=count)
 
     def get_tool(self, version, install_dir, temp_dir):
         """
         Download and install the compatibility tool
         Return Type: bool
         """
-        data = self.__fetch_github_data(version)
+        data = self.__fetch_data(version)
+        print(data)
+
+        return
 
         if not data or 'download' not in data:
             return False

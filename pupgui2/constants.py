@@ -89,3 +89,6 @@ STEAM_STL_FISH_VARIABLES = os.path.join(HOME_DIR, '.config/fish/fish_variables')
 
 LUTRIS_WEB_URL = 'https://lutris.net/games/'
 EPIC_STORE_URL = 'https://store.epicgames.com/p/'
+
+GITHUB_API = 'https://api.github.com/'
+GITLAB_API = 'https://gitlab.com/api/'

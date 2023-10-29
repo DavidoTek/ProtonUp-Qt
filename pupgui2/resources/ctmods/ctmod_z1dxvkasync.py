@@ -14,8 +14,8 @@ CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z1dxvkasync
 
 class CtInstaller(DXVKInstaller):
 
-    CT_URL = 'https://api.github.com/repos/Sporif/dxvk-async/releases'
-    CT_INFO_URL = 'https://github.com/Sporif/dxvk-async/releases/tag/'
+    CT_URL = 'https://gitlab.com/api/v4/projects/43488626/releases'
+    CT_INFO_URL = 'https://gitlab.com/Ph42oN/dxvk-gplasync/-/releases/'
 
     def __init__(self, main_window = None):
         super().__init__(main_window)

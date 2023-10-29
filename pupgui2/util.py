@@ -12,7 +12,7 @@ import tarfile
 import zstandard
 
 from configparser import ConfigParser
-from typing import Dict, List, Union, Tuple
+from typing import Dict, List, Union, Tuple, Optional, Callable
 
 import PySide6
 from PySide6.QtCore import QCoreApplication
@@ -20,6 +20,7 @@ from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBo
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
+from pupgui2.constants import GITHUB_API, GITLAB_API
 from pupgui2.datastructures import BasicCompatTool, CTType
 from pupgui2.steamutil import remove_steamtinkerlaunch
 
@@ -496,6 +497,102 @@ def is_online(host='https://api.github.com/repos/', timeout=3) -> bool:
         return True
     except (requests.ConnectionError, requests.Timeout):
         return False
+
+
+# Only used for dxvk and dxvk-async right now, but is potentially useful to more ctmods?
+def fetch_project_releases(releases_url: str, rs: requests.Session, count=100) -> list[str]:
+
+    """
+    List available releases for a given project URL hosted using requests.
+    Return Type: list[str]
+    """
+    releases_api_url: str = f'{releases_url}?per_page={str(count)}'
+
+    releases: dict = {}
+    tag_key: str = ''
+    # TODO No rate-limit check for GitLab yet, so only do this for GitHub
+    if GITHUB_API in releases_url:
+        releases = ghapi_rlcheck(rs.get(releases_api_url).json())
+        tag_key = 'tag_name'
+    elif GITLAB_API in releases_url:
+        releases = rs.get(releases_api_url).json()
+        tag_key = 'name'
+    else:
+        return []  # Unknown API, cannot fetch releases!
+
+    return [release[tag_key] for release in releases if tag_key in release]
+
+
+def get_assets_from_release(release_url: str, release: dict) -> Dict:
+
+    """
+    Parse the assets list out of a given release.
+    Return Type: dict
+    """
+
+    if GITHUB_API in release_url:
+        return release.get('assets', {})
+    elif GITLAB_API in release_url:
+        return release.get('assets', {}).get('sources', {})
+    else:
+        return {}
+
+
+def get_download_url_from_asset(release_url: str, asset: dict, release_format: str, asset_condition: Optional[Callable] = None) -> str:
+
+    """
+    Fetch the download link from a release asset matching a given release format and optional condition lambda.
+    Return Type: str
+    """
+
+    valid_asset: str = ''
+    if GITHUB_API in release_url and asset['name'].endswith(release_format):
+        valid_asset = asset['browser_download_url']
+    elif GITLAB_API in release_url and release_format in asset.get('format', ''):
+        valid_asset = asset['url']
+    else:
+        return ''
+
+    if asset_condition is None or asset_condition(asset):
+        return valid_asset
+
+    return ''
+
+
+# TODO in future if this is re-used for other ctmods other than DXVK and dxvk-async, try to parse more data i.e. checksum
+def fetch_project_release_data(release_url: str, release_format: str, rs: requests.Session, tag: str = '', asset_condition: Optional[Callable] = None) -> dict:
+
+    """
+    Fetch information about a given release based on its tag, with an optional condition lambda.
+    Return Type: dict
+    Content(s):
+        'version', 'date', 'download'
+    """
+
+    date_key: str = ''
+    api_tag = tag if tag else 'latest'
+
+    url: str = f'{release_url}/'
+    if GITHUB_API in release_url:
+        url += f'tags/{api_tag}'
+        date_key = 'published_at'
+    elif GITLAB_API in release_url:
+        url += api_tag
+        date_key = 'released_at'
+    else:
+        return {}  # Unknown API, cannot fetch data!
+
+    release: dict = rs.get(url).json()
+    values: dict = { 'version': release['tag_name'], 'date': release[date_key].split('T')[0] }
+
+    for asset in get_assets_from_release(release_url, release):
+        if asset_url := get_download_url_from_asset(release_url, asset, release_format, asset_condition=asset_condition):
+            values['download'] = asset_url
+            values['size'] = asset.get('size', None)
+
+            break
+
+    return values
 
 
 def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
