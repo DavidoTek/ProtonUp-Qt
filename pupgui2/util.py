@@ -499,6 +499,15 @@ def glapi_rlcheck(json: dict):
     return json
 
 
+def is_gitlab_instance(url: str) -> bool:
+    """
+    Check if a full API endpoint URL is in the list of known GitLab instances.
+    Return Type: bool
+    """
+
+    return any(instance in url for instance in GITLAB_API)
+
+
 def is_online(host='https://api.github.com/repos/', timeout=3) -> bool:
     """
     Attempts to ping a given host using `requests`.
@@ -527,7 +536,7 @@ def fetch_project_releases(releases_url: str, rs: requests.Session, count=100) -
     if GITHUB_API in releases_url:
         releases = ghapi_rlcheck(rs.get(releases_api_url).json())
         tag_key = 'tag_name'
-    elif GITLAB_API in releases_url:
+    elif is_gitlab_instance(releases_url):
         releases = glapi_rlcheck(rs.get(releases_api_url).json())
         tag_key = 'name'
     else:
@@ -545,7 +554,7 @@ def get_assets_from_release(release_url: str, release: dict) -> Dict:
 
     if GITHUB_API in release_url:
         return release.get('assets', {})
-    elif GITLAB_API in release_url:
+    elif is_gitlab_instance(release_url):
         return release.get('assets', {}).get('links', {})
     else:
         return {}
@@ -562,7 +571,7 @@ def get_download_url_from_asset(release_url: str, asset: dict, release_format: s
     valid_asset: str = ''
     if GITHUB_API in release_url and asset.get('name', '').endswith(release_format):
         valid_asset = asset['browser_download_url']
-    elif GITLAB_API in release_url and asset.get('name', '').endswith(release_format):
+    elif is_gitlab_instance(release_url) and asset.get('name', '').endswith(release_format):
         valid_asset = asset['url']
     else:
         return ''
@@ -590,7 +599,7 @@ def fetch_project_release_data(release_url: str, release_format: str, rs: reques
     if GITHUB_API in release_url:
         url += f'tags/{api_tag}'
         date_key = 'published_at'
-    elif GITLAB_API in release_url:
+    elif is_gitlab_instance(release_url):
         url += api_tag
         date_key = 'released_at'
     else:
