@@ -20,7 +20,7 @@ from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBo
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
-from pupgui2.constants import GITHUB_API, GITLAB_API
+from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType
 from pupgui2.steamutil import remove_steamtinkerlaunch
 
@@ -485,6 +485,20 @@ def ghapi_rlcheck(json: dict):
     return json
 
 
+def glapi_rlcheck(json: dict):
+    if type(json) == dict:
+        # Is 'message' the right key? GitLab should return it as plaintext
+        # See: https://docs.gitlab.com/ee/administration/settings/user_and_ip_rate_limits.html#use-a-custom-rate-limit-response
+        if any(rate_limit_msg in json.get('message', '') for rate_limit_msg in GITLAB_API_RATELIMIT_TEXT):
+            print('Warning: GitLab API rate limit exceeded. You may need to wait a while or specify a GitLab API token generated for the given instance.')
+            QApplication.instance().message_box_message.emit(
+                QCoreApplication.instance().translate('util.py', 'Warning: GitLab API rate limit exceeded!'),
+                QCoreApplication.instance().translate('util.py', 'GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.'),
+                QMessageBox.Warning
+            )
+    return json
+
+
 def is_online(host='https://api.github.com/repos/', timeout=3) -> bool:
     """
     Attempts to ping a given host using `requests`.
@@ -510,12 +524,11 @@ def fetch_project_releases(releases_url: str, rs: requests.Session, count=100) -
 
     releases: dict = {}
     tag_key: str = ''
-    # TODO No rate-limit check for GitLab yet, so only do this for GitHub
     if GITHUB_API in releases_url:
         releases = ghapi_rlcheck(rs.get(releases_api_url).json())
         tag_key = 'tag_name'
     elif GITLAB_API in releases_url:
-        releases = rs.get(releases_api_url).json()
+        releases = glapi_rlcheck(rs.get(releases_api_url).json())
         tag_key = 'name'
     else:
         return []  # Unknown API, cannot fetch releases!
