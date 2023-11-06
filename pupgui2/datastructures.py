@@ -210,9 +210,8 @@ class HeroicGame:
 
 
 class Launcher(Enum):
-
-    STEAM = 0
-    LUTRIS = 1
-    BOTTLES = 2
-    HEROIC = 3
-    UNKNOWN = 4
+    UNKNOWN = 0
+    STEAM = 1
+    LUTRIS = 2
+    BOTTLES = 3
+    HEROIC = 4
