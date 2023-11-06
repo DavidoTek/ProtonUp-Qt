@@ -484,7 +484,7 @@ def ghapi_rlcheck(json: dict):
     return json
 
 
-def is_online(host='https://api.github.com/repos/', timeout=3) -> bool:
+def is_online(host='https://api.github.com/rate_limit/', timeout=5) -> bool:
     """
     Attempts to ping a given host using `requests`.
     Returns False if `requests` raises a `ConnectionError` or `Timeout` exception, otherwise returns True 
