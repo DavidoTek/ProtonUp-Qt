@@ -20,7 +20,7 @@ from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBo
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
-from pupgui2.datastructures import BasicCompatTool, CTType
+from pupgui2.datastructures import BasicCompatTool, CTType, Launcher
 from pupgui2.steamutil import remove_steamtinkerlaunch
 
 
@@ -654,3 +654,22 @@ def extract_tar_zst(zst_path: str, extract_path: str) -> bool:
         print(f'Could not extract archive \'{zst_path}\': {e}')
 
     return False
+
+
+def get_launcher_from_installdir(install_dir: str) -> Launcher:
+
+    """
+    Return the launcher type based on the install path given.
+    Return Type: Launcher (Enum)
+    """
+
+    if 'steam/compatibilitytools.d' in install_dir.lower():
+        return Launcher.STEAM
+    elif 'lutris/runners' in install_dir.lower():
+        return Launcher.LUTRIS
+    elif 'heroic/tools' in install_dir.lower():
+        return Launcher.HEROIC
+    elif 'bottles/runners' in install_dir.lower():
+        return Launcher.BOTTLES
+    else:
+        return Launcher.UNKNOWN
