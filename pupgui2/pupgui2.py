@@ -81,8 +81,11 @@ class MainWindow(QObject):
         super(MainWindow, self).__init__()
 
         self.rs = requests.Session()
-        if token := os.getenv('PUPGUI_GHA_TOKEN'):
-            self.rs.headers.update({'Authorization': f'token {token}'})
+        self.web_access_tokens = {
+            'github': os.getenv('PUPGUI_GHA_TOKEN'),
+            'gitlab': os.getenv('PUPGUI_GLA_TOKEN'),
+        }
+
         self.ct_loader = ctloader.CtLoader(main_window=self)
 
         for ctobj in self.ct_loader.get_ctobjs():

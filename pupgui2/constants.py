@@ -89,3 +89,15 @@ STEAM_STL_FISH_VARIABLES = os.path.join(HOME_DIR, '.config/fish/fish_variables')
 
 LUTRIS_WEB_URL = 'https://lutris.net/games/'
 EPIC_STORE_URL = 'https://store.epicgames.com/p/'
+
+GITHUB_API = 'https://api.github.com/'
+# GitLab can have any self-hosted instance, so we store a list of known GitLab instances
+GITLAB_API = [
+    'https://gitlab.com/api/'
+]
+
+GITLAB_API_RATELIMIT_TEXT = [
+    'Rate limit exceeded; see https://docs.gitlab.com/ee/user/gitlab_com/#gitlabcom-specific-rate-limits for more details',
+    'Rate limit exceeded',
+    'Retry later'
+]
