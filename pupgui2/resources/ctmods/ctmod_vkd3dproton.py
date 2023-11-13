@@ -7,7 +7,8 @@ import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck, extract_tar, extract_tar_zst
+from pupgui2.datastructures import Launcher
+from pupgui2.util import ghapi_rlcheck, extract_tar, extract_tar_zst, get_launcher_from_installdir
 
 
 CT_NAME = 'vkd3d-proton'
@@ -144,9 +145,10 @@ class CtInstaller(QObject):
         Return Type: str
         """
 
-        if 'lutris/runners' in install_dir:
+        launcher = get_launcher_from_installdir(install_dir)
+        if launcher == Launcher.LUTRIS:
             return os.path.abspath(os.path.join(install_dir, '../../runtime/vkd3d'))
-        if 'heroic/tools' in install_dir:
+        if launcher == Launcher.HEROIC:
             return os.path.abspath(os.path.join(install_dir, '../vkd3d'))
         else:
             return install_dir  # Default to install_dir

@@ -9,7 +9,8 @@ from typing import Dict
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import extract_tar, fetch_project_releases, fetch_project_release_data, build_headers_with_authorization
+from pupgui2.util import extract_tar, get_launcher_from_installdir, fetch_project_releases, fetch_project_release_data, build_headers_with_authorization
+from pupgui2.datastructures import Launcher
 
 
 CT_NAME = 'DXVK'
@@ -143,9 +144,10 @@ class CtInstaller(QObject):
         Return Type: str
         """
 
-        if 'lutris/runners' in install_dir:
+        launcher = get_launcher_from_installdir(install_dir)
+        if launcher == Launcher.LUTRIS:
             return os.path.abspath(os.path.join(install_dir, '../../runtime/dxvk'))
-        if 'heroic/tools' in install_dir:
+        if launcher == Launcher.HEROIC:
             return os.path.abspath(os.path.join(install_dir, '../dxvk'))
         else:
             return install_dir  # Default to install_dir

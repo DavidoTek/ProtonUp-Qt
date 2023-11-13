@@ -7,7 +7,8 @@ import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck, extract_zip
+from pupgui2.datastructures import Launcher
+from pupgui2.util import ghapi_rlcheck, extract_zip, get_launcher_from_installdir
 
 
 CT_NAME = 'D8VK (nightly)'
@@ -163,9 +164,10 @@ class CtInstaller(QObject):
         Return Type: str
         """
 
-        if 'lutris/runners' in install_dir:
+        launcher = get_launcher_from_installdir(install_dir)
+        if launcher == Launcher.LUTRIS:
             return os.path.abspath(os.path.join(install_dir, '../../runtime/dxvk'))
-        if 'heroic/tools' in install_dir:
+        if launcher == Launcher.HEROIC:
             return os.path.abspath(os.path.join(install_dir, '../dxvk'))
         else:
             return install_dir  # Default to install_dir
