@@ -150,7 +150,21 @@ def config_theme(theme=None) -> str:
     Return Type: str
     """
 
-    return read_update_config_value('theme', theme, section='pupgui2')
+    config = ConfigParser()
+
+    if theme:
+        config.read(CONFIG_FILE)
+        if not config.has_section('pupgui2'):
+            config.add_section('pupgui2')
+        config['pupgui2']['theme'] = theme
+        os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
+        with open(CONFIG_FILE, 'w') as file:
+            config.write(file)
+    elif os.path.exists(CONFIG_FILE):
+        config.read(CONFIG_FILE)
+        if config.has_option('pupgui2', 'theme'):
+            return config['pupgui2']['theme']
+    return theme
 
 
 def config_advanced_mode(advmode=None) -> str:
