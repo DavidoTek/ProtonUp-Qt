@@ -113,7 +113,7 @@ def apply_dark_theme(app: QApplication) -> None:
                 app.setPalette(QStyleFactory.create('fusion').standardPalette())
 
 
-def read_update_config_value(option: str, value, section: str = 'pupgui2', config_file: str = CONFIG_FILE):
+def read_update_config_value(option: str, value, section: str = 'pupgui2', config_file: str = CONFIG_FILE) -> str:
 
     """
     Uses ConfigParser to read a value with a given option from a given section from a given config file.
@@ -121,26 +121,26 @@ def read_update_config_value(option: str, value, section: str = 'pupgui2', confi
     """
 
     config = ConfigParser()
+    config_value = ''
 
-    # Read value if it exists in config
-    if os.path.exists(config_file):
+    # Write value if given
+    if value:
+        config.read(config_file)
+        if not config.has_section(section):
+            config.add_section(section)
+        config[section][option] = value
+        os.makedirs(os.path.dirname(config_file), exist_ok=True)
+
+        with open(config_file, 'w') as cfg:
+            config.write(cfg)
+        config_value = value
+    # If no value, attempt to read from config
+    elif os.path.exists(config_file):
         config.read(config_file)
         if config.has_option(section, option):
-            return config[section][option]
+            config_value = config[section][option]
 
-    # Otherwise write value, skip write if no value passed
-    if not value:
-        return value
-
-    config.read(config_file)
-    if not config.has_section(section):
-        config.add_section(section)
-    config[section][option] = value
-    os.makedirs(os.path.dirname(config_file), exist_ok=True)
-
-    with open(config_file, 'w') as cfg:
-        config.write(cfg)
-    return value
+    return config_value
 
 
 def config_theme(theme=None) -> str:
@@ -149,21 +149,8 @@ def config_theme(theme=None) -> str:
     Write theme to config or read if theme=None
     Return Type: str
     """
-    config = ConfigParser()
 
-    if theme:
-        config.read(CONFIG_FILE)
-        if not config.has_section('pupgui2'):
-            config.add_section('pupgui2')
-        config['pupgui2']['theme'] = theme
-        os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
-        with open(CONFIG_FILE, 'w') as file:
-            config.write(file)
-    elif os.path.exists(CONFIG_FILE):
-        config.read(CONFIG_FILE)
-        if config.has_option('pupgui2', 'theme'):
-            return config['pupgui2']['theme']
-    return theme
+    return read_update_config_value('theme', theme, section='pupgui2')
 
 
 def config_advanced_mode(advmode=None) -> str:
