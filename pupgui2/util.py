@@ -113,11 +113,11 @@ def apply_dark_theme(app: QApplication) -> None:
                 app.setPalette(QStyleFactory.create('fusion').standardPalette())
 
 
-def read_update_config_value(key: str, value, section: str = 'pupgui2', config_file: str = CONFIG_FILE):
+def read_update_config_value(option: str, value, section: str = 'pupgui2', config_file: str = CONFIG_FILE):
 
     """
-    Uses ConfigParser to read a value with a given key from a given section from a given cconfig file.
-    By default, will read a key and a value from the 'pupgui2' section in CONFIG_FILE path in constants.py.
+    Uses ConfigParser to read a value with a given option from a given section from a given config file.
+    By default, will read a option and a value from the 'pupgui2' section in CONFIG_FILE path in constants.py.
     """
 
     config = ConfigParser()
@@ -125,8 +125,8 @@ def read_update_config_value(key: str, value, section: str = 'pupgui2', config_f
     # Read value if it exists in config
     if os.path.exists(config_file):
         config.read(config_file)
-        if config.has_option(section, key):
-            return config[section][key]
+        if config.has_option(section, option):
+            return config[section][option]
 
     # Otherwise write value, skip write if no value passed
     if not value:
@@ -135,7 +135,7 @@ def read_update_config_value(key: str, value, section: str = 'pupgui2', config_f
     config.read(config_file)
     if not config.has_section(section):
         config.add_section(section)
-    config[section][key] = value
+    config[section][option] = value
     os.makedirs(os.path.dirname(config_file), exist_ok=True)
 
     with open(config_file, 'w') as cfg:
