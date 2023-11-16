@@ -196,7 +196,7 @@ def config_github_access_token(github_token=None):
     Read/update config for GitHub Access Token
     """
 
-    return read_update_config_value('PUPGUI_GHA_TOKEN', github_token, section='pupgui2')
+    return read_update_config_value('github_api_token', github_token, section='pupgui2')
 
 
 def config_gitlab_access_token(gitlab_token=None):
@@ -205,7 +205,7 @@ def config_gitlab_access_token(gitlab_token=None):
     Read/update config for GitLab Access Token
     """
 
-    return read_update_config_value('PUPGUI_GLA_TOKEN', gitlab_token, section='pupgui2')
+    return read_update_config_value('gitlab_api_token', gitlab_token, section='pupgui2')
 
 
 def create_compatibilitytools_folder() -> None:
