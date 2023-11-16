@@ -9,6 +9,7 @@ from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 from PySide6.QtWidgets import QMessageBox
 
 from pupgui2.util import ghapi_rlcheck, host_which, extract_tar, write_tool_version
+from pupgui2.util import build_headers_with_authorization
 
 
 CT_NAME = 'Roberta'
@@ -29,7 +30,10 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs or requests.Session()
+
+        self.rs = requests.Session()
+        rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
+        self.rs.headers.update(rs_headers)
 
     def get_download_canceled(self):
         return self.p_download_canceled

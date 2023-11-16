@@ -18,5 +18,8 @@ class CtInstaller(DXVKInstaller):
     CT_URL = 'https://gitlab.com/api/v4/projects/43488626/releases'
     CT_INFO_URL = 'https://gitlab.com/Ph42oN/dxvk-gplasync/-/releases/'
 
-    def __init__(self, main_window = None, request_headers = {}):
-        super().__init__(main_window, build_headers_with_authorization(request_headers, main_window.web_access_tokens, 'gitlab'))
+    def __init__(self, main_window = None):
+        super().__init__(main_window)
+
+        rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'gitlab')
+        self.rs.headers.update(rs_headers)

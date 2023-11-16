@@ -9,6 +9,7 @@ import hashlib
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.util import ghapi_rlcheck, extract_tar
+from pupgui2.util import build_headers_with_authorization
 
 
 CT_NAME = 'Lutris-Wine'
@@ -28,7 +29,10 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs or requests.Session()
+
+        self.rs = requests.Session()
+        rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
+        self.rs.headers.update(rs_headers)
 
     def get_download_canceled(self):
         return self.p_download_canceled

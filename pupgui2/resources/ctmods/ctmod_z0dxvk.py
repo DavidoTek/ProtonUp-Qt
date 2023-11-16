@@ -27,12 +27,14 @@ class CtInstaller(QObject):
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
 
-    def __init__(self, main_window = None, request_headers = {}):
+    def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.rs = main_window.rs or requests.Session()
         self.release_format = 'tar.gz'
-        self.request_headers = request_headers or build_headers_with_authorization(request_headers, main_window.web_access_tokens, 'github')
+
+        self.rs = requests.Session()
+        rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
+        self.rs.headers.update(rs_headers)
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -59,7 +61,6 @@ class CtInstaller(QObject):
             return False
 
         self.__set_download_progress_percent(1) # 1 download started
-        self.rs.headers.update(self.request_headers)
         # https://stackoverflow.com/questions/53797628/request-has-no-content-length#53797919
         f_size = len(file.content)
         c_count = int(f_size / self.BUFFER_SIZE)
@@ -89,7 +90,6 @@ class CtInstaller(QObject):
             'version', 'date', 'download', 'size'
         """
 
-        self.rs.headers.update(self.request_headers)
         asset_condition = lambda asset: 'native' not in [asset.get('name', ''), asset.get('url', '')]  # 'name' for github asset, 'url' for gitlab asset
         return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, asset_condition=asset_condition)
 
@@ -105,7 +105,6 @@ class CtInstaller(QObject):
         List available releases
         Return Type: list[str]
         """
-        self.rs.headers.update(self.request_headers)
         return fetch_project_releases(self.CT_URL, self.rs, count=count)
 
     def get_tool(self, version, install_dir, temp_dir):
