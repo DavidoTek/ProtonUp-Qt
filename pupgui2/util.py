@@ -8,6 +8,7 @@ import webbrowser
 import requests
 import zipfile
 import tarfile
+import pkgutil
 
 import zstandard
 
@@ -92,6 +93,9 @@ def apply_dark_theme(app: QApplication) -> None:
     elif theme == 'dark':
         app.setStyle('Fusion')
         app.setPalette(PALETTE_DARK())
+    elif theme == 'steam':
+        stylesheet = pkgutil.get_data(__name__, 'resources/themes/steamdeck.qss')
+        app.setStyleSheet(stylesheet.decode('utf-8'))
     else:
         is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION', '')
         darkmode_enabled = False

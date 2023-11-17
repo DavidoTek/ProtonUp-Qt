@@ -59,8 +59,8 @@ class PupguiAboutDialog(QObject):
 
         self.ui.btnGitHub.clicked.connect(self.btn_github_clicked)
 
-        self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)')])
-        self.ui.comboColorTheme.setCurrentIndex(['light', 'dark', 'system', None].index(config_theme()))
+        self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)'), 'Steam Deck'])
+        self.ui.comboColorTheme.setCurrentIndex(['light', 'dark', 'system', 'steam', None].index(config_theme()))
 
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
         self.ui.btnAboutQt.clicked.connect(self.btn_aboutqt_clicked)
@@ -76,7 +76,7 @@ class PupguiAboutDialog(QObject):
             self.ui.btnCheckForUpdates.setVisible(False)
 
     def combo_color_theme_current_index_changed(self):
-        config_theme(['light', 'dark', 'system'][self.ui.comboColorTheme.currentIndex()])
+        config_theme(['light', 'dark', 'system', 'steam'][self.ui.comboColorTheme.currentIndex()])
         apply_dark_theme(QApplication.instance())
 
     def btn_close_clicked(self):
