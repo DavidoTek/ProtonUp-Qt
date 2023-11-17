@@ -27,7 +27,7 @@ from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_
 from pupgui2.heroicutil import is_heroic_launcher, get_heroic_game_list
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
-from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online, config_advanced_mode, compat_tool_available
+from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online, config_advanced_mode, config_github_access_token, config_gitlab_access_token, compat_tool_available
 
 
 class InstallWineThread(QThread):
@@ -81,8 +81,8 @@ class MainWindow(QObject):
         super(MainWindow, self).__init__()
 
         self.web_access_tokens = {
-            'github': os.getenv('PUPGUI_GHA_TOKEN'),
-            'gitlab': os.getenv('PUPGUI_GLA_TOKEN'),
+            'github': os.getenv('PUPGUI_GHA_TOKEN') or config_github_access_token(),
+            'gitlab': os.getenv('PUPGUI_GLA_TOKEN') or config_gitlab_access_token(),
         }
 
         self.ct_loader = ctloader.CtLoader(main_window=self)

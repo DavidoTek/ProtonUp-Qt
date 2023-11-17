@@ -113,12 +113,43 @@ def apply_dark_theme(app: QApplication) -> None:
                 app.setPalette(QStyleFactory.create('fusion').standardPalette())
 
 
+def read_update_config_value(option: str, value, section: str = 'pupgui2', config_file: str = CONFIG_FILE) -> str:
+
+    """
+    Uses ConfigParser to read a value with a given option from a given section from a given config file.
+    By default, will read a option and a value from the 'pupgui2' section in CONFIG_FILE path in constants.py.
+    """
+
+    config = ConfigParser()
+    config_value = ''
+
+    # Write value if given
+    if value:
+        config.read(config_file)
+        if not config.has_section(section):
+            config.add_section(section)
+        config[section][option] = value
+        os.makedirs(os.path.dirname(config_file), exist_ok=True)
+
+        with open(config_file, 'w') as cfg:
+            config.write(cfg)
+        config_value = value
+    # If no value, attempt to read from config
+    elif os.path.exists(config_file):
+        config.read(config_file)
+        if config.has_option(section, option):
+            config_value = config[section][option]
+
+    return config_value
+
+
 def config_theme(theme=None) -> str:
     """
     Read/update config for the theme
     Write theme to config or read if theme=None
     Return Type: str
     """
+
     config = ConfigParser()
 
     if theme:
@@ -157,6 +188,24 @@ def config_advanced_mode(advmode=None) -> str:
         if config.has_option('pupgui2', 'advancedmode'):
             return config['pupgui2']['advancedmode']
     return advmode
+
+
+def config_github_access_token(github_token=None):
+
+    """
+    Read/update config for GitHub Access Token
+    """
+
+    return read_update_config_value('github_api_token', github_token, section='pupgui2')
+
+
+def config_gitlab_access_token(gitlab_token=None):
+
+    """
+    Read/update config for GitLab Access Token
+    """
+
+    return read_update_config_value('gitlab_api_token', gitlab_token, section='pupgui2')
 
 
 def create_compatibilitytools_folder() -> None:
