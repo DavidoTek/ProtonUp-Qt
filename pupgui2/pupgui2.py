@@ -80,7 +80,6 @@ class MainWindow(QObject):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.rs = requests.Session()
         self.web_access_tokens = {
             'github': os.getenv('PUPGUI_GHA_TOKEN'),
             'gitlab': os.getenv('PUPGUI_GLA_TOKEN'),

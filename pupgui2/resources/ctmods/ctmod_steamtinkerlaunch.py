@@ -12,6 +12,7 @@ from pupgui2.datastructures import MsgBoxType, MsgBoxResult
 from pupgui2.steamutil import get_fish_user_paths, remove_steamtinkerlaunch, get_external_steamtinkerlaunch_intall
 from pupgui2.util import host_which, config_advanced_mode
 from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import build_headers_with_authorization
 
 
 CT_NAME = 'SteamTinkerLaunch'
@@ -59,7 +60,11 @@ class CtInstaller(QObject):
         self.p_download_canceled = False
         self.remove_existing_installation = False
         self.main_window = main_window
-        self.rs = main_window.rs or requests.Session()
+
+        self.rs = requests.Session()
+        rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
+        self.rs.headers.update(rs_headers)
+
         self.allow_git = allow_git
         proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
         self.distinfo = subprocess.run(
