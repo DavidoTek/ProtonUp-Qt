@@ -150,21 +150,7 @@ def config_theme(theme=None) -> str:
     Return Type: str
     """
 
-    config = ConfigParser()
-
-    if theme:
-        config.read(CONFIG_FILE)
-        if not config.has_section('pupgui2'):
-            config.add_section('pupgui2')
-        config['pupgui2']['theme'] = theme
-        os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
-        with open(CONFIG_FILE, 'w') as file:
-            config.write(file)
-    elif os.path.exists(CONFIG_FILE):
-        config.read(CONFIG_FILE)
-        if config.has_option('pupgui2', 'theme'):
-            return config['pupgui2']['theme']
-    return theme
+    return read_update_config_value('theme', theme, section='pupgui2')
 
 
 def config_advanced_mode(advmode=None) -> str:
@@ -173,21 +159,8 @@ def config_advanced_mode(advmode=None) -> str:
     Write advmode to config or read if advmode=None
     Return Type: str
     """
-    config = ConfigParser()
 
-    if advmode:
-        config.read(CONFIG_FILE)
-        if not config.has_section('pupgui2'):
-            config.add_section('pupgui2')
-        config['pupgui2']['advancedmode'] = advmode
-        os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
-        with open(CONFIG_FILE, 'w') as file:
-            config.write(file)
-    elif os.path.exists(CONFIG_FILE):
-        config.read(CONFIG_FILE)
-        if config.has_option('pupgui2', 'advancedmode'):
-            return config['pupgui2']['advancedmode']
-    return advmode
+    return read_update_config_value('advancedmode', advmode, section='pupgui2')
 
 
 def config_github_access_token(github_token=None):
