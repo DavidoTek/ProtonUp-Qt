@@ -528,7 +528,7 @@ def ghapi_rlcheck(json: dict):
             print('Warning: GitHub API rate limit exceeded. See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.')
             QApplication.instance().message_box_message.emit(
                 QCoreApplication.instance().translate('util.py', 'Warning: GitHub API rate limit exceeded!'),
-                QCoreApplication.instance().translate('util.py', 'GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one with PUPGUI_GHA_TOKEN in \'config.ini\'.\n\nSee https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.'),
+                QCoreApplication.instance().translate('util.py', 'GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.\n\nSee https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.'),
                 QMessageBox.Warning
                 )
     return json
@@ -542,7 +542,7 @@ def glapi_rlcheck(json: dict):
             print('Warning: GitLab API rate limit exceeded. You may need to wait a while or specify a GitLab API token generated for the given instance.')
             QApplication.instance().message_box_message.emit(
                 QCoreApplication.instance().translate('util.py', 'Warning: GitLab API rate limit exceeded!'),
-                QCoreApplication.instance().translate('util.py', 'GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one with PUPGUI_GLA_TOKEN in \'config.ini\'.'),
+                QCoreApplication.instance().translate('util.py', 'GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.'),
                 QMessageBox.Warning
             )
     return json
