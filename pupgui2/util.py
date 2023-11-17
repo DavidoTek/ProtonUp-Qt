@@ -121,7 +121,6 @@ def read_update_config_value(option: str, value, section: str = 'pupgui2', confi
     """
 
     config = ConfigParser()
-    config_value = ''
 
     # Write value if given
     if value:
@@ -133,14 +132,13 @@ def read_update_config_value(option: str, value, section: str = 'pupgui2', confi
 
         with open(config_file, 'w') as cfg:
             config.write(cfg)
-        config_value = value
     # If no value, attempt to read from config
     elif os.path.exists(config_file):
         config.read(config_file)
         if config.has_option(section, option):
-            config_value = config[section][option]
+            value = config[section][option]
 
-    return config_value
+    return value
 
 
 def config_theme(theme=None) -> str:
