@@ -551,8 +551,6 @@ def fetch_project_releases(releases_url: str, rs: requests.Session, count=100) -
     """
     releases_api_url: str = f'{releases_url}?per_page={str(count)}'
 
-    print(rs.headers)
-
     releases: dict = {}
     tag_key: str = ''
     if GITHUB_API in releases_url:
