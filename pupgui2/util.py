@@ -829,3 +829,24 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
         return Launcher.BOTTLES
     else:
         return Launcher.UNKNOWN
+
+
+def create_missing_dependencies_message(ct_name: str, dependencies: List, tr_context: str):
+
+    """
+    Generate a string message noting which dependencies are missing for a ctmod_name, with tr_context to translate relevant strings.
+    Return the string message and a boolean to note whether the dependencies were met or not.
+
+    Return Type: str, bool
+    """
+
+    tr_missing = QCoreApplication.instance().translate(tr_context, 'missing')
+    tr_found = QCoreApplication.instance().translate(tr_context, 'found')
+
+    if all(host_which(dep) for dep in dependencies):
+        return '', True
+    msg = QCoreApplication.instance().translate(tr_context, 'You need {DEPS} for {CT_NAME}.'.format(DEPS=', '.join(dependencies), CT_NAME=ct_name)) + '\n\n'
+    msg += '\n'.join(f'{dep_name}: {tr_missing if host_which(dep_name) else tr_found}' for dep_name in dependencies)
+    msg += '\n\n' + QCoreApplication.instance().translate(tr_context, 'Will continue installing {CT_NAME} anyway.'.format(CT_NAME=ct_name))
+
+    return msg, False

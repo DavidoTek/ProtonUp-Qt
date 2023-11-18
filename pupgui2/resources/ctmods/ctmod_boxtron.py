@@ -4,7 +4,7 @@
 
 from PySide6.QtCore import QCoreApplication
 
-from pupgui2.util import host_which
+from pupgui2.util import create_missing_dependencies_message
 from pupgui2.resources.ctmods.ctmod_luxtorpeda import CtInstaller as LuxtorpedaInstaller
 
 
@@ -24,23 +24,22 @@ class CtInstaller(LuxtorpedaInstaller):
         self.extract_dir_name = 'boxtron'
         self.deps = [ 'doxbox', 'inotifywait', 'timidity' ]
 
-    def is_system_compatible(self):
+    def is_system_compatible(self) -> bool:
         """
         Are the system requirements met?
         Return Type: bool
         """
 
-        # Could be a generic method in future? Not sure how re-usable this is between ctmods
-        tr_missing = QCoreApplication.instance().translate('ctmod_boxtron', 'missing')
-        tr_found = QCoreApplication.instance().translate('ctmod_boxtron', 'found')
+        # Skip check if we have no dependencies
+        if not self.deps:
+            return True
+
+        # TODO put this in Luxtorpeda base class, with no deps so we can skip it?
         msg_tr_title = QCoreApplication.instance().translate('ctmod_boxtron', 'Missing dependencies!')
 
-        if all(host_which(dep) for dep in self.deps):
-            return True
-        msg = QCoreApplication.instance().translate('ctmod_boxtron', 'You need {DEPS} for Boxtron.'.format(DEPS=', '.join(self.deps))) + '\n\n'
-        msg += '\n'.join(f'{dep_name}: {tr_missing if host_which(dep_name) else tr_found}' for dep_name in self.deps)
-        msg += '\n\n' + QCoreApplication.instance().translate('ctmod_boxtron', 'Will continue installing Boxtron anyway.')
-
-        self._emit_missing_dependencies(msg_tr_title, msg)
+        # Only emit warning if not success
+        msg, success = create_missing_dependencies_message('Boxtron', self.deps, 'ctmod_boxtron')
+        if not success:
+            self._emit_missing_dependencies(msg_tr_title, msg)
 
         return True  # install Boxtron anyway
