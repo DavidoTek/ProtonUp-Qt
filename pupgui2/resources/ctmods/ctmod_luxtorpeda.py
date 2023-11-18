@@ -6,6 +6,7 @@ import os
 import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+from PySide6.QtWidgets import QMessageBox
 
 from pupgui2.util import ghapi_rlcheck, extract_tar, write_tool_version
 from pupgui2.util import build_headers_with_authorization
@@ -24,10 +25,12 @@ class CtInstaller(QObject):
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
+    message_box_message = Signal((str, str, QMessageBox.Icon))
 
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
+        self.extract_dir_name = 'luxtorpeda'  # Allows override for Boxtron/Roberta
 
         self.rs = requests.Session()
         rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
@@ -124,7 +127,7 @@ class CtInstaller(QObject):
         if not self.__download(url=data['download'], destination=luxtorpeda_tar):
             return False
 
-        luxtorpeda_dir = os.path.join(install_dir, 'luxtorpeda')
+        luxtorpeda_dir = os.path.join(install_dir, self.extract_dir_name)
         if not extract_tar(luxtorpeda_tar, install_dir, mode='xz'):
             return False
         write_tool_version(luxtorpeda_dir, version)
@@ -132,6 +135,13 @@ class CtInstaller(QObject):
         self.__set_download_progress_percent(100)
 
         return True
+
+    def _emit_missing_dependencies(self, msg_title, msg):
+        """
+        Emit a missing dependencies warning message for child class
+        """
+
+        self.message_box_message.emit(msg_title, msg, QMessageBox.Warning)
 
     def get_info_url(self, version):
         """
