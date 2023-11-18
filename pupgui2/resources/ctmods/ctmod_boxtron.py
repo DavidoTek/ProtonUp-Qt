@@ -30,16 +30,4 @@ class CtInstaller(LuxtorpedaInstaller):
         Return Type: bool
         """
 
-        # Skip check if we have no dependencies
-        if not self.deps:
-            return True
-
-        # TODO put this in Luxtorpeda base class, with no deps so we can skip it?
-        msg_tr_title = QCoreApplication.instance().translate('ctmod_boxtron', 'Missing dependencies!')
-
-        # Only emit warning if not success
-        msg, success = create_missing_dependencies_message('Boxtron', self.deps, 'ctmod_boxtron')
-        if not success:
-            self._emit_missing_dependencies(msg_tr_title, msg)
-
-        return True  # install Boxtron anyway
+        return super().is_system_compatible(ct_name = 'Boxtron', deps = self.deps, tr_context = 'ctmod_boxtron')
