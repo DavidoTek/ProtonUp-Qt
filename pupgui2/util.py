@@ -19,7 +19,7 @@ import PySide6
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBox
 
-from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
+from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, PALETTE_STEAMUI, TEMP_DIR
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher
@@ -94,6 +94,7 @@ def apply_dark_theme(app: QApplication) -> None:
         app.setStyle('Fusion')
         app.setPalette(PALETTE_DARK())
     elif theme == 'steam':
+        app.setPalette(PALETTE_STEAMUI())
         stylesheet = pkgutil.get_data(__name__, 'resources/themes/steamdeck.qss')
         app.setStyleSheet(stylesheet.decode('utf-8'))
     else:

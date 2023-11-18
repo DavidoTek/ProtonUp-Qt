@@ -67,6 +67,14 @@ def PALETTE_DARK():
     palette_dark.setColor(QPalette.HighlightedText, Qt.black)
     return palette_dark
 
+def PALETTE_STEAMUI():
+    """ returns a Steam-ui like color palette """
+    palette_steam = QPalette()
+    # Needed for theming Qt's Wayland Client Side Decoration
+    palette_steam.setColor(QPalette.Window, QColor(23, 29, 37))  #171D25
+    palette_steam.setColor(QPalette.WindowText, Qt.white)
+    return palette_steam
+
 PROTONDB_COLORS = {'platinum': '#b4c7dc', 'gold': '#cfb53b', 'silver': '#a6a6a6', 'bronze': '#cd7f32', 'borked': '#ff0000', 'pending': '#748472' }
 
 STEAM_API_GETAPPLIST_URL = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'
