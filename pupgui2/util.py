@@ -843,10 +843,12 @@ def create_missing_dependencies_message(ct_name: str, dependencies: List, tr_con
     tr_missing = QCoreApplication.instance().translate(tr_context, 'missing')
     tr_found = QCoreApplication.instance().translate(tr_context, 'found')
 
-    if all(host_which(dep) for dep in dependencies):
+    deps_found = [ host_which(dep) for dep in dependencies ]
+
+    if all(deps_found):
         return '', True
     msg = QCoreApplication.instance().translate(tr_context, 'You need {DEPS} for {CT_NAME}.'.format(DEPS=', '.join(dependencies), CT_NAME=ct_name)) + '\n\n'
-    msg += '\n'.join(f'{dep_name}: {tr_missing if host_which(dep_name) else tr_found}' for dep_name in dependencies)
+    msg += '\n'.join(f'{dep_name}: {tr_missing if not deps_found[i] else tr_found}' for i, dep_name in enumerate(dependencies))
     msg += '\n\n' + QCoreApplication.instance().translate(tr_context, 'Will continue installing {CT_NAME} anyway.'.format(CT_NAME=ct_name))
 
     return msg, False
