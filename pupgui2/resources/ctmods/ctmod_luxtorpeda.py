@@ -30,9 +30,7 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-
-        # Allows override for Boxtron/Roberta
-        self.extract_dir_name = 'luxtorpeda'
+        self.extract_dir_name = 'luxtorpeda'  # Allows override for Boxtron/Roberta
 
         self.rs = requests.Session()
         rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
@@ -114,7 +112,7 @@ class CtInstaller(QObject):
         msg_tr_title = QCoreApplication.instance().translate(tr_context, 'Missing dependencies!')
         msg, success = create_missing_dependencies_message(ct_name, deps, tr_context)
         if not success:
-            self._emit_missing_dependencies(msg_tr_title, msg)
+            self.message_box_message.emit(msg_tr_title, msg, QMessageBox.Warning)
 
         return True  # install Boxtron anyway
 
@@ -148,13 +146,6 @@ class CtInstaller(QObject):
         self.__set_download_progress_percent(100)
 
         return True
-
-    def _emit_missing_dependencies(self, msg_title, msg):
-        """
-        Emit a missing dependencies warning message for child class
-        """
-
-        self.message_box_message.emit(msg_title, msg, QMessageBox.Warning)
 
     def get_info_url(self, version):
         """
