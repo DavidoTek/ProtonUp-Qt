@@ -30,7 +30,10 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
-        self.extract_dir_name = 'luxtorpeda'  # Allows override for Boxtron/Roberta
+
+        # Allows override for Boxtron/Roberta
+        self.extract_dir_name = 'luxtorpeda'
+        self.deps = []
 
         self.rs = requests.Session()
         rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
@@ -99,18 +102,18 @@ class CtInstaller(QObject):
                 values['size'] = asset['size']
         return values
 
-    def is_system_compatible(self, ct_name: str = 'Luxtorpeda', deps: list = [], tr_context: str = 'ctmod_luxtorpeda') -> bool:
+    def is_system_compatible(self, ct_name: str = 'Luxtorpeda', tr_context: str = 'ctmod_luxtorpeda') -> bool:
         """
         Are the system requirements met?
         Return Type: bool
         """
 
-        if not deps:
+        if not self.deps:
             return True  # Skip check if we have no dependencies
 
         # Emit warning if we generated a missing dependencies message
         msg_tr_title = QCoreApplication.instance().translate(tr_context, 'Missing dependencies!')
-        msg, success = create_missing_dependencies_message(ct_name, deps, tr_context)
+        msg, success = create_missing_dependencies_message(ct_name, self.deps, tr_context)
         if not success:
             self.message_box_message.emit(msg_tr_title, msg, QMessageBox.Warning)
 

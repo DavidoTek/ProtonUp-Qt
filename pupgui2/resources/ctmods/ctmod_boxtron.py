@@ -30,4 +30,4 @@ class CtInstaller(LuxtorpedaInstaller):
         Return Type: bool
         """
 
-        return super().is_system_compatible(ct_name = 'Boxtron', deps = self.deps, tr_context = 'ctmod_boxtron')
+        return super().is_system_compatible(ct_name = 'Boxtron', tr_context = 'ctmod_boxtron')
