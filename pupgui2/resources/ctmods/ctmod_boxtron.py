@@ -4,7 +4,6 @@
 
 from PySide6.QtCore import QCoreApplication
 
-from pupgui2.util import create_missing_dependencies_message
 from pupgui2.resources.ctmods.ctmod_luxtorpeda import CtInstaller as LuxtorpedaInstaller
 
 
