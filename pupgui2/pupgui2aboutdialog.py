@@ -7,7 +7,7 @@ from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2.constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO
+from pupgui2.constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO, APP_THEMES
 from pupgui2.constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
 from pupgui2.steamutil import install_steam_library_shortcut
 from pupgui2.util import config_theme, apply_dark_theme, config_advanced_mode
@@ -59,7 +59,7 @@ class PupguiAboutDialog(QObject):
         self.ui.btnGitHub.clicked.connect(lambda: open_webbrowser_thread(PROTONUPQT_GITHUB_URL))
 
         self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)')])
-        self.ui.comboColorTheme.setCurrentIndex(['light', 'dark', 'system', None].index(config_theme()))
+        self.ui.comboColorTheme.setCurrentIndex(APP_THEMES.index(config_theme()))
 
         self.ui.btnClose.clicked.connect(lambda: self.ui.close())
         self.ui.btnAboutQt.clicked.connect(lambda: QMessageBox.aboutQt(self.parent))
@@ -73,7 +73,7 @@ class PupguiAboutDialog(QObject):
         self.ui.btnCheckForUpdates.setVisible(os.getenv('APPIMAGE') is not None)
 
     def combo_color_theme_current_index_changed(self):
-        config_theme(['light', 'dark', 'system'][self.ui.comboColorTheme.currentIndex()])
+        config_theme(APP_THEMES[:-1][self.ui.comboColorTheme.currentIndex()])
         apply_dark_theme(QApplication.instance())
 
     def btn_check_for_updates_clicked(self):
