@@ -30,8 +30,7 @@ class PupguiAboutDialog(QObject):
     def load_ui(self):
         data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_aboutdialog.ui')
         ui_file = QDataStream(QByteArray(data))
-        loader = QUiLoader()
-        self.ui = loader.load(ui_file.device())
+        self.ui = QUiLoader().load(ui_file.device())
 
     def setup_ui(self):
         self.ui.setWindowTitle(f'{APP_NAME} {APP_VERSION}')
@@ -81,25 +80,20 @@ class PupguiAboutDialog(QObject):
         releases = requests.get(f'{APP_GHAPI_URL}?per_page=1').json()
         if len(releases) == 0:
             return
+
         newest_release = releases[0]
-        v_current = self.tag_name_to_version(APP_VERSION)
-        v_newest = self.tag_name_to_version(newest_release['tag_name'])
-        if (10000 * int(v_current[0]) + 100 * int(v_current[1]) + int(v_current[2])) < (10000 * int(v_newest[0]) + 100 * int(v_newest[1]) + int(v_newest[2])):
-            QMessageBox.information(self.ui, self.tr('Update available'),
-            self.tr('There is a newer version available.\nYou are running {APP_VERSION} but {newest_version} is available.')
-            .format(APP_VERSION=f'v{APP_VERSION}', newest_version=newest_release['tag_name']))
+        v_newest = newest_release.get('tag_name', '')
+        v_current = f'v{APP_VERSION}'
+
+        if v_current != v_newest:
+            QMessageBox.information(
+                self.ui,
+                self.tr('Update available'),
+                self.tr('There is a newer version available.\nYou are running {v_current} but {v_newest} is available.').format(v_current=v_current,v_newest=v_newest)
+            )
             open_webbrowser_thread(newest_release['html_url'])
         else:
             QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
-
-    def tag_name_to_version(self, tag_name : str):
-        """
-        Converts version string (e.g. 'v1.2.3') to str array ['1', '2', '3']
-        Return Type: List[str]
-        """
-        tag_name = tag_name.replace('v', '')
-        vers = tag_name.split('.')
-        return [0, 0, 0] if len(vers) != 3 else vers
 
     def btn_add_steam_shortcut_clicked(self):
         result = install_steam_library_shortcut(install_directory())
