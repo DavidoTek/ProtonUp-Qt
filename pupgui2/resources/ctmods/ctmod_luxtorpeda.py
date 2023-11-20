@@ -102,7 +102,7 @@ class CtInstaller(QObject):
                 values['size'] = asset['size']
         return values
 
-    def is_system_compatible(self, ct_name: str = 'Luxtorpeda', tr_context: str = 'ctmod_luxtorpeda') -> bool:
+    def is_system_compatible(self, ct_name: str = 'Luxtorpeda') -> bool:
         """
         Are the system requirements met?
         Return Type: bool
@@ -112,8 +112,8 @@ class CtInstaller(QObject):
             return True  # Skip check if we have no dependencies
 
         # Emit warning if we generated a missing dependencies message
-        msg_tr_title = QCoreApplication.instance().translate(tr_context, 'Missing dependencies!')
-        msg, success = create_missing_dependencies_message(ct_name, self.deps, tr_context)
+        msg_tr_title = self.tr('Missing dependencies!')
+        msg, success = create_missing_dependencies_message(ct_name, self.deps, 'util.py')
         if not success:
             self.message_box_message.emit(msg_tr_title, msg, QMessageBox.Warning)
 
