@@ -113,7 +113,7 @@ class CtInstaller(QObject):
 
         # Emit warning if we generated a missing dependencies message
         msg_tr_title = self.tr('Missing dependencies!')
-        msg, success = create_missing_dependencies_message(ct_name, self.deps, 'util.py')
+        msg, success = create_missing_dependencies_message(ct_name, self.deps)
         if not success:
             self.message_box_message.emit(msg_tr_title, msg, QMessageBox.Warning)
 

@@ -831,7 +831,7 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
         return Launcher.UNKNOWN
 
 
-def create_missing_dependencies_message(ct_name: str, dependencies: List, tr_context: str):
+def create_missing_dependencies_message(ct_name: str, dependencies: List):
 
     """
     Generate a string message noting which dependencies are missing for a ctmod_name, with tr_context to translate relevant strings.
@@ -840,15 +840,15 @@ def create_missing_dependencies_message(ct_name: str, dependencies: List, tr_con
     Return Type: str, bool
     """
 
-    tr_missing = QCoreApplication.instance().translate(tr_context, 'missing')
-    tr_found = QCoreApplication.instance().translate(tr_context, 'found')
+    tr_missing = QCoreApplication.instance().translate('util.py', 'missing')
+    tr_found = QCoreApplication.instance().translate('util.py', 'found')
 
     deps_found = [ host_which(dep) for dep in dependencies ]
 
     if all(deps_found):
         return '', True
-    msg = QCoreApplication.instance().translate(tr_context, 'You need {DEPS} for {CT_NAME}.'.format(DEPS=', '.join(dependencies), CT_NAME=ct_name)) + '\n\n'
+    msg = QCoreApplication.instance().translate('util.py', 'You need {DEPS} for {CT_NAME}.'.format(DEPS=', '.join(dependencies), CT_NAME=ct_name)) + '\n\n'
     msg += '\n'.join(f'{dep_name}: {tr_missing if not deps_found[i] else tr_found}' for i, dep_name in enumerate(dependencies))
-    msg += '\n\n' + QCoreApplication.instance().translate(tr_context, 'Will continue installing {CT_NAME} anyway.'.format(CT_NAME=ct_name))
+    msg += '\n\n' + QCoreApplication.instance().translate('util.py', 'Will continue installing {CT_NAME} anyway.'.format(CT_NAME=ct_name))
 
     return msg, False
