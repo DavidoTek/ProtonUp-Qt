@@ -102,7 +102,7 @@ class CtInstaller(QObject):
                 values['size'] = asset['size']
         return values
 
-    def is_system_compatible(self, ct_name: str = 'Luxtorpeda') -> bool:
+    def is_system_compatible(self, ct_name: str = CT_NAME) -> bool:
         """
         Are the system requirements met?
         Return Type: bool
