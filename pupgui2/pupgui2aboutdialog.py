@@ -55,41 +55,27 @@ class PupguiAboutDialog(QObject):
             self.ui.btnDonate.setFlat(True)
         finally:
             self.ui.btnDonate.setText('')
-        self.ui.btnDonate.clicked.connect(self.btn_donate_clicked)
+        self.ui.btnDonate.clicked.connect(lambda: open_webbrowser_thread(DAVIDOTEK_KOFI_URL))
 
-        self.ui.btnGitHub.clicked.connect(self.btn_github_clicked)
+        self.ui.btnGitHub.clicked.connect(lambda: open_webbrowser_thread(PROTONUPQT_GITHUB_URL))
 
         self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)')])
         self.ui.comboColorTheme.setCurrentIndex(['light', 'dark', 'system', None].index(config_theme()))
 
-        self.ui.btnClose.clicked.connect(self.btn_close_clicked)
-        self.ui.btnAboutQt.clicked.connect(self.btn_aboutqt_clicked)
+        self.ui.btnClose.clicked.connect(lambda: self.ui.close())
+        self.ui.btnAboutQt.clicked.connect(lambda: QMessageBox.aboutQt(self.parent))
         self.ui.btnCheckForUpdates.clicked.connect(self.btn_check_for_updates_clicked)
         self.ui.comboColorTheme.currentIndexChanged.connect(self.combo_color_theme_current_index_changed)
 
         self.ui.checkAdvancedMode.setChecked(config_advanced_mode() == 'enabled')
-        self.ui.checkAdvancedMode.stateChanged.connect(self.check_advanced_mode_state_changed)
+        self.ui.checkAdvancedMode.stateChanged.connect(lambda: config_advanced_mode('enabled' if self.ui.checkAdvancedMode.isChecked() else 'disabled'))
 
         self.ui.btnAddSteamShortcut.clicked.connect(self.btn_add_steam_shortcut_clicked)
-
-        if os.getenv('APPIMAGE') is None:
-            self.ui.btnCheckForUpdates.setVisible(False)
+        self.ui.btnCheckForUpdates.setVisible(os.getenv('APPIMAGE') is not None)
 
     def combo_color_theme_current_index_changed(self):
         config_theme(['light', 'dark', 'system'][self.ui.comboColorTheme.currentIndex()])
         apply_dark_theme(QApplication.instance())
-
-    def btn_close_clicked(self):
-        self.ui.close()
-
-    def btn_aboutqt_clicked(self):
-        QMessageBox.aboutQt(self.parent)
-
-    def btn_donate_clicked(self):
-        open_webbrowser_thread(DAVIDOTEK_KOFI_URL)
-
-    def btn_github_clicked(self):
-        open_webbrowser_thread(PROTONUPQT_GITHUB_URL)
 
     def btn_check_for_updates_clicked(self):
         releases = requests.get(f'{APP_GHAPI_URL}?per_page=1').json()
@@ -105,9 +91,6 @@ class PupguiAboutDialog(QObject):
             open_webbrowser_thread(newest_release['html_url'])
         else:
             QMessageBox.information(self.ui, self.tr('Up to date'), self.tr('You are running the newest version!'))
-
-    def check_advanced_mode_state_changed(self, state : int):
-        config_advanced_mode('enabled' if self.ui.checkAdvancedMode.isChecked() else 'disabled')
 
     def tag_name_to_version(self, tag_name : str):
         """
