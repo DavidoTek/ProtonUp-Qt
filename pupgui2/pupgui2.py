@@ -21,6 +21,7 @@ from pupgui2.gamepadinputworker import GamepadInputWorker
 from pupgui2.pupgui2aboutdialog import PupguiAboutDialog
 from pupgui2.pupgui2ctinfodialog import PupguiCtInfoDialog
 from pupgui2.pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
+from pupgui2.pupgui2exceptionhandler import PupguiExceptionHandler
 from pupgui2.pupgui2gamelistdialog import PupguiGameListDialog
 from pupgui2.pupgui2installdialog import PupguiInstallDialog
 from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_steam_ct_game_map
@@ -527,6 +528,8 @@ def main():
     app.setApplicationVersion(APP_VERSION)
     app.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
     app.setDesktopFileName('net.davidotek.pupgui2')
+
+    PupguiExceptionHandler(app)
 
     lang = QLocale.languageToCode(QLocale().language())
     lname = QLocale().name()
