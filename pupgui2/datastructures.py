@@ -112,21 +112,26 @@ class BasicCompatTool:
         self.install_dir = install_dir
         self.install_folder = install_folder
         self.ct_type = ct_type
+        self.is_global = False
 
     def set_version(self, ver : str) -> None:
         self.version = ver
 
-    def set_global(self, global_tr='global'):
+    def set_global(self, is_global: bool = True):
+        self.is_global = is_global
 
-        self.displayname += f' ({global_tr})'
-
-    def get_displayname(self, unused_tr='unused') -> str:
+    def get_displayname(self, unused_tr='unused', global_tr='global') -> str:
         """ Returns the display name, e.g. GE-Proton7-17 or luxtorpeda v57 """
         displayname = self.displayname
         if self.version != '':
             displayname += f' {self.version}'
-        if self.no_games == 0:
+
+        # Don't mark global tools as unused
+        if self.is_global:
+            displayname += f' ({global_tr})'
+        elif self.no_games == 0:
             displayname += f' ({unused_tr})'
+
         return displayname
 
     def get_internal_name(self) -> str:

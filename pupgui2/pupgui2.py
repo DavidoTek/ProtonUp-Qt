@@ -235,7 +235,7 @@ class MainWindow(QObject):
                 ct.no_games = len(map.get(ct, []))
                 ct_name = ct.get_internal_name()
                 if ct_name == global_ctool_name:
-                    ct.set_global(global_tr=self.tr('global'))  # Set (global) text
+                    ct.set_global()  # Set (global) text
         # Launcher specific (Heroic): Set number of installed games using compat tool
         elif is_heroic_launcher(install_loc.get('launcher')):
             heroic_dir = os.path.join(os.path.expanduser(install_loc.get('install_dir')), '../..')
@@ -250,7 +250,7 @@ class MainWindow(QObject):
             self.get_installed_versions('vkd3d', vkd3d_dir)
 
         for ct in self.compat_tool_index_map:
-            self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused')))
+            self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused'), global_tr=self.tr('global')))
             if ct.no_games == 0:
                 unused_ctools += 1
 
