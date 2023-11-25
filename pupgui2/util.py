@@ -831,7 +831,7 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
         return Launcher.UNKNOWN
 
 
-def create_missing_dependencies_message(ct_name: str, dependencies: List):
+def create_missing_dependencies_message(ct_name: str, dependencies: List) -> Tuple[str, bool]:
 
     """
     Generate a string message noting which dependencies are missing for a ctmod_name, with tr_context to translate relevant strings.
