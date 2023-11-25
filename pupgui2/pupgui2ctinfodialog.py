@@ -77,6 +77,8 @@ class PupguiCtInfoDialog(QObject):
             self.ui.listGames.setHorizontalHeaderLabels(['', ''])
             self.ui.listGames.setEnabled(False)
 
+        self.update_game_list_ui()
+
     def update_game_list_steam(self, cached=True):
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
             self.games = get_steam_game_list(self.install_loc.get('vdf_dir'), self.ctool.get_internal_name(), cached=cached)
@@ -118,6 +120,11 @@ class PupguiCtInfoDialog(QObject):
         self.ui.listGames.setRowCount(row_count)
         self.ui.listGames.setHorizontalHeaderLabels(header_labels)
         self.ui.txtNumGamesUsingTool.setText(str(row_count))        
+
+    def update_game_list_ui(self):
+        self.ui.listGames.setVisible(len(self.games) > 0)
+        self.ui.lblGamesList.setVisible(len(self.games) <= 0)
+        self.ui.btnBatchUpdate.setEnabled(len(self.games) > 0)
 
     def list_games_cell_double_clicked(self, row):
         if self.install_loc.get('launcher') == 'steam':
