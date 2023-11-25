@@ -20,6 +20,7 @@ class PupguiAboutDialog(QObject):
     def __init__(self, parent=None):
         super(PupguiAboutDialog, self).__init__(parent)
         self.parent = parent
+        self.is_update_available = lambda current, newest: tuple(map(int, current.split('.'))) < tuple(map(int, newest.split('.')))
 
         self.load_ui()
         self.setup_ui()
@@ -85,7 +86,7 @@ class PupguiAboutDialog(QObject):
         v_newest = newest_release.get('tag_name', '')
         v_current = f'v{APP_VERSION}'
 
-        if v_current != v_newest:
+        if self.is_update_available(v_current, v_newest):
             QMessageBox.information(
                 self.ui,
                 self.tr('Update available'),
