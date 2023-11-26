@@ -45,7 +45,6 @@ class PupguiCtInfoDialog(QObject):
         self.ui.txtLauncherName.setText(self.install_loc.get('display_name'))
         self.ui.txtInstallDirectory.setText(self.ctool.get_install_dir())
         self.ui.btnBatchUpdate.setVisible(False)
-        self.ui.btnSearch.setVisible(False)
         self.ui.searchBox.setVisible(False)
 
         self.update_game_list()
@@ -56,9 +55,7 @@ class PupguiCtInfoDialog(QObject):
         self.ui.listGames.cellDoubleClicked.connect(self.list_games_cell_double_clicked)
         self.ui.searchBox.textChanged.connect(self.search_ctinfo_games)
 
-        if self.ui.listGames.rowCount() > 0:
-            self.ui.btnSearch.setVisible(True)
-            QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
+        QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
 
     def update_game_list(self, cached=True):
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
@@ -125,6 +122,7 @@ class PupguiCtInfoDialog(QObject):
         self.ui.listGames.setVisible(len(self.games) > 0)
         self.ui.lblGamesList.setVisible(len(self.games) <= 0)
         self.ui.btnBatchUpdate.setEnabled(len(self.games) > 0)
+        self.ui.btnSearch.setEnabled(len(self.games) > 0)
 
     def list_games_cell_double_clicked(self, row):
         if self.install_loc.get('launcher') == 'steam':
@@ -140,6 +138,9 @@ class PupguiCtInfoDialog(QObject):
         self.update_game_list(cached=False)
 
     def btn_search_clicked(self):
+        if not self.ui.btnSearch.isEnabled():
+            return
+
         self.ui.searchBox.setVisible(not self.ui.searchBox.isVisible())
         self.ui.btnBatchUpdate.setVisible(self.is_batch_update_available and not self.ui.searchBox.isVisible())
         self.ui.searchBox.setFocus()

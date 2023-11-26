@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>340</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -265,6 +265,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QLineEdit" name="searchBox">
+       <property name="toolTip">
+        <string>e.g. Half-Life 3</string>
+       </property>
+       <property name="placeholderText">
+        <string>Search for a game...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -276,16 +286,6 @@
         </size>
        </property>
       </spacer>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="searchBox">
-       <property name="toolTip">
-        <string>e.g. Half-Life 3</string>
-       </property>
-       <property name="placeholderText">
-        <string>Search for a game...</string>
-       </property>
-      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnClose">
