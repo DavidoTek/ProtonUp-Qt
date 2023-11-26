@@ -9,7 +9,7 @@ import requests
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.util import ghapi_rlcheck, extract_tar
-from pupgui2.util import build_headers_with_authorization
+from pupgui2.util import build_headers_with_authorization, fetch_project_release_data, fetch_project_releases
 
 
 CT_NAME = 'Kron4ek Wine-Builds Vanilla'
@@ -29,6 +29,7 @@ class CtInstaller(QObject):
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
+        self.release_format = 'tar.xz'
 
         self.rs = requests.Session()
         rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
@@ -85,17 +86,9 @@ class CtInstaller(QObject):
         Content(s):
             'version', 'date', 'download', 'size'
         """
-        url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
-        data = self.rs.get(url).json()
-        if 'tag_name' not in data:
-            return None
 
-        values = {'version': data['tag_name'], 'date': data['published_at'].split('T')[0]}
-        for asset in data['assets']:
-            if asset['name'].endswith('tar.xz') and 'amd64' in asset['name'] and 'staging' not in asset['name']:
-                values['download'] = asset['browser_download_url']
-                values['size'] = asset['size']
-        return values
+        asset_condition = lambda asset: 'amd64' in asset.get('name', '') and 'staging' not in asset.get('name', '')
+        return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, asset_condition=asset_condition)
 
     def is_system_compatible(self):
         """
@@ -115,7 +108,8 @@ class CtInstaller(QObject):
         List available releases
         Return Type: str[]
         """
-        return [release['tag_name'] for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()) if 'tag_name' in release]
+
+        return fetch_project_releases(self.CT_URL, self.rs, count=count)
 
     def get_tool(self, version, install_dir, temp_dir):
         """
