@@ -89,7 +89,7 @@ class PupguiAboutDialog(QObject):
             QMessageBox.information(
                 self.ui,
                 self.tr('Update available'),
-                self.tr('There is a newer version available.\nYou are running {v_current} but {v_newest} is available.').format(v_current=v_current,v_newest=v_newest)
+                self.tr('There is a newer version available.\nYou are running {APP_VERSION} but {newest_version} is available.').format(APP_VERSION=f'v{APP_VERSION}', newest_version=f'v{v_newest}')
             )
             open_webbrowser_thread(newest_release['html_url'])
         else:
