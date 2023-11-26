@@ -83,10 +83,9 @@ class PupguiAboutDialog(QObject):
             return
 
         newest_release = releases[0]
-        v_newest = newest_release.get('tag_name', '')
-        v_current = f'v{APP_VERSION}'
+        v_newest = newest_release.get('tag_name', 'v0.0.0').replace('v', '')
 
-        if self.is_update_available(v_current, v_newest):
+        if self.is_update_available(APP_VERSION, v_newest):
             QMessageBox.information(
                 self.ui,
                 self.tr('Update available'),
