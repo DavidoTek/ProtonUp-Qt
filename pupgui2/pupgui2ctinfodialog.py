@@ -6,7 +6,7 @@ from pupgui2.datastructures import BasicCompatTool, CTType
 from pupgui2.lutrisutil import get_lutris_game_list
 from pupgui2.pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
 from pupgui2.steamutil import get_steam_game_list
-from pupgui2.util import open_webbrowser_thread
+from pupgui2.util import open_webbrowser_thread, sort_compatibility_tool_names, list_installed_ctools, install_directory
 from pupgui2.heroicutil import get_heroic_game_list, is_heroic_launcher
 
 from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
@@ -126,7 +126,7 @@ class PupguiCtInfoDialog(QObject):
 
     def btn_batch_update_clicked(self):
         steam_config_folder = self.install_loc.get('vdf_dir')
-        ctbu_dialog = PupguiCtBatchUpdateDialog(parent=self.ui, games=self.games, steam_config_folder=steam_config_folder)
+        ctbu_dialog = PupguiCtBatchUpdateDialog(parent=self.ui, current_ctool_name=self.ctool.displayname, games=self.games, steam_config_folder=steam_config_folder)
         ctbu_dialog.batch_update_complete.connect(self.update_game_list_steam)
 
     def btn_refresh_games_clicked(self):
