@@ -106,13 +106,13 @@ class BasicCompatTool:
     install_dir = ''
     install_folder = ''
     ct_type = CTType.UNKNOWN
+    is_global = False
 
     def __init__(self, displayname, install_dir, install_folder, ct_type = CTType.UNKNOWN) -> None:
         self.displayname = displayname
         self.install_dir = install_dir
         self.install_folder = install_folder
         self.ct_type = ct_type
-        self.is_global = False
 
     def set_version(self, ver : str) -> None:
         self.version = ver
