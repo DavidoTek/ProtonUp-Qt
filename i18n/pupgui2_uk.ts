@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/ctloader.py" line="55"/>
         <source>Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка!</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="57"/>
@@ -14,7 +14,10 @@
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося завантажити такі інструменти сумісності:
+{TOOL_LIST}
+
+Якщо ви вважаєте, що це помилка, повідомте про помилку на GitHub!</translation>
     </message>
 </context>
 <context>
@@ -22,154 +25,156 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="247"/>
         <source>unused</source>
-        <translation type="unfinished"></translation>
+        <translation>невикористаний</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="268"/>
         <source>Unused: {unused_ctools}</source>
-        <translation type="unfinished"></translation>
+        <translation>Невикористані: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="291"/>
         <source>Fetching releases...</source>
-        <translation type="unfinished"></translation>
+        <translation>Отримання релізів...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="302"/>
         <source>Download canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантаження скасовано.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="306"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося встановити {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="313"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантаження {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="315"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Розпакування {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="317"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановлення {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="319"/>
         <source>Installed {current_compat_tool_name}.</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} встановлено.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="342"/>
         <source>Remove compatibility tools?</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити інструменти сумісності?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="342"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви намагаєтеся видалити інструменти сумісності
+які використовуються {n} іграми. Продовжити?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="349"/>
         <source>Removed selected versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалено вибрані версії.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="363"/>
         <source>Exit?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вийти?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="363"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Є незавершені завантаження.
+Скасувати та все одно вийти?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="371"/>
         <source>Changed install directory to {install_dir}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінено каталог встановлення на {install_dir}.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="382"/>
         <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація: Ви можете отримати GE-Proton / Boxtron безпосередньо з Flathub!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="419"/>
         <source>Install tool from Flathub</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановити інструмент із Flathub</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="422"/>
         <source>Click to open your app store</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть, щоб відкрити магазин програм</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
         <source>ProtonUp-Qt - Wine/Proton Installer</source>
-        <translation type="unfinished"></translation>
+        <translation>ProtonUp-Qt — інсталятор Wine/Proton</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="48"/>
         <source>Install for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановити для:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="68"/>
         <source>Active downloads:</source>
-        <translation type="unfinished"></translation>
+        <translation>Активні завантаження:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати власний каталог встановлення...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="103"/>
         <source>Installed compatibility tools:</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановлені інструменти сумісності:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
         <source>Add version</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати версію</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="155"/>
         <source>Remove selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити вибране</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="162"/>
         <source>Show info</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
         <source>Get tools from Flathub</source>
-        <translation type="unfinished"></translation>
+        <translation>Отримайте інструменти від Flathub</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="206"/>
         <source>Show game list</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати список ігор</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="213"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Про</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="220"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрити</translation>
     </message>
 </context>
 <context>
@@ -177,42 +182,42 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Діалогове вікно</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="44"/>
         <source>Specify a custom location for downloading and displaying a launcher&apos;s compatibility tools.</source>
-        <translation type="unfinished"></translation>
+        <translation>Укажіть розташування для завантаження та відображення інструментів сумісності програми запуску.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="56"/>
         <source>Directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Каталог:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="66"/>
         <source>Launcher:</source>
-        <translation type="unfinished"></translation>
+        <translation>Запускач:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="87"/>
         <source>Reset the custom install directory back to default for this launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Скинути каталог встановлення до стандартного для цього засобу запуску</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="90"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>За замовчуванням</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="113"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберегти</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="120"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрити</translation>
     </message>
 </context>
 <context>
@@ -220,17 +225,17 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>light</source>
-        <translation type="unfinished"></translation>
+        <translation>світла</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>dark</source>
-        <translation type="unfinished"></translation>
+        <translation>темна</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>system (restart required)</source>
-        <translation type="unfinished"></translation>
+        <translation>системна (потрібен перезапуск)</translation>
     </message>
     <message>
         <source>Update Steam game list</source>
@@ -239,48 +244,49 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="102"/>
         <source>Update available</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступне оновлення</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="104"/>
         <source>There is a newer version available.
 You are running {APP_VERSION} but {newest_version} is available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступна новіша версія
+Ви використовуєте {APP_VERSION}, але доступна {newest_version}.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="107"/>
         <source>Up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>В актуальному стані</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="107"/>
         <source>You are running the newest version!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви використовуєте найновішу версію!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="124"/>
         <source>Added shortcut!</source>
-        <translation type="unfinished"></translation>
+        <translation>Додано ярлик!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Діалогове вікно</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Графічний інтерфейс для встановлення/оновлення інструментів сумісності на основі Wine та Proton.&lt;br&gt;Натхненний/частково заснований на AUNaseef protonup.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
         <source>Support development on GitHub</source>
-        <translation type="unfinished"></translation>
+        <translation>Підтримка розробки на GitHub</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="122"/>
         <source>Color Theme:</source>
-        <translation type="unfinished"></translation>
+        <translation>Кольорова тема:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="139"/>
@@ -777,7 +783,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
         <source>Remove selected</source>
-        <translation type="unfinished">Auswahl löschen</translation>
+        <translation>Видалити вибране</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
@@ -787,7 +793,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="90"/>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Зберегти</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
@@ -797,7 +803,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="100"/>
         <source>Close</source>
-        <translation type="unfinished">Schließen</translation>
+        <translation>Закрити</translation>
     </message>
 </context>
 <context>
