@@ -1,11 +1,14 @@
-from PySide6.QtCore import Signal
-from PySide6.QtWidgets import QDialog, QLabel, QPushButton, QComboBox, QFormLayout
+import pkgutil
+
+from PySide6.QtCore import Signal, Qt, QObject, QDataStream, QByteArray
+from PySide6.QtWidgets import QLabel, QFormLayout
+from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.steamutil import is_steam_running, steam_update_ctool
 from pupgui2.util import sort_compatibility_tool_names, list_installed_ctools, install_directory
 
 
-class PupguiCtBatchUpdateDialog(QDialog):
+class PupguiCtBatchUpdateDialog(QObject):
 
     batch_update_complete = Signal(bool)
 
@@ -16,50 +19,48 @@ class PupguiCtBatchUpdateDialog(QDialog):
 
         self.ctools = sort_compatibility_tool_names(list_installed_ctools(install_directory()), reverse=True)
 
+        self.load_ui()
         self.setup_ui(current_ctool_name)
+        self.ui.show()
+
+    def load_ui(self):
+        data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_ctbatchupdatedialog.ui')
+        ui_file = QDataStream(QByteArray(data))
+        self.ui = QUiLoader().load(ui_file.device())
 
     def setup_ui(self, current_ctool_name: str):
-        self.setWindowTitle(self.tr('Batch update'))
-        self.setModal(True)
-
-        formLayout = QFormLayout()
-        self.comboNewCtool = QComboBox()
-        self.btnBatchUpdate = QPushButton(self.tr('Batch update'))
-        self.btnClose = QPushButton(self.tr('Close'))
-        formLayout.addRow(QLabel(self.tr('New version:')), self.comboNewCtool)
-        formLayout.addWidget(self.btnBatchUpdate)
-        formLayout.addWidget(self.btnClose)
-        self.setLayout(formLayout)
-
+        # Doing ctool checks here instead of before showing the batch update button on ctinfo dialog covers case where
+        # compatibility tool may have been available but then was removed (maybe manually?) -- Is potentially just more robust
         combobox_ctools = [ctool for ctool in self.ctools if 'Proton' in ctool and current_ctool_name not in ctool]
-        self.comboNewCtool.addItems(combobox_ctools)
+        self.ui.comboNewCtool.addItems(combobox_ctools)
 
-        self.comboNewCtool.setEnabled(len(combobox_ctools) > 0)
-        self.btnBatchUpdate.setEnabled(len(combobox_ctools) > 0)
-
-        self.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
-        self.btnClose.clicked.connect(lambda: self.close())
+        self.ui.comboNewCtool.setEnabled(len(combobox_ctools) > 0)
+        self.ui.btnBatchUpdate.setEnabled(len(combobox_ctools) > 0)
+        
+        self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
+        self.ui.btnClose.clicked.connect(lambda: self.ui.close())
 
         if len(combobox_ctools) <= 0:
-            self.add_warning_message('No supported compatibility tools found.', formLayout)
+            self.add_warning_message('No supported compatibility tools found.', self.ui.formLayout, stylesheet='QLabel { color: red; }')
         elif is_steam_running():
-            self.add_warning_message('Close the Steam Client beforehand.', formLayout)
+            self.add_warning_message('Close the Steam Client beforehand.', self.ui.formLayout)
+        else:
+            self.ui.formLayout.addWidget(QLabel())
 
-        self.show()
-    
-    def add_warning_message(self, msg: str, layout: QFormLayout, stylesheet: str = 'QLabel { color: orange; }'):
+    def add_warning_message(self, msg: str, layout, stylesheet: str = 'QLabel { color: orange; }'):
         """
-        Add a QLabel warning message with a default Orange stylesheet to display a warning message in a FormLayout.
+        Add a QLabel warning message with a default Orange stylesheet to display a warning message in a Layout.
         """
 
         lblWarning = QLabel(self.tr('{MSG}'.format(MSG=msg)))
+        lblWarning.setAlignment(Qt.AlignCenter)
         lblWarning.setStyleSheet(stylesheet)
         layout.addRow(lblWarning)
 
     def btn_batch_update_clicked(self):
-        self.update_games_to_ctool(self.comboNewCtool.currentText())
+        self.update_games_to_ctool(self.ui.comboNewCtool.currentText())
         self.batch_update_complete.emit(True)
-        self.close()
+        self.ui.close()
 
     def update_games_to_ctool(self, ctool):
         for game in self.games:
