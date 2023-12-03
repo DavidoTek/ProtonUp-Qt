@@ -33,19 +33,22 @@ class PupguiCtBatchUpdateDialog(QObject):
         # compatibility tool may have been available but then was removed (maybe manually?) -- Is potentially just more robust
         combobox_ctools = [ctool for ctool in self.ctools if 'Proton' in ctool and current_ctool_name not in ctool]
         self.ui.comboNewCtool.addItems(combobox_ctools)
+        self.ui.oldVersionText.setText(f' {current_ctool_name}')
 
+        # Batch update only disabled when no ctools installed
+        # Not disabled when Steam Client is running because it can be closed while this dialog is open 
         self.ui.comboNewCtool.setEnabled(len(combobox_ctools) > 0)
         self.ui.btnBatchUpdate.setEnabled(len(combobox_ctools) > 0)
         
         self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
         self.ui.btnClose.clicked.connect(lambda: self.ui.close())
 
-        if len(combobox_ctools) <= 0:
+        if len(combobox_ctools) <= 0:  # No ctools to migrate to installed
             self.add_warning_message('No supported compatibility tools found.', self.ui.formLayout, stylesheet='QLabel { color: red; }')
-        elif is_steam_running():
-            self.add_warning_message('Close the Steam Client beforehand.', self.ui.formLayout)
-        else:
-            self.ui.formLayout.addWidget(QLabel())
+        elif is_steam_running():  # Steam is running so any writes to config.vdf will get overwritten on Steam Client exit
+            self.add_warning_message('Warning: Close the Steam Client beforehand.', self.ui.formLayout)
+        else:  # Spacer label
+            self.ui.formLayout.addRow(QLabel())
 
     def add_warning_message(self, msg: str, layout, stylesheet: str = 'QLabel { color: orange; }'):
         """
