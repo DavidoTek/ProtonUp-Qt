@@ -41,7 +41,7 @@
     <item>
      <widget class="QLabel" name="txtDescription">
       <property name="text">
-       <string>Migrate all games from the current compatibility tool to the one specified below.</string>
+       <string>Migrate games using the current compatibility tool to the one specified below.</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
