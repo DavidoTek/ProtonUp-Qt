@@ -412,6 +412,9 @@ class MainWindow(QObject):
             if ct.ct_type in [CTType.STEAM_CT, CTType.STEAM_RT]:
                 self.ui.btnRemoveSelected.setEnabled(False)
                 break
+            if ct.is_global:
+                self.ui.btnRemoveSelected.setEnabled(False)
+                break
 
     def btn_show_ct_info_clicked(self):
         install_loc = get_install_location_from_directory_name(install_directory())
