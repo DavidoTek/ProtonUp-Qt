@@ -157,9 +157,6 @@ def get_steam_game_list(steam_config_folder: str, compat_tool: Union[BasicCompat
     """
     apps = get_steam_app_list(steam_config_folder, cached=cached)
 
-    # for app in apps:
-        # print(f'Game "{app.game_name}" uses anticheat_runtimes: {app.anticheat_runtimes}')
-
     return [app for app in apps if app.app_type == 'game' and (compat_tool is None or app.compat_tool == compat_tool.get_internal_name() or ctool_is_runtime_for_app(app, compat_tool))]
 
 
@@ -172,12 +169,8 @@ def ctool_is_runtime_for_app(app: SteamApp, compat_tool: Union[BasicCompatTool, 
         return False
 
     compat_tool_name = compat_tool.get_internal_name().lower().replace(' ', '')
-    if 'easyanticheatruntime' in compat_tool_name and app.anticheat_runtimes[RuntimeType.EAC]:
-        return True
-    elif 'battleyeruntime' in compat_tool_name and app.anticheat_runtimes[RuntimeType.BATTLEYE]:
-        return True
-    else:
-        return False
+    return 'easyanticheatruntime' in compat_tool_name and app.anticheat_runtimes[RuntimeType.EAC] \
+        or 'battleyeruntime' in compat_tool_name and app.anticheat_runtimes[RuntimeType.BATTLEYE]
 
 
 def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicCompatTool], cached=False) -> Dict[BasicCompatTool, List[SteamApp]]:
@@ -292,7 +285,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
     try:
         ctool_map = _get_steam_ctool_info(steam_config_folder)
         with open(appinfo_file, 'rb') as f:
-            header, apps = parse_appinfo(f)
+            _, apps = parse_appinfo(f)
             for steam_app in apps:
                 appid_str = str(steam_app.get('appid'))
                 if a := sapps.get(appid_str):
