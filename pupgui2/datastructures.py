@@ -6,6 +6,8 @@ import json
 from enum import Enum
 from typing import Dict
 
+from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, STEAMLINUXRUNTIME_APPID
+
 
 class SteamDeckCompatEnum(Enum):
     UNKNOWN = 0
@@ -24,9 +26,9 @@ class AWACYStatus(Enum):
 
 
 class RuntimeType(Enum):
-    EAC = 0  # ProtonEasyAntiCheatRuntime
-    BATTLEYE = 1  # ProtonBattlEyeRuntime
-    STEAMLINUXRUNTIME = 2  # Steam Linux Runtime 1.0 (scout)
+    EAC = PROTON_EAC_RUNTIME_APPID  # ProtonEasyAntiCheatRuntime
+    BATTLEYE = PROTON_BATTLEYE_RUNTIME_APPID  # ProtonBattlEyeRuntime
+    STEAMLINUXRUNTIME = STEAMLINUXRUNTIME_APPID  # Steam Linux Runtime 1.0 (scout)
 
 
 class CTType(Enum):
