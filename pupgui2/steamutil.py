@@ -14,7 +14,7 @@ from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QMessageBox, QApplication
 
 from pupgui2.constants import APP_NAME, APP_ID, APP_ICON_FILE
-from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, PROTON_NEXT_APPID
+from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, PROTON_NEXT_APPID, STEAMLINUXRUNTIME_APPID
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
 from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES, HOME_DIR
 from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamUser, RuntimeType
@@ -305,7 +305,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                     # Configure app types
                     if a.app_id in [PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID]:
                         a.app_type = 'acruntime'
-                    elif 'Steam Linux Runtime' in a.game_name:
+                    elif a.app_id == STEAMLINUXRUNTIME_APPID:
                         a.app_type = 'runtime'
                     elif 'Steamworks' in a.game_name:
                         a.app_type = 'steamworks'
