@@ -17,7 +17,7 @@ from pupgui2.constants import APP_NAME, APP_ID, APP_ICON_FILE
 from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, PROTON_NEXT_APPID
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
 from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES, HOME_DIR
-from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamUser
+from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamUser, RuntimeType
 
 
 _cached_app_list = []
@@ -289,9 +289,9 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                     # Some other optional dependencies include h264, but we only care about tracking what anti-cheat runtimes they use
                     for dep_dict in app_additional_dependencies.values():
                         if dep_dict.get('appid', -1) == PROTON_EAC_RUNTIME_APPID:
-                            a.anticheat_runtimes['eac'] = True
+                            a.anticheat_runtimes[RuntimeType.EAC] = True
                         elif dep_dict.get('appid', -1) == PROTON_BATTLEYE_RUNTIME_APPID:
-                            a.anticheat_runtimes['battleye'] = True
+                            a.anticheat_runtimes[RuntimeType.BATTLEYE] = True
 
                     # Configure app types
                     if a.app_id in [PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID]:

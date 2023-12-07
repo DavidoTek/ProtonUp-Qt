@@ -23,6 +23,12 @@ class AWACYStatus(Enum):
     BROKEN = 8
 
 
+class RuntimeType(Enum):
+    EAC = 0  # ProtonEasyAntiCheatRuntime
+    BATTLEYE = 1  # ProtonBattlEyeRuntime
+    STEAMLINUXRUNTIME = 2  # Steam Linux Runtime 1.0 (scout)
+
+
 class CTType(Enum):
     UNKNOWN = 0
     CUSTOM = 10   # user installed ctool (e.g. GE-Proton in compatibilitytools.d)
@@ -79,7 +85,7 @@ class SteamApp:
     ctool_from_oslist = ''
     awacy_status = AWACYStatus.UNKNOWN  # areweanticheatyet.com Status
     protondb_summary = {}  # protondb status summary from JSON file
-    anticheat_runtimes = { 'eac': False, 'battleye': False }  # Dict of boolean values for which anti-cheat runtime are in use
+    anticheat_runtimes = { RuntimeType.EAC: False, RuntimeType.BATTLEYE: False }  # Dict of boolean values for which anti-cheat runtime are in use
 
     def get_app_id_str(self) -> str:
         return str(self.app_id)
