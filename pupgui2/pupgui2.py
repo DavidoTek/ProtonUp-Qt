@@ -237,6 +237,7 @@ class MainWindow(QObject):
                 ct_name = ct.get_internal_name()
                 if ct_name == global_ctool_name:
                     ct.set_global()  # Set (global) text
+                    self.compat_tool_index_map.insert(0, self.compat_tool_index_map.pop(self.compat_tool_index_map.index(ct)))  # Move global ctool to top of list
         # Launcher specific (Heroic): Set number of installed games using compat tool
         elif is_heroic_launcher(install_loc.get('launcher')):
             heroic_dir = os.path.join(os.path.expanduser(install_loc.get('install_dir')), '../..')
