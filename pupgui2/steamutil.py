@@ -60,7 +60,7 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
     try:
         v = vdf.load(open(libraryfolders_vdf_file))
         c = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
-        
+
         for fid in v.get('libraryfolders'):
             if 'apps' not in v.get('libraryfolders').get(fid):
                 continue
