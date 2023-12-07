@@ -77,7 +77,7 @@ class PupguiCtInfoDialog(QObject):
 
     def update_game_list_steam(self, cached=True):
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
-            self.games = get_steam_game_list(self.install_loc.get('vdf_dir'), self.ctool.get_internal_name(), cached=cached)
+            self.games = get_steam_game_list(self.install_loc.get('vdf_dir'), self.ctool, cached=cached)
             self.ui.txtNumGamesUsingTool.setText(str(len(self.games)))
 
         self.ui.listGames.clear()

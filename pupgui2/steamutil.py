@@ -1,5 +1,5 @@
 import os
-from typing import Dict, List
+from typing import Dict, List, Union
 import shutil
 import subprocess
 import json
@@ -81,6 +81,7 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
                 app.app_id = int(appid)
                 app.libraryfolder_id = fid
                 app.libraryfolder_path = fid_path
+                app.anticheat_runtimes = { RuntimeType.EAC: False, RuntimeType.BATTLEYE: False }  # Have to initialize as False here for some reason...
                 if ct := c.get(appid):
                     app.compat_tool = ct.get('name')
                 apps.append(app)
@@ -148,7 +149,7 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
     return apps
 
 
-def get_steam_game_list(steam_config_folder: str, compat_tool='', cached=False) -> List[SteamApp]:
+def get_steam_game_list(steam_config_folder: str, compat_tool: Union[BasicCompatTool, None]=None, cached=False) -> List[SteamApp]:
     """
     Returns a list of installed Steam games and which compatibility tools they are using.
     Specify compat_tool to only return games using the specified tool.
@@ -156,7 +157,27 @@ def get_steam_game_list(steam_config_folder: str, compat_tool='', cached=False) 
     """
     apps = get_steam_app_list(steam_config_folder, cached=cached)
 
-    return [app for app in apps if app.app_type == 'game' and (compat_tool == '' or app.compat_tool == compat_tool)]
+    # for app in apps:
+        # print(f'Game "{app.game_name}" uses anticheat_runtimes: {app.anticheat_runtimes}')
+
+    return [app for app in apps if app.app_type == 'game' and (compat_tool is None or app.compat_tool == compat_tool.get_internal_name() or ctool_is_runtime_for_app(app, compat_tool))]
+
+
+def ctool_is_runtime_for_app(app: SteamApp, compat_tool: Union[BasicCompatTool, None]):
+    """
+    Check if a compatibility tool name corresponds to a runtime in use by a SteamApp by comparing a hardcoded name against app.anticheat_runtimes
+    Example: Compatibility tool name is 'ProtonEasyAntiCheatRuntime' and the app.anticheat_runtimes has RuntimeType.EAC as True
+    """
+    if not compat_tool or not compat_tool.ct_type == CTType.STEAM_RT:
+        return False
+
+    compat_tool_name = compat_tool.get_internal_name().lower().replace(' ', '')
+    if 'easyanticheatruntime' in compat_tool_name and app.anticheat_runtimes[RuntimeType.EAC]:
+        return True
+    elif 'battleyeruntime' in compat_tool_name and app.anticheat_runtimes[RuntimeType.BATTLEYE]:
+        return True
+    else:
+        return False
 
 
 def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicCompatTool], cached=False) -> Dict[BasicCompatTool, List[SteamApp]]:
@@ -284,14 +305,9 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
 
                     a.game_name = app_appinfo_common.get('name', '')
                     a.deck_compatibility = app_appinfo_common.get('steam_deck_compatibility', {})
-
-                    # Set runtime values to True if matching runtime ID is found in optional dependencies
-                    # Some other optional dependencies include h264, but we only care about tracking what anti-cheat runtimes they use
-                    for dep_dict in app_additional_dependencies.values():
-                        if dep_dict.get('appid', -1) == PROTON_EAC_RUNTIME_APPID:
-                            a.anticheat_runtimes[RuntimeType.EAC] = True
-                        elif dep_dict.get('appid', -1) == PROTON_BATTLEYE_RUNTIME_APPID:
-                            a.anticheat_runtimes[RuntimeType.BATTLEYE] = True
+                    for dep in app_additional_dependencies.values():
+                        a.anticheat_runtimes[RuntimeType.EAC] = dep.get('appid', -1) == PROTON_EAC_RUNTIME_APPID
+                        a.anticheat_runtimes[RuntimeType.BATTLEYE] = dep.get('appid', -1) == PROTON_BATTLEYE_RUNTIME_APPID
 
                     # Configure app types
                     if a.app_id in [PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID]:
