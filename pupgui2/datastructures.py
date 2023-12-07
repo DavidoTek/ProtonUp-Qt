@@ -79,6 +79,7 @@ class SteamApp:
     ctool_from_oslist = ''
     awacy_status = AWACYStatus.UNKNOWN  # areweanticheatyet.com Status
     protondb_summary = {}  # protondb status summary from JSON file
+    anticheat_runtimes = { 'eac': False, 'battleye': False }  # Dict of boolean values for which anti-cheat runtime are in use
 
     def get_app_id_str(self) -> str:
         return str(self.app_id)

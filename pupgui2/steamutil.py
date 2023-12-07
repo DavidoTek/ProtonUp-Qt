@@ -14,6 +14,7 @@ from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QMessageBox, QApplication
 
 from pupgui2.constants import APP_NAME, APP_ID, APP_ICON_FILE
+from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, PROTON_NEXT_APPID
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
 from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES, HOME_DIR
 from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamUser
@@ -274,10 +275,26 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
             for steam_app in apps:
                 appid_str = str(steam_app.get('appid'))
                 if a := sapps.get(appid_str):
-                    a.game_name = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('name', '')
-                    a.deck_compatibility = steam_app.get('data', {}).get('appinfo', {}).get('common', {}).get('steam_deck_compatibility', {})
+                    app_appinfo = steam_app.get('data', {}).get('appinfo', {})
+                    app_appinfo_common = app_appinfo.get('common', {})
 
-                    if a.game_name.startswith('Proton') and a.game_name.endswith('Runtime'):
+                    # Dictionary of Dictionaries with dependency info, primarily Proton anti-cheat runtimes
+                    # Example: {'0': {'src_os': 'windows', 'dest_os': 'linux', 'appid': 1826330, 'comment': 'EAC runtime'}}
+                    app_additional_dependencies = app_appinfo.get('extended', {}).get('additional_dependencies', {})
+
+                    a.game_name = app_appinfo_common.get('name', '')
+                    a.deck_compatibility = app_appinfo_common.get('steam_deck_compatibility', {})
+
+                    # Set runtime values to True if matching runtime ID is found in optional dependencies
+                    # Some other optional dependencies include h264, but we only care about tracking what anti-cheat runtimes they use
+                    for dep_dict in app_additional_dependencies.values():
+                        if dep_dict.get('appid', -1) == PROTON_EAC_RUNTIME_APPID:
+                            a.anticheat_runtimes['eac'] = True
+                        elif dep_dict.get('appid', -1) == PROTON_BATTLEYE_RUNTIME_APPID:
+                            a.anticheat_runtimes['battleye'] = True
+
+                    # Configure app types
+                    if a.app_id in [PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID]:
                         a.app_type = 'acruntime'
                     elif 'Steam Linux Runtime' in a.game_name:
                         a.app_type = 'runtime'
@@ -287,7 +304,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                         ct = ctool_map.get(steam_app.get('appid'))
                         a.ctool_name = ct.get('name')
                         a.ctool_from_oslist = ct.get('from_oslist')
-                    elif a.app_id == 2230260:  # see https://github.com/DavidoTek/ProtonUp-Qt/pull/280
+                    elif a.app_id == PROTON_NEXT_APPID:  # see https://github.com/DavidoTek/ProtonUp-Qt/pull/280
                         a.app_type = 'useless-proton-next'
                     else:
                         a.app_type = 'game'
