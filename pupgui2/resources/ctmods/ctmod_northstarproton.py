@@ -7,7 +7,7 @@ import requests
 
 from PySide6.QtCore import QObject, Signal, Property, QCoreApplication
 
-from pupgui2.util import ghapi_rlcheck, extract_tar
+from pupgui2.util import extract_tar
 from pupgui2.util import build_headers_with_authorization, fetch_project_release_data, fetch_project_releases
 
 
