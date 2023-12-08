@@ -44,9 +44,9 @@ class PupguiCtBatchUpdateDialog(QObject):
         self.ui.btnClose.clicked.connect(lambda: self.ui.close())
 
         if len(combobox_ctools) <= 0:  # No ctools to migrate to installed
-            self.add_warning_message('No supported compatibility tools found.', self.ui.formLayout, stylesheet='QLabel { color: red; }')
+            self.add_warning_message(self.tr('No supported compatibility tools found.'), self.ui.formLayout, stylesheet='QLabel { color: red; }')
         elif is_steam_running():  # Steam is running so any writes to config.vdf will get overwritten on Steam Client exit
-            self.add_warning_message('Warning: Close the Steam Client beforehand.', self.ui.formLayout)
+            self.add_warning_message(self.tr('Warning: Close the Steam Client beforehand.'), self.ui.formLayout)
         else:  # Spacer label
             self.ui.formLayout.addRow(QLabel())
 
@@ -55,7 +55,7 @@ class PupguiCtBatchUpdateDialog(QObject):
         Add a QLabel warning message with a default Orange stylesheet to display a warning message in a Layout.
         """
 
-        lblWarning = QLabel(self.tr('{MSG}'.format(MSG=msg)))
+        lblWarning = QLabel(msg)
         lblWarning.setAlignment(Qt.AlignCenter)
         lblWarning.setStyleSheet(stylesheet)
         layout.addRow(lblWarning)
