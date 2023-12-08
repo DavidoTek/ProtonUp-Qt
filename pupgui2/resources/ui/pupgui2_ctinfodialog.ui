@@ -177,7 +177,7 @@
      <item>
       <widget class="QPushButton" name="btnBatchUpdate">
        <property name="text">
-        <string>Batch update</string>
+        <string>Batch Update</string>
        </property>
       </widget>
      </item>
