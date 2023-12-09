@@ -55,6 +55,8 @@ class PupguiShortcutDialog(QObject):
         txt_path = QLineEdit(shortcut.shortcut_startdir)
         txt_icon = QLineEdit(shortcut.shortcut_icon)
 
+        txt_name.setCursorPosition(0)
+
         txt_name.editingFinished.connect(lambda i=i: self.txt_changed(i, 0))
         txt_exe.editingFinished.connect(lambda i=i: self.txt_changed(i, 1))
         txt_path.editingFinished.connect(lambda i=i: self.txt_changed(i, 2))
