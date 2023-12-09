@@ -2,7 +2,6 @@ import os
 import sys
 import shutil
 import pkgutil
-import requests
 import subprocess
 import threading
 
@@ -12,7 +11,6 @@ from PySide6.QtGui import QIcon, QKeyEvent, QKeySequence, QShortcut
 from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox, QProgressBar, QVBoxLayout
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2.resources import ui
 from pupgui2.constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
 from pupgui2.constants import STEAM_PROTONGE_FLATPAK_APPSTREAM, STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
 from pupgui2 import ctloader
