@@ -119,10 +119,16 @@ class PupguiCtInfoDialog(QObject):
         self.ui.txtNumGamesUsingTool.setText(str(row_count))        
 
     def update_game_list_ui(self):
-        self.ui.listGames.setVisible(len(self.games) > 0)
-        self.ui.lblGamesList.setVisible(len(self.games) <= 0)
-        self.ui.btnBatchUpdate.setEnabled(len(self.games) > 0)
-        self.ui.btnSearch.setEnabled(len(self.games) > 0)
+        # switch between showing the QTableWidget (listGames) or the QLabel (lblGamesList)
+        self.ui.stackTableOrText.setCurrentIndex(0 if len(self.games) > 0 and not self.ctool.is_global else 1)
+        self.ui.btnBatchUpdate.setEnabled(len(self.games) > 0 and not self.ctool.is_global)
+        self.ui.btnSearch.setEnabled(len(self.games) > 0 and not self.ctool.is_global)
+
+        if self.ctool.is_global:
+            self.ui.lblGamesList.setText(self.tr('Tool is Global'))
+
+        if len(self.games) < 0 or self.ctool.is_global:
+            self.ui.btnClose.setFocus()
 
     def list_games_cell_double_clicked(self, row):
         if self.install_loc.get('launcher') == 'steam':
