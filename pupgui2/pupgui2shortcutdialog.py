@@ -20,22 +20,32 @@ class ShortcutDialogLineEdit(QLineEdit):
         if self.default_cursor_position >= 0:
             self.setCursorPosition(self.default_cursor_position)
         
-        self.focus_reason = None
+        self.was_focused = False
 
     def focusOutEvent(self, arg__1):
         super().focusOutEvent(arg__1)  # Super handles focusing events etc
+        self.was_focused = False
+
         updated_cursor_pos = len(self.text()) if self.default_cursor_position == -1 else self.default_cursor_position
         self.setCursorPosition(updated_cursor_pos)  # Move cursor back to default position (ex: start for Game Name field)
 
     def focusInEvent(self, arg__1):
         super().focusInEvent(arg__1)
-        self.focus_reason = arg__1.reason()
-        # self.setCursorPosition(len(self.text()))
+
+        # Only call focusWithTextSelection for tab focus, because mousePressEvent will capture select on mousee click focus
+        # mousePressEvent is fired after focusInEvent, and the click event in mousePressEvent clears the selection if we call focusWithTextSelection here
+        # We can call focusWithTextSelection here and set self.was_focused because you can only focus onto the same widget with a tab once, pressing tab again moves the focus away
+        if arg__1.reason() in [ Qt.FocusReason.TabFocusReason, Qt.FocusReason.OtherFocusReason ]:
+            self.focusWithTextSelection()
 
     def mousePressEvent(self, arg__1):
         super().mousePressEvent(arg__1)
-        if self.focus_reason == Qt.MouseFocusReason:
-            print('Hewlo')
+        self.focusWithTextSelection()
+
+    def focusWithTextSelection(self):
+        if not self.was_focused:
+            self.selectAll()
+            self.was_focused = True
 
 
 class PupguiShortcutDialog(QObject):
