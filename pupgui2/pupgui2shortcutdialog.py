@@ -11,6 +11,25 @@ from pupgui2.steamutil import get_steam_shortcuts_list, write_steam_shortcuts_li
 from pupgui2.util import host_path_exists
 
 
+class ShortcutDialogLineEdit(QLineEdit):
+
+    def __init__(self, parent=None, default_cursor_position: int = -1, *args, **kwargs,):
+        super(ShortcutDialogLineEdit, self).__init__(parent, *args, **kwargs)
+
+        self.default_cursor_position = default_cursor_position
+        if self.default_cursor_position >= 0:
+            self.setCursorPosition(self.default_cursor_position)
+
+    def focusOutEvent(self, arg__1):
+        super().focusOutEvent(arg__1)  # Super handles focusing events etc
+        updated_cursor_pos = len(self.text()) if self.default_cursor_position == -1 else self.default_cursor_position
+        self.setCursorPosition(updated_cursor_pos)  # Move cursor back to default position (ex: start for Game Name field)
+        self.deselect()
+
+    def mousePressEvent(self, arg__1):
+        self.selectAll()
+
+
 class PupguiShortcutDialog(QObject):
 
     def __init__(self, steam_config_folder: str, game_property_changed: Signal, parent=None):
@@ -50,12 +69,10 @@ class PupguiShortcutDialog(QObject):
         self.ui.btnRemove.clicked.connect(self.btn_remove_clicked)
 
     def prepare_table_row(self, i: int, shortcut: SteamApp):
-        txt_name = QLineEdit(shortcut.game_name)
-        txt_exe = QLineEdit(shortcut.shortcut_exe)
-        txt_path = QLineEdit(shortcut.shortcut_startdir)
-        txt_icon = QLineEdit(shortcut.shortcut_icon)
-
-        txt_name.setCursorPosition(0)
+        txt_name = ShortcutDialogLineEdit(shortcut.game_name, default_cursor_position=0)
+        txt_exe = ShortcutDialogLineEdit(shortcut.shortcut_exe)
+        txt_path = ShortcutDialogLineEdit(shortcut.shortcut_startdir)
+        txt_icon = ShortcutDialogLineEdit(shortcut.shortcut_icon)
 
         txt_name.editingFinished.connect(lambda i=i: self.txt_changed(i, 0))
         txt_exe.editingFinished.connect(lambda i=i: self.txt_changed(i, 1))
