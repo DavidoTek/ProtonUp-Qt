@@ -10,6 +10,9 @@
     <height>350</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::ClickFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>Steam Shortcut Editor</string>
   </property>
@@ -17,7 +20,7 @@
    <item>
     <widget class="QTableWidget" name="tableShortcuts">
      <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
+      <enum>Qt::ClickFocus</enum>
      </property>
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>

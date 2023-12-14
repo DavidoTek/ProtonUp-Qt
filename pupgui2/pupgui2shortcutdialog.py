@@ -1,7 +1,7 @@
 import pkgutil
 from collections import Counter
 
-from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
+from PySide6.QtCore import Qt, QObject, Signal, QDataStream, QByteArray
 from PySide6.QtWidgets import QLineEdit
 from PySide6.QtUiTools import QUiLoader
 
@@ -19,15 +19,23 @@ class ShortcutDialogLineEdit(QLineEdit):
         self.default_cursor_position = default_cursor_position
         if self.default_cursor_position >= 0:
             self.setCursorPosition(self.default_cursor_position)
+        
+        self.focus_reason = None
 
     def focusOutEvent(self, arg__1):
         super().focusOutEvent(arg__1)  # Super handles focusing events etc
         updated_cursor_pos = len(self.text()) if self.default_cursor_position == -1 else self.default_cursor_position
         self.setCursorPosition(updated_cursor_pos)  # Move cursor back to default position (ex: start for Game Name field)
-        self.deselect()
+
+    def focusInEvent(self, arg__1):
+        super().focusInEvent(arg__1)
+        self.focus_reason = arg__1.reason()
+        # self.setCursorPosition(len(self.text()))
 
     def mousePressEvent(self, arg__1):
-        self.selectAll()
+        super().mousePressEvent(arg__1)
+        if self.focus_reason == Qt.MouseFocusReason:
+            print('Hewlo')
 
 
 class PupguiShortcutDialog(QObject):
