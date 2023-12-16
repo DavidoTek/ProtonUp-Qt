@@ -48,6 +48,7 @@ class PupguiShortcutDialog(QObject):
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
         self.ui.btnAdd.clicked.connect(self.btn_add_clicked)
         self.ui.btnRemove.clicked.connect(self.btn_remove_clicked)
+        self.ui.searchBox.textChanged.connect(self.search_shortcuts)
 
     def prepare_table_row(self, i: int, shortcut: SteamApp):
         txt_name = QLineEdit(shortcut.game_name)
@@ -167,3 +168,11 @@ class PupguiShortcutDialog(QObject):
                 if sid not in self.discarded_shortcuts:
                     self.discarded_shortcuts.append(sid)
                 self.ui.tableShortcuts.cellWidget(i, 0).setStyleSheet('QLineEdit { color: red; }')
+
+    def search_shortcuts(self, text):
+        """ Search based on the shortcut name text (App Name on Row 0) in the QLineEdit widget on each row """
+        for row in range(self.ui.tableShortcuts.rowCount()):
+            if type(row_widget := self.ui.tableShortcuts.cellWidget(row, 0)) is not QLineEdit:
+                continue
+            should_hide: bool = not text.lower() in row_widget.text().lower()
+            self.ui.tableShortcuts.setRowHidden(row, should_hide)
