@@ -8,6 +8,7 @@ import webbrowser
 import requests
 import zipfile
 import tarfile
+import random
 
 import zstandard
 
@@ -21,7 +22,7 @@ from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBo
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
-from pupgui2.datastructures import BasicCompatTool, CTType, Launcher
+from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
 from pupgui2.steamutil import remove_steamtinkerlaunch
 
 
@@ -853,3 +854,21 @@ def create_missing_dependencies_message(ct_name: str, dependencies: List[str]) -
     )
 
     return tr_msg, False
+
+
+def get_random_game_name(games: List[Union[SteamApp, LutrisGame, HeroicGame]]) -> str:
+    """ Return a random game name from list of SteamApp, LutrisGame, or HeroicGame """
+
+    if len(games) <= 0:
+        return ''
+    
+    tooltip_game_name = ''
+    random_game = random.choice(games)
+    if type(random_game) is SteamApp:
+        tooltip_game_name = random_game.game_name
+    elif type(random_game) is LutrisGame:
+        tooltip_game_name = random_game.name
+    elif type(random_game) is HeroicGame:
+        tooltip_game_name = random_game.title
+    
+    return tooltip_game_name

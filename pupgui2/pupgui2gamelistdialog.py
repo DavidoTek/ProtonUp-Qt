@@ -1,5 +1,6 @@
 import os
 import pkgutil
+import random
 
 from typing import List, Callable, Tuple, Union
 from datetime import datetime
@@ -18,7 +19,7 @@ from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
 from pupgui2.steamutil import get_protondb_status
 from pupgui2.heroicutil import get_heroic_game_list, is_heroic_launcher
 from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names, open_webbrowser_thread
-from pupgui2.util import get_install_location_from_directory_name
+from pupgui2.util import get_install_location_from_directory_name, get_random_game_name
 
 
 class PupguiGameListDialog(QObject):
@@ -76,6 +77,7 @@ class PupguiGameListDialog(QObject):
         if len(self.games) > 0:
             self.ui.btnSearch.setVisible(True)
             QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
+            self.update_tooltip()
 
     def setup_steam_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
@@ -227,7 +229,7 @@ class PupguiGameListDialog(QObject):
 
     def update_game_list_heroic(self):
         heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
-        self.games: List[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
+        self.games = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
 
         self.ui.tableGames.setRowCount(len(self.games))
 
@@ -296,6 +298,13 @@ class PupguiGameListDialog(QObject):
             self.update_game_list_lutris()
         elif is_heroic_launcher(self.launcher):
             self.update_game_list_heroic()
+
+        self.update_tooltip()
+
+    def update_tooltip(self):
+        # If game is not found, fall back to tooltip defined in UI file
+        if tooltip_game_name := get_random_game_name(self.games):
+            self.ui.searchBox.setToolTip('e.g. {GAME_NAME}'.format(GAME_NAME=tooltip_game_name))
 
     def btn_search_clicked(self):
         self.ui.searchBox.setVisible(not self.ui.searchBox.isVisible())
