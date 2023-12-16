@@ -92,6 +92,11 @@ class PupguiShortcutDialog(QObject):
         txt_path = ShortcutDialogLineEdit(shortcut.shortcut_startdir)
         txt_icon = ShortcutDialogLineEdit(shortcut.shortcut_icon)
 
+        txt_name.setToolTip(shortcut.game_name)
+        txt_exe.setToolTip(shortcut.shortcut_exe)
+        txt_path.setToolTip(shortcut.shortcut_startdir)
+        txt_icon.setToolTip(shortcut.shortcut_icon)
+
         txt_name.editingFinished.connect(lambda i=i: self.txt_changed(i, 0))
         txt_exe.editingFinished.connect(lambda i=i: self.txt_changed(i, 1))
         txt_path.editingFinished.connect(lambda i=i: self.txt_changed(i, 2))
