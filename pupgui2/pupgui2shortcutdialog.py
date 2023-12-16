@@ -80,6 +80,7 @@ class PupguiShortcutDialog(QObject):
 
     def setup_ui(self):
         self.ui.tableShortcuts.setHorizontalHeaderLabels([self.tr('App Name'), self.tr('Executable'), self.tr('Start Directory'), self.tr('Icon')])
+        self.ui.tableShortcuts.setColumnWidth(0, 350)
 
         self.ui.btnSave.clicked.connect(self.btn_save_clicked)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
