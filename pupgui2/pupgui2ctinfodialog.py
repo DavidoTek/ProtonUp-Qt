@@ -167,3 +167,5 @@ class PupguiCtInfoDialog(QObject):
 
     def btn_mark_global_clicked(self):
         print('Mark global clicked')
+        set_global_compat_tool(self.ctool, self.install_loc.get('vdf_dir'))
+        self.btn_refresh_games_clicked()
