@@ -5,7 +5,7 @@ from pupgui2.constants import STEAM_APP_PAGE_URL
 from pupgui2.datastructures import BasicCompatTool, CTType, SteamApp, LutrisGame, HeroicGame
 from pupgui2.lutrisutil import get_lutris_game_list
 from pupgui2.pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
-from pupgui2.steamutil import get_steam_game_list
+from pupgui2.steamutil import get_steam_game_list, set_global_compat_tool
 from pupgui2.util import open_webbrowser_thread, get_random_game_name
 from pupgui2.heroicutil import get_heroic_game_list, is_heroic_launcher
 
@@ -29,7 +29,7 @@ class PupguiCtInfoDialog(QObject):
         self.games: List[Union[SteamApp, LutrisGame, HeroicGame]] = []
         self.install_loc = install_loc
         self.is_batch_update_available = False
-        self.is_mark_global_available = self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc
+        self.is_mark_global_available = self.ctool.ct_type == CTType.CUSTOM and self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc
 
         self.load_ui()
         self.setup_ui()

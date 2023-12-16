@@ -792,3 +792,7 @@ def determine_most_recent_steam_user(steam_users: List[SteamUser]) -> SteamUser:
 
     print('Warning: No Steam users found. Returning None')
     return None
+
+def set_global_compat_tool(ctool: BasicCompatTool):
+    if ctool.ct_type == CTType.CUSTOM:
+        print('Mark Global supported')
