@@ -29,6 +29,7 @@ class PupguiCtInfoDialog(QObject):
         self.games: List[Union[SteamApp, LutrisGame, HeroicGame]] = []
         self.install_loc = install_loc
         self.is_batch_update_available = False
+        self.is_mark_global_available = self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc
 
         self.load_ui()
         self.setup_ui()
@@ -46,6 +47,7 @@ class PupguiCtInfoDialog(QObject):
         self.ui.txtInstallDirectory.setText(self.ctool.get_install_dir())
         self.ui.btnBatchUpdate.setVisible(False)
         self.ui.searchBox.setVisible(False)
+        self.ui.btnMarkGlobal.setVisible(self.is_mark_global_available)
 
         self.update_game_list()
 
@@ -64,6 +66,7 @@ class PupguiCtInfoDialog(QObject):
                 self.is_batch_update_available = True
                 self.ui.btnBatchUpdate.setVisible(not self.ui.searchBox.isVisible())
                 self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
+                self.ui.btnMarkGlobal.clicked.connect(self.btn_mark_global_clicked)
         elif self.install_loc.get('launcher') == 'lutris':
             self.update_game_list_lutris()
         elif is_heroic_launcher(self.install_loc.get('launcher')):
@@ -161,3 +164,6 @@ class PupguiCtInfoDialog(QObject):
         for row in range(self.ui.listGames.rowCount()):
             should_hide: bool = not text.lower() in self.ui.listGames.item(row, 1).text().lower()
             self.ui.listGames.setRowHidden(row, should_hide)
+
+    def btn_mark_global_clicked(self):
+        print('Mark global clicked')
