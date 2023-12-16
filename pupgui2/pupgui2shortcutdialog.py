@@ -90,32 +90,35 @@ class PupguiShortcutDialog(QObject):
         Returns:
             None
         """
-        text = self.ui.tableShortcuts.cellWidget(index, col).text()
+
+        cell_widget = self.ui.tableShortcuts.cellWidget(index, col)
+        text = cell_widget.text()
+        shortcut = self.shortcuts[index]
 
         if col == 0:
-            self.shortcuts[index].game_name = text
+            shortcut.game_name = text
         elif col == 1:
             if host_path_exists(text.replace('"', '', 2), is_file=True):
                 if not text.startswith('"'):
                     text = '"' + text
                 if not text.endswith('"'):
                     text = text + '"'
-                self.ui.tableShortcuts.cellWidget(index, col).setText(text)
-                self.shortcuts[index].shortcut_exe = text
+                cell_widget.setText(text)
+                shortcut.shortcut_exe = text
             else:
-                self.ui.tableShortcuts.cellWidget(index, col).setText(self.shortcuts[index].shortcut_exe)
+                cell_widget.setText(self.shortcuts[index].shortcut_exe)
         elif col == 2:
             if host_path_exists(text.replace('"', '', 2), is_file=False):
                 if not text.startswith('"'):
                     text = '"' + text
                 if not text.endswith('"'):
                     text = text + '"'
-                self.ui.tableShortcuts.cellWidget(index, col).setText(text)
-                self.shortcuts[index].shortcut_startdir = text
+                cell_widget.setText(text)
+                shortcut.shortcut_startdir = text
             else:
-                self.ui.tableShortcuts.cellWidget(index, col).setText(self.shortcuts[index].shortcut_startdir)
+                cell_widget.setText(self.shortcuts[index].shortcut_startdir)
         elif col == 3:
-            self.shortcuts[index].shortcut_icon = text
+            shortcut.shortcut_icon = text
 
     def btn_save_clicked(self):
         # remove all shortcuts that have no name or executable
