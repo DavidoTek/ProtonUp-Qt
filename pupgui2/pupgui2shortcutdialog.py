@@ -159,6 +159,8 @@ class PupguiShortcutDialog(QObject):
         elif col == 3:
             self.shortcuts[index].shortcut_icon = text
 
+        self.ui.tableShortcuts.cellWidget(index, col).setToolTip(text)
+
     def btn_save_clicked(self):
         # remove all shortcuts that have no name or executable
         filtered_shortcuts = list(filter(lambda s: s.game_name != '' and s.shortcut_exe != '', self.shortcuts))
