@@ -71,7 +71,7 @@
      <item>
       <widget class="QLineEdit" name="searchBox">
        <property name="toolTip">
-        <string/>
+        <string>e.g. ProtonUp-Qt</string>
        </property>
        <property name="placeholderText">
         <string>Search for a game...</string>
