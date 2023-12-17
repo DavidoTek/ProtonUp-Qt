@@ -165,7 +165,7 @@ def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicComp
     Informal Example: { GE-Proton7-43: [GTA V, Cyberpunk 2077], SteamTinkerLaunch: [Vecter, Terraria] }
     Return Type: Dict[BasicCompatTool, List[SteamApp]]
     """
-    map = {}
+    ct_game_map = {}
 
     apps = get_steam_app_list(steam_config_folder, cached=cached)
 
@@ -173,9 +173,9 @@ def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicComp
 
     for app in apps:
         if app.app_type == 'game' and app.compat_tool in ct_name_object_map:
-            map.setdefault(ct_name_object_map.get(app.compat_tool), []).append(app)
+            ct_game_map.setdefault(ct_name_object_map.get(app.compat_tool), []).append(app)
 
-    return map
+    return ct_game_map
 
 
 def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=False) -> List[SteamApp]:
