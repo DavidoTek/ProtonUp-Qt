@@ -29,7 +29,7 @@ class PupguiCtInfoDialog(QObject):
         self.games: List[Union[SteamApp, LutrisGame, HeroicGame]] = []
         self.install_loc = install_loc
         self.is_batch_update_available = False
-        self.is_mark_global_available = self.ctool.ct_type == CTType.CUSTOM and self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc
+        self.is_mark_global_available = (self.ctool.ct_type == CTType.CUSTOM and not self.ctool.is_global) and self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc
 
         self.load_ui()
         self.setup_ui()
