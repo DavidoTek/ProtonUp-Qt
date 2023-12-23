@@ -291,33 +291,34 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="139"/>
         <source>Enable advanced mode (show git-builds for compatibility tools etc.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Увімкнути розширений режим (показати git-builds для інструментів сумісності тощо)</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="150"/>
         <source>Check for updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірити наявність оновлень</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Додає ярлик, щоб відкрити ProtonUp-Qt із вашої бібліотеки Steam.
+Щоб видалити ярлик, відкрийте Steam і виберіть «видалити гру, яка не належить Steam, із вашої бібліотеки».</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="174"/>
         <source>Add Steam shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати ярлик у Steam</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="181"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Про Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="188"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрити</translation>
     </message>
 </context>
 <context>
@@ -326,17 +327,17 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="22"/>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="27"/>
         <source>Batch update</source>
-        <translation type="unfinished"></translation>
+        <translation>Пакетне оновлення</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="28"/>
         <source>New version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Нова версія:</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="38"/>
         <source>Close the Steam client beforehand.</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередньо закрийте клієнт Steam.</translation>
     </message>
 </context>
 <context>
@@ -348,68 +349,68 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="14"/>
         <source>About compatibility tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Про інструмент сумісності</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="26"/>
         <source>Compatibility tool:</source>
-        <translation type="unfinished"></translation>
+        <translation>Інструмент сумісності:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="40"/>
         <source>Game Launcher:</source>
-        <translation type="unfinished"></translation>
+        <translation>Запуск гри:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="54"/>
         <source>Install directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Каталог встановлення:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="79"/>
         <source>Games using compatibility tool:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ігри, що використовують інструмент сумісності:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="106"/>
         <source>Refresh Games</source>
-        <translation type="unfinished"></translation>
+        <translation>Оновити ігри</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="120"/>
         <source>Search games...</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук ігор...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="180"/>
         <source>Batch update</source>
-        <translation type="unfinished"></translation>
+        <translation>Пакетне оновлення</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="187"/>
         <source>e.g. Half-Life 3</source>
-        <translation type="unfinished"></translation>
+        <translation>напр. Half-Life 3</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="190"/>
         <source>Search for a game...</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук гри...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="213"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрити</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="87"/>
         <source>AppID</source>
-        <translation type="unfinished"></translation>
+        <translation>AppID</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="87"/>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="100"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="100"/>
