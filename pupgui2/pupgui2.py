@@ -229,9 +229,9 @@ class MainWindow(QObject):
             get_steam_app_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
             global_ctool_name: str = get_steam_global_ctool_name(install_loc.get('vdf_dir'))
             self.compat_tool_index_map += get_steam_acruntime_list(install_loc.get('vdf_dir'), cached=True)
-            map = get_steam_ct_game_map(install_loc.get('vdf_dir'), self.compat_tool_index_map, cached=True)
+            ct_game_map = get_steam_ct_game_map(install_loc.get('vdf_dir'), self.compat_tool_index_map, cached=True)
             for ct in self.compat_tool_index_map:
-                ct.no_games = len(map.get(ct, []))
+                ct.no_games = len(ct_game_map.get(ct, []))
                 ct_name = ct.get_internal_name()
                 if ct_name == global_ctool_name:
                     ct.set_global()  # Set (global) text
