@@ -303,7 +303,7 @@ class PupguiGameListDialog(QObject):
     def update_tooltip(self):
         # If game is not found, fall back to tooltip defined in UI file
         if tooltip_game_name := get_random_game_name(self.games):
-            self.ui.searchBox.setToolTip('e.g. {GAME_NAME}'.format(GAME_NAME=tooltip_game_name))
+            self.ui.searchBox.setToolTip(self.tr('e.g. {GAME_NAME}').format(GAME_NAME=tooltip_game_name))
 
     def btn_search_clicked(self):
         self.ui.searchBox.setVisible(not self.ui.searchBox.isVisible())

@@ -151,7 +151,7 @@ class PupguiCtInfoDialog(QObject):
         # Generate random tooltip here, updating so if a game is removed on refresh, we won't list a game no longer listed
         # If game is not found, fall back to tooltip defined in UI file
         if tooltip_game_name := get_random_game_name(self.games):
-            self.ui.searchBox.setToolTip('e.g. {GAME_NAME}'.format(GAME_NAME=tooltip_game_name))
+            self.ui.searchBox.setToolTip(self.tr('e.g. {GAME_NAME}').format(GAME_NAME=tooltip_game_name))
 
         self.ui.searchBox.setVisible(not self.ui.searchBox.isVisible())
         self.ui.btnBatchUpdate.setVisible(self.is_batch_update_available and not self.ui.searchBox.isVisible())
