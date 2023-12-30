@@ -69,17 +69,14 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QLineEdit" name="searchBox">
+       <property name="toolTip">
+        <string>e.g. ProtonUp-Qt</string>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
+       <property name="placeholderText">
+        <string>Search for a game...</string>
        </property>
-      </spacer>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnSave">
