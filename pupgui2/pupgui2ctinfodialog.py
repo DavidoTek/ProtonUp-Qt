@@ -1,6 +1,5 @@
 import pkgutil
 import os
-import random
 
 from pupgui2.constants import STEAM_APP_PAGE_URL
 from pupgui2.datastructures import BasicCompatTool, CTType, SteamApp, LutrisGame, HeroicGame
