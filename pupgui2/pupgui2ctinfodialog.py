@@ -131,11 +131,6 @@ class PupguiCtInfoDialog(QObject):
         if len(self.games) < 0 or self.ctool.is_global:
             self.ui.btnClose.setFocus()
 
-        # Generate random tooltip here, updating so if a game is removed on refresh, we won't list a game no longer listed
-        # If game is not found, fall back to tooltip defined in UI file
-        if tooltip_game_name := get_random_game_name(self.games):
-            self.ui.searchBox.setToolTip('e.g. {GAME_NAME}'.format(GAME_NAME=tooltip_game_name))
-
     def list_games_cell_double_clicked(self, row):
         if self.install_loc.get('launcher') == 'steam':
             steam_game_id = str(self.ui.listGames.item(row, 0).text())
@@ -152,6 +147,11 @@ class PupguiCtInfoDialog(QObject):
     def btn_search_clicked(self):
         if not self.ui.btnSearch.isEnabled():
             return
+
+        # Generate random tooltip here, updating so if a game is removed on refresh, we won't list a game no longer listed
+        # If game is not found, fall back to tooltip defined in UI file
+        if tooltip_game_name := get_random_game_name(self.games):
+            self.ui.searchBox.setToolTip('e.g. {GAME_NAME}'.format(GAME_NAME=tooltip_game_name))
 
         self.ui.searchBox.setVisible(not self.ui.searchBox.isVisible())
         self.ui.btnBatchUpdate.setVisible(self.is_batch_update_available and not self.ui.searchBox.isVisible())

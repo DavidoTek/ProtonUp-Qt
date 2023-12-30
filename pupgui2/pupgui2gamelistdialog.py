@@ -77,7 +77,6 @@ class PupguiGameListDialog(QObject):
         if len(self.games) > 0:
             self.ui.btnSearch.setVisible(True)
             QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
-            self.update_tooltip()
 
     def setup_steam_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
@@ -313,6 +312,8 @@ class PupguiGameListDialog(QObject):
         self.ui.searchBox.setFocus()
 
         self.search_gamelist_games(self.ui.searchBox.text() if self.ui.searchBox.isVisible() else '')
+
+        self.update_tooltip()
 
     def btn_shortcut_editor_clicked(self):
         self.ui.close()
