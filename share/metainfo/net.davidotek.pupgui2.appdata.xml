@@ -69,6 +69,20 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.9.0" date="2023-12-30">
+      <description>
+        <p>Changes/Improvements:</p>
+        <ul>
+          <li>Added a Shortcut Editor for Steam</li>
+          <li>Dxvk-Async: Use Ph42oN's releases instead of Sporif's</li>
+          <li>NorthstarProton: Use the R2NorthstarTools repo instead of the cyrv6737 repo</li>
+          <li>Wine-GE: Match extract folder name (see PR#296 for details)</li>
+          <li>Allow configuring GitHub/GitLab access tokens in the ProtonUp-Qt configuration file</li>
+          <li>Various i18n, UI and UX enhancements</li>
+        </ul>
+        <p>Various improvements and bug fixes. See GitHub for more details.<br/>Also thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.8.2" date="2023-08-06">
       <description>
         <p>Changes/Improvements:</p>
