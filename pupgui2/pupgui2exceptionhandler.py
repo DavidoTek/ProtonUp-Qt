@@ -17,11 +17,11 @@ class PupguiExceptionHandler(QObject):
         sys.excepthook = self._excepthook
         self.exception.connect(self._on_exception)
 
-    def _excepthook(self, exc_type: type[BaseException], exc_value: BaseException, exc_tb: TracebackType):
+    def _excepthook(self, exc_type: type, exc_value: BaseException, exc_tb: TracebackType):
         self.exception.emit(exc_type, exc_value, exc_tb)
 
     @Slot(type, BaseException, TracebackType)
-    def _on_exception(self, exc_type: type[BaseException], exc_value: BaseException, exc_tb: TracebackType):
+    def _on_exception(self, exc_type: type, exc_value: BaseException, exc_tb: TracebackType):
         message = "".join(traceback.format_exception(exc_type, exc_value, exc_tb))
 
         self.logger.fatal(message)
