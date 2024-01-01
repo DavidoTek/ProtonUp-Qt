@@ -6,7 +6,7 @@ from PySide6.QtGui import QColor, QPalette
 
 
 APP_NAME = 'ProtonUp-Qt'
-APP_VERSION = '2.9.0'
+APP_VERSION = '2.9.1'
 APP_ID = 'net.davidotek.pupgui2'
 APP_THEMES = ( 'light', 'dark', 'system', None )
 APP_ICON_FILE = os.path.join(xdg_config_home, 'pupgui/appicon256.png')
