@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished">¡Dependencias faltantes!</translation>
+        <translation>¡Faltan dependencias!</translation>
     </message>
 </context>
 <context>
@@ -38,7 +38,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
@@ -226,22 +226,22 @@ Cancel and exit anyway?</source>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="26"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="107"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualización por lotes</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="44"/>
         <source>Migrate games using the current compatibility tool to the one specified below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Migra los juegos que utilizan la herramienta de compatibilidad actual a la que se especifica a continuación.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="56"/>
         <source>New Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versión nueva:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="73"/>
         <source>Old Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versión antigua:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
@@ -368,12 +368,12 @@ Para eliminar el atajo, abre Steam, haz click derecho sobre él y elige &quot;ad
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="47"/>
         <source>No supported compatibility tools found.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se han encontrado herramientas de compatibilidad compatibles.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="49"/>
         <source>Warning: Close the Steam Client beforehand.</source>
-        <translation type="unfinished"></translation>
+        <translation>Advertencia: Cierra el cliente Steam de antemano.</translation>
     </message>
 </context>
 <context>
@@ -420,12 +420,12 @@ Para eliminar el atajo, abre Steam, haz click derecho sobre él y elige &quot;ad
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin juegos</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualización por lotes</translation>
     </message>
     <message>
         <source>Batch update</source>
@@ -475,12 +475,12 @@ Para eliminar el atajo, abre Steam, haz click derecho sobre él y elige &quot;ad
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="128"/>
         <source>Tool is Global</source>
-        <translation type="unfinished"></translation>
+        <translation>Herramienta global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="153"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>por ejemplo {GAME_NAME}</translation>
     </message>
 </context>
 <context>
@@ -687,7 +687,7 @@ Tipo: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="305"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>por ejemplo {GAME_NAME}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="398"/>
@@ -853,12 +853,12 @@ Tendencia: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>por ejemplo ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>Search for a game...</source>
-        <translation type="unfinished">Buscar un juego...</translation>
+        <translation>Buscando un juego...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
@@ -1245,7 +1245,7 @@ de la guía de instalación de SteamTinkerLaunch en su página de GitHub..</tran
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Implementación basada en Vulkan de Direct3D 9, 10 y 11 para Linux/Wine con parche gplasync de Ph42oN.&lt;br&gt;&lt;br&gt;&lt;b&gt;Advertencia: ¡Úselo solo con juegos para un solo jugador!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1317,22 +1317,22 @@ Mira https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080
     <message>
         <location filename="../pupgui2/util.py" line="516"/>
         <source>Warning: GitLab API rate limit exceeded!</source>
-        <translation type="unfinished"></translation>
+        <translation>Advertencia: ¡Se ha superado el límite de velocidad de la API de GitLab!</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="517"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha superado el límite de velocidad de la API de GitLab. Puede que quieras esperar un poco o especificar una clave de API de GitLab generada para esta instancia de GitLab si tienes una.</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="848"/>
         <source>missing</source>
-        <translation type="unfinished">no encontrado</translation>
+        <translation>desaparecido</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="849"/>
         <source>found</source>
-        <translation type="unfinished">encontrado</translation>
+        <translation>encontró</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="851"/>
@@ -1341,7 +1341,11 @@ Mira https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080
 {DEP_ENUM}
 
 Will continue the installation anyway.</source>
-        <translation type="unfinished"></translation>
+        <translation>Necesita las siguientes dependencias para {CT_NAME}:
+
+{DEP_ENUM}
+
+Continuará la instalación de todos modos.</translation>
     </message>
 </context>
 </TS>
