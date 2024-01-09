@@ -6,6 +6,8 @@ import json
 from enum import Enum
 from typing import Dict
 
+from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, STEAMLINUXRUNTIME_APPID
+
 
 class SteamDeckCompatEnum(Enum):
     UNKNOWN = 0
@@ -21,6 +23,12 @@ class AWACYStatus(Enum):
     PLANNED = 6
     RUNNING = 7
     BROKEN = 8
+
+
+class RuntimeType(Enum):
+    EAC = PROTON_EAC_RUNTIME_APPID  # ProtonEasyAntiCheatRuntime
+    BATTLEYE = PROTON_BATTLEYE_RUNTIME_APPID  # ProtonBattlEyeRuntime
+    STEAMLINUXRUNTIME = STEAMLINUXRUNTIME_APPID  # Steam Linux Runtime 1.0 (scout)
 
 
 class CTType(Enum):
@@ -79,6 +87,7 @@ class SteamApp:
     ctool_from_oslist = ''
     awacy_status = AWACYStatus.UNKNOWN  # areweanticheatyet.com Status
     protondb_summary = {}  # protondb status summary from JSON file
+    anticheat_runtimes = { RuntimeType.EAC: False, RuntimeType.BATTLEYE: False }  # Dict of boolean values for which anti-cheat runtime are in use
 
     def get_app_id_str(self) -> str:
         return str(self.app_id)

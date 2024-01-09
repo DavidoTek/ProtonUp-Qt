@@ -22,7 +22,7 @@ from pupgui2.pupgui2customiddialog import PupguiCustomInstallDirectoryDialog
 from pupgui2.pupgui2exceptionhandler import PupguiExceptionHandler
 from pupgui2.pupgui2gamelistdialog import PupguiGameListDialog
 from pupgui2.pupgui2installdialog import PupguiInstallDialog
-from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_steam_ct_game_map, get_steam_global_ctool_name
+from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_steam_ct_game_map, get_steam_global_ctool_name, ctool_is_runtime_for_app
 from pupgui2.heroicutil import is_heroic_launcher, get_heroic_game_list
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
@@ -226,7 +226,7 @@ class MainWindow(QObject):
             self.get_installed_versions('vkd3d', vkd3d_dir)
         # Launcher specific (Steam): Number of games using the compatibility tool
         elif install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
-            get_steam_app_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
+            steam_app_list = get_steam_app_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
             global_ctool_name: str = get_steam_global_ctool_name(install_loc.get('vdf_dir'))
             self.compat_tool_index_map += get_steam_acruntime_list(install_loc.get('vdf_dir'), cached=True)
             ct_game_map = get_steam_ct_game_map(install_loc.get('vdf_dir'), self.compat_tool_index_map, cached=True)
@@ -236,6 +236,9 @@ class MainWindow(QObject):
                 if ct_name == global_ctool_name:
                     ct.set_global()  # Set (global) text
                     self.compat_tool_index_map.insert(0, self.compat_tool_index_map.pop(self.compat_tool_index_map.index(ct)))  # Move global ctool to top of list
+                # Runtime length has to be calculated separately as they are not stored in the compat_tool_index_map, runtimes are dependencies of apps and not selected compatibility tools
+                if ct.ct_type == CTType.STEAM_RT:
+                    ct.no_games += len([game for game in steam_app_list if ctool_is_runtime_for_app(game, ct)])
         # Launcher specific (Heroic): Set number of installed games using compat tool
         elif is_heroic_launcher(install_loc.get('launcher')):
             heroic_dir = os.path.join(os.path.expanduser(install_loc.get('install_dir')), '../..')
