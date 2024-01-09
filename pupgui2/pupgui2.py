@@ -423,7 +423,7 @@ class MainWindow(QObject):
             cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def btn_steam_flatpak_ctools_clicked(self):
-        """ Open dialog to open the appstore(appstream) to installBoxtron from Flathub"""
+        """ Open dialog to open the appstore(appstream) to install Boxtron from Flathub"""
         iftdialog = QDialog(parent=self.ui)
         iftdialog.setWindowTitle(self.tr('Install tool from Flathub'))
         iftdialog.setFixedSize(250, 100)
