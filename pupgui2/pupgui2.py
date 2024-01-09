@@ -383,9 +383,9 @@ class MainWindow(QObject):
 
     def show_launcher_specific_information(self):
         install_loc = get_install_location_from_directory_name(install_directory())
-        # For Steam Flatpak only: Show that GE-Proton and Boxtron are available directly from Flathub.
+        # For Steam Flatpak only: Show that Boxtron is available directly from Flathub.
         if 'steam' in install_loc.get('launcher', '') and 'Flatpak' in install_loc.get('display_name', ''):
-            self.ui.statusBar().showMessage(self.tr('Info: You can get GE-Proton / Boxtron directly from Flathub!'))
+            self.ui.statusBar().showMessage(self.tr('Info: You can get Boxtron directly from Flathub!'))
             self.ui.btnSteamFlatpakCtools.setVisible(True)
         else:
             self.ui.btnSteamFlatpakCtools.setVisible(False)

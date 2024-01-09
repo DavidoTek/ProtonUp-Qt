@@ -116,8 +116,8 @@ Cancel and exit anyway?</source>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation>Bilgi: GE-Proton ve Boxtron&apos;u doğrudan Flathub&apos;dan indirebilirsiniz!</translation>
+        <source>Info: You can get Boxtron directly from Flathub!</source>
+        <translation>Bilgi: Boxtron&apos;u doğrudan Flathub&apos;dan indirebilirsiniz!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>

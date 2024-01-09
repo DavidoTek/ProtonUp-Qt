@@ -116,8 +116,8 @@ Avbryt och avsluta ändå?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation>Info: Du kan hämta GE-Proton / Boxtron direkt från Flathub!</translation>
+        <source>Info: You can get Boxtron directly from Flathub!</source>
+        <translation>Info: Du kan hämta Boxtron direkt från Flathub!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>

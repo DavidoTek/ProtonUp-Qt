@@ -116,8 +116,8 @@ Annuler et quitter&#x202f;?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation>Info&#x202f;: Vous pouvez récupérer GE-Proton / Boxtron directement depuis Flathub&#x202f;!</translation>
+        <source>Info: You can get Boxtron directly from Flathub!</source>
+        <translation>Info&#x202f;: Vous pouvez récupérer Boxtron directement depuis Flathub&#x202f;!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
