@@ -383,10 +383,9 @@ class MainWindow(QObject):
 
     def show_launcher_specific_information(self):
         install_loc = get_install_location_from_directory_name(install_directory())
-        if 'steam' in install_loc.get('launcher', '') and 'Flatpak' in install_loc.get('display_name', ''):
-            self.ui.btnSteamFlatpakCtools.setVisible(True)
-        else:
-            self.ui.btnSteamFlatpakCtools.setVisible(False)
+        self.ui.btnSteamFlatpakCtools.setVisible(
+            'steam' in install_loc.get('launcher', '') and 'Flatpak' in install_loc.get('display_name', '')
+            )
     
     def list_installed_versions_item_double_clicked(self, item):
         """ Show info about compatibility tool when double clicked in list """
