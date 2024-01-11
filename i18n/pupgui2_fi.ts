@@ -115,11 +115,6 @@ Keskeytetäänkö ja poistutaan silti?</translation>
         <translation>Asennuskansio vaihdettiin kohteeseen {install_dir}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get Boxtron directly from Flathub!</source>
-        <translation>Tiedote: voit noutaa Boxtron:in suoraan Flathub.ista!</translation>
-    </message>
-    <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
         <translation>Asenna työkalu Flathub:ista</translation>

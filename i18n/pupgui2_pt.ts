@@ -115,11 +115,6 @@ Cancelar e sair mesmo assim?</translation>
         <translation>Mudou o diretório de instalação para {install_dir}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get Boxtron directly from Flathub!</source>
-        <translation>Nota: Pode obter Boxtron diretamente do Flathub!</translation>
-    </message>
-    <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
         <translation>Instalar ferramenta do Flathub</translation>

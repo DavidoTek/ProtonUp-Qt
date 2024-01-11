@@ -115,11 +115,6 @@ Avbryt och avsluta ändå?</translation>
         <translation>Ändrade installationskatalog till {install_dir}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get Boxtron directly from Flathub!</source>
-        <translation>Info: Du kan hämta Boxtron direkt från Flathub!</translation>
-    </message>
-    <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
         <translation>Installera verktyg från Flathub</translation>

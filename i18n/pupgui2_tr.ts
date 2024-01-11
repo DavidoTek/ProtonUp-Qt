@@ -115,11 +115,6 @@ Cancel and exit anyway?</source>
         <translation>Kurulum dizini {install_dir} olarak değiştirildi.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get Boxtron directly from Flathub!</source>
-        <translation>Bilgi: Boxtron&apos;u doğrudan Flathub&apos;dan indirebilirsiniz!</translation>
-    </message>
-    <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
         <translation>Aracı Flathub&apos;dan yükle</translation>
