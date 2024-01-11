@@ -115,11 +115,6 @@ Annuler et quitter&#x202f;?</translation>
         <translation>Emplacement d&apos;installation remplacé par {install_dir}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation>Info&#x202f;: Vous pouvez récupérer GE-Proton / Boxtron directement depuis Flathub&#x202f;!</translation>
-    </message>
-    <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
         <translation>Installer l&apos;outil via Flathub</translation>

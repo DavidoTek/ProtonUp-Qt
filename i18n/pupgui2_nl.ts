@@ -112,11 +112,6 @@ Weet je zeker dat je wilt annuleren en afsluiten?</translation>
         <translation>De installatiemap is ingesteld op {install_dir}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation>Informatie: je kunt GE-Proton/Boxtron direct van Flathub downloaden!</translation>
-    </message>
-    <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
         <translation type="unfinished"></translation>

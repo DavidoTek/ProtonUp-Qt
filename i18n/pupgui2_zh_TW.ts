@@ -115,11 +115,6 @@ Cancel and exit anyway?</source>
         <translation>將安裝資料夾改為 {install_dir}。</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation>資訊：您可以直接從 Flathub 取得 GE-Proton / Boxtron！</translation>
-    </message>
-    <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
         <translation>從 Flathub 安裝工具</translation>

@@ -115,11 +115,6 @@ Abbrechen und beenden?</translation>
         <translation>Installationsort zu {install_dir} geändert.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation>Info: GE-Proton / Boxtron ist direkt auf Flathub verfügbar!</translation>
-    </message>
-    <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
         <translation>Tool von Flathub laden</translation>

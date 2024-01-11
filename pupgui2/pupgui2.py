@@ -12,7 +12,7 @@ from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushB
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
-from pupgui2.constants import STEAM_PROTONGE_FLATPAK_APPSTREAM, STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
+from pupgui2.constants import STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
 from pupgui2 import ctloader
 from pupgui2.datastructures import CTType, MsgBoxType, MsgBoxResult
 from pupgui2.gamepadinputworker import GamepadInputWorker
@@ -386,12 +386,9 @@ class MainWindow(QObject):
 
     def show_launcher_specific_information(self):
         install_loc = get_install_location_from_directory_name(install_directory())
-        # For Steam Flatpak only: Show that GE-Proton and Boxtron are available directly from Flathub.
-        if 'steam' in install_loc.get('launcher', '') and 'Flatpak' in install_loc.get('display_name', ''):
-            self.ui.statusBar().showMessage(self.tr('Info: You can get GE-Proton / Boxtron directly from Flathub!'))
-            self.ui.btnSteamFlatpakCtools.setVisible(True)
-        else:
-            self.ui.btnSteamFlatpakCtools.setVisible(False)
+        self.ui.btnSteamFlatpakCtools.setVisible(
+            'steam' in install_loc.get('launcher', '') and 'Flatpak' in install_loc.get('display_name', '')
+            )
     
     def list_installed_versions_item_double_clicked(self, item):
         """ Show info about compatibility tool when double clicked in list """
@@ -426,22 +423,19 @@ class MainWindow(QObject):
             cti_dialog.batch_update_complete.connect(self.update_ui)
 
     def btn_steam_flatpak_ctools_clicked(self):
-        """ Open dialog to open the appstore(appstream) to install Proton-GE/Boxtron from Flathub"""
+        """ Open dialog to open the appstore(appstream) to install Boxtron from Flathub"""
         iftdialog = QDialog(parent=self.ui)
         iftdialog.setWindowTitle(self.tr('Install tool from Flathub'))
         iftdialog.setFixedSize(250, 100)
         iftdialog.setModal(True)
         lbl_description = QLabel(self.tr('Click to open your app store'))
-        btn_dl_protonge = QPushButton('Proton-GE')
         btn_dl_boxtron = QPushButton('Boxtron')
         btn_dl_stl = QPushButton('Steam Tinker Launch')
         layout1 = QVBoxLayout()
         layout1.addWidget(lbl_description)
-        layout1.addWidget(btn_dl_protonge)
         layout1.addWidget(btn_dl_boxtron)
         layout1.addWidget(btn_dl_stl)
         iftdialog.setLayout(layout1)
-        btn_dl_protonge.clicked.connect(lambda: os.system(f'xdg-open {STEAM_PROTONGE_FLATPAK_APPSTREAM}'))
         btn_dl_boxtron.clicked.connect(lambda: os.system(f'xdg-open {STEAM_BOXTRON_FLATPAK_APPSTREAM}'))
         btn_dl_stl.clicked.connect(lambda: os.system(f'xdg-open {STEAM_STL_FLATPAK_APPSTREAM}'))
         iftdialog.show()

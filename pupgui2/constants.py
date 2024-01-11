@@ -78,7 +78,6 @@ PROTONDB_API_URL = 'https://www.protondb.com/api/v1/reports/summaries/{game_id}.
 PROTONDB_APP_PAGE_URL = 'https://protondb.com/app/'
 
 STEAM_BOXTRON_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Boxtron'
-STEAM_PROTONGE_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Proton-GE'
 STEAM_STL_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.Utility.steamtinkerlaunch'
 
 STEAM_STL_INSTALL_PATH = os.path.join(HOME_DIR, 'stl')

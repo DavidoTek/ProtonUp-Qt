@@ -116,11 +116,6 @@ Cancel and exit anyway?</source>
         <translation>Изменён каталог установки на {install_dir}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="388"/>
-        <source>Info: You can get GE-Proton / Boxtron directly from Flathub!</source>
-        <translation>Информация: Вы можете получить GE-Proton / Boxtron непосредственно с Flathub!</translation>
-    </message>
-    <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
         <translation>Установка инструмента с Flathub</translation>
