@@ -9,6 +9,7 @@ import requests
 import zipfile
 import tarfile
 import random
+import json
 
 import zstandard
 
@@ -20,7 +21,7 @@ from PySide6.QtCore import QCoreApplication
 from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBox
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
-from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
+from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST, LUXTORPEDA_PACKAGESSNIPER_URL
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
 from pupgui2.steamutil import remove_steamtinkerlaunch
@@ -872,3 +873,25 @@ def get_random_game_name(games: List[Union[SteamApp, LutrisGame, HeroicGame]]) -
         tooltip_game_name = random_game.title
     
     return tooltip_game_name
+
+
+def get_luxtorpeda_supported_app_ids() -> List[int]:
+    """
+    Downloads the latest package list from LUXTORPEDA_PACKAGESSNIPER_URL and returns a list of supported app IDs
+    Blocking until json is downloaded and parsed
+
+    Return Type: List[int]
+    """
+    try:
+        r = requests.get(LUXTORPEDA_PACKAGESSNIPER_URL)
+        j = json.loads(r.content)
+
+        games = j.get('games', [])
+
+        app_ids = [int(g.get('app_id')) for g in games if g.get('app_id', 'z').isdigit()]
+
+        return app_ids
+
+    except Exception as e:
+        print('Error fetching Luxtorpeda packages list: ' + str(e))
+        return []

@@ -15,6 +15,7 @@ from PySide6.QtWidgets import QMessageBox, QApplication
 
 from pupgui2.constants import APP_NAME, APP_ID, APP_ICON_FILE
 from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, PROTON_NEXT_APPID, STEAMLINUXRUNTIME_APPID, STEAMLINUXRUNTIME_SOLDIER_APPID, STEAMLINUXRUNTIME_SNIPER_APPID
+from pupgui2.constants import LUXTORPEDA_CTOOL_NAME
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
 from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES, HOME_DIR
 from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamUser, RuntimeType
@@ -792,3 +793,30 @@ def determine_most_recent_steam_user(steam_users: List[SteamUser]) -> SteamUser:
 
     print('Warning: No Steam users found. Returning None')
     return None
+
+
+def luxtorpeda_set_all_games(steam_app_list: List[SteamApp], luxtorpeda_supported_app_ids: List[int], steam_config_folder: str) -> bool:
+    """
+    Enables Luxtorpeda for all games in the steam_app_list that are in the luxtorpeda_supported_app_ids list.
+
+    Parameters:
+        steam_app_list: List[SteamApp]
+            List of Steam apps
+        luxtorpeda_supported_app_ids: List[int]
+            List of app ids that are supported by Luxtorpeda
+
+    Return Type: bool
+    """
+
+    if not os.path.exists(os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')):
+        return False
+
+    if len(luxtorpeda_supported_app_ids) == 0:
+        return False
+
+    for app in steam_app_list:
+        if app.app_id in luxtorpeda_supported_app_ids:
+            # For now ignore when steam_update_ctool fails for individual apps (return value is ignored)
+            steam_update_ctool(app, LUXTORPEDA_CTOOL_NAME, steam_config_folder)
+
+    return True

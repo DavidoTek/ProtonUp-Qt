@@ -76,6 +76,8 @@ AWACY_WEB_URL = 'https://areweanticheatyet.com/?search={GAMENAME}&sortOrder=&sor
 LOCAL_AWACY_GAME_LIST = os.path.join(TEMP_DIR, 'awacy_games.json')
 PROTONDB_API_URL = 'https://www.protondb.com/api/v1/reports/summaries/{game_id}.json'
 PROTONDB_APP_PAGE_URL = 'https://protondb.com/app/'
+LUXTORPEDA_PACKAGESSNIPER_URL = 'https://luxtorpeda-dev.github.io/packagessniper_v2.json'
+LUXTORPEDA_CTOOL_NAME = 'luxtorpeda'
 
 STEAM_BOXTRON_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Boxtron'
 STEAM_STL_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.Utility.steamtinkerlaunch'
