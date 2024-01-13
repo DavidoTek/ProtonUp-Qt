@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished">Fehlende Abhängigkeiten!</translation>
+        <translation>Fehlende Abhängigkeiten!</translation>
     </message>
 </context>
 <context>
@@ -38,7 +38,7 @@ Sollte dies ein Fehler sein, bitte einen GitHub Issue erstellen!</translation>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
@@ -236,12 +236,12 @@ Abbrechen und beenden?</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="56"/>
         <source>New Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Version:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="73"/>
         <source>Old Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Alte Version:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
@@ -368,7 +368,7 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="47"/>
         <source>No supported compatibility tools found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine unterstützten Kompatibilitätswerkzeuge gefunden.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="49"/>
@@ -420,7 +420,7 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Spiele</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
@@ -439,7 +439,7 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="274"/>
         <source>Search for a game...</source>
-        <translation>Suche nach einem Spiel...</translation>
+        <translation>Nach einem Spiel suchen ...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="297"/>
@@ -475,12 +475,12 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="128"/>
         <source>Tool is Global</source>
-        <translation type="unfinished"></translation>
+        <translation>Werkzeug ist global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="153"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>z. B. {GAME_NAME}</translation>
     </message>
 </context>
 <context>
@@ -687,7 +687,7 @@ Typ: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="305"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>z. B. {GAME_NAME}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="398"/>
@@ -741,7 +741,7 @@ Entwicklung: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="71"/>
         <source>Search for a game...</source>
-        <translation>Suche nach Spiel...</translation>
+        <translation>Nach einem Spiel suchen ...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="91"/>
@@ -853,12 +853,12 @@ Entwicklung: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>z. B. ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>Search for a game...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach einem Spiel suchen ...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
@@ -868,7 +868,7 @@ Entwicklung: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="94"/>
@@ -878,7 +878,7 @@ Entwicklung: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
         <source>Close</source>
-        <translation type="unfinished">Schließen</translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -1325,12 +1325,12 @@ Siehe https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-135820008
     <message>
         <location filename="../pupgui2/util.py" line="848"/>
         <source>missing</source>
-        <translation type="unfinished">fehlt</translation>
+        <translation>fehlt</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="849"/>
         <source>found</source>
-        <translation type="unfinished">gefunden</translation>
+        <translation>gefunden</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="851"/>
