@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak zależnych pakietów!</translation>
     </message>
 </context>
 <context>
@@ -38,7 +38,7 @@ Jeżeli uważasz to za błąd, proszę złożyć raport błędu na GitHub!</tran
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>globalne</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
@@ -78,7 +78,7 @@ Jeżeli uważasz to za błąd, proszę złożyć raport błędu na GitHub!</tran
     <message>
         <location filename="../pupgui2/pupgui2.py" line="325"/>
         <source>Installed {current_compat_tool_name}.</source>
-        <translation>{current_compat_tool_name} zainstalowany.</translation>
+        <translation>Zainstalowano {current_compat_tool_name}.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="348"/>
@@ -90,7 +90,7 @@ Jeżeli uważasz to za błąd, proszę złożyć raport błędu na GitHub!</tran
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>Próbujesz usunąć narzędzia kompatybilności
-które są w użyciu przez {n} grę/gry/gier. Czy kontynuować?</translation>
+które są w użyciu przez {n} gry. Czy kontynuować?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="355"/>
@@ -100,7 +100,7 @@ które są w użyciu przez {n} grę/gry/gier. Czy kontynuować?</translation>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="369"/>
         <source>Exit?</source>
-        <translation>Wyjść?</translation>
+        <translation>Zamknąć?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="369"/>
