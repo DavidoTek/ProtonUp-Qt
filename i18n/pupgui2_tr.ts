@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished">Eksik bağımlılıklar!</translation>
+        <translation>Eksik bağımlılıklar!</translation>
     </message>
 </context>
 <context>
@@ -38,7 +38,7 @@ Bunun bir hata olduğunu düşünüyorsanız lütfen GitHub&apos;da bu hatayı b
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>küresel</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
@@ -234,22 +234,22 @@ Cancel and exit anyway?</source>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="26"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="107"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Toplu Güncelleme</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="44"/>
         <source>Migrate games using the current compatibility tool to the one specified below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mevcut uyumluluk aracını kullanarak oyunları aşağıda belirtilen araca taşıyın.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="56"/>
         <source>New Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni sürüm:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="73"/>
         <source>Old Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Eski Sürüm:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
@@ -376,12 +376,12 @@ Kısayolu kaldırmak için Steam&apos;i açın ve &quot;Steam dışı oyunu kita
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="47"/>
         <source>No supported compatibility tools found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Desteklenen uyumluluk aracı bulunamadı.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="49"/>
         <source>Warning: Close the Steam Client beforehand.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uyarı: Önce Steam istemcisini kapatın.</translation>
     </message>
 </context>
 <context>
@@ -428,12 +428,12 @@ Kısayolu kaldırmak için Steam&apos;i açın ve &quot;Steam dışı oyunu kita
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation type="unfinished"></translation>
+        <translation>Oyun yok</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Toplu Güncelleme</translation>
     </message>
     <message>
         <source>Batch update</source>
@@ -483,12 +483,12 @@ Kısayolu kaldırmak için Steam&apos;i açın ve &quot;Steam dışı oyunu kita
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="128"/>
         <source>Tool is Global</source>
-        <translation type="unfinished"></translation>
+        <translation>Araç Küresel</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="153"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>örn. {GAME_NAME}</translation>
     </message>
 </context>
 <context>
@@ -610,7 +610,7 @@ Tür: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="305"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>örn. {GAME_NAME}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="309"/>
@@ -857,12 +857,12 @@ Trend: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>örn. ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>Search for a game...</source>
-        <translation type="unfinished">Oyun ara...</translation>
+        <translation>Oyun ara...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
@@ -1245,7 +1245,7 @@ SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir diz
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Linux/Wine için Ph42oN&apos;un gplasync yamasıyla Vulkan tabanlı Direct3D 9, 10 ve 11 uygulaması.&lt;br&gt;&lt;br&gt;&lt;b&gt;Uyarı: Yalnızca tek oyunculu oyunlarla kullanın!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1317,22 +1317,22 @@ Ayrıntılar için https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomm
     <message>
         <location filename="../pupgui2/util.py" line="516"/>
         <source>Warning: GitLab API rate limit exceeded!</source>
-        <translation type="unfinished"></translation>
+        <translation>Uyarı: GitLab API hız limiti aşıldı!</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="517"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
-        <translation type="unfinished"></translation>
+        <translation>GitLab API hız limiti aşıldı. Bir süre beklemek veya varsa bu GitLab örneği için oluşturulan bir GitLab API anahtarı belirtmek isteyebilirsiniz.</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="848"/>
         <source>missing</source>
-        <translation type="unfinished">eksik</translation>
+        <translation>eksik</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="849"/>
         <source>found</source>
-        <translation type="unfinished">bulundu</translation>
+        <translation>bulundu</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="851"/>
@@ -1341,7 +1341,11 @@ Ayrıntılar için https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomm
 {DEP_ENUM}
 
 Will continue the installation anyway.</source>
-        <translation type="unfinished"></translation>
+        <translation>{CT_NAME} için aşağıdaki bağımlılıklara ihtiyacınız var:
+
+{DEP_ENUM}
+
+Yine de kuruluma devam edilecektir.</translation>
     </message>
 </context>
 </TS>
