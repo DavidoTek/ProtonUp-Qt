@@ -1,7 +1,7 @@
 import pkgutil
 from collections import Counter
 
-from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
+from PySide6.QtCore import Qt, QObject, Signal, QDataStream, QByteArray
 from PySide6.QtWidgets import QLineEdit
 from PySide6.QtUiTools import QUiLoader
 
@@ -9,6 +9,43 @@ from pupgui2.datastructures import SteamApp
 from pupgui2.steamutil import calc_shortcut_app_id, get_steam_user_list, determine_most_recent_steam_user
 from pupgui2.steamutil import get_steam_shortcuts_list, write_steam_shortcuts_list
 from pupgui2.util import host_path_exists
+
+
+class ShortcutDialogLineEdit(QLineEdit):
+
+    def __init__(self, parent=None, default_cursor_position: int = -1, *args, **kwargs,):
+        super(ShortcutDialogLineEdit, self).__init__(parent, *args, **kwargs)
+
+        self.default_cursor_position = default_cursor_position
+        if self.default_cursor_position >= 0:
+            self.setCursorPosition(self.default_cursor_position)
+        
+        self.was_focused = False
+
+    def focusOutEvent(self, arg__1):
+        super().focusOutEvent(arg__1)  # Super handles focusing events etc
+        self.was_focused = False
+
+        updated_cursor_pos = len(self.text()) if self.default_cursor_position == -1 else self.default_cursor_position
+        self.setCursorPosition(updated_cursor_pos)  # Move cursor back to default position (ex: start for Game Name field)
+
+    def focusInEvent(self, arg__1):
+        super().focusInEvent(arg__1)
+
+        # Only call focusWithTextSelection for tab focus, because mousePressEvent will capture select on mousee click focus
+        # mousePressEvent is fired after focusInEvent, and the click event in mousePressEvent clears the selection if we call focusWithTextSelection here
+        # We can call focusWithTextSelection here and set self.was_focused because you can only focus onto the same widget with a tab once, pressing tab again moves the focus away
+        if arg__1.reason() in [ Qt.FocusReason.TabFocusReason, Qt.FocusReason.OtherFocusReason ]:
+            self.focusWithTextSelection()
+
+    def mousePressEvent(self, arg__1):
+        super().mousePressEvent(arg__1)
+        self.focusWithTextSelection()
+
+    def focusWithTextSelection(self):
+        if not self.was_focused:
+            self.selectAll()
+            self.was_focused = True
 
 
 class PupguiShortcutDialog(QObject):
@@ -43,6 +80,7 @@ class PupguiShortcutDialog(QObject):
 
     def setup_ui(self):
         self.ui.tableShortcuts.setHorizontalHeaderLabels([self.tr('App Name'), self.tr('Executable'), self.tr('Start Directory'), self.tr('Icon')])
+        self.ui.tableShortcuts.setColumnWidth(0, 350)
 
         self.ui.btnSave.clicked.connect(self.btn_save_clicked)
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
@@ -51,10 +89,20 @@ class PupguiShortcutDialog(QObject):
         self.ui.searchBox.textChanged.connect(self.search_shortcuts)
 
     def prepare_table_row(self, i: int, shortcut: SteamApp):
-        txt_name = QLineEdit(shortcut.game_name)
-        txt_exe = QLineEdit(shortcut.shortcut_exe)
-        txt_path = QLineEdit(shortcut.shortcut_startdir)
-        txt_icon = QLineEdit(shortcut.shortcut_icon)
+        txt_name = ShortcutDialogLineEdit(shortcut.game_name, default_cursor_position=0)
+        txt_exe = ShortcutDialogLineEdit(shortcut.shortcut_exe)
+        txt_path = ShortcutDialogLineEdit(shortcut.shortcut_startdir)
+        txt_icon = ShortcutDialogLineEdit(shortcut.shortcut_icon)
+
+        txt_name.setToolTip(shortcut.game_name)
+        txt_exe.setToolTip(shortcut.shortcut_exe)
+        txt_path.setToolTip(shortcut.shortcut_startdir)
+        txt_icon.setToolTip(shortcut.shortcut_icon)
+
+        txt_name.setPlaceholderText(shortcut.game_name)
+        txt_exe.setPlaceholderText(shortcut.shortcut_exe)
+        txt_path.setPlaceholderText(shortcut.shortcut_startdir)
+        txt_icon.setPlaceholderText(shortcut.shortcut_icon)
 
         txt_name.editingFinished.connect(lambda i=i: self.txt_changed(i, 0))
         txt_exe.editingFinished.connect(lambda i=i: self.txt_changed(i, 1))
@@ -120,6 +168,8 @@ class PupguiShortcutDialog(QObject):
                 cell_widget.setText(self.shortcuts[index].shortcut_startdir)
         elif col == 3:
             shortcut.shortcut_icon = text
+
+        self.ui.tableShortcuts.cellWidget(index, col).setToolTip(text or self.ui.tableShortcuts.cellWidget(index, col).placeholderText())
 
     def btn_save_clicked(self):
         # remove all shortcuts that have no name or executable
