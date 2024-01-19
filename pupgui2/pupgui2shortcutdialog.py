@@ -225,9 +225,9 @@ class PupguiShortcutDialog(QObject):
     def search_shortcuts(self, text):
         """ Search based on the shortcut name text (App Name on Row 0) in the QLineEdit widget on each row """
         for row in range(self.ui.tableShortcuts.rowCount()):
-            if type(row_widget_name := self.ui.tableShortcuts.cellWidget(row, 0)) is not QLineEdit:
+            if type(row_widget_name := self.ui.tableShortcuts.cellWidget(row, 0)) is not ShortcutDialogLineEdit:
                 continue
-            if type(row_widget_exe := self.ui.tableShortcuts.cellWidget(row, 1)) is not QLineEdit:
+            if type(row_widget_exe := self.ui.tableShortcuts.cellWidget(row, 1)) is not ShortcutDialogLineEdit:
                 row_widget_exe = None
             search_text_in_name = text.lower() in row_widget_name.text().lower()
             search_text_in_exe = text.lower() in row_widget_exe.text().lower() if row_widget_exe else False
