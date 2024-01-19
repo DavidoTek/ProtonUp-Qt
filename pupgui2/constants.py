@@ -6,7 +6,7 @@ from PySide6.QtGui import QColor, QPalette
 
 
 APP_NAME = 'ProtonUp-Qt'
-APP_VERSION = '2.8.2'
+APP_VERSION = '2.9.1'
 APP_ID = 'net.davidotek.pupgui2'
 APP_THEMES = ( 'light', 'dark', 'system', 'steam', None )
 APP_ICON_FILE = os.path.join(xdg_config_home, 'pupgui/appicon256.png')
@@ -86,7 +86,6 @@ PROTONDB_API_URL = 'https://www.protondb.com/api/v1/reports/summaries/{game_id}.
 PROTONDB_APP_PAGE_URL = 'https://protondb.com/app/'
 
 STEAM_BOXTRON_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Boxtron'
-STEAM_PROTONGE_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Proton-GE'
 STEAM_STL_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.Utility.steamtinkerlaunch'
 
 STEAM_STL_INSTALL_PATH = os.path.join(HOME_DIR, 'stl')
@@ -110,3 +109,10 @@ GITLAB_API_RATELIMIT_TEXT = [
     'Rate limit exceeded',
     'Retry later'
 ]
+
+PROTON_NEXT_APPID = 2230260
+PROTON_EAC_RUNTIME_APPID = 1826330
+PROTON_BATTLEYE_RUNTIME_APPID = 1161040
+STEAMLINUXRUNTIME_APPID = 1070560
+STEAMLINUXRUNTIME_SOLDIER_APPID = 1391110
+STEAMLINUXRUNTIME_SNIPER_APPID = 1628350

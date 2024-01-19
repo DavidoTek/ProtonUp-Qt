@@ -6,6 +6,8 @@ import json
 from enum import Enum
 from typing import Dict
 
+from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, STEAMLINUXRUNTIME_APPID
+
 
 class SteamDeckCompatEnum(Enum):
     UNKNOWN = 0
@@ -21,6 +23,12 @@ class AWACYStatus(Enum):
     PLANNED = 6
     RUNNING = 7
     BROKEN = 8
+
+
+class RuntimeType(Enum):
+    EAC = PROTON_EAC_RUNTIME_APPID  # ProtonEasyAntiCheatRuntime
+    BATTLEYE = PROTON_BATTLEYE_RUNTIME_APPID  # ProtonBattlEyeRuntime
+    STEAMLINUXRUNTIME = STEAMLINUXRUNTIME_APPID  # Steam Linux Runtime 1.0 (scout)
 
 
 class CTType(Enum):
@@ -79,6 +87,7 @@ class SteamApp:
     ctool_from_oslist = ''
     awacy_status = AWACYStatus.UNKNOWN  # areweanticheatyet.com Status
     protondb_summary = {}  # protondb status summary from JSON file
+    anticheat_runtimes = { RuntimeType.EAC: False, RuntimeType.BATTLEYE: False }  # Dict of boolean values for which anti-cheat runtime are in use
 
     def get_app_id_str(self) -> str:
         return str(self.app_id)
@@ -106,6 +115,7 @@ class BasicCompatTool:
     install_dir = ''
     install_folder = ''
     ct_type = CTType.UNKNOWN
+    is_global = False
 
     def __init__(self, displayname, install_dir, install_folder, ct_type = CTType.UNKNOWN) -> None:
         self.displayname = displayname
@@ -116,13 +126,21 @@ class BasicCompatTool:
     def set_version(self, ver : str) -> None:
         self.version = ver
 
-    def get_displayname(self, unused_tr='unused') -> str:
+    def set_global(self, is_global: bool = True):
+        self.is_global = is_global
+
+    def get_displayname(self, unused_tr='unused', global_tr='global') -> str:
         """ Returns the display name, e.g. GE-Proton7-17 or luxtorpeda v57 """
         displayname = self.displayname
         if self.version != '':
             displayname += f' {self.version}'
-        if self.no_games == 0:
+
+        # Don't mark global tools as unused
+        if self.is_global:
+            displayname += f' ({global_tr})'
+        elif self.no_games == 0:
             displayname += f' ({unused_tr})'
+
         return displayname
 
     def get_internal_name(self) -> str:

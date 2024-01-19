@@ -9,6 +9,7 @@ import requests
 import zipfile
 import tarfile
 import pkgutil
+import random
 
 import zstandard
 
@@ -22,7 +23,7 @@ from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBo
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, PALETTE_STEAMUI, TEMP_DIR
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
-from pupgui2.datastructures import BasicCompatTool, CTType, Launcher
+from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
 from pupgui2.steamutil import remove_steamtinkerlaunch
 
 
@@ -556,8 +557,6 @@ def fetch_project_releases(releases_url: str, rs: requests.Session, count=100) -
     """
     releases_api_url: str = f'{releases_url}?per_page={str(count)}'
 
-    print(rs.headers)
-
     releases: dict = {}
     tag_key: str = ''
     if GITHUB_API in releases_url:
@@ -836,24 +835,45 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
         return Launcher.UNKNOWN
 
 
-def create_missing_dependencies_message(ct_name: str, dependencies: List) -> Tuple[str, bool]:
+def create_missing_dependencies_message(ct_name: str, dependencies: List[str]) -> Tuple[str, bool]:
 
     """
     Generate a string message noting which dependencies are missing for a ctmod_name, with tr_context to translate relevant strings.
     Return the string message and a boolean to note whether the dependencies were met or not.
 
-    Return Type: str, bool
+    Return Type: Tuple[str, bool]
     """
-
-    tr_missing = QCoreApplication.instance().translate('util.py', 'missing')
-    tr_found = QCoreApplication.instance().translate('util.py', 'found')
 
     deps_found = [ host_which(dep) for dep in dependencies ]
 
     if all(deps_found):
         return '', True
-    msg = QCoreApplication.instance().translate('util.py', 'You need {DEPS} for {CT_NAME}.'.format(DEPS=', '.join(dependencies), CT_NAME=ct_name)) + '\n\n'
-    msg += '\n'.join(f'{dep_name}: {tr_missing if not deps_found[i] else tr_found}' for i, dep_name in enumerate(dependencies))
-    msg += '\n\n' + QCoreApplication.instance().translate('util.py', 'Will continue installing {CT_NAME} anyway.'.format(CT_NAME=ct_name))
 
-    return msg, False
+    tr_missing = QCoreApplication.instance().translate('util.py', 'missing')
+    tr_found = QCoreApplication.instance().translate('util.py', 'found')
+    tr_raw_msg = QCoreApplication.instance().translate('util.py', 'You need following dependencies for {CT_NAME}:\n\n{DEP_ENUM}\n\nWill continue the installation anyway.')
+
+    tr_msg = tr_raw_msg.format(
+        CT_NAME=ct_name,
+        DEP_ENUM='\n'.join(f'{dep_name}: {tr_missing if not deps_found[i] else tr_found}' for i, dep_name in enumerate(dependencies))
+    )
+
+    return tr_msg, False
+
+
+def get_random_game_name(games: List[Union[SteamApp, LutrisGame, HeroicGame]]) -> str:
+    """ Return a random game name from list of SteamApp, LutrisGame, or HeroicGame """
+
+    if len(games) <= 0:
+        return ''
+    
+    tooltip_game_name = ''
+    random_game = random.choice(games)
+    if type(random_game) is SteamApp:
+        tooltip_game_name = random_game.game_name
+    elif type(random_game) is LutrisGame:
+        tooltip_game_name = random_game.name
+    elif type(random_game) is HeroicGame:
+        tooltip_game_name = random_game.title
+    
+    return tooltip_game_name

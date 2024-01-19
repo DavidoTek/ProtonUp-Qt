@@ -1,4 +1,3 @@
-import os
 import pkgutil
 from collections import Counter
 
@@ -49,6 +48,7 @@ class PupguiShortcutDialog(QObject):
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
         self.ui.btnAdd.clicked.connect(self.btn_add_clicked)
         self.ui.btnRemove.clicked.connect(self.btn_remove_clicked)
+        self.ui.searchBox.textChanged.connect(self.search_shortcuts)
 
     def prepare_table_row(self, i: int, shortcut: SteamApp):
         txt_name = QLineEdit(shortcut.game_name)
@@ -91,32 +91,35 @@ class PupguiShortcutDialog(QObject):
         Returns:
             None
         """
-        text = self.ui.tableShortcuts.cellWidget(index, col).text()
+
+        cell_widget = self.ui.tableShortcuts.cellWidget(index, col)
+        text = cell_widget.text()
+        shortcut = self.shortcuts[index]
 
         if col == 0:
-            self.shortcuts[index].game_name = text
+            shortcut.game_name = text
         elif col == 1:
             if host_path_exists(text.replace('"', '', 2), is_file=True):
                 if not text.startswith('"'):
                     text = '"' + text
                 if not text.endswith('"'):
                     text = text + '"'
-                self.ui.tableShortcuts.cellWidget(index, col).setText(text)
-                self.shortcuts[index].shortcut_exe = text
+                cell_widget.setText(text)
+                shortcut.shortcut_exe = text
             else:
-                self.ui.tableShortcuts.cellWidget(index, col).setText(self.shortcuts[index].shortcut_exe)
+                cell_widget.setText(self.shortcuts[index].shortcut_exe)
         elif col == 2:
             if host_path_exists(text.replace('"', '', 2), is_file=False):
                 if not text.startswith('"'):
                     text = '"' + text
                 if not text.endswith('"'):
                     text = text + '"'
-                self.ui.tableShortcuts.cellWidget(index, col).setText(text)
-                self.shortcuts[index].shortcut_startdir = text
+                cell_widget.setText(text)
+                shortcut.shortcut_startdir = text
             else:
-                self.ui.tableShortcuts.cellWidget(index, col).setText(self.shortcuts[index].shortcut_startdir)
+                cell_widget.setText(self.shortcuts[index].shortcut_startdir)
         elif col == 3:
-            self.shortcuts[index].shortcut_icon = text
+            shortcut.shortcut_icon = text
 
     def btn_save_clicked(self):
         # remove all shortcuts that have no name or executable
@@ -168,3 +171,15 @@ class PupguiShortcutDialog(QObject):
                 if sid not in self.discarded_shortcuts:
                     self.discarded_shortcuts.append(sid)
                 self.ui.tableShortcuts.cellWidget(i, 0).setStyleSheet('QLineEdit { color: red; }')
+
+    def search_shortcuts(self, text):
+        """ Search based on the shortcut name text (App Name on Row 0) in the QLineEdit widget on each row """
+        for row in range(self.ui.tableShortcuts.rowCount()):
+            if type(row_widget_name := self.ui.tableShortcuts.cellWidget(row, 0)) is not QLineEdit:
+                continue
+            if type(row_widget_exe := self.ui.tableShortcuts.cellWidget(row, 1)) is not QLineEdit:
+                row_widget_exe = None
+            search_text_in_name = text.lower() in row_widget_name.text().lower()
+            search_text_in_exe = text.lower() in row_widget_exe.text().lower() if row_widget_exe else False
+            should_hide: bool = not (search_text_in_name or search_text_in_exe)
+            self.ui.tableShortcuts.setRowHidden(row, should_hide)
