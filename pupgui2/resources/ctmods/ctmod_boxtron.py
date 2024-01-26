@@ -21,7 +21,7 @@ class CtInstaller(LuxtorpedaInstaller):
     def __init__(self, main_window = None):
         super().__init__(main_window)
         self.extract_dir_name = 'boxtron'
-        self.deps = [ 'doxbox', 'inotifywait', 'timidity' ]
+        self.deps = [ 'dosbox', 'inotifywait', 'timidity' ]
 
     def is_system_compatible(self) -> bool:
         """
