@@ -74,7 +74,6 @@ class PupguiCtInfoDialog(QObject):
             self.ui.listGames.setEnabled(False)
 
         self.update_game_list_ui()
-        self.batch_update_complete.emit(True)
 
     def update_game_list_steam(self, cached=True):
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
@@ -136,7 +135,7 @@ class PupguiCtInfoDialog(QObject):
     def btn_batch_update_clicked(self):
         steam_config_folder = self.install_loc.get('vdf_dir')
         ctbu_dialog = PupguiCtBatchUpdateDialog(parent=self.ui, current_ctool_name=self.ctool.displayname, games=self.games, steam_config_folder=steam_config_folder)
-        ctbu_dialog.batch_update_complete.connect(lambda: self.update_game_list(cached=False))
+        ctbu_dialog.batch_update_complete.connect(self.btn_refresh_games_clicked)
 
     def btn_refresh_games_clicked(self):
         self.update_game_list(cached=False)
