@@ -811,8 +811,7 @@ def set_global_compat_tool(ctool: BasicCompatTool, steam_config_folder):
             else:
                 c['0']['name'] = ctool.get_internal_name()
 
-            # Unsure if this will work
-            # vdf.dump(d, open(config_vdf_file, 'w'), pretty=True)
+            vdf.dump(d, open(config_vdf_file, 'w'), pretty=True)
         except Exception as e:
             print(f'Error, could not update Global Steam compatibility tool to {ctool.displayname}: {e}, vdf: {config_vdf_file}')
             return False
