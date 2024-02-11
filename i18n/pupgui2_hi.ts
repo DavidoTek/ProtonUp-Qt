@@ -255,12 +255,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>light</source>
-        <translation>हल्का</translation>
+        <translation>हल्की</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>dark</source>
-        <translation>गहरा</translation>
+        <translation>गहरी</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
@@ -326,7 +326,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="150"/>
         <source>Check for updates</source>
-        <translation>अपडेट के लिए जाँच</translation>
+        <translation>अपडेट के लिए जाँच करें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
@@ -338,7 +338,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="174"/>
         <source>Add Steam shortcut</source>
-        <translation>स्टीम शॉर्टकट जोड़ें</translation>
+        <translation>Steam शॉर्टकट जोड़ें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="181"/>
@@ -858,7 +858,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>Search for a game...</source>
-        <translation>कोई गेम खोजें..।</translation>
+        <translation>कोई गेम खोजें…</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
@@ -1113,9 +1113,9 @@ Reinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation fold
 You may also choose to remove your existing installation, if ProtonUp-Qt has write access to this folder. Do you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)</source>
         <translation>ऐसा लगता है कि आपके पास &apos;{EXTERNAL_INSTALL_PATH}&apos; पर मौजूदा SteamTinkerLaunch इंस्टॉलेशन है जो ProtonUp-Qt द्वारा इंस्टॉल नहीं किया गया था।
 
-ProtonUp-Qt के साथ SteamTinkerLaunch को पुनः इंस्टॉल करने से आपका इंस्टॉलेशन फ़ोल्डर &apos;{STL_INSTALL_PATH}&apos; में चला जाएगा।
+ProtonUp-Qt के साथ SteamTinkerLaunch को पुनः इंस्टॉल करने से आपका इंस्टॉलेशन फोल्डर &apos;{STL_INSTALL_PATH}&apos; में चला जाएगा।
 
-यदि ProtonUp-Qt के पास इस फ़ोल्डर तक लिखने की पहुंच है, तो आप अपने मौजूदा इंस्टॉलेशन को हटाना भी चुन सकते हैं। क्या आप SteamTinkerLaunch इंस्टॉल करना जारी रखना चाहते हैं? (यह किसी भी मौजूदा SteamTinkerLaunch कॉन्फ़िगरेशन को प्रभावित नहीं करेगा।)</translation>
+यदि ProtonUp-Qt के पास इस फोल्डर तक लिखने की पहुंच है, तो आप अपने मौजूदा इंस्टॉलेशन को हटाना भी चुन सकते हैं। क्या आप SteamTinkerLaunch इंस्टॉल करना जारी रखना चाहते हैं? (यह किसी भी मौजूदा SteamTinkerLaunch कॉन्फ़िगरेशन को प्रभावित नहीं करेगा।)</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="241"/>
