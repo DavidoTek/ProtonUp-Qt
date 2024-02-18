@@ -404,7 +404,7 @@ class PupguiGameListDialog(QObject):
             awacy_icon = 'awacy_broken.png'
         elif game.awacy_status == AWACYStatus.DENIED:
             awacy_status = self.tr('Linux support was explicitly denied')
-            awacy_status = 'awacy_denied.png'
+            awacy_icon = 'awacy_denied.png'
         else:
             awacy_status = self.tr('Anti-Cheat status unknown')
             awacy_icon = 'awacy_unknown.png'
