@@ -26,7 +26,7 @@ HOME_DIR = os.path.expanduser('~')
 # support different Steam root directories
 # valid install dir should have config.vdf and libraryfolders.vdf, to ensure it is not an unused folder with correct directory structure
 _POSSIBLE_STEAM_ROOTS = ['~/.local/share/Steam', '~/.steam/root', '~/.steam/steam', '~/.steam/debian-installation']
-_STEAM_ROOT = _POSSIBLE_STEAM_ROOTS[0]
+_STEAM_ROOT = _POSSIBLE_STEAM_ROOTS[0]  # Default to '~/.local/share/Steam', but this is not guaranteed to exist
 for steam_root in _POSSIBLE_STEAM_ROOTS:
     ct_dir = os.path.join(os.path.expanduser(steam_root), 'config')
     config_vdf = os.path.join(ct_dir, 'config.vdf')
