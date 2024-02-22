@@ -4,6 +4,7 @@ from collections import Counter
 from PySide6.QtCore import Qt, QObject, Signal, QDataStream, QByteArray
 from PySide6.QtWidgets import QLineEdit
 from PySide6.QtUiTools import QUiLoader
+from PySide6.QtGui import QKeySequence, QShortcut
 
 from pupgui2.datastructures import SteamApp
 from pupgui2.steamutil import calc_shortcut_app_id, get_steam_user_list, determine_most_recent_steam_user
@@ -87,6 +88,10 @@ class PupguiShortcutDialog(QObject):
         self.ui.btnAdd.clicked.connect(self.btn_add_clicked)
         self.ui.btnRemove.clicked.connect(self.btn_remove_clicked)
         self.ui.searchBox.textChanged.connect(self.search_shortcuts)
+
+        # Keyboard Shortcuts
+        QShortcut(QKeySequence.Save, self.ui).activated.connect(self.btn_save_clicked)
+        QShortcut(QKeySequence.Find, self.ui).activated.connect(lambda: self.ui.searchBox.setFocus())
 
     def prepare_table_row(self, i: int, shortcut: SteamApp):
         txt_name = ShortcutDialogLineEdit(shortcut.game_name, default_cursor_position=0)
