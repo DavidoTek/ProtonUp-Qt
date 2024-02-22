@@ -7,25 +7,21 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v1
     
     - name: Install required dependencies
-      run: sudo apt install -y gtk-update-icon-cache python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse
+      run: sudo apt install -y binutils coreutils desktop-file-utils fakeroot fuse libgdk-pixbuf2.0-dev patchelf python3-pip python3-setuptools squashfs-tools strace util-linux zsync
     
     - name: Download AppImageBuilder etc.
       run: |
-        mkdir -p ~/.local/bin
-        wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O ~/.local/bin/appimagetool
-        chmod +x ~/.local/bin/appimagetool
         pip3 install appimage-builder
     
     - name: Build AppImage
       run: |
         sed -i "s/BUILD_INFO = .*/BUILD_INFO = 'Official AppImage by DavidoTek'/" pupgui2/constants.py
-        sed -i "s/PySide6.*/PySide6==6.2.4/" requirements.txt
         appimage-builder
 
     - name: Upload AppImage

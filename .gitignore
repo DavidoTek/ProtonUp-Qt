@@ -131,3 +131,4 @@ dmypy.json
 *.AppImage.zsync
 AppDir/
 appimage-builder-cache/
+appimage-build/
