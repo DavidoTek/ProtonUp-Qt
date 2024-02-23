@@ -59,7 +59,7 @@ class PupguiAboutDialog(QObject):
 
         self.ui.btnGitHub.clicked.connect(lambda: open_webbrowser_thread(PROTONUPQT_GITHUB_URL))
 
-        self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)')])
+        self.ui.comboColorTheme.addItems([self.tr('light'), self.tr('dark'), self.tr('system (restart required)'), 'Steam Deck'])
         self.ui.comboColorTheme.setCurrentIndex(APP_THEMES.index(config_theme()) if config_theme() in APP_THEMES else (len(APP_THEMES) - 1))
 
         self.ui.btnClose.clicked.connect(lambda: self.ui.close())
