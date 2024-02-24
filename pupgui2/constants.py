@@ -24,23 +24,26 @@ TEMP_DIR = os.path.join(os.getenv('XDG_CACHE_HOME'), 'tmp', 'pupgui2.a70200/') i
 HOME_DIR = os.path.expanduser('~')
 
 # support different Steam root directories, building paths relative to HOME_DIR (i.e. /home/gaben/.local/share/Steam)
+# Use os.path.realpath to expand all _STEAM_ROOT paths
 _POSSIBLE_STEAM_ROOTS = [
-    os.path.join(HOME_DIR, _STEAM_ROOT) for _STEAM_ROOT in ['.local/share/Steam', '.steam/root', '.steam/steam', '.steam/debian-installation']
+    os.path.realpath(os.path.join(HOME_DIR, _STEAM_ROOT)) for _STEAM_ROOT in ['.local/share/Steam', '.steam/root', '.steam/steam', '.steam/debian-installation']
 ]
+
+# Remove duplicate paths while preserving order, as os.path.realpath may expand some symlinks to the real Steam root
+_POSSIBLE_STEAM_ROOTS = list(dict.fromkeys(_POSSIBLE_STEAM_ROOTS))
 
 # Steam can be installled in any of the locations at '_POSSIBLE_STEAM_ROOTS' - usually only one, and the others (if they exist) are typically symlinks,
 # i.e. '~/.steam/root' is usually a symlink to '~/.local/share/Steam'
-# Use os.path.realpath to expand all _STEAM_ROOT paths and only add unique _STEAM_ROOT paths
 # These paths may still not be valid installations however, as they could be leftother paths from an old Steam installation without the data files we need ('config.vdf' and 'libraryfolders.vdf')
 # We catch this later on in util#is_valid_launcher_installation though
 POSSIBLE_INSTALL_LOCATIONS = [
         {
-            'install_dir': f'{os.path.realpath(_STEAM_ROOT)}/compatibilitytools.d/',
+            'install_dir': f'{os.path.join(_STEAM_ROOT, "compatibility_tools.d")}',
             'display_name': 'Steam',
             'launcher': 'steam',
             'type': 'native',
             'icon': 'steam',
-            'vdf_dir': f'{os.path.realpath(_STEAM_ROOT)}/config'
+            'vdf_dir': f'{os.path.join(_STEAM_ROOT, "config")}'
         } for _STEAM_ROOT in _POSSIBLE_STEAM_ROOTS if os.path.exists(os.path.realpath(_STEAM_ROOT))
 ]
 
