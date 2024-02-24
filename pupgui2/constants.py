@@ -23,20 +23,29 @@ CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')
 TEMP_DIR = os.path.join(os.getenv('XDG_CACHE_HOME'), 'tmp', 'pupgui2.a70200/') if os.path.exists(os.getenv('XDG_CACHE_HOME', '')) else '/tmp/pupgui2.a70200/'
 HOME_DIR = os.path.expanduser('~')
 
-# support different Steam root directories
-# valid install dir should have config.vdf and libraryfolders.vdf, to ensure it is not an unused folder with correct directory structure
-_POSSIBLE_STEAM_ROOTS = ['~/.local/share/Steam', '~/.steam/root', '~/.steam/steam', '~/.steam/debian-installation']
-_STEAM_ROOT = _POSSIBLE_STEAM_ROOTS[0]  # Default to '~/.local/share/Steam', but this is not guaranteed to exist
-for steam_root in _POSSIBLE_STEAM_ROOTS:
-    ct_dir = os.path.join(os.path.expanduser(steam_root), 'config')
-    config_vdf = os.path.join(ct_dir, 'config.vdf')
-    libraryfolders_vdf = os.path.join(ct_dir, 'libraryfolders.vdf')
-    if os.path.exists(config_vdf) and os.path.exists(libraryfolders_vdf):
-        _STEAM_ROOT = steam_root
-        break
+# support different Steam root directories, building paths relative to HOME_DIR (i.e. /home/gaben/.local/share/Steam)
+_POSSIBLE_STEAM_ROOTS = [
+    os.path.join(HOME_DIR, _STEAM_ROOT) for _STEAM_ROOT in ['.local/share/Steam', '.steam/root', '.steam/steam', '.steam/debian-installation']
+]
 
+# Steam can be installled in any of the locations at '_POSSIBLE_STEAM_ROOTS' - usually only one, and the others (if they exist) are typically symlinks,
+# i.e. '~/.steam/root' is usually a symlink to '~/.local/share/Steam'
+# Use os.path.realpath to expand all _STEAM_ROOT paths and only add unique _STEAM_ROOT paths
+# These paths may still not be valid installations however, as they could be leftother paths from an old Steam installation without the data files we need ('config.vdf' and 'libraryfolders.vdf')
+# We catch this later on in util#is_valid_launcher_installation though
 POSSIBLE_INSTALL_LOCATIONS = [
-    {'install_dir': f'{_STEAM_ROOT}/compatibilitytools.d/', 'display_name': 'Steam', 'launcher': 'steam', 'type': 'native', 'icon': 'steam', 'vdf_dir': f'{_STEAM_ROOT}/config'},
+        {
+            'install_dir': f'{os.path.realpath(_STEAM_ROOT)}/compatibilitytools.d/',
+            'display_name': 'Steam',
+            'launcher': 'steam',
+            'type': 'native',
+            'icon': 'steam',
+            'vdf_dir': f'{os.path.realpath(_STEAM_ROOT)}/config'
+        } for _STEAM_ROOT in _POSSIBLE_STEAM_ROOTS if os.path.exists(os.path.realpath(_STEAM_ROOT))
+]
+
+# Possible install locations for all other launchers, ensuring Steam paths are at the top of the list
+POSSIBLE_INSTALL_LOCATIONS += [
     {'install_dir': '~/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/', 'display_name': 'Steam Flatpak', 'launcher': 'steam', 'type': 'flatpak', 'icon': 'steam', 'vdf_dir': '~/.var/app/com.valvesoftware.Steam/.local/share/Steam/config'},
     {'install_dir': '~/snap/steam/common/.steam/root/compatibilitytools.d/', 'display_name': 'Steam Snap', 'launcher': 'steam', 'type': 'snap', 'icon': 'steam', 'vdf_dir': '~/snap/steam/common/.steam/root/config'},
     {'install_dir': '~/.local/share/lutris/runners/wine/', 'display_name': 'Lutris', 'launcher': 'lutris', 'type': 'native', 'icon': 'lutris', 'config_dir': '~/.config/lutris'},

@@ -223,10 +223,12 @@ def available_install_directories() -> List[str]:
     available_dirs = []
     for loc in POSSIBLE_INSTALL_LOCATIONS:
         install_dir = os.path.expanduser(loc['install_dir'])
-        if is_valid_launcher_installation(loc):
+        # POSSIBLE_INSTALL_LOCATIONS may contain duplicate paths, so only add unique paths to available_dirs
+        # This avoids adding symlinked Steam paths
+        if is_valid_launcher_installation(loc) and not install_dir in available_dirs:
             available_dirs.append(install_dir)
     install_dir = config_custom_install_location().get('install_dir')
-    if install_dir and os.path.exists(install_dir):
+    if install_dir and os.path.exists(install_dir) and not install_dir in available_dirs:
         available_dirs.append(install_dir)
     return available_dirs
 
