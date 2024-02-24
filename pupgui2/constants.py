@@ -38,13 +38,13 @@ _POSSIBLE_STEAM_ROOTS = list(dict.fromkeys(_POSSIBLE_STEAM_ROOTS))
 # We catch this later on in util#is_valid_launcher_installation though
 POSSIBLE_INSTALL_LOCATIONS = [
         {
-            'install_dir': f'{os.path.join(_STEAM_ROOT, "compatibility_tools.d")}',
+            'install_dir': f'{_STEAM_ROOT}/compatibilitytools.d/',
             'display_name': 'Steam',
             'launcher': 'steam',
             'type': 'native',
             'icon': 'steam',
-            'vdf_dir': f'{os.path.join(_STEAM_ROOT, "config")}'
-        } for _STEAM_ROOT in _POSSIBLE_STEAM_ROOTS if os.path.exists(os.path.realpath(_STEAM_ROOT))
+            'vdf_dir': f'{_STEAM_ROOT}/config'
+        } for _STEAM_ROOT in _POSSIBLE_STEAM_ROOTS if os.path.exists(_STEAM_ROOT)
 ]
 
 # Possible install locations for all other launchers, ensuring Steam paths are at the top of the list
