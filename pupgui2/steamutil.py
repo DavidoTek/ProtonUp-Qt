@@ -801,7 +801,6 @@ def is_valid_steam_install(steam_path) -> bool:
     Return Type: bool
     """
 
-    # Identical to the check we do in constants.py to determine the Steam root
     ct_dir = os.path.join(os.path.expanduser(steam_path), 'config')
 
     config_vdf = os.path.join(ct_dir, 'config.vdf')
