@@ -234,22 +234,22 @@ Cancel and exit anyway?</source>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="26"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="107"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>大量更新</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="44"/>
         <source>Migrate games using the current compatibility tool to the one specified below.</source>
-        <translation type="unfinished"></translation>
+        <translation>使用目前相容性工具將遊戲移轉到下面指定的工具。</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="56"/>
         <source>New Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>新版本：</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="73"/>
         <source>Old Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>舊版本：</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
@@ -376,12 +376,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="47"/>
         <source>No supported compatibility tools found.</source>
-        <translation type="unfinished"></translation>
+        <translation>找不到支援的相容性工具。</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="49"/>
         <source>Warning: Close the Steam Client beforehand.</source>
-        <translation type="unfinished"></translation>
+        <translation>警告：請先關閉 Steam 用戶端。</translation>
     </message>
 </context>
 <context>
@@ -428,12 +428,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation type="unfinished"></translation>
+        <translation>沒有遊戲</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>大量更新</translation>
     </message>
     <message>
         <source>Batch update</source>
@@ -488,7 +488,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="153"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>例如：{遊戲名稱}</translation>
     </message>
 </context>
 <context>
@@ -600,7 +600,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="259"/>
         <source>Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>瀏覽器</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
@@ -690,12 +690,12 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="269"/>
         <source>Double-click to open in browser</source>
-        <translation type="unfinished"></translation>
+        <translation>雙擊在瀏覽器中開啟</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="305"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>例如：{遊戲名稱}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="398"/>
@@ -759,7 +759,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="105"/>
         <source>Shortcut Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>捷徑編輯器</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="285"/>
@@ -816,32 +816,32 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
         <source>App Name</source>
-        <translation type="unfinished"></translation>
+        <translation>程式名稱</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
         <source>Executable</source>
-        <translation type="unfinished"></translation>
+        <translation>執行檔</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
         <source>Start Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>開啟目錄</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
         <source>Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>圖示</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="14"/>
         <source>Steam Shortcut Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Steam 捷徑編輯器</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="54"/>
         <source>Add a new shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>新增捷徑</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="57"/>
@@ -861,7 +861,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>例如：ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
@@ -871,7 +871,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
         <source>Save changes and delete marked shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>儲存變更並刪除標記的捷徑</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
@@ -881,7 +881,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="94"/>
         <source>Close without saving changes or deleting shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>關閉而不儲存變更或刪除捷徑</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
@@ -974,7 +974,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="19"/>
         <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/R2NorthstarTools/NorthstarProton&quot;&gt;https://github.com/R2NorthstarTools/NorthstarProton&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Proton 基於 TKG 的 proton-tkg 實現，用於執行 Northstar 客戶端 和 TitanFall 2。作者：cyrv6737。&lt;br&gt;&lt;br&gt;&lt;b style=&quot;color:orange;&quot;&gt;在繼續之前請閱讀以下內容&amp;lt; /b&amp;gt;：&amp;lt; br/&amp;gt;&lt;a href=&quot;https://github.com/R2NorthstarTools/NorthstarProton&quot;&gt;https://github.com/R2NorthstarTools/NorthstarProton&lt;/a&gt;&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1253,7 +1253,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>基於 Vulkan 的 Direct3D 9、10 和 11 的 Linux/Wine 實現，附帶 Ph42oN 的 gplasync 補丁。&lt;br&gt;&lt;br&gt;&lt;b&gt;警告：僅適用於單人遊戲！&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1325,12 +1325,12 @@ See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 
     <message>
         <location filename="../pupgui2/util.py" line="516"/>
         <source>Warning: GitLab API rate limit exceeded!</source>
-        <translation type="unfinished"></translation>
+        <translation>警告：超出 GitLab API 速率限制！</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="517"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
-        <translation type="unfinished"></translation>
+        <translation>超出 GitLab API 速率限制。您可能需要等待一段時間，或（如果有的話）為此 GitLab 實例產生特定的 GitLab API 金鑰。</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="848"/>

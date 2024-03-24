@@ -22,10 +22,10 @@
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation>Impossible de charger les outils de compatibilité suivants&#x202f;:
+        <translation>Impossible de charger les outils de compatibilité suivants :
 {TOO_LIST}
 
-Si vous pensez que c&apos;est une erreur, merci de rapporter le bug sur GitHub&#x202f;!</translation>
+Si vous pensez que c&apos;est une erreur, merci de rapporter le bug sur GitHub !</translation>
     </message>
 </context>
 <context>
@@ -43,7 +43,7 @@ Si vous pensez que c&apos;est une erreur, merci de rapporter le bug sur GitHub&#
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
         <source>Unused: {unused_ctools}</source>
-        <translation>Inutilisé&#x202f;: {unused_ctools}</translation>
+        <translation>Inutilisé : {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="297"/>
@@ -83,14 +83,14 @@ Si vous pensez que c&apos;est une erreur, merci de rapporter le bug sur GitHub&#
     <message>
         <location filename="../pupgui2/pupgui2.py" line="348"/>
         <source>Remove compatibility tools?</source>
-        <translation>Supprimer l&apos;outil de compatibilité&#x202f;?</translation>
+        <translation>Supprimer l&apos;outil de compatibilité ?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="348"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>Nous essayons de supprimer l&apos;outils de compatibilité
-qui est utilisé par {n} jeux. Continuer&#x202f;?</translation>
+qui est utilisé par {n} jeux. Continuer ?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="355"/>
@@ -100,14 +100,14 @@ qui est utilisé par {n} jeux. Continuer&#x202f;?</translation>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="369"/>
         <source>Exit?</source>
-        <translation>Quitter&#x202f;?</translation>
+        <translation>Quitter ?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="369"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
         <translation>Il y a des téléchargements en attente.
-Annuler et quitter&#x202f;?</translation>
+Annuler et quitter ?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="377"/>
@@ -403,7 +403,7 @@ Pour supprimer le raccourci, ouvrez Steam et sélectionner &quot;supprimer le je
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="43"/>
         <source>Game Launcher:</source>
-        <translation>Lanceur de jeu&#x202f;:</translation>
+        <translation>Lanceur de jeu :</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="60"/>
