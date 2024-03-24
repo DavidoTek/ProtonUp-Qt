@@ -23,7 +23,7 @@ from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_D
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
-from pupgui2.steamutil import remove_steamtinkerlaunch
+from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
 
 
 def create_msgbox(
@@ -196,6 +196,25 @@ def create_compatibilitytools_folder() -> None:
                 print(f'Error trying to create compatibility tools folder {str(install_dir)}: {str(e)}')
 
 
+def is_valid_launcher_installation(loc) -> bool:
+
+    """
+    Check whether a launcher installation is actually valid based on per-launcher criteria
+    Return Type: bool
+    """
+
+    install_dir = os.path.expanduser(loc['install_dir'])
+
+    # Right now we only check to make sure regular Steam (not Flatpak or Snap) has config.vdf and libraryfolders.vdf
+    # because Steam can leave behind its directory structure when uninstalled, but not these files.
+    #
+    # In future we could expand this to other Steam flavours and other launchers.
+    if loc['display_name'] == 'Steam':  # This seems to get called many times, why?
+        return is_valid_steam_install(os.path.realpath(os.path.join(install_dir, '..')))
+    
+    return os.path.exists(install_dir)  # Default to path check for all other launchers
+
+
 def available_install_directories() -> List[str]:
     """
     List available install directories
@@ -204,10 +223,11 @@ def available_install_directories() -> List[str]:
     available_dirs = []
     for loc in POSSIBLE_INSTALL_LOCATIONS:
         install_dir = os.path.expanduser(loc['install_dir'])
-        if os.path.exists(install_dir):
+        # only add unique paths to available_dirs
+        if is_valid_launcher_installation(loc) and not install_dir in available_dirs:
             available_dirs.append(install_dir)
     install_dir = config_custom_install_location().get('install_dir')
-    if install_dir and os.path.exists(install_dir):
+    if install_dir and os.path.exists(install_dir) and not install_dir in available_dirs:
         available_dirs.append(install_dir)
     return available_dirs
 

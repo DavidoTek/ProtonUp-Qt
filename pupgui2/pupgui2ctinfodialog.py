@@ -3,7 +3,7 @@ import os
 
 from pupgui2.constants import STEAM_APP_PAGE_URL
 from pupgui2.datastructures import BasicCompatTool, CTType, SteamApp, LutrisGame, HeroicGame
-from pupgui2.lutrisutil import get_lutris_game_list
+from pupgui2.lutrisutil import get_lutris_game_list, is_lutris_game_using_wine
 from pupgui2.pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
 from pupgui2.steamutil import get_steam_game_list, set_global_compat_tool
 from pupgui2.util import open_webbrowser_thread, get_random_game_name
@@ -96,7 +96,7 @@ class PupguiCtInfoDialog(QObject):
         self.batch_update_complete.emit(True)
 
     def update_game_list_lutris(self):
-        self.games = [game for game in get_lutris_game_list(self.install_loc) if game.runner == 'wine' and game.get_game_config().get('wine', {}).get('version') == self.ctool.displayname]
+        self.games = [game for game in get_lutris_game_list(self.install_loc) if is_lutris_game_using_wine(game, self.ctool.displayname)]
 
         self.setup_game_list(len(self.games), [self.tr('Slug'), self.tr('Name')])
 

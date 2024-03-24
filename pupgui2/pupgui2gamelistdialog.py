@@ -11,7 +11,7 @@ from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL
 from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum, LutrisGame, HeroicGame
-from pupgui2.lutrisutil import get_lutris_game_list
+from pupgui2.lutrisutil import get_lutris_game_list, is_lutris_game_using_runner
 from pupgui2.pupgui2shortcutdialog import PupguiShortcutDialog
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
@@ -175,7 +175,7 @@ class PupguiGameListDialog(QObject):
         """ update the game list for the Lutris launcher """
         # Filter blank runners and Steam games, because we can't change any compat tool options for Steam games via Lutris
         # Steam games can be seen from the Steam games list, so no need to duplicate it here
-        self.games = list(filter(lambda lutris_game: (lutris_game.runner is not None and lutris_game.runner != 'steam' and len(lutris_game.runner) > 0), get_lutris_game_list(self.install_loc)))
+        self.games = [game for game in get_lutris_game_list(self.install_loc) if not is_lutris_game_using_runner(game, 'steam')]
 
         self.ui.tableGames.setRowCount(len(self.games))
 
@@ -404,7 +404,7 @@ class PupguiGameListDialog(QObject):
             awacy_icon = 'awacy_broken.png'
         elif game.awacy_status == AWACYStatus.DENIED:
             awacy_status = self.tr('Linux support was explicitly denied')
-            awacy_status = 'awacy_denied.png'
+            awacy_icon = 'awacy_denied.png'
         else:
             awacy_status = self.tr('Anti-Cheat status unknown')
             awacy_icon = 'awacy_unknown.png'
