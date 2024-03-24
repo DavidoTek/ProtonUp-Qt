@@ -792,3 +792,20 @@ def determine_most_recent_steam_user(steam_users: List[SteamUser]) -> SteamUser:
 
     print('Warning: No Steam users found. Returning None')
     return None
+
+
+def is_valid_steam_install(steam_path) -> bool:
+
+    """
+    Return whether required Steam data files actually exist to determine if 'steam_path' is a valid Steam installation.
+    Return Type: bool
+    """
+
+    ct_dir = os.path.join(os.path.expanduser(steam_path), 'config')
+
+    config_vdf = os.path.join(ct_dir, 'config.vdf')
+    libraryfolders_vdf = os.path.join(ct_dir, 'libraryfolders.vdf')
+
+    is_valid_steam_install = os.path.exists(config_vdf) and os.path.exists(libraryfolders_vdf)
+
+    return is_valid_steam_install
