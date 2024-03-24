@@ -1,18 +1,18 @@
 version: 1
 script:
   - rm -rf AppDir  | true
-  - mkdir -p AppDir/usr/lib/python3.8/site-packages
-  - cp pupgui2 AppDir/usr/lib/python3.8/site-packages -r
+  - mkdir -p AppDir/usr/lib/python3.10/site-packages
+  - cp pupgui2 AppDir/usr/lib/python3.10/site-packages -r
   - cp share AppDir/usr -r
   - python3 -m pip install --ignore-installed --prefix=/usr --no-cache-dir --root=AppDir -r ./requirements.txt
-  - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/qml/
-  - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/examples/
-  - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/resources/
-  - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/translations/qtwebengine_locales/
-  - rm -f AppDir/usr/lib/python3.8/site-packages/PySide6/{assistant,designer,linguist,lrelease,lupdate}
-  - rm -f AppDir/usr/lib/python3.8/site-packages/PySide6/{Qt3D*,QtBluetooth*,QtCharts*,QtConcurrent*,QtDataVisualization*,QtDBus*,QtDesigner*,QtHelp*,QtMultimedia*,QtNetwork*,QtOpenGL*,QtPositioning*,QtPrintSupport*,QtQml*,QtQuick*,QtRemoteObjects*,QtScxml*,QtSensors*,QtSerialPort*,QtSql*,QtStateMachine*,QtSvg*,QtTest*,QtWeb*,QtXml*}
+  - rm -rf AppDir/usr/lib/python3.10/site-packages/PySide6/Qt/qml/
+  - rm -rf AppDir/usr/lib/python3.10/site-packages/PySide6/examples/
+  - rm -rf AppDir/usr/lib/python3.10/site-packages/PySide6/Qt/resources/
+  - rm -rf AppDir/usr/lib/python3.10/site-packages/PySide6/Qt/translations/qtwebengine_locales/
+  - rm -f AppDir/usr/lib/python3.10/site-packages/PySide6/{assistant,designer,linguist,lrelease,lupdate}
+  - rm -f AppDir/usr/lib/python3.10/site-packages/PySide6/{Qt3D*,QtBluetooth*,QtCharts*,QtConcurrent*,QtDataVisualization*,QtDBus*,QtDesigner*,QtHelp*,QtMultimedia*,QtNetwork*,QtOpenGL*,QtPositioning*,QtPrintSupport*,QtQml*,QtQuick*,QtRemoteObjects*,QtScxml*,QtSensors*,QtSerialPort*,QtSql*,QtStateMachine*,QtSvg*,QtTest*,QtWeb*,QtXml*}
   - shopt -s extglob
-  - rm -rf AppDir/usr/lib/python3.8/site-packages/PySide6/Qt/lib/!(libQt6OpenGL*|libQt6XcbQpa*|libQt6Wayland*|libQt6Egl*|libicudata*|libicuuc*|libicui18n*|libQt6DBus*|libQt6Network*|libQt6Qml*|libQt6Core*|libQt6Gui*|libQt6Widgets*|libQt6Svg*|libQt6UiTools*)
+  - rm -rf AppDir/usr/lib/python3.10/site-packages/PySide6/Qt/lib/!(libQt6OpenGL*|libQt6XcbQpa*|libQt6Wayland*|libQt6Egl*|libicudata*|libicuuc*|libicui18n*|libQt6DBus*|libQt6Network*|libQt6Qml*|libQt6Core*|libQt6Gui*|libQt6Widgets*|libQt6Svg*|libQt6UiTools*)
 
 
 AppDir:
@@ -29,14 +29,13 @@ AppDir:
   apt:
     arch: amd64
     sources:
-      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse'
-        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920d1991bc93c'
 
     include:
       - python3
       - python3-pkg-resources
       - libopengl0
-      - libssl1.1
       - libk5crypto3
       - libkrb5-3
       - libgssapi-krb5-2
@@ -45,7 +44,7 @@ AppDir:
   runtime:
     env:
       PYTHONHOME: '${APPDIR}/usr'
-      PYTHONPATH: '${APPDIR}/usr/lib/python3.8/site-packages'
+      PYTHONPATH: '${APPDIR}/usr/lib/python3.10/site-packages'
 
 
 AppImage:
