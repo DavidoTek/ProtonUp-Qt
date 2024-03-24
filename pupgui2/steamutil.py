@@ -794,6 +794,32 @@ def determine_most_recent_steam_user(steam_users: List[SteamUser]) -> SteamUser:
     return None
 
 
+def set_global_compat_tool(ctool: BasicCompatTool, steam_config_folder):
+    """ Update the global compatibility tool to the ctool parameter defined in config.vdf CompatToolMapping (AppID '0') """
+
+    if ctool.ct_type == CTType.CUSTOM:
+        config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
+        if not os.path.exists(config_vdf_file):
+            return False
+
+        try:
+            d = vdf.load(open(config_vdf_file))
+            c = get_steam_vdf_compat_tool_mapping(d)
+
+            # Create or update the '0' CompatToolMapping entry
+            if not c.get('0', {}):
+                c['0'] = { 'name': ctool.get_internal_name(), 'config': '', 'priority': '75' }
+            else:
+                c['0']['name'] = ctool.get_internal_name()
+
+            vdf.dump(d, open(config_vdf_file, 'w'), pretty=True)
+        except Exception as e:
+            print(f'Error, could not update Global Steam compatibility tool to {ctool.displayname}: {e}, vdf: {config_vdf_file}')
+            return False
+
+        return True
+
+
 def is_valid_steam_install(steam_path) -> bool:
 
     """
