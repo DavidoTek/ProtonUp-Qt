@@ -48,7 +48,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="297"/>
         <source>Fetching releases...</source>
-        <translation>रिलीज़ प्राप्त की जा रही हैं..।</translation>
+        <translation>रिलीज़ प्राप्त की जा रही हैं…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="308"/>
@@ -58,22 +58,22 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="312"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} इंस्टॉल नहीं किया जा सका..।</translation>
+        <translation>{current_compat_tool_name} इंस्टॉल नहीं किया जा सका…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="319"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} डाउनलोड हो रहा है..।</translation>
+        <translation>{current_compat_tool_name} डाउनलोड हो रहा है…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="321"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} निकाला जा रहा है..।</translation>
+        <translation>{current_compat_tool_name} निकाला जा रहा है…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="323"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} इंस्टॉल किया जा रहा है..।</translation>
+        <translation>{current_compat_tool_name} इंस्टॉल किया जा रहा है…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="325"/>
@@ -142,7 +142,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation>कस्टम इंस्टॉल डॉयरेक्टरी जोड़ें..।</translation>
+        <translation>कस्टम इंस्टॉल डॉयरेक्टरी जोड़ें…</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="103"/>
@@ -152,7 +152,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
         <source>Add version</source>
-        <translation>वर्शन जोड़ें</translation>
+        <translation>संस्करण जोड़ें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="155"/>
@@ -415,7 +415,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="129"/>
         <source>Search games...</source>
-        <translation>गेम खोजें..।</translation>
+        <translation>गेम खोजें…</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
@@ -439,7 +439,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="274"/>
         <source>Search for a game...</source>
-        <translation>कोई गेम खोजें..।</translation>
+        <translation>कोई गेम खोजें…</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="297"/>
@@ -617,7 +617,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="379"/>
         <source>Double click to browse...</source>
-        <translation>ब्राउज़ करने के लिए डबल क्लिक करें..।</translation>
+        <translation>ब्राउज़ करने के लिए डबल क्लिक करें…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="382"/>
@@ -741,7 +741,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="71"/>
         <source>Search for a game...</source>
-        <translation>कोई गेम खोजें..।</translation>
+        <translation>कोई गेम खोजें…</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="91"/>
@@ -785,7 +785,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="120"/>
         <source>Cancel</source>
-        <translation>रद्द करें</translation>
+        <translation>रद्द</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="47"/>
@@ -795,7 +795,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="61"/>
         <source>Version:</source>
-        <translation>वर्शन:</translation>
+        <translation>संस्करण:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="71"/>
