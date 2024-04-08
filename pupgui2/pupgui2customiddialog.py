@@ -50,7 +50,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
             display_name for display_name in self.install_locations_dict.values()
         ])
 
-        self.set_selected_launcher(self.install_locations_dict[self.launcher] or 'steam')  # Default combobox selection to "Steam" if unknown launcher for some reason
+        self.set_selected_launcher(self.install_locations_dict[self.launcher] if self.launcher in self.install_locations_dict else 'steam')  # Default combobox selection to "Steam" if unknown launcher for some reason
 
         self.ui.btnSave.clicked.connect(self.btn_save_clicked)
         self.ui.btnDefault.clicked.connect(self.btn_default_clicked)
