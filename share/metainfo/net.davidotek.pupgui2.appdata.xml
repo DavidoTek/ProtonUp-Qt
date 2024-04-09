@@ -69,6 +69,23 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.9.2" date="2024-04-09">
+      <description>
+        <p>Changes/Improvements:</p>
+        <ul>
+          <li>Steam: Display which games are using a certain Anti-Cheat Runtime</li>
+          <li>Improvements were made to the Shortcut Editor</li>
+          <li>Updated the AppImage build to a more recent version. This may cause a problem if your OS version is from before the year 2022. Report that on GitHub and update your OS to a more recent version or use ProtonUp-Qt v2.9.1 in that case.</li>
+        </ul>
+        <p>Bug fixes:</p>
+        <ul>
+          <li>Fixed a crash that occurs when a Steam installations is missing files (PR#356)</li>
+          <li>Fixed a crash when a game with the AWACY Denied status is detected (PR#354)</li>
+          <li>Fixed the dialog for custom launcher installations if no official launcher is installed (PR#371)</li>
+        </ul>
+        <p>Various improvements and bug fixes. See GitHub for more details. Thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.9.0" date="2023-12-30">
       <description>
         <p>Changes/Improvements:</p>
