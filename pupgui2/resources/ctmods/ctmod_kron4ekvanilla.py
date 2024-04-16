@@ -13,7 +13,7 @@ from pupgui2.util import build_headers_with_authorization, fetch_project_release
 
 
 CT_NAME = 'Kron4ek Wine-Builds Vanilla'
-CT_LAUNCHERS = ['lutris']
+CT_LAUNCHERS = ['lutris', 'winezgui']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_kron4ekvanilla', '''Compatibility tool "Wine" to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.''')}
 
 

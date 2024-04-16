@@ -14,7 +14,7 @@ from pupgui2.util import build_headers_with_authorization
 
 
 CT_NAME = 'Wine-GE'
-CT_LAUNCHERS = ['lutris', 'heroicwine', 'bottles']
+CT_LAUNCHERS = ['lutris', 'heroicwine', 'bottles', 'winezgui']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_00winege', '''Compatibility tool "Wine" to run Windows games on Linux. Based on Valve Proton Experimental's bleeding-edge Wine, built for Lutris.<br/><br/><b>Use this when you don't know what to choose.</b>''')}
 
 
