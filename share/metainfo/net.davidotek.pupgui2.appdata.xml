@@ -53,6 +53,7 @@
   </description>
   
   <launchable type="desktop-id">net.davidotek.pupgui2.desktop</launchable>
+  <icon type="stock">net.davidotek.pupgui2</icon>
 
   <screenshots>
     <screenshot type="default">
@@ -97,7 +98,7 @@
           <li>Allow configuring GitHub/GitLab access tokens in the ProtonUp-Qt configuration file</li>
           <li>Various i18n, UI and UX enhancements</li>
         </ul>
-        <p>Various improvements and bug fixes. See GitHub for more details.<br/>Also thanks to sonic2kk and the other contributers!</p>
+        <p>Various improvements and bug fixes. See GitHub for more details. Also thanks to sonic2kk and the other contributers!</p>
       </description>
     </release>
     <release version="2.8.2" date="2023-08-06">
@@ -108,7 +109,7 @@
           <li>Heroic: Display Amazon Games and Browser Games correctly</li>
           <li>Fix regression where Proton-Tkg could not be extracted</li>
         </ul>
-        <p>Various improvements and bug fixes. See GitHub for more details.<br/>Also thanks to sonic2kk and the other contributers!</p>
+        <p>Various improvements and bug fixes. See GitHub for more details. Also thanks to sonic2kk and the other contributers!</p>
       </description>
     </release>
     <release version="2.8.1" date="2023-07-04">
@@ -128,7 +129,7 @@
           <li>Translations can now be done on Weblate!</li>
           <li>Overhaul of the UI and internal functions</li>
         </ul>
-        <p>Various improvements and bug fixes. See GitHub for more details.<br/>Also thanks to sonic2kk and the other contributers!</p>
+        <p>Various improvements and bug fixes. See GitHub for more details. Also thanks to sonic2kk and the other contributers!</p>
       </description>
     </release>
     <release version="2.8.0" date="2023-04-06">
@@ -179,7 +180,7 @@
     <release version="2.7.5" date="2022-11-14">
       <description>
         <ul>
-          <li>Many SteamTinkerLaunch improvements, see PR#125 <a href="https://github.com/DavidoTek/ProtonUp-Qt/pull/125">here</a></li>
+          <li>Many SteamTinkerLaunch improvements, see PR#125</li>
           <li>ProtonUp-Qt Flatpak improvements</li>
           <li>Added Traditional Chinese translation</li>
           <li>Various small changes to enhance the experience of ProtonUp-Qt</li>
@@ -222,7 +223,7 @@
         </ul>
         <p>Bugs fixed:</p>
         <ul>
-          <li>Added <a href="https://github.com/Frogging-Family/wine-tkg-git/releases/tag/7.x%2B">Proton-Tkg CI builds</a></li>
+          <li>Added Proton-Tkg CI builds</li>
           <li>Fix bug where download would crash with error message 'no space left'</li>
         </ul>
         <p>Various bug fixes and performance improvements</p>
@@ -337,8 +338,12 @@
     <control>gamepad</control>
   </supports>
 
-  <developer_name>DavidoTek</developer_name>
-  <url type="homepage">https://davidotek.github.io/protonup-qt/</url>
+  <developer id="net.davidotek">
+    <name translate="no">DavidoTek</name>
+  </developer>
+  <url type="homepage">https://davidotek.github.io/protonup-qt</url>
   <url type="bugtracker">https://github.com/DavidoTek/ProtonUp-Qt/issues</url>
   <url type="donation">https://ko-fi.com/davidotek</url>
+  <url type="translate">https://hosted.weblate.org/projects/protonup-qt</url>
+  <url type="vcs-browser">https://github.com/DavidoTek/ProtonUp-Qt</url>
 </component>
