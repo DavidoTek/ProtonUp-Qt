@@ -636,6 +636,8 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
     except Exception as e:
         print(f'Error: Could not add {APP_NAME} as Steam shortcut:', e)
 
+        return 1
+
     return 0
 
 
