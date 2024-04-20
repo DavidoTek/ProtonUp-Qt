@@ -892,3 +892,24 @@ def get_random_game_name(games: List[Union[SteamApp, LutrisGame, HeroicGame]]) -
         tooltip_game_name = random_game.title
     
     return tooltip_game_name
+
+
+def is_mark_global_available(install_loc, ctool: BasicCompatTool):
+    allowed_launchers = [ 'steam', 'lutris' ]  # Only allow marking global for these launchers
+
+    # Only allow marking global for compatibility tools and not runtimes etc
+    if ctool.ct_type != CTType.CUSTOM:
+        return False
+
+    # Exit early if launcher is not on our list of compatible/allowed launchers
+    if install_loc.get('launcher') not in allowed_launchers:
+        return False
+
+    # Only allow marking global for Steam if we have the VDF directory path
+    if install_loc.get('launcher') == 'steam' and 'vdf_dir' not in install_loc:
+        return False
+
+    # Could put other conditions for other launchers in an elif here, i.e. check for Lutris and ensure a specific path exists
+    # Nothing here yet...
+
+    return True  # All other checks passed so default to true
