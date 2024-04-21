@@ -147,8 +147,13 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 4, QTableWidgetItem())
             self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
 
+            # Steam Deck compatibility 
             lbltxt = self.get_steamdeck_compatibility(game)
-            self.ui.tableGames.setItem(i, 2, QTableWidgetItem(lbltxt))
+
+            lbltxt_item = QTableWidgetItem(lbltxt)
+            lbltxt_item.setToolTip(lbltxt_item.text())
+
+            self.ui.tableGames.setItem(i, 2, lbltxt_item)
 
             # AWACY status
             lblicon = QLabel()
