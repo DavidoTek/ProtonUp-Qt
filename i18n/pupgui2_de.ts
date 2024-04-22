@@ -529,7 +529,7 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation>Steam Deck kompatibel</translation>
     </message>
     <message>

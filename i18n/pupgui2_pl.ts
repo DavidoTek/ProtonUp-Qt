@@ -529,7 +529,7 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation>Kompatybilność z Deckiem</translation>
     </message>
     <message>

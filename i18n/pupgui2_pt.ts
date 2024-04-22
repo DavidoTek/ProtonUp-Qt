@@ -529,7 +529,7 @@ Para remover este atalho, abra a Steam e selecione &quot;remover jogo não-Steam
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation>Compatibilidade com o Steam Deck</translation>
     </message>
     <message>
