@@ -529,7 +529,7 @@ Para eliminar el atajo, abre Steam, haz click derecho sobre él y elige &quot;ad
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation>Compatilidad con Deck</translation>
     </message>
     <message>

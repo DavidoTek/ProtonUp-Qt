@@ -537,7 +537,7 @@ Pour supprimer le raccourci, ouvrez Steam et sélectionner &quot;supprimer le je
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation>Compatibilité Steam Deck</translation>
     </message>
     <message>

@@ -78,7 +78,7 @@ class PupguiGameListDialog(QObject):
             QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
 
     def setup_steam_list_ui(self):
-        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
+        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck Compatibility'), self.tr('Anticheat'), 'ProtonDB'])
         self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
         self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }' if os.path.exists('/.flatpak-info') else self.ui.lblSteamRunningWarning.styleSheet())
 
@@ -147,8 +147,13 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 4, QTableWidgetItem())
             self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
 
+            # Steam Deck compatibility 
             lbltxt = self.get_steamdeck_compatibility(game)
-            self.ui.tableGames.setItem(i, 2, QTableWidgetItem(lbltxt))
+
+            lbltxt_item = QTableWidgetItem(lbltxt)
+            lbltxt_item.setToolTip(lbltxt_item.text())
+
+            self.ui.tableGames.setItem(i, 2, lbltxt_item)
 
             # AWACY status
             lblicon = QLabel()

@@ -537,7 +537,7 @@ För att ta bort genvägen, öppna Steam och välj &quot;ta bort icke-Steam-spel
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation>Deck kompatibilitet</translation>
     </message>
     <message>

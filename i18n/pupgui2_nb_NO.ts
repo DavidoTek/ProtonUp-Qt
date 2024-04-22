@@ -519,7 +519,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

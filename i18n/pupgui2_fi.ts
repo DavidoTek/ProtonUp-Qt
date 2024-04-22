@@ -529,7 +529,7 @@ Jos haluat poistaa tämän oikopolun, avaa Steam ja valitse &quot;poista muu kui
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation>Steam Deck yhteensopivuus</translation>
     </message>
     <message>
