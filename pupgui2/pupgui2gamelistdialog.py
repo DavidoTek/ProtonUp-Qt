@@ -78,7 +78,7 @@ class PupguiGameListDialog(QObject):
             QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
 
     def setup_steam_list_ui(self):
-        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck compatibility'), self.tr('Anticheat'), 'ProtonDB'])
+        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck Compatibility'), self.tr('Anticheat'), 'ProtonDB'])
         self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
         self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }' if os.path.exists('/.flatpak-info') else self.ui.lblSteamRunningWarning.styleSheet())
 

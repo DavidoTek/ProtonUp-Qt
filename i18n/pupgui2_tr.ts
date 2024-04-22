@@ -537,7 +537,7 @@ Kısayolu kaldırmak için Steam&apos;i açın ve &quot;Steam dışı oyunu kita
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation>Deck uyumluluğu</translation>
     </message>
     <message>
