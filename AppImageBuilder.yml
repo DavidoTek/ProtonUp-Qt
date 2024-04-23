@@ -39,6 +39,7 @@ AppDir:
       - libk5crypto3
       - libkrb5-3
       - libgssapi-krb5-2
+      - libxcb-cursor0
     exclude: []
 
   runtime:
