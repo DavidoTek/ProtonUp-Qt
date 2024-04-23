@@ -13,7 +13,7 @@ from pupgui2.util import build_headers_with_authorization
 
 
 CT_NAME = 'Lutris-Wine'
-CT_LAUNCHERS = ['lutris', 'bottles']
+CT_LAUNCHERS = ['lutris', 'bottles', 'winezgui']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_lutriswine', '''Compatibility tool "Wine" to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.''')}
 
 
