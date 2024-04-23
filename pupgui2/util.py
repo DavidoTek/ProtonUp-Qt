@@ -210,7 +210,10 @@ def is_valid_launcher_installation(loc) -> bool:
     #
     # In future we could expand this to other Steam flavours and other launchers.
     if loc['display_name'] == 'Steam':  # This seems to get called many times, why?
-        return is_valid_steam_install(os.path.abspath(os.path.join(install_dir, '..')))
+        # get the parent of the compatibility tools install directory
+        # use abspath here as install_dir could be a symlink, https://github.com/DavidoTek/ProtonUp-Qt/pull/381
+        launcher_root_dir = os.path.abspath(os.path.join(install_dir, '..'))
+        return is_valid_steam_install(launcher_root_dir)
     
     return os.path.exists(install_dir)  # Default to path check for all other launchers
 
