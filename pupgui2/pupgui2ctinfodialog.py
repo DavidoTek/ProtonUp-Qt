@@ -66,6 +66,8 @@ class PupguiCtInfoDialog(QObject):
                 self.is_batch_update_available = True
                 self.ui.btnBatchUpdate.setVisible(not self.ui.searchBox.isVisible())
                 self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
+
+            if self.is_mark_global_available:
                 self.ui.btnMarkGlobal.clicked.connect(self.btn_mark_global_clicked)
         elif self.install_loc.get('launcher') == 'lutris':
             self.update_game_list_lutris()
