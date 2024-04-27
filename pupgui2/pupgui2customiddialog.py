@@ -80,11 +80,14 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.custom_id_set.emit('')
 
     def txt_id_browse_action_triggered(self):
-        dialog = QFileDialog(self.ui)
+        # Open dialog at entered path if it exists, and fall back to HOME_DIR
+        txt_install_dir = os.path.expanduser(self.ui.txtInstallDirectory.text())
+        initial_dir = txt_install_dir if self.is_valid_custom_install_path(txt_install_dir) else HOME_DIR
+
+        dialog = QFileDialog(self.ui, directory=initial_dir)
         dialog.setFileMode(QFileDialog.Directory)
         dialog.setOption(QFileDialog.ShowDirsOnly)
         dialog.setWindowTitle(self.tr('Select Custom Install Directory — ProtonUp-Qt'))
-        dialog.setDirectory(HOME_DIR)
         dialog.fileSelected.connect(self.ui.txtInstallDirectory.setText)
         dialog.open()
 
