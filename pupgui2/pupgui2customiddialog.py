@@ -1,7 +1,7 @@
 import os
 import pkgutil
 
-from PySide6.QtCore import Signal, QDataStream, QByteArray, QObject
+from PySide6.QtCore import Signal, QDataStream, QByteArray, QObject, QDir
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QFileDialog, QLineEdit
 from PySide6.QtUiTools import QUiLoader
@@ -86,6 +86,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         dialog = QFileDialog(self.ui, directory=initial_dir)
         dialog.setFileMode(QFileDialog.Directory)
         dialog.setOption(QFileDialog.ShowDirsOnly)
+        dialog.setFilter(QDir.Dirs | QDir.Hidden | QDir.NoDotAndDotDot)
         dialog.setWindowTitle(self.tr('Select Custom Install Directory — ProtonUp-Qt'))
         dialog.fileSelected.connect(self.ui.txtInstallDirectory.setText)
         dialog.open()
