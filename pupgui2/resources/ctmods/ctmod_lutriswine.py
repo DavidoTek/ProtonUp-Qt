@@ -120,13 +120,13 @@ class CtInstaller(QObject):
         """
         return True
 
-    def fetch_releases(self, count=100):
+    def fetch_releases(self, count=100, page=1):
         """
         List available releases
         Return Type: str[]
         """
         tags = []
-        for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()):
+        for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={count}&page={page}').json()):
             if 'tag_name' in release:
                 tags.append(release['tag_name'])  # regular release
 

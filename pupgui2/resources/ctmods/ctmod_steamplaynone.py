@@ -74,7 +74,7 @@ class CtInstaller(QObject):
         """
         return True
 
-    def fetch_releases(self, count=100):
+    def fetch_releases(self, count=100, page=1):
         """
         List available releases
         Return Type: str[]

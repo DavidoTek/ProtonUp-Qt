@@ -208,13 +208,13 @@ class CtInstaller(QObject):
 
         return False  # Installation would fail without dependencies.
 
-    def fetch_releases(self, count=100):
+    def fetch_releases(self, count=100, page=1):
         """
         List available releases or available branches for SteamTinkerLaunch-git
         Return Type: str[]
         """
         main_branch = 'master'
-        j = ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json())
+        j = ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={count}&page={page}').json())
         if 'message' in j:
             return []
         branches = [branch['name'] for branch in self.rs.get(self.CT_BRANCHES_URL).json()] if self.allow_git else [release['tag_name'] for release in j]

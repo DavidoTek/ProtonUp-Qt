@@ -100,12 +100,12 @@ class CtInstaller(QObject):
         """
         return True
 
-    def fetch_releases(self, count=100):
+    def fetch_releases(self, count=100, page=1):
         """
         List available releases
         Return Type: list[str]
         """
-        return fetch_project_releases(self.CT_URL, self.rs, count=count)
+        return fetch_project_releases(self.CT_URL, self.rs, count=count, page=page)
 
     def get_tool(self, version, install_dir, temp_dir):
         """
