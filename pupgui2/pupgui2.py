@@ -8,7 +8,8 @@ import threading
 from PySide6.QtCore import Qt, QCoreApplication, QObject, QThread, QWaitCondition, QMutex, QDataStream
 from PySide6.QtCore import QByteArray, QEvent, Signal, Slot, QTranslator, QLocale, QLibraryInfo
 from PySide6.QtGui import QIcon, QKeyEvent, QKeySequence, QShortcut
-from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox, QProgressBar, QVBoxLayout
+from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox
+from PySide6.QtWidgets import QProgressBar, QVBoxLayout, QSpacerItem, QSizePolicy
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
@@ -426,13 +427,13 @@ class MainWindow(QObject):
         """ Open dialog to open the appstore(appstream) to install Boxtron from Flathub"""
         iftdialog = QDialog(parent=self.ui)
         iftdialog.setWindowTitle(self.tr('Install tool from Flathub'))
-        iftdialog.setFixedSize(250, 100)
         iftdialog.setModal(True)
         lbl_description = QLabel(self.tr('Click to open your app store'))
         btn_dl_boxtron = QPushButton('Boxtron')
         btn_dl_stl = QPushButton('Steam Tinker Launch')
         layout1 = QVBoxLayout()
         layout1.addWidget(lbl_description)
+        layout1.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Expanding))
         layout1.addWidget(btn_dl_boxtron)
         layout1.addWidget(btn_dl_stl)
         iftdialog.setLayout(layout1)
