@@ -1,7 +1,9 @@
+import os
 import threading
 import pkgutil
 
 from PySide6.QtCore import Signal, QLocale, QDataStream, QByteArray
+from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtWidgets import QDialog
 from PySide6.QtUiTools import QUiLoader
 
@@ -26,6 +28,7 @@ class PupguiInstallDialog(QDialog):
         self.more_releases_loadable = True  # Set to False when no more versions are available
 
         self.load_ui()
+        self.load_assets()
         self.setup_ui()
         self.ui.show()
 
@@ -33,6 +36,11 @@ class PupguiInstallDialog(QDialog):
         data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_installdialog.ui')
         ui_file = QDataStream(QByteArray(data))
         self.ui = QUiLoader().load(ui_file.device())
+
+    def load_assets(self):
+        p = QPixmap()
+        p.loadFromData(pkgutil.get_data(__name__, os.path.join('resources/img/arrow_down.png')))
+        self.arrow_down_icon = QIcon(p)
 
     def setup_ui(self):
         self.ui.btnInfo.clicked.connect(self.btn_info_clicked)
@@ -93,6 +101,7 @@ class PupguiInstallDialog(QDialog):
 
                 if self.more_releases_loadable:
                     self.ui.comboCompatToolVersion.addItem(self.tr('Load more...'))
+                    self.ui.comboCompatToolVersion.setItemIcon(self.ui.comboCompatToolVersion.count() - 1, self.arrow_down_icon)
 
             self.is_fetching_releases.emit(False)
 
