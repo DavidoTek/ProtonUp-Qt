@@ -454,8 +454,9 @@ class PupguiGameListDialog(QObject):
     def is_valid_lutris_gameslist_game(self, game: LutrisGame) -> bool:
         """
         Check if a LutrisGame should be displayed on the Games List based on some criteria.
-        * Steam Games are excluded
-        * Games with no runner, install_loc, or installed_at are exluded
+        * Steam Games are excluded.
+        * Games with no runner are excluded.
+        * Games with no install_dir are excluded.
 
         Return Type: bool
         """
@@ -463,7 +464,7 @@ class PupguiGameListDialog(QObject):
         # Lutris DB may store Steam games even if they are not installed
         #
         # This results in only the game.name being available, and many
-        # other values like game.runner and game.install_loc being 'None'
+        # other values like game.runner and game.install_dir being 'None'
         #
         # We can assume a game is not valid to display on the Games List
         # if the runner and install_dir are Falsey, and if 
