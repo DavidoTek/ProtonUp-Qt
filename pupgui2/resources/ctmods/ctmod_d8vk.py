@@ -120,13 +120,13 @@ class CtInstaller(QObject):
         """
         return True
 
-    def fetch_releases(self, count=100):
+    def fetch_releases(self, count=100, page=1):
         """
         List available releases
         Return Type: str[]
         """
         tags = []
-        for artifact in ghapi_rlcheck(self.rs.get(self.CT_URL + '?per_page=' + str(count)).json()).get("artifacts", {}):
+        for artifact in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={count}&page={page}').json()).get("artifacts", {}):
             workflow = artifact['workflow_run']
             if not workflow["head_branch"] == "main" or artifact["expired"]:
                 continue
