@@ -65,12 +65,14 @@ POSSIBLE_INSTALL_LOCATIONS += [
 
 def PALETTE_DARK():
     """ returns dark color palette """
+    palette_base = QColor(12, 12, 12)
+
     palette_dark = QPalette()
     palette_dark.setColor(QPalette.Window, QColor(30, 30, 30))
     palette_dark.setColor(QPalette.WindowText, Qt.white)
-    palette_dark.setColor(QPalette.Base, QColor(12, 12, 12))
+    palette_dark.setColor(QPalette.Base, palette_base)
     palette_dark.setColor(QPalette.AlternateBase, QColor(30, 30, 30))
-    palette_dark.setColor(QPalette.ToolTipBase, Qt.white)
+    palette_dark.setColor(QPalette.ToolTipBase, palette_base)
     palette_dark.setColor(QPalette.ToolTipText, Qt.white)
     palette_dark.setColor(QPalette.Text, Qt.white)
     palette_dark.setColor(QPalette.Button, QColor(30, 30, 30))
