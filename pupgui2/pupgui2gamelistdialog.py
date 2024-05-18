@@ -180,13 +180,13 @@ class PupguiGameListDialog(QObject):
         """ update the game list for the Lutris launcher """
         # Filter blank runners and Steam games, because we can't change any compat tool options for Steam games via Lutris
         # Steam games can be seen from the Steam games list, so no need to duplicate it here
-        self.games = [game for game in get_lutris_game_list(self.install_loc) if not is_lutris_game_using_runner(game, 'steam')]
+        self.games = [game for game in get_lutris_game_list(self.install_loc) if self.is_valid_lutris_gameslist_game(game)]
 
         self.ui.tableGames.setRowCount(len(self.games))
 
         # Not sure if we can allow compat tool updating from here, as Lutris allows configuring more than just Wine version
         # It lets you set Wine/DXVK/vkd3d/etc independently, so for now the dialog just displays game information
-        for i, game in enumerate(self.games): 
+        for i, game in enumerate(self.games):
             name_item = QTableWidgetItem(game.name)
             name_item.setToolTip(f'{game.name} ({game.slug})')
             if game.installer_slug:
@@ -212,16 +212,25 @@ class PupguiGameListDialog(QObject):
                 runner_item.setToolTip(tooltip)
 
             # Some games may be in Lutris but not have a valid install path, though the yml should *usually* have some path
-            install_dir_text = game.install_dir or self.tr('Unknown')
+            install_dir_text = game.install_dir
             install_dir_item = QTableWidgetItem(install_dir_text)
             self.set_item_data_directory(install_dir_item, install_dir_text)
 
-            install_date = datetime.fromtimestamp(int(game.installed_at)).isoformat().split('T')
-            install_date_short = f'{install_date[0]}'
-            install_date_tooltip = self.tr('Installed at {DATE} ({TIME})').format(DATE=install_date[0], TIME=install_date[1])
+            # Populate Install Date column if we have game.install_date
+            # Otherwise set to some safe Unknown values
+            if game.installed_at:
+                install_date = datetime.fromtimestamp(int(game.installed_at)).isoformat().split('T')
+                install_date_short = f'{install_date[0]}'
+                install_date_tooltip = self.tr('Installed at {DATE} ({TIME})').format(DATE=install_date[0], TIME=install_date[1])
+                install_date_data = int(game.installed_at)
+            else:
+                install_date = self.tr('Unknown')
+                install_date_short = self.tr('Unknown')
+                install_date_tooltip = self.tr('Install Date is Unknown')
+                install_date_data = 0
 
             install_date_item = QTableWidgetItem(install_date_short)
-            install_date_item.setData(Qt.UserRole, int(game.installed_at))
+            install_date_item.setData(Qt.UserRole, install_date_data)
             install_date_item.setToolTip(install_date_tooltip)
             install_date_item.setTextAlignment(Qt.AlignCenter)
 
@@ -441,3 +450,31 @@ class PupguiGameListDialog(QObject):
                 return self.tr('Verified for {compat_tool}').format(compat_tool=deckt)
         else:
             return ''
+
+    def is_valid_lutris_gameslist_game(self, game: LutrisGame) -> bool:
+        """
+        Check if a LutrisGame should be displayed on the Games List based on some criteria.
+        * Steam Games are excluded
+        * Games with no runner, install_loc, or installed_at are exluded
+
+        Return Type: bool
+        """
+
+        # Lutris DB may store Steam games even if they are not installed
+        #
+        # This results in only the game.name being available, and many
+        # other values like game.runner and game.install_loc being 'None'
+        #
+        # We can assume a game is not valid to display on the Games List
+        # if the runner and install_dir are Falsey, and if 
+
+        if not game.runner:
+            return False
+
+        if not game.install_dir:
+            return False
+
+        if is_lutris_game_using_runner(game, 'steam'):
+            return False
+
+        return True
