@@ -1,7 +1,7 @@
 import os
 import pkgutil
 
-from typing import List, Callable, Tuple, Union
+from typing import Callable
 from datetime import datetime
 
 from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
@@ -31,7 +31,7 @@ class PupguiGameListDialog(QObject):
         self.install_dir = install_dir
         self.parent = parent
         self.queued_changes = {}
-        self.games: List[Union[SteamApp, LutrisGame, HeroicGame]] = []
+        self.games: list[SteamApp | LutrisGame | HeroicGame] = []
 
         self.install_loc = get_install_location_from_directory_name(install_dir)
         self.launcher = self.install_loc.get('launcher', '')
@@ -111,7 +111,7 @@ class PupguiGameListDialog(QObject):
 
     def update_game_list_steam(self, cached=True):
         """ update the game list for the Steam launcher """
-        self.games = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=cached)
+        self.games: list[SteamApp] = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=cached)
         ctools = [c if c != 'SteamTinkerLaunch' else 'Proton-stl' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True)]
         ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=True))
 
@@ -180,7 +180,7 @@ class PupguiGameListDialog(QObject):
         """ update the game list for the Lutris launcher """
         # Filter blank runners and Steam games, because we can't change any compat tool options for Steam games via Lutris
         # Steam games can be seen from the Steam games list, so no need to duplicate it here
-        self.games = [game for game in get_lutris_game_list(self.install_loc) if self.is_valid_lutris_gameslist_game(game)]
+        self.games: list[LutrisGame] = [game for game in get_lutris_game_list(self.install_loc) if self.is_valid_lutris_gameslist_game(game)]
 
         self.ui.tableGames.setRowCount(len(self.games))
 
@@ -241,7 +241,7 @@ class PupguiGameListDialog(QObject):
 
     def update_game_list_heroic(self):
         heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
-        self.games = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
+        self.games: list[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
 
         self.ui.tableGames.setRowCount(len(self.games))
 
@@ -399,7 +399,7 @@ class PupguiGameListDialog(QObject):
         else:
             item.setToolTip(tooltip_invalid)
 
-    def get_steamapp_awacystatus(self, game: SteamApp) -> Tuple[str, str]:
+    def get_steamapp_awacystatus(self, game: SteamApp) -> tuple[str, str]:
         """ Return translated status text and icon representing AreWeAntiCheatYet.com status for a Steam game """
         awacy_status: str = ''
         awacy_icon: str = ''
