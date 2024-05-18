@@ -24,13 +24,17 @@ jobs:
         cache: "pip"
 
     - name: Install dependencies
-      run: pip install pytest pytest-md pytest-emoji
+      run: |
+        sudo apt install -y libegl1 libxkbcommon0
+        pip install pytest pytest-md pytest-emoji
 
     - name: Install ProtonUp-Qt
       run: pip install -e .
 
     - name: Run pytest
       uses: pavelzw/pytest-action@v2
+      env:
+        QT_QPA_PLATFORM: "offscreen"
       with:
         verbose: true
         emoji: true
