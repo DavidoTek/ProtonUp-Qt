@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>Залежності відсутні!</translation>
     </message>
 </context>
 <context>
@@ -25,7 +25,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
         <translation>Не вдалося завантажити такі інструменти сумісності:
 {TOOL_LIST}
 
-Якщо ви вважаєте, що це помилка, повідомте про помилку на GitHub!</translation>
+Якщо ви вважаєте, що це помилка, повідомте про неї на GitHub!</translation>
     </message>
 </context>
 <context>
@@ -38,7 +38,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
@@ -117,12 +117,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
-        <translation>Встановити інструмент із Flathub</translation>
+        <translation>Встановити інструмент із Flathub-у</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="431"/>
         <source>Click to open your app store</source>
-        <translation>Натисніть, щоб відкрити магазин програм</translation>
+        <translation>Натисніть, щоб відкрити ваш App store</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
@@ -142,7 +142,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation>Додати власний каталог встановлення...</translation>
+        <translation>Додати власну директорію встановлення...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="103"/>
@@ -157,12 +157,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="155"/>
         <source>Remove selected</source>
-        <translation>Видалити вибране</translation>
+        <translation>Видалити виділене</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="162"/>
         <source>Show info</source>
-        <translation>Інформація</translation>
+        <translation>Показати інформацію</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
@@ -172,7 +172,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="206"/>
         <source>Show game list</source>
-        <translation>Показати список ігор</translation>
+        <translation>Показати список ігр</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="213"/>
@@ -182,7 +182,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="220"/>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>Зачинити</translation>
     </message>
 </context>
 <context>
@@ -226,7 +226,7 @@ Cancel and exit anyway?</source>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="26"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="107"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Пакетне оновлення</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="44"/>
@@ -247,7 +247,7 @@ Cancel and exit anyway?</source>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="120"/>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>Зачинити</translation>
     </message>
 </context>
 <context>
@@ -286,7 +286,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
         <source>Up to date</source>
-        <translation>В актуальному стані</translation>
+        <translation>Оновлено</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
@@ -348,7 +348,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="188"/>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>Зачинити</translation>
     </message>
 </context>
 <context>
@@ -415,17 +415,17 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="129"/>
         <source>Search games...</source>
-        <translation>Пошук ігор...</translation>
+        <translation>Пошук ігр...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation type="unfinished"></translation>
+        <translation>Ігр не виявлено</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Пакетне оновлення</translation>
     </message>
     <message>
         <source>Batch update</source>
@@ -444,7 +444,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="297"/>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>Зачинити</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="86"/>
@@ -455,7 +455,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="86"/>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="99"/>
         <source>Name</source>
-        <translation>Ім&apos;я</translation>
+        <translation>Назва</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="99"/>
@@ -535,7 +535,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Anticheat</source>
-        <translation type="unfinished"></translation>
+        <translation>Античит</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
@@ -625,7 +625,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="423"/>
         <source>Unsupported</source>
-        <translation type="unfinished"></translation>
+        <translation>Не підтримується</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="426"/>
@@ -635,12 +635,12 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="428"/>
         <source>Native (playable)</source>
-        <translation type="unfinished"></translation>
+        <translation>Нативне (Грабельне)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="429"/>
         <source>Playable using {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Грабельне за допомогою {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="433"/>
@@ -844,7 +844,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
         <source>Remove selected</source>
-        <translation>Видалити вибране</translation>
+        <translation>Видалити виділене</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
@@ -874,7 +874,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
         <source>Close</source>
-        <translation>Закрити</translation>
+        <translation>Зачинити</translation>
     </message>
 </context>
 <context>
