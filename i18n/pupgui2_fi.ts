@@ -38,7 +38,7 @@ Mikäli arvelet että kyseessä on virhe, ilmoitathan siitä GitHub:iin!</transl
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>global</source>
-        <translation>globaali</translation>
+        <translation>global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
