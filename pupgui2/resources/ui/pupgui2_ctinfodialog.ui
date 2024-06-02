@@ -14,8 +14,7 @@
    <string>About compatibility tool</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="pupgui2">
-    <normaloff>.</normaloff>.</iconset>
+   <iconset theme="pupgui2"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -33,7 +32,7 @@
         <string/>
        </property>
        <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByMouse</set>
        </property>
       </widget>
      </item>
@@ -50,7 +49,7 @@
         <string/>
        </property>
        <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByMouse</set>
        </property>
       </widget>
      </item>
@@ -67,7 +66,7 @@
         <string/>
        </property>
        <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByMouse</set>
        </property>
       </widget>
      </item>
@@ -76,7 +75,7 @@
    <item>
     <widget class="Line" name="line">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </item>
@@ -84,6 +83,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="lblGamesUsingTool">
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::NoFocus</enum>
+       </property>
        <property name="text">
         <string>Games using compatibility tool:</string>
        </property>
@@ -99,7 +101,7 @@
      <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -118,8 +120,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset theme="view-refresh">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="view-refresh"/>
        </property>
       </widget>
      </item>
@@ -132,8 +133,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset theme="search">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset theme="search"/>
        </property>
       </widget>
      </item>
@@ -170,13 +170,13 @@
           </sizepolicy>
          </property>
          <property name="focusPolicy">
-          <enum>Qt::ClickFocus</enum>
+          <enum>Qt::FocusPolicy::ClickFocus</enum>
          </property>
          <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
+          <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
          </property>
          <property name="selectionBehavior">
-          <enum>QAbstractItemView::SelectRows</enum>
+          <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
          </property>
          <property name="sortingEnabled">
           <bool>true</bool>
@@ -248,7 +248,7 @@
           <string>No games</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <set>Qt::AlignmentFlag::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -285,7 +285,7 @@
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -298,7 +298,7 @@
      <item>
       <widget class="QPushButton" name="btnClose">
        <property name="focusPolicy">
-        <enum>Qt::StrongFocus</enum>
+        <enum>Qt::FocusPolicy::StrongFocus</enum>
        </property>
        <property name="text">
         <string>Close</string>
@@ -311,10 +311,12 @@
  </widget>
  <tabstops>
   <tabstop>btnClose</tabstop>
+  <tabstop>btnMarkGlobal</tabstop>
+  <tabstop>searchBox</tabstop>
   <tabstop>btnBatchUpdate</tabstop>
   <tabstop>btnSearch</tabstop>
-  <tabstop>searchBox</tabstop>
   <tabstop>btnRefreshGames</tabstop>
+  <tabstop>lblGamesUsingTool</tabstop>
  </tabstops>
  <resources/>
  <connections/>
