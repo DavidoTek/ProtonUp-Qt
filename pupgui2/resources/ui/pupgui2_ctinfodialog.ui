@@ -83,9 +83,6 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="lblGamesUsingTool">
-       <property name="focusPolicy">
-        <enum>Qt::FocusPolicy::NoFocus</enum>
-       </property>
        <property name="text">
         <string>Games using compatibility tool:</string>
        </property>
