@@ -796,7 +796,7 @@ def determine_most_recent_steam_user(steam_users: List[SteamUser]) -> SteamUser:
     return None
 
 
-def set_global_compat_tool(ctool: BasicCompatTool, steam_config_folder):
+def set_steam_global_compat_tool(steam_config_folder: str, ctool: BasicCompatTool):
     """ Update the global compatibility tool to the ctool parameter defined in config.vdf CompatToolMapping (AppID '0') """
 
     if ctool.ct_type == CTType.CUSTOM:

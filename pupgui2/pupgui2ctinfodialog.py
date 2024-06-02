@@ -5,8 +5,8 @@ from pupgui2.constants import STEAM_APP_PAGE_URL
 from pupgui2.datastructures import BasicCompatTool, CTType, SteamApp, LutrisGame, HeroicGame
 from pupgui2.lutrisutil import get_lutris_game_list, is_lutris_game_using_wine
 from pupgui2.pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
-from pupgui2.steamutil import get_steam_game_list, set_global_compat_tool
-from pupgui2.util import open_webbrowser_thread, get_random_game_name, is_mark_global_available
+from pupgui2.steamutil import get_steam_game_list
+from pupgui2.util import open_webbrowser_thread, get_random_game_name, is_mark_global_available, set_launcher_global_tool
 from pupgui2.heroicutil import get_heroic_game_list, is_heroic_launcher
 
 from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
@@ -168,5 +168,5 @@ class PupguiCtInfoDialog(QObject):
             self.ui.listGames.setRowHidden(row, should_hide)
 
     def btn_mark_global_clicked(self):
-        set_global_compat_tool(self.ctool, self.install_loc.get('vdf_dir'))
+        set_launcher_global_tool(self.install_loc, self.ctool)
         self.btn_refresh_games_clicked()
