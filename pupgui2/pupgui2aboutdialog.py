@@ -7,7 +7,7 @@ from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2.constants import APP_NAME, APP_VERSION, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO, APP_THEMES
+from pupgui2.constants import APP_NAME, APP_VERSION, APP_ID, APP_GHAPI_URL, ABOUT_TEXT, BUILD_INFO, APP_THEMES
 from pupgui2.constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
 from pupgui2.steamutil import install_steam_library_shortcut
 from pupgui2.util import config_theme, apply_dark_theme, config_advanced_mode
@@ -36,7 +36,7 @@ class PupguiAboutDialog(QObject):
 
         translator_text = QApplication.instance().translate('translator-text', 'Translated by DavidoTek')
 
-        self.ui.lblAppIcon.setPixmap(QIcon.fromTheme('net.davidotek.pupgui2').pixmap(QSize(96, 96)))
+        self.ui.lblAppIcon.setPixmap(QIcon.fromTheme(APP_ID).pixmap(QSize(96, 96)))
 
         self.ui.lblAboutTranslator.setText(translator_text)
         self.ui.lblAboutVersion.setTextFormat(Qt.RichText)

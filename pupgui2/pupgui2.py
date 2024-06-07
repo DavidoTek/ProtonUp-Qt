@@ -12,7 +12,7 @@ from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushB
 from PySide6.QtWidgets import QProgressBar, QVBoxLayout, QSpacerItem, QSizePolicy
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2.constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
+from pupgui2.constants import APP_NAME, APP_VERSION, APP_ID, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
 from pupgui2.constants import STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
 from pupgui2 import ctloader
 from pupgui2.datastructures import CTType, MsgBoxType, MsgBoxResult
@@ -123,7 +123,7 @@ class MainWindow(QObject):
         self.progressBarDownload = QProgressBar()
         self.progressBarDownload.setVisible(False)
         self.ui.statusBar().addPermanentWidget(self.progressBarDownload)
-        self.ui.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
+        self.ui.setWindowIcon(QIcon.fromTheme(APP_ID))
         self.ui.txtInstalledVersions.setText('0')
 
         self.update_combo_install_location()
@@ -530,8 +530,8 @@ def main():
     app = PupguiApp(sys.argv)
     app.setApplicationName(APP_NAME)
     app.setApplicationVersion(APP_VERSION)
-    app.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
-    app.setDesktopFileName('net.davidotek.pupgui2')
+    app.setWindowIcon(QIcon.fromTheme(APP_ID))
+    app.setDesktopFileName(APP_ID)
 
     PupguiExceptionHandler(app)
 
