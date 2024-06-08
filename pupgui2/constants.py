@@ -23,6 +23,17 @@ CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')
 TEMP_DIR = os.path.join(os.getenv('XDG_CACHE_HOME'), 'tmp', 'pupgui2.a70200/') if os.path.exists(os.getenv('XDG_CACHE_HOME', '')) else '/tmp/pupgui2.a70200/'
 HOME_DIR = os.path.expanduser('~')
 
+# DBus constants
+DBUS_APPLICATION_URI = f'application://{APP_ID}.desktop'
+DBUS_DOWNLOAD_OBJECT_BASEPATH = '/net/davidotek/pupgui2'
+
+DBUS_INTERFACES_AND_SIGNALS = {
+    'LauncherEntryUpdate': {
+        'interface': 'com.canonical.Unity.LauncherEntry',
+        'signal': 'Update',
+    }
+}
+
 # support different Steam root directories, building paths relative to HOME_DIR (i.e. /home/gaben/.local/share/Steam)
 # Use os.path.realpath to expand all _STEAM_ROOT paths
 _POSSIBLE_STEAM_ROOTS = [
