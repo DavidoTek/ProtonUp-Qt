@@ -196,7 +196,7 @@ class MainWindow(QObject):
         Send Download Progress and Pending Downloads count using DBus.
         """
 
-        progress_pct = progress / 100  # LauncherEntry expects i.e. 70% as 0.7
+        progress_pct = progress / 100  # DBus progress signal expects progress between 0-1
         num_downloads = len(self.pending_downloads)
         if progress < 0:  # negative progress indicates cancellation/failure/etc
             num_downloads = 0

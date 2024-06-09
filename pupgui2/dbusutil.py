@@ -8,11 +8,11 @@ from pupgui2.constants import DBUS_APPLICATION_URI, DBUS_DOWNLOAD_OBJECT_BASEPAT
 def create_and_send_dbus_message(object: str, interface: str, signal_name: str, arguments: list, bus: QDBusConnection = QDBusConnection.sessionBus):
 
     """
-    Create and send a QDBusMessage over a given bus, with some preset information such as the 'application://' identifier
+    Create and send a QDBusMessage over a given bus.
     If no bus is given, will default to sessionBus
     """
 
-    # i.e. /net/davidotek/pupgui2/CompatToolDownload
+    # i.e. /net/davidotek/pupgui2/Update
     object_path = os.path.join(DBUS_DOWNLOAD_OBJECT_BASEPATH, object)
 
     message: QDBusMessage = QDBusMessage.createSignal(object_path, interface, signal_name)
