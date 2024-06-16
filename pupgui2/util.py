@@ -943,8 +943,7 @@ def set_launcher_global_tool(install_loc, compat_tool: BasicCompatTool) -> bool:
 
     if launcher == 'steam':
         steam_config_folder = install_loc.get('vdf_dir', '')
-        set_steam_global_compat_tool(steam_config_folder, compat_tool)
 
-        return True
+        return set_steam_global_compat_tool(steam_config_folder, compat_tool)
 
     return False

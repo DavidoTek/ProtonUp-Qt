@@ -821,6 +821,8 @@ def set_steam_global_compat_tool(steam_config_folder: str, ctool: BasicCompatToo
 
         return True
 
+    return False
+
 
 def is_valid_steam_install(steam_path) -> bool:
 
