@@ -66,9 +66,6 @@ class PupguiCtInfoDialog(QObject):
                 self.is_batch_update_available = True
                 self.ui.btnBatchUpdate.setVisible(not self.ui.searchBox.isVisible())
                 self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
-
-            if self.is_mark_global_available:
-                self.ui.btnMarkGlobal.clicked.connect(self.btn_mark_global_clicked)
         elif self.install_loc.get('launcher') == 'lutris':
             self.update_game_list_lutris()
         elif is_heroic_launcher(self.install_loc.get('launcher')):
@@ -131,6 +128,10 @@ class PupguiCtInfoDialog(QObject):
         if self.ctool.is_global:
             self.ui.lblGamesList.setText(self.tr('Tool is Global'))
 
+        self.ui.btnMarkGlobal.setVisible(self.is_mark_global_available)
+        if self.is_mark_global_available:
+            self.ui.btnMarkGlobal.clicked.connect(self.btn_mark_global_clicked)
+
         if len(self.games) < 0 or self.ctool.is_global:
             self.ui.btnClose.setFocus()
 
@@ -168,5 +169,5 @@ class PupguiCtInfoDialog(QObject):
             self.ui.listGames.setRowHidden(row, should_hide)
 
     def btn_mark_global_clicked(self):
-        set_launcher_global_tool(self.install_loc, self.ctool)
+        self.is_mark_global_available = not set_launcher_global_tool(self.install_loc, self.ctool)
         self.btn_refresh_games_clicked()

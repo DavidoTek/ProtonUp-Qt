@@ -925,7 +925,7 @@ def is_mark_global_available(install_loc, ctool: BasicCompatTool) -> bool:
     return True  # All other checks passed so default to true
 
 
-def set_launcher_global_tool(install_loc, compat_tool: BasicCompatTool):
+def set_launcher_global_tool(install_loc, compat_tool: BasicCompatTool) -> bool:
 
     """
     Set a given compat_tool as global for a given launcher by calling the
@@ -936,11 +936,15 @@ def set_launcher_global_tool(install_loc, compat_tool: BasicCompatTool):
 
     # Skip empty launcher
     if not launcher:
-        return
+        return False
 
     if not is_mark_global_available(install_loc, compat_tool):
-        return
+        return False
 
     if launcher == 'steam':
         steam_config_folder = install_loc.get('vdf_dir', '')
         set_steam_global_compat_tool(steam_config_folder, compat_tool)
+
+        return True
+
+    return False
