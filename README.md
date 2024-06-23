@@ -8,6 +8,8 @@ Install and manage [GE-Proton](https://github.com/GloriousEggroll/proton-ge-cust
 
 ![ProtonUp-Qt Screenshot](.github/images/pupgui2-screenshot2.png)
 
+**Note**: ProtonUp-Qt is **not** affiliated with https://protonge.com/, which is a **fake** website. Similarly, the tools you can download with ProtonUp-Qt **including GE-Proton** are also not affiliated with this website.
+
 ## Download from Flathub or as AppImage (portable):
 [<img height="56px" src="https://flathub.org/assets/badges/flathub-badge-en.png" alt="Download from Flathub" />](https://flathub.org/apps/details/net.davidotek.pupgui2) [<img height="56px" src="https://raw.githubusercontent.com/srevinsaju/get-appimage/master/static/badges/get-appimage-branding-dark.png" alt="Download AppImage" />](https://github.com/DavidoTek/ProtonUp-Qt/releases) 
 
