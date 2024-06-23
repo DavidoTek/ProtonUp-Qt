@@ -8,7 +8,10 @@ Install and manage [GE-Proton](https://github.com/GloriousEggroll/proton-ge-cust
 
 ![ProtonUp-Qt Screenshot](.github/images/pupgui2-screenshot2.png)
 
-**Note**: ProtonUp-Qt is **not** affiliated with https://protonge.com/, which is a **fake** website. Similarly, the tools you can download with ProtonUp-Qt **including GE-Proton** are also not affiliated with this website.
+## Disclaimer
+[**Affiliation Note**](https://github.com/DavidoTek/ProtonUp-Qt/pull/413): ProtonUp-Qt is an independent tool for managing gaming compatibility tools. It is neither directly affiliated with the compatibility tool creators nor with the providers of the individual game launchers. However, we try to work with them where possible.
+
+The official development takes place on GitHub at [DavidoTek/ProtonUp-Qt](https://github.com/DavidoTek/ProtonUp-Qt), and the official website is https://davidotek.github.io/protonup-qt. We distribute ProtonUp-Qt as a Flatpak on [Flathub](https://flathub.org/apps/net.davidotek.pupgui2) and as an AppImage in the releases section. Additionally, we check the integrity of the AUR ([`protonup-qt`](https://aur.archlinux.org/packages/protonup-qt) and [`protonup-qt-bin`](https://aur.archlinux.org/packages/protonup-qt-bin)) and [Pacstall](https://pacstall.dev/packages/protonup-qt-app) distribution on an irregular basis.
 
 ## Download from Flathub or as AppImage (portable):
 [<img height="56px" src="https://flathub.org/assets/badges/flathub-badge-en.png" alt="Download from Flathub" />](https://flathub.org/apps/details/net.davidotek.pupgui2) [<img height="56px" src="https://raw.githubusercontent.com/srevinsaju/get-appimage/master/static/badges/get-appimage-branding-dark.png" alt="Download AppImage" />](https://github.com/DavidoTek/ProtonUp-Qt/releases) 
@@ -46,6 +49,9 @@ https://aur.archlinux.org/packages/protonup-qt-bin (Maintained by R1yuu)
 6. Submit the translation:   
    a) Create a Pull Request with the translation  
    b) Simple method: Alternatively, upload the **.ts** file/texts [here](https://gist.github.com/) and [create a new issue](https://github.com/DavidoTek/ProtonUp-Qt/issues/new?labels=translation&title=Translation:%20language) with a link to your translation.  
+
+## Credits
+Special thanks to the authors of all services that ProtonUp-Qt uses, including **[AreWeAntiCheatYet](https://areweanticheatyet.com/)** and **[ProtonDB](https://www.protondb.com/)**.
 
 ## Licensing
 Project|License
