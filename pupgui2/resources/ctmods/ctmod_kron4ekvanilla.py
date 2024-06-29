@@ -8,6 +8,7 @@ import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
+from pupgui2.constants import IS_FLATPAK
 from pupgui2.util import extract_tar
 from pupgui2.util import build_headers_with_authorization, fetch_project_release_data, fetch_project_releases
 
@@ -95,7 +96,7 @@ class CtInstaller(QObject):
         Are the system requirements met?
         Return Type: bool
         """
-        proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
+        proc_prefix = ['flatpak-spawn', '--host'] if IS_FLATPAK else []
         ldd = subprocess.run(proc_prefix + ['ldd', '--version'], capture_output=True)
         ldd_out = ldd.stdout.split(b'\n')[0].split(b' ')
         ldd_ver = ldd_out[len(ldd_out) - 1]

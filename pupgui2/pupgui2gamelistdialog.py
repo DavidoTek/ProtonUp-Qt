@@ -9,7 +9,7 @@ from PySide6.QtGui import QPixmap, QBrush, QColor, QKeySequence, QShortcut
 from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
-from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL
+from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL, IS_FLATPAK
 from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum, LutrisGame, HeroicGame
 from pupgui2.lutrisutil import get_lutris_game_list, is_lutris_game_using_runner
 from pupgui2.pupgui2shortcutdialog import PupguiShortcutDialog
@@ -35,7 +35,7 @@ class PupguiGameListDialog(QObject):
 
         self.install_loc = get_install_location_from_directory_name(install_dir)
         self.launcher = self.install_loc.get('launcher', '')
-        self.should_show_steam_warning = (is_steam_running() or os.path.exists('/.flatpak-info')) and self.launcher == 'steam'
+        self.should_show_steam_warning = (is_steam_running() or IS_FLATPAK) and self.launcher == 'steam'
 
         self.load_ui()
         self.setup_ui()
@@ -80,7 +80,7 @@ class PupguiGameListDialog(QObject):
     def setup_steam_list_ui(self):
         self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Deck Compatibility'), self.tr('Anticheat'), 'ProtonDB'])
         self.ui.tableGames.horizontalHeaderItem(3).setToolTip('https://areweanticheatyet.com')
-        self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }' if os.path.exists('/.flatpak-info') else self.ui.lblSteamRunningWarning.styleSheet())
+        self.ui.lblSteamRunningWarning.setStyleSheet('QLabel { color: grey; }' if IS_FLATPAK else self.ui.lblSteamRunningWarning.styleSheet())
 
         self.update_game_list_steam()
         self.protondb_status_fetched.connect(self.update_protondb_status)

@@ -66,7 +66,7 @@ class CtInstaller(QObject):
         self.rs.headers.update(rs_headers)
 
         self.allow_git = allow_git
-        proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
+        proc_prefix = ['flatpak-spawn', '--host'] if constants.IS_FLATPAK else []
         self.distinfo = subprocess.run(
             proc_prefix + ['cat', '/etc/lsb-release', '/etc/os-release'],
             universal_newlines=True,
@@ -172,7 +172,7 @@ class CtInstaller(QObject):
         Return Type: bool
         """
         # Possibly excuse some of these if not on Steam Deck and ignore if Flatpak
-        proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
+        proc_prefix = ['flatpak-spawn', '--host'] if constants.IS_FLATPAK else []
         yad_exe = host_which('yad')
         if yad_exe:
             try:
@@ -295,7 +295,7 @@ class CtInstaller(QObject):
             os.chdir(stl_path)
 
             # ProtonUp-Qt Flatpak: Run STL on host system
-            stl_proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
+            stl_proc_prefix = ['flatpak-spawn', '--host'] if constants.IS_FLATPAK else []
 
             # If on Steam Deck, run script for initial Steam Deck config
             # On Steam Deck, STL is installed to "/home/deck/stl/prefix"

@@ -23,6 +23,8 @@ CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')
 TEMP_DIR = os.path.join(os.getenv('XDG_CACHE_HOME'), 'tmp', 'pupgui2.a70200/') if os.path.exists(os.getenv('XDG_CACHE_HOME', '')) else '/tmp/pupgui2.a70200/'
 HOME_DIR = os.path.expanduser('~')
 
+IS_FLATPAK: bool = os.path.exists('/.flatpak-info')
+
 # DBus constants
 DBUS_APPLICATION_URI = f'application://{APP_ID}.desktop'
 DBUS_DOWNLOAD_OBJECT_BASEPATH = '/net/davidotek/pupgui2'
