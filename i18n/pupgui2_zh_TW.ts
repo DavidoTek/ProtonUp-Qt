@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished">遺失依賴項！</translation>
+        <translation>遺失依賴項！</translation>
     </message>
 </context>
 <context>
@@ -846,17 +846,17 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="57"/>
         <source>Add new</source>
-        <translation type="unfinished"></translation>
+        <translation>新增</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="64"/>
         <source>Click on a row, then click here to remove a shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>選擇其中一行，然後再按此來移除捷徑</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
         <source>Remove selected</source>
-        <translation type="unfinished">移除所選</translation>
+        <translation>移除所選</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
@@ -866,7 +866,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>Search for a game...</source>
-        <translation type="unfinished">搜尋遊戲...</translation>
+        <translation>搜尋遊戲...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
@@ -876,7 +876,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
         <source>Save</source>
-        <translation type="unfinished">儲存</translation>
+        <translation>儲存</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="94"/>
@@ -886,7 +886,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
         <source>Close</source>
-        <translation type="unfinished">關閉</translation>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -1335,12 +1335,12 @@ See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 
     <message>
         <location filename="../pupgui2/util.py" line="848"/>
         <source>missing</source>
-        <translation type="unfinished">遺失</translation>
+        <translation>遺失</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="849"/>
         <source>found</source>
-        <translation type="unfinished">發現</translation>
+        <translation>發現</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="851"/>
@@ -1349,7 +1349,11 @@ See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 
 {DEP_ENUM}
 
 Will continue the installation anyway.</source>
-        <translation type="unfinished"></translation>
+        <translation>{CT_NAME} 需要以下依賴項：
+
+{DEP_ENUM}
+
+無論如何都會繼續安裝。</translation>
     </message>
 </context>
 </TS>
