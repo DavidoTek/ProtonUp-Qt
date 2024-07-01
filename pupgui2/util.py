@@ -19,7 +19,7 @@ import PySide6
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBox
 
-from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR
+from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR, IS_FLATPAK
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
@@ -492,7 +492,7 @@ def host_which(name: str) -> str:
     Runs 'which <name>' on the host system (either normal or using 'flatpak-spawn --host' when inside Flatpak)
     Return Type: str
     """
-    proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
+    proc_prefix = ['flatpak-spawn', '--host'] if IS_FLATPAK else []
     which = subprocess.run(proc_prefix + ['which', name], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip()
     return None if which == '' else which
 
@@ -510,7 +510,7 @@ def host_path_exists(path: str, is_file: bool) -> bool:
     Return Type: bool
     """
     path = os.path.expanduser(path)
-    proc_prefix = 'flatpak-spawn --host' if os.path.exists('/.flatpak-info') else ''
+    proc_prefix = 'flatpak-spawn --host' if IS_FLATPAK else ''
     parameter = 'f' if is_file else 'd'  # check file using -f and directory using -d
     ret = os.system(proc_prefix + ' bash -c \'if [ -' + parameter + ' "' + path + '" ]; then exit 1; else exit 0; fi\'')
     return bool(ret) 

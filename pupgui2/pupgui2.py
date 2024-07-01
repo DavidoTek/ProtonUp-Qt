@@ -14,7 +14,7 @@ from PySide6.QtUiTools import QUiLoader
 from PySide6.QtDBus import QDBusConnection
 
 from pupgui2.constants import APP_NAME, APP_VERSION, APP_ID, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
-from pupgui2.constants import STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
+from pupgui2.constants import STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM, IS_FLATPAK
 from pupgui2 import ctloader
 from pupgui2.datastructures import CTType, MsgBoxType, MsgBoxResult
 from pupgui2.gamepadinputworker import GamepadInputWorker
@@ -591,7 +591,7 @@ def main():
     shutil.rmtree(TEMP_DIR, ignore_errors=True)
 
     # Flatpak workaround: Delete STL dir if it isn't installed (folder is always created for sandbox access)
-    if os.path.exists('/.flatpak-info') and len(os.listdir(STEAM_STL_INSTALL_PATH)) == 0:
+    if IS_FLATPAK and len(os.listdir(STEAM_STL_INSTALL_PATH)) == 0:
         subprocess.run(['flatpak-spawn', '--host', 'rm', '-r', STEAM_STL_INSTALL_PATH])
 
     dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
