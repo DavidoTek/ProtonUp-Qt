@@ -1,0 +1,44 @@
+name: Test using Pytest
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  tests:
+    name: "Run PyTest"
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: "${{ matrix.python-version }}"
+        cache: "pip"
+
+    - name: Install dependencies
+      run: |
+        sudo apt install -y libegl1 libxkbcommon0
+        pip install pytest pytest-md pytest-emoji
+
+    - name: Install ProtonUp-Qt
+      run: pip install -e .
+
+    - name: Run pytest
+      uses: pavelzw/pytest-action@v2
+      env:
+        QT_QPA_PLATFORM: "offscreen"
+      with:
+        verbose: true
+        emoji: true
+        job-summary: true
+        custom-arguments: '-q'
+        click-to-expand: true
+        report-title: 'ProtonUp-Qt Test Report'
