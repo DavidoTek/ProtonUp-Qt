@@ -6,7 +6,7 @@ from pupgui2.datastructures import BasicCompatTool, CTType, SteamApp, LutrisGame
 from pupgui2.lutrisutil import get_lutris_game_list, is_lutris_game_using_wine
 from pupgui2.pupgui2ctbatchupdatedialog import PupguiCtBatchUpdateDialog
 from pupgui2.steamutil import get_steam_game_list
-from pupgui2.util import open_webbrowser_thread, get_random_game_name
+from pupgui2.util import open_webbrowser_thread, get_random_game_name, is_mark_global_available, set_launcher_global_tool
 from pupgui2.heroicutil import get_heroic_game_list, is_heroic_launcher
 
 from PySide6.QtCore import QObject, Signal, QDataStream, QByteArray
@@ -29,6 +29,7 @@ class PupguiCtInfoDialog(QObject):
         self.games: List[Union[SteamApp, LutrisGame, HeroicGame]] = []
         self.install_loc = install_loc
         self.is_batch_update_available = False
+        self.is_mark_global_available = is_mark_global_available(self.install_loc, self.ctool)
 
         self.load_ui()
         self.setup_ui()
@@ -46,6 +47,7 @@ class PupguiCtInfoDialog(QObject):
         self.ui.txtInstallDirectory.setText(self.ctool.get_install_dir())
         self.ui.btnBatchUpdate.setVisible(False)
         self.ui.searchBox.setVisible(False)
+        self.ui.btnMarkGlobal.setVisible(self.is_mark_global_available)
 
         self.update_game_list()
 
@@ -126,6 +128,10 @@ class PupguiCtInfoDialog(QObject):
         if self.ctool.is_global:
             self.ui.lblGamesList.setText(self.tr('Tool is Global'))
 
+        self.ui.btnMarkGlobal.setVisible(self.is_mark_global_available)
+        if self.is_mark_global_available:
+            self.ui.btnMarkGlobal.clicked.connect(self.btn_mark_global_clicked)
+
         if len(self.games) < 0 or self.ctool.is_global:
             self.ui.btnClose.setFocus()
 
@@ -161,3 +167,7 @@ class PupguiCtInfoDialog(QObject):
         for row in range(self.ui.listGames.rowCount()):
             should_hide: bool = not text.lower() in self.ui.listGames.item(row, 1).text().lower()
             self.ui.listGames.setRowHidden(row, should_hide)
+
+    def btn_mark_global_clicked(self):
+        self.is_mark_global_available = not set_launcher_global_tool(self.install_loc, self.ctool)
+        self.btn_refresh_games_clicked()
