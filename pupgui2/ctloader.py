@@ -1,8 +1,6 @@
 import pkgutil
 import importlib
 
-from typing import List, Tuple
-
 from PySide6.QtCore import QObject
 from PySide6.QtWidgets import QMessageBox
 
@@ -24,7 +22,7 @@ class CtLoader(QObject):
         Load ctmods
         Return Type: bool
         """
-        failed_ctmods: List[Tuple[str, Exception]] = []
+        failed_ctmods: list[tuple[str, Exception]] = []
         for _, mod, _ in pkgutil.iter_modules(ctmods.__path__):
             if mod.startswith('ctmod_'):
                 try:
@@ -75,7 +73,7 @@ class CtLoader(QObject):
     def get_ctobjs(self, launcher=None, advanced_mode=True):
         """
         Get loaded compatibility tools, optionally sort by launcher
-        Return Type: List[dict]
+        Return Type: list[dict]
         Content(s):
             'name', 'launchers', 'installer'
         """
