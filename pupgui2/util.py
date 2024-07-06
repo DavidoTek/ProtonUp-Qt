@@ -456,6 +456,10 @@ def download_awacy_gamelist() -> None:
         r = requests.get(AWACY_GAME_LIST_URL)
         with open(LOCAL_AWACY_GAME_LIST, 'wb') as f:
             f.write(r.content)
+
+    if not is_online():
+        return
+
     t = threading.Thread(target=_download_awacy_gamelist_thread)
     t.start()
 
