@@ -911,6 +911,10 @@ def is_mark_global_available(install_loc, ctool: BasicCompatTool) -> bool:
     if ctool.ct_type != CTType.CUSTOM:
         return False
 
+    # Don't allow marking global compat tools as global
+    if ctool.is_global:
+        return False
+
     # Exit early if launcher is not on our list of compatible/allowed launchers
     if install_loc.get('launcher') not in allowed_launchers:
         return False

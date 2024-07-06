@@ -29,7 +29,7 @@ class PupguiCtInfoDialog(QObject):
         self.games: List[Union[SteamApp, LutrisGame, HeroicGame]] = []
         self.install_loc = install_loc
         self.is_batch_update_available = False
-        self.is_mark_global_available = is_mark_global_available(self.install_loc, self.ctool)
+        self.is_mark_global_available = False
 
         self.load_ui()
         self.setup_ui()
@@ -42,14 +42,14 @@ class PupguiCtInfoDialog(QObject):
         self.ui = loader.load(ui_file.device())
 
     def setup_ui(self):
+        self.update_game_list()
+
         self.ui.txtToolName.setText(self.ctool.displayname)
         self.ui.txtLauncherName.setText(self.install_loc.get('display_name'))
         self.ui.txtInstallDirectory.setText(self.ctool.get_install_dir())
         self.ui.btnBatchUpdate.setVisible(False)
         self.ui.searchBox.setVisible(False)
-        self.ui.btnMarkGlobal.setVisible(self.is_mark_global_available)
-
-        self.update_game_list()
+        self.ui.btnMarkGlobal.setVisible(self.is_mark_global_available)  # Gets updated in update_game_list
 
         self.ui.btnSearch.clicked.connect(self.btn_search_clicked)
         self.ui.btnRefreshGames.clicked.connect(self.btn_refresh_games_clicked)
@@ -60,6 +60,8 @@ class PupguiCtInfoDialog(QObject):
         QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
 
     def update_game_list(self, cached=True):
+        self.is_mark_global_available = is_mark_global_available(self.install_loc, self.ctool)
+
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
             self.update_game_list_steam(cached=cached)
             if 'Proton' in self.ctool.displayname and self.ctool.ct_type == CTType.CUSTOM:  # 'batch update' option for Proton-GE
