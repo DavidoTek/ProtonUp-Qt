@@ -60,8 +60,6 @@ class PupguiCtInfoDialog(QObject):
         QShortcut(QKeySequence.Find, self.ui).activated.connect(self.btn_search_clicked)
 
     def update_game_list(self, cached=True):
-        self.is_mark_global_available = is_mark_global_available(self.install_loc, self.ctool)
-
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
             self.update_game_list_steam(cached=cached)
             if 'Proton' in self.ctool.displayname and self.ctool.ct_type == CTType.CUSTOM:  # 'batch update' option for Proton-GE
@@ -122,6 +120,8 @@ class PupguiCtInfoDialog(QObject):
         self.ui.txtNumGamesUsingTool.setText(str(row_count))        
 
     def update_game_list_ui(self):
+        self.is_mark_global_available = is_mark_global_available(self.install_loc, self.ctool)
+
         # switch between showing the QTableWidget (listGames) or the QLabel (lblGamesList)
         self.ui.stackTableOrText.setCurrentIndex(0 if len(self.games) > 0 and not self.ctool.is_global else 1)
         self.ui.btnBatchUpdate.setEnabled(len(self.games) > 0 and not self.ctool.is_global)
