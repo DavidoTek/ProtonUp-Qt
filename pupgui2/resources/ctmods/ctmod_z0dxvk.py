@@ -5,8 +5,6 @@
 import os
 import requests
 
-from typing import Dict
-
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.networkutil import download_file
@@ -67,8 +65,7 @@ class CtInstaller(QObject):
             known_size=known_size
         )
 
-    def __fetch_data(self, tag: str = '') -> Dict:
-
+    def __fetch_data(self, tag: str = '') -> dict:
         """
         Fetch release information
         Return Type: dict
