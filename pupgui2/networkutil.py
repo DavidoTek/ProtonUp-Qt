@@ -5,7 +5,7 @@ import requests
 from typing import Callable
 
 
-def download_file(url: str, destination: str, progress_callback: Callable[[int], None], download_cancelled: Property | bool = None, buffer_size: int = 65536, stream: bool = True, known_size: int = 0):
+def download_file(url: str, destination: str, progress_callback: Callable[[int], None], download_cancelled: Property | None = None, buffer_size: int = 65536, stream: bool = True, known_size: int = 0):
     """
     Download a file from a given URL using `requests` to a destination directory with download progress, with some optional parameters:
     * `download_cancelled`: Qt Property that can stop the download
