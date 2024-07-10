@@ -21,10 +21,11 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
     # Try to get the data for the file we want
     try:
         response: requests.Response = requests.get(url, stream=stream)
-        progress_callback(1)  # 1 = download started
-    except OSError as e:
+    except (OSError, requests.ConnectionError, requests.Timeout) as e:
         print(f'Error: Failed to make request to URL {url}, cannot complete download! Reason: {e}')
         return False
+
+    progress_callback(1)  # 1 = download started
 
     # Figure out file size for reporting download progress    
     if stream and response.headers.get('Transfer-Encoding', '').lower() == 'chunked':
