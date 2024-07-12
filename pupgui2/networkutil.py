@@ -47,8 +47,7 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
             file_size = len(response.content)
 
     if file_size <= 0:
-        print('Error: Failed to get file size, cannot download file!')
-        return False
+        print('Warning: Failed to get file size, the progress bar may not display accurately!')
 
     # NOTE: If we don't get a known_size or if we can't get the size from Cotent-Length or the response size,
     #       we cannot report download progress!
