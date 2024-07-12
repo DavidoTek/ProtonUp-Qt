@@ -49,6 +49,10 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
     if file_size <= 0:
         print('Warning: Failed to get file size, the progress bar may not display accurately!')
 
+    if buffer_size <= 0:
+        print(f"Warning: Buffer Size was '{buffer_size}', defaulting to '65536'")
+        buffer_size = 65536
+
     # NOTE: If we don't get a known_size or if we can't get the size from Cotent-Length or the response size,
     #       we cannot report download progress!
     #
@@ -58,7 +62,14 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
     #       If we ever make it this far without a file_size (e.g. we are stream=True and we don't get a
     #       Content-Length, or len(response.content) is 0), then then the progress bar will stall at 1% until
     #       the download finishes where it will jump to 99%, until extraction completes.
-    chunk_count = int(file_size / buffer_size)
+
+    try:
+        chunk_count = int(file_size / buffer_size)
+    except ZeroDivisionError as e:
+        print(f'Error: Could not calculate chunk_count, {e}')
+        print('Defaulting to chunk count of 1')
+        chunk_count = 1
+
     current_chunk = 1
 
     # Get download filepath and download directory path without filename
