@@ -5,9 +5,10 @@ import requests
 from typing import Callable
 
 
-def download_file(url: str, destination: str, progress_callback: Callable[[int], None], download_cancelled: Property | None = None, buffer_size: int = 65536, stream: bool = True, known_size: int = 0):
+def download_file(url: str, destination: str, progress_callback: Callable[[int], None] | Callable[..., None] = lambda *args, **kwargs: None, download_cancelled: Property | None = None, buffer_size: int = 65536, stream: bool = True, known_size: int = 0):
     """
     Download a file from a given URL using `requests` to a destination directory with download progress, with some optional parameters:
+    * `progress_callback`: Function or Lambda that gets called with the download progress each time it changes
     * `download_cancelled`: Qt Property that can stop the download
     * `buffer_size`: Size of chunks to download the file in
     * `stream`: Lazily parse response - If response headers won't contain `'Content-Length'` and the file size is not known ahead of time, set this to `False` to get file size from response content length
