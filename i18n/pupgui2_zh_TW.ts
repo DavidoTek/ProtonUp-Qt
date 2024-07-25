@@ -902,7 +902,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00winege.py" line="21"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Based on Valve Proton Experimental&apos;s bleeding-edge Wine, built for Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>在 Linux 上執行 Windows 遊戲的相容性工具「Wine」。基於 Valve Proton Experimental 的前沿 Wine，專為 Lutris 打造。&lt;br/&gt;&lt;br/&gt;&lt;b&gt;當您不知道該選擇什麼時使用它。&lt;/b&gt;</translation>
+        <translation>在 Linux 上執行 Windows 遊戲的相容性工具「Wine」。基於 Valve Proton Experimental 的前沿 Wine，專為 Lutris 打造。&lt;br&gt;&lt;br&gt;&lt;b&gt;當您不知道該選擇什麼時使用它。&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -938,7 +938,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_d8vk.py" line="21"/>
         <source>Vulkan-based implementation of Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation>基於 Vulkan 的 Direct3D 8/9/10/11 實現。（每夜版）&lt;br/&gt;&lt;br/&gt;&lt;b&gt;警告：每夜版不穩定，謹慎使用！&lt;/b&gt;</translation>
+        <translation>基於 Vulkan 的 Direct3D 8/9/10/11 實現。（每夜版）&lt;br&gt;&lt;br&gt;&lt;b&gt;警告：每夜版不穩定，謹慎使用！&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1032,7 +1032,7 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="19"/>
         <source>Run Linux games as is, even if Valve recommends Proton for a game.&lt;br/&gt;Created by Scrumplex.&lt;br/&gt;&lt;br/&gt;Useful for Steam Deck.&lt;br/&gt;&lt;br/&gt;Note: The internal name has been changed from &lt;b&gt;none&lt;/b&gt; to &lt;b&gt;Steam-Play-None&lt;/b&gt;!</source>
-        <translation>按原樣執行 Linux 遊戲，即使 Valve 有推薦用於遊戲的 Proton。&lt;br/&gt;由 Scrumplex 製作。&lt;br/&gt;&lt;br/&gt;適用於 Steam Deck。&lt;br/&gt;&lt;br/&gt;注意：內部名稱已從 &lt;b&gt;none&lt;/b&gt; 更改為 &lt;b&gt;Steam-Play-None&lt;/b&gt;！</translation>
+        <translation>按原樣執行 Linux 遊戲，即使 Valve 有推薦用於遊戲的 Proton。&lt;br&gt;由 Scrumplex 製作。&lt;br&gt;&lt;br&gt;適用於 Steam Deck。&lt;br&gt;&lt;br&gt;注意：內部名稱已從 &lt;b&gt;none&lt;/b&gt; 更改為 &lt;b&gt;Steam-Play-None&lt;/b&gt;！</translation>
     </message>
 </context>
 <context>
@@ -1209,7 +1209,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dlutris.py" line="14"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Lutris Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>Wine 的 VKD3D 分支，目的是在 Vulkan 上實現完整的 Direct3D 12 API。（Lutris 發佈版）&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
+        <translation>Wine 的 VKD3D 分支，目的是在 Vulkan 上實現完整的 Direct3D 12 API。（Lutris 發佈版）&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1217,7 +1217,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dproton.py" line="19"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Valve Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>Wine 的 VKD3D 分支，目的是在 Vulkan 上實現完整的 Direct3D 12 API。（Valve 發佈版）&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
+        <translation>Wine 的 VKD3D 分支，目的是在 Vulkan 上實現完整的 Direct3D 12 API。（Valve 發佈版）&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1241,7 +1241,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="21"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>基於 Vulkan 的 Direct3D 9、10 和 11 的 Linux/Wine 實現。&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
+        <translation>基於 Vulkan 的 Direct3D 9、10 和 11 的 Linux/Wine 實現。&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1261,7 +1261,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation>每夜版本的 DXVK（master 分支），基於 Vulkan 的 Direct3D 9、10 和 11 的 Linux/Wine 實現。&lt;br/&gt;&lt;br/&gt;&lt;b&gt;警告：每夜版本不穩定，請謹慎使用！&lt;/b&gt;</translation>
+        <translation>每夜版本的 DXVK（master 分支），基於 Vulkan 的 Direct3D 9、10 和 11 的 Linux/Wine 實現。&lt;br&gt;&lt;br&gt;&lt;b&gt;警告：每夜版本不穩定，請謹慎使用！&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
