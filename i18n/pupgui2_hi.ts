@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
         <source>Missing dependencies!</source>
-        <translation>निर्भरताएँ गायब हैं!</translation>
+        <translation>निर्भरताएं गायब हैं!</translation>
     </message>
 </context>
 <context>
@@ -22,7 +22,7 @@
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation>निम्नलिखित कम्पैटबिलटी टूल लोड नहीं किया जा सका:
+        <translation>निम्नलिखित संगतता टूल लोड नहीं किया जा सका:
 {TOOL_LIST}
 
 यदि आपको लगता है कि यह एक त्रुटि है, तो कृपया GitHub पर बग की रिपोर्ट करें!</translation>
@@ -38,7 +38,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>global</source>
-        <translation>ग्लोबल</translation>
+        <translation>वैश्विक</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
@@ -58,7 +58,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="312"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} इंस्टॉल नहीं किया जा सका…</translation>
+        <translation>{current_compat_tool_name} स्थापित नहीं किया जा सका…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="319"/>
@@ -68,34 +68,34 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="321"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} निकाला जा रहा है…</translation>
+        <translation>{current_compat_tool_name} निष्कर्षण किया जा रहा है…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="323"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} इंस्टॉल किया जा रहा है…</translation>
+        <translation>{current_compat_tool_name} स्थापित किया जा रहा है…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="325"/>
         <source>Installed {current_compat_tool_name}.</source>
-        <translation>{current_compat_tool_name} इन्स्टॉल्ड।</translation>
+        <translation>{current_compat_tool_name} स्थापित।</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="348"/>
         <source>Remove compatibility tools?</source>
-        <translation>कम्पैटबिलटी टूल हटाएं?</translation>
+        <translation>संगतता टूल हटाएं?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="348"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
-        <translation>आप कम्पैटबिलटी टूल हटाने का प्रयास कर रहे हैं
-जो कि {n} गेम्स द्वारा उपयोग में हैं। जारी रखें?</translation>
+        <translation>आप {n} गेम द्वारा उपयोग किए जा रहे संगतता टूल 
+को हटाने का प्रयास कर रहे हैं। जारी रखें?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="355"/>
         <source>Removed selected versions.</source>
-        <translation>चयनित वर्शन हटा दिये गये।</translation>
+        <translation>चयनित संस्करण हटा दिए गए।</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="369"/>
@@ -106,18 +106,18 @@ which are in use by {n} games. Continue?</source>
         <location filename="../pupgui2/pupgui2.py" line="369"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
-        <translation>डाउनलोड लंबित हैं.
+        <translation>डाउनलोड लंबित हैं।
 फिर भी रद्द करें और बाहर निकलें?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="377"/>
         <source>Changed install directory to {install_dir}.</source>
-        <translation>इंस्टॉल डॉयरेक्टरी को {install_dir} में बदल दिया गया।</translation>
+        <translation>स्थापना निर्देशिका को {install_dir} में बदल दिया गया।</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="428"/>
         <source>Install tool from Flathub</source>
-        <translation>Flathub से टूल इंस्टॉल करें</translation>
+        <translation>फ्लैथहब से टूल स्थापित करें</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="431"/>
@@ -127,12 +127,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
         <source>ProtonUp-Qt - Wine/Proton Installer</source>
-        <translation>ProtonUp-Qt - Wine/Proton इंस्टालर</translation>
+        <translation>ProtonUp-Qt - Wine/Proton स्थापनकर्ता</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="48"/>
         <source>Install for:</source>
-        <translation>इसके लिए इंस्टॉल करें:</translation>
+        <translation>इसके लिए स्थापित करें:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="68"/>
@@ -142,12 +142,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation>कस्टम इंस्टॉल डॉयरेक्टरी जोड़ें…</translation>
+        <translation>तदनुकूल स्थापना निर्देशिका जोड़ें…</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="103"/>
         <source>Installed compatibility tools:</source>
-        <translation>इंस्टॉल किए गए कम्पैटबिलटी टूल:</translation>
+        <translation>स्थापित संगतता टूल:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
@@ -167,7 +167,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
         <source>Get tools from Flathub</source>
-        <translation>Flathub से उपकरण प्राप्त करें</translation>
+        <translation>फ्लैथहब से उपकरण प्राप्त करें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="206"/>
@@ -177,7 +177,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="213"/>
         <source>About</source>
-        <translation>बारे में</translation>
+        <translation>परिचय</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="220"/>
@@ -195,12 +195,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="44"/>
         <source>Specify a custom location for downloading and displaying a launcher&apos;s compatibility tools.</source>
-        <translation>लॉन्चर के कम्पैटबिलटी टूल को डाउनलोड करने और प्रदर्शित करने के लिए एक कस्टम स्थान निर्दिष्ट करें।</translation>
+        <translation>लॉन्चर के संगतता टूल को डाउनलोड करने और प्रदर्शित करने के लिए एक तदनुकूल स्थान निर्दिष्ट करें।</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="56"/>
         <source>Directory:</source>
-        <translation>डॉयरेक्टरी:</translation>
+        <translation>निर्देशिका:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="66"/>
@@ -210,12 +210,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="87"/>
         <source>Reset the custom install directory back to default for this launcher</source>
-        <translation>इस लॉन्चर के लिए कस्टम इंस्टॉल डॉयरेक्टरी को वापस डिफ़ॉल्ट पर रीसेट करें</translation>
+        <translation>इस लॉन्चर के लिए तदनुकूल स्थापना निर्देशिका को तयशुदा पर रीसेट करें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="90"/>
         <source>Default</source>
-        <translation>डिफ़ॉल्ट</translation>
+        <translation>तयशुदा</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="113"/>
@@ -226,22 +226,22 @@ Cancel and exit anyway?</source>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="26"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="107"/>
         <source>Batch Update</source>
-        <translation>बैच अपडेट</translation>
+        <translation>बैच अद्यतन</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="44"/>
         <source>Migrate games using the current compatibility tool to the one specified below.</source>
-        <translation>वर्तमान कम्पैटबिलटी टूल का उपयोग करके गेम को नीचे निर्दिष्ट टूल पर माइग्रेट करें।</translation>
+        <translation>वर्तमान संगतता टूल का उपयोग करके गेम को नीचे निर्दिष्ट टूल पर माइग्रेट करें।</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="56"/>
         <source>New Version:</source>
-        <translation>नया वर्शन:</translation>
+        <translation>नया संस्करण:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="73"/>
         <source>Old Version:</source>
-        <translation>पुराना वर्शन:</translation>
+        <translation>पुराना संस्करण:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
@@ -274,24 +274,24 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="91"/>
         <source>Update available</source>
-        <translation>अपडेट उपलब्ध</translation>
+        <translation>अद्यतन उपलब्ध</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="92"/>
         <source>There is a newer version available.
 You are running {APP_VERSION} but {newest_version} is available.</source>
-        <translation>एक नया वर्शन उपलब्ध है.
+        <translation>एक नया संस्करण उपलब्ध है।
 आप {APP_VERSION} चला रहे हैं लेकिन {newest_version} उपलब्ध है।</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
         <source>Up to date</source>
-        <translation>अप टू डेट</translation>
+        <translation>अद्यतित</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
         <source>You are running the newest version!</source>
-        <translation>आप नवीनतम वर्शन चला रहे हैं!</translation>
+        <translation>आप नवीनतम संस्करण चला रहे हैं!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="101"/>
@@ -306,7 +306,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;p&gt;Wine- और Proton-आधारित कम्पैटबिलटी टूल इंस्टॉल/अपडेट करने के लिए GUI।&lt;br&gt;AUNaseef के protonup से प्रेरित/आंशिक रूप से आधारित।&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Wine- और Proton-आधारित संगतता टूल स्थापित/अद्यतन करने के लिए GUI।&lt;br&gt;AUNaseef के protonup से प्रेरित/आंशिक रूप से आधारित।&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
@@ -321,12 +321,12 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="139"/>
         <source>Enable advanced mode (show git-builds for compatibility tools etc.)</source>
-        <translation>उन्नत मोड सक्षम करें (कम्पैटबिलटी टूल आदि के लिए git-बिल्ड दिखाएं)</translation>
+        <translation>उन्नत मोड सक्षम करें (संगतता टूल आदि के लिए git-बिल्ड दिखाएं)</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="150"/>
         <source>Check for updates</source>
-        <translation>अपडेट के लिए जाँच करें</translation>
+        <translation>अद्यतनों के लिए जांचें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
@@ -368,7 +368,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="47"/>
         <source>No supported compatibility tools found.</source>
-        <translation>कोई समर्थित कम्पैटबिलटी टूल नहीं मिला।</translation>
+        <translation>कोई समर्थित संगतता टूल नहीं मिला।</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="49"/>
@@ -385,12 +385,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="14"/>
         <source>About compatibility tool</source>
-        <translation>कम्पैटबिलटी टूल के बारे में</translation>
+        <translation>संगतता टूल के बारे में</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="26"/>
         <source>Compatibility tool:</source>
-        <translation>कम्पैटबिलटी टूल:</translation>
+        <translation>संगतता टूल:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="43"/>
@@ -400,17 +400,17 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="60"/>
         <source>Install directory:</source>
-        <translation>इंस्टॉल डॉयरेक्टरी:</translation>
+        <translation>स्थापना निर्देशिका:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="88"/>
         <source>Games using compatibility tool:</source>
-        <translation>कम्पैटबिलटी टूल का उपयोग करने वाले खेल:</translation>
+        <translation>संगतता टूल का उपयोग करने वाले खेल:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="115"/>
         <source>Refresh Games</source>
-        <translation>रीफ़्रेश गेम्स</translation>
+        <translation>गेम्स रिफ्रेश करें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="129"/>
@@ -425,7 +425,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
         <source>Batch Update</source>
-        <translation>बैच अपडेट</translation>
+        <translation>बैच अद्यतन</translation>
     </message>
     <message>
         <source>Batch update</source>
@@ -488,12 +488,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="42"/>
         <source>Custom Install Directory</source>
-        <translation>कस्टम इंस्टाल डॉयरेक्टरी</translation>
+        <translation>तदनुकूल स्थापना निर्देशिका</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="86"/>
         <source>Select Custom Install Directory — ProtonUp-Qt</source>
-        <translation>कस्टम इंस्टाल डायरेक्टरी का चयन करें — ProtonUp-Qt</translation>
+        <translation>तदनुकूल स्थापना निर्देशिका चुनें — ProtonUp-Qt</translation>
     </message>
     <message>
         <source>Save</source>
@@ -525,12 +525,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Compatibility Tool</source>
-        <translation>कम्पैटबिलटी टूल</translation>
+        <translation>संगतता टूल</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Deck compatibility</source>
-        <translation>Deck कम्पैटबिलटी</translation>
+        <translation>स्टीम डेक संगतता</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
@@ -547,12 +547,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Install Location</source>
-        <translation>इंस्टॉल स्थान</translation>
+        <translation>स्थापना स्थान</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <source>Installed Date</source>
-        <translation>इन्स्टॉल्ड तिथि</translation>
+        <translation>स्थापित तिथि</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="144"/>
@@ -568,7 +568,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="216"/>
         <source>Installed at {DATE} ({TIME})</source>
-        <translation>{DATE} ({TIME}) पर इन्स्टॉल्ड</translation>
+        <translation>{DATE} ({TIME}) पर स्थापित</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="250"/>
@@ -597,7 +597,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
         <source>Native</source>
-        <translation>नैटिव</translation>
+        <translation>मूल</translation>
     </message>
     <message>
         <source>Type: Native</source>
@@ -606,7 +606,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="309"/>
         <source>Done</source>
-        <translation>हो गया</translation>
+        <translation>संपन्न</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="309"/>
@@ -617,12 +617,12 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="379"/>
         <source>Double click to browse...</source>
-        <translation>ब्राउज़ करने के लिए डबल क्लिक करें…</translation>
+        <translation>देखने के लिए डबल क्लिक करें…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="382"/>
         <source>Install location does not exist!</source>
-        <translation>इंस्टॉल स्थान मौजूद नहीं है!</translation>
+        <translation>स्थापना स्थान मौजूद नहीं है!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="423"/>
@@ -637,7 +637,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="428"/>
         <source>Native (playable)</source>
-        <translation>नैटिव (खेलने योग्य)</translation>
+        <translation>मूल (खेलने योग्य)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="429"/>
@@ -652,7 +652,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="435"/>
         <source>Native (verified)</source>
-        <translation>नैटिव (सत्यापित)</translation>
+        <translation>मूल (सत्यापित)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="436"/>
@@ -672,7 +672,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="66"/>
         <source>Installed games: {NO_INSTALLED}</source>
-        <translation>इंस्टॉल किए गए गेम: {NO_INSTALLED}</translation>
+        <translation>स्थापित गेम: {NO_INSTALLED}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
@@ -731,7 +731,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="61"/>
         <source>Warning: Close the Steam client beforehand so that the changes can be applied!</source>
-        <translation>चेतावनी: Steam क्लाइंट को पहले ही बंद कर दें ताकि परिवर्तन लागू किए जा सकें!</translation>
+        <translation>चेतावनी: स्टीम क्लाइंट को पहले ही बंद कर दें ताकि परिवर्तन लागू किए जा सकें!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="68"/>
@@ -746,18 +746,18 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="91"/>
         <source>Refresh Games</source>
-        <translation>रीफ़्रेश गेम्स</translation>
+        <translation>गेम्स रिफ्रेश करें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="105"/>
         <source>Shortcut Editor</source>
-        <translation>शॉर्टकट एडिटर</translation>
+        <translation>शॉर्टकट संपादक</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="285"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="119"/>
         <source>Apply</source>
-        <translation>लागू</translation>
+        <translation>लागू करें</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="284"/>
@@ -770,7 +770,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="26"/>
         <source>Install Compatibility Tool</source>
-        <translation>कम्पैटबिलटी टूल इंस्टॉल करें</translation>
+        <translation>संगतता टूल स्थापित करें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="106"/>
@@ -780,17 +780,17 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="113"/>
         <source>Install</source>
-        <translation>इंस्टॉल</translation>
+        <translation>स्थापित करें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="120"/>
         <source>Cancel</source>
-        <translation>रद्द</translation>
+        <translation>रद्द करें</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="47"/>
         <source>Compatibility tool:</source>
-        <translation>कम्पैटबिलटी टूल:</translation>
+        <translation>संगतता टूल:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="61"/>
@@ -808,17 +808,17 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
         <source>App Name</source>
-        <translation>एप्लिकेशन का नाम</translation>
+        <translation>ऐप नाम</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
         <source>Executable</source>
-        <translation>एक्जीक्यूटेबल</translation>
+        <translation>निष्पादनयोग्य</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
         <source>Start Directory</source>
-        <translation>डॉयरेक्टरी प्रारंभ करें</translation>
+        <translation>प्रारंभ निर्देशिका</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
@@ -828,7 +828,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="14"/>
         <source>Steam Shortcut Editor</source>
-        <translation>Steam शॉर्टकट संपादक</translation>
+        <translation>स्टीम शॉर्टकट संपादक</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="54"/>
@@ -863,7 +863,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
         <source>Save changes and delete marked shortcuts</source>
-        <translation>परिवर्तन सहेजें और चिह्नित शॉर्टकट हटाएं</translation>
+        <translation>परिवर्तन सहेजें और चिह्नित शॉर्टकट मिटाएं</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
@@ -886,7 +886,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="20"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>Valve के डिफ़ॉल्ट Proton में सुधार के साथ Windows गेम चलाने के लिए Steam कम्पैटबिलटी टूल।&lt;br&gt;&lt;br&gt;&lt;b&gt;जब आप नहीं जानते कि क्या चुनना है तो इसका उपयोग करें।&lt;/b&gt;</translation>
+        <translation>Valve के तयशुदा Proton में सुधार के साथ Windows गेम चलाने के लिए Steam संगतता टूल।&lt;br&gt;&lt;br&gt;&lt;b&gt;जब आप नहीं जानते कि क्या चुनना है तो इसका उपयोग करें।&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -894,7 +894,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00winege.py" line="21"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Based on Valve Proton Experimental&apos;s bleeding-edge Wine, built for Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>Linux पर Windows गेम चलाने के लिए कम्पैटबिलटी टूल &quot;Wine&quot;। Valve Proton एक्सपेरिमेंटल ब्लीडिंग-एज Wine पर आधारित, Lutris के लिए बनाया गया।&lt;br&gt;&lt;br&gt;&lt;b&gt;जब आप नहीं जानते कि क्या चुनना है तो इसका उपयोग करें।&lt;/b&gt;</translation>
+        <translation>Linux पर Windows गेम चलाने के लिए संगतता टूल &quot;Wine&quot;। Valve Proton एक्सपेरिमेंटल ब्लीडिंग-एज Wine पर आधारित, Lutris के लिए बनाया गया।&lt;br&gt;&lt;br&gt;&lt;b&gt;जब आप नहीं जानते कि क्या चुनना है तो इसका उपयोग करें।&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -902,7 +902,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="15"/>
         <source>Steam Play compatibility tool to run DOS games using native Linux DOSBox.</source>
-        <translation>नैटिव Linux DOSBox का उपयोग करके DOS गेम चलाने के लिए Steam Play कम्पैटबिलटी टूल।</translation>
+        <translation>मूल Linux DOSBox का उपयोग करके DOS गेम चलाने के लिए स्टीम प्ले संगतता टूल।</translation>
     </message>
     <message>
         <source>missing</source>
@@ -930,7 +930,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_d8vk.py" line="21"/>
         <source>Vulkan-based implementation of Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation>Direct3D 8/9/10/11 (नाइट्ली) का Vulkan-आधारित कार्यान्वयन।&lt;br&gt;&lt;br&gt;&lt;b&gt;चेतावनी: नाइट्ली वर्शन अस्थिर है, सावधानी के साथ उपयोग करें!&lt;/b&gt;</translation>
+        <translation>Direct3D 8/9/10/11 (नाइट्ली) का Vulkan-आधारित कार्यान्वयन।&lt;br&gt;&lt;br&gt;&lt;b&gt;चेतावनी: नाइट्ली संस्करण अस्थिर है, सावधानी के साथ उपयोग करें!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -938,7 +938,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_kron4ekvanilla.py" line="20"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.</source>
-        <translation>Linux पर Windows गेम चलाने के लिए कम्पैटबिलटी टूल &quot;Wine&quot;। WineHQ स्रोतों से आधिकारिक वर्शन, Kron4ek द्वारा संकलित।</translation>
+        <translation>Linux पर Windows गेम चलाने के लिए संगतता टूल &quot;Wine&quot;। WineHQ स्रोतों से आधिकारिक संस्करण, Kron4ek द्वारा संकलित।</translation>
     </message>
 </context>
 <context>
@@ -946,7 +946,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="20"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
-        <translation>Linux पर Windows गेम चलाने के लिए कम्पैटबिलटी टूल &quot;Wine&quot;। कुछ खेलों में बेहतर अनुकूलता या प्रदर्शन प्रदान करने के लिए Lutris द्वारा सुधार किया गया।</translation>
+        <translation>Linux पर Windows गेम चलाने के लिए संगतता टूल &quot;Wine&quot;। कुछ खेलों में बेहतर अनुकूलता या प्रदर्शन प्रदान करने के लिए Lutris द्वारा सुधार किया गया।</translation>
     </message>
 </context>
 <context>
@@ -974,7 +974,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="20"/>
         <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>Windows गेम चलाने के लिए कस्टम Proton बिल्ड, Wine-tkg बिल्ड सिस्टम के साथ बनाया गया है।</translation>
+        <translation>Windows गेम चलाने के लिए तदनुकूल Proton बिल्ड, Wine-tkg बिल्ड सिस्टम के साथ बनाया गया है।</translation>
     </message>
 </context>
 <context>
@@ -985,7 +985,7 @@ Trending: {trending}</source>
 &lt;br/&gt;
 &lt;br/&gt;
 This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation>Windows गेम चलाने के लिए कस्टम Proton बिल्ड, Wine-tkg बिल्ड सिस्टम के साथ बनाया गया है।
+        <translation>Windows गेम चलाने के लिए तदनुकूल Proton बिल्ड, Wine-tkg बिल्ड सिस्टम के साथ बनाया गया है।
 &lt;br&gt;
 &lt;br&gt;
 यह बिल्ड &lt;b&gt;Wine मास्टर&lt;/b&gt; पर आधारित है।</translation>
@@ -996,7 +996,7 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="15"/>
         <source>Steam Play compatibility tool to run adventure games using native Linux ScummVM.</source>
-        <translation>नैटिव Linux ScummVM का उपयोग करके साहसिक गेम चलाने के लिए Steam Play कम्पैटबिलटी टूल।</translation>
+        <translation>नैटिव Linux ScummVM का उपयोग करके साहसिक गेम चलाने के लिए स्टीम प्ले संगतता टूल।</translation>
     </message>
     <message>
         <source>missing</source>
@@ -1024,7 +1024,7 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="19"/>
         <source>Run Linux games as is, even if Valve recommends Proton for a game.&lt;br/&gt;Created by Scrumplex.&lt;br/&gt;&lt;br/&gt;Useful for Steam Deck.&lt;br/&gt;&lt;br/&gt;Note: The internal name has been changed from &lt;b&gt;none&lt;/b&gt; to &lt;b&gt;Steam-Play-None&lt;/b&gt;!</source>
-        <translation>Linux गेम वैसे ही चलाएं, भले ही Valve गेम के लिए Proton की सिफारिश करता हो।&lt;br&gt;Scrumplex द्वारा बनाया गया।&lt;br&gt;&lt;br&gt;Steam Deck के लिए उपयोगी।&lt;br&gt;&lt;br&gt;नोट: आंतरिक नाम है &lt;b&gt;कोई नहीं&lt;/b&gt; से &lt;b&gt;Steam-Play-कोई नहीं&lt;/b&gt; में बदल दिया गया है!</translation>
+        <translation>Linux गेम वैसे ही चलाएं, भले ही Valve गेम के लिए Proton की सिफारिश करता हो।&lt;br&gt;Scrumplex द्वारा बनाया गया।&lt;br&gt;&lt;br&gt;स्टीम डेक के लिए उपयोगी।&lt;br&gt;&lt;br&gt;नोट: आंतरिक नाम है &lt;b&gt;कोई नहीं&lt;/b&gt; से &lt;b&gt;Steam-Play-कोई नहीं&lt;/b&gt; में बदल दिया गया है!</translation>
     </message>
 </context>
 <context>
@@ -1054,9 +1054,9 @@ More information is available on the SteamTinkerLaunch Installation wiki page.
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
 of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
         <translation>
-Steam क्लाइंट के साथ उपयोग के लिए Steam रैपर टूल जो Proton और नैटिव Linux गेम के लिए गेम टूल के आसान ग्राफिकल कॉन्फ़िगरेशन की अनुमति देता है।
+Steam क्लाइंट के साथ उपयोग के लिए Steam रैपर टूल जो Proton और नैटिव Linux गेम के लिए गेम टूल के आसान चित्रात्मक विन्यास की अनुमति देता है।
 &lt;br&gt;&lt;br&gt;
-&lt;b&gt;Steam Deck&lt;/b&gt; पर, आपके लिए प्रासंगिक निर्भरताएँ स्थापित की जाएंगी। यदि आप Steam Deck पर नहीं हैं, तो &lt;b&gt;सुनिश्चित करें कि आपके पास निम्नलिखित निर्भरताएँ स्थापित हैं&lt;/b&gt;:
+&lt;b&gt;स्टीम डेक&lt;/b&gt; पर, आपके लिए प्रासंगिक निर्भरताएं स्थापित की जाएंगी। यदि आप स्टीम डेक पर नहीं हैं, तो &lt;b&gt;सुनिश्चित करें कि आपके पास निम्नलिखित निर्भरताएं स्थापित हैं&lt;/b&gt;:
 &lt;ul&gt;
    &lt;li&gt;awk (या gawk)&lt;/li&gt;
    &lt;li&gt;bash&lt;/li&gt;
@@ -1071,17 +1071,17 @@ Steam क्लाइंट के साथ उपयोग के लिए St
    &lt;li&gt;xxd&lt;/li&gt;
    &lt;li&gt;Yad &amp;gt;= &lt;b&gt;v7.2&lt;/b&gt;&lt;/li&gt;
 &lt;/ul&gt;
-अधिक जानकारी SteamTinkerLaunch इंस्टालेशन wiki पेज पर उपलब्ध है।
+अधिक जानकारी SteamTinkerLaunch स्थापना wiki पेज पर उपलब्ध है।
 &lt;br&gt;&lt;br&gt;
-SteamTinkerLaunch में कई &lt;b&gt;वैकल्पिक निर्भरताएँ&lt;/b&gt; हैं जिन्हें अतिरिक्त कार्यक्षमता के लिए अलग से स्थापित करना होगा। कृपया वैकल्पिक निर्भरता अनुभाग देखें
-इसके GitHub पेज पर SteamTinkerLaunch इंस्टालेशन गाइड का।</translation>
+SteamTinkerLaunch में कई &lt;b&gt;वैकल्पिक निर्भरताएं&lt;/b&gt; हैं जिन्हें अतिरिक्त कार्यक्षमता के लिए अलग से स्थापित करना होगा। 
+कृपया इसके GitHub पेज पर SteamTinkerLaunch स्थापना मार्गदर्शिका का वैकल्पिक निर्भरता अनुभाग देखें।</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="205"/>
         <source>You have several unmet dependencies for SteamTinkerLaunch.
 
 </source>
-        <translation>आपके पास SteamTinkerLaunch के लिए कई अधूरी निर्भरताएँ हैं।
+        <translation>आपके पास SteamTinkerLaunch के लिए कई अधूरी निर्भरताएं हैं।
 
 </translation>
     </message>
@@ -1092,17 +1092,17 @@ SteamTinkerLaunch में कई &lt;b&gt;वैकल्पिक निर�
 Installation will be cancelled.</source>
         <translation>
 
-इंस्टॉलेशन रद्द कर दिया जाएगा।</translation>
+स्थापना रद्द कर दिया जाएगा।</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="207"/>
         <source>Missing dependencies!</source>
-        <translation>निर्भरताएँ गायब!</translation>
+        <translation>निर्भरताएं गायब!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="239"/>
         <source>Existing SteamTinkerLaunch Installation</source>
-        <translation>मौजूदा SteamTinkerLaunch इंस्टालेशन</translation>
+        <translation>मौजूदा SteamTinkerLaunch स्थापना</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="240"/>
@@ -1111,16 +1111,16 @@ Installation will be cancelled.</source>
 Reinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to &apos;{STL_INSTALL_PATH}&apos;.
 
 You may also choose to remove your existing installation, if ProtonUp-Qt has write access to this folder. Do you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)</source>
-        <translation>ऐसा लगता है कि आपके पास &apos;{EXTERNAL_INSTALL_PATH}&apos; पर मौजूदा SteamTinkerLaunch इंस्टॉलेशन है जो ProtonUp-Qt द्वारा इंस्टॉल नहीं किया गया था।
+        <translation>ऐसा लगता है कि आपके पास &apos;{EXTERNAL_INSTALL_PATH}&apos; पर मौजूदा SteamTinkerLaunch स्थापना है जो ProtonUp-Qt द्वारा स्थापित नहीं किया गया था।
 
-ProtonUp-Qt के साथ SteamTinkerLaunch को पुनः इंस्टॉल करने से आपका इंस्टॉलेशन फोल्डर &apos;{STL_INSTALL_PATH}&apos; में चला जाएगा।
+ProtonUp-Qt के साथ SteamTinkerLaunch को पुनः स्थापित करने से आपका स्थापना फोल्डर &apos;{STL_INSTALL_PATH}&apos; में चला जाएगा।
 
-यदि ProtonUp-Qt के पास इस फोल्डर तक लिखने की पहुंच है, तो आप अपने मौजूदा इंस्टॉलेशन को हटाना भी चुन सकते हैं। क्या आप SteamTinkerLaunch इंस्टॉल करना जारी रखना चाहते हैं? (यह किसी भी मौजूदा SteamTinkerLaunch कॉन्फ़िगरेशन को प्रभावित नहीं करेगा।)</translation>
+यदि ProtonUp-Qt के पास इस फोल्डर तक लिखने की पहुंच है, तो आप अपने मौजूदा स्थापना को हटाना भी चुन सकते हैं। क्या आप SteamTinkerLaunch स्थापना करना जारी रखना चाहते हैं? (यह किसी भी मौजूदा SteamTinkerLaunch विन्यास को प्रभावित नहीं करेगा।)</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="241"/>
         <source>Remove existing SteamTinkerLaunch installation</source>
-        <translation>मौजूदा SteamTinkerLaunch इंस्टॉलेशन को हटा दें</translation>
+        <translation>मौजूदा SteamTinkerLaunch स्थापना हटाएं</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="350"/>
@@ -1132,9 +1132,9 @@ ProtonUp-Qt के साथ SteamTinkerLaunch को पुनः इंस्�
         <source>By default, ProtonUp-Qt will add SteamTinkerLaunch to all available Shell paths. This makes it easier to use with native Linux games. It also enables SteamTinkerLaunch commands from anywhere in the command line.
 
 Some users may not want this functionality. Do you want to continue installing SteamTinkerLaunch?</source>
-        <translation>डिफ़ॉल्ट रूप से, ProtonUp-Qt सभी उपलब्ध शेल पथों में SteamTinkerLaunch जोड़ देगा। इससे देशी Linux गेम्स के साथ उपयोग करना आसान हो जाता है। यह कमांड लाइन में कहीं से भी SteamTinkerLaunch कमांड को सक्षम बनाता है।
+        <translation>तयशुदा रूप से, ProtonUp-Qt सभी उपलब्ध शेल पथों में SteamTinkerLaunch जोड़ देगा। इससे देशी Linux गेम्स के साथ उपयोग करना आसान हो जाता है। यह कमांड लाइन में कहीं से भी SteamTinkerLaunch कमांड को सक्षम बनाता है।
 
-हो सकता है कि कुछ उपयोगकर्ता यह कार्यक्षमता न चाहें. क्या आप SteamTinkerLaunch इंस्टॉल करना जारी रखना चाहते हैं?</translation>
+हो सकता है कि कुछ उपयोगकर्ता यह कार्यक्षमता न चाहें। क्या आप SteamTinkerLaunch स्थापना करना जारी रखना चाहते हैं?</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="352"/>
@@ -1173,9 +1173,9 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
         <translation>
 &lt;b&gt;Git रिलीज - अस्थिर हो सकता है&lt;/b&gt;
 &lt;br&gt;&lt;br&gt;
-Steam क्लाइंट के साथ उपयोग के लिए Linux रैपर टूल जो Proton और नैटिव Linux गेम के लिए गेम टूल के आसान ग्राफिकल कॉन्फ़िगरेशन की अनुमति देता है।
+Steam क्लाइंट के साथ उपयोग के लिए Linux रैपर टूल जो Proton और नैटिव Linux गेम के लिए गेम टूल के आसान चित्रात्मक विन्यास की अनुमति देता है।
 &lt;br&gt;&lt;br&gt;
-&lt;b&gt;Steam Deck&lt;/b&gt; पर, आपके लिए प्रासंगिक निर्भरताएँ स्थापित की जाएंगी। यदि आप Steam Deck पर नहीं हैं, तो &lt;b&gt;सुनिश्चित करें कि आपके पास निम्नलिखित निर्भरताएँ स्थापित हैं&lt;/b&gt;:
+&lt;b&gt;स्टीम डेक&lt;/b&gt; पर, आपके लिए प्रासंगिक निर्भरताएं स्थापित की जाएंगी। यदि आप स्टीम डेक पर नहीं हैं, तो &lt;b&gt;सुनिश्चित करें कि आपके पास निम्नलिखित निर्भरताएं स्थापित हैं&lt;/b&gt;:
 &lt;ul&gt;
   &lt;li&gt;awk (or gawk)&lt;/li&gt;
   &lt;li&gt;bash&lt;/li&gt;
@@ -1190,10 +1190,9 @@ Steam क्लाइंट के साथ उपयोग के लिए Li
   &lt;li&gt;xxd&lt;/li&gt;
   &lt;li&gt;Yad &amp;gt;= &lt;b&gt;v7.2&lt;/b&gt;&lt;/li&gt;
 &lt;/ul&gt;
-अधिक जानकारी SteamTinkerLaunch इंस्टालेशन wiki पेज पर उपलब्ध है।
+अधिक जानकारी SteamTinkerLaunch स्थापना wiki पेज पर उपलब्ध है।
 &lt;br&gt;&lt;br&gt;
-SteamTinkerLaunch में कई &lt;b&gt;वैकल्पिक निर्भरताएँ&lt;/b&gt; हैं जिन्हें अतिरिक्त कार्यक्षमता के लिए अलग से स्थापित करना होगा। कृपया वैकल्पिक निर्भरता अनुभाग देखें
-इसके GitHub पेज पर SteamTinkerLaunch इंस्टालेशन गाइड का।</translation>
+SteamTinkerLaunch में कई &lt;b&gt;वैकल्पिक निर्भरताएं&lt;/b&gt; हैं जिन्हें अतिरिक्त कार्यक्षमता के लिए अलग से स्थापित करना होगा। कृपया इसके GitHub पेज पर SteamTinkerLaunch स्थापना मार्गदर्शिका का वैकल्पिक निर्भरता अनुभाग देखें।</translation>
     </message>
 </context>
 <context>
@@ -1217,7 +1216,7 @@ SteamTinkerLaunch में कई &lt;b&gt;वैकल्पिक निर�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>Windows गेम चलाने के लिए कस्टम Wine बिल्ड, Wine-tkg बिल्ड सिस्टम के साथ बनाया गया।</translation>
+        <translation>Windows गेम चलाने के लिए तदनुकूल Wine बिल्ड, Wine-tkg बिल्ड सिस्टम के साथ बनाया गया।</translation>
     </message>
 </context>
 <context>
@@ -1225,7 +1224,7 @@ SteamTinkerLaunch में कई &lt;b&gt;वैकल्पिक निर�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_vanilla_wine.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>Windows गेम चलाने के लिए कस्टम Wine बिल्ड, Wine-tkg बिल्ड सिस्टम के साथ बनाया गया।</translation>
+        <translation>Windows गेम चलाने के लिए तदनुकूल Wine बिल्ड, Wine-tkg बिल्ड सिस्टम के साथ बनाया गया।</translation>
     </message>
 </context>
 <context>
@@ -1253,7 +1252,7 @@ SteamTinkerLaunch में कई &lt;b&gt;वैकल्पिक निर�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation>DXVK (मास्टर शाखा) का नाइट्ली वर्शन, Linux/Wine के लिए Direct3D 9, 10 और 11 का Vulkan आधारित कार्यान्वयन।&lt;br&gt;&lt;br&gt;&lt;b&gt;चेतावनी: नाइट्ली वर्शन अस्थिर है, सावधानी के साथ उपयोग करें!&lt;/b&gt;</translation>
+        <translation>DXVK (मास्टर शाखा) का नाइट्ली संस्करण, Linux/Wine के लिए Direct3D 9, 10 और 11 का Vulkan आधारित कार्यान्वयन।&lt;br&gt;&lt;br&gt;&lt;b&gt;चेतावनी: नाइट्ली संस्करण अस्थिर है, सावधानी के साथ उपयोग करें!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1268,9 +1267,9 @@ SteamTinkerLaunch में कई &lt;b&gt;वैकल्पिक निर�
         <source>Access to SteamTinkerLaunch installation folder at &apos;{STL_SYMLINK_PATH}&apos; was denied, please remove this folder manually.
 
 The uninstallation will continue.</source>
-        <translation>&apos;{STL_SYMLINK_PATH}&apos; पर SteamTinkerLaunch इंस्टॉलेशन फ़ोल्डर तक पहुंच से इनकार कर दिया गया था, कृपया इस फ़ोल्डर को मैन्युअल रूप से हटा दें।
+        <translation>&apos;{STL_SYMLINK_PATH}&apos; पर SteamTinkerLaunch स्थापना फोल्डर तक पहुंच से इनकार कर दिया गया था, कृपया इस फोल्डर को हस्तचालित रूप से हटा दें।
 
-अनइंस्टॉलेशन जारी रहेगा।</translation>
+अस्थापना जारी रहेगा।</translation>
     </message>
 </context>
 <context>
@@ -1286,19 +1285,19 @@ The uninstallation will continue.</source>
     <message>
         <location filename="../pupgui2/util.py" line="332"/>
         <source>Delete SteamTinkerLaunch configuration</source>
-        <translation>SteamTinkerLaunch कॉन्फ़िगरेशन हटाएं</translation>
+        <translation>SteamTinkerLaunch विन्यास मिटाएं</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="333"/>
         <source>Uninstalling SteamTinkerLaunch</source>
-        <translation>SteamTinkerLaunch को अनइंस्टॉल किया जा रहा है</translation>
+        <translation>SteamTinkerLaunch को अस्थापित किया जा रहा है</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="334"/>
         <source>SteamTinkerLaunch will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove SteamTinkerLaunch.
 Do you want the configuration to be removed?</source>
-        <translation>SteamTinkerLaunch को आपके सिस्टम से हटा दिया जाएगा। यदि यह टूल ProtonUp-Qt के साथ इंस्टॉल किया गया था, तो यह SteamTinkerLaunch को हटाने के लिए आपके PATH को भी अपडेट कर देगा।
-क्या आप चाहते हैं कि कॉन्फ़िगरेशन हटा दिया जाए?</translation>
+        <translation>SteamTinkerLaunch को आपके सिस्टम से हटा दिया जाएगा। यदि यह टूल ProtonUp-Qt के साथ स्थापित किया गया था, तो यह SteamTinkerLaunch को हटाने के लिए आपके PATH को भी अद्यतन कर देगा।
+क्या आप चाहते हैं कि विन्यास हटा दिया जाए?</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="502"/>
@@ -1310,7 +1309,7 @@ Do you want the configuration to be removed?</source>
         <source>GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.
 
 See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.</source>
-        <translation>GitHub API दर सीमा पार हो गई. यदि आपके पास GitHub API कुंजी है तो आपको कुछ देर प्रतीक्षा करने या GitHub API कुंजी निर्दिष्ट करने की आवश्यकता हो सकती है।
+        <translation>GitHub API दर सीमा पार हो गई। यदि आपके पास GitHub API कुंजी है तो आपको कुछ देर प्रतीक्षा करने या GitHub API कुंजी निर्दिष्ट करने की आवश्यकता हो सकती है।
 
 विवरण के लिए https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 देखें।</translation>
     </message>
@@ -1322,7 +1321,7 @@ See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 
     <message>
         <location filename="../pupgui2/util.py" line="517"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
-        <translation>GitLab API दर सीमा पार हो गई। यदि आपके पास एक GitLab उदाहरण है तो आप थोड़ी देर प्रतीक्षा करना चाहेंगे या इस GitLab उदाहरण के लिए जेनरेट की गई GitLab API कुंजी निर्दिष्ट करना चाहेंगे।</translation>
+        <translation>GitLab API दर सीमा पार हो गई। यदि आपके पास एक GitLab उदाहरण है तो आप थोड़ी देर प्रतीक्षा करना चाहेंगे या इस GitLab उदाहरण के लिए उत्पन्न की गई GitLab API कुंजी निर्दिष्ट करना चाहेंगे।</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="848"/>
@@ -1341,11 +1340,11 @@ See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 
 {DEP_ENUM}
 
 Will continue the installation anyway.</source>
-        <translation>आपको {CT_NAME} के लिए निम्नलिखित निर्भरताएँ चाहिए:
+        <translation>आपको {CT_NAME} के लिए निम्नलिखित निर्भरताएं चाहिए:
 
 {DEP_ENUM}
 
-फिर भी इंस्टालेशन जारी रखेंगे।</translation>
+फिर भी स्थापना जारी रखेंगे।</translation>
     </message>
 </context>
 </TS>

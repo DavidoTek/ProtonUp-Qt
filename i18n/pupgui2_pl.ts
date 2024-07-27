@@ -460,7 +460,7 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="99"/>
         <source>Slug</source>
-        <translation type="unfinished"></translation>
+        <translation>Ślimak</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="109"/>
