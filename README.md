@@ -61,6 +61,7 @@ ProtonUp-Qt|GPL-3.0
 [PySide6](https://pypi.org/project/PySide6/)|LGPL-3.0/GPL-2.0
 [inputs](https://pypi.org/project/inputs/)|BSD
 [pyxdg](https://pypi.org/project/pyxdg/)|LGPLv2
-[vdf](https://pypi.org/project/vdf/)|MIT
+[vdf@solstice](https://github.com/solsticegamestudios/vdf/)|MIT
+[steam@solstice](https://github.com/solsticegamestudios/steam/)|MIT
 [requests](https://pypi.org/project/requests/)|Apache 2.0
 [PyYAML](https://pypi.org/project/PyYAML/)|MIT
