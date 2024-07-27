@@ -38,12 +38,44 @@ def get_lutris_game_list(install_loc) -> List[LutrisGame]:
             lutris_install_dir = g[5]
             if not lutris_install_dir:
                 lg_config = lg.get_game_config()
-                working_dir = lg_config.get('game', {}).get('working_dir')
-                exe_dir = lg_config.get('game', {}).get('exe')
+                lg_game_config = lg_config.get('game', {})
+
+                working_dir = lg_game_config.get('working_dir')
+                exe_dir = lg_game_config.get('exe')
+
                 lutris_install_dir = working_dir or (os.path.dirname(str(exe_dir)) if exe_dir else None)
+
+                # If a LutrisGame config has an 'appid' in its 'game' section in its yml, assume runner is Steam
+                if lg_game_config.get('appid', None) is not None:
+                    lg.runner = 'steam'
 
             lg.install_dir = os.path.abspath(lutris_install_dir) if lutris_install_dir else ''
             lgs.append(lg)
     except Exception as e:
         print('Error: Could not get lutris game list:', e)
     return lgs
+
+
+def is_lutris_game_using_runner(game: LutrisGame, runner: str) -> bool:
+
+    """ Determine if a LutrisGame is using a given runner. """
+
+    is_runner_name_valid = game.runner is not None and len(game.runner) > 0
+    is_using_runner = game.runner == runner
+
+    return is_runner_name_valid and is_using_runner
+
+
+def is_lutris_game_using_wine(game: LutrisGame, wine_version: str = '') -> bool:
+
+    """ Determine if a LutrisGame is using a given wine_version string. """
+
+    is_using_wine = is_lutris_game_using_runner(game, 'wine')
+
+    # Only check wine_version if it is passed
+    if len(wine_version) > 0:
+        is_using_wine_version = game.get_game_config().get('wine', {}).get('version', '') == wine_version
+    else:
+        is_using_wine_version = True
+
+    return is_using_wine and is_using_wine_version

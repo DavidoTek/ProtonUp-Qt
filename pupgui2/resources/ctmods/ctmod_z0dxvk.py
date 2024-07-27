@@ -15,7 +15,7 @@ from pupgui2.datastructures import Launcher
 
 CT_NAME = 'DXVK'
 CT_LAUNCHERS = ['lutris', 'heroicwine', 'heroicproton']
-CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z0dxvk', '''Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md''')}
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z0dxvk', '''Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.<br/><br/>https://github.com/lutris/docs/blob/master/HowToDXVK.md''')}
 
 
 class CtInstaller(QObject):
@@ -100,12 +100,12 @@ class CtInstaller(QObject):
         """
         return True
 
-    def fetch_releases(self, count=100):
+    def fetch_releases(self, count=100, page=1):
         """
         List available releases
         Return Type: list[str]
         """
-        return fetch_project_releases(self.CT_URL, self.rs, count=count)
+        return fetch_project_releases(self.CT_URL, self.rs, count=count, page=page)
 
     def get_tool(self, version, install_dir, temp_dir):
         """

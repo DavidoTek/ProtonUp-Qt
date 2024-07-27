@@ -16,7 +16,7 @@ from PySide6.QtWidgets import QMessageBox, QApplication
 from pupgui2.constants import APP_NAME, APP_ID, APP_ICON_FILE
 from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, PROTON_NEXT_APPID, STEAMLINUXRUNTIME_APPID, STEAMLINUXRUNTIME_SOLDIER_APPID, STEAMLINUXRUNTIME_SNIPER_APPID
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
-from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES, HOME_DIR
+from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES, HOME_DIR, IS_FLATPAK
 from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamUser, RuntimeType
 
 
@@ -257,7 +257,7 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
     compat_tools = {}
     try:
         with open(appinfo_file, 'rb') as f:
-            header, apps = parse_appinfo(f)
+            header, apps = parse_appinfo(f, mapper=dict)
             for steam_app in apps:
                 if steam_app.get('appid') == 891390:
                     compat_tools = steam_app.get('data').get('appinfo').get('extended').get('compat_tools')
@@ -285,7 +285,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
     try:
         ctool_map = _get_steam_ctool_info(steam_config_folder)
         with open(appinfo_file, 'rb') as f:
-            _, apps = parse_appinfo(f)
+            _, apps = parse_appinfo(f, mapper=dict)
             for steam_app in apps:
                 appid_str = str(steam_app.get('appid'))
                 if a := sapps.get(appid_str):
@@ -510,7 +510,7 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
                 print(f'Error: SteamTinkerLaunch is installed to {stl_symlink_path}, ProtonUp-Qt cannot modify this folder. Folder must be removed manually.')
         elif os.path.exists(STEAM_STL_INSTALL_PATH):
             # Regular Steam Deck/ProtonUp-Qt installation structure
-            if os.path.exists('/.flatpak-info'):
+            if IS_FLATPAK:
                 if os.path.exists(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix')):
                     shutil.rmtree(os.path.join(STEAM_STL_INSTALL_PATH, 'prefix'))
             else:
@@ -600,7 +600,7 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
             with open(shortcuts_file, 'wb') as f:
                 if not remove_shortcut:
                     run_config = ['', '']
-                    if os.path.exists('/.flatpak-info'):
+                    if IS_FLATPAK:
                         run_config = [f'/usr/bin/flatpak', f'run {APP_ID}']
                     elif exe := subprocess.run(['which', APP_ID], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip():
                         run_config = [exe, '']
@@ -792,3 +792,20 @@ def determine_most_recent_steam_user(steam_users: List[SteamUser]) -> SteamUser:
 
     print('Warning: No Steam users found. Returning None')
     return None
+
+
+def is_valid_steam_install(steam_path) -> bool:
+
+    """
+    Return whether required Steam data files actually exist to determine if 'steam_path' is a valid Steam installation.
+    Return Type: bool
+    """
+
+    ct_dir = os.path.join(os.path.expanduser(steam_path), 'config')
+
+    config_vdf = os.path.join(ct_dir, 'config.vdf')
+    libraryfolders_vdf = os.path.join(ct_dir, 'libraryfolders.vdf')
+
+    is_valid_steam_install = os.path.exists(config_vdf) and os.path.exists(libraryfolders_vdf)
+
+    return is_valid_steam_install

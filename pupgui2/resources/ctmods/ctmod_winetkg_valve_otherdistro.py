@@ -7,9 +7,9 @@ from PySide6.QtCore import QCoreApplication
 from pupgui2.resources.ctmods.ctmod_protontkg import CtInstaller as TKGCtInstaller  # Use ProtonTKg Ctmod as base
 
 
-CT_NAME = 'Wine Tkg (Valve Wine)'
-CT_LAUNCHERS = ['lutris', 'heroicwine']
-CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_winetkg_valve_otherdistro', '''Custom Wine build for running Windows games, built with the Wine-tkg build system.''')}
+CT_NAME = 'Wine Tkg (Valve Wine Bleeding Edge)'
+CT_LAUNCHERS = ['lutris', 'heroicwine', 'winezgui']
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_winetkg_valve_otherdistro', '''Custom Wine build for running Windows games, built with the Wine-tkg build system based on <b>Valve Wine bleeding_edge</b>.''')}
 
 
 class CtInstaller(TKGCtInstaller):

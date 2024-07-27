@@ -20,11 +20,11 @@ import PySide6
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBox
 
-from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, PALETTE_STEAMUI, TEMP_DIR
+from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, PALETTE_STEAMUI, TEMP_DIR, IS_FLATPAK
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
-from pupgui2.steamutil import remove_steamtinkerlaunch
+from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
 
 
 def create_msgbox(
@@ -201,6 +201,28 @@ def create_compatibilitytools_folder() -> None:
                 print(f'Error trying to create compatibility tools folder {str(install_dir)}: {str(e)}')
 
 
+def is_valid_launcher_installation(loc) -> bool:
+
+    """
+    Check whether a launcher installation is actually valid based on per-launcher criteria
+    Return Type: bool
+    """
+
+    install_dir = os.path.expanduser(loc['install_dir'])
+
+    # Right now we only check to make sure regular Steam (not Flatpak or Snap) has config.vdf and libraryfolders.vdf
+    # because Steam can leave behind its directory structure when uninstalled, but not these files.
+    #
+    # In future we could expand this to other Steam flavours and other launchers.
+    if loc['display_name'] == 'Steam':  # This seems to get called many times, why?
+        # get the parent of the compatibility tools install directory
+        # use abspath here as install_dir could be a symlink, https://github.com/DavidoTek/ProtonUp-Qt/pull/381
+        launcher_root_dir = os.path.abspath(os.path.join(install_dir, '..'))
+        return is_valid_steam_install(launcher_root_dir)
+    
+    return os.path.exists(install_dir)  # Default to path check for all other launchers
+
+
 def available_install_directories() -> List[str]:
     """
     List available install directories
@@ -209,10 +231,11 @@ def available_install_directories() -> List[str]:
     available_dirs = []
     for loc in POSSIBLE_INSTALL_LOCATIONS:
         install_dir = os.path.expanduser(loc['install_dir'])
-        if os.path.exists(install_dir):
+        # only add unique paths to available_dirs
+        if is_valid_launcher_installation(loc) and not install_dir in available_dirs:
             available_dirs.append(install_dir)
     install_dir = config_custom_install_location().get('install_dir')
-    if install_dir and os.path.exists(install_dir):
+    if install_dir and os.path.exists(install_dir) and not install_dir in available_dirs:
         available_dirs.append(install_dir)
     return available_dirs
 
@@ -438,6 +461,10 @@ def download_awacy_gamelist() -> None:
         r = requests.get(AWACY_GAME_LIST_URL)
         with open(LOCAL_AWACY_GAME_LIST, 'wb') as f:
             f.write(r.content)
+
+    if not is_online():
+        return
+
     t = threading.Thread(target=_download_awacy_gamelist_thread)
     t.start()
 
@@ -474,7 +501,7 @@ def host_which(name: str) -> str:
     Runs 'which <name>' on the host system (either normal or using 'flatpak-spawn --host' when inside Flatpak)
     Return Type: str
     """
-    proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
+    proc_prefix = ['flatpak-spawn', '--host'] if IS_FLATPAK else []
     which = subprocess.run(proc_prefix + ['which', name], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip()
     return None if which == '' else which
 
@@ -492,7 +519,7 @@ def host_path_exists(path: str, is_file: bool) -> bool:
     Return Type: bool
     """
     path = os.path.expanduser(path)
-    proc_prefix = 'flatpak-spawn --host' if os.path.exists('/.flatpak-info') else ''
+    proc_prefix = 'flatpak-spawn --host' if IS_FLATPAK else ''
     parameter = 'f' if is_file else 'd'  # check file using -f and directory using -d
     ret = os.system(proc_prefix + ' bash -c \'if [ -' + parameter + ' "' + path + '" ]; then exit 1; else exit 0; fi\'')
     return bool(ret) 
@@ -549,13 +576,13 @@ def is_online(host='https://api.github.com/rate_limit/', timeout=5) -> bool:
 
 
 # Only used for dxvk and dxvk-async right now, but is potentially useful to more ctmods?
-def fetch_project_releases(releases_url: str, rs: requests.Session, count=100) -> List[str]:
+def fetch_project_releases(releases_url: str, rs: requests.Session, count=100, page=1) -> List[str]:
 
     """
     List available releases for a given project URL hosted using requests.
     Return Type: list[str]
     """
-    releases_api_url: str = f'{releases_url}?per_page={str(count)}'
+    releases_api_url: str = f'{releases_url}?per_page={count}&page={page}'
 
     releases: dict = {}
     tag_key: str = ''

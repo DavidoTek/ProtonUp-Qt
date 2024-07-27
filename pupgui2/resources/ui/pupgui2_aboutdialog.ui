@@ -59,6 +59,12 @@
          </item>
          <item>
           <widget class="QLabel" name="lblBuildInfo">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
             <string notr="true"/>
            </property>

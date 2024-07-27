@@ -1,7 +1,7 @@
 import os
 import pkgutil
 
-from PySide6.QtCore import Signal, QDataStream, QByteArray, QObject
+from PySide6.QtCore import Signal, QDataStream, QByteArray, QObject, QDir
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QFileDialog, QLineEdit
 from PySide6.QtUiTools import QUiLoader
@@ -50,13 +50,12 @@ class PupguiCustomInstallDirectoryDialog(QObject):
             display_name for display_name in self.install_locations_dict.values()
         ])
 
-        self.set_selected_launcher(self.install_locations_dict[self.launcher] or 'steam')  # Default combobox selection to "Steam" if unknown launcher for some reason
+        self.set_selected_launcher(self.install_locations_dict[self.launcher] if self.launcher in self.install_locations_dict else 'steam')  # Default combobox selection to "Steam" if unknown launcher for some reason
 
         self.ui.btnSave.clicked.connect(self.btn_save_clicked)
         self.ui.btnDefault.clicked.connect(self.btn_default_clicked)
         self.ui.btnClose.clicked.connect(self.ui.close)
 
-        self.is_valid_custom_install_path = lambda path: len(path.strip()) > 0 and os.path.isdir(os.path.expanduser(path)) and os.access(os.path.expanduser(path), os.W_OK)
         self.ui.txtInstallDirectory.textChanged.connect(lambda text: self.ui.btnSave.setEnabled(self.is_valid_custom_install_path(text)))
 
     def btn_save_clicked(self):
@@ -80,11 +79,15 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.custom_id_set.emit('')
 
     def txt_id_browse_action_triggered(self):
-        dialog = QFileDialog(self.ui)
+        # Open dialog at entered path if it exists, and fall back to HOME_DIR
+        txt_install_dir = os.path.expanduser(self.ui.txtInstallDirectory.text())
+        initial_dir = txt_install_dir if self.is_valid_custom_install_path(txt_install_dir) else HOME_DIR
+
+        dialog = QFileDialog(self.ui, directory=initial_dir)
         dialog.setFileMode(QFileDialog.Directory)
         dialog.setOption(QFileDialog.ShowDirsOnly)
+        dialog.setFilter(QDir.Dirs | QDir.Hidden | QDir.NoDotAndDotDot)
         dialog.setWindowTitle(self.tr('Select Custom Install Directory — ProtonUp-Qt'))
-        dialog.setDirectory(HOME_DIR)
         dialog.fileSelected.connect(self.ui.txtInstallDirectory.setText)
         dialog.open()
 
@@ -93,3 +96,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
             index = get_combobox_index_by_value(self.ui.comboLauncher, ctool_name)
             if index >= 0:
                 self.ui.comboLauncher.setCurrentIndex(index)
+
+    def is_valid_custom_install_path(self, path: str) -> bool:
+        expand_path = os.path.expanduser(path)
+        return len(path.strip()) > 0 and os.path.isdir(expand_path) and os.access(expand_path, os.W_OK)

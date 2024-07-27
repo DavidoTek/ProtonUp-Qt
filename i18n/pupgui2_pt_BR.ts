@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished">Dependências faltando!</translation>
+        <translation>Dependências faltando!</translation>
     </message>
 </context>
 <context>
@@ -38,7 +38,7 @@ Se você acredita que isso é um erro, por favor, relate um bug no GitHub!</tran
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
@@ -234,22 +234,22 @@ Cancelar e sair mesmo assim?</translation>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="26"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="107"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Atualização em Lote</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="44"/>
         <source>Migrate games using the current compatibility tool to the one specified below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Migre jogos usando a ferramenta de compatibilidade atual para a especificada abaixo.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="56"/>
         <source>New Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nova Versão:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="73"/>
         <source>Old Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versão Antiga:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
@@ -376,12 +376,12 @@ Para remover este atalho, abra a Steam e selecione &quot;remover jogo não-Steam
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="47"/>
         <source>No supported compatibility tools found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhuma ferramenta de compatibilidade suportada foi encontrada.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="49"/>
         <source>Warning: Close the Steam Client beforehand.</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenção: Feche o Cliente Steam com antecedência.</translation>
     </message>
 </context>
 <context>
@@ -428,12 +428,12 @@ Para remover este atalho, abra a Steam e selecione &quot;remover jogo não-Steam
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation type="unfinished"></translation>
+        <translation>Sem jogos</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Atualização em Lote</translation>
     </message>
     <message>
         <source>Batch update</source>
@@ -483,12 +483,12 @@ Para remover este atalho, abra a Steam e selecione &quot;remover jogo não-Steam
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="128"/>
         <source>Tool is Global</source>
-        <translation type="unfinished"></translation>
+        <translation>Ferramenta é Global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="153"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>e.g. {GAME_NAME}</translation>
     </message>
 </context>
 <context>
@@ -537,7 +537,7 @@ Para remover este atalho, abra a Steam e selecione &quot;remover jogo não-Steam
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation>Compatibilidade com o Steam Deck</translation>
     </message>
     <message>
@@ -695,7 +695,7 @@ Tipo: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="305"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>e.g. {GAME_NAME}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="398"/>
@@ -744,7 +744,7 @@ Tendência: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="68"/>
         <source>e.g. Team Fortress 2</source>
-        <translation>ex. Team Fortress 2</translation>
+        <translation>e.g. Team Fortress 2</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="71"/>
@@ -861,12 +861,12 @@ Tendência: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>e.g. ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>Search for a game...</source>
-        <translation type="unfinished">Buscar um jogo...</translation>
+        <translation>Buscar um jogo...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
@@ -1253,7 +1253,7 @@ no guia de Instalação do SteamTinkerLaunch em sua página Github...</translati
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Implementação baseada em Vulkan de Direct3D 9, 10 e 11 para Linux/Wine com patch gplasync por Ph42oN.&lt;br&gt;&lt;br&gt;&lt;b&gt;Atenção: Use apenas com jogos singleplayer!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1325,22 +1325,22 @@ Veja https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080
     <message>
         <location filename="../pupgui2/util.py" line="516"/>
         <source>Warning: GitLab API rate limit exceeded!</source>
-        <translation type="unfinished"></translation>
+        <translation>Aviso: Limite de taxa de API do GitLab excedido!</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="517"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite de taxa de API do GitLab excedido. Talvez você queira esperar um pouco ou especificar uma chave de API do GitLab gerada para essa instância do GitLab, se você tiver uma.</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="848"/>
         <source>missing</source>
-        <translation type="unfinished">faltando</translation>
+        <translation>faltando</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="849"/>
         <source>found</source>
-        <translation type="unfinished">encontrado</translation>
+        <translation>encontrado</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="851"/>
@@ -1349,7 +1349,11 @@ Veja https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080
 {DEP_ENUM}
 
 Will continue the installation anyway.</source>
-        <translation type="unfinished"></translation>
+        <translation>Você precisa das seguintes dependências para {CT_NAME}:
+
+{DEP_ENUM}
+
+A instalação continuará de qualquer maneira.</translation>
     </message>
 </context>
 </TS>

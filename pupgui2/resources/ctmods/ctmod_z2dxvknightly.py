@@ -13,7 +13,7 @@ from pupgui2.util import build_headers_with_authorization
 
 CT_NAME = 'DXVK (nightly)'
 CT_LAUNCHERS = ['lutris', 'advmode']
-CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z2dxvknightly', '''Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.<br/><br/><b>Warning: Nightly version is unstable, use with caution!</b>''')}
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z2dxvknightly', '''Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.<br/><br/><b>Warning: Nightly version is unstable, use with caution!</b>''')}
 
 
 class CtInstaller(QObject):
@@ -112,13 +112,13 @@ class CtInstaller(QObject):
         """
         return True
 
-    def fetch_releases(self, count=100):
+    def fetch_releases(self, count=100, page=1):
         """
         List available releases
         Return Type: str[]
         """
         tags = []
-        for artifact in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()).get("artifacts", {}):
+        for artifact in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={count}&page={page}').json()).get("artifacts", {}):
             workflow = artifact['workflow_run']
             if workflow["head_branch"] != "master" or artifact["expired"]:
                 continue

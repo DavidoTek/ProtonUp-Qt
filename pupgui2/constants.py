@@ -6,7 +6,7 @@ from PySide6.QtGui import QColor, QPalette
 
 
 APP_NAME = 'ProtonUp-Qt'
-APP_VERSION = '2.9.1'
+APP_VERSION = '2.9.2'
 APP_ID = 'net.davidotek.pupgui2'
 APP_THEMES = ( 'light', 'dark', 'system', 'steam', None )
 APP_ICON_FILE = os.path.join(xdg_config_home, 'pupgui/appicon256.png')
@@ -15,7 +15,7 @@ DAVIDOTEK_KOFI_URL = 'https://ko-fi.com/davidotek'
 PROTONUPQT_GITHUB_URL = 'https://github.com/DavidoTek/ProtonUp-Qt'
 ABOUT_TEXT = '''\
 {APP_NAME} v{APP_VERSION} by DavidoTek: <a href="{PROTONUPQT_GITHUB_URL}">https://github.com/DavidoTek/ProtonUp-Qt</a><br />
-Copyright (C) 2021-2023 DavidoTek, licensed under GPLv3
+Copyright (C) 2021-2024 DavidoTek, licensed under GPLv3
 '''.format(APP_NAME=APP_NAME, APP_VERSION=APP_VERSION, PROTONUPQT_GITHUB_URL=PROTONUPQT_GITHUB_URL)
 BUILD_INFO = 'built from source'
 
@@ -23,20 +23,45 @@ CONFIG_FILE = os.path.join(xdg_config_home, 'pupgui/config.ini')
 TEMP_DIR = os.path.join(os.getenv('XDG_CACHE_HOME'), 'tmp', 'pupgui2.a70200/') if os.path.exists(os.getenv('XDG_CACHE_HOME', '')) else '/tmp/pupgui2.a70200/'
 HOME_DIR = os.path.expanduser('~')
 
-# support different Steam root directories
-# valid install dir should have config.vdf and libraryfolders.vdf, to ensure it is not an unused folder with correct directory structure
-_POSSIBLE_STEAM_ROOTS = ['~/.local/share/Steam', '~/.steam/root', '~/.steam/steam', '~/.steam/debian-installation']
-_STEAM_ROOT = _POSSIBLE_STEAM_ROOTS[0]
-for steam_root in _POSSIBLE_STEAM_ROOTS:
-    ct_dir = os.path.join(os.path.expanduser(steam_root), 'config')
-    config_vdf = os.path.join(ct_dir, 'config.vdf')
-    libraryfolders_vdf = os.path.join(ct_dir, 'libraryfolders.vdf')
-    if os.path.exists(config_vdf) and os.path.exists(libraryfolders_vdf):
-        _STEAM_ROOT = steam_root
-        break
+IS_FLATPAK: bool = os.path.exists('/.flatpak-info')
 
+# DBus constants
+DBUS_APPLICATION_URI = f'application://{APP_ID}.desktop'
+DBUS_DOWNLOAD_OBJECT_BASEPATH = '/net/davidotek/pupgui2'
+
+DBUS_INTERFACES_AND_SIGNALS = {
+    'LauncherEntryUpdate': {
+        'interface': 'com.canonical.Unity.LauncherEntry',
+        'signal': 'Update',
+    }
+}
+
+# support different Steam root directories, building paths relative to HOME_DIR (i.e. /home/gaben/.local/share/Steam)
+# Use os.path.realpath to expand all _STEAM_ROOT paths
+_POSSIBLE_STEAM_ROOTS = [
+    os.path.realpath(os.path.join(HOME_DIR, _STEAM_ROOT)) for _STEAM_ROOT in ['.local/share/Steam', '.steam/root', '.steam/steam', '.steam/debian-installation']
+]
+
+# Remove duplicate paths while preserving order, as os.path.realpath may expand some symlinks to the real Steam root
+_POSSIBLE_STEAM_ROOTS = list(dict.fromkeys(_POSSIBLE_STEAM_ROOTS))
+
+# Steam can be installled in any of the locations at '_POSSIBLE_STEAM_ROOTS' - usually only one, and the others (if they exist) are typically symlinks,
+# i.e. '~/.steam/root' is usually a symlink to '~/.local/share/Steam'
+# These paths may still not be valid installations however, as they could be leftother paths from an old Steam installation without the data files we need ('config.vdf' and 'libraryfolders.vdf')
+# We catch this later on in util#is_valid_launcher_installation though
 POSSIBLE_INSTALL_LOCATIONS = [
-    {'install_dir': f'{_STEAM_ROOT}/compatibilitytools.d/', 'display_name': 'Steam', 'launcher': 'steam', 'type': 'native', 'icon': 'steam', 'vdf_dir': f'{_STEAM_ROOT}/config'},
+        {
+            'install_dir': f'{_STEAM_ROOT}/compatibilitytools.d/',
+            'display_name': 'Steam',
+            'launcher': 'steam',
+            'type': 'native',
+            'icon': 'steam',
+            'vdf_dir': f'{_STEAM_ROOT}/config'
+        } for _STEAM_ROOT in _POSSIBLE_STEAM_ROOTS if os.path.exists(_STEAM_ROOT)
+]
+
+# Possible install locations for all other launchers, ensuring Steam paths are at the top of the list
+POSSIBLE_INSTALL_LOCATIONS += [
     {'install_dir': '~/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/', 'display_name': 'Steam Flatpak', 'launcher': 'steam', 'type': 'flatpak', 'icon': 'steam', 'vdf_dir': '~/.var/app/com.valvesoftware.Steam/.local/share/Steam/config'},
     {'install_dir': '~/snap/steam/common/.steam/root/compatibilitytools.d/', 'display_name': 'Steam Snap', 'launcher': 'steam', 'type': 'snap', 'icon': 'steam', 'vdf_dir': '~/snap/steam/common/.steam/root/config'},
     {'install_dir': '~/.local/share/lutris/runners/wine/', 'display_name': 'Lutris', 'launcher': 'lutris', 'type': 'native', 'icon': 'lutris', 'config_dir': '~/.config/lutris'},
@@ -46,17 +71,21 @@ POSSIBLE_INSTALL_LOCATIONS = [
     {'install_dir': '~/.var/app/com.heroicgameslauncher.hgl/config/heroic/tools/wine/', 'display_name': 'Heroic Wine Flatpak', 'launcher': 'heroicwine', 'type': 'flatpak', 'icon': 'heroic'},
     {'install_dir': '~/.var/app/com.heroicgameslauncher.hgl/config/heroic/tools/proton/', 'display_name': 'Heroic Proton Flatpak', 'launcher': 'heroicproton', 'type': 'flatpak', 'icon': 'heroic'},
     {'install_dir': '~/.local/share/bottles/runners/', 'display_name': 'Bottles', 'launcher': 'bottles', 'type': 'native', 'icon': 'com.usebottles.bottles'},
-    {'install_dir': '~/.var/app/com.usebottles.bottles/data/bottles/runners/', 'display_name': 'Bottles Flatpak', 'launcher': 'bottles', 'type': 'flatpak', 'icon': 'com.usebottles.bottles'}
+    {'install_dir': '~/.var/app/com.usebottles.bottles/data/bottles/runners/', 'display_name': 'Bottles Flatpak', 'launcher': 'bottles', 'type': 'flatpak', 'icon': 'com.usebottles.bottles'},
+    {'install_dir': '~/.local/share/winezgui/Runners/', 'display_name': 'WineZGUI', 'launcher': 'winezgui', 'type': 'native', 'icon': 'io.github.fastrizwaan.WineZGUI'},
+    {'install_dir': '~/.var/app/io.github.fastrizwaan.WineZGUI/data/winezgui/Runners/', 'display_name': 'WineZGUI Flatpak', 'launcher': 'winezgui', 'type': 'flatpak', 'icon': 'io.github.fastrizwaan.WineZGUI'}
 ]
 
 def PALETTE_DARK():
     """ returns dark color palette """
+    palette_base = QColor(12, 12, 12)
+
     palette_dark = QPalette()
     palette_dark.setColor(QPalette.Window, QColor(30, 30, 30))
     palette_dark.setColor(QPalette.WindowText, Qt.white)
-    palette_dark.setColor(QPalette.Base, QColor(12, 12, 12))
+    palette_dark.setColor(QPalette.Base, palette_base)
     palette_dark.setColor(QPalette.AlternateBase, QColor(30, 30, 30))
-    palette_dark.setColor(QPalette.ToolTipBase, Qt.white)
+    palette_dark.setColor(QPalette.ToolTipBase, palette_base)
     palette_dark.setColor(QPalette.ToolTipText, Qt.white)
     palette_dark.setColor(QPalette.Text, Qt.white)
     palette_dark.setColor(QPalette.Button, QColor(30, 30, 30))

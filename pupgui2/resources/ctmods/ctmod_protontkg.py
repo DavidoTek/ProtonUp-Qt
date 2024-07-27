@@ -163,13 +163,13 @@ class CtInstaller(QObject):
 
         return tags
 
-    def fetch_releases(self, count=30):
+    def fetch_releases(self, count=30, page=1):
         """
         List available releases
         Return Type: str[]
         """
         tags = self.__fetch_workflows(count=count)
-        for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={str(count)}').json()):
+        for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={count}&page={page}').json()):
             # Check assets length because latest release (7+) doesn't have assets.
             if 'tag_name' not in release or len(release["assets"]) == 0:
                 continue

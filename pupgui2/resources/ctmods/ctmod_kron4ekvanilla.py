@@ -8,12 +8,13 @@ import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
+from pupgui2.constants import IS_FLATPAK
 from pupgui2.util import extract_tar
 from pupgui2.util import build_headers_with_authorization, fetch_project_release_data, fetch_project_releases
 
 
 CT_NAME = 'Kron4ek Wine-Builds Vanilla'
-CT_LAUNCHERS = ['lutris']
+CT_LAUNCHERS = ['lutris', 'winezgui']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_kron4ekvanilla', '''Compatibility tool "Wine" to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.''')}
 
 
@@ -95,7 +96,7 @@ class CtInstaller(QObject):
         Are the system requirements met?
         Return Type: bool
         """
-        proc_prefix = ['flatpak-spawn', '--host'] if os.path.exists('/.flatpak-info') else []
+        proc_prefix = ['flatpak-spawn', '--host'] if IS_FLATPAK else []
         ldd = subprocess.run(proc_prefix + ['ldd', '--version'], capture_output=True)
         ldd_out = ldd.stdout.split(b'\n')[0].split(b' ')
         ldd_ver = ldd_out[len(ldd_out) - 1]
@@ -103,13 +104,13 @@ class CtInstaller(QObject):
         ldd_min = int(ldd_ver.split(b'.')[1])
         return False if ldd_maj < 2 else ldd_min >= 27 or ldd_maj != 2
 
-    def fetch_releases(self, count=100):
+    def fetch_releases(self, count=100, page=1):
         """
         List available releases
         Return Type: str[]
         """
 
-        return fetch_project_releases(self.CT_URL, self.rs, count=count)
+        return fetch_project_releases(self.CT_URL, self.rs, count=count, page=page)
 
     def get_tool(self, version, install_dir, temp_dir):
         """

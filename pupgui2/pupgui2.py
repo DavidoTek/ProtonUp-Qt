@@ -8,11 +8,13 @@ import threading
 from PySide6.QtCore import Qt, QCoreApplication, QObject, QThread, QWaitCondition, QMutex, QDataStream
 from PySide6.QtCore import QByteArray, QEvent, Signal, Slot, QTranslator, QLocale, QLibraryInfo
 from PySide6.QtGui import QIcon, QKeyEvent, QKeySequence, QShortcut
-from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox, QProgressBar, QVBoxLayout
+from PySide6.QtWidgets import QApplication, QDialog, QMessageBox, QLabel, QPushButton, QCheckBox
+from PySide6.QtWidgets import QProgressBar, QVBoxLayout, QSpacerItem, QSizePolicy
 from PySide6.QtUiTools import QUiLoader
+from PySide6.QtDBus import QDBusConnection
 
-from pupgui2.constants import APP_NAME, APP_VERSION, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
-from pupgui2.constants import STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM
+from pupgui2.constants import APP_NAME, APP_VERSION, APP_ID, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
+from pupgui2.constants import STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM, IS_FLATPAK
 from pupgui2 import ctloader
 from pupgui2.datastructures import CTType, MsgBoxType, MsgBoxResult
 from pupgui2.gamepadinputworker import GamepadInputWorker
@@ -24,6 +26,7 @@ from pupgui2.pupgui2gamelistdialog import PupguiGameListDialog
 from pupgui2.pupgui2installdialog import PupguiInstallDialog
 from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_steam_ct_game_map, get_steam_global_ctool_name, ctool_is_runtime_for_app
 from pupgui2.heroicutil import is_heroic_launcher, get_heroic_game_list
+from pupgui2.dbusutil import dbus_progress_message
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
 from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online, config_advanced_mode, config_github_access_token, config_gitlab_access_token, compat_tool_available
@@ -102,6 +105,9 @@ class MainWindow(QObject):
         self.msgcb_answer : MsgBoxResult = None
         self.msgcb_answer_lock = QMutex()
 
+        self.dbus_session_bus = QDBusConnection.sessionBus()
+        dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
+
         self.load_ui()
         self.setup_ui()
         self.update_statusbar_message.connect(self.ui.statusBar().showMessage)
@@ -122,7 +128,7 @@ class MainWindow(QObject):
         self.progressBarDownload = QProgressBar()
         self.progressBarDownload.setVisible(False)
         self.ui.statusBar().addPermanentWidget(self.progressBarDownload)
-        self.ui.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
+        self.ui.setWindowIcon(QIcon.fromTheme(APP_ID))
         self.ui.txtInstalledVersions.setText('0')
 
         self.update_combo_install_location()
@@ -183,6 +189,19 @@ class MainWindow(QObject):
                 update_statusbar_message.emit(f'{APP_NAME} {APP_VERSION}')
         t = threading.Thread(target=_set_default_statusbar_thread, args=[self.update_statusbar_message])
         t.start()
+
+    def send_dbus_download_progress(self, progress: float) -> None:
+
+        """
+        Send Download Progress and Pending Downloads count using DBus.
+        """
+
+        progress_pct = progress / 100  # DBus progress signal expects progress between 0-1
+        num_downloads = len(self.pending_downloads)
+        if progress < 0:  # negative progress indicates cancellation/failure/etc
+            num_downloads = 0
+
+        dbus_progress_message(progress_pct, num_downloads, self.dbus_session_bus)
 
     def update_combo_install_location(self, custom_install_dir = None):
         self.updating_combo_install_location = True
@@ -307,14 +326,12 @@ class MainWindow(QObject):
         if len(self.pending_downloads):
             compat_tool = self.pending_downloads[0]
             self.current_compat_tool_name = compat_tool['name'] + ' ' + compat_tool['version']
-        if value == -2:
+        elif value == -2:
             self.ui.statusBar().showMessage(self.tr('Download canceled.'))
             self.progressBarDownload.setVisible(False)
-            return
-        if value == -1:
+        elif value == -1:
             self.ui.statusBar().showMessage(self.tr('Could not install {current_compat_tool_name}...').format(current_compat_tool_name=self.current_compat_tool_name))
             self.progressBarDownload.setVisible(False)
-            return
         if value == 1:
             self.progressBarDownload.setVisible(True)
             self.ui.comboInstallLocation.setEnabled(False)
@@ -327,6 +344,9 @@ class MainWindow(QObject):
         elif value == 100:
             self.ui.statusBar().showMessage(self.tr('Installed {current_compat_tool_name}.').format(current_compat_tool_name=self.current_compat_tool_name))
             self.update_ui()
+
+        # Send DBus progress
+        self.send_dbus_download_progress(value)
 
     def btn_add_version_clicked(self, compat_tool: str = ''):
         advanced_mode = (config_advanced_mode() == 'enabled')
@@ -426,13 +446,13 @@ class MainWindow(QObject):
         """ Open dialog to open the appstore(appstream) to install Boxtron from Flathub"""
         iftdialog = QDialog(parent=self.ui)
         iftdialog.setWindowTitle(self.tr('Install tool from Flathub'))
-        iftdialog.setFixedSize(250, 100)
         iftdialog.setModal(True)
         lbl_description = QLabel(self.tr('Click to open your app store'))
         btn_dl_boxtron = QPushButton('Boxtron')
         btn_dl_stl = QPushButton('Steam Tinker Launch')
         layout1 = QVBoxLayout()
         layout1.addWidget(lbl_description)
+        layout1.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Expanding))
         layout1.addWidget(btn_dl_boxtron)
         layout1.addWidget(btn_dl_stl)
         iftdialog.setLayout(layout1)
@@ -529,8 +549,8 @@ def main():
     app = PupguiApp(sys.argv)
     app.setApplicationName(APP_NAME)
     app.setApplicationVersion(APP_VERSION)
-    app.setWindowIcon(QIcon.fromTheme('net.davidotek.pupgui2'))
-    app.setDesktopFileName('net.davidotek.pupgui2')
+    app.setWindowIcon(QIcon.fromTheme(APP_ID))
+    app.setDesktopFileName(APP_ID)
 
     PupguiExceptionHandler(app)
 
@@ -571,7 +591,8 @@ def main():
     shutil.rmtree(TEMP_DIR, ignore_errors=True)
 
     # Flatpak workaround: Delete STL dir if it isn't installed (folder is always created for sandbox access)
-    if os.path.exists('/.flatpak-info') and len(os.listdir(STEAM_STL_INSTALL_PATH)) == 0:
+    if IS_FLATPAK and len(os.listdir(STEAM_STL_INSTALL_PATH)) == 0:
         subprocess.run(['flatpak-spawn', '--host', 'rm', '-r', STEAM_STL_INSTALL_PATH])
 
+    dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
     sys.exit(ret)

@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished">Saknar beroenden!</translation>
+        <translation>Saknar beroenden!</translation>
     </message>
 </context>
 <context>
@@ -38,7 +38,7 @@ Om du tycker att detta är ett fel, vänligen rapportera en bugg på GitHub!</tr
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
@@ -234,22 +234,22 @@ Avbryt och avsluta ändå?</translation>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="26"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="107"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Batch uppdatering</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="44"/>
         <source>Migrate games using the current compatibility tool to the one specified below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Migrera spel med det aktuella kompatibilitetsverktyget till det som anges nedan.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="56"/>
         <source>New Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny version:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="73"/>
         <source>Old Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gammal version:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
@@ -376,12 +376,12 @@ För att ta bort genvägen, öppna Steam och välj &quot;ta bort icke-Steam-spel
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="47"/>
         <source>No supported compatibility tools found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inga kompatibilitetsverktyg som stöds hittades.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="49"/>
         <source>Warning: Close the Steam Client beforehand.</source>
-        <translation type="unfinished"></translation>
+        <translation>Varning: Stäng Steam-klienten i förväg.</translation>
     </message>
 </context>
 <context>
@@ -428,12 +428,12 @@ För att ta bort genvägen, öppna Steam och välj &quot;ta bort icke-Steam-spel
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation type="unfinished"></translation>
+        <translation>Inga spel</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Batch uppdatering</translation>
     </message>
     <message>
         <source>Batch update</source>
@@ -483,12 +483,12 @@ För att ta bort genvägen, öppna Steam och välj &quot;ta bort icke-Steam-spel
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="128"/>
         <source>Tool is Global</source>
-        <translation type="unfinished"></translation>
+        <translation>Verktyg är globala</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="153"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>t. ex. {GAME_NAME}</translation>
     </message>
 </context>
 <context>
@@ -537,7 +537,7 @@ För att ta bort genvägen, öppna Steam och välj &quot;ta bort icke-Steam-spel
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
-        <source>Deck compatibility</source>
+        <source>Deck Compatibility</source>
         <translation>Deck kompatibilitet</translation>
     </message>
     <message>
@@ -695,7 +695,7 @@ Typ: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="305"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>t. ex. {GAME_NAME}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="398"/>
@@ -861,12 +861,12 @@ Trendar: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>t. ex. ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>Search for a game...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sök efter ett spel...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
@@ -1253,7 +1253,7 @@ i SteamTinkerLaunch-installationsguiden på dess GitHub-sida.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Vulkanbaserad implementering av Direct3D 9, 10 och 11 för Linux/Wine med gplasync-patch från Ph42oN.&lt;br&gt;&lt;br&gt;&lt;b&gt;Varning: Använd endast med singleplayer-spel!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1325,22 +1325,22 @@ Se https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 f
     <message>
         <location filename="../pupgui2/util.py" line="516"/>
         <source>Warning: GitLab API rate limit exceeded!</source>
-        <translation type="unfinished"></translation>
+        <translation>Varning: GitLab API-hastighetsgräns har överskridits!</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="517"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
-        <translation type="unfinished"></translation>
+        <translation>GitLab API-hastighetsgräns har överskridits. Du kanske vill vänta ett tag eller ange en GitLab API-nyckel som genereras för denna GitLab-instans om du har en.</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="848"/>
         <source>missing</source>
-        <translation type="unfinished">saknas</translation>
+        <translation>saknas</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="849"/>
         <source>found</source>
-        <translation type="unfinished">hittades</translation>
+        <translation>hittades</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="851"/>
@@ -1349,7 +1349,11 @@ Se https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 f
 {DEP_ENUM}
 
 Will continue the installation anyway.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du behöver följande beroende för {CT_NAME}:
+
+{DEP_ENUM}
+
+Kommer att fortsätta installationen ändå.</translation>
     </message>
 </context>
 </TS>
