@@ -257,7 +257,7 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
     compat_tools = {}
     try:
         with open(appinfo_file, 'rb') as f:
-            header, apps = parse_appinfo(f)
+            header, apps = parse_appinfo(f, mapper=dict)
             for steam_app in apps:
                 if steam_app.get('appid') == 891390:
                     compat_tools = steam_app.get('data').get('appinfo').get('extended').get('compat_tools')
@@ -285,7 +285,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
     try:
         ctool_map = _get_steam_ctool_info(steam_config_folder)
         with open(appinfo_file, 'rb') as f:
-            _, apps = parse_appinfo(f)
+            _, apps = parse_appinfo(f, mapper=dict)
             for steam_app in apps:
                 appid_str = str(steam_app.get('appid'))
                 if a := sapps.get(appid_str):
