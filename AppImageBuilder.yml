@@ -1,8 +1,8 @@
 version: 1
 script:
   - rm -rf AppDir  | true
-  - mkdir -p AppDir/usr/lib/python3.10/site-packages
-  - cp pupgui2 AppDir/usr/lib/python3.10/site-packages -r
+  - mkdir -p AppDir/usr/local/lib/python3.10/dist-packages
+  - cp pupgui2 AppDir/usr/local/lib/python3.10/dist-packages -r
   - cp share AppDir/usr -r
   - python3 -m pip install --ignore-installed --prefix=/usr --no-cache-dir --root=AppDir -r ./requirements.txt
   - rm -rf AppDir/usr/local/lib/python3.10/dist-packages/PySide6/Qt/qml/
