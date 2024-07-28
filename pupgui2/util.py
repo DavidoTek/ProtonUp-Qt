@@ -845,7 +845,8 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
     Return Type: Launcher (Enum)
     """
 
-    if 'steam/compatibilitytools.d' in install_dir.lower():
+    if any(steam_path in install_dir.lower() for steam_path in ['steam/compatibilitytools.d', 'steam/root/compatibilitytools.d']):
+    # if 'steam/compatibilitytools.d' in install_dir.lower():
         return Launcher.STEAM
     elif 'lutris/runners' in install_dir.lower():
         return Launcher.LUTRIS
@@ -853,6 +854,8 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
         return Launcher.HEROIC
     elif 'bottles/runners' in install_dir.lower():
         return Launcher.BOTTLES
+    elif 'winezgui/runners' in install_dir.lower():
+        return Launcher.WINEZGUI
     else:
         return Launcher.UNKNOWN
 

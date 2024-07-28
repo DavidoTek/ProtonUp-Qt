@@ -233,3 +233,4 @@ class Launcher(Enum):
     LUTRIS = 2
     BOTTLES = 3
     HEROIC = 4
+    WINEZGUI = 5
