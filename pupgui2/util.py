@@ -846,7 +846,6 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
     """
 
     if any(steam_path in install_dir.lower() for steam_path in ['steam/compatibilitytools.d', 'steam/root/compatibilitytools.d']):
-    # if 'steam/compatibilitytools.d' in install_dir.lower():
         return Launcher.STEAM
     elif 'lutris/runners' in install_dir.lower():
         return Launcher.LUTRIS
