@@ -93,8 +93,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         if not ctool_name:
             return
 
-        index = get_combobox_index_by_value(self.ui.comboLauncher, ctool_name)
-        if index >= 0:
+        if (index := get_combobox_index_by_value(self.ui.comboLauncher, ctool_name)) >= 0:
             self.ui.comboLauncher.setCurrentIndex(index)
 
     def is_valid_custom_install_path(self, path: str) -> bool:

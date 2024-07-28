@@ -17,7 +17,7 @@ from typing import Dict, List, Union, Tuple, Optional, Callable
 
 import PySide6
 from PySide6.QtCore import QCoreApplication
-from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBox
+from PySide6.QtWidgets import QApplication, QComboBox, QStyleFactory, QMessageBox, QCheckBox
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR, IS_FLATPAK
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
@@ -698,7 +698,7 @@ def get_dict_key_from_value(d, searchval):
         return None
 
 
-def get_combobox_index_by_value(combobox, value: str) -> int:
+def get_combobox_index_by_value(combobox: QComboBox, value: str) -> int:
     """
     Get the index in a combobox where a text value is located.
     Returns an integer >= 0 if found, otherwise -1.
@@ -706,10 +706,12 @@ def get_combobox_index_by_value(combobox, value: str) -> int:
     Return Type: int
     """
 
-    if value:
-        for i in range(combobox.count()):
-            if value == combobox.itemText(i):
-                return i
+    if not value:
+        return -1
+
+    for i in range(combobox.count()):
+        if value == combobox.itemText(i):
+            return i
 
     return -1
 
