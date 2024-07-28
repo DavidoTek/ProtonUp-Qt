@@ -25,7 +25,8 @@ class PupguiCustomInstallDirectoryDialog(QObject):
             'lutris': 'Lutris',
             'heroicwine': 'Heroic (Wine)',
             'heroicproton': 'Heroic (Proton)',
-            'bottles': 'Bottles'
+            'bottles': 'Bottles',
+            'winezgui': 'WineZGUI',
         }
 
         self.load_ui()
