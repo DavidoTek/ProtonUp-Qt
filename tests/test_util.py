@@ -26,7 +26,7 @@ def test_get_launcher_from_installdir() -> None:
     bottles_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'bottles' ]
     bottles_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(bottles_path) for bottles_path in bottles_install_paths ]
 
-    # All possible Bottles paths
+    # All possible WineZGUI paths
     winezgui_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'winezgui' ]
     winezgui_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(winezgui_path) for winezgui_path in winezgui_install_paths ]
 
