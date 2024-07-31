@@ -885,14 +885,14 @@ def create_missing_dependencies_message(ct_name: str, dependencies: List[str]) -
     return tr_msg, False
 
 
-def get_random_game_name(games: List[Union[SteamApp, LutrisGame, HeroicGame]]) -> str:
+def get_random_game_name(games: list[SteamApp] | list[LutrisGame] | list[HeroicGame]) -> str:
     """ Return a random game name from list of SteamApp, LutrisGame, or HeroicGame """
 
     if len(games) <= 0:
         return ''
     
-    tooltip_game_name = ''
-    random_game = random.choice(games)
+    tooltip_game_name: str = ''
+    random_game: SteamApp | LutrisGame | HeroicGame = random.choice(games)
     if type(random_game) is SteamApp:
         tooltip_game_name = random_game.game_name
     elif type(random_game) is LutrisGame:
