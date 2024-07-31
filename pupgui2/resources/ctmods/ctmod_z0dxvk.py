@@ -55,15 +55,26 @@ class CtInstaller(QObject):
         Return Type: bool
         """
 
-        return download_file(
-            url=url,
-            destination=destination,
-            progress_callback=self.__set_download_progress_percent,
-            download_cancelled=self.download_canceled,
-            buffer_size=self.BUFFER_SIZE,
-            stream=True,
-            known_size=known_size
-        )
+        try:
+            return download_file(
+                url=url,
+                destination=destination,
+                progress_callback=self.__set_download_progress_percent,
+                download_cancelled=self.download_canceled,
+                buffer_size=self.BUFFER_SIZE,
+                stream=True,
+                known_size=known_size
+            )
+        except Exception as e:
+            print(f"Failed to download tool {CT_NAME} - Reason: {e}")
+
+            ## TODO this causes a segfault and "The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce."
+            # create_msgbox(
+            #     title=self.tr('Error!'),
+            #     text=self.tr("Failed to download tool {CT_NAME}".format(CT_NAME=CT_NAME)),
+            #     icon=QMessageBox.Warning,
+            #     detailed_text="{EXCEPTION}".format(EXCEPTION=e)
+            # )
 
     def __fetch_data(self, tag: str = '') -> dict:
         """

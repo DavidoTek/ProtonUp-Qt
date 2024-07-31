@@ -24,7 +24,7 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
         response: requests.Response = requests.get(url, stream=stream)
     except (OSError, requests.ConnectionError, requests.Timeout) as e:
         print(f'Error: Failed to make request to URL {url}, cannot complete download! Reason: {e}')
-        return False
+        raise e
 
     progress_callback(1)  # 1 = download started
 
@@ -81,7 +81,7 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
         os.makedirs(destination_dir_path, exist_ok=True)
     except OSError as e:
         print(f'Error: Failed to create path to destination directory, cannot complete download! Reason: {e}')
-        return False
+        raise e
     
     # Download file and return progress to any given callback
     with open(destination, 'wb') as destination_file:
