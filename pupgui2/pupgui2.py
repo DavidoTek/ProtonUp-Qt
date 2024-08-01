@@ -106,7 +106,7 @@ class MainWindow(QObject):
         self.msgcb_answer_lock = QMutex()
 
         self.dbus_session_bus = QDBusConnection.sessionBus()
-        dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
+        _ = dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
 
         self.load_ui()
         self.setup_ui()
@@ -201,7 +201,7 @@ class MainWindow(QObject):
         if progress < 0:  # negative progress indicates cancellation/failure/etc
             num_downloads = 0
 
-        dbus_progress_message(progress_pct, num_downloads, self.dbus_session_bus)
+        _ = dbus_progress_message(progress_pct, num_downloads, self.dbus_session_bus)
 
     def update_combo_install_location(self, custom_install_dir = None):
         self.updating_combo_install_location = True
@@ -594,5 +594,5 @@ def main():
     if IS_FLATPAK and len(os.listdir(STEAM_STL_INSTALL_PATH)) == 0:
         subprocess.run(['flatpak-spawn', '--host', 'rm', '-r', STEAM_STL_INSTALL_PATH])
 
-    dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
+    _ = dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
     sys.exit(ret)
