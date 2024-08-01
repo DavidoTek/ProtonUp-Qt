@@ -16,6 +16,7 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
 
     Returns `True` if download succeeds, `False` otherwise.
 
+    Raises: OSError, requests.ConnectionError, requests.Timeout
     Return Type: bool
     """
 
@@ -62,7 +63,6 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
     #       If we ever make it this far without a file_size (e.g. we are stream=True and we don't get a
     #       Content-Length, or len(response.content) is 0), then then the progress bar will stall at 1% until
     #       the download finishes where it will jump to 99%, until extraction completes.
-
     try:
         chunk_count = int(file_size / buffer_size)
     except ZeroDivisionError as e:
@@ -86,6 +86,8 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
     # Download file and return progress to any given callback
     with open(destination, 'wb') as destination_file:
         for chunk in response.iter_content(chunk_size=buffer_size):
+            chunk: bytes
+
             if download_cancelled:
                 progress_callback(-2)  # -2 = Download cancelled
                 return False
@@ -93,7 +95,7 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
             if not chunk:
                 continue
 
-            destination_file.write(chunk)
+            _ = destination_file.write(chunk)
             destination_file.flush()
 
             download_progress = int(min(current_chunk / chunk_count * 98.0, 98.0))  # 1...98 = Download in progress
