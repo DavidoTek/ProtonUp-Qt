@@ -70,7 +70,7 @@ class CtInstaller(QObject):
         except Exception as e:
             print(f"Failed to download tool {CT_NAME} - Reason: {e}")
 
-            self.message_box_message.emit("Error!", "Failed to download tool {CT_NAME}!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e), QMessageBox.Icon.Warning)
+            self.message_box_message.emit("Download Error!", "Failed to download tool '{CT_NAME}'!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e), QMessageBox.Icon.Warning)
 
     def __fetch_data(self, tag: str = '') -> dict:
         """
