@@ -16,7 +16,7 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
 
     Returns `True` if download succeeds, `False` otherwise.
 
-    Raises: OSError, requests.ConnectionError, requests.Timeout
+    Raises: `OSError`, `requests.ConnectionError`, `requests.Timeout`
     Return Type: bool
     """
 

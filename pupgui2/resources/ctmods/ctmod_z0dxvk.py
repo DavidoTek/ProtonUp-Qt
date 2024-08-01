@@ -3,6 +3,7 @@
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
 import os
+from PySide6.QtWidgets import QMessageBox
 import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
@@ -25,6 +26,7 @@ class CtInstaller(QObject):
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
+    message_box_message = Signal((str, str, QMessageBox.Icon))
 
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
@@ -68,13 +70,7 @@ class CtInstaller(QObject):
         except Exception as e:
             print(f"Failed to download tool {CT_NAME} - Reason: {e}")
 
-            ## TODO this causes a segfault and "The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce."
-            # create_msgbox(
-            #     title=self.tr('Error!'),
-            #     text=self.tr("Failed to download tool {CT_NAME}".format(CT_NAME=CT_NAME)),
-            #     icon=QMessageBox.Warning,
-            #     detailed_text="{EXCEPTION}".format(EXCEPTION=e)
-            # )
+            self.message_box_message.emit("Error!", "Failed to download tool {CT_NAME}!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e), QMessageBox.Icon.Warning)
 
     def __fetch_data(self, tag: str = '') -> dict:
         """

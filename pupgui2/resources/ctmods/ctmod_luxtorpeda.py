@@ -74,13 +74,7 @@ class CtInstaller(QObject):
         except Exception as e:
             print(f"Failed to download tool {CT_NAME} - Reason: {e}")
 
-            ## TODO this causes a segfault and "The cached device pixel ratio value was stale on window expose.  Please file a QTBUG which explains how to reproduce."
-            # create_msgbox(
-            #     title=self.tr('Error!'),
-            #     text=self.tr("Failed to download tool {CT_NAME}".format(CT_NAME=CT_NAME)),
-            #     icon=QMessageBox.Warning,
-            #     detailed_text="{EXCEPTION}".format(EXCEPTION=e)
-            # )
+            self.message_box_message.emit("Error!", "Failed to download tool {CT_NAME}!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e), QMessageBox.Icon.Warning)
 
 
     def __fetch_github_data(self, tag):
