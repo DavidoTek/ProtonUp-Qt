@@ -37,7 +37,7 @@ def dbus_progress_message(progress: float, count: int = 0, bus: QDBusConnection 
     if bus is None:
         bus = QDBusConnection.sessionBus()
 
-    arguments: dict[str, Any] = {
+    arguments: dict[str, int | float | bool] = {
         'progress': progress,
         'progress-visible': progress >= 0 and progress < 1,
         'count': count,
@@ -48,7 +48,7 @@ def dbus_progress_message(progress: float, count: int = 0, bus: QDBusConnection 
     # plus an 'arguments' dict with some extra information
     #
     # i.e. { 'progress': 0.7, 'progress-visible': True }
-    message_arguments: list[str | dict[str, Any]] = [
+    message_arguments: list[str | dict[str, int | float | bool]] = [
         DBUS_APPLICATION_URI,
         arguments
     ]
