@@ -4,6 +4,38 @@ from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher
 
 
+def test_get_dict_key_from_value() -> None:
+
+    """
+    Test whether get_dict_key_from_value can retrieve the expected key from a dict by a value,
+    where the key and value can be of any type.
+    """
+
+    dict_with_str_keys: dict[str, str] = {
+        'steam': 'Steam',
+        'lutris': 'Lutris',
+    }
+
+    dict_with_int_keys: dict[int, str] = {
+        2: 'two',
+        4: 'four'
+    }
+
+    dict_with_enum_keys: dict[Launcher, bool] = {
+        Launcher.WINEZGUI: True,
+        Launcher.HEROIC: False
+    }
+
+    test_dicts: list[dict[Any, Any]] = [
+        dict_with_str_keys,
+        dict_with_int_keys,
+        dict_with_enum_keys,
+    ]
+
+    for test_dict in test_dicts:
+        assert all( get_dict_key_from_value(test_dict, value) == key for key, value in test_dict.items() )
+
+
 def test_get_launcher_from_installdir() -> None:
 
     """
