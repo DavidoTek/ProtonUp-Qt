@@ -296,7 +296,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                     # Example: {'0': {'src_os': 'windows', 'dest_os': 'linux', 'appid': 1826330, 'comment': 'EAC runtime'}}
                     app_additional_dependencies = app_appinfo.get('extended', {}).get('additional_dependencies', {})
 
-                    a.game_name = app_appinfo_common.get('name', '')
+                    a.game_name = str(app_appinfo_common.get('name', ''))
                     a.deck_compatibility = app_appinfo_common.get('steam_deck_compatibility', {})
                     for dep in app_additional_dependencies.values():
                         a.anticheat_runtimes[RuntimeType.EAC] = dep.get('appid', -1) == PROTON_EAC_RUNTIME_APPID
