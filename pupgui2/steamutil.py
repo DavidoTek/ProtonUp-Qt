@@ -272,7 +272,7 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
     return ctool_map
 
 
-def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]) -> List[SteamApp]:
+def update_steamapp_info(steam_config_folder: str, steamapp_list: list[SteamApp]) -> list[SteamApp]:
     """
     Get Steam game names and information for provided SteamApps
     Return Type: List[SteamApp]
