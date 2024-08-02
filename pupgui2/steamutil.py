@@ -272,18 +272,18 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
     return ctool_map
 
 
-def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]) -> List[SteamApp]:
+def update_steamapp_info(steam_config_folder: str, steamapp_list: list[SteamApp]) -> list[SteamApp]:
     """
     Get Steam game names and information for provided SteamApps
     Return Type: List[SteamApp]
     """
     appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
     appinfo_file = os.path.realpath(appinfo_file)
-    sapps = {app.get_app_id_str(): app for app in steamapp_list}
+    sapps: dict[str, SteamApp] = {app.get_app_id_str(): app for app in steamapp_list}
     len_sapps = len(sapps)
     cnt = 0
     try:
-        ctool_map = _get_steam_ctool_info(steam_config_folder)
+        ctool_map: dict[str, dict[str, str]] = _get_steam_ctool_info(steam_config_folder)
         with open(appinfo_file, 'rb') as f:
             _, apps = parse_appinfo(f, mapper=dict)
             for steam_app in apps:
@@ -296,7 +296,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                     # Example: {'0': {'src_os': 'windows', 'dest_os': 'linux', 'appid': 1826330, 'comment': 'EAC runtime'}}
                     app_additional_dependencies = app_appinfo.get('extended', {}).get('additional_dependencies', {})
 
-                    a.game_name = app_appinfo_common.get('name', '')
+                    a.game_name = str(app_appinfo_common.get('name', ''))
                     a.deck_compatibility = app_appinfo_common.get('steam_deck_compatibility', {})
                     for dep in app_additional_dependencies.values():
                         a.anticheat_runtimes[RuntimeType.EAC] = dep.get('appid', -1) == PROTON_EAC_RUNTIME_APPID
