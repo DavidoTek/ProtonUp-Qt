@@ -279,11 +279,11 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: list[SteamApp]
     """
     appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
     appinfo_file = os.path.realpath(appinfo_file)
-    sapps = {app.get_app_id_str(): app for app in steamapp_list}
+    sapps: dict[str, SteamApp] = {app.get_app_id_str(): app for app in steamapp_list}
     len_sapps = len(sapps)
     cnt = 0
     try:
-        ctool_map = _get_steam_ctool_info(steam_config_folder)
+        ctool_map: dict[str, dict[str, str]] = _get_steam_ctool_info(steam_config_folder)
         with open(appinfo_file, 'rb') as f:
             _, apps = parse_appinfo(f, mapper=dict)
             for steam_app in apps:
