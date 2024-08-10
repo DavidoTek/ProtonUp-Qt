@@ -13,7 +13,7 @@ import random
 import zstandard
 
 from configparser import ConfigParser
-from typing import Dict, List, Union, Tuple, Optional, Callable
+from typing import Any, Dict, List, Union, Tuple, Optional, Callable
 
 import PySide6
 from PySide6.QtCore import QCoreApplication
@@ -686,11 +686,15 @@ def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
     return compat_tool in [ctobj['name'] for ctobj in ctobjs]
 
 
-def get_dict_key_from_value(d, searchval):
+def get_dict_key_from_value(d: dict[Any, Any], searchval: Any) -> Any:
+
     """
     Fetch a given dictionary key from a given value.
     Returns the given value if found, otherwise None.
+
+    Return Type: Any
     """
+
     for key, value in d.items():
         if value == searchval:
             return key
