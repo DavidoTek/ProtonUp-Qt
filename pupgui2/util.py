@@ -666,7 +666,14 @@ def fetch_project_release_data(release_url: str, release_format: str, rs: reques
     return values
 
 
-def build_headers_with_authorization(request_headers: dict, authorization_tokens: dict, token_type: str):
+def build_headers_with_authorization(request_headers: dict[str, Any], authorization_tokens: dict[str, str], token_type: str) -> dict[str, Any]:
+
+    """
+    Generate an updated `request_headers` dict with the `Authorization` header containing the key for GitHub or GitLab, based on `token_type`
+    and removing any existing Authorization.
+
+    Return Type: dict[str, Any]
+    """
 
     request_headers['Authorization'] = ''  # Reset old authentication
     token: str = authorization_tokens.get(token_type, '')
