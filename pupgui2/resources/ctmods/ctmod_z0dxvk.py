@@ -9,7 +9,8 @@ import requests
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.networkutil import download_file
-from pupgui2.util import extract_tar, get_launcher_from_installdir, fetch_project_releases, fetch_project_release_data, build_headers_with_authorization
+from pupgui2.util import extract_tar, get_launcher_from_installdir, fetch_project_releases
+from pupgui2.util import fetch_project_release_data, build_headers_with_authorization
 from pupgui2.datastructures import Launcher
 
 
