@@ -9,8 +9,9 @@ from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 from PySide6.QtWidgets import QMessageBox
 
 from pupgui2.networkutil import download_file
-from pupgui2.util import create_msgbox, extract_tar, write_tool_version
-from pupgui2.util import build_headers_with_authorization, create_missing_dependencies_message, fetch_project_release_data, fetch_project_releases
+from pupgui2.util import extract_tar, write_tool_version, fetch_project_releases
+from pupgui2.util import fetch_project_release_data, build_headers_with_authorization
+from pupgui2.util import create_missing_dependencies_message
 
 
 CT_NAME = 'Luxtorpeda'
