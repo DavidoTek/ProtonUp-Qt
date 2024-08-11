@@ -8,8 +8,10 @@ import requests
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 from PySide6.QtWidgets import QMessageBox
 
-from pupgui2.util import extract_tar, write_tool_version
-from pupgui2.util import build_headers_with_authorization, create_missing_dependencies_message, fetch_project_release_data, fetch_project_releases
+from pupgui2.networkutil import download_file
+from pupgui2.util import extract_tar, write_tool_version, fetch_project_releases
+from pupgui2.util import fetch_project_release_data, build_headers_with_authorization
+from pupgui2.util import create_missing_dependencies_message
 
 
 CT_NAME = 'Luxtorpeda'
@@ -54,35 +56,30 @@ class CtInstaller(QObject):
         self.p_download_progress_percent = value
         self.download_progress_percent.emit(value)
 
-    def __download(self, url, destination):
+    def __download(self, url: str, destination: str, known_size: int = 0):
         """
         Download files from url to destination
         Return Type: bool
         """
-        try:
-            file = requests.get(url, stream=True)
-        except OSError:
-            return False
 
-        self.__set_download_progress_percent(1) # 1 download started
-        f_size = int(file.headers.get('content-length'))
-        c_count = int(f_size / self.BUFFER_SIZE)
-        c_current = 1
-        destination = os.path.expanduser(destination)
-        os.makedirs(os.path.dirname(destination), exist_ok=True)
-        with open(destination, 'wb') as dest:
-            for chunk in file.iter_content(chunk_size=self.BUFFER_SIZE):
-                if self.download_canceled:
-                    self.download_canceled = False
-                    self.__set_download_progress_percent(-2) # -2 download canceled
-                    return False
-                if chunk:
-                    dest.write(chunk)
-                    dest.flush()
-                self.__set_download_progress_percent(int(min(c_current / c_count * 98.0, 98.0))) # 1-98, 100 after extract
-                c_current += 1
-        self.__set_download_progress_percent(99) # 99 download complete
-        return True
+        try:
+            return download_file(
+                url=url,
+                destination=destination,
+                progress_callback=self.__set_download_progress_percent,
+                download_cancelled=self.download_canceled,
+                buffer_size=self.BUFFER_SIZE,
+                stream=True,
+                known_size=known_size
+            )
+        except Exception as e:
+            print(f"Failed to download tool {CT_NAME} - Reason: {e}")
+
+            self.message_box_message.emit(
+                self.tr("Download Error!"),
+                self.tr("Failed to download tool '{CT_NAME}'!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e)),
+                QMessageBox.Icon.Warning
+            )
 
     def __fetch_github_data(self, tag):
         """
@@ -131,7 +128,7 @@ class CtInstaller(QObject):
             return False
 
         luxtorpeda_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
-        if not self.__download(url=data['download'], destination=luxtorpeda_tar):
+        if not self.__download(url=data['download'], destination=luxtorpeda_tar, known_size=data.get('size', 0)):
             return False
 
         luxtorpeda_dir = os.path.join(install_dir, self.extract_dir_name)
