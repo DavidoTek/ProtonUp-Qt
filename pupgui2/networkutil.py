@@ -24,7 +24,7 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
     try:
         response: requests.Response = requests.get(url, stream=stream)
     except (OSError, requests.ConnectionError, requests.Timeout) as e:
-        print(f'Error: Failed to make request to URL {url}, cannot complete download! Reason: {e}')
+        print(f'Error: Failed to make request to URL '{url}', cannot complete download! Reason: {e}')
         raise e
 
     progress_callback(1)  # 1 = download started
