@@ -675,17 +675,19 @@ def build_headers_with_authorization(request_headers: dict[str, Any], authorizat
     Return Type: dict[str, Any]
     """
 
-    request_headers['Authorization'] = ''  # Reset old authentication
+    updated_headers: dict[str, Any] = request_headers.copy()
+
+    updated_headers['Authorization'] = ''  # Reset old authentication
     token: str = authorization_tokens.get(token_type, '')
     if not token:        
-        return request_headers
+        return updated_headers
 
     if token_type == 'github':
-        request_headers['Authorization'] = f'token {token}'
+        updated_headers['Authorization'] = f'token {token}'
     elif token_type == 'gitlab':
-        request_headers['Authorization'] = f'Bearer {token}'
+        updated_headers['Authorization'] = f'Bearer {token}'
 
-    return request_headers
+    return updated_headers
 
 def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
     """ Return whether a compat tool is available for a given launcher """
