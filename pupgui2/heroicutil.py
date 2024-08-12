@@ -2,26 +2,24 @@ import os
 import json
 import re
 
-from typing import List, Dict
-
 from pupgui2.datastructures import HeroicGame
 from pupgui2.constants import EPIC_STORE_URL
 
 
-def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
+def get_heroic_game_list(heroic_path: str) -> list[HeroicGame]:
     """
     Returns a list of installed games for Heroic Games at 'heroic_path' (e.g., '~/.config/heroic', '~/.var/app/com.heroicgameslauncher.hgl/config/heroic')
-    Return Type: List[HeroicGame]
+    Return Type: list[HeroicGame]
     """
 
     if not os.path.isdir(heroic_path):
         return []
 
     # "Nile" refers to Amazon Games
-    store_paths: List[str] = [ os.path.join(heroic_path, 'sideload_apps', 'library.json'), os.path.join(heroic_path, 'gog_store', 'library.json'), os.path.join(heroic_path, 'store_cache', 'nile_library.json') ]
+    store_paths: list[str] = [ os.path.join(heroic_path, 'sideload_apps', 'library.json'), os.path.join(heroic_path, 'gog_store', 'library.json'), os.path.join(heroic_path, 'store_cache', 'nile_library.json') ]
     legendary_path: str = os.path.abspath(os.path.join(heroic_path, '..', 'legendary', 'installed.json'))
 
-    games_json: List = []
+    games_json: list = []
     for sp in store_paths:
         if os.path.isfile(sp):
             games_json_file = json.load(open(sp))
@@ -29,7 +27,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
             games_json += games_json_file.get('games', [])  # GOG + sideload use 'games' as top-level object
             games_json += games_json_file.get('library', [])  # Nile uses 'library' as top-level object
 
-    hgs: List[HeroicGame] = []
+    hgs: list[HeroicGame] = []
     for game in games_json:
         hg = HeroicGame()
 
@@ -95,7 +93,7 @@ def is_gog_game_installed(game: HeroicGame) -> bool:
     return bool(get_gog_installed_game_entry(game))
 
 
-def get_gog_installed_game_entry(game: HeroicGame) -> Dict:
+def get_gog_installed_game_entry(game: HeroicGame) -> dict:
     """ Return JSON entry as dict for an installed GOG game from heroic/gog_store/installed.json """
 
     gog_installed_json_path = os.path.join(game.heroic_path, 'gog_store', 'installed.json')
