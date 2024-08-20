@@ -172,44 +172,55 @@ class CtInstaller(QObject):
 
         return True
 
-    def is_system_compatible(self):
+    def is_system_compatible(self) -> bool:
         """
         Are the system requirements met?
         Return Type: bool
         """
-        # Possibly excuse some of these if not on Steam Deck and ignore if Flatpak
-        proc_prefix = ['flatpak-spawn', '--host'] if constants.IS_FLATPAK else []
-        yad_exe = host_which('yad')
-        if yad_exe:
-            try:
-                yad_vers = subprocess.run(proc_prefix + ['yad', '--version'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().split(' ')[0].split('.')
-                yad_ver = float(f'{yad_vers[0]}.{yad_vers[1]}')
-            except Exception as e:
-                print('STL is_system_compatible Could not parse yad version:', e)
-                yad_ver = 0.0
 
-        # Don't check dependencies on Steam Deck, STL will manage dependencies itself in that case
-        deps_met = {}
-        if "steamos" not in self.distinfo:
-            deps_met = {
-                'awk-gawk': host_which('awk') or host_which('gawk'),
-                'git': host_which('git'),
-                'pgrep': host_which('pgrep'),
-                'unzip': host_which('unzip'),
-                'wget': host_which('wget'),
-                'xdotool': host_which('xdotool'),
-                'xprop': host_which('xprop'),
-                'xrandr': host_which('xrandr'),
-                'xxd': host_which('xxd'),
-                'xwininfo': host_which('xwininfo'),
-                'yad >= 7.2': yad_exe and yad_ver >= 7.2
-            }
+        # Don't check dependencies on SteamOS
+        if 'steamos' in self.distinfo:
+            return True
+
+        # Possibly excuse some of these if not on Steam Deck and ignore if Flatpak
+        proc_prefix: list[str] = ['flatpak-spawn', '--host'] if constants.IS_FLATPAK else []
+        yad_exe: str = host_which('yad')
+
+        try:
+            if not yad_exe:
+                raise Exception(f'Could not find Yad binary, yad_exe is {yad_exe}')
+
+            yad_vers: list[str] = subprocess.run(proc_prefix + ['yad', '--version'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().split(' ')[0].split('.')
+            yad_ver = float(f'{yad_vers[0]}.{yad_vers[1]}')
+        except Exception as e:
+            print('STL is_system_compatible Could not parse yad version:', e)
+            yad_ver = 0.0
+
+        deps_met: dict[str, str | bool] = {
+            'awk-gawk': host_which('awk') or host_which('gawk'),
+            'git': host_which('git'),
+            'pgrep': host_which('pgrep'),
+            'unzip': host_which('unzip'),
+            'wget': host_which('wget'),
+            'xdotool': host_which('xdotool'),
+            'xprop': host_which('xprop'),
+            'xrandr': host_which('xrandr'),
+            'xxd': host_which('xxd'),
+            'xwininfo': host_which('xwininfo'),
+            'yad >= 7.2': yad_exe and yad_ver >= 7.2
+        }
 
         if all(deps_met.values()):
             return True
+
+        # Display dialog with which dependencies are found and which aren't by displaying 'found'
+        # if the value in the 'deps_met' dict is truthy and 'missing' if it is falsey
         msg = QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'You have several unmet dependencies for SteamTinkerLaunch.\n\n')
-        msg += '\n'.join([f'{dep_name}: {"found" if is_dep_met else "missing"}' for (dep_name, is_dep_met) in deps_met.items()])
+        msg += '\n'.join([
+            f'{dep_name}: { "found" if is_dep_met else "missing" }' for ( dep_name, is_dep_met ) in deps_met.items()
+        ])
         msg += QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', '\n\nInstallation will be cancelled.')
+
         self.message_box_message.emit(QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'Missing dependencies!'), msg, QMessageBox.Warning)
 
         return False  # Installation would fail without dependencies.
