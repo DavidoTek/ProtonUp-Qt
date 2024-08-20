@@ -2,7 +2,13 @@
 # SteamTinkerLaunch
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
-import datetime, locale, os, requests, shutil, subprocess, tarfile
+import datetime
+import locale
+import os
+import requests
+import shutil
+import subprocess
+import tarfile
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 from PySide6.QtWidgets import QMessageBox
