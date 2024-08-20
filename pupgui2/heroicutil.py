@@ -2,35 +2,37 @@ import os
 import json
 import re
 
-from typing import List, Dict
+from typing import Any
 
 from pupgui2.datastructures import HeroicGame
 from pupgui2.constants import EPIC_STORE_URL
 
 
-def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
+def get_heroic_game_list(heroic_path: str) -> list[HeroicGame]:
     """
     Returns a list of installed games for Heroic Games at 'heroic_path' (e.g., '~/.config/heroic', '~/.var/app/com.heroicgameslauncher.hgl/config/heroic')
-    Return Type: List[HeroicGame]
+    Return Type: list[HeroicGame]
     """
 
     if not os.path.isdir(heroic_path):
         return []
 
     # "Nile" refers to Amazon Games
-    store_paths: List[str] = [ os.path.join(heroic_path, 'sideload_apps', 'library.json'), os.path.join(heroic_path, 'gog_store', 'library.json'), os.path.join(heroic_path, 'store_cache', 'nile_library.json') ]
+    store_paths: list[str] = [ os.path.join(heroic_path, 'sideload_apps', 'library.json'), os.path.join(heroic_path, 'gog_store', 'library.json'), os.path.join(heroic_path, 'store_cache', 'nile_library.json') ]
     legendary_path: str = os.path.abspath(os.path.join(heroic_path, '..', 'legendary', 'installed.json'))
 
-    games_json: List = []
+    games_json: list[dict[str, Any]] = []
     for sp in store_paths:
         if os.path.isfile(sp):
-            games_json_file = json.load(open(sp))
+            games_json_file: dict[str, Any] = json.load(open(sp))
 
+            # 'games' and 'library' is a JSON array containing objects representing each game
             games_json += games_json_file.get('games', [])  # GOG + sideload use 'games' as top-level object
             games_json += games_json_file.get('library', [])  # Nile uses 'library' as top-level object
 
-    hgs: List[HeroicGame] = []
+    hgs: list[HeroicGame] = []
     for game in games_json:
+        game: dict[str, Any]
         hg = HeroicGame()
 
         hg.runner = game.get('runner', '')
@@ -58,7 +60,7 @@ def get_heroic_game_list(heroic_path: str) -> List[HeroicGame]:
 
     # Legendary Games uses a separate structure, so build separately
     if os.path.isfile(legendary_path):
-        legendary_json = json.load(open(legendary_path))
+        legendary_json: dict[str, Any] = json.load(open(legendary_path))
         for app_name, game_data in legendary_json.items():
             lg = HeroicGame()
 
@@ -95,7 +97,7 @@ def is_gog_game_installed(game: HeroicGame) -> bool:
     return bool(get_gog_installed_game_entry(game))
 
 
-def get_gog_installed_game_entry(game: HeroicGame) -> Dict:
+def get_gog_installed_game_entry(game: HeroicGame) -> dict[str, Any]:
     """ Return JSON entry as dict for an installed GOG game from heroic/gog_store/installed.json """
 
     gog_installed_json_path = os.path.join(game.heroic_path, 'gog_store', 'installed.json')
@@ -124,9 +126,9 @@ def get_gog_game_executable(game: HeroicGame) -> str:
     if not os.path.isfile(gog_gameinfo_json_path) or not game.runner.lower() == 'gog':
         return ''
 
-    gog_gameinfo_json = json.load(open(gog_gameinfo_json_path))
-    gog_gameinfo_name = gog_gameinfo_json.get('name', '')
-    gog_gameinfo_playtasks = gog_gameinfo_json.get('playTasks', {})
+    gog_gameinfo_json: dict[str, Any] = json.load(open(gog_gameinfo_json_path))
+    gog_gameinfo_name: str = gog_gameinfo_json.get('name', '')
+    gog_gameinfo_playtasks: dict[str, Any] = gog_gameinfo_json.get('playTasks', {})
     for playtasks in gog_gameinfo_playtasks:
         if playtasks.get('name', '').lower() == gog_gameinfo_name.lower():
             return playtasks.get('path', '')
