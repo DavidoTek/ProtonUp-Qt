@@ -250,7 +250,7 @@ class CtInstaller(QObject):
 
         # If there's an existing STL installation that isn't installed by ProtonUp-Qt, ask the user if they still want to install
         has_external_install = get_external_steamtinkerlaunch_intall(os.path.join(install_dir, 'SteamTinkerLaunch'))
-        if has_external_install:
+        if os.path.exists(has_external_install):
             print('Non-ProtonUp-Qt installation of SteamTinkerLaunch detected. Asking the user what they want to do...')
             self.question_box_message.emit(
                 QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'Existing SteamTinkerLaunch Installation'),
