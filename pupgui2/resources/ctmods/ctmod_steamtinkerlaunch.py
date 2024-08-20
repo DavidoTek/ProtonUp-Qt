@@ -440,7 +440,7 @@ class CtInstaller(QObject):
         print('Successfully installed SteamTinkerLaunch!')
         return True
     
-    def get_info_url(self, version):
+    def get_info_url(self, version: str) -> str:
         """
         Return link with GitHub release page.
         If SteamTinkerLaunch-git, returns the project homepage.
