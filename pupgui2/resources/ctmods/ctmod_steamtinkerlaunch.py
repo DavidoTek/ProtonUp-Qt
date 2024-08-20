@@ -82,7 +82,7 @@ class CtInstaller(QObject):
     def get_download_canceled(self):
         return self.p_download_canceled
 
-    def set_download_canceled(self, val):
+    def set_download_canceled(self, val: int):
         self.p_download_canceled = val
 
     download_canceled = Property(bool, get_download_canceled, set_download_canceled)
