@@ -93,7 +93,7 @@ class CtInstaller(QObject):
         self.p_download_progress_percent = value
         self.download_progress_percent.emit(value)
 
-    def __download(self, url, destination):
+    def __download(self, url: str, destination: str) -> bool:
         """
         Download files from url to destination
         Return Type: bool
