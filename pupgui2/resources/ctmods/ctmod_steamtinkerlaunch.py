@@ -87,7 +87,7 @@ class CtInstaller(QObject):
 
     download_canceled = Property(bool, get_download_canceled, set_download_canceled)
 
-    def __set_download_progress_percent(self, value : int):
+    def __set_download_progress_percent(self, value: int | float):
         if self.p_download_progress_percent == value:
             return
         self.p_download_progress_percent = value
