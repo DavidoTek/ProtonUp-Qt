@@ -666,19 +666,28 @@ def fetch_project_release_data(release_url: str, release_format: str, rs: reques
     return values
 
 
-def build_headers_with_authorization(request_headers: dict, authorization_tokens: dict, token_type: str):
+def build_headers_with_authorization(request_headers: dict[str, Any], authorization_tokens: dict[str, str], token_type: str) -> dict[str, Any]:
 
-    request_headers['Authorization'] = ''  # Reset old authentication
+    """
+    Generate an updated `request_headers` dict with the `Authorization` header containing the key for GitHub or GitLab, based on `token_type`
+    and removing any existing Authorization.
+
+    Return Type: dict[str, Any]
+    """
+
+    updated_headers: dict[str, Any] = request_headers.copy()
+
+    updated_headers['Authorization'] = ''  # Reset old authentication
     token: str = authorization_tokens.get(token_type, '')
     if not token:        
-        return request_headers
+        return updated_headers
 
     if token_type == 'github':
-        request_headers['Authorization'] = f'token {token}'
+        updated_headers['Authorization'] = f'token {token}'
     elif token_type == 'gitlab':
-        request_headers['Authorization'] = f'Bearer {token}'
+        updated_headers['Authorization'] = f'Bearer {token}'
 
-    return request_headers
+    return updated_headers
 
 def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
     """ Return whether a compat tool is available for a given launcher """

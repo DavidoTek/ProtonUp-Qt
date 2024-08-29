@@ -82,7 +82,7 @@ class MainWindow(QObject):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.web_access_tokens = {
+        self.web_access_tokens: dict[str, str] = {
             'github': os.getenv('PUPGUI_GHA_TOKEN') or config_github_access_token(),
             'gitlab': os.getenv('PUPGUI_GLA_TOKEN') or config_gitlab_access_token(),
         }

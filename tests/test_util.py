@@ -4,6 +4,42 @@ from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher
 
 
+def test_build_headers_with_authorization() -> None:
+
+    """
+    Test whether the expected Authorization Tokens get inserted into the returned headers dict,
+    that existing Authorization is replaced properly, and that all other existing headers are preserved.
+    """
+
+    user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'
+
+    # Simulate existing headers with old Authentiation to be replaced, and a User-Agent that should remain untouched
+    request_headers: dict[str, Any] = {
+        'Authorization': 'ABC123',
+        'User-Agent': user_agent
+    }
+
+    # Simulate auth tokens that would normally come from the environment or config file
+    authorization_tokens: dict[str, str] = {
+        'github': 'gha_abc123daf456',
+        'gitlab': 'glpat-zyx987wvu654',
+    }
+
+    github_token_call: dict[str, Any] = build_headers_with_authorization(request_headers, authorization_tokens, 'github')
+    gitlab_token_call: dict[str, Any] = build_headers_with_authorization(request_headers, authorization_tokens, 'gitlab')
+
+    unknown_token_call: dict[str, Any] = build_headers_with_authorization(request_headers, authorization_tokens, '')
+    call_with_no_tokens: dict[str, Any] = build_headers_with_authorization(request_headers, {}, 'github')
+
+    assert github_token_call.get('Authorization', '') == f'token {authorization_tokens["github"]}'
+    assert gitlab_token_call.get('Authorization', '') == f'Bearer {authorization_tokens["gitlab"]}'
+
+    assert unknown_token_call.get('Authorization', '') == ''
+    assert call_with_no_tokens.get('Authorization', '') == ''
+
+    assert github_token_call.get('User-Agent', '') == user_agent
+
+
 def test_get_dict_key_from_value() -> None:
 
     """
