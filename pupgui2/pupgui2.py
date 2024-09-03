@@ -296,6 +296,10 @@ class MainWindow(QObject):
         self.ui.txtUnusedVersions.setText(self.tr('Unused: {unused_ctools}').format(unused_ctools=unused_ctools) if unused_ctools > 0 else '')
         self.ui.txtInstalledVersions.setText(f'{len(self.compat_tool_index_map)}')
 
+        combo_install_location_val: str = self.ui.comboInstallLocation.currentText()
+        if len(combo_install_location_val) > 0:
+            self.ui.comboInstallLocation.setToolTip(combo_install_location_val)
+
     def get_installed_versions(self, ctool_name, ctool_dir):
         for ct in get_installed_ctools(ctool_dir):
             if ctool_name not in ct.get_displayname().lower():
