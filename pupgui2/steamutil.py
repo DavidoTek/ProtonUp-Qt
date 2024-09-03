@@ -1,5 +1,5 @@
 import os
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Callable
 import shutil
 import subprocess
 import json
@@ -376,35 +376,34 @@ def get_protondb_status(game: SteamApp, signal: Signal) -> None:
     t.start()
 
 
+# TODO: Needs tested
 def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -> bool:
     """
     Change compatibility tool for 'game_id' to 'new_ctool' in Steam config vdf
     Return Type: bool
     """
-    config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
-    if not os.path.exists(config_vdf_file):
-        return False
 
-    game_id = game.app_id
+    def _update_ctool(config_vdf_dict: dict):
+        """
+        Update the compat_tool_mapping dict from config_vdf_dict
+        to modify a single game's selected compatibility tool.
+        """
 
-    try:
-        d = vdf.load(open(config_vdf_file))
-        c = get_steam_vdf_compat_tool_mapping(d)
+        compat_tool_mapping = get_steam_vdf_compat_tool_mapping(config_vdf_dict)
 
-        if str(game_id) in c:
+        game_id = game.app_id
+        if str(game_id) in compat_tool_mapping:
             if new_ctool is None:
-                c.pop(str(game_id))
+                compat_tool_mapping.pop(str(game_id))
             else:
-                c.get(str(game_id))['name'] = str(new_ctool)
+                compat_tool_mapping.get(str(game_id))['name'] = str(new_ctool)
         else:
-            c[str(game_id)] = {"name": str(new_ctool), "config": "", "priority": "250"}
+            compat_tool_mapping[str(game_id)] = {"name": str(new_ctool), "config": "", "priority": "250"}
 
-        vdf.dump(d, open(config_vdf_file, 'w'), pretty=True)
-    except Exception as e:
-        print('Error, could not update Steam compatibility tool to', new_ctool, 'for game',game_id, ':',
-              e, ', vdf:', config_vdf_file)
-        return False
-    return True
+    success = update_config_vdf_data(steam_config_folder, _update_ctool)
+    if not success:
+        print('Error, could not update Steam compatibility tool to {new_ctool} for game {game_id}')
+    return success
 
 
 def steam_update_ctools(games: Dict[SteamApp, str], steam_config_folder='') -> bool:
@@ -412,30 +411,31 @@ def steam_update_ctools(games: Dict[SteamApp, str], steam_config_folder='') -> b
     Change compatibility tool for multiple games in Steam config vdf.
     Return Type: bool
     """
-    config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
-    if not os.path.exists(config_vdf_file):
-        return False
 
-    try:
-        d = vdf.load(open(config_vdf_file))
-        c = get_steam_vdf_compat_tool_mapping(d)
+
+    def _update_ctools(config_vdf_dict: dict):
+        """
+        Update the compat_tool_mapping dict from config_vdf_dict to add
+        the corresponding compatibility tool for a given game into the
+        config.vdf file.
+        """
+
+        compat_tool_mapping = get_steam_vdf_compat_tool_mapping(config_vdf_dict)
 
         for game, new_ctool in games.items():
             game_id = game.app_id
-            if str(game_id) in c:
+            if str(game_id) in compat_tool_mapping:
                 if new_ctool is None:
-                    c.pop(str(game_id))
+                    compat_tool_mapping.pop(str(game_id))
                 else:
-                    c.get(str(game_id))['name'] = str(new_ctool)
+                    compat_tool_mapping.get(str(game_id))['name'] = str(new_ctool)
             else:
-                c[str(game_id)] = {"name": str(new_ctool), "config": "", "priority": "250"}
+                compat_tool_mapping[str(game_id)] = {"name": str(new_ctool), "config": "", "priority": "250"}
 
-        vdf.dump(d, open(config_vdf_file, 'w'), pretty=True)
-    except Exception as e:
-        print('Error, could not update Steam compatibility tools:', e, ', vdf:', config_vdf_file)
-        return False
-    return True
-
+    success = update_config_vdf_data(steam_config_folder, _update_ctools)
+    if not success:
+        print('Error, could not update Steam compatibility tools')
+    return success
 
 def is_steam_running() -> bool:
     """
@@ -809,3 +809,40 @@ def is_valid_steam_install(steam_path) -> bool:
     is_valid_steam_install = os.path.exists(config_vdf) and os.path.exists(libraryfolders_vdf)
 
     return is_valid_steam_install
+
+
+def update_vdf_text_data(vdf_file_path: str, vdf_file_action: Callable) -> bool:
+
+    """
+    Uses vdf_file_action to update parts of the config.vdf file and writes it out again.
+    For example, update the CompatToolMapping section.
+    """
+
+    if not os.path.exists(vdf_file_path):
+        print(f"VDF file not found at: '{vdf_file_path}'")
+        return False
+
+    try:
+        with open(vdf_file_path, 'r+') as config_vdf_file:
+            config_vdf_dict = vdf.load(config_vdf_file)
+
+            # Call a function that will modify some part of config_vdf,
+            # then write this updated data to the VDF file
+            vdf_file_action(config_vdf_dict)
+
+            vdf.dump(config_vdf_dict, config_vdf_file, pretty=True)
+    except Exception as e:
+        print(f'Error, could not update VDF file at "{vdf_file_path}" - Reason: {e}')
+        return False
+
+    return True
+
+
+def update_config_vdf_data(steam_config_folder: str, vdf_file_action: Callable) -> bool:
+    """
+    Wrapper around update_vdf_text_data specific to writing data for config.vdf file.
+    """
+
+    config_vdf_file_path = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
+
+    return update_vdf_text_data(config_vdf_file_path, vdf_file_action)
