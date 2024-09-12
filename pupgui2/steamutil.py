@@ -809,3 +809,22 @@ def is_valid_steam_install(steam_path) -> bool:
     is_valid_steam_install = os.path.exists(config_vdf) and os.path.exists(libraryfolders_vdf)
 
     return is_valid_steam_install
+
+def vdf_safe_load(vdf_file: str) -> dict:
+    """
+    Loads a vdf file and returns its contents as a dict.
+    In case of an error, the error is printed and {} is returned.
+
+    Args:
+        vdf_file (str): Path to the vdf file
+
+    Returns:
+        dict
+    """
+
+    try:
+        # See https://github.com/DavidoTek/ProtonUp-Qt/issues/424 (unicode errors)
+        with open(vdf_file, 'r', encoding='utf-8', errors='replace') as f:
+            return vdf.loads(f.read())
+    except Exception as e:
+        print(f'An error occured while calling vdf_safe_load({vdf_file}): {e}')
