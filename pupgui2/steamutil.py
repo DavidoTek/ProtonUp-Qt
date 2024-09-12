@@ -58,8 +58,8 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
     apps = []
 
     try:
-        v = vdf.load(open(libraryfolders_vdf_file))
-        c = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
+        v = vdf_safe_load(libraryfolders_vdf_file)
+        c = get_steam_vdf_compat_tool_mapping(vdf_safe_load(config_vdf_file))
 
         for fid in v.get('libraryfolders'):
             if 'apps' not in v.get('libraryfolders').get(fid):
@@ -73,7 +73,7 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
                 fid_steamapps_path = os.path.join(fid_libraryfolder_path, 'steamapps')  # e.g. /home/gaben/Games/steamapps
                 appmanifest_path = os.path.join(fid_steamapps_path, f'appmanifest_{appid}.acf')
                 if os.path.isfile(appmanifest_path):
-                    appmanifest_install_path = vdf.load(open(appmanifest_path)).get('AppState', {}).get('installdir', None)
+                    appmanifest_install_path = vdf_safe_load(appmanifest_path).get('AppState', {}).get('installdir', None)
                     if not appmanifest_install_path or not os.path.isdir(os.path.join(fid_steamapps_path, 'common', appmanifest_install_path)):
                         continue
 
@@ -111,7 +111,7 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
 
     try:
         if not compat_tools:
-            compat_tools = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
+            compat_tools = get_steam_vdf_compat_tool_mapping(vdf_safe_load(config_vdf_file))
 
         for userf in os.listdir(users_folder):
             user_directory = os.path.join(users_folder, userf)
@@ -218,7 +218,7 @@ def get_steam_global_ctool_name(steam_config_folder: str) -> str:
     """
 
     config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
-    d = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
+    d = get_steam_vdf_compat_tool_mapping(vdf_safe_load(config_vdf_file))
 
     return d.get('0', {}).get('name', '')
 
@@ -388,7 +388,7 @@ def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -
     game_id = game.app_id
 
     try:
-        d = vdf.load(open(config_vdf_file))
+        d = vdf_safe_load(config_vdf_file)
         c = get_steam_vdf_compat_tool_mapping(d)
 
         if str(game_id) in c:
@@ -417,7 +417,7 @@ def steam_update_ctools(games: Dict[SteamApp, str], steam_config_folder='') -> b
         return False
 
     try:
-        d = vdf.load(open(config_vdf_file))
+        d = vdf_safe_load(config_vdf_file)
         c = get_steam_vdf_compat_tool_mapping(d)
 
         for game, new_ctool in games.items():
@@ -751,20 +751,19 @@ def get_steam_user_list(steam_config_folder: str) -> List[SteamUser]:
         return []
 
     try:
-        with open(loginusers_vdf_file) as f:
-            d = vdf.load(f)
-            u = d.get('users', {})
-            for uid in list(u.keys()):
-                uvalue = u.get(uid, {})
+        d = vdf_safe_load(loginusers_vdf_file)
+        u = d.get('users', {})
+        for uid in list(u.keys()):
+            uvalue = u.get(uid, {})
 
-                user = SteamUser()
-                user.long_id = int(uid)
-                user.account_name = uvalue.get('AccountName', '')
-                user.persona_name = uvalue.get('PersonaName', '')
-                user.most_recent = bool(int(uvalue.get('MostRecent', '0')))
-                user.timestamp = int(uvalue.get('Timestamp', '-1'))
+            user = SteamUser()
+            user.long_id = int(uid)
+            user.account_name = uvalue.get('AccountName', '')
+            user.persona_name = uvalue.get('PersonaName', '')
+            user.most_recent = bool(int(uvalue.get('MostRecent', '0')))
+            user.timestamp = int(uvalue.get('Timestamp', '-1'))
 
-                users.append(user)
+            users.append(user)
     except Exception as e:
         print('Error: Could not get a list of Steam users:', e)
 
