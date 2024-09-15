@@ -48,7 +48,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         custom_install_directory = config_custom_install_location().get('install_dir', '')
 
         self.ui.txtInstallDirectory.setText(custom_install_directory)
-        self.ui.btnDefault.setEnabled(bool(custom_install_directory))  # Don't enable btnDefault if there is no Custom Install Directory set
+        self.ui.btnDefault.setEnabled(self.has_custom_install_directory(custom_install_directory))  # Don't enable btnDefault if there is no Custom Install Directory set
 
         self.ui.comboLauncher.addItems([
             display_name for display_name in self.install_locations_dict.values()
@@ -76,7 +76,9 @@ class PupguiCustomInstallDirectoryDialog(QObject):
 
     def btn_default_clicked(self):
         self.ui.txtInstallDirectory.setText('')
-        config_custom_install_location(remove=True)
+
+        custom_install_directory = config_custom_install_location(remove=True).get('install_dir', '')
+        self.ui.btnDefault.setEnabled(self.has_custom_install_directory(custom_install_directory))
 
         self.custom_id_set.emit('')
 
@@ -103,3 +105,17 @@ class PupguiCustomInstallDirectoryDialog(QObject):
     def is_valid_custom_install_path(self, path: str) -> bool:
         expand_path = os.path.expanduser(path)
         return len(path.strip()) > 0 and os.path.isdir(expand_path) and os.access(expand_path, os.W_OK)
+
+    def has_custom_install_directory(self, custom_install_directory: str = '') -> bool:
+
+        """
+        Returns whether a Custom Install Directory is set to a Truthy value.
+        If `custom_install_directory` is not passed, it will be retrieved.
+
+        Return Type: bool
+        """
+
+        if not custom_install_directory:
+            return bool(config_custom_install_location().get('install_dir', ''))
+
+        return bool(custom_install_directory)
