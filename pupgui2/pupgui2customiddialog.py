@@ -45,7 +45,10 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.txtIdBrowseAction = self.ui.txtInstallDirectory.addAction(QIcon.fromTheme('document-open'), QLineEdit.TrailingPosition)
         self.txtIdBrowseAction.triggered.connect(self.txt_id_browse_action_triggered)
 
-        self.ui.txtInstallDirectory.setText(config_custom_install_location().get('install_dir', ''))
+        custom_install_directory = config_custom_install_location().get('install_dir', '')
+
+        self.ui.txtInstallDirectory.setText(custom_install_directory)
+        self.ui.btnDefault.setEnabled(bool(custom_install_directory))  # Don't enable btnDefault if there is no Custom Install Directory set
 
         self.ui.comboLauncher.addItems([
             display_name for display_name in self.install_locations_dict.values()
