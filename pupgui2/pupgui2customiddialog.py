@@ -45,6 +45,7 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.txtIdBrowseAction = self.ui.txtInstallDirectory.addAction(QIcon.fromTheme('document-open'), QLineEdit.TrailingPosition)
         self.txtIdBrowseAction.triggered.connect(self.txt_id_browse_action_triggered)
 
+        self.ui.txtInstallDirectory.textChanged.connect(lambda text: self.ui.btnSave.setEnabled(self.is_valid_custom_install_path(text)))
         self.ui.txtInstallDirectory.setText(config_custom_install_location().get('install_dir', ''))
 
         self.ui.comboLauncher.addItems([
@@ -56,8 +57,6 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.ui.btnSave.clicked.connect(self.btn_save_clicked)
         self.ui.btnDefault.clicked.connect(self.btn_default_clicked)
         self.ui.btnClose.clicked.connect(self.ui.close)
-
-        self.ui.txtInstallDirectory.textChanged.connect(lambda text: self.ui.btnSave.setEnabled(self.is_valid_custom_install_path(text)))
 
     def btn_save_clicked(self):
         install_dir: str = os.path.expanduser(self.ui.txtInstallDirectory.text().strip())
