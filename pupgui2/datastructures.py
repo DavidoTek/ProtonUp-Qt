@@ -150,7 +150,9 @@ class BasicCompatTool:
         """
         compat_tool_vdf_path = os.path.join(self.install_dir, self.install_folder, 'compatibilitytool.vdf')
         if os.path.exists(compat_tool_vdf_path):
-            compat_tool_vdf = vdf.load(open(compat_tool_vdf_path))
+            # TODO: Move this somewhere else and use steamutil.py#vdf_safe_load
+            with open(compat_tool_vdf_path, 'r', encoding='utf-8', errors='replace') as f:
+                compat_tool_vdf = vdf.loads(f.read())
             if 'compatibilitytools' in  compat_tool_vdf and 'compat_tools' in compat_tool_vdf['compatibilitytools']:
                 return list(compat_tool_vdf['compatibilitytools']['compat_tools'].keys())[0]
 
