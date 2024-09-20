@@ -398,11 +398,17 @@ class MainWindow(QObject):
                 self.cancel_download(cancel_all=True)
                 self.ui.close()
 
-    def combo_install_location_current_index_changed(self):
+    def combo_install_location_current_index_changed(self) -> None:
+        if len(self.combo_install_location_index_map) <= 0:
+            self.update_ui()
+
+            return
+
         if not self.updating_combo_install_location:
             install_dir = install_directory(self.combo_install_location_index_map[self.ui.comboInstallLocation.currentIndex()])
             self.ui.statusBar().showMessage(self.tr('Changed install directory to {install_dir}.').format(install_dir=install_dir), timeout=3000)
-            self.update_ui()
+
+        self.update_ui()
 
     def btn_manage_install_locations_clicked(self):
         customid_dialog = PupguiCustomInstallDirectoryDialog(install_directory(), parent=self.ui)
