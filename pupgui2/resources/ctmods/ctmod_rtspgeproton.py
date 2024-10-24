@@ -8,7 +8,7 @@ from pupgui2.resources.ctmods.ctmod_00protonge import CtInstaller as GEProtonIns
 
 
 CT_NAME = 'RTSP Proton'
-CT_LAUNCHERS = ['steam']
+CT_LAUNCHERS = ['steam', 'advmode']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_rtspgeproton', '''Fork of GE-Proton with enhanced Windows Media Foundation support.''')}
 
 
