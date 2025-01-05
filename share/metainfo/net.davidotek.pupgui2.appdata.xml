@@ -69,6 +69,18 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.11.0" date="2025-01-05">
+      <description>
+        <p>Changes/Improvements:</p>
+        <ul>
+          <li>Added the proton-ge-rtsp compatibility tool</li>
+          <li>Added the option WineZGUI to the custom install dialog (PR#432)</li>
+          <li>Fixed the UnicodeDecodeError bug (PR#455)</li>
+          <li>Fixed the IndexError crash if no launcher was found (PR#458)</li>
+        </ul>
+        <p>Various improvements and bug fixes. See GitHub for more details. Thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.10.0" date="2024-07-27">
       <description>
         <p>Changes/Improvements:</p>
