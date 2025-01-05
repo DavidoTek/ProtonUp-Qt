@@ -69,7 +69,7 @@
   <content_rating type="oars-1.0" />
 
   <releases>
-    <release version="2.11.0" date="2025-01-05">
+    <release version="2.11.1" date="2025-01-05">
       <description>
         <p>Changes/Improvements:</p>
         <ul>

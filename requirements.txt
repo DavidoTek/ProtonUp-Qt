@@ -1,8 +1,8 @@
 PySide6-Essentials>=6.3.0
 requests>=2.27.0
-vdf @ git+https://github.com/solsticegamestudios/vdf@master
+vdf @ git+https://github.com/solsticegamestudios/vdf.git@v4.0
 inputs==0.5
 pyxdg>=0.27
-steam @ git+https://github.com/solsticegamestudios/steam@master
+steam @ git+https://github.com/solsticegamestudios/steam.git@v1.6.1
 PyYAML>=6.0
 zstandard>=0.19.0
