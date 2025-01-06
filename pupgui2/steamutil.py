@@ -637,6 +637,8 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
     except Exception as e:
         print(f'Error: Could not add {APP_NAME} as Steam shortcut:', e)
 
+        return 1
+
     return 0
 
 
@@ -792,6 +794,35 @@ def determine_most_recent_steam_user(steam_users: List[SteamUser]) -> SteamUser:
 
     print('Warning: No Steam users found. Returning None')
     return None
+
+
+def set_steam_global_compat_tool(steam_config_folder: str, ctool: BasicCompatTool):
+    """ Update the global compatibility tool to the ctool parameter defined in config.vdf CompatToolMapping (AppID '0') """
+
+    if ctool.ct_type != CTType.CUSTOM:
+        return False
+
+    config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
+    if not os.path.exists(config_vdf_file):
+        return False
+
+    try:
+        d = vdf.load(open(config_vdf_file))
+        c = get_steam_vdf_compat_tool_mapping(d)
+
+        # Create or update the '0' CompatToolMapping entry
+        if not c.get('0', {}):
+            c['0'] = { 'name': ctool.get_internal_name(), 'config': '', 'priority': '75' }
+        else:
+            c['0']['name'] = ctool.get_internal_name()
+
+        vdf.dump(d, open(config_vdf_file, 'w'), pretty=True)
+    except Exception as e:
+        print(f'Error, could not update Global Steam compatibility tool to {ctool.displayname}: {e}, vdf: {config_vdf_file}')
+        return False
+
+    return True
+
 
 
 def is_valid_steam_install(steam_path) -> bool:
