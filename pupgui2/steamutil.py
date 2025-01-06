@@ -89,7 +89,7 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
         apps = update_steamapp_info(steam_config_folder, apps)
         apps = update_steamapp_awacystatus(apps)
     except Exception as e:
-        print('Error: Could not get a list of all Steam apps:', e)
+        print('Error (get_steam_app_list): Could not get a list of all Steam apps:', e)
     else:
         if not no_shortcuts:
             apps.extend(get_steam_shortcuts_list(steam_config_folder, c))
@@ -145,7 +145,7 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
                     app.compat_tool = ct.get('name')
                 apps.append(app)
     except Exception as e:
-        print('Error: Could not get a list of Steam shortcut apps:', e)
+        print('Error (get_steam_shortcuts_list): Could not get a list of Steam shortcut apps:', e)
     
     return apps
 
@@ -766,7 +766,7 @@ def get_steam_user_list(steam_config_folder: str) -> List[SteamUser]:
 
             users.append(user)
     except Exception as e:
-        print('Error: Could not get a list of Steam users:', e)
+        print('Error (get_steam_user_list): Could not get a list of Steam users:', e)
 
     return users
 
