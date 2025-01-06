@@ -24,14 +24,15 @@ _cached_app_list = []
 _cached_steam_ctool_id_map = None
 
 
-def get_steam_vdf_compat_tool_mapping(vdf_file: dict):
+def get_steam_vdf_compat_tool_mapping(vdf_file: dict) -> dict:
 
     s = vdf_file.get('InstallConfigStore', {}).get('Software', {})
 
     # Sometimes the key is 'Valve', sometimes 'valve', see #226
     c = s.get('Valve') or s.get('valve')
     if not c:
-        raise KeyError('Error! config.vdf InstallConfigStore.Software neither contains key "Valve" nor "valve" - config.vdf file may be invalid!')
+        print('Error! config.vdf InstallConfigStore.Software neither contains key "Valve" nor "valve" - config.vdf file may be invalid!')
+        return {}
 
     m = c.get('Steam', {}).get('CompatToolMapping', {})
 
@@ -88,7 +89,7 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
         apps = update_steamapp_info(steam_config_folder, apps)
         apps = update_steamapp_awacystatus(apps)
     except Exception as e:
-        print('Error: Could not get a list of all Steam apps:', e)
+        print('Error (get_steam_app_list): Could not get a list of all Steam apps:', e)
     else:
         if not no_shortcuts:
             apps.extend(get_steam_shortcuts_list(steam_config_folder, c))
@@ -144,7 +145,7 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
                     app.compat_tool = ct.get('name')
                 apps.append(app)
     except Exception as e:
-        print('Error: Could not get a list of Steam shortcut apps:', e)
+        print('Error (get_steam_shortcuts_list): Could not get a list of Steam shortcut apps:', e)
     
     return apps
 
@@ -765,7 +766,7 @@ def get_steam_user_list(steam_config_folder: str) -> List[SteamUser]:
 
             users.append(user)
     except Exception as e:
-        print('Error: Could not get a list of Steam users:', e)
+        print('Error (get_steam_user_list): Could not get a list of Steam users:', e)
 
     return users
 
