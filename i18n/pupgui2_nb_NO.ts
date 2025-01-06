@@ -80,13 +80,13 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="348"/>
         <source>Remove compatibility tools?</source>
-        <translation>Fjern kompabilitetsverktøy?</translation>
+        <translation>Fjern kompatibilitetsverktøy?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="348"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
-        <translation>Du er i ferd med å fjerne kompabilitetsverktøy
+        <translation>Du er i ferd med å fjerne kompatibilitetsverktøy
 som brukes av {n} spill. Fortsett?</translation>
     </message>
     <message>
@@ -379,12 +379,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="14"/>
         <source>About compatibility tool</source>
-        <translation type="unfinished">Om kompabilitetsverktøyet</translation>
+        <translation>Om kompatibilitetsverktøyet</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="26"/>
         <source>Compatibility tool:</source>
-        <translation>Kompabilitetsverktøy:</translation>
+        <translation>Kompatibilitetsverktøy:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="43"/>
@@ -515,7 +515,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Compatibility Tool</source>
-        <translation>Kompabilitetsverktøy</translation>
+        <translation>Kompatibilitetsverktøy</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
@@ -753,7 +753,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="26"/>
         <source>Install Compatibility Tool</source>
-        <translation>Installer kompabilitetsverktøy</translation>
+        <translation>Installer kompatibilitetsverktøy</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="106"/>
@@ -773,7 +773,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="47"/>
         <source>Compatibility tool:</source>
-        <translation>Kompabilitetsverktøy:</translation>
+        <translation>Kompatibilitetsverktøy:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="61"/>

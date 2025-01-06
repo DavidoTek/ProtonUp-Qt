@@ -977,7 +977,7 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="19"/>
         <source>Run Linux games as is, even if Valve recommends Proton for a game.&lt;br/&gt;Created by Scrumplex.&lt;br/&gt;&lt;br/&gt;Useful for Steam Deck.&lt;br/&gt;&lt;br/&gt;Note: The internal name has been changed from &lt;b&gt;none&lt;/b&gt; to &lt;b&gt;Steam-Play-None&lt;/b&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Запускайте Linux ігри як є, навіть якщо Valve рекомендує Proton.</translation>
     </message>
 </context>
 <context>
