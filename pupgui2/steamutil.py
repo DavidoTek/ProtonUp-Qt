@@ -24,14 +24,15 @@ _cached_app_list = []
 _cached_steam_ctool_id_map = None
 
 
-def get_steam_vdf_compat_tool_mapping(vdf_file: dict):
+def get_steam_vdf_compat_tool_mapping(vdf_file: dict) -> dict:
 
     s = vdf_file.get('InstallConfigStore', {}).get('Software', {})
 
     # Sometimes the key is 'Valve', sometimes 'valve', see #226
     c = s.get('Valve') or s.get('valve')
     if not c:
-        raise KeyError('Error! config.vdf InstallConfigStore.Software neither contains key "Valve" nor "valve" - config.vdf file may be invalid!')
+        print('Error! config.vdf InstallConfigStore.Software neither contains key "Valve" nor "valve" - config.vdf file may be invalid!')
+        return {}
 
     m = c.get('Steam', {}).get('CompatToolMapping', {})
 
