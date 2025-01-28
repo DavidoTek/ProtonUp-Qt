@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiányzó függőségek!</translation>
     </message>
 </context>
 <context>
@@ -14,7 +14,7 @@
     <message>
         <location filename="../pupgui2/ctloader.py" line="55"/>
         <source>Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiba!</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="57"/>
@@ -22,7 +22,10 @@
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation type="unfinished"></translation>
+        <translation>Az alábbi kompatibilitási eszköz nem tölthető be:
+{TOOL_LIST}
+
+Ha úgy gondolod, hogy ez hiba, kérjük, jelentsd a hibát a GitHub-on keresztül!</translation>
     </message>
 </context>
 <context>
@@ -30,73 +33,74 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>unused</source>
-        <translation type="unfinished"></translation>
+        <translation>használaton kívüli</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>globális</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="274"/>
         <source>Unused: {unused_ctools}</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem használt: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="297"/>
         <source>Fetching releases...</source>
-        <translation type="unfinished"></translation>
+        <translation>A kiadások letöltése...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="308"/>
         <source>Download canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Letöltés megszakítva.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="312"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem tudtam telepíteni {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="319"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} letöltése...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="321"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} kibontása...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="323"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} telepítése...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="325"/>
         <source>Installed {current_compat_tool_name}.</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} telepítve.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="348"/>
         <source>Remove compatibility tools?</source>
-        <translation type="unfinished"></translation>
+        <translation>Eltávolítod a kompatibilitási eszközöket?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="348"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Megpróbálod eltávolítani azt a kompatibilitási eszközt
+amelyet {n} játék használ. Folytassam?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="355"/>
         <source>Removed selected versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eltávolítottad a kiválasztott verziókat.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="369"/>
         <source>Exit?</source>
-        <translation type="unfinished"></translation>
+        <translation>Kilépsz az alkalmazásból?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="369"/>
@@ -837,7 +841,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
         <source>Remove selected</source>
-        <translation type="unfinished">Auswahl löschen</translation>
+        <translation>A kiválasztott elem eltávolítása</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
