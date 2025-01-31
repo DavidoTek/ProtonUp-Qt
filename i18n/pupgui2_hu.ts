@@ -141,37 +141,37 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation type="unfinished"></translation>
+        <translation>Egyéni telepítési könyvtár hozzáadása...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="103"/>
         <source>Installed compatibility tools:</source>
-        <translation type="unfinished"></translation>
+        <translation>Telepített kompatibilitási eszközök:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
         <source>Add version</source>
-        <translation type="unfinished"></translation>
+        <translation>Verzió hozzáadása</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="155"/>
         <source>Remove selected</source>
-        <translation type="unfinished"></translation>
+        <translation>A kiválasztott eltávolítása</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="162"/>
         <source>Show info</source>
-        <translation type="unfinished"></translation>
+        <translation>Információ megjelenítése</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
         <source>Get tools from Flathub</source>
-        <translation type="unfinished"></translation>
+        <translation>Eszközök beszerzése a Flathub-ról</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="206"/>
         <source>Show game list</source>
-        <translation type="unfinished"></translation>
+        <translation>Játéklista megjelenítése</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="213"/>
@@ -181,7 +181,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="220"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezár</translation>
     </message>
 </context>
 <context>
@@ -199,27 +199,27 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="56"/>
         <source>Directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Könyvtár:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="66"/>
         <source>Launcher:</source>
-        <translation type="unfinished"></translation>
+        <translation>játék indító:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="87"/>
         <source>Reset the custom install directory back to default for this launcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Állítsd vissza az egyéni telepítési könyvtárat az alapértelmezett értékre ehhez a játék indítóhoz</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="90"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="113"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentés</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="26"/>
@@ -235,18 +235,18 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="56"/>
         <source>New Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Új verzió:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="73"/>
         <source>Old Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Régi verzió:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="120"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezár</translation>
     </message>
 </context>
 <context>
@@ -254,17 +254,17 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>light</source>
-        <translation type="unfinished"></translation>
+        <translation>világos</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>dark</source>
-        <translation type="unfinished"></translation>
+        <translation>sötét</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
         <source>system (restart required)</source>
-        <translation type="unfinished"></translation>
+        <translation>rendszer (újraindítás szükséges)</translation>
     </message>
     <message>
         <source>Update Steam game list</source>
@@ -273,7 +273,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="91"/>
         <source>Update available</source>
-        <translation type="unfinished"></translation>
+        <translation>Frissítés elérhető</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="92"/>
@@ -284,22 +284,22 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
         <source>Up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Naprakész</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
         <source>You are running the newest version!</source>
-        <translation type="unfinished"></translation>
+        <translation>A legújabb verziót használod!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="101"/>
         <source>Added shortcut!</source>
-        <translation type="unfinished"></translation>
+        <translation>Parancsikon hozzáadva!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Párbeszéd</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
@@ -309,12 +309,12 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
         <source>Support development on GitHub</source>
-        <translation type="unfinished"></translation>
+        <translation>Támogasd a fejlesztést a GitHub -on</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="122"/>
         <source>Color Theme:</source>
-        <translation type="unfinished"></translation>
+        <translation>Téma színe:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="139"/>
@@ -324,7 +324,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="150"/>
         <source>Check for updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Ellenőrizd a frissítéseket</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
@@ -335,17 +335,17 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="174"/>
         <source>Add Steam shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Steam parancsikon létrehozás</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="181"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>A QT -ről</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="188"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezár</translation>
     </message>
 </context>
 <context>
@@ -365,12 +365,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="47"/>
         <source>No supported compatibility tools found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincsenek támogatott kompatibilitási eszközök.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="49"/>
         <source>Warning: Close the Steam Client beforehand.</source>
-        <translation type="unfinished"></translation>
+        <translation>Figyelmeztetés: Előtte zárd be a Steam alkalmazást.</translation>
     </message>
 </context>
 <context>
@@ -387,37 +387,37 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="26"/>
         <source>Compatibility tool:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompatibilitási eszköz:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="43"/>
         <source>Game Launcher:</source>
-        <translation type="unfinished"></translation>
+        <translation>Játékindító:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="60"/>
         <source>Install directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Telepítési könyvtár:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="88"/>
         <source>Games using compatibility tool:</source>
-        <translation type="unfinished"></translation>
+        <translation>Játékok amelyek a kompatibilitási eszközt használják:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="115"/>
         <source>Refresh Games</source>
-        <translation type="unfinished"></translation>
+        <translation>Frissítsd a játékokat</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="129"/>
         <source>Search games...</source>
-        <translation type="unfinished"></translation>
+        <translation>Játékok keresése...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs játék</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
@@ -431,28 +431,28 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="271"/>
         <source>e.g. Half-Life 3</source>
-        <translation type="unfinished"></translation>
+        <translation>pl.: Half-Life 3</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="274"/>
         <source>Search for a game...</source>
-        <translation type="unfinished"></translation>
+        <translation>Játék keresése...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="297"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezár</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="86"/>
         <source>AppID</source>
-        <translation type="unfinished"></translation>
+        <translation>Alkalmazás azonosítója</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="86"/>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="99"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Név</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="99"/>
@@ -467,17 +467,17 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="109"/>
         <source>Game</source>
-        <translation type="unfinished"></translation>
+        <translation>Játék</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="128"/>
         <source>Tool is Global</source>
-        <translation type="unfinished"></translation>
+        <translation>Az eszköz globális</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="153"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>pl.: {GAME_NAME}</translation>
     </message>
 </context>
 <context>
@@ -485,7 +485,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="42"/>
         <source>Custom Install Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Egyéni telepítési könyvtár</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="86"/>
@@ -516,23 +516,23 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Game</source>
-        <translation type="unfinished"></translation>
+        <translation>Játék</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Compatibility Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompatibilitási eszköz</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Deck Compatibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Deck kompatibilitás</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Anticheat</source>
-        <translation type="unfinished"></translation>
+        <translation>Anti-cheat</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
@@ -544,12 +544,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Install Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Telepítés helye</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <source>Installed Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Telepítés dátuma</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="144"/>
@@ -560,39 +560,41 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="211"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="421"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Ismeretlen</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="216"/>
         <source>Installed at {DATE} ({TIME})</source>
-        <translation type="unfinished"></translation>
+        <translation>Telepítve: {DATE} ({TIME})</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="250"/>
         <source>Name: {compat_item_text}</source>
-        <translation type="unfinished"></translation>
+        <translation>Név: {compat_item_text}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="252"/>
         <source>
 Path: {compat_tool_bin_path}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+útvonal: {compat_tool_bin_path}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="256"/>
         <source>
 Type: {wine_type}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Típus: {wine_type}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="259"/>
         <source>Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Böngésző</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
         <source>Native</source>
-        <translation type="unfinished"></translation>
+        <translation>Natív</translation>
     </message>
     <message>
         <source>Type: Native</source>
@@ -601,38 +603,38 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="309"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Kész</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="309"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="112"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Keresés</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="379"/>
         <source>Double click to browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kattints duplán a böngészéshez...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="382"/>
         <source>Install location does not exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>Telepítési hely nem található!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="423"/>
         <source>Unsupported</source>
-        <translation type="unfinished"></translation>
+        <translation>Nem támogatott</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="426"/>
         <source>Playable</source>
-        <translation type="unfinished"></translation>
+        <translation>Játszható</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="428"/>
         <source>Native (playable)</source>
-        <translation type="unfinished"></translation>
+        <translation>Natív (játszható)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="429"/>
@@ -642,12 +644,12 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="433"/>
         <source>Verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Ellenőrzött</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="435"/>
         <source>Native (verified)</source>
-        <translation type="unfinished"></translation>
+        <translation>Natív (ellenőrzött)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="436"/>
@@ -667,22 +669,22 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="66"/>
         <source>Installed games: {NO_INSTALLED}</source>
-        <translation type="unfinished"></translation>
+        <translation>Telepített játékok: {NO_INSTALLED}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
         <source>Type: {PLATFORM}</source>
-        <translation type="unfinished"></translation>
+        <translation>Típus: {PLATFORM}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="269"/>
         <source>Double-click to open in browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Kattints duplán a böngészőben történő megnyitáshoz</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="305"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>pl.: {GAME_NAME}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="398"/>
@@ -697,7 +699,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="404"/>
         <source>Anti-Cheat stops game from running properly</source>
-        <translation type="unfinished"></translation>
+        <translation>Az Anti-Cheat megállítja a játék megfelelő futását</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="407"/>
@@ -707,55 +709,57 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="410"/>
         <source>Anti-Cheat status unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Anti-Cheat állapot ismeretlen</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="341"/>
         <source>Confidence: {confidence}
 Score: {score}
 Trending: {trending}</source>
-        <translation type="unfinished"></translation>
+        <translation>Bizalom: {confidence}
+Pontszám: {score}
+Trend: {trending}</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
         <source>Game List</source>
-        <translation type="unfinished"></translation>
+        <translation>Játéklista</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="61"/>
         <source>Warning: Close the Steam client beforehand so that the changes can be applied!</source>
-        <translation type="unfinished"></translation>
+        <translation>Figyelem: Zárd be a Steam alkalmazást, hogy a változtatások életbe lépjenek!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="68"/>
         <source>e.g. Team Fortress 2</source>
-        <translation type="unfinished"></translation>
+        <translation>pl.: Team Fortress 2</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="71"/>
         <source>Search for a game...</source>
-        <translation type="unfinished"></translation>
+        <translation>Játék keresése...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="91"/>
         <source>Refresh Games</source>
-        <translation type="unfinished"></translation>
+        <translation>Játékok frissítése</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="105"/>
         <source>Shortcut Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Parancsikon szerkesztő</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="285"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="119"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Alkalmaz</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="284"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezár</translation>
     </message>
 </context>
 <context>
@@ -768,32 +772,32 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="106"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Információ</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="113"/>
         <source>Install</source>
-        <translation type="unfinished"></translation>
+        <translation>Telepítés</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="120"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Mégsem</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="47"/>
         <source>Compatibility tool:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompatibilitási eszköz:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="61"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verzió:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="71"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Leírás:</translation>
     </message>
 </context>
 <context>
@@ -801,12 +805,12 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
         <source>App Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Alkalmazás neve</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
         <source>Executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Végrehajtható</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
@@ -816,62 +820,62 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
         <source>Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikon</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="14"/>
         <source>Steam Shortcut Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Steam parancsikon szerkesztő</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="54"/>
         <source>Add a new shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Új parancsikon hozzáadása</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="57"/>
         <source>Add new</source>
-        <translation type="unfinished"></translation>
+        <translation>Új hozzáadása</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="64"/>
         <source>Click on a row, then click here to remove a shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Kattints egy sorra, majd kattints ide egy parancsikon eltávolításához</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
         <source>Remove selected</source>
-        <translation>A kiválasztott elem eltávolítása</translation>
+        <translation>Kijelöltek eltávolítása</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>pl.: ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>Search for a game...</source>
-        <translation type="unfinished"></translation>
+        <translation>Játék keresése...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
         <source>Save changes and delete marked shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Módosítások mentése és a megjelölt parancsikonok törlése</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Mentés</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="94"/>
         <source>Close without saving changes or deleting shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezárás a módosítások mentése vagy a parancsikonok törlése nélkül</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezár</translation>
     </message>
 </context>
 <context>
@@ -1062,12 +1066,12 @@ Installation will be cancelled.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="207"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiányzó függőségek!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="239"/>
         <source>Existing SteamTinkerLaunch Installation</source>
-        <translation type="unfinished"></translation>
+        <translation>Meglévő SteamTinkerLaunch telepítés</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="240"/>
@@ -1258,12 +1262,12 @@ See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 
     <message>
         <location filename="../pupgui2/util.py" line="848"/>
         <source>missing</source>
-        <translation type="unfinished"></translation>
+        <translation>hiányzó</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="849"/>
         <source>found</source>
-        <translation type="unfinished"></translation>
+        <translation>megtalált</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="851"/>
