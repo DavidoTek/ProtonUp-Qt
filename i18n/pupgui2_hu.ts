@@ -33,7 +33,7 @@ Ha úgy gondolod, hogy ez hiba, kérjük, jelentsd a hibát a GitHub-on kereszt�
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
         <source>unused</source>
-        <translation>használaton kívüli</translation>
+        <translation>nem használt</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="253"/>
