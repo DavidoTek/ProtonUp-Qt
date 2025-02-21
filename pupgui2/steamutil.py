@@ -819,12 +819,20 @@ def vdf_safe_load(vdf_file: str) -> dict:
         vdf_file (str): Path to the vdf file
 
     Returns:
-        dict
+        dict (empty in case of an error)
     """
+    data = {}
 
     try:
         # See https://github.com/DavidoTek/ProtonUp-Qt/issues/424 (unicode errors)
         with open(vdf_file, 'r', encoding='utf-8', errors='replace') as f:
-            return vdf.loads(f.read())
+            data = vdf.loads(f.read())
     except Exception as e:
-        print(f'An error occured while calling vdf_safe_load({vdf_file}): {e}')
+        print(f'An error occured while calling vdf_safe_load("{vdf_file}"). Returning empty dict: {e}')
+
+    if not isinstance(data, dict):
+        # Apparently, vdf.loads() can return None (issue #481)
+        print(f'Warning (vdf_safe_load): vdf.loads("{vdf_file}") returned {data}. Returning empty dict.')
+        data = {}
+
+    return data
