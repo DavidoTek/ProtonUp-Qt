@@ -47,6 +47,7 @@ class PupguiInstallDialog(QDialog):
         self.ui.btnInstall.clicked.connect(self.btn_install_clicked)
         self.ui.btnCancel.clicked.connect(lambda: self.ui.close())
         self.ui.comboCompatTool.currentIndexChanged.connect(self.combo_compat_tool_current_index_changed)
+        self.ui.comboCompatTool.setStyleSheet('QComboBox QAbstractItemView::item { padding: 3px; }')
         self.ui.comboCompatToolVersion.currentIndexChanged.connect(self.combo_compat_tool_version_current_index_changed)
         self.is_fetching_releases.connect(lambda x: self.ui.comboCompatTool.setEnabled(not x))
         self.is_fetching_releases.connect(lambda x: self.ui.comboCompatToolVersion.setEnabled(not x))
@@ -54,7 +55,7 @@ class PupguiInstallDialog(QDialog):
         self.is_fetching_releases.connect(lambda x: self.ui.btnInstall.setEnabled(not x))
 
         self.ui.comboCompatTool.addItems([ctobj['name'] for ctobj in self.ct_objs])
-        self.ui.comboCompatToolVersion.setStyleSheet('QComboBox { combobox-popup: 0; }')
+        self.ui.comboCompatToolVersion.setStyleSheet('QComboBox { combobox-popup: 0; } QComboBox QAbstractItemView::item { padding: 3px; }')
 
     def btn_info_clicked(self):
         for ctobj in self.ct_objs:
