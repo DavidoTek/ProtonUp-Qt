@@ -1,13 +1,14 @@
 import os
-import pkgutil
 import threading
+import pkgutil
 
 from PySide6.QtCore import Signal, QLocale, QDataStream, QByteArray
 from PySide6.QtGui import QIcon, QPixmap, Qt
-from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QDialog
+from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.util import open_webbrowser_thread, config_advanced_mode, get_combobox_index_by_value
+
 
 RELEASES_PER_PAGE = 50  # Number of releases to fetch per page
 
