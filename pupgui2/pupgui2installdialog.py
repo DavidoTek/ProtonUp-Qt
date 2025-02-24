@@ -3,7 +3,7 @@ import threading
 import pkgutil
 
 from PySide6.QtCore import Signal, QLocale, QDataStream, QByteArray
-from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtGui import QIcon, QPixmap, Qt
 from PySide6.QtWidgets import QDialog
 from PySide6.QtUiTools import QUiLoader
 
@@ -47,14 +47,19 @@ class PupguiInstallDialog(QDialog):
         self.ui.btnInstall.clicked.connect(self.btn_install_clicked)
         self.ui.btnCancel.clicked.connect(lambda: self.ui.close())
         self.ui.comboCompatTool.currentIndexChanged.connect(self.combo_compat_tool_current_index_changed)
+        self.ui.comboCompatTool.view().setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.ui.comboCompatToolVersion.currentIndexChanged.connect(self.combo_compat_tool_version_current_index_changed)
+        self.ui.comboCompatToolVersion.view().setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.is_fetching_releases.connect(lambda x: self.ui.comboCompatTool.setEnabled(not x))
         self.is_fetching_releases.connect(lambda x: self.ui.comboCompatToolVersion.setEnabled(not x))
         self.is_fetching_releases.connect(lambda x: self.ui.btnInfo.setEnabled(not x))
         self.is_fetching_releases.connect(lambda x: self.ui.btnInstall.setEnabled(not x))
 
+        combobox_style = 'QComboBox { combobox-popup: 0; } QComboBox QAbstractItemView::item { padding: 3px; }'
+        self.ui.comboCompatTool.setStyleSheet(combobox_style)
+        self.ui.comboCompatToolVersion.setStyleSheet(combobox_style)
+
         self.ui.comboCompatTool.addItems([ctobj['name'] for ctobj in self.ct_objs])
-        self.ui.comboCompatToolVersion.setStyleSheet('QComboBox { combobox-popup: 0; }')
 
     def btn_info_clicked(self):
         for ctobj in self.ct_objs:

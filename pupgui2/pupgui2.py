@@ -142,6 +142,7 @@ class MainWindow(QObject):
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
         self.ui.listInstalledVersions.itemDoubleClicked.connect(self.list_installed_versions_item_double_clicked)
         self.ui.listInstalledVersions.itemSelectionChanged.connect(self.list_installed_versions_item_selection_changed)
+        self.ui.listInstalledVersions.setStyleSheet('QListWidget::item { padding: 3px; }')
         self.ui.btnShowCtInfo.clicked.connect(self.btn_show_ct_info_clicked)
         self.ui.btnSteamFlatpakCtools.clicked.connect(self.btn_steam_flatpak_ctools_clicked)
 
