@@ -3,14 +3,14 @@
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-import requests
-import hashlib
+from typing import Dict, Optional, Set
 
-from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+from PySide6.QtCore import QCoreApplication, Signal
+from PySide6.QtWidgets import QMessageBox
 
+from pupgui2.networkutil import download_file
 from pupgui2.util import ghapi_rlcheck, extract_tar
-from pupgui2.util import build_headers_with_authorization
-
+from .ctmod_00protonge import CtInstaller as ProtonGECtInstaller
 
 CT_NAME = 'Proton-CachyOS'
 CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles']
@@ -29,82 +29,40 @@ CT_DESCRIPTION = {
 }
 
 
-class CtInstaller(QObject):
+class CtInstaller(ProtonGECtInstaller):
 
     BUFFER_SIZE = 65536
     CT_URL = 'https://api.github.com/repos/CachyOS/proton-cachyos/releases'
     CT_INFO_URL = 'https://github.com/CachyOS/proton-cachyos/releases/tag/'
 
-    p_download_progress_percent = 0
-    download_progress_percent = Signal(int)
+    message_box_message = Signal(str, str, QMessageBox.Icon)
 
-    def __init__(self, main_window = None):
-        super(CtInstaller, self).__init__()
-        self.p_download_canceled = False
-
-        self.rs = requests.Session()
-        rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
-        self.rs.headers.update(rs_headers)
-
-    def get_download_canceled(self):
-        return self.p_download_canceled
-
-    def set_download_canceled(self, val):
-        self.p_download_canceled = val
-
-    download_canceled = Property(bool, get_download_canceled, set_download_canceled)
-
-    def __set_download_progress_percent(self, value : int):
-        if self.p_download_progress_percent == value:
-            return
-        self.p_download_progress_percent = value
-        self.download_progress_percent.emit(value)
-
-    def __download(self, url, destination):
+    def __download(self, url: str, destination: str, known_size: int = 0) -> bool:
         """
         Download files from url to destination
         Return Type: bool
         """
         try:
-            file = self.rs.get(url, stream=True)
-        except OSError:
-            return False
+            return download_file(
+                url=url,
+                destination=destination,
+                progress_callback=self.__set_download_progress_percent,
+                download_cancelled=self.download_canceled,
+                buffer_size=self.BUFFER_SIZE,
+                stream=True,
+                known_size=known_size
+            )
+        except Exception as e:
+            print(f"Failed to download tool {CT_NAME} - Reason: {e}")
 
-        self.__set_download_progress_percent(1) # 1 download started
-        f_size = int(file.headers.get('content-length'))
-        c_count = int(f_size / self.BUFFER_SIZE)
-        c_current = 1
-        destination = os.path.expanduser(destination)
-        os.makedirs(os.path.dirname(destination), exist_ok=True)
-        with open(destination, 'wb') as dest:
-            for chunk in file.iter_content(chunk_size=self.BUFFER_SIZE):
-                if self.download_canceled:
-                    self.download_canceled = False
-                    self.__set_download_progress_percent(-2) # -2 download canceled
-                    return False
-                if chunk:
-                    dest.write(chunk)
-                    dest.flush()
-                self.__set_download_progress_percent(int(min(c_current / c_count * 98.0, 98.0))) # 1-98, 100 after extract
-                c_current += 1
-        self.__set_download_progress_percent(99) # 99 download complete
-        return True
+            self.message_box_message.emit(
+                self.tr("Download Error!"),
+                self.tr(
+                    "Failed to download tool '{CT_NAME}'!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e)),
+                QMessageBox.Icon.Warning
+            )
 
-    def __sha512sum(self, filename):
-        """
-        Get SHA512 checksum of a file
-        Return Type: str
-        """
-        sha512sum = hashlib.sha512()
-        with open(filename, 'rb') as file:
-            while True:
-                data = file.read(self.BUFFER_SIZE)
-                if not data:
-                    break
-                sha512sum.update(data)
-        return sha512sum.hexdigest()
-
-    def __fetch_github_data(self, tag, arch):
+    def __fetch_github_data(self, tag: str, arch: str) -> Optional[Dict]:
         """
         Fetch GitHub release information
         Return Type: dict
@@ -125,14 +83,7 @@ class CtInstaller(QObject):
                 values['size'] = asset['size']
         return values
 
-    def is_system_compatible(self):
-        """
-        Are the system requirements met?
-        Return Type: bool
-        """
-        return True
-
-    def get_hwcaps(self):
+    def get_hwcaps(self) -> Set:
         hwcaps = {'x86_64'}
         # flags according to https://gitlab.com/x86-psABIs/x86-64-ABI/-/blob/master/x86-64-ABI/low-level-sys-info.tex
         flags_v2 = {'sse4_1', 'sse4_2', 'ssse3'}
@@ -152,7 +103,7 @@ class CtInstaller(QObject):
         return hwcaps
 
 
-    def fetch_releases(self, count=100, page=1):
+    def fetch_releases(self, count: int = 100, page: int = 1):
         """
         List available releases
         Return Type: str[]
@@ -171,7 +122,7 @@ class CtInstaller(QObject):
                         assets.append(name)
         return assets
 
-    def get_tool(self, version, install_dir, temp_dir):
+    def get_tool(self, version: str, install_dir: str, temp_dir: str):
         """
         Download and install the compatibility tool
         Return Type: bool
@@ -198,7 +149,7 @@ class CtInstaller(QObject):
                 return False
 
         proton_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
-        if not self.__download(url=data['download'], destination=proton_tar):
+        if not self.__download(url=data['download'], destination=proton_tar, known_size=data.get('size', 0)):
             return False
 
         download_checksum = self.__sha512sum(proton_tar)
@@ -215,7 +166,7 @@ class CtInstaller(QObject):
 
         return True
 
-    def get_info_url(self, version):
+    def get_info_url(self, version: str) -> str:
         """
         Get link with info about version (eg. GitHub release page)
         Return Type: str
