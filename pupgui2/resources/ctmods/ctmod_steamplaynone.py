@@ -5,10 +5,12 @@
 import os
 import requests
 
+from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.util import extract_tar
 from pupgui2.util import build_headers_with_authorization
+from pupgui2.networkutil import download_file
 
 
 CT_NAME = 'Steam-Play-None'
@@ -23,6 +25,7 @@ class CtInstaller(QObject):
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
+    message_box_message = Signal((str, str, QMessageBox.Icon))
 
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
@@ -46,26 +49,29 @@ class CtInstaller(QObject):
         self.p_download_progress_percent = value
         self.download_progress_percent.emit(value)
 
-    def __download(self, url, destination):
+    def __download(self, url: str, destination: str) -> bool:
         """
         Download files from url to destination
         Return Type: bool
         """
-        destination = os.path.expanduser(destination)
 
         try:
-            file = self.rs.get(url)
-        except OSError:
+            return download_file(
+                url=url,
+                destination=os.path.expanduser(destination),
+                progress_callback=self.__set_download_progress_percent,
+                download_cancelled=self.download_canceled,
+            )
+        except Exception as e:
+            print(f"Failed to download tool {CT_NAME} - Reason: {e}")
+
+            self.message_box_message.emit(
+                self.tr("Download Error!"),
+                self.tr("Failed to download tool '{CT_NAME}'!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e)),
+                QMessageBox.Icon.Warning
+            )
+
             return False
-
-        self.__set_download_progress_percent(1) # 1 download started
-
-        os.makedirs(os.path.dirname(destination), exist_ok=True)
-        with open(destination, 'wb') as dest:
-            self.__set_download_progress_percent(50)
-            dest.write(file.content)
-        self.__set_download_progress_percent(99) # 99 download complete
-        return True
 
     def is_system_compatible(self):
         """
