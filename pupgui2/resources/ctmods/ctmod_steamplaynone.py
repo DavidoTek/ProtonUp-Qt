@@ -8,7 +8,7 @@ import requests
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import extract_tar
+from pupgui2.util import extract_tar, remove_if_exists
 from pupgui2.util import build_headers_with_authorization
 from pupgui2.networkutil import download_file
 
@@ -93,17 +93,21 @@ class CtInstaller(QObject):
         Return Type: bool
         """
         steam_play_none_tar = os.path.join(temp_dir, 'main.tar.gz')
-        dl_url = self.CT_URL
-
-        if not self.__download(url=dl_url, destination=steam_play_none_tar):
-            return False
-
-        if not extract_tar(steam_play_none_tar, install_dir, mode='gz'):
-            return False
 
         # Rename extracted Steam-Play-None-main to Steam-Play-None
         steam_play_none_main = os.path.join(install_dir, 'Steam-Play-None-main')
         steam_play_none_dir = os.path.join(install_dir, 'Steam-Play-None')
+
+        dl_url = self.CT_URL
+
+        remove_if_exists(steam_play_none_main)
+        if not self.__download(url=dl_url, destination=steam_play_none_tar):
+            return False
+
+        remove_if_exists(steam_play_none_dir)
+        if not extract_tar(steam_play_none_tar, install_dir, mode='gz'):
+            return False
+
         os.rename(steam_play_none_main, steam_play_none_dir)
 
         self.__set_download_progress_percent(100)
