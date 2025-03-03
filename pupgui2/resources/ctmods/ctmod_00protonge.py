@@ -30,6 +30,8 @@ class CtInstaller(QObject):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
 
+        self.release_format = 'tar.gz'
+
         self.rs = requests.Session()
         rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
         self.rs.headers.update(rs_headers)
@@ -108,7 +110,7 @@ class CtInstaller(QObject):
         for asset in data['assets']:
             if asset['name'].endswith('sha512sum'):
                 values['checksum'] = asset['browser_download_url']
-            elif asset['name'].endswith('tar.gz'):
+            elif asset['name'].endswith(self.release_format):
                 values['download'] = asset['browser_download_url']
                 values['size'] = asset['size']
         return values
@@ -159,7 +161,7 @@ class CtInstaller(QObject):
         if source_checksum and (download_checksum not in source_checksum):
             return False
 
-        if not extract_tar(proton_tar, install_dir, mode='gz'):
+        if not extract_tar(proton_tar, install_dir, mode=self.release_format.split('.')[-1]):
             return False
 
         if os.path.exists(checksum_dir):
