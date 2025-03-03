@@ -35,33 +35,6 @@ class CtInstaller(ProtonGECtInstaller):
     CT_URL = 'https://api.github.com/repos/CachyOS/proton-cachyos/releases'
     CT_INFO_URL = 'https://github.com/CachyOS/proton-cachyos/releases/tag/'
 
-    message_box_message = Signal(str, str, QMessageBox.Icon)
-
-    def __download(self, url: str, destination: str, known_size: int = 0) -> bool:
-        """
-        Download files from url to destination
-        Return Type: bool
-        """
-        try:
-            return download_file(
-                url=url,
-                destination=destination,
-                progress_callback=self.__set_download_progress_percent,
-                download_cancelled=self.download_canceled,
-                buffer_size=self.BUFFER_SIZE,
-                stream=True,
-                known_size=known_size
-            )
-        except Exception as e:
-            print(f"Failed to download tool {CT_NAME} - Reason: {e}")
-
-            self.message_box_message.emit(
-                self.tr("Download Error!"),
-                self.tr(
-                    "Failed to download tool '{CT_NAME}'!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e)),
-                QMessageBox.Icon.Warning
-            )
-
     def __fetch_github_data(self, tag: str, arch: str) -> Optional[Dict]:
         """
         Fetch GitHub release information
