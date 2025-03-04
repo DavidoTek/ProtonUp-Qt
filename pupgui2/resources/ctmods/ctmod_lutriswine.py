@@ -27,6 +27,7 @@ class CtInstaller(GEProtonInstaller):
 
         self.release_format = 'tar.xz'
 
+    @override
     def fetch_releases(self, count: int = 100, page:int = 1):
         """
         List available releases
@@ -34,15 +35,15 @@ class CtInstaller(GEProtonInstaller):
         """
         tags = []
         for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={count}&page={page}').json()):
-            if 'tag_name' in release:
-                tags.append(release['tag_name'])  # regular release
+            if not 'tag_name' in release:
+                continue
 
-                # Get fshack builds (only for <= 7.2 currently) -- Only displays if we have an fshack release
-                if 'assets' in release and len(release['assets']) >= 2:
-                    for asset in release['assets']:
-                        if 'lutris-fshack' in asset['name']:
-                            tags.append(release['tag_name'].replace('lutris-', 'lutris-fshack-'))
-                            break
+            tags.append(release['tag_name'])
+            if 'assets' not in release or len(release['assets']) <= 0:
+                continue
+
+            if any('lutris-fshack' in asset['name'] for asset in release['assets']):
+                tags.append(release['tag_name'].replace('lutris-', 'lutris-fshack-'))
 
         return tags
 
@@ -73,7 +74,6 @@ class CtInstaller(GEProtonInstaller):
             version = version.replace('fshack-', '')
 
         data = self.__fetch_github_data(version, is_fshack)
-
         if not data or 'download' not in data:
             return (None, None)
 

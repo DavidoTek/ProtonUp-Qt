@@ -116,7 +116,6 @@ class CtInstaller(QObject):
     def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
 
         data = self.__fetch_github_data(version)
-
         if not data or 'download' not in data:
             return (None, None)
 
@@ -145,7 +144,6 @@ class CtInstaller(QObject):
         """
         data, protondir = self.__get_data(version, install_dir)
 
-        # protondir = os.path.join(install_dir, data['version'])
         if not protondir or  not os.path.exists(protondir):
             protondir = os.path.join(install_dir, 'Proton-' + data['version'])
         checksum_dir = f'{protondir}/sha512sum'
