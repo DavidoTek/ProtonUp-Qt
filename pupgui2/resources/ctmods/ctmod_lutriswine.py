@@ -28,7 +28,7 @@ class CtInstaller(GEProtonInstaller):
         self.release_format = 'tar.xz'
 
     @override
-    def fetch_releases(self, count: int = 100, page:int = 1):
+    def fetch_releases(self, count: int = 100, page: int = 1):
         """
         List available releases
         Return Type: str[]
@@ -71,3 +71,8 @@ class CtInstaller(GEProtonInstaller):
         protondir = protondir = f'{install_dir}wine-{data["version"].lower()}-x86_64'
 
         return (data, protondir)
+
+    @override
+    def get_info_url(self, version: str) -> str:
+
+        return super().get_info_url(version.replace('fshack-', ''))
