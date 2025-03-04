@@ -3,9 +3,9 @@
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
 from typing import override
-from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+from PySide6.QtCore import QCoreApplication
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import fetch_project_release_data, ghapi_rlcheck
 
 from pupgui2.resources.ctmods.ctmod_00protonge import CtInstaller as GEProtonInstaller
 
@@ -47,24 +47,14 @@ class CtInstaller(GEProtonInstaller):
 
         return tags
 
-    # TODO can we simplify this with the get_release_data methods? Would also apply to GE-Proton and be a nice win
     @override
-    def __fetch_github_data(self, tag, is_fshack):
+    def __fetch_github_data(self, tag: str, is_fshack: bool):
 
-        url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
-        data = self.rs.get(url).json()
-        if 'tag_name' not in data:
-            return None
+        asset_condition = None
+        if is_fshack:
+            asset_condition = lambda asset: 'fshack' in asset['name']
 
-        values = {'version': data['tag_name'], 'date': data['published_at'].split('T')[0]}
-        for asset in data['assets']:
-            if asset['name'].endswith('sha512sum'):
-                values['checksum'] = asset['browser_download_url']
-            # only change from GE-Proton is that we have this check for fshack to include Lutris fshack builds as valid releases
-            elif asset['name'].endswith('tar.xz') and not ('fshack' in asset['name'] and not is_fshack):
-                values['download'] = asset['browser_download_url']
-                values['size'] = asset['size']
-        return values
+        return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, asset_condition=asset_condition)
 
     @override
     def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
