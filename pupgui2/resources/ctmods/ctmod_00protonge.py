@@ -13,7 +13,7 @@ from pupgui2.util import build_headers_with_authorization
 
 
 CT_NAME = 'GE-Proton'
-CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles']
+CT_LAUNCHERS = ['steam', 'lutris', 'heroicproton', 'bottles']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_00protonge', '''Steam compatibility tool for running Windows games with improvements over Valve's default Proton.<br/><br/><b>Use this when you don't know what to choose.</b>''')}
 
 
