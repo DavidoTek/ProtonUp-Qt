@@ -113,7 +113,18 @@ class CtInstaller(QObject):
                 values['size'] = asset['size']
         return values
 
-    def is_system_compatible(self) -> bool:
+    def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
+
+        data = self.__fetch_github_data(version)
+
+        if not data or 'download' not in data:
+            return (None, None)
+
+        protondir = os.path.join(install_dir, data['version'])
+
+        return (data, protondir)
+
+    def is_system_compatible(self):
         """
         Are the system requirements met?
         Return Type: bool
@@ -132,13 +143,10 @@ class CtInstaller(QObject):
         Download and install the compatibility tool
         Return Type: bool
         """
-        data = self.__fetch_github_data(version)
+        data, protondir = self.__get_data(version, install_dir)
 
-        if not data or 'download' not in data:
-            return False
-
-        protondir = os.path.join(install_dir, data['version'])
-        if not os.path.exists(protondir):
+        # protondir = os.path.join(install_dir, data['version'])
+        if not protondir or  not os.path.exists(protondir):
             protondir = os.path.join(install_dir, 'Proton-' + data['version'])
         checksum_dir = f'{protondir}/sha512sum'
         source_checksum = self.rs.get(data['checksum']).text if 'checksum' in data else None
@@ -169,7 +177,7 @@ class CtInstaller(QObject):
 
         return True
 
-    def get_info_url(self, version):
+    def get_info_url(self, version: str) -> str:
         """
         Get link with info about version (eg. GitHub release page)
         Return Type: str
