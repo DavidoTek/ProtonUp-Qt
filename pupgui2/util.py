@@ -23,7 +23,7 @@ from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_D
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
-from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
+from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install, set_steam_global_compat_tool
 
 
 def create_msgbox(
@@ -916,3 +916,62 @@ def get_random_game_name(games: list[SteamApp] | list[LutrisGame] | list[HeroicG
         tooltip_game_name = random_game.title
     
     return tooltip_game_name
+
+
+def is_mark_global_available(install_loc, ctool: BasicCompatTool) -> bool:
+
+    """
+    Check if marking a tool is "global" is supported by the current launcher,
+    and if the given ctool can be marked as global for this launcher.
+
+    For example, runtimes are not valid to be marked as Global.
+
+    Return Type: bool
+    """
+
+    allowed_launchers = [ 'steam', 'lutris' ]  # Only allow marking global for these launchers
+
+    # Only allow marking global for compatibility tools and not runtimes etc
+    if ctool.ct_type != CTType.CUSTOM:
+        return False
+
+    # Don't allow marking global compat tools as global
+    if ctool.is_global:
+        return False
+
+    # Exit early if launcher is not on our list of compatible/allowed launchers
+    if install_loc.get('launcher') not in allowed_launchers:
+        return False
+
+    # Only allow marking global for Steam if we have the VDF directory path
+    if install_loc.get('launcher') == 'steam' and 'vdf_dir' not in install_loc:
+        return False
+
+    # Could put other conditions for other launchers in an elif here, i.e. check for Lutris and ensure a specific path exists
+    # Nothing here yet...
+
+    return True  # All other checks passed so default to true
+
+
+def set_launcher_global_tool(install_loc, compat_tool: BasicCompatTool) -> bool:
+
+    """
+    Set a given compat_tool as global for a given launcher by calling the
+    relevant util function for that launcher.
+    """
+
+    launcher = install_loc.get('launcher', '').lower()
+
+    # Skip empty launcher
+    if not launcher:
+        return False
+
+    if not is_mark_global_available(install_loc, compat_tool):
+        return False
+
+    if launcher == 'steam':
+        steam_config_folder = install_loc.get('vdf_dir', '')
+
+        return set_steam_global_compat_tool(steam_config_folder, compat_tool)
+
+    return False
