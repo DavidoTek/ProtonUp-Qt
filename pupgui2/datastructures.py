@@ -177,24 +177,52 @@ class LutrisGame:
 
     install_loc = None
 
-    def get_game_config(self):
-        lutris_config_dir = self.install_loc.get('config_dir')
-        if not lutris_config_dir:
+    def get_game_config(self) -> dict:
+        
+        """
+        Get a Lutris game config .yml file from either the config directory or the data directory.
+        i.e., ~/.config/lutris/games or ~/.local/share/lutris/games
+
+        Return Type: dict
+        """
+
+        # Lutris will prefer the config directory if it exists, but will use the data directory if config does not exist.
+        # On newer Lutris installations, only the data directory is used, as the config directory is deprecated.
+        # However, Lutris does not migrate these installations, so we need to check for both and prefer config if it exists.
+        #
+        # https://github.com/lutris/lutris/blob/6b968e858955c0638bf93b3a72fec5ae650f0932/lutris/settings.py#L20-L25
+        lutris_game_config_dir = os.path.join(os.path.expanduser(self.install_loc.get('config_dir')), 'games')
+        if not lutris_game_config_dir:
             return {}
     
+        if not os.path.isdir(lutris_game_config_dir):
+            # Lutris 'install_dir' will be '/path/to/lutris/runners/wine', go two directories up to get the root Lutris install folder
+            lutris_game_config_data_dir = os.path.abspath(
+                os.path.join(
+                    os.path.expanduser(self.install_loc.get('install_dir')),
+                    '..', '..',
+                    'games'
+                )
+            )
+
+            if not os.path.isdir(lutris_game_config_data_dir):
+                return {}
+
+            lutris_game_config_dir = lutris_game_config_data_dir
+
         # search a *.yml game configuration file that contains either the install_slug+installed_at or, if not found, the game slug
         fn = ''
-        for game_cfg_file in os.listdir(os.path.join(os.path.expanduser(lutris_config_dir), 'games')):
+        for game_cfg_file in os.listdir(lutris_game_config_dir):
             if str(self.installer_slug) in game_cfg_file and str(self.installed_at) in game_cfg_file:
                 fn = game_cfg_file
                 break
         else:
-            for game_cfg_file in os.listdir(os.path.join(os.path.expanduser(lutris_config_dir), 'games')):
+            for game_cfg_file in os.listdir(lutris_game_config_dir):
                 if self.slug in game_cfg_file:
                     fn = game_cfg_file
                     break
 
-        lutris_game_cfg = os.path.join(os.path.expanduser(lutris_config_dir), 'games', fn)
+        lutris_game_cfg = os.path.join(lutris_game_config_dir, fn)
         if not os.path.isfile(lutris_game_cfg):
             return {}
         with open(lutris_game_cfg, 'r') as f:
