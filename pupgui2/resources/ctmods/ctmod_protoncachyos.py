@@ -3,7 +3,6 @@
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-from typing import override
 
 from PySide6.QtCore import QCoreApplication
 
@@ -33,7 +32,6 @@ class CtInstaller(ProtonGECtInstaller):
     CT_URL = 'https://api.github.com/repos/CachyOS/proton-cachyos/releases'
     CT_INFO_URL = 'https://github.com/CachyOS/proton-cachyos/releases/tag/'
 
-    @override
     def __fetch_github_data(self, tag: str, arch: str) -> dict | None:
         """
         Fetch GitHub release information
@@ -74,7 +72,6 @@ class CtInstaller(ProtonGECtInstaller):
             hwcaps.add('x86_64_v2')
         return hwcaps
 
-    @override
     def fetch_releases(self, count: int = 100, page: int = 1) -> list:
         """
         List available releases
@@ -94,7 +91,6 @@ class CtInstaller(ProtonGECtInstaller):
                         assets.append(name)
         return assets
 
-    @override
     def get_tool(self, version: str, install_dir: str, temp_dir: str):
         """
         Download and install the compatibility tool
@@ -139,7 +135,6 @@ class CtInstaller(ProtonGECtInstaller):
 
         return True
 
-    @override
     def get_info_url(self, version: str) -> str:
         """
         Get link with info about version (eg. GitHub release page)
