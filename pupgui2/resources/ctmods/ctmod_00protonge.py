@@ -115,6 +115,11 @@ class CtInstaller(QObject):
 
     def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
 
+        """
+        Get needed download data and path to extract directory.
+        Return Type: tuple[dict | None, str | None]
+        """
+
         data = self.__fetch_github_data(version)
         if not data or 'download' not in data:
             return (None, None)
