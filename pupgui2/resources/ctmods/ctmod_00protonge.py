@@ -148,6 +148,8 @@ class CtInstaller(QObject):
         Return Type: bool
         """
         data, protondir = self.__get_data(version, install_dir)
+        if not data:
+            return False
 
         if not protondir or  not os.path.exists(protondir):
             protondir = os.path.join(install_dir, 'Proton-' + data['version'])
