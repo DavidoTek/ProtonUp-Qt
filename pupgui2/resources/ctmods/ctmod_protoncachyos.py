@@ -3,12 +3,9 @@
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
 import os
-from typing import Dict, Optional, Set
 
-from PySide6.QtCore import QCoreApplication, Signal
-from PySide6.QtWidgets import QMessageBox
+from PySide6.QtCore import QCoreApplication
 
-from pupgui2.networkutil import download_file
 from pupgui2.util import ghapi_rlcheck, extract_tar
 from .ctmod_00protonge import CtInstaller as ProtonGECtInstaller
 
@@ -35,7 +32,7 @@ class CtInstaller(ProtonGECtInstaller):
     CT_URL = 'https://api.github.com/repos/CachyOS/proton-cachyos/releases'
     CT_INFO_URL = 'https://github.com/CachyOS/proton-cachyos/releases/tag/'
 
-    def __fetch_github_data(self, tag: str, arch: str) -> Optional[Dict]:
+    def __fetch_github_data(self, tag: str, arch: str) -> dict | None:
         """
         Fetch GitHub release information
         Return Type: dict
@@ -56,7 +53,7 @@ class CtInstaller(ProtonGECtInstaller):
                 values['size'] = asset['size']
         return values
 
-    def get_hwcaps(self) -> Set:
+    def get_hwcaps(self) -> set[str]:
         hwcaps = {'x86_64'}
         # flags according to https://gitlab.com/x86-psABIs/x86-64-ABI/-/blob/master/x86-64-ABI/low-level-sys-info.tex
         flags_v2 = {'sse4_1', 'sse4_2', 'ssse3'}
@@ -75,8 +72,7 @@ class CtInstaller(ProtonGECtInstaller):
             hwcaps.add('x86_64_v2')
         return hwcaps
 
-
-    def fetch_releases(self, count: int = 100, page: int = 1):
+    def fetch_releases(self, count: int = 100, page: int = 1) -> list:
         """
         List available releases
         Return Type: str[]
