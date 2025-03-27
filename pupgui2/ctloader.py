@@ -64,7 +64,7 @@ class CtLoader(QObject):
         Return Type: []
         """
         if launcher is None:
-            return self.ctmods
+            return [ctmod for ctmod in self.ctmods if ('advmode' not in ctmod.CT_LAUNCHERS or advanced_mode)]
 
         ctmods = [ctmod for ctmod in self.ctmods if launcher in ctmod.CT_LAUNCHERS and ('advmode' not in ctmod.CT_LAUNCHERS or advanced_mode)]
 
