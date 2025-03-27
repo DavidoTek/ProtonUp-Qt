@@ -24,6 +24,7 @@ from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_D
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
+from pupgui2.datastructures import HardwarePlatform
 from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
 
 
@@ -921,3 +922,32 @@ def get_random_game_name(games: list[SteamApp] | list[LutrisGame] | list[HeroicG
         tooltip_game_name = random_game.title
     
     return tooltip_game_name
+
+
+def detect_platform() -> HardwarePlatform:
+    """
+    Detects the (hardware) platform the application is running on.
+    Possible types are DESKTOP and STEAM_DECK.
+
+    Returns:
+        HardwarePlatform: The platform (Enum)
+    """
+
+    os_release_content = ""
+
+    # Detect SteamOS: https://github.com/sonic2kk/steamtinkerlaunch/wiki/Steam-Deck#setup
+    if IS_FLATPAK:
+        cmd = ["flatpak-spawn", "--host", "cat", "/etc/os-release"]
+        try:
+            os_release_content = subprocess.check_output(cmd).decode("utf-8")
+        except Exception as e:
+            print(f"ERROR while calling detect_platform(): {e}")
+    else:
+        if os.path.isfile("/etc/os-release"):
+            with open("/etc/os-release") as f:
+                os_release_content = f.read()
+
+    if "steamdeck" in os_release_content:
+        return HardwarePlatform.STEAM_DECK
+
+    return HardwarePlatform.DESKTOP
