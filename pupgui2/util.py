@@ -284,7 +284,7 @@ def install_directory(target=None) -> str:
     return ''
 
 
-def config_custom_install_location(install_dir=None, launcher='', remove=False) -> Dict[str, str]:
+def config_custom_install_location(install_dir=None, launcher='', remove=False) -> Dict[str, Any]:
     """
     Read/update config for the custom install location
     Write install_dir, launcher to config or read if install_dir=None or launcher=None
