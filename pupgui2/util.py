@@ -424,17 +424,34 @@ def print_system_information() -> None:
     """
     Print system information like Python/Qt/OS version to the console
     """
+    # Python and PySide version
     ver_info = 'Python ' + sys.version.replace('\n', '')
     ver_info += f', PySide {PySide6.__version__}' + '\n'
+
+    # OS release (or Flatpak runtime)
     ver_info += 'Platform: '
     try:
         with open('/etc/lsb-release') if os.path.exists('/etc/lsb-release') else open('/etc/os-release') as f:
             l = f.readlines()
-            ver_info += l[0].strip().split('=')[1] + ' ' + l[1].strip().split('=')[1] + ' '
+            ver_info += l[0].strip().split('=')[1] + ' ' + l[1].strip().split('=')[1]
             ver_info = ver_info.replace('"', '')
     except:
         pass
-    ver_info += str(platform.platform())
+    ver_info += ", " + str(platform.platform())
+
+    # Host OS release if running in Flatpak
+    if IS_FLATPAK:
+        ver_info += " (Flatpak)"
+        ver_info += '\nPlatform: '
+        cmd = ["flatpak-spawn", "--host", "cat", "/etc/os-release"]
+        try:
+            l = subprocess.check_output(cmd).decode("utf-8").splitlines()
+            ver_info += l[0].strip().split('=')[1] + ' ' + l[1].strip().split('=')[1] + ' '
+            ver_info = ver_info.replace('"', '')
+            ver_info += " (Host)"   
+        except Exception as e:
+            print(f"ERROR while calling detect_platform(): {e}")
+
     print(ver_info)
 
 
