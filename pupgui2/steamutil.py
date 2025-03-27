@@ -24,14 +24,15 @@ _cached_app_list = []
 _cached_steam_ctool_id_map = None
 
 
-def get_steam_vdf_compat_tool_mapping(vdf_file: dict):
+def get_steam_vdf_compat_tool_mapping(vdf_file: dict) -> dict:
 
     s = vdf_file.get('InstallConfigStore', {}).get('Software', {})
 
     # Sometimes the key is 'Valve', sometimes 'valve', see #226
     c = s.get('Valve') or s.get('valve')
     if not c:
-        raise KeyError('Error! config.vdf InstallConfigStore.Software neither contains key "Valve" nor "valve" - config.vdf file may be invalid!')
+        print('Error! config.vdf InstallConfigStore.Software neither contains key "Valve" nor "valve" - config.vdf file may be invalid!')
+        return {}
 
     m = c.get('Steam', {}).get('CompatToolMapping', {})
 
@@ -58,8 +59,8 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
     apps = []
 
     try:
-        v = vdf.load(open(libraryfolders_vdf_file))
-        c = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
+        v = vdf_safe_load(libraryfolders_vdf_file)
+        c = get_steam_vdf_compat_tool_mapping(vdf_safe_load(config_vdf_file))
 
         for fid in v.get('libraryfolders'):
             if 'apps' not in v.get('libraryfolders').get(fid):
@@ -73,7 +74,7 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
                 fid_steamapps_path = os.path.join(fid_libraryfolder_path, 'steamapps')  # e.g. /home/gaben/Games/steamapps
                 appmanifest_path = os.path.join(fid_steamapps_path, f'appmanifest_{appid}.acf')
                 if os.path.isfile(appmanifest_path):
-                    appmanifest_install_path = vdf.load(open(appmanifest_path)).get('AppState', {}).get('installdir', None)
+                    appmanifest_install_path = vdf_safe_load(appmanifest_path).get('AppState', {}).get('installdir', None)
                     if not appmanifest_install_path or not os.path.isdir(os.path.join(fid_steamapps_path, 'common', appmanifest_install_path)):
                         continue
 
@@ -88,7 +89,7 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
         apps = update_steamapp_info(steam_config_folder, apps)
         apps = update_steamapp_awacystatus(apps)
     except Exception as e:
-        print('Error: Could not get a list of all Steam apps:', e)
+        print('Error (get_steam_app_list): Could not get a list of all Steam apps:', e)
     else:
         if not no_shortcuts:
             apps.extend(get_steam_shortcuts_list(steam_config_folder, c))
@@ -111,7 +112,7 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
 
     try:
         if not compat_tools:
-            compat_tools = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
+            compat_tools = get_steam_vdf_compat_tool_mapping(vdf_safe_load(config_vdf_file))
 
         for userf in os.listdir(users_folder):
             user_directory = os.path.join(users_folder, userf)
@@ -144,7 +145,7 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
                     app.compat_tool = ct.get('name')
                 apps.append(app)
     except Exception as e:
-        print('Error: Could not get a list of Steam shortcut apps:', e)
+        print('Error (get_steam_shortcuts_list): Could not get a list of Steam shortcut apps:', e)
     
     return apps
 
@@ -218,7 +219,7 @@ def get_steam_global_ctool_name(steam_config_folder: str) -> str:
     """
 
     config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
-    d = get_steam_vdf_compat_tool_mapping(vdf.load(open(config_vdf_file)))
+    d = get_steam_vdf_compat_tool_mapping(vdf_safe_load(config_vdf_file))
 
     return d.get('0', {}).get('name', '')
 
@@ -272,18 +273,18 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
     return ctool_map
 
 
-def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]) -> List[SteamApp]:
+def update_steamapp_info(steam_config_folder: str, steamapp_list: list[SteamApp]) -> list[SteamApp]:
     """
     Get Steam game names and information for provided SteamApps
     Return Type: List[SteamApp]
     """
     appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
     appinfo_file = os.path.realpath(appinfo_file)
-    sapps = {app.get_app_id_str(): app for app in steamapp_list}
+    sapps: dict[str, SteamApp] = {app.get_app_id_str(): app for app in steamapp_list}
     len_sapps = len(sapps)
     cnt = 0
     try:
-        ctool_map = _get_steam_ctool_info(steam_config_folder)
+        ctool_map: dict[str, dict[str, str]] = _get_steam_ctool_info(steam_config_folder)
         with open(appinfo_file, 'rb') as f:
             _, apps = parse_appinfo(f, mapper=dict)
             for steam_app in apps:
@@ -296,7 +297,7 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: List[SteamApp]
                     # Example: {'0': {'src_os': 'windows', 'dest_os': 'linux', 'appid': 1826330, 'comment': 'EAC runtime'}}
                     app_additional_dependencies = app_appinfo.get('extended', {}).get('additional_dependencies', {})
 
-                    a.game_name = app_appinfo_common.get('name', '')
+                    a.game_name = str(app_appinfo_common.get('name', ''))
                     a.deck_compatibility = app_appinfo_common.get('steam_deck_compatibility', {})
                     for dep in app_additional_dependencies.values():
                         a.anticheat_runtimes[RuntimeType.EAC] = dep.get('appid', -1) == PROTON_EAC_RUNTIME_APPID
@@ -388,7 +389,7 @@ def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -
     game_id = game.app_id
 
     try:
-        d = vdf.load(open(config_vdf_file))
+        d = vdf_safe_load(config_vdf_file)
         c = get_steam_vdf_compat_tool_mapping(d)
 
         if str(game_id) in c:
@@ -417,7 +418,7 @@ def steam_update_ctools(games: Dict[SteamApp, str], steam_config_folder='') -> b
         return False
 
     try:
-        d = vdf.load(open(config_vdf_file))
+        d = vdf_safe_load(config_vdf_file)
         c = get_steam_vdf_compat_tool_mapping(d)
 
         for game, new_ctool in games.items():
@@ -751,22 +752,21 @@ def get_steam_user_list(steam_config_folder: str) -> List[SteamUser]:
         return []
 
     try:
-        with open(loginusers_vdf_file) as f:
-            d = vdf.load(f)
-            u = d.get('users', {})
-            for uid in list(u.keys()):
-                uvalue = u.get(uid, {})
+        d = vdf_safe_load(loginusers_vdf_file)
+        u = d.get('users', {})
+        for uid in list(u.keys()):
+            uvalue = u.get(uid, {})
 
-                user = SteamUser()
-                user.long_id = int(uid)
-                user.account_name = uvalue.get('AccountName', '')
-                user.persona_name = uvalue.get('PersonaName', '')
-                user.most_recent = bool(int(uvalue.get('MostRecent', '0')))
-                user.timestamp = int(uvalue.get('Timestamp', '-1'))
+            user = SteamUser()
+            user.long_id = int(uid)
+            user.account_name = uvalue.get('AccountName', '')
+            user.persona_name = uvalue.get('PersonaName', '')
+            user.most_recent = bool(int(uvalue.get('MostRecent', '0')))
+            user.timestamp = int(uvalue.get('Timestamp', '-1'))
 
-                users.append(user)
+            users.append(user)
     except Exception as e:
-        print('Error: Could not get a list of Steam users:', e)
+        print('Error (get_steam_user_list): Could not get a list of Steam users:', e)
 
     return users
 
@@ -809,3 +809,30 @@ def is_valid_steam_install(steam_path) -> bool:
     is_valid_steam_install = os.path.exists(config_vdf) and os.path.exists(libraryfolders_vdf)
 
     return is_valid_steam_install
+
+def vdf_safe_load(vdf_file: str) -> dict:
+    """
+    Loads a vdf file and returns its contents as a dict.
+    In case of an error, the error is printed and {} is returned.
+
+    Args:
+        vdf_file (str): Path to the vdf file
+
+    Returns:
+        dict (empty in case of an error)
+    """
+    data = {}
+
+    try:
+        # See https://github.com/DavidoTek/ProtonUp-Qt/issues/424 (unicode errors)
+        with open(vdf_file, 'r', encoding='utf-8', errors='replace') as f:
+            data = vdf.loads(f.read())
+    except Exception as e:
+        print(f'An error occured while calling vdf_safe_load("{vdf_file}"). Returning empty dict: {e}')
+
+    if not isinstance(data, dict):
+        # Apparently, vdf.loads() can return None (issue #481)
+        print(f'Warning (vdf_safe_load): vdf.loads("{vdf_file}") returned {data}. Returning empty dict.')
+        data = {}
+
+    return data

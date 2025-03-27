@@ -14,11 +14,11 @@ import random
 import zstandard
 
 from configparser import ConfigParser
-from typing import Dict, List, Union, Tuple, Optional, Callable
+from typing import Any, Dict, List, Union, Tuple, Optional, Callable
 
 import PySide6
 from PySide6.QtCore import QCoreApplication
-from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QCheckBox
+from PySide6.QtWidgets import QApplication, QComboBox, QStyleFactory, QMessageBox, QCheckBox
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, PALETTE_STEAMUI, TEMP_DIR, IS_FLATPAK
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
@@ -289,7 +289,7 @@ def install_directory(target=None) -> str:
     return ''
 
 
-def config_custom_install_location(install_dir=None, launcher='', remove=False) -> Dict[str, str]:
+def config_custom_install_location(install_dir=None, launcher='', remove=False) -> Dict[str, Any]:
     """
     Read/update config for the custom install location
     Write install_dir, launcher to config or read if install_dir=None or launcher=None
@@ -642,7 +642,7 @@ def fetch_project_release_data(release_url: str, release_format: str, rs: reques
     Fetch information about a given release based on its tag, with an optional condition lambda.
     Return Type: dict
     Content(s):
-        'version', 'date', 'download'
+        'version', 'date', 'download', 'size' (if available)
     """
 
     date_key: str = ''
@@ -671,19 +671,28 @@ def fetch_project_release_data(release_url: str, release_format: str, rs: reques
     return values
 
 
-def build_headers_with_authorization(request_headers: dict, authorization_tokens: dict, token_type: str):
+def build_headers_with_authorization(request_headers: dict[str, Any], authorization_tokens: dict[str, str], token_type: str) -> dict[str, Any]:
 
-    request_headers['Authorization'] = ''  # Reset old authentication
+    """
+    Generate an updated `request_headers` dict with the `Authorization` header containing the key for GitHub or GitLab, based on `token_type`
+    and removing any existing Authorization.
+
+    Return Type: dict[str, Any]
+    """
+
+    updated_headers: dict[str, Any] = request_headers.copy()
+
+    updated_headers['Authorization'] = ''  # Reset old authentication
     token: str = authorization_tokens.get(token_type, '')
     if not token:        
-        return request_headers
+        return updated_headers
 
     if token_type == 'github':
-        request_headers['Authorization'] = f'token {token}'
+        updated_headers['Authorization'] = f'token {token}'
     elif token_type == 'gitlab':
-        request_headers['Authorization'] = f'Bearer {token}'
+        updated_headers['Authorization'] = f'Bearer {token}'
 
-    return request_headers
+    return updated_headers
 
 def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
     """ Return whether a compat tool is available for a given launcher """
@@ -691,11 +700,15 @@ def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
     return compat_tool in [ctobj['name'] for ctobj in ctobjs]
 
 
-def get_dict_key_from_value(d, searchval):
+def get_dict_key_from_value(d: dict[Any, Any], searchval: Any) -> Any:
+
     """
     Fetch a given dictionary key from a given value.
     Returns the given value if found, otherwise None.
+
+    Return Type: Any
     """
+
     for key, value in d.items():
         if value == searchval:
             return key
@@ -703,7 +716,7 @@ def get_dict_key_from_value(d, searchval):
         return None
 
 
-def get_combobox_index_by_value(combobox, value: str) -> int:
+def get_combobox_index_by_value(combobox: QComboBox, value: str) -> int:
     """
     Get the index in a combobox where a text value is located.
     Returns an integer >= 0 if found, otherwise -1.
@@ -711,10 +724,12 @@ def get_combobox_index_by_value(combobox, value: str) -> int:
     Return Type: int
     """
 
-    if value:
-        for i in range(combobox.count()):
-            if value == combobox.itemText(i):
-                return i
+    if not value:
+        return -1
+
+    for i in range(combobox.count()):
+        if value == combobox.itemText(i):
+            return i
 
     return -1
 
@@ -850,7 +865,7 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
     Return Type: Launcher (Enum)
     """
 
-    if 'steam/compatibilitytools.d' in install_dir.lower():
+    if any(steam_path in install_dir.lower() for steam_path in ['steam/compatibilitytools.d', 'steam/root/compatibilitytools.d']):
         return Launcher.STEAM
     elif 'lutris/runners' in install_dir.lower():
         return Launcher.LUTRIS
@@ -858,6 +873,8 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
         return Launcher.HEROIC
     elif 'bottles/runners' in install_dir.lower():
         return Launcher.BOTTLES
+    elif 'winezgui/runners' in install_dir.lower():
+        return Launcher.WINEZGUI
     else:
         return Launcher.UNKNOWN
 
@@ -888,14 +905,14 @@ def create_missing_dependencies_message(ct_name: str, dependencies: List[str]) -
     return tr_msg, False
 
 
-def get_random_game_name(games: List[Union[SteamApp, LutrisGame, HeroicGame]]) -> str:
+def get_random_game_name(games: list[SteamApp] | list[LutrisGame] | list[HeroicGame]) -> str:
     """ Return a random game name from list of SteamApp, LutrisGame, or HeroicGame """
 
     if len(games) <= 0:
         return ''
     
-    tooltip_game_name = ''
-    random_game = random.choice(games)
+    tooltip_game_name: str = ''
+    random_game: SteamApp | LutrisGame | HeroicGame = random.choice(games)
     if type(random_game) is SteamApp:
         tooltip_game_name = random_game.game_name
     elif type(random_game) is LutrisGame:

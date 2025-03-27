@@ -25,7 +25,8 @@ class PupguiCustomInstallDirectoryDialog(QObject):
             'lutris': 'Lutris',
             'heroicwine': 'Heroic (Wine)',
             'heroicproton': 'Heroic (Proton)',
-            'bottles': 'Bottles'
+            'bottles': 'Bottles',
+            'winezgui': 'WineZGUI',
         }
 
         self.load_ui()
@@ -44,7 +45,10 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.txtIdBrowseAction = self.ui.txtInstallDirectory.addAction(QIcon.fromTheme('document-open'), QLineEdit.TrailingPosition)
         self.txtIdBrowseAction.triggered.connect(self.txt_id_browse_action_triggered)
 
-        self.ui.txtInstallDirectory.setText(config_custom_install_location().get('install_dir', ''))
+        self.ui.txtInstallDirectory.textChanged.connect(lambda text: self.ui.btnSave.setEnabled(self.is_valid_custom_install_path(text)))
+        custom_install_directory = config_custom_install_location().get('install_dir', '')
+        self.ui.txtInstallDirectory.setText(custom_install_directory)
+        self.ui.btnDefault.setEnabled(self.has_custom_install_directory(custom_install_directory))  # Don't enable btnDefault if there is no Custom Install Directory set
 
         self.ui.comboLauncher.addItems([
             display_name for display_name in self.install_locations_dict.values()
@@ -56,31 +60,29 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         self.ui.btnDefault.clicked.connect(self.btn_default_clicked)
         self.ui.btnClose.clicked.connect(self.ui.close)
 
-        self.ui.txtInstallDirectory.textChanged.connect(lambda text: self.ui.btnSave.setEnabled(self.is_valid_custom_install_path(text)))
-
     def btn_save_clicked(self):
-        install_dir = os.path.expanduser(self.ui.txtInstallDirectory.text().strip())
+        install_dir: str = os.path.expanduser(self.ui.txtInstallDirectory.text().strip())
         if not install_dir.endswith(os.sep):
             install_dir += '/'
         launcher = get_dict_key_from_value(self.install_locations_dict, self.ui.comboLauncher.currentText()) or ''
 
         if self.is_valid_custom_install_path(install_dir):
             config_custom_install_location(install_dir, launcher)
-            print(f'New Custom Install Directory set to: {install_dir}')
 
         self.custom_id_set.emit(install_dir)
         self.ui.close()
 
     def btn_default_clicked(self):
         self.ui.txtInstallDirectory.setText('')
-        config_custom_install_location(remove=True)
-        print(f'Removed custom install directory')
+
+        custom_install_directory = config_custom_install_location(remove=True).get('install_dir', '')
+        self.ui.btnDefault.setEnabled(self.has_custom_install_directory(custom_install_directory))
 
         self.custom_id_set.emit('')
 
     def txt_id_browse_action_triggered(self):
         # Open dialog at entered path if it exists, and fall back to HOME_DIR
-        txt_install_dir = os.path.expanduser(self.ui.txtInstallDirectory.text())
+        txt_install_dir: str = os.path.expanduser(self.ui.txtInstallDirectory.text())
         initial_dir = txt_install_dir if self.is_valid_custom_install_path(txt_install_dir) else HOME_DIR
 
         dialog = QFileDialog(self.ui, directory=initial_dir)
@@ -92,11 +94,26 @@ class PupguiCustomInstallDirectoryDialog(QObject):
         dialog.open()
 
     def set_selected_launcher(self, ctool_name: str):
-        if ctool_name:
-            index = get_combobox_index_by_value(self.ui.comboLauncher, ctool_name)
-            if index >= 0:
-                self.ui.comboLauncher.setCurrentIndex(index)
+        if not ctool_name:
+            return
+
+        if (index := get_combobox_index_by_value(self.ui.comboLauncher, ctool_name)) >= 0:
+            self.ui.comboLauncher.setCurrentIndex(index)
 
     def is_valid_custom_install_path(self, path: str) -> bool:
         expand_path = os.path.expanduser(path)
         return len(path.strip()) > 0 and os.path.isdir(expand_path) and os.access(expand_path, os.W_OK)
+
+    def has_custom_install_directory(self, custom_install_directory: str = '') -> bool:
+
+        """
+        Returns whether a Custom Install Directory is set to a Truthy value.
+        If `custom_install_directory` is not passed, it will be retrieved.
+
+        Return Type: bool
+        """
+
+        if not custom_install_directory:
+            return bool(config_custom_install_location().get('install_dir', ''))
+
+        return bool(custom_install_directory)

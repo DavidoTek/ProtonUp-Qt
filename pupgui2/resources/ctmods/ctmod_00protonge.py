@@ -6,14 +6,16 @@ import os
 import requests
 import hashlib
 
+from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.util import ghapi_rlcheck, extract_tar
 from pupgui2.util import build_headers_with_authorization
+from pupgui2.networkutil import download_file
 
 
 CT_NAME = 'GE-Proton'
-CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles']
+CT_LAUNCHERS = ['steam', 'lutris', 'heroicproton', 'bottles']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_00protonge', '''Steam compatibility tool for running Windows games with improvements over Valve's default Proton.<br/><br/><b>Use this when you don't know what to choose.</b>''')}
 
 
@@ -25,10 +27,13 @@ class CtInstaller(QObject):
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
+    message_box_message = Signal(str, str, QMessageBox.Icon)
 
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
         self.p_download_canceled = False
+
+        self.release_format = 'tar.gz'
 
         self.rs = requests.Session()
         rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
@@ -48,35 +53,30 @@ class CtInstaller(QObject):
         self.p_download_progress_percent = value
         self.download_progress_percent.emit(value)
 
-    def __download(self, url, destination):
+    def __download(self, url: str, destination: str, known_size: int = 0) -> bool:
         """
         Download files from url to destination
         Return Type: bool
         """
         try:
-            file = self.rs.get(url, stream=True)
-        except OSError:
-            return False
+            return download_file(
+                url=url,
+                destination=destination,
+                progress_callback=self.__set_download_progress_percent,
+                download_cancelled=self.download_canceled,
+                buffer_size=self.BUFFER_SIZE,
+                stream=True,
+                known_size=known_size
+            )
+        except Exception as e:
+            print(f"Failed to download tool {CT_NAME} - Reason: {e}")
 
-        self.__set_download_progress_percent(1) # 1 download started
-        f_size = int(file.headers.get('content-length'))
-        c_count = int(f_size / self.BUFFER_SIZE)
-        c_current = 1
-        destination = os.path.expanduser(destination)
-        os.makedirs(os.path.dirname(destination), exist_ok=True)
-        with open(destination, 'wb') as dest:
-            for chunk in file.iter_content(chunk_size=self.BUFFER_SIZE):
-                if self.download_canceled:
-                    self.download_canceled = False
-                    self.__set_download_progress_percent(-2) # -2 download canceled
-                    return False
-                if chunk:
-                    dest.write(chunk)
-                    dest.flush()
-                self.__set_download_progress_percent(int(min(c_current / c_count * 98.0, 98.0))) # 1-98, 100 after extract
-                c_current += 1
-        self.__set_download_progress_percent(99) # 99 download complete
-        return True
+            self.message_box_message.emit(
+                self.tr("Download Error!"),
+                self.tr(
+                    "Failed to download tool '{CT_NAME}'!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e)),
+                QMessageBox.Icon.Warning
+            )
 
     def __sha512sum(self, filename):
         """
@@ -108,10 +108,25 @@ class CtInstaller(QObject):
         for asset in data['assets']:
             if asset['name'].endswith('sha512sum'):
                 values['checksum'] = asset['browser_download_url']
-            elif asset['name'].endswith('tar.gz'):
+            elif asset['name'].endswith(self.release_format):
                 values['download'] = asset['browser_download_url']
                 values['size'] = asset['size']
         return values
+
+    def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
+
+        """
+        Get needed download data and path to extract directory.
+        Return Type: tuple[dict | None, str | None]
+        """
+
+        data = self.__fetch_github_data(version)
+        if not data or 'download' not in data:
+            return (None, None)
+
+        protondir = os.path.join(install_dir, data['version'])
+
+        return (data, protondir)
 
     def is_system_compatible(self):
         """
@@ -132,13 +147,11 @@ class CtInstaller(QObject):
         Download and install the compatibility tool
         Return Type: bool
         """
-        data = self.__fetch_github_data(version)
-
-        if not data or 'download' not in data:
+        data, protondir = self.__get_data(version, install_dir)
+        if not data:
             return False
 
-        protondir = os.path.join(install_dir, data['version'])
-        if not os.path.exists(protondir):
+        if not protondir or  not os.path.exists(protondir):
             protondir = os.path.join(install_dir, 'Proton-' + data['version'])
         checksum_dir = f'{protondir}/sha512sum'
         source_checksum = self.rs.get(data['checksum']).text if 'checksum' in data else None
@@ -159,7 +172,7 @@ class CtInstaller(QObject):
         if source_checksum and (download_checksum not in source_checksum):
             return False
 
-        if not extract_tar(proton_tar, install_dir, mode='gz'):
+        if not extract_tar(proton_tar, install_dir, mode=self.release_format.split('.')[-1]):
             return False
 
         if os.path.exists(checksum_dir):
@@ -169,7 +182,7 @@ class CtInstaller(QObject):
 
         return True
 
-    def get_info_url(self, version):
+    def get_info_url(self, version: str) -> str:
         """
         Get link with info about version (eg. GitHub release page)
         Return Type: str

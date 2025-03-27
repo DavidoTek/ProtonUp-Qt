@@ -5,10 +5,12 @@
 import os
 import requests
 
+from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import extract_tar
+from pupgui2.util import extract_tar, remove_if_exists
 from pupgui2.util import build_headers_with_authorization
+from pupgui2.networkutil import download_file
 
 
 CT_NAME = 'Steam-Play-None'
@@ -23,6 +25,7 @@ class CtInstaller(QObject):
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
+    message_box_message = Signal((str, str, QMessageBox.Icon))
 
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
@@ -46,26 +49,29 @@ class CtInstaller(QObject):
         self.p_download_progress_percent = value
         self.download_progress_percent.emit(value)
 
-    def __download(self, url, destination):
+    def __download(self, url: str, destination: str) -> bool:
         """
         Download files from url to destination
         Return Type: bool
         """
-        destination = os.path.expanduser(destination)
 
         try:
-            file = self.rs.get(url)
-        except OSError:
+            return download_file(
+                url=url,
+                destination=os.path.expanduser(destination),
+                progress_callback=self.__set_download_progress_percent,
+                download_cancelled=self.download_canceled,
+            )
+        except Exception as e:
+            print(f"Failed to download tool {CT_NAME} - Reason: {e}")
+
+            self.message_box_message.emit(
+                self.tr("Download Error!"),
+                self.tr("Failed to download tool '{CT_NAME}'!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e)),
+                QMessageBox.Icon.Warning
+            )
+
             return False
-
-        self.__set_download_progress_percent(1) # 1 download started
-
-        os.makedirs(os.path.dirname(destination), exist_ok=True)
-        with open(destination, 'wb') as dest:
-            self.__set_download_progress_percent(50)
-            dest.write(file.content)
-        self.__set_download_progress_percent(99) # 99 download complete
-        return True
 
     def is_system_compatible(self):
         """
@@ -87,17 +93,21 @@ class CtInstaller(QObject):
         Return Type: bool
         """
         steam_play_none_tar = os.path.join(temp_dir, 'main.tar.gz')
-        dl_url = self.CT_URL
-
-        if not self.__download(url=dl_url, destination=steam_play_none_tar):
-            return False
-
-        if not extract_tar(steam_play_none_tar, install_dir, mode='gz'):
-            return False
 
         # Rename extracted Steam-Play-None-main to Steam-Play-None
         steam_play_none_main = os.path.join(install_dir, 'Steam-Play-None-main')
         steam_play_none_dir = os.path.join(install_dir, 'Steam-Play-None')
+
+        dl_url = self.CT_URL
+
+        remove_if_exists(steam_play_none_main)
+        if not self.__download(url=dl_url, destination=steam_play_none_tar):
+            return False
+
+        remove_if_exists(steam_play_none_dir)
+        if not extract_tar(steam_play_none_tar, install_dir, mode='gz'):
+            return False
+
         os.rename(steam_play_none_main, steam_play_none_dir)
 
         self.__set_download_progress_percent(100)

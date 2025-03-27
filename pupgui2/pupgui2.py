@@ -82,7 +82,7 @@ class MainWindow(QObject):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.web_access_tokens = {
+        self.web_access_tokens: dict[str, str] = {
             'github': os.getenv('PUPGUI_GHA_TOKEN') or config_github_access_token(),
             'gitlab': os.getenv('PUPGUI_GLA_TOKEN') or config_gitlab_access_token(),
         }
@@ -106,7 +106,7 @@ class MainWindow(QObject):
         self.msgcb_answer_lock = QMutex()
 
         self.dbus_session_bus = QDBusConnection.sessionBus()
-        dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
+        _ = dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
 
         self.load_ui()
         self.setup_ui()
@@ -142,6 +142,7 @@ class MainWindow(QObject):
         self.ui.btnClose.clicked.connect(self.btn_close_clicked)
         self.ui.listInstalledVersions.itemDoubleClicked.connect(self.list_installed_versions_item_double_clicked)
         self.ui.listInstalledVersions.itemSelectionChanged.connect(self.list_installed_versions_item_selection_changed)
+        self.ui.listInstalledVersions.setStyleSheet('QListWidget::item { padding: 3px; }')
         self.ui.btnShowCtInfo.clicked.connect(self.btn_show_ct_info_clicked)
         self.ui.btnSteamFlatpakCtools.clicked.connect(self.btn_steam_flatpak_ctools_clicked)
 
@@ -201,7 +202,7 @@ class MainWindow(QObject):
         if progress < 0:  # negative progress indicates cancellation/failure/etc
             num_downloads = 0
 
-        dbus_progress_message(progress_pct, num_downloads, self.dbus_session_bus)
+        _ = dbus_progress_message(progress_pct, num_downloads, self.dbus_session_bus)
 
     def update_combo_install_location(self, custom_install_dir = None):
         self.updating_combo_install_location = True
@@ -295,6 +296,10 @@ class MainWindow(QObject):
 
         self.ui.txtUnusedVersions.setText(self.tr('Unused: {unused_ctools}').format(unused_ctools=unused_ctools) if unused_ctools > 0 else '')
         self.ui.txtInstalledVersions.setText(f'{len(self.compat_tool_index_map)}')
+
+        combo_install_location_val: str = self.ui.comboInstallLocation.currentText()
+        if len(combo_install_location_val) > 0:
+            self.ui.comboInstallLocation.setToolTip(combo_install_location_val)
 
     def get_installed_versions(self, ctool_name, ctool_dir):
         for ct in get_installed_ctools(ctool_dir):
@@ -394,11 +399,17 @@ class MainWindow(QObject):
                 self.cancel_download(cancel_all=True)
                 self.ui.close()
 
-    def combo_install_location_current_index_changed(self):
+    def combo_install_location_current_index_changed(self) -> None:
+        if len(self.combo_install_location_index_map) <= 0:
+            self.update_ui()
+
+            return
+
         if not self.updating_combo_install_location:
             install_dir = install_directory(self.combo_install_location_index_map[self.ui.comboInstallLocation.currentIndex()])
             self.ui.statusBar().showMessage(self.tr('Changed install directory to {install_dir}.').format(install_dir=install_dir), timeout=3000)
-            self.update_ui()
+
+        self.update_ui()
 
     def btn_manage_install_locations_clicked(self):
         customid_dialog = PupguiCustomInstallDirectoryDialog(install_directory(), parent=self.ui)
@@ -594,5 +605,5 @@ def main():
     if IS_FLATPAK and len(os.listdir(STEAM_STL_INSTALL_PATH)) == 0:
         subprocess.run(['flatpak-spawn', '--host', 'rm', '-r', STEAM_STL_INSTALL_PATH])
 
-    dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
+    _ = dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
     sys.exit(ret)

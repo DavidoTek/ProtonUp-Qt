@@ -1,13 +1,13 @@
 version: 1
 script:
   - rm -rf AppDir  | true
-  - mkdir -p AppDir/usr/lib/python3.10/site-packages
-  - cp pupgui2 AppDir/usr/lib/python3.10/site-packages -r
+  - mkdir -p AppDir/usr/local/lib/python3.10/dist-packages
+  - cp pupgui2 AppDir/usr/local/lib/python3.10/dist-packages -r
   - cp share AppDir/usr -r
   - python3 -m pip install --ignore-installed --prefix=/usr --no-cache-dir --root=AppDir -r ./requirements.txt
   - rm -rf AppDir/usr/local/lib/python3.10/dist-packages/PySide6/Qt/qml/
   - rm -f AppDir/usr/local/lib/python3.10/dist-packages/PySide6/{assistant,designer,linguist,lrelease,lupdate}
-  - rm -f AppDir/usr/local/lib/python3.10/dist-packages/PySide6/{Qt3D*,QtBluetooth*,QtCharts*,QtConcurrent*,QtDataVisualization*,QtDBus*,QtDesigner*,QtHelp*,QtMultimedia*,QtNetwork*,QtOpenGL*,QtPositioning*,QtPrintSupport*,QtQml*,QtQuick*,QtRemoteObjects*,QtScxml*,QtSensors*,QtSerialPort*,QtSql*,QtStateMachine*,QtSvg*,QtTest*,QtWeb*,QtXml*}
+  - rm -f AppDir/usr/local/lib/python3.10/dist-packages/PySide6/{Qt3D*,QtBluetooth*,QtCharts*,QtConcurrent*,QtDataVisualization*,QtDesigner*,QtHelp*,QtMultimedia*,QtNetwork*,QtOpenGL*,QtPositioning*,QtPrintSupport*,QtQml*,QtQuick*,QtRemoteObjects*,QtScxml*,QtSensors*,QtSerialPort*,QtSql*,QtStateMachine*,QtSvg*,QtTest*,QtWeb*,QtXml*}
   - shopt -s extglob
   - rm -rf AppDir/usr/local/lib/python3.10/dist-packages/PySide6/Qt/lib/!(libQt6OpenGL*|libQt6XcbQpa*|libQt6Wayland*|libQt6Egl*|libicudata*|libicuuc*|libicui18n*|libQt6DBus*|libQt6Network*|libQt6Qml*|libQt6Core*|libQt6Gui*|libQt6Widgets*|libQt6Svg*|libQt6UiTools*)
 
@@ -19,7 +19,7 @@ AppDir:
     id: net.davidotek.pupgui2
     name: ProtonUp-Qt
     icon: net.davidotek.pupgui2
-    version: 2.9.2
+    version: 2.11.1
     exec: usr/bin/python3
     exec_args: "-m pupgui2 $@"
 

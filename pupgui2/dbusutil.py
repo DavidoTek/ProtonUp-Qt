@@ -1,36 +1,53 @@
 import os
+from typing import Any
 
 from PySide6.QtDBus import QDBusConnection, QDBusMessage
 
 from pupgui2.constants import DBUS_APPLICATION_URI, DBUS_DOWNLOAD_OBJECT_BASEPATH, DBUS_INTERFACES_AND_SIGNALS
 
 
-def create_and_send_dbus_message(object: str, interface: str, signal_name: str, arguments: list, bus: QDBusConnection = QDBusConnection.sessionBus):
+def create_and_send_dbus_message(object: str, interface: str, signal_name: str, arguments: list[Any], bus: QDBusConnection | None = None) -> bool:
 
     """
     Create and send a QDBusMessage over a given bus.
     If no bus is given, will default to sessionBus
+
+    Returns `True` if the message was sent to DBus successfully, `False` otherwise.
+
+    Return Type: bool
     """
 
+    if bus is None:
+        bus = QDBusConnection.sessionBus()
+
     # i.e. /net/davidotek/pupgui2/Update
-    object_path = os.path.join(DBUS_DOWNLOAD_OBJECT_BASEPATH, object)
+    object_path: str = os.path.join(DBUS_DOWNLOAD_OBJECT_BASEPATH, object)
 
     message: QDBusMessage = QDBusMessage.createSignal(object_path, interface, signal_name)
     message.setArguments(arguments)
 
     # Don't send the message if bus is not valid (i.e. DBus is not running)
     if bus.isConnected():
-        bus.send(message)
+        return bus.send(message)
+
+    return False
 
 
-def dbus_progress_message(progress: float, count: int = 0, bus: QDBusConnection = QDBusConnection.sessionBus()):
+def dbus_progress_message(progress: float, count: int = 0, bus: QDBusConnection | None = None) -> bool:
 
     """
     Create and send download progress (between 0 and 1) information with optional count parameter on a given bus.
     If no bus is given, will default to sessionBus.
+
+    Returns `True` if the message was sent to DBus successfully, `False` otherwise.
+
+    Return Type: bool
     """
 
-    arguments = {
+    if bus is None:
+        bus = QDBusConnection.sessionBus()
+
+    arguments: dict[str, int | float | bool] = {
         'progress': progress,
         'progress-visible': progress >= 0 and progress < 1,
         'count': count,
@@ -41,17 +58,17 @@ def dbus_progress_message(progress: float, count: int = 0, bus: QDBusConnection 
     # plus an 'arguments' dict with some extra information
     #
     # i.e. { 'progress': 0.7, 'progress-visible': True }
-    message_arguments = [
+    message_arguments: list[str | dict[str, int | float | bool]] = [
         DBUS_APPLICATION_URI,
         arguments
     ]
 
-    launcher_entry_update = DBUS_INTERFACES_AND_SIGNALS['LauncherEntryUpdate']
+    launcher_entry_update: dict[str, str] = DBUS_INTERFACES_AND_SIGNALS['LauncherEntryUpdate']
     
-    interface = launcher_entry_update['interface']
-    signal = launcher_entry_update['signal']
+    interface: str = launcher_entry_update['interface']
+    signal: str = launcher_entry_update['signal']
     object = 'Update'
 
-    create_and_send_dbus_message(object, interface, signal, message_arguments, bus=bus)
+    return create_and_send_dbus_message(object, interface, signal, message_arguments, bus=bus)
 
 
