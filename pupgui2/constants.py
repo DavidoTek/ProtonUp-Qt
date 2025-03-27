@@ -8,7 +8,7 @@ from PySide6.QtGui import QColor, QPalette
 APP_NAME = 'ProtonUp-Qt'
 APP_VERSION = '2.11.1'
 APP_ID = 'net.davidotek.pupgui2'
-APP_THEMES = ( 'light', 'dark', 'system', None )
+APP_THEMES = ( 'light', 'dark', 'system', 'steam', None )
 APP_ICON_FILE = os.path.join(xdg_config_home, 'pupgui/appicon256.png')
 APP_GHAPI_URL = 'https://api.github.com/repos/Davidotek/ProtonUp-qt/releases'
 DAVIDOTEK_KOFI_URL = 'https://ko-fi.com/davidotek'
@@ -96,6 +96,14 @@ def PALETTE_DARK():
     palette_dark.setColor(QPalette.Highlight, QColor(40, 120, 200))
     palette_dark.setColor(QPalette.HighlightedText, Qt.black)
     return palette_dark
+
+def PALETTE_STEAMUI():
+    """ returns a Steam-ui like color palette """
+    palette_steam = QPalette()
+    # Needed for theming Qt's Wayland Client Side Decoration
+    palette_steam.setColor(QPalette.Window, QColor(23, 29, 37))  #171D25
+    palette_steam.setColor(QPalette.WindowText, Qt.white)
+    return palette_steam
 
 PROTONDB_COLORS = {'platinum': '#b4c7dc', 'gold': '#cfb53b', 'silver': '#a6a6a6', 'bronze': '#cd7f32', 'borked': '#ff0000', 'pending': '#748472' }
 

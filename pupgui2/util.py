@@ -8,6 +8,7 @@ import webbrowser
 import requests
 import zipfile
 import tarfile
+import pkgutil
 import random
 
 import zstandard
@@ -19,10 +20,11 @@ import PySide6
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtWidgets import QApplication, QComboBox, QStyleFactory, QMessageBox, QCheckBox
 
-from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, TEMP_DIR, IS_FLATPAK
+from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, PALETTE_STEAMUI, TEMP_DIR, IS_FLATPAK
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
+from pupgui2.datastructures import HardwarePlatform
 from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
 
 
@@ -87,12 +89,24 @@ def apply_dark_theme(app: QApplication) -> None:
     """
     theme = config_theme()
 
+    # Configure theme if not set. Default to Steam Deck theme if running on Steam Deck
+    if theme == None and detect_platform() == HardwarePlatform.STEAM_DECK:
+        theme = 'steam'
+        config_theme(theme)
+    elif theme == None:
+        theme = 'system'
+        config_theme(theme)
+
     if theme == 'light':
         app.setStyle('Fusion')
         app.setPalette(QStyleFactory.create('fusion').standardPalette())
     elif theme == 'dark':
         app.setStyle('Fusion')
         app.setPalette(PALETTE_DARK())
+    elif theme == 'steam':
+        app.setPalette(PALETTE_STEAMUI())
+        stylesheet = pkgutil.get_data(__name__, 'resources/themes/steamdeck.qss')
+        app.setStyleSheet(stylesheet.decode('utf-8'))
     else:
         is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION', '')
         darkmode_enabled = False
@@ -410,17 +424,34 @@ def print_system_information() -> None:
     """
     Print system information like Python/Qt/OS version to the console
     """
+    # Python and PySide version
     ver_info = 'Python ' + sys.version.replace('\n', '')
     ver_info += f', PySide {PySide6.__version__}' + '\n'
+
+    # OS release (or Flatpak runtime)
     ver_info += 'Platform: '
     try:
         with open('/etc/lsb-release') if os.path.exists('/etc/lsb-release') else open('/etc/os-release') as f:
             l = f.readlines()
-            ver_info += l[0].strip().split('=')[1] + ' ' + l[1].strip().split('=')[1] + ' '
+            ver_info += l[0].strip().split('=')[1] + ' ' + l[1].strip().split('=')[1]
             ver_info = ver_info.replace('"', '')
     except:
         pass
-    ver_info += str(platform.platform())
+    ver_info += ", " + str(platform.platform())
+
+    # Host OS release if running in Flatpak
+    if IS_FLATPAK:
+        ver_info += " (Flatpak)"
+        ver_info += '\nPlatform: '
+        cmd = ["flatpak-spawn", "--host", "cat", "/etc/os-release"]
+        try:
+            l = subprocess.check_output(cmd).decode("utf-8").splitlines()
+            ver_info += l[0].strip().split('=')[1] + ' ' + l[1].strip().split('=')[1] + ' '
+            ver_info = ver_info.replace('"', '')
+            ver_info += " (Host)"   
+        except Exception as e:
+            print(f"ERROR while calling detect_platform(): {e}")
+
     print(ver_info)
 
 
@@ -916,3 +947,32 @@ def get_random_game_name(games: list[SteamApp] | list[LutrisGame] | list[HeroicG
         tooltip_game_name = random_game.title
     
     return tooltip_game_name
+
+
+def detect_platform() -> HardwarePlatform:
+    """
+    Detects the (hardware) platform the application is running on.
+    Possible types are DESKTOP and STEAM_DECK.
+
+    Returns:
+        HardwarePlatform: The platform (Enum)
+    """
+
+    os_release_content = ""
+
+    # Detect SteamOS: https://github.com/sonic2kk/steamtinkerlaunch/wiki/Steam-Deck#setup
+    if IS_FLATPAK:
+        cmd = ["flatpak-spawn", "--host", "cat", "/etc/os-release"]
+        try:
+            os_release_content = subprocess.check_output(cmd).decode("utf-8")
+        except Exception as e:
+            print(f"ERROR while calling detect_platform(): {e}")
+    else:
+        if os.path.isfile("/etc/os-release"):
+            with open("/etc/os-release") as f:
+                os_release_content = f.read()
+
+    if "steamdeck" in os_release_content:
+        return HardwarePlatform.STEAM_DECK
+
+    return HardwarePlatform.DESKTOP

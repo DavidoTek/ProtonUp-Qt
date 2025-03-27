@@ -264,3 +264,9 @@ class Launcher(Enum):
     BOTTLES = 3
     HEROIC = 4
     WINEZGUI = 5
+
+
+class HardwarePlatform(Enum):
+    """ Hardware platform. Used by util.py#detect_platform() """
+    DESKTOP = 0
+    STEAM_DECK = 1
