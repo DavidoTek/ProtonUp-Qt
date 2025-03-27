@@ -393,7 +393,7 @@ För att ta bort genvägen, öppna Steam och välj &quot;ta bort icke-Steam-spel
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="14"/>
         <source>About compatibility tool</source>
-        <translation>Om kompabilitetsverktyg</translation>
+        <translation>Om kompatibilitetsverktyg</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="26"/>
