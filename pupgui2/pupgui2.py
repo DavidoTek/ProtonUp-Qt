@@ -88,6 +88,7 @@ class MainWindow(QObject):
         }
 
         self.ct_loader = ctloader.CtLoader(main_window=self)
+        _ = self.ct_loader.load_ctmods()
 
         for ctobj in self.ct_loader.get_ctobjs():
             cti = ctobj.get('installer')

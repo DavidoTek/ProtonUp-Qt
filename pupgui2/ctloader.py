@@ -15,7 +15,6 @@ class CtLoader(QObject):
 
     def __init__(self, main_window = None):
         self.main_window = main_window
-        self.load_ctmods()
 
     def load_ctmods(self) -> bool:
         """
@@ -56,7 +55,7 @@ class CtLoader(QObject):
                 icon=QMessageBox.Warning,
                 detailed_text=detailed_text
             )
-        return True
+        return len(failed_ctmods) == 0
 
     def get_ctmods(self, launcher=None, advanced_mode=True):
         """
