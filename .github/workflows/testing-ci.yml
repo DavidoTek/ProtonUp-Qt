@@ -42,3 +42,14 @@ jobs:
         custom-arguments: '-q'
         click-to-expand: true
         report-title: 'ProtonUp-Qt Test Report'
+
+  validate_metainfo:
+    name: "Run AppStream Metainfo Validation"
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: sudo apt install -y appstream-util
+    - name: Validate Metainfo file
+      run: appstream-util validate-relax ./share/metainfo/net.davidotek.pupgui2.appdata.xml
