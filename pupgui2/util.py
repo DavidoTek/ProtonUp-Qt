@@ -89,6 +89,14 @@ def apply_dark_theme(app: QApplication) -> None:
     """
     theme = config_theme()
 
+    # Configure theme if not set. Default to Steam Deck theme if running on Steam Deck
+    if theme == None and detect_platform() == HardwarePlatform.STEAM_DECK:
+        theme = 'steam'
+        config_theme(theme)
+    elif theme == None:
+        theme = 'system'
+        config_theme(theme)
+
     if theme == 'light':
         app.setStyle('Fusion')
         app.setPalette(QStyleFactory.create('fusion').standardPalette())
