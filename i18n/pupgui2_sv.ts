@@ -4,20 +4,38 @@
 <context>
     <name>CtInstaller</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="105"/>
         <source>Missing dependencies!</source>
         <translation>Saknar beroenden!</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="75"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="79"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
+        <source>Download Error!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="80"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="70"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="76"/>
+        <source>Failed to download tool &apos;{CT_NAME}&apos;!
+
+Reason: {EXCEPTION}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CtLoader</name>
     <message>
-        <location filename="../pupgui2/ctloader.py" line="55"/>
+        <location filename="../pupgui2/ctloader.py" line="52"/>
         <source>Error!</source>
         <translation>Fel!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/ctloader.py" line="57"/>
+        <location filename="../pupgui2/ctloader.py" line="54"/>
         <source>Couldn&apos;t load the following compatibility tool(s):
 {TOOL_LIST}
 
@@ -29,98 +47,131 @@ Om du tycker att detta är ett fel, vänligen rapportera en bugg på GitHub!</tr
     </message>
 </context>
 <context>
+    <name>GitAccessTokenDialog</name>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
+        <source>Configure Git access tokens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
+        <source>GitHub:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
+        <source>Close</source>
+        <translation type="unfinished">Stäng</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
+        <source>GitLab:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
+        <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="253"/>
+        <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>unused</source>
         <translation>oanvänd</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="253"/>
+        <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>global</source>
         <translation>global</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="274"/>
+        <location filename="../pupgui2/pupgui2.py" line="298"/>
         <source>Unused: {unused_ctools}</source>
         <translation>Oanvänd: {unused_ctools}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="297"/>
+        <location filename="../pupgui2/pupgui2.py" line="325"/>
         <source>Fetching releases...</source>
         <translation>Hämtar releaser...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="308"/>
+        <location filename="../pupgui2/pupgui2.py" line="336"/>
         <source>Download canceled.</source>
         <translation>Nedladdningen avbruten.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="312"/>
+        <location filename="../pupgui2/pupgui2.py" line="339"/>
         <source>Could not install {current_compat_tool_name}...</source>
         <translation>Kunde inte installera {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="319"/>
+        <location filename="../pupgui2/pupgui2.py" line="345"/>
         <source>Downloading {current_compat_tool_name}...</source>
         <translation>Laddar ner {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="321"/>
+        <location filename="../pupgui2/pupgui2.py" line="347"/>
         <source>Extracting {current_compat_tool_name}...</source>
         <translation>Packar upp {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="323"/>
+        <location filename="../pupgui2/pupgui2.py" line="349"/>
         <source>Installing {current_compat_tool_name}...</source>
         <translation>Installerar {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="325"/>
+        <location filename="../pupgui2/pupgui2.py" line="351"/>
         <source>Installed {current_compat_tool_name}.</source>
         <translation>Installerad {current_compat_tool_name}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="348"/>
+        <location filename="../pupgui2/pupgui2.py" line="377"/>
         <source>Remove compatibility tools?</source>
         <translation>Ta bort kompatibilitetsverktyg?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="348"/>
+        <location filename="../pupgui2/pupgui2.py" line="377"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>Du försöker ta bort kompatibilitetsverktyg
 som används av {n} spel. Fortsätt?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="355"/>
+        <location filename="../pupgui2/pupgui2.py" line="384"/>
         <source>Removed selected versions.</source>
         <translation>Ta bort valda versioner.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="369"/>
+        <location filename="../pupgui2/pupgui2.py" line="398"/>
         <source>Exit?</source>
         <translation>Avsluta?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="369"/>
+        <location filename="../pupgui2/pupgui2.py" line="398"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
         <translation>Det finns väntande nedladdningar.
 Avbryt och avsluta ändå?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="377"/>
+        <location filename="../pupgui2/pupgui2.py" line="411"/>
         <source>Changed install directory to {install_dir}.</source>
         <translation>Ändrade installationskatalog till {install_dir}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="428"/>
+        <location filename="../pupgui2/pupgui2.py" line="460"/>
         <source>Install tool from Flathub</source>
         <translation>Installera verktyg från Flathub</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="431"/>
+        <location filename="../pupgui2/pupgui2.py" line="462"/>
         <source>Click to open your app store</source>
         <translation>Klicka för att öppna din appbutik</translation>
     </message>
@@ -196,64 +247,64 @@ Avbryt och avsluta ändå?</translation>
 <context>
     <name>PuiguiCustomInstallDirectoryDialog</name>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="26"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="20"/>
         <source>Dialog</source>
         <translation>Dialogruta</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="44"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="29"/>
         <source>Specify a custom location for downloading and displaying a launcher&apos;s compatibility tools.</source>
         <translation>Ange en anpassad plats för nedladdning och visning av ett startprograms kompatibilitetsverktyg.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="56"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="41"/>
         <source>Directory:</source>
         <translation>Katalog:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="66"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="51"/>
         <source>Launcher:</source>
         <translation>Startare:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="87"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="85"/>
         <source>Reset the custom install directory back to default for this launcher</source>
         <translation>Återställ den anpassade installationskatalogen till standard för den här startaren</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="90"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="88"/>
         <source>Default</source>
         <translation>Standard</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="113"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="111"/>
         <source>Save</source>
         <translation>Spara</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="26"/>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="107"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="20"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="105"/>
         <source>Batch Update</source>
         <translation>Batch uppdatering</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="44"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="29"/>
         <source>Migrate games using the current compatibility tool to the one specified below.</source>
         <translation>Migrera spel med det aktuella kompatibilitetsverktyget till det som anges nedan.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="56"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="41"/>
         <source>New Version:</source>
         <translation>Ny version:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="73"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="58"/>
         <source>Old Version:</source>
         <translation>Gammal version:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="120"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="112"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="118"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
@@ -261,17 +312,17 @@ Avbryt och avsluta ändå?</translation>
 <context>
     <name>PupguiAboutDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>light</source>
         <translation>ljus</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>dark</source>
         <translation>mörk</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>system (restart required)</source>
         <translation>system (omstart krävs)</translation>
     </message>
@@ -280,29 +331,29 @@ Avbryt och avsluta ändå?</translation>
         <translation type="vanished">Erneuere Steamliste</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="91"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="93"/>
         <source>Update available</source>
         <translation>Uppdatering tillgänglig</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="92"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="94"/>
         <source>There is a newer version available.
 You are running {APP_VERSION} but {newest_version} is available.</source>
         <translation>Det finns en ny version tillgänglig
 Du kör {APP_VERSION} men newest_version} är tillgänglig.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="98"/>
         <source>Up to date</source>
         <translation>Aktuell</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="98"/>
         <source>You are running the newest version!</source>
         <translation>Du kör den nyaste versionen!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="101"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="103"/>
         <source>Added shortcut!</source>
         <translation>La till genväg!</translation>
     </message>
@@ -317,44 +368,49 @@ Du kör {APP_VERSION} men newest_version} är tillgänglig.</translation>
         <translation>&lt;p&gt;GUI för installation/uppdatering av wine och protonbaserade kompatibilitetsverktyg.&lt;br&gt;Inspirerad av/delvis baserat på AUNaseefs protonup.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="97"/>
         <source>Support development on GitHub</source>
         <translation>Stöd utvecklingen på Github</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="122"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="128"/>
         <source>Color Theme:</source>
         <translation>Färgtema:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="139"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="145"/>
         <source>Enable advanced mode (show git-builds for compatibility tools etc.)</source>
         <translation>Aktivera avancerat läge (visa git-byggen för kompatibilitetsverktyg etc.)</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="150"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="157"/>
+        <source>Edit Git access tokens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="182"/>
         <source>Check for updates</source>
         <translation>Kolla efter uppdateringar</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="202"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
         <translation>Lägger till en genväg för att öppna ProtonUp-Qt från ditt Steam bibliotek.
 För att ta bort genvägen, öppna Steam och välj &quot;ta bort icke-Steam-spel från ditt bibliotek&quot;.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="174"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="206"/>
         <source>Add Steam shortcut</source>
         <translation>Lägg till Steam genväg</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="181"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="213"/>
         <source>About Qt</source>
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="188"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="220"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
@@ -455,38 +511,38 @@ För att ta bort genvägen, öppna Steam och välj &quot;ta bort icke-Steam-spel
         <translation>Stäng</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="86"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
         <source>AppID</source>
         <translation>AppID</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="86"/>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="99"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
         <source>Name</source>
         <translation>Namn</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="99"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
         <source>Slug</source>
         <translation>Slug</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="109"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="108"/>
         <source>Runner</source>
         <translation>Körtid</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="109"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="108"/>
         <source>Game</source>
         <translation>Spel</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="128"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="127"/>
         <source>Tool is Global</source>
         <translation>Verktyg är globala</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="153"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="152"/>
         <source>e.g. {GAME_NAME}</source>
         <translation>t. ex. {GAME_NAME}</translation>
     </message>
@@ -494,12 +550,12 @@ För att ta bort genvägen, öppna Steam och välj &quot;ta bort icke-Steam-spel
 <context>
     <name>PupguiCustomInstallDirectoryDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="42"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="43"/>
         <source>Custom Install Directory</source>
         <translation>Anpassad installationskatalog</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="86"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="92"/>
         <source>Select Custom Install Directory — ProtonUp-Qt</source>
         <translation>Välj anpassad installationskatalog — ProtonUp-Qt</translation>
     </message>
@@ -568,42 +624,43 @@ För att ta bort genvägen, öppna Steam och välj &quot;ta bort icke-Steam-spel
         <translation>klick</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="211"/>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="421"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="228"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="229"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="435"/>
         <source>Unknown</source>
         <translation>Okänd</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="216"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="224"/>
         <source>Installed at {DATE} ({TIME})</source>
         <translation>Installerades {DATE} ({TIME})</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="250"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="264"/>
         <source>Name: {compat_item_text}</source>
         <translation>Namn: {compat_item_text}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="252"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="266"/>
         <source>
 Path: {compat_tool_bin_path}</source>
         <translation>
 Sökväg: {compat_tool_bin_path}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="256"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="270"/>
         <source>
 Type: {wine_type}</source>
         <translation>
 Typ: {wine_type}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="259"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="273"/>
         <source>Browser</source>
         <translation>Webbläsare</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
         <source>Native</source>
         <translation>Native</translation>
     </message>
@@ -612,63 +669,63 @@ Typ: {wine_type}</translation>
         <translation type="vanished">Typ: Native</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="309"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="323"/>
         <source>Done</source>
         <translation>Klart</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="309"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="323"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="112"/>
         <source>Search</source>
         <translation>Sök</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="379"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="393"/>
         <source>Double click to browse...</source>
         <translation>Dubbelklicka för att bläddra...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="382"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="396"/>
         <source>Install location does not exist!</source>
         <translation>Installationsplats existerar inte!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="423"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="437"/>
         <source>Unsupported</source>
         <translation>Stöds inte</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="426"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="440"/>
         <source>Playable</source>
         <translation>Spelbar</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="428"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="442"/>
         <source>Native (playable)</source>
         <translation>Native (spelbar)</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="429"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="443"/>
         <source>Playable using {compat_tool}</source>
         <translation>Spelbar genom att använda {compat_tool}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="433"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="447"/>
         <source>Verified</source>
         <translation>Verifierad</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="435"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="449"/>
         <source>Native (verified)</source>
         <translation>Native (verifierad)</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="436"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="450"/>
         <source>Verified for {compat_tool}</source>
         <translation>Verifierad för {compat_tool}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="395"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="409"/>
         <source>Support was explicitly enabled / works out of the box</source>
         <translation>Stöd var uttryckligen aktiverat / fungerar direkt ut ur lådan</translation>
     </message>
@@ -683,47 +740,52 @@ Typ: {wine_type}</translation>
         <translation>Installerade spel: {NO_INSTALLED}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="230"/>
+        <source>Install Date is Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
         <source>Type: {PLATFORM}</source>
         <translation>Typ: {PLATFORM}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="269"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="283"/>
         <source>Double-click to open in browser</source>
         <translation>Dubbelklicka för att öppna i webbläsare</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="305"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="319"/>
         <source>e.g. {GAME_NAME}</source>
         <translation>t. ex. {GAME_NAME}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="398"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="412"/>
         <source>Game plans to support Proton/Wine</source>
         <translation>Spelet planerar att stödja Proton/Wine</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="401"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="415"/>
         <source>No official statement but runs fine (may require tinkering)</source>
         <translation>Inget officiellt uttalande men fungerar bra (kan kräva mixtrande)</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="404"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="418"/>
         <source>Anti-Cheat stops game from running properly</source>
         <translation>Anti-fusk stoppar spelet från att fungera som det ska</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="407"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="421"/>
         <source>Linux support was explicitly denied</source>
         <translation>Linux stöd nekades uttryckligen</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="410"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="424"/>
         <source>Anti-Cheat status unknown</source>
         <translation>Anti-fusk status okänd</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="341"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="355"/>
         <source>Confidence: {confidence}
 Score: {score}
 Trending: {trending}</source>
@@ -762,13 +824,13 @@ Trendar: {trending}</translation>
         <translation>Genvägsredigerare</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="285"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="299"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="119"/>
         <source>Apply</source>
         <translation>Tillämpa</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="284"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="298"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
@@ -776,115 +838,120 @@ Trendar: {trending}</translation>
 <context>
     <name>PupguiInstallDialog</name>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="26"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="20"/>
         <source>Install Compatibility Tool</source>
         <translation>Installera kompatibilitetsverktyg</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="106"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="91"/>
         <source>Info</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="113"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="98"/>
         <source>Install</source>
         <translation>Installera</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="120"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="105"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="47"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="32"/>
         <source>Compatibility tool:</source>
         <translation>Kompatibilitetsverktyg:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="61"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="46"/>
         <source>Version:</source>
         <translation>Version:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="71"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="56"/>
         <source>Description:</source>
         <translation>Beskrivning:</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
+        <source>Load more...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PupguiShortcutDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
+        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>App Name</source>
         <translation>Program namn</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
+        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Executable</source>
         <translation>Exekverbar</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
+        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Start Directory</source>
         <translation>Starta mapp</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
+        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Icon</source>
         <translation>Ikon</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="14"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="17"/>
         <source>Steam Shortcut Editor</source>
         <translation>Steam genvägsredigerare</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="54"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="57"/>
         <source>Add a new shortcut</source>
         <translation>Lägg till en ny genväg</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="57"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="60"/>
         <source>Add new</source>
         <translation>Lägg till ny</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="64"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
         <source>Click on a row, then click here to remove a shortcut</source>
         <translation>Klicka på en rad och klicka sedan här för att ta bort en genväg</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="70"/>
         <source>Remove selected</source>
         <translation>Ta bort valda</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>e.g. ProtonUp-Qt</source>
         <translation>t. ex. ProtonUp-Qt</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="80"/>
         <source>Search for a game...</source>
         <translation>Sök efter ett spel...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
         <source>Save changes and delete marked shortcuts</source>
         <translation>Spara ändringar och ta bort markerade genvägar</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="90"/>
         <source>Save</source>
         <translation>Spara</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="94"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
         <source>Close without saving changes or deleting shortcuts</source>
         <translation>Stäng utan att spara ändringar eller ta bort genvägar</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="100"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
@@ -892,7 +959,7 @@ Trendar: {trending}</translation>
 <context>
     <name>ctmod_00protonge</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="20"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="22"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
         <translation>Steam kompatibilitetsverktyg för att köra Windows-spel med förbättringar jämfört med Valves standardproton.&lt;br&gt;&lt;br&gt;&lt;b&gt;Använd detta när du inte vet vad du ska välja.&lt;/b&gt;</translation>
     </message>
@@ -900,9 +967,8 @@ Trendar: {trending}</translation>
 <context>
     <name>ctmod_00winege</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_00winege.py" line="21"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Based on Valve Proton Experimental&apos;s bleeding-edge Wine, built for Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>Kompatibilitetsverktyget &quot;Wine&quot; för att köra Windows-spel på Linux. Baserat på Valve Proton Experimentals bleeding-edge Wine, byggt för Lutris.&lt;br&gt;&lt;br&gt;&lt;b&gt;Använd detta när du inte vet vad du ska välja.&lt;/b&gt;</translation>
+        <translation type="vanished">Kompatibilitetsverktyget &quot;Wine&quot; för att köra Windows-spel på Linux. Baserat på Valve Proton Experimentals bleeding-edge Wine, byggt för Lutris.&lt;br&gt;&lt;br&gt;&lt;b&gt;Använd detta när du inte vet vad du ska välja.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -936,9 +1002,8 @@ Trendar: {trending}</translation>
 <context>
     <name>ctmod_d8vk</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_d8vk.py" line="21"/>
         <source>Vulkan-based implementation of Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation>Vulkan-baserad implementering av Direct3D 8/9/10/11 (Nightly).&lt;br&gt;&lt;br&gt;&lt;b&gt;Varning: Nightly-versionen är instabil, använd med försiktighet!&lt;/b&gt;</translation>
+        <translation type="vanished">Vulkan-baserad implementering av Direct3D 8/9/10/11 (Nightly).&lt;br&gt;&lt;br&gt;&lt;b&gt;Varning: Nightly-versionen är instabil, använd med försiktighet!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -952,7 +1017,7 @@ Trendar: {trending}</translation>
 <context>
     <name>ctmod_lutriswine</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="20"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="17"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
         <translation>Kompatibilitetsverktyget &quot;Wine&quot; för att köra Windows-spel på Linux. Förbättrad av Lutris för att erbjuda bättre kompatibilitet eller prestanda i vissa spel.</translation>
     </message>
@@ -960,7 +1025,7 @@ Trendar: {trending}</translation>
 <context>
     <name>ctmod_luxtorpeda</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="20"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="22"/>
         <source>Luxtorpeda provides Linux-native game engines for specific Windows-only games.</source>
         <translation>Luxtorpeda tillhandahåller Linux-baserade spelmotorer för specifika Windows-spel.</translation>
     </message>
@@ -972,9 +1037,24 @@ Trendar: {trending}</translation>
         <translation type="vanished">Protonbygge baserat på TKG:s proton-tkg för att köra Northstar-klienten + TitanFall 2. Av cyrv6737.&lt;br&gt;&lt;br&gt;&lt;b style=&quot;color:orange;&quot;&gt;Läs följande innan du fortsätter&lt;/b&gt;:&amp;lt; br/&amp;gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="19"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="17"/>
         <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/R2NorthstarTools/NorthstarProton&quot;&gt;https://github.com/R2NorthstarTools/NorthstarProton&lt;/a&gt;</source>
         <translation>Protonbygge baserad på TKG:s proton-tkg för att köra Northstar-klienten + TitanFall 2. Av cyrv6737.&lt;br&gt;&lt;br&gt;&lt;b style=&quot;color:orange;&quot;&gt;Läs följande innan du fortsätter&lt;/b&gt;:&amp;lt; br/&amp;gt;&lt;a href=&quot;https://github.com/R2NorthstarTools/NorthstarProton&quot;&gt;https://github.com/R2NorthstarTools/NorthstarProton&lt;/a&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>ctmod_protoncachyos</name>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_protoncachyos.py" line="29"/>
+        <source>
+        Steam compatibility tool from the CachyOS Linux distribution for running Windows games
+        with improvements over Valve&apos;s default Proton. Choose the one corresponding to your CPU.
+        &lt;br/&gt;&lt;br/&gt;
+        * &lt;b&gt;x86_64&lt;/b&gt;: Works on any x64_64 CPU
+        &lt;br/&gt;
+        * &lt;b&gt;x86_64_v3&lt;/b&gt;: For CPUs that support AVX2 and up
+        </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1028,9 +1108,17 @@ Detta bygge är baserat på &lt;b&gt;Wine Master&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
+    <name>ctmod_rtspgeproton</name>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="15"/>
+        <source>Fork of GE-Proton with enhanced Windows Media Foundation support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ctmod_steamplaynone</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="19"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="21"/>
         <source>Run Linux games as is, even if Valve recommends Proton for a game.&lt;br/&gt;Created by Scrumplex.&lt;br/&gt;&lt;br/&gt;Useful for Steam Deck.&lt;br/&gt;&lt;br/&gt;Note: The internal name has been changed from &lt;b&gt;none&lt;/b&gt; to &lt;b&gt;Steam-Play-None&lt;/b&gt;!</source>
         <translation>Kör Linux-spel som de är, även om Valve rekommenderar Proton för detta spel.&lt;br&gt;Skapat av Scrumplex.&lt;br&gt;&lt;br&gt;Användbart för Steam Deck.&lt;br&gt;&lt;br&gt;Obs: Det interna namnet har ändrats från &lt;b&gt;ingen&lt;/b&gt; till &lt;b&gt;Steam-Play-Ingen&lt;/b&gt;!</translation>
     </message>
@@ -1223,25 +1311,37 @@ i SteamTinkerLaunch-installationsguiden på dess GitHub-sida.</translation>
 <context>
     <name>ctmod_winetkg_valve_otherdistro</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>Anpassat Wine bygge för att köra Windows-spel, byggt med Wine-tkg bygg-systemet.</translation>
+        <translation type="vanished">Anpassat Wine bygge för att köra Windows-spel, byggt med Wine-tkg bygg-systemet.</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
+        <source>Custom Wine build for running Windows games, built with the Wine-tkg build system based on &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_winetkg_vanilla_ubuntu</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_vanilla_wine.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>Anpassat Wine bygge för att köra Windows-spel, byggt med Wine-tkg bygg-systemet.</translation>
+        <translation type="vanished">Anpassat Wine bygge för att köra Windows-spel, byggt med Wine-tkg bygg-systemet.</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="15"/>
+        <source>Custom Wine build for running Windows games, built with the Wine-tkg build system (Ubuntu CI) based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_z0dxvk</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="21"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>Vulkanbaserad implementering av Direct3D 9, 10 och 11 för Linux/Wine.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
+        <translation type="vanished">Vulkanbaserad implementering av Direct3D 9, 10 och 11 för Linux/Wine.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="22"/>
+        <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1251,28 +1351,36 @@ i SteamTinkerLaunch-installationsguiden på dess GitHub-sida.</translation>
         <translation type="vanished">Vulkanbaserad implementering av Direct3D 9, 10 och 11 för Linux/Wine med asynkron patch av Sporif.&lt;br&gt;&lt;br&gt;&lt;b&gt;Varning: Använd endast med singleplayer-spel!&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation>Vulkanbaserad implementering av Direct3D 9, 10 och 11 för Linux/Wine med gplasync-patch från Ph42oN.&lt;br&gt;&lt;br&gt;&lt;b&gt;Varning: Använd endast med singleplayer-spel!&lt;/b&gt;</translation>
+        <translation type="vanished">Vulkanbaserad implementering av Direct3D 9, 10 och 11 för Linux/Wine med gplasync-patch från Ph42oN.&lt;br&gt;&lt;br&gt;&lt;b&gt;Varning: Använd endast med singleplayer-spel!&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
+        <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_z2dxvknightly</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation>Nightly version av DXVK (master branch), en Vulkan-baserad implementering av Direct3D 9, 10 och 11 för Linux/Wine.&lt;br&gt;&lt;br&gt;&lt;b&gt;Varning: Nightly version är instabil, använd med försiktighet!&lt;/b&gt;</translation>
+        <translation type="vanished">Nightly version av DXVK (master branch), en Vulkan-baserad implementering av Direct3D 9, 10 och 11 för Linux/Wine.&lt;br&gt;&lt;br&gt;&lt;b&gt;Varning: Nightly version är instabil, använd med försiktighet!&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
+        <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>steamutil.py</name>
     <message>
-        <location filename="../pupgui2/steamutil.py" line="472"/>
+        <location filename="../pupgui2/steamutil.py" line="499"/>
         <source>Unable to Remove SteamTinkerLaunch</source>
         <translation>Kunde inte ta bort SteamTinkerLaunch</translation>
     </message>
     <message>
-        <location filename="../pupgui2/steamutil.py" line="475"/>
+        <location filename="../pupgui2/steamutil.py" line="502"/>
         <source>Access to SteamTinkerLaunch installation folder at &apos;{STL_SYMLINK_PATH}&apos; was denied, please remove this folder manually.
 
 The uninstallation will continue.</source>
@@ -1284,7 +1392,7 @@ Avinstallationen kommer att fortsätta.</translation>
 <context>
     <name>translator-text</name>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="41"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="40"/>
         <source>Translated by DavidoTek</source>
         <translation>Översatt av DavidoTek</translation>
     </message>
@@ -1292,29 +1400,29 @@ Avinstallationen kommer att fortsätta.</translation>
 <context>
     <name>util.py</name>
     <message>
-        <location filename="../pupgui2/util.py" line="332"/>
+        <location filename="../pupgui2/util.py" line="369"/>
         <source>Delete SteamTinkerLaunch configuration</source>
         <translation>Ta bort SteamTinkerLaunch konfiguration</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="333"/>
+        <location filename="../pupgui2/util.py" line="370"/>
         <source>Uninstalling SteamTinkerLaunch</source>
         <translation>Avinstallerar SteamTinkerLaunch</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="334"/>
+        <location filename="../pupgui2/util.py" line="371"/>
         <source>SteamTinkerLaunch will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove SteamTinkerLaunch.
 Do you want the configuration to be removed?</source>
         <translation>SteamTinkerLaunch kommer att tas bort från ditt system. Om det här verktyget installerades med ProtonUp-Qt kommer detta också att uppdatera din SÖKVÄG för att ta bort SteamTinkerLaunch.
 Vill du att konfigurationen ska tas bort?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="502"/>
+        <location filename="../pupgui2/util.py" line="560"/>
         <source>Warning: GitHub API rate limit exceeded!</source>
         <translation>Varning: GitHub API-hastighetsgräns har överskridits!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="503"/>
+        <location filename="../pupgui2/util.py" line="561"/>
         <source>GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.
 
 See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.</source>
@@ -1323,27 +1431,27 @@ See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 
 Se https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 för detaljer.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="516"/>
+        <location filename="../pupgui2/util.py" line="574"/>
         <source>Warning: GitLab API rate limit exceeded!</source>
         <translation>Varning: GitLab API-hastighetsgräns har överskridits!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="517"/>
+        <location filename="../pupgui2/util.py" line="575"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
         <translation>GitLab API-hastighetsgräns har överskridits. Du kanske vill vänta ett tag eller ange en GitLab API-nyckel som genereras för denna GitLab-instans om du har en.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="848"/>
+        <location filename="../pupgui2/util.py" line="923"/>
         <source>missing</source>
         <translation>saknas</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="849"/>
+        <location filename="../pupgui2/util.py" line="924"/>
         <source>found</source>
         <translation>hittades</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="851"/>
+        <location filename="../pupgui2/util.py" line="926"/>
         <source>You need following dependencies for {CT_NAME}:
 
 {DEP_ENUM}

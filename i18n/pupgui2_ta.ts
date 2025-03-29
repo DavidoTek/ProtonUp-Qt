@@ -4,20 +4,38 @@
 <context>
     <name>CtInstaller</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="108"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="105"/>
         <source>Missing dependencies!</source>
         <translation>சார்புகளைக் காணவில்லை!</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="75"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="79"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
+        <source>Download Error!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="80"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="70"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="76"/>
+        <source>Failed to download tool &apos;{CT_NAME}&apos;!
+
+Reason: {EXCEPTION}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CtLoader</name>
     <message>
-        <location filename="../pupgui2/ctloader.py" line="55"/>
+        <location filename="../pupgui2/ctloader.py" line="52"/>
         <source>Error!</source>
         <translation>பிழை!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/ctloader.py" line="57"/>
+        <location filename="../pupgui2/ctloader.py" line="54"/>
         <source>Couldn&apos;t load the following compatibility tool(s):
 {TOOL_LIST}
 
@@ -29,98 +47,131 @@ If you believe this is an error, please report a bug on GitHub!</source>
     </message>
 </context>
 <context>
+    <name>GitAccessTokenDialog</name>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
+        <source>Configure Git access tokens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
+        <source>GitHub:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
+        <source>Close</source>
+        <translation type="unfinished">மூடு</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
+        <source>GitLab:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
+        <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="253"/>
+        <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>unused</source>
         <translation>பயன்படுத்தப்படாதது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="253"/>
+        <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>global</source>
         <translation>உலகளாவிய</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="274"/>
+        <location filename="../pupgui2/pupgui2.py" line="298"/>
         <source>Unused: {unused_ctools}</source>
         <translation>பயன்படுத்தப்படாதது: {unused_ctools}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="297"/>
+        <location filename="../pupgui2/pupgui2.py" line="325"/>
         <source>Fetching releases...</source>
         <translation>வெளியீடுகளைப் பெறுதல் ...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="308"/>
+        <location filename="../pupgui2/pupgui2.py" line="336"/>
         <source>Download canceled.</source>
         <translation>பதிவிறக்கம் ரத்து செய்யப்பட்டது.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="312"/>
+        <location filename="../pupgui2/pupgui2.py" line="339"/>
         <source>Could not install {current_compat_tool_name}...</source>
         <translation>{current_compat_tool_name} ஐ நிறுவ முடியவில்லை ...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="319"/>
+        <location filename="../pupgui2/pupgui2.py" line="345"/>
         <source>Downloading {current_compat_tool_name}...</source>
         <translation>பதிவிறக்கம் {current_compat_tool_name} ...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="321"/>
+        <location filename="../pupgui2/pupgui2.py" line="347"/>
         <source>Extracting {current_compat_tool_name}...</source>
         <translation>பிரித்தெடுக்கும் {current_compat_tool_name} ...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="323"/>
+        <location filename="../pupgui2/pupgui2.py" line="349"/>
         <source>Installing {current_compat_tool_name}...</source>
         <translation>{current_compat_tool_name} ...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="325"/>
+        <location filename="../pupgui2/pupgui2.py" line="351"/>
         <source>Installed {current_compat_tool_name}.</source>
         <translation>நிறுவப்பட்டது {current_compat_tool_name}.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="348"/>
+        <location filename="../pupgui2/pupgui2.py" line="377"/>
         <source>Remove compatibility tools?</source>
         <translation>பொருந்தக்கூடிய கருவிகளை அகற்றவா?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="348"/>
+        <location filename="../pupgui2/pupgui2.py" line="377"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>பொருந்தக்கூடிய கருவிகளை அகற்ற முயற்சிக்கிறீர்கள்
  அவை {n} விளையாட்டுகளால் பயன்பாட்டில் உள்ளன. தொடரவா?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="355"/>
+        <location filename="../pupgui2/pupgui2.py" line="384"/>
         <source>Removed selected versions.</source>
         <translation>தேர்ந்தெடுக்கப்பட்ட பதிப்புகள் அகற்றப்பட்டன.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="369"/>
+        <location filename="../pupgui2/pupgui2.py" line="398"/>
         <source>Exit?</source>
         <translation>வெளியேற?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="369"/>
+        <location filename="../pupgui2/pupgui2.py" line="398"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
         <translation>பதிவிறக்கங்கள் நிலுவையில் உள்ளன.
  எப்படியும் ரத்து செய்து வெளியேறவா?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="377"/>
+        <location filename="../pupgui2/pupgui2.py" line="411"/>
         <source>Changed install directory to {install_dir}.</source>
         <translation>மாற்றப்பட்ட கோப்பகத்தை {install_dir பெறுநர் க்கு நிறுவவும்.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="428"/>
+        <location filename="../pupgui2/pupgui2.py" line="460"/>
         <source>Install tool from Flathub</source>
         <translation>பிளாட்டப்பிலிருந்து கருவியை நிறுவவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="431"/>
+        <location filename="../pupgui2/pupgui2.py" line="462"/>
         <source>Click to open your app store</source>
         <translation>உங்கள் ஆப் ச்டோரைத் திறக்க சொடுக்கு செய்க</translation>
     </message>
@@ -188,64 +239,64 @@ Cancel and exit anyway?</source>
 <context>
     <name>PuiguiCustomInstallDirectoryDialog</name>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="26"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="20"/>
         <source>Dialog</source>
         <translation>உரையாடல்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="44"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="29"/>
         <source>Specify a custom location for downloading and displaying a launcher&apos;s compatibility tools.</source>
         <translation>துவக்கியின் பொருந்தக்கூடிய கருவிகளைப் பதிவிறக்கி காண்பிப்பதற்கான தனிப்பயன் இருப்பிடத்தைக் குறிப்பிடவும்.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="56"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="41"/>
         <source>Directory:</source>
         <translation>அடைவு:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="66"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="51"/>
         <source>Launcher:</source>
         <translation>துவக்கி:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="87"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="85"/>
         <source>Reset the custom install directory back to default for this launcher</source>
         <translation>தனிப்பயன் நிறுவல் கோப்பகத்தை இந்த துவக்கத்திற்கான இயல்புநிலைக்கு மீட்டமைக்கவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="90"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="88"/>
         <source>Default</source>
         <translation>இயல்புநிலை</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="113"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="111"/>
         <source>Save</source>
         <translation>சேமி</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="26"/>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="107"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="20"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="105"/>
         <source>Batch Update</source>
         <translation>தொகுதி புதுப்பிப்பு</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="44"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="29"/>
         <source>Migrate games using the current compatibility tool to the one specified below.</source>
         <translation>தற்போதைய பொருந்தக்கூடிய கருவியைப் பயன்படுத்தி விளையாட்டுகளை கீழே குறிப்பிடப்பட்டுள்ளதாக மாற்றவும்.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="56"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="41"/>
         <source>New Version:</source>
         <translation>புதிய பதிப்பு:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="73"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="58"/>
         <source>Old Version:</source>
         <translation>பழைய பதிப்பு:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="114"/>
-        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="120"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="112"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="118"/>
         <source>Close</source>
         <translation>மூடு</translation>
     </message>
@@ -253,17 +304,17 @@ Cancel and exit anyway?</source>
 <context>
     <name>PupguiAboutDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>light</source>
         <translation>ஒளி</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>dark</source>
         <translation>இருண்ட</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="62"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>system (restart required)</source>
         <translation>கணினி (மறுதொடக்கம் தேவை)</translation>
     </message>
@@ -272,29 +323,29 @@ Cancel and exit anyway?</source>
         <translation type="vanished">Erneuere Steamliste</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="91"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="93"/>
         <source>Update available</source>
         <translation>புதுப்பிப்பு கிடைக்கிறது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="92"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="94"/>
         <source>There is a newer version available.
 You are running {APP_VERSION} but {newest_version} is available.</source>
         <translation>புதிய பதிப்பு உள்ளது.
  நீங்கள் {APP_VERSION} ஐ இயக்குகிறீர்கள், ஆனால் {newest_version} கிடைக்கிறது.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="98"/>
         <source>Up to date</source>
         <translation>புதுப்பித்த நிலையில்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="98"/>
         <source>You are running the newest version!</source>
         <translation>நீங்கள் புதிய பதிப்பை இயக்குகிறீர்கள்!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="101"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="103"/>
         <source>Added shortcut!</source>
         <translation>குறுக்குவழி சேர்க்கப்பட்டது!</translation>
     </message>
@@ -309,44 +360,49 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
         <translation>   &lt;p&gt; ஒயின் மற்றும் புரோட்டான் அடிப்படையிலான பொருந்தக்கூடிய கருவிகளை நிறுவ/புதுப்பிப்பதற்கான GUI. html&amp;gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="91"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="97"/>
         <source>Support development on GitHub</source>
         <translation>கிதுபில் வளர்ச்சி</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="122"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="128"/>
         <source>Color Theme:</source>
         <translation>வண்ண தீம்:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="139"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="145"/>
         <source>Enable advanced mode (show git-builds for compatibility tools etc.)</source>
         <translation>மேம்பட்ட பயன்முறையை இயக்கவும் (பொருந்தக்கூடிய கருவிகள் போன்றவற்றிற்கான GIT- கட்டமைப்புகளைக் காட்டு)</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="150"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="157"/>
+        <source>Edit Git access tokens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="182"/>
         <source>Check for updates</source>
         <translation>புதுப்பிப்புகளை சரிபார்க்கவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="170"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="202"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
         <translation>உங்கள் நீராவி நூலகத்திலிருந்து புரோட்டானப்-கியூடியைத் திறக்க குறுக்குவழியைச் சேர்க்கிறது.
  குறுக்குவழியை அகற்ற, நீராவியைத் திறந்து &quot;உங்கள் நூலகத்திலிருந்து நீராவி அல்லாத விளையாட்டை அகற்று&quot; என்பதைத் தேர்ந்தெடுக்கவும்.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="174"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="206"/>
         <source>Add Steam shortcut</source>
         <translation>நீராவி குறுக்குவழியைச் சேர்க்கவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="181"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="213"/>
         <source>About Qt</source>
         <translation>கியுடி பற்றி</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="188"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="220"/>
         <source>Close</source>
         <translation>மூடு</translation>
     </message>
@@ -447,38 +503,38 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <translation>மூடு</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="86"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
         <source>AppID</source>
         <translation>Appid</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="86"/>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="99"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
         <source>Name</source>
         <translation>பெயர்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="99"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
         <source>Slug</source>
         <translation>குருட்டடி</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="109"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="108"/>
         <source>Runner</source>
         <translation>ஓட்டப்பந்தய வீரர்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="109"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="108"/>
         <source>Game</source>
         <translation>விளையாட்டு</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="128"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="127"/>
         <source>Tool is Global</source>
         <translation>கருவி உலகளாவியதாகும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="153"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="152"/>
         <source>e.g. {GAME_NAME}</source>
         <translation>எ.கா. {GAME_NAME}</translation>
     </message>
@@ -486,12 +542,12 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
 <context>
     <name>PupguiCustomInstallDirectoryDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="42"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="43"/>
         <source>Custom Install Directory</source>
         <translation>தனிப்பயன் நிறுவல் அடைவு</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2customiddialog.py" line="86"/>
+        <location filename="../pupgui2/pupgui2customiddialog.py" line="92"/>
         <source>Select Custom Install Directory — ProtonUp-Qt</source>
         <translation>தனிப்பயன் நிறுவல் கோப்பகத்தைத் தேர்ந்தெடுக்கவும்-புரோட்டானப்-கியூடி</translation>
     </message>
@@ -560,42 +616,43 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <translation>சொடுக்கு செய்க</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="211"/>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="421"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="228"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="229"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="435"/>
         <source>Unknown</source>
         <translation>தெரியவில்லை</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="216"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="224"/>
         <source>Installed at {DATE} ({TIME})</source>
         <translation>{DATE} ({TIME}) இல் நிறுவப்பட்டுள்ளது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="250"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="264"/>
         <source>Name: {compat_item_text}</source>
         <translation>பெயர்: {compat_item_text}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="252"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="266"/>
         <source>
 Path: {compat_tool_bin_path}</source>
         <translation>
 பாதை: {compat_tool_bin_path}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="256"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="270"/>
         <source>
 Type: {wine_type}</source>
         <translation>
 வகை: {wine_type}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="259"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="273"/>
         <source>Browser</source>
         <translation>உலாவி</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
         <source>Native</source>
         <translation>பழமை</translation>
     </message>
@@ -604,63 +661,63 @@ Type: {wine_type}</source>
         <translation type="vanished">Typ: Nativ</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="309"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="323"/>
         <source>Done</source>
         <translation>முடிந்தது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="309"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="323"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="112"/>
         <source>Search</source>
         <translation>தேடல்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="379"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="393"/>
         <source>Double click to browse...</source>
         <translation>உலவ இரட்டை சொடுக்கவும் ...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="382"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="396"/>
         <source>Install location does not exist!</source>
         <translation>இடம் நிறுவல் இல்லை!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="423"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="437"/>
         <source>Unsupported</source>
         <translation>ஆதரிக்கப்படாதது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="426"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="440"/>
         <source>Playable</source>
         <translation>விளையாடக்கூடியது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="428"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="442"/>
         <source>Native (playable)</source>
         <translation>பழமை (விளையாடக்கூடியது)</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="429"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="443"/>
         <source>Playable using {compat_tool}</source>
         <translation>{Compat_tool below ஐப் பயன்படுத்தி இயக்கக்கூடியது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="433"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="447"/>
         <source>Verified</source>
         <translation>சரிபார்க்கப்பட்டது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="435"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="449"/>
         <source>Native (verified)</source>
         <translation>சொந்த (சரிபார்க்கப்பட்டது)</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="436"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="450"/>
         <source>Verified for {compat_tool}</source>
         <translation>{Compat_tool க்கு க்கு சரிபார்க்கப்பட்டது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="395"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="409"/>
         <source>Support was explicitly enabled / works out of the box</source>
         <translation>உதவி வெளிப்படையாக இயக்கப்பட்டது / பெட்டியின் வெளியே வேலை</translation>
     </message>
@@ -675,47 +732,52 @@ Type: {wine_type}</source>
         <translation>நிறுவப்பட்ட விளையாட்டுகள்: {NO_INSTALLED}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="260"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="230"/>
+        <source>Install Date is Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
         <source>Type: {PLATFORM}</source>
         <translation>வகை: {PLATFORM}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="269"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="283"/>
         <source>Double-click to open in browser</source>
         <translation>உலாவியில் திறக்க இருமுறை சொடுக்கு செய்யவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="305"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="319"/>
         <source>e.g. {GAME_NAME}</source>
         <translation>எ.கா. {GAME_NAME}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="398"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="412"/>
         <source>Game plans to support Proton/Wine</source>
         <translation>புரோட்டான்/ஒயின் ஆதரிக்க விளையாட்டு திட்டமிட்டுள்ளது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="401"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="415"/>
         <source>No official statement but runs fine (may require tinkering)</source>
         <translation>அதிகாரப்பூர்வ அறிக்கை இல்லை, ஆனால் நன்றாக இயங்குகிறது (டிங்கரிங் தேவைப்படலாம்)</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="404"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="418"/>
         <source>Anti-Cheat stops game from running properly</source>
         <translation>ஏமாற்ற எதிர்ப்பு விளையாட்டு சரியாக இயங்குவதை நிறுத்துகிறது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="407"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="421"/>
         <source>Linux support was explicitly denied</source>
         <translation>லினக்ச் உதவி வெளிப்படையாக மறுக்கப்பட்டது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="410"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="424"/>
         <source>Anti-Cheat status unknown</source>
         <translation>ஏமாற்ற எதிர்ப்பு நிலை தெரியவில்லை</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="341"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="355"/>
         <source>Confidence: {confidence}
 Score: {score}
 Trending: {trending}</source>
@@ -754,13 +816,13 @@ Trending: {trending}</source>
         <translation>குறுக்குவழி ஆசிரியர்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="285"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="299"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="119"/>
         <source>Apply</source>
         <translation>இடு</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="284"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="298"/>
         <source>Close</source>
         <translation>மூடு</translation>
     </message>
@@ -768,115 +830,120 @@ Trending: {trending}</source>
 <context>
     <name>PupguiInstallDialog</name>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="26"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="20"/>
         <source>Install Compatibility Tool</source>
         <translation>பொருந்தக்கூடிய கருவியை நிறுவவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="106"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="91"/>
         <source>Info</source>
         <translation>தகவல்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="113"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="98"/>
         <source>Install</source>
         <translation>நிறுவவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="120"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="105"/>
         <source>Cancel</source>
         <translation>ரத்துசெய்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="47"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="32"/>
         <source>Compatibility tool:</source>
         <translation>பொருந்தக்கூடிய கருவி:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="61"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="46"/>
         <source>Version:</source>
         <translation>பதிப்பு:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="71"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="56"/>
         <source>Description:</source>
         <translation>விளக்கம்:</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
+        <source>Load more...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PupguiShortcutDialog</name>
     <message>
-        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
+        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>App Name</source>
         <translation>பயன்பாட்டு பெயர்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
+        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Executable</source>
         <translation>இயங்கக்கூடிய</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
+        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Start Directory</source>
         <translation>கோப்பகத்தைத் தொடங்கவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="45"/>
+        <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Icon</source>
         <translation>படவுரு</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="14"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="17"/>
         <source>Steam Shortcut Editor</source>
         <translation>நீராவி குறுக்குவழி ஆசிரியர்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="54"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="57"/>
         <source>Add a new shortcut</source>
         <translation>புதிய குறுக்குவழியைச் சேர்க்கவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="57"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="60"/>
         <source>Add new</source>
         <translation>புதியதைச் சேர்க்கவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="64"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
         <source>Click on a row, then click here to remove a shortcut</source>
         <translation>ஒரு வரிசையில் சொடுக்கு செய்து, குறுக்குவழியை அகற்ற இங்கே சொடுக்கு செய்க</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="70"/>
         <source>Remove selected</source>
         <translation>தேர்ந்தெடுக்கப்பட்டதை அகற்று</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="74"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>e.g. ProtonUp-Qt</source>
         <translation>எ.கா. புரோட்டானப்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="80"/>
         <source>Search for a game...</source>
         <translation>ஒரு விளையாட்டைத் தேடுங்கள் ...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="84"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
         <source>Save changes and delete marked shortcuts</source>
         <translation>மாற்றங்களைச் சேமித்து குறிக்கப்பட்ட குறுக்குவழிகளை நீக்கவும்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="90"/>
         <source>Save</source>
         <translation>சேமி</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="94"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
         <source>Close without saving changes or deleting shortcuts</source>
         <translation>மாற்றங்களைச் சேமிக்காமல் அல்லது குறுக்குவழிகளை நீக்காமல் மூடு</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="100"/>
         <source>Close</source>
         <translation>மூடு</translation>
     </message>
@@ -884,7 +951,7 @@ Trending: {trending}</source>
 <context>
     <name>ctmod_00protonge</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="20"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="22"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
         <translation>வால்வின் இயல்புநிலை புரோட்டானில் மேம்பாடுகளுடன் சாளரங்கள் கேம்களை இயக்குவதற்கான நீராவி பொருந்தக்கூடிய கருவி.</translation>
     </message>
@@ -892,9 +959,8 @@ Trending: {trending}</source>
 <context>
     <name>ctmod_00winege</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_00winege.py" line="21"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Based on Valve Proton Experimental&apos;s bleeding-edge Wine, built for Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>லினக்சில் சாளரங்கள் கேம்களை இயக்க &quot;ஒயின்&quot; பொருந்தக்கூடிய கருவி. வால்வு புரோட்டான் சோதனை இரத்தப்போக்கு-விளிம்பில், லூட்ரிசுக்காக கட்டப்பட்டது.</translation>
+        <translation type="vanished">லினக்சில் சாளரங்கள் கேம்களை இயக்க &quot;ஒயின்&quot; பொருந்தக்கூடிய கருவி. வால்வு புரோட்டான் சோதனை இரத்தப்போக்கு-விளிம்பில், லூட்ரிசுக்காக கட்டப்பட்டது.</translation>
     </message>
 </context>
 <context>
@@ -928,9 +994,8 @@ Trending: {trending}</source>
 <context>
     <name>ctmod_d8vk</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_d8vk.py" line="21"/>
         <source>Vulkan-based implementation of Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation>நேரடி 3 டி 8/9/10/11 (இரவு) இன் வல்கன் அடிப்படையிலான செயல்படுத்தல். &lt;br&gt; &lt;br&gt; &lt;b&gt; எச்சரிக்கை: இரவு பதிப்பு நிலையற்றது, எச்சரிக்கையுடன் பயன்படுத்தவும்!&lt;/b&gt;</translation>
+        <translation type="vanished">நேரடி 3 டி 8/9/10/11 (இரவு) இன் வல்கன் அடிப்படையிலான செயல்படுத்தல். &lt;br&gt; &lt;br&gt; &lt;b&gt; எச்சரிக்கை: இரவு பதிப்பு நிலையற்றது, எச்சரிக்கையுடன் பயன்படுத்தவும்!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -944,7 +1009,7 @@ Trending: {trending}</source>
 <context>
     <name>ctmod_lutriswine</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="20"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="17"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
         <translation>லினக்சில் சாளரங்கள் கேம்களை இயக்க &quot;ஒயின்&quot; பொருந்தக்கூடிய கருவி. சில விளையாட்டுகளில் சிறந்த பொருந்தக்கூடிய தன்மை அல்லது செயல்திறனை வழங்க லூட்ரிசால் மேம்படுத்தப்பட்டது.</translation>
     </message>
@@ -952,7 +1017,7 @@ Trending: {trending}</source>
 <context>
     <name>ctmod_luxtorpeda</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="20"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="22"/>
         <source>Luxtorpeda provides Linux-native game engines for specific Windows-only games.</source>
         <translation>குறிப்பிட்ட சாளரங்கள் மட்டுமே விளையாட்டுகளுக்கு லினக்ச்-சொந்த விளையாட்டு இயந்திரங்களை லக்ச்டார்பிடா வழங்குகிறது.</translation>
     </message>
@@ -964,9 +1029,24 @@ Trending: {trending}</source>
         <translation type="vanished">Proton Build auf Basis von TKGs Proton-tkg, um den Northstar Client + TitanFall 2 zu nutzen. Von cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Vor dem Fortfahren bitte folgendes lesen&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="19"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="17"/>
         <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/R2NorthstarTools/NorthstarProton&quot;&gt;https://github.com/R2NorthstarTools/NorthstarProton&lt;/a&gt;</source>
         <translation>நார்த்ச்டார் கிளையன்ட் + டைட்டான்ஃபால் இயக்க டி.கே.சியின் புரோட்டான்-டி.கே.சி அடிப்படையில் புரோட்டான் உருவாக்கம். br/&amp;gt; &lt;a href=&quot;https://github.com/r2northstartools/northstarproton&quot;&gt; https://github.com/r2northstartools/northstarproton &lt;/a&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>ctmod_protoncachyos</name>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_protoncachyos.py" line="29"/>
+        <source>
+        Steam compatibility tool from the CachyOS Linux distribution for running Windows games
+        with improvements over Valve&apos;s default Proton. Choose the one corresponding to your CPU.
+        &lt;br/&gt;&lt;br/&gt;
+        * &lt;b&gt;x86_64&lt;/b&gt;: Works on any x64_64 CPU
+        &lt;br/&gt;
+        * &lt;b&gt;x86_64_v3&lt;/b&gt;: For CPUs that support AVX2 and up
+        </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1020,9 +1100,17 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
     </message>
 </context>
 <context>
+    <name>ctmod_rtspgeproton</name>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="15"/>
+        <source>Fork of GE-Proton with enhanced Windows Media Foundation support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ctmod_steamplaynone</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="19"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="21"/>
         <source>Run Linux games as is, even if Valve recommends Proton for a game.&lt;br/&gt;Created by Scrumplex.&lt;br/&gt;&lt;br/&gt;Useful for Steam Deck.&lt;br/&gt;&lt;br/&gt;Note: The internal name has been changed from &lt;b&gt;none&lt;/b&gt; to &lt;b&gt;Steam-Play-None&lt;/b&gt;!</source>
         <translation>லினக்ச் கேம்களை ஒரு விளையாட்டுக்கு புரோட்டானை பரிந்துரைத்தாலும் கூட. &lt;b&gt; எதுவுமில்லை &lt;/b&gt; இலிருந்து &lt;b&gt; நீராவி-விளையாட்டு-அல்ல-&lt;/b&gt; ஆக மாற்றப்பட்டது!</translation>
     </message>
@@ -1215,25 +1303,37 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
 <context>
     <name>ctmod_winetkg_valve_otherdistro</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>ஒயின்-டி.கே.சி பில்ட் சிச்டத்துடன் கட்டப்பட்ட சாளரங்கள் கேம்களை இயக்குவதற்கான தனிப்பயன் ஒயின் உருவாக்க.</translation>
+        <translation type="vanished">ஒயின்-டி.கே.சி பில்ட் சிச்டத்துடன் கட்டப்பட்ட சாளரங்கள் கேம்களை இயக்குவதற்கான தனிப்பயன் ஒயின் உருவாக்க.</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
+        <source>Custom Wine build for running Windows games, built with the Wine-tkg build system based on &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_winetkg_vanilla_ubuntu</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_vanilla_wine.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>ஒயின்-டி.கே.சி பில்ட் சிச்டத்துடன் கட்டப்பட்ட சாளரங்கள் கேம்களை இயக்குவதற்கான தனிப்பயன் ஒயின் உருவாக்க.</translation>
+        <translation type="vanished">ஒயின்-டி.கே.சி பில்ட் சிச்டத்துடன் கட்டப்பட்ட சாளரங்கள் கேம்களை இயக்குவதற்கான தனிப்பயன் ஒயின் உருவாக்க.</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="15"/>
+        <source>Custom Wine build for running Windows games, built with the Wine-tkg build system (Ubuntu CI) based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_z0dxvk</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="21"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>லினக்ச்/ஒயின் நேரடி 3 டி 9, 10 மற்றும் 11 இன் வல்கன் அடிப்படையிலான செயல்படுத்தல்.</translation>
+        <translation type="vanished">லினக்ச்/ஒயின் நேரடி 3 டி 9, 10 மற்றும் 11 இன் வல்கன் அடிப்படையிலான செயல்படுத்தல்.</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="22"/>
+        <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1243,28 +1343,36 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
         <translation type="vanished">Vulkan-basierte Implementierung von Direct3D 9, 10 und 11 für Linux/Wine mit Sporifs Async Patch.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Achtung: Nur für Singleplayer Spiele geeignet!&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation>PH42ON க்குள் GPlasync ஒட்டு கொண்ட லினக்ச்/ஒயின் டைரக்ட் 3 டி 9, 10 மற்றும் 11 இன் வல்கன் அடிப்படையிலான செயல்படுத்தல். &lt;br&gt; &lt;br&gt; &lt;b&gt; எச்சரிக்கை: சிங்கிள் பிளேயர் கேம்களுடன் மட்டுமே பயன்படுத்தவும்!&lt;/b&gt;</translation>
+        <translation type="vanished">PH42ON க்குள் GPlasync ஒட்டு கொண்ட லினக்ச்/ஒயின் டைரக்ட் 3 டி 9, 10 மற்றும் 11 இன் வல்கன் அடிப்படையிலான செயல்படுத்தல். &lt;br&gt; &lt;br&gt; &lt;b&gt; எச்சரிக்கை: சிங்கிள் பிளேயர் கேம்களுடன் மட்டுமே பயன்படுத்தவும்!&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
+        <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_z2dxvknightly</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation>டி.எக்ச்.வி.கே (மாச்டர் கிளை) இன் இரவு பதிப்பு, லினக்ச்/ஒயின் நேரடி 3 டி 9, 10 மற்றும் 11 இன் வல்கன் அடிப்படையிலான செயல்படுத்தல். &lt;br&gt; &lt;br&gt; &lt;b&gt; எச்சரிக்கை: இரவு பதிப்பு நிலையற்றது, எச்சரிக்கையுடன் பயன்படுத்தவும்! &amp;gt;&lt;/b&gt;</translation>
+        <translation type="vanished">டி.எக்ச்.வி.கே (மாச்டர் கிளை) இன் இரவு பதிப்பு, லினக்ச்/ஒயின் நேரடி 3 டி 9, 10 மற்றும் 11 இன் வல்கன் அடிப்படையிலான செயல்படுத்தல். &lt;br&gt; &lt;br&gt; &lt;b&gt; எச்சரிக்கை: இரவு பதிப்பு நிலையற்றது, எச்சரிக்கையுடன் பயன்படுத்தவும்! &amp;gt;&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
+        <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>steamutil.py</name>
     <message>
-        <location filename="../pupgui2/steamutil.py" line="472"/>
+        <location filename="../pupgui2/steamutil.py" line="499"/>
         <source>Unable to Remove SteamTinkerLaunch</source>
         <translation>Steamtinkerlaunch ஐ அகற்ற முடியவில்லை</translation>
     </message>
     <message>
-        <location filename="../pupgui2/steamutil.py" line="475"/>
+        <location filename="../pupgui2/steamutil.py" line="502"/>
         <source>Access to SteamTinkerLaunch installation folder at &apos;{STL_SYMLINK_PATH}&apos; was denied, please remove this folder manually.
 
 The uninstallation will continue.</source>
@@ -1276,7 +1384,7 @@ The uninstallation will continue.</source>
 <context>
     <name>translator-text</name>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="41"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="40"/>
         <source>Translated by DavidoTek</source>
         <translation>டேவிடோடெக் மொழிபெயர்த்தார்</translation>
     </message>
@@ -1284,29 +1392,29 @@ The uninstallation will continue.</source>
 <context>
     <name>util.py</name>
     <message>
-        <location filename="../pupgui2/util.py" line="332"/>
+        <location filename="../pupgui2/util.py" line="369"/>
         <source>Delete SteamTinkerLaunch configuration</source>
         <translation>Steamtinkerlaunch உள்ளமைவை நீக்கு</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="333"/>
+        <location filename="../pupgui2/util.py" line="370"/>
         <source>Uninstalling SteamTinkerLaunch</source>
         <translation>Steamtinkerlaunch ஐ நிறுவல் நீக்குதல்</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="334"/>
+        <location filename="../pupgui2/util.py" line="371"/>
         <source>SteamTinkerLaunch will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove SteamTinkerLaunch.
 Do you want the configuration to be removed?</source>
         <translation>உங்கள் கணினியிலிருந்து Steamtinkerlaunch அகற்றப்படும். இந்த கருவி புரோட்டானப்-கியூடி மூலம் நிறுவப்பட்டிருந்தால், இது ச்டீம்டின்கெர்லாஞ்சை அகற்ற உங்கள் பாதையையும் புதுப்பிக்கும்.
  உள்ளமைவு அகற்றப்பட வேண்டுமா?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="502"/>
+        <location filename="../pupgui2/util.py" line="560"/>
         <source>Warning: GitHub API rate limit exceeded!</source>
         <translation>எச்சரிக்கை: அறிவிலிமையம் பநிஇ வீத வரம்பு மீறியது!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="503"/>
+        <location filename="../pupgui2/util.py" line="561"/>
         <source>GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.
 
 See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.</source>
@@ -1315,27 +1423,27 @@ See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 
  விவரங்களுக்கு https://github.com/davidotek/protonup-qt/issues/161#issuecomment-1358200080 ஐப் பார்க்கவும்.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="516"/>
+        <location filename="../pupgui2/util.py" line="574"/>
         <source>Warning: GitLab API rate limit exceeded!</source>
         <translation>எச்சரிக்கை: அறிவிலிஆய்வு பநிஇ வீத வரம்பு மீறியது!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="517"/>
+        <location filename="../pupgui2/util.py" line="575"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
         <translation>அறிவிலிஆய்வு பநிஇ வீத வரம்பு மீறியது. உங்களிடம் சிறிது நேரம் காத்திருக்க விரும்பலாம் அல்லது உங்களிடம் ஒன்று இருந்தால் இந்த அறிவிலிஆய்வு நிகழ்வுக்காக உருவாக்கப்பட்ட அறிவிலிஆய்வு பநிஇ விசையை குறிப்பிடலாம்.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="848"/>
+        <location filename="../pupgui2/util.py" line="923"/>
         <source>missing</source>
         <translation>இல்லை</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="849"/>
+        <location filename="../pupgui2/util.py" line="924"/>
         <source>found</source>
         <translation>காணப்பட்டது</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="851"/>
+        <location filename="../pupgui2/util.py" line="926"/>
         <source>You need following dependencies for {CT_NAME}:
 
 {DEP_ENUM}
