@@ -51,32 +51,32 @@ Sollte dies ein Fehler sein, bitte einen GitHub Issue erstellen!</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
         <source>Configure Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Git Zugriffstoken konfigurieren</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
         <source>GitHub:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation type="unfinished">Schließen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
         <source>GitLab:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die GitHub/GitLab Zugriffstoken können hier angepasst werden, um das API Anfragenlimit zu umgehen.</translation>
     </message>
 </context>
 <context>
@@ -377,7 +377,7 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="157"/>
         <source>Edit Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Git API Zugriffstoken</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="182"/>
@@ -388,7 +388,7 @@ Sie haben {APP_VERSION}, aber {newest_version} ist verfügbar.</translation>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="202"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
-        <translation>Fügt eine Verknüpfung zu ProtonUp-Qt zur Steam Bibliothek hinzu.
+        <translation type="unfinished">Fügt eine Verknüpfung zu ProtonUp-Qt zur Steam Bibliothek hinzu.
 Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel entfernen&quot;.</translation>
     </message>
     <message>
