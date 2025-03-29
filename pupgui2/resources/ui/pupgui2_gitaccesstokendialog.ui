@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>Configure Git access tokens</string>
   </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
   <layout class="QFormLayout" name="formLayout">
    <item row="1" column="0">
     <widget class="QLabel" name="lblGitHubToken">
