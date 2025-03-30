@@ -1,3 +1,4 @@
 include pupgui2/resources/i18n/*.qm
 include pupgui2/resources/img/*.png
 include pupgui2/resources/ui/*.ui
+include pupgui2/resources/themes/*.qss
