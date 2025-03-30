@@ -18,6 +18,8 @@ The official development takes place on GitHub at [DavidoTek/ProtonUp-Qt](https:
 
 Website: [https://davidotek.github.io/protonup-qt](https://davidotek.github.io/protonup-qt)
 
+Wiki/Support: https://github.com/DavidoTek/ProtonUp-Qt/wiki
+
 ## Install from AUR: (Arch, Manjaro, EndeavourOS, etc.)
 
 ### Source 
