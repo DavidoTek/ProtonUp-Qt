@@ -21,20 +21,20 @@ CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z0dxvk', ''
 
 class CtInstaller(QObject):
 
-    BUFFER_SIZE = 65536
-    CT_URL = 'https://api.github.com/repos/doitsujin/dxvk/releases'
-    CT_INFO_URL = 'https://github.com/doitsujin/dxvk/releases/tag/'
+    BUFFER_SIZE: int = 65536
+    CT_URL: str = 'https://api.github.com/repos/doitsujin/dxvk/releases'
+    CT_INFO_URL: str = 'https://github.com/doitsujin/dxvk/releases/tag/'
 
-    p_download_progress_percent = 0
-    download_progress_percent = Signal(int)
-    message_box_message = Signal((str, str, QMessageBox.Icon))
+    p_download_progress_percent: int = 0
+    download_progress_percent: Signal = Signal(int)
+    message_box_message: Signal = Signal((str, str, QMessageBox.Icon))
 
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
-        self.p_download_canceled = False
-        self.release_format = 'tar.gz'
+        self.p_download_canceled: bool = False
+        self.release_format: str = 'tar.gz'
 
-        self.rs = requests.Session()
+        self.rs: requests.Session = requests.Session()
         rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
         self.rs.headers.update(rs_headers)
 
@@ -95,7 +95,7 @@ class CtInstaller(QObject):
         """
         return True
 
-    def fetch_releases(self, count=100, page=1):
+    def fetch_releases(self, count: int = 100, page: int = 1):
         """
         List available releases
         Return Type: list[str]
@@ -139,7 +139,7 @@ class CtInstaller(QObject):
         # If unknown archive format, cannot extract, so default to fail
         return False
 
-    def get_tool(self, version, install_dir, temp_dir):
+    def get_tool(self, version: str, install_dir: str, temp_dir: str) -> bool:
         """
         Download and install the compatibility tool
         Return Type: bool
@@ -150,7 +150,7 @@ class CtInstaller(QObject):
             return False
 
         # Should be updated to support Heroic, like ctmod_d8vk
-        dxvk_archive = os.path.join(temp_dir, data['download'].split('/')[-1])
+        dxvk_archive: str = os.path.join(temp_dir, data['download'].split('/')[-1])
         if not self.__download(url=data['download'], destination=dxvk_archive, known_size=data.get('size', 0)):
             return False
 
@@ -161,7 +161,7 @@ class CtInstaller(QObject):
 
         return True
 
-    def get_info_url(self, version):
+    def get_info_url(self, version: str) -> str:
         """
         Get link with info about version (eg. GitHub release page)
         Return Type: str
