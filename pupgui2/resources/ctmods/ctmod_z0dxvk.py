@@ -102,14 +102,30 @@ class CtInstaller(QObject):
         """
         return fetch_project_releases(self.CT_URL, self.rs, count=count, page=page)
 
+    def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
+
+        """
+        Get needed download data and path to extract directory.
+        Return Type: diple[dict | None, str | None]
+        """
+
+        data = self.__fetch_data(version)
+        if not data or 'download' not in data:
+            return (None, None)
+
+        dxvk_dir = self.get_extract_dir(install_dir)
+
+        return (data, dxvk_dir)
+
+
     def get_tool(self, version, install_dir, temp_dir):
         """
         Download and install the compatibility tool
         Return Type: bool
         """
 
-        data = self.__fetch_data(version)
-        if not data or 'download' not in data:
+        data, dxvk_dir = self.__get_data(version, install_dir)
+        if not data:
             return False
 
         # Should be updated to support Heroic, like ctmod_d8vk
@@ -117,8 +133,7 @@ class CtInstaller(QObject):
         if not self.__download(url=data['download'], destination=dxvk_tar, known_size=data.get('size', 0)):
             return False
 
-        dxvk_dir = self.get_extract_dir(install_dir)
-        if not extract_tar(dxvk_tar, dxvk_dir, mode='gz'):
+        if not dxvk_dir or not extract_tar(dxvk_tar, dxvk_dir, mode='gz'):
             return False
 
         self.__set_download_progress_percent(100)
