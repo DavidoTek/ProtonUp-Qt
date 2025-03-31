@@ -9,7 +9,7 @@ import requests
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.networkutil import download_file
-from pupgui2.util import extract_tar, get_launcher_from_installdir, fetch_project_releases
+from pupgui2.util import extract_tar, extract_zip, get_launcher_from_installdir, fetch_project_releases
 from pupgui2.util import fetch_project_release_data, build_headers_with_authorization
 from pupgui2.datastructures import Launcher
 
@@ -117,6 +117,27 @@ class CtInstaller(QObject):
 
         return (data, dxvk_dir)
 
+    def __extract(self, archive_path: str, extract_dir: str) -> bool:
+
+        """
+        Extract the tool archive at the given path.
+        Return Type: bool
+        """
+
+        if not archive_path or not extract_dir:
+            return False
+        
+        # DXVK and DXVK Async are 'tar.gz'
+        if self.release_format.startswith('tar'):
+            tar_type = self.release_format.split('.')[-1]
+
+            return extract_tar(archive_path, extract_dir, mode=tar_type)
+        # DXVK Nightly is 'zip'
+        elif self.release_format == 'zip':
+            return extract_zip(archive_path, extract_dir)
+
+        # If unknown archive format, cannot extract, so default to fail
+        return False
 
     def get_tool(self, version, install_dir, temp_dir):
         """
@@ -129,11 +150,11 @@ class CtInstaller(QObject):
             return False
 
         # Should be updated to support Heroic, like ctmod_d8vk
-        dxvk_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
-        if not self.__download(url=data['download'], destination=dxvk_tar, known_size=data.get('size', 0)):
+        dxvk_archive = os.path.join(temp_dir, data['download'].split('/')[-1])
+        if not self.__download(url=data['download'], destination=dxvk_archive, known_size=data.get('size', 0)):
             return False
 
-        if not dxvk_dir or not extract_tar(dxvk_tar, dxvk_dir, mode='gz'):
+        if not dxvk_dir or not self.__extract(dxvk_archive, dxvk_dir):
             return False
 
         self.__set_download_progress_percent(100)
