@@ -15,8 +15,6 @@ from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QShortcut, QKeySequence
 
-from typing import Union
-
 
 class PupguiCtInfoDialog(QObject):
 
@@ -26,7 +24,7 @@ class PupguiCtInfoDialog(QObject):
         super(PupguiCtInfoDialog, self).__init__(parent)
         self.parent = parent
         self.ctool = ctool
-        self.games: list[Union[SteamApp, LutrisGame, HeroicGame]] = []
+        self.games: list[SteamApp | LutrisGame | HeroicGame] = []
         self.install_loc = install_loc
         self.is_batch_update_available = False
 
