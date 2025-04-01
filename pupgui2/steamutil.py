@@ -1,5 +1,4 @@
 import os
-from typing import Union
 import shutil
 import subprocess
 import json
@@ -150,7 +149,7 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
     return apps
 
 
-def get_steam_game_list(steam_config_folder: str, compat_tool: Union[BasicCompatTool, None]=None, cached=False) -> list[SteamApp]:
+def get_steam_game_list(steam_config_folder: str, compat_tool: BasicCompatTool | None=None, cached=False) -> list[SteamApp]:
     """
     Returns a list of installed Steam games and which compatibility tools they are using.
     Specify compat_tool to only return games using the specified tool.
@@ -161,7 +160,7 @@ def get_steam_game_list(steam_config_folder: str, compat_tool: Union[BasicCompat
     return [app for app in apps if app.app_type == 'game' and (compat_tool is None or app.compat_tool == compat_tool.get_internal_name() or ctool_is_runtime_for_app(app, compat_tool))]
 
 
-def ctool_is_runtime_for_app(app: SteamApp, compat_tool: Union[BasicCompatTool, None]):
+def ctool_is_runtime_for_app(app: SteamApp, compat_tool: BasicCompatTool | None):
     """
     Check if a compatibility tool name corresponds to a runtime in use by a SteamApp by comparing a hardcoded name against app.anticheat_runtimes
     Example: Compatibility tool name is 'ProtonEasyAntiCheatRuntime' and the app.anticheat_runtimes has RuntimeType.EAC as True
