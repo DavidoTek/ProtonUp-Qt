@@ -14,7 +14,7 @@ import random
 import zstandard
 
 from configparser import ConfigParser
-from typing import Any, Dict, List, Union, Tuple, Optional, Callable
+from typing import Any, Union, Tuple, Optional, Callable
 
 import PySide6
 from PySide6.QtCore import QCoreApplication
@@ -50,8 +50,8 @@ def create_msgbox(
         execute: Whether to execute the message box after creating, default to True.
     Returns:
         A QMessageBox if execute is set to False, else returns the exit code from the message box.
-        If custom buttons (parameter buttons) are specified, a tuple (QMessageBox, List[QMessageBox.StandardButton])
-            or (int, List[QMessageBox.StandardButton]) is returned.
+        If custom buttons (parameter buttons) are specified, a tuple (QMessageBox, list[QMessageBox.StandardButton])
+            or (int, list[QMessageBox.StandardButton]) is returned.
     """
     msg_box = QMessageBox()
     msg_box.setWindowTitle(title)
@@ -232,10 +232,10 @@ def is_valid_launcher_installation(loc) -> bool:
     return os.path.exists(install_dir)  # Default to path check for all other launchers
 
 
-def available_install_directories() -> List[str]:
+def available_install_directories() -> list[str]:
     """
     List available install directories
-    Return Type: List[str]
+    Return Type: list[str]
     """
     available_dirs = []
     for loc in POSSIBLE_INSTALL_LOCATIONS:
@@ -249,7 +249,7 @@ def available_install_directories() -> List[str]:
     return available_dirs
 
 
-def get_install_location_from_directory_name(install_dir: str) -> Dict[str, str]:
+def get_install_location_from_directory_name(install_dir: str) -> dict[str, str]:
     """
     Get install location dict from install directory name
     Return Type: dict
@@ -298,7 +298,7 @@ def install_directory(target=None) -> str:
     return ''
 
 
-def config_custom_install_location(install_dir=None, launcher='', remove=False) -> Dict[str, Any]:
+def config_custom_install_location(install_dir=None, launcher='', remove=False) -> dict[str, Any]:
     """
     Read/update config for the custom install location
     Write install_dir, launcher to config or read if install_dir=None or launcher=None
@@ -335,11 +335,11 @@ def config_custom_install_location(install_dir=None, launcher='', remove=False) 
     return {'install_dir': install_dir, 'display_name': '', 'launcher': launcher}
 
 
-def list_installed_ctools(install_dir: str, without_version=False) -> List[str]:
+def list_installed_ctools(install_dir: str, without_version=False) -> list[str]:
     """
     List installed compatibility tool versions
     Returns the name of the tool and the version from VERSION.txt if without_version=False
-    Return Type: List[str]
+    Return Type: list[str]
     """
     versions_found = []
 
@@ -378,10 +378,10 @@ def remove_ctool(ver: str, install_dir: str) -> bool:
     return False
 
 
-def sort_compatibility_tool_names(unsorted: List[str], reverse=False) -> List[str]:
+def sort_compatibility_tool_names(unsorted: list[str], reverse=False) -> list[str]:
     """
     Sort the list of compatibility tools: First sort alphabetically using sorted() then sort by Proton version
-    Return Type: List[str]
+    Return Type: list[str]
     """
     unsorted = sorted(unsorted)
     ver_dict = {}
@@ -495,10 +495,10 @@ def download_awacy_gamelist() -> None:
     t.start()
 
 
-def get_installed_ctools(install_dir: str) -> List[BasicCompatTool]:
+def get_installed_ctools(install_dir: str) -> list[BasicCompatTool]:
     """
     Returns installed compatibility tools sorted after name/version
-    Return Type: List[BasicCompatTool]
+    Return Type: list[BasicCompatTool]
     """
     ctools = []
 
@@ -602,7 +602,7 @@ def is_online(host='https://api.github.com/rate_limit/', timeout=5) -> bool:
 
 
 # Only used for dxvk and dxvk-async right now, but is potentially useful to more ctmods?
-def fetch_project_releases(releases_url: str, rs: requests.Session, count=100, page=1) -> List[str]:
+def fetch_project_releases(releases_url: str, rs: requests.Session, count=100, page=1) -> list[str]:
 
     """
     List available releases for a given project URL hosted using requests.
@@ -624,7 +624,7 @@ def fetch_project_releases(releases_url: str, rs: requests.Session, count=100, p
     return [release[tag_key] for release in releases if tag_key in release]
 
 
-def get_assets_from_release(release_url: str, release: dict) -> Dict:
+def get_assets_from_release(release_url: str, release: dict) -> dict:
 
     """
     Parse the assets list out of a given release.
@@ -720,7 +720,7 @@ def build_headers_with_authorization(request_headers: dict[str, Any], authorizat
 
     return updated_headers
 
-def compat_tool_available(compat_tool: str, ctobjs: List[dict]) -> bool:
+def compat_tool_available(compat_tool: str, ctobjs: list[dict]) -> bool:
     """ Return whether a compat tool is available for a given launcher """
 
     return compat_tool in [ctobj['name'] for ctobj in ctobjs]
@@ -905,7 +905,7 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
         return Launcher.UNKNOWN
 
 
-def create_missing_dependencies_message(ct_name: str, dependencies: List[str]) -> Tuple[str, bool]:
+def create_missing_dependencies_message(ct_name: str, dependencies: list[str]) -> Tuple[str, bool]:
 
     """
     Generate a string message noting which dependencies are missing for a ctmod_name, with tr_context to translate relevant strings.
