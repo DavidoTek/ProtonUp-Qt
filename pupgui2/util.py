@@ -14,7 +14,7 @@ import random
 import zstandard
 
 from configparser import ConfigParser
-from typing import Any, Optional, Callable
+from typing import Any, Callable
 
 import PySide6
 from PySide6.QtCore import QCoreApplication
@@ -639,7 +639,7 @@ def get_assets_from_release(release_url: str, release: dict) -> dict:
         return {}
 
 
-def get_download_url_from_asset(release_url: str, asset: dict, release_format: str, asset_condition: Optional[Callable] = None) -> str:
+def get_download_url_from_asset(release_url: str, asset: dict, release_format: str, asset_condition: Callable | None = None) -> str:
 
     """
     Fetch the download link from a release asset matching a given release format and optional condition lambda.
@@ -662,7 +662,7 @@ def get_download_url_from_asset(release_url: str, asset: dict, release_format: s
 
 
 # TODO in future if this is re-used for other ctmods other than DXVK and dxvk-async, try to parse more data i.e. checksum
-def fetch_project_release_data(release_url: str, release_format: str, rs: requests.Session, tag: str = '', asset_condition: Optional[Callable] = None) -> dict:
+def fetch_project_release_data(release_url: str, release_format: str, rs: requests.Session, tag: str = '', asset_condition: Callable | None = None) -> dict:
 
     """
     Fetch information about a given release based on its tag, with an optional condition lambda.
