@@ -15,7 +15,7 @@ from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QShortcut, QKeySequence
 
-from typing import List, Union
+from typing import Union
 
 
 class PupguiCtInfoDialog(QObject):
@@ -26,7 +26,7 @@ class PupguiCtInfoDialog(QObject):
         super(PupguiCtInfoDialog, self).__init__(parent)
         self.parent = parent
         self.ctool = ctool
-        self.games: List[Union[SteamApp, LutrisGame, HeroicGame]] = []
+        self.games: list[Union[SteamApp, LutrisGame, HeroicGame]] = []
         self.install_loc = install_loc
         self.is_batch_update_available = False
 
@@ -111,7 +111,7 @@ class PupguiCtInfoDialog(QObject):
             self.ui.listGames.setItem(i, 0, QTableWidgetItem(game.runner))
             self.ui.listGames.setItem(i, 1, QTableWidgetItem(game.title))
 
-    def setup_game_list(self, row_count: int, header_labels: List[str]):
+    def setup_game_list(self, row_count: int, header_labels: list[str]):
         self.ui.listGames.clear()
         self.ui.listGames.setRowCount(row_count)
         self.ui.listGames.setHorizontalHeaderLabels(header_labels)
