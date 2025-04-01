@@ -1,5 +1,5 @@
 import os
-from typing import Dict, List, Union
+from typing import List, Union
 import shutil
 import subprocess
 import json
@@ -174,12 +174,12 @@ def ctool_is_runtime_for_app(app: SteamApp, compat_tool: Union[BasicCompatTool, 
         or 'battleyeruntime' in compat_tool_name and app.anticheat_runtimes[RuntimeType.BATTLEYE]
 
 
-def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicCompatTool], cached=False) -> Dict[BasicCompatTool, List[SteamApp]]:
+def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicCompatTool], cached=False) -> dict[BasicCompatTool, List[SteamApp]]:
     """
     Returns a dict that maps a list of Steam games to each compatibility given in the compat_tools parameter.
     Steam games without a selected compatibility tool are not included.
     Informal Example: { GE-Proton7-43: [GTA V, Cyberpunk 2077], SteamTinkerLaunch: [Vecter, Terraria] }
-    Return Type: Dict[BasicCompatTool, List[SteamApp]]
+    Return Type: dict[BasicCompatTool, List[SteamApp]]
     """
     ct_game_map = {}
 
@@ -240,10 +240,10 @@ def get_steam_acruntime_list(steam_config_folder: str, cached=False) -> List[Bas
     return runtimes
 
 
-def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]:
+def _get_steam_ctool_info(steam_config_folder: str) -> dict[str, dict[str, str]]:
     """
     Returns a dict that maps the compatibility tool appid to tool info (name e.g. 'proton_7' and from_oslist)
-    Return Type: Dict[str, dict]
+    Return Type: dict[str, dict]
         Contents: appid str -> {'name', 'from_oslist'}
     """
     global _cached_steam_ctool_id_map
@@ -408,7 +408,7 @@ def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -
     return True
 
 
-def steam_update_ctools(games: Dict[SteamApp, str], steam_config_folder='') -> bool:
+def steam_update_ctools(games: dict[SteamApp, str], steam_config_folder='') -> bool:
     """
     Change compatibility tool for multiple games in Steam config vdf.
     Return Type: bool
@@ -656,7 +656,7 @@ def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamAp
     users_folder = os.path.realpath(os.path.join(os.path.expanduser(steam_config_folder), os.pardir, 'userdata'))
 
     # group shortcuts by user like this: {user1: {sid1: shortcut1, sid2: shortcut2}, user2: {sid3: shortcut3}}
-    shortcuts_by_user: Dict[Dict[SteamApp]] = {}
+    shortcuts_by_user: dict[dict[SteamApp]] = {}
     for shortcut in shortcuts:
         if shortcut.shortcut_user not in shortcuts_by_user:
             shortcuts_by_user[shortcut.shortcut_user] = {}
