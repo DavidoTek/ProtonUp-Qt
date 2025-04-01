@@ -1,5 +1,4 @@
 import os
-from typing import Dict, List, Union
 import shutil
 import subprocess
 import json
@@ -42,11 +41,11 @@ def get_steam_vdf_compat_tool_mapping(vdf_file: dict) -> dict:
     return m
 
 
-def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=False) -> List[SteamApp]:
+def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=False) -> list[SteamApp]:
     """
     Returns a list of installed Steam apps and optionally game names and the compatibility tool they are using
     steam_config_folder = e.g. '~/.steam/root/config'
-    Return Type: List[SteamApp]
+    Return Type: list[SteamApp]
     """
     global _cached_app_list
 
@@ -98,12 +97,12 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
     return apps
 
 
-def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) -> List[SteamApp]:
+def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) -> list[SteamApp]:
     """
     Returns a list of Steam shortcut apps (Non-Steam games added to the library) and the compatibility tool they are using
     steam_config_folder = e.g. '~/.steam/root/config'
     compat_tools (optional): dict, mapping the compat tools from config.vdf. Will be loaded from steam_config_folder if not specified
-    Return Type: List[SteamApp]
+    Return Type: list[SteamApp]
     """
     users_folder = os.path.realpath(os.path.join(os.path.expanduser(steam_config_folder), os.pardir, 'userdata'))
     config_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'config.vdf')
@@ -150,18 +149,18 @@ def get_steam_shortcuts_list(steam_config_folder: str, compat_tools: dict=None) 
     return apps
 
 
-def get_steam_game_list(steam_config_folder: str, compat_tool: Union[BasicCompatTool, None]=None, cached=False) -> List[SteamApp]:
+def get_steam_game_list(steam_config_folder: str, compat_tool: BasicCompatTool | None=None, cached=False) -> list[SteamApp]:
     """
     Returns a list of installed Steam games and which compatibility tools they are using.
     Specify compat_tool to only return games using the specified tool.
-    Return Type: List[SteamApp]
+    Return Type: list[SteamApp]
     """
     apps = get_steam_app_list(steam_config_folder, cached=cached)
 
     return [app for app in apps if app.app_type == 'game' and (compat_tool is None or app.compat_tool == compat_tool.get_internal_name() or ctool_is_runtime_for_app(app, compat_tool))]
 
 
-def ctool_is_runtime_for_app(app: SteamApp, compat_tool: Union[BasicCompatTool, None]):
+def ctool_is_runtime_for_app(app: SteamApp, compat_tool: BasicCompatTool | None):
     """
     Check if a compatibility tool name corresponds to a runtime in use by a SteamApp by comparing a hardcoded name against app.anticheat_runtimes
     Example: Compatibility tool name is 'ProtonEasyAntiCheatRuntime' and the app.anticheat_runtimes has RuntimeType.EAC as True
@@ -174,12 +173,12 @@ def ctool_is_runtime_for_app(app: SteamApp, compat_tool: Union[BasicCompatTool, 
         or 'battleyeruntime' in compat_tool_name and app.anticheat_runtimes[RuntimeType.BATTLEYE]
 
 
-def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicCompatTool], cached=False) -> Dict[BasicCompatTool, List[SteamApp]]:
+def get_steam_ct_game_map(steam_config_folder: str, compat_tools: list[BasicCompatTool], cached=False) -> dict[BasicCompatTool, list[SteamApp]]:
     """
     Returns a dict that maps a list of Steam games to each compatibility given in the compat_tools parameter.
     Steam games without a selected compatibility tool are not included.
     Informal Example: { GE-Proton7-43: [GTA V, Cyberpunk 2077], SteamTinkerLaunch: [Vecter, Terraria] }
-    Return Type: Dict[BasicCompatTool, List[SteamApp]]
+    Return Type: dict[BasicCompatTool, list[SteamApp]]
     """
     ct_game_map = {}
 
@@ -194,10 +193,10 @@ def get_steam_ct_game_map(steam_config_folder: str, compat_tools: List[BasicComp
     return ct_game_map
 
 
-def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=False) -> List[SteamApp]:
+def get_steam_ctool_list(steam_config_folder: str, only_proton=False, cached=False) -> list[SteamApp]:
     """
     Returns a list of installed Steam compatibility tools (official tools).
-    Return Type: List[SteamApp]
+    Return Type: list[SteamApp]
     """
     ctools = []
     apps = get_steam_app_list(steam_config_folder, cached=cached)
@@ -224,10 +223,10 @@ def get_steam_global_ctool_name(steam_config_folder: str) -> str:
     return d.get('0', {}).get('name', '')
 
 
-def get_steam_acruntime_list(steam_config_folder: str, cached=False) -> List[BasicCompatTool]:
+def get_steam_acruntime_list(steam_config_folder: str, cached=False) -> list[BasicCompatTool]:
     """
     Returns a list of installed Steam Proton anticheat(EAC/BattlEye) Runtimes.
-    Return Type: List[BasicCompatTool]
+    Return Type: list[BasicCompatTool]
     """
     runtimes = []
     apps = get_steam_app_list(steam_config_folder, cached=cached)
@@ -240,10 +239,10 @@ def get_steam_acruntime_list(steam_config_folder: str, cached=False) -> List[Bas
     return runtimes
 
 
-def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]:
+def _get_steam_ctool_info(steam_config_folder: str) -> dict[str, dict[str, str]]:
     """
     Returns a dict that maps the compatibility tool appid to tool info (name e.g. 'proton_7' and from_oslist)
-    Return Type: Dict[str, dict]
+    Return Type: dict[str, dict]
         Contents: appid str -> {'name', 'from_oslist'}
     """
     global _cached_steam_ctool_id_map
@@ -276,7 +275,7 @@ def _get_steam_ctool_info(steam_config_folder: str) -> Dict[str, Dict[str, str]]
 def update_steamapp_info(steam_config_folder: str, steamapp_list: list[SteamApp]) -> list[SteamApp]:
     """
     Get Steam game names and information for provided SteamApps
-    Return Type: List[SteamApp]
+    Return Type: list[SteamApp]
     """
     appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
     appinfo_file = os.path.realpath(appinfo_file)
@@ -326,10 +325,10 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: list[SteamApp]
     return list(sapps.values())
 
 
-def update_steamapp_awacystatus(steamapp_list: List[SteamApp]) -> List[SteamApp]:  # Download file in thread on start...
+def update_steamapp_awacystatus(steamapp_list: list[SteamApp]) -> list[SteamApp]:  # Download file in thread on start...
     """
     Set the areweanticheatyet.com for the games.
-    Return Type: List[SteamApp]
+    Return Type: list[SteamApp]
     """
     if not os.path.exists(LOCAL_AWACY_GAME_LIST):
         return steamapp_list
@@ -408,7 +407,7 @@ def steam_update_ctool(game: SteamApp, new_ctool=None, steam_config_folder='') -
     return True
 
 
-def steam_update_ctools(games: Dict[SteamApp, str], steam_config_folder='') -> bool:
+def steam_update_ctools(games: dict[SteamApp, str], steam_config_folder='') -> bool:
     """
     Change compatibility tool for multiple games in Steam config vdf.
     Return Type: bool
@@ -640,7 +639,7 @@ def install_steam_library_shortcut(steam_config_folder: str, remove_shortcut=Fal
     return 0
 
 
-def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamApp], delete_sids: List[int]) -> None:
+def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: list[SteamApp], delete_sids: list[int]) -> None:
     """
     Updates the Steam shortcuts.vdf file with the provided shortcuts
     It will update existing shortcuts and add new ones
@@ -648,15 +647,15 @@ def write_steam_shortcuts_list(steam_config_folder: str, shortcuts: List[SteamAp
     Parameters:
         steam_config_folder: str
             Path to the Steam config folder, e.g. '/home/user/.steam/root/config'
-        shortcuts: List[SteamApp]
+        shortcuts: list[SteamApp]
             List of shortcuts to add/update
-        delete_sids: List[int]
+        delete_sids: list[int]
             List of shortcut ids to delete
     """
     users_folder = os.path.realpath(os.path.join(os.path.expanduser(steam_config_folder), os.pardir, 'userdata'))
 
     # group shortcuts by user like this: {user1: {sid1: shortcut1, sid2: shortcut2}, user2: {sid3: shortcut3}}
-    shortcuts_by_user: Dict[Dict[SteamApp]] = {}
+    shortcuts_by_user: dict[dict[SteamApp]] = {}
     for shortcut in shortcuts:
         if shortcut.shortcut_user not in shortcuts_by_user:
             shortcuts_by_user[shortcut.shortcut_user] = {}
@@ -733,7 +732,7 @@ def calc_shortcut_app_id(appname: str, exe: str) -> int:
     return (binascii.crc32(key.encode()) | 0x80000000) - 0x100000000
 
 
-def get_steam_user_list(steam_config_folder: str) -> List[SteamUser]:
+def get_steam_user_list(steam_config_folder: str) -> list[SteamUser]:
     """
     Returns a list of Steam users
 
@@ -741,7 +740,7 @@ def get_steam_user_list(steam_config_folder: str) -> List[SteamUser]:
         steam_config_folder: str
             e.g. '~/.steam/root/config'
 
-    Return Type: List[SteamUser]
+    Return Type: list[SteamUser]
     """
     loginusers_vdf_file = os.path.join(os.path.expanduser(steam_config_folder), 'loginusers.vdf')
 
@@ -771,13 +770,13 @@ def get_steam_user_list(steam_config_folder: str) -> List[SteamUser]:
     return users
 
 
-def determine_most_recent_steam_user(steam_users: List[SteamUser]) -> SteamUser:
+def determine_most_recent_steam_user(steam_users: list[SteamUser]) -> SteamUser:
     """
     Returns the Steam user that was logged-in most recent, otherwise the first user or None.
     Looks for the first user with most_recent=True.
 
     Parameters:
-        steam_users: List[SteamUser]
+        steam_users: list[SteamUser]
             list of steam users, from get_steam_user_list()
 
     Return Type: SteamUser|None
