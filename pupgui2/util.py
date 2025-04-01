@@ -14,7 +14,7 @@ import random
 import zstandard
 
 from configparser import ConfigParser
-from typing import Any, Tuple, Optional, Callable
+from typing import Any, Optional, Callable
 
 import PySide6
 from PySide6.QtCore import QCoreApplication
@@ -32,7 +32,7 @@ def create_msgbox(
     title: str,
     text: str,
     info_text: str = None,
-    buttons: QMessageBox.StandardButton | Tuple[QMessageBox.StandardButton] = QMessageBox.Ok,
+    buttons: QMessageBox.StandardButton | tuple[QMessageBox.StandardButton] = QMessageBox.Ok,
     default_button: QMessageBox.StandardButton = QMessageBox.Ok,
     detailed_text: str = None,
     icon: QMessageBox.Icon = QMessageBox.Information,
@@ -905,13 +905,13 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
         return Launcher.UNKNOWN
 
 
-def create_missing_dependencies_message(ct_name: str, dependencies: list[str]) -> Tuple[str, bool]:
+def create_missing_dependencies_message(ct_name: str, dependencies: list[str]) -> tuple[str, bool]:
 
     """
     Generate a string message noting which dependencies are missing for a ctmod_name, with tr_context to translate relevant strings.
     Return the string message and a boolean to note whether the dependencies were met or not.
 
-    Return Type: Tuple[str, bool]
+    Return Type: tuple[str, bool]
     """
 
     deps_found = [ host_which(dep) for dep in dependencies ]
