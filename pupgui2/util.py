@@ -14,7 +14,7 @@ import random
 import zstandard
 
 from configparser import ConfigParser
-from typing import Any, Union, Tuple, Optional, Callable
+from typing import Any, Tuple, Optional, Callable
 
 import PySide6
 from PySide6.QtCore import QCoreApplication
@@ -32,12 +32,12 @@ def create_msgbox(
     title: str,
     text: str,
     info_text: str = None,
-    buttons: Union[QMessageBox.StandardButton, Tuple[QMessageBox.StandardButton]] = QMessageBox.Ok,
+    buttons: QMessageBox.StandardButton | Tuple[QMessageBox.StandardButton] = QMessageBox.Ok,
     default_button: QMessageBox.StandardButton = QMessageBox.Ok,
     detailed_text: str = None,
     icon: QMessageBox.Icon = QMessageBox.Information,
     execute: bool = True,
-) -> Union[int, QMessageBox]:
+) -> int | QMessageBox:
     """
     Create a new message box and show it (if execute=True) or return it (if execute=False)
     Args:
