@@ -14,7 +14,7 @@
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
         <source>Download Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>下載發生錯誤！</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
@@ -24,7 +24,9 @@
         <source>Failed to download tool &apos;{CT_NAME}&apos;!
 
 Reason: {EXCEPTION}</source>
-        <translation type="unfinished"></translation>
+        <translation>下載工具「{CT_NAME}」失敗！
+
+原因：{EXCEPTION}</translation>
     </message>
 </context>
 <context>
@@ -51,32 +53,32 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
         <source>Configure Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>配置 Git access tokens</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
         <source>GitHub:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitHub:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
         <source>Save</source>
-        <translation type="unfinished">儲存</translation>
+        <translation>儲存</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation type="unfinished">關閉</translation>
+        <translation>關閉</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
         <source>GitLab:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitLab:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>此對話框可讓您設定 GitHub/GitLab API 的 access tokens，以防止 API 速率限制警告。</translation>
     </message>
 </context>
 <context>
@@ -385,7 +387,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="157"/>
         <source>Edit Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>編輯 Git access tokens</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="182"/>
@@ -742,7 +744,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="230"/>
         <source>Install Date is Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>安裝日期未知</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
@@ -875,7 +877,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
         <source>Load more...</source>
-        <translation type="unfinished"></translation>
+        <translation>載入更多⋯</translation>
     </message>
 </context>
 <context>
@@ -1054,7 +1056,14 @@ Trending: {trending}</source>
         &lt;br/&gt;
         * &lt;b&gt;x86_64_v3&lt;/b&gt;: For CPUs that support AVX2 and up
         </source>
-        <translation type="unfinished"></translation>
+        <translation>
+        CachyOS Linux 發行版中的 Steam 相容工具，用於執行 Windows 遊戲，
+        與 Valve 預設的 Proton 相比有所改進。選擇與您的 CPU 相對應的一個。
+        &lt;br&gt;&lt;br&gt;
+        * &lt;b&gt;x86_64&lt;/b&gt;: 適用於任何 x64_64 CPU
+        &lt;br&gt;
+        * &lt;b&gt;x86_64_v3&lt;/b&gt;: 適用於支援 AVX2 及更高版本的 CPU
+        </translation>
     </message>
 </context>
 <context>
@@ -1112,7 +1121,7 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="15"/>
         <source>Fork of GE-Proton with enhanced Windows Media Foundation support.</source>
-        <translation type="unfinished"></translation>
+        <translation>GE-Proton 的分支，增強了對 Windows Media Foundation 的支援。</translation>
     </message>
 </context>
 <context>
@@ -1317,7 +1326,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system based on &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>用於執行 Windows 遊戲的自訂 Wine 版本，採用基於 &lt;b&gt;Valve Wine blood_edge&lt;/b&gt; 的 Wine-tkg 構建系統構建。</translation>
     </message>
 </context>
 <context>
@@ -1329,7 +1338,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system (Ubuntu CI) based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>用於執行 Windows 遊戲的自訂 Wine 版本，採用基於 &lt;b&gt;Valve Wine blood_edge&lt;/b&gt; 的 Wine-tkg 構建系統 (Ubuntu CI) 構建。</translation>
     </message>
 </context>
 <context>
@@ -1341,7 +1350,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="22"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>基於 Vulkan 的 Linux/Wine 版 Direct3D 8、9、10 和 11 實作。&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1357,7 +1366,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>基於 Vulkan 的 Direct3D 8、9、10 和 11 在 Linux/Wine 上的實作，並由 Ph42oN 提供 gplasync 修補程式。 &lt;br&gt;&lt;br&gt;&lt;b&gt;警告：僅用於單人遊戲！ &lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1369,7 +1378,7 @@ SteamTinkerLaunch 有許多&lt;b&gt;可選依賴項&lt;/b&gt;，必須單獨安�
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>DXVK 的每夜版本（主分支），基於 Vulkan 的 Direct3D 8、9、10 和 11 的 Linux/Wine 實作。 &lt;br&gt;&lt;br&gt;&lt;b&gt;警告：每夜版本不穩定，請謹慎使用！ &lt;/b&gt;</translation>
     </message>
 </context>
 <context>
