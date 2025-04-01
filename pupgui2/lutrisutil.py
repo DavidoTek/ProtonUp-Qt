@@ -1,5 +1,4 @@
 import os
-from typing import List
 import sqlite3
 
 from pupgui2.datastructures import LutrisGame
@@ -8,10 +7,10 @@ from pupgui2.datastructures import LutrisGame
 LUTRIS_PGA_GAMELIST_QUERY = 'SELECT slug, name, runner, installer_slug, installed_at, directory FROM games'
 
 
-def get_lutris_game_list(install_loc) -> List[LutrisGame]:
+def get_lutris_game_list(install_loc) -> list[LutrisGame]:
     """
     Returns a list of installed games in Lutris
-    Return Type: List[LutrisGame]
+    Return Type: list[LutrisGame]
     """
     install_dir = os.path.expanduser(install_loc.get('install_dir'))
     lutris_data_dir = os.path.join(install_dir, os.pardir, os.pardir)
