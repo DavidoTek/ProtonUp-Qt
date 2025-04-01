@@ -4,7 +4,6 @@ import yaml
 import json
 
 from enum import Enum
-from typing import Dict
 
 from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, STEAMLINUXRUNTIME_APPID
 
@@ -243,7 +242,7 @@ class HeroicGame:
     art_cover: str  # Optional?
     art_square: str  # Optional?
     is_installed: bool  # Not always set properly by Heroic for GOG?
-    wine_info: Dict[str, str]  # can store bin, name, and type - Has to be fetched from GamesConfig/app_name.json
+    wine_info: dict[str, str]  # can store bin, name, and type - Has to be fetched from GamesConfig/app_name.json
     platform: str  # Game platform, stored differently for sideload, GOG and legendary
     executable: str  # Path to game executable, always stored at 'start.sh' for native Linux GOG games 
     is_dlc: bool  # Stored for GOG and legendary, defaults to False for sideloaded
