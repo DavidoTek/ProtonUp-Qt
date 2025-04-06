@@ -55,6 +55,9 @@ class CtInstaller(DXVKInstaller):
                 workflow_runs_response_json: dict = self.rs.get(workflow_runs_request_url).json()
 
                 for run in workflow_runs_response_json.get('workflow_runs', {}):
+                    if run['head_branch'] != 'master':
+                        continue
+
                     if run['conclusion'] == "failure":
                         at_least_one_failed = True
 
