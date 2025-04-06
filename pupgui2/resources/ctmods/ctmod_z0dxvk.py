@@ -9,7 +9,7 @@ import requests
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.networkutil import download_file
-from pupgui2.util import extract_tar, extract_zip, get_launcher_from_installdir, fetch_project_releases
+from pupgui2.util import extract_tar, get_launcher_from_installdir, fetch_project_releases
 from pupgui2.util import fetch_project_release_data, build_headers_with_authorization
 from pupgui2.datastructures import Launcher
 
@@ -128,16 +128,9 @@ class CtInstaller(QObject):
             return False
         
         # DXVK and DXVK Async are 'tar.gz'
-        if self.release_format.startswith('tar'):
-            tar_type = self.release_format.split('.')[-1]
+        tar_type = self.release_format.split('.')[-1]
 
-            return extract_tar(archive_path, extract_dir, mode=tar_type)
-        # DXVK Nightly is 'zip'
-        elif self.release_format == 'zip':
-            return extract_zip(archive_path, extract_dir)
-
-        # If unknown archive format, cannot extract, so default to fail
-        return False
+        return extract_tar(archive_path, extract_dir, mode=tar_type)
 
     def get_tool(self, version: str, install_dir: str, temp_dir: str) -> bool:
         """

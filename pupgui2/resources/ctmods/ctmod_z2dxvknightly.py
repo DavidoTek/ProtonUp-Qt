@@ -6,7 +6,7 @@ import os
 
 from PySide6.QtCore import QCoreApplication
 
-from pupgui2.util import ghapi_rlcheck
+from pupgui2.util import extract_zip, ghapi_rlcheck
 
 from pupgui2.resources.ctmods.ctmod_z0dxvk import CtInstaller as DXVKInstaller
 
@@ -136,6 +136,18 @@ class CtInstaller(DXVKInstaller):
         dxvk_dir = os.path.join(install_dir, '../../runtime/dxvk', 'dxvk-git-' + data['version'])
 
         return (data, dxvk_dir)
+
+    def __extract(self, archive_path: str, extract_dir: str) -> bool:
+
+        """
+        Extract the tool archive at the given path.
+        Return Type: bool
+        """
+
+        if not archive_path or not extract_dir:
+            return False
+
+        return extract_zip(archive_path, extract_dir)
 
     def get_info_url(self, version: str) -> str:
 
