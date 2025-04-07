@@ -29,7 +29,7 @@ class CtInstaller(GEProtonInstaller):
 
         self.release_format = 'tar.xz'
     
-    def __fetch_github_data(self, tag):
+    def __fetch_github_data(self, tag: str) -> dict:
 
         """
         Fetch GitHub release information
@@ -56,11 +56,3 @@ class CtInstaller(GEProtonInstaller):
         ldd_min = int(ldd_ver.split(b'.')[1])
         return False if ldd_maj < 2 else ldd_min >= 27 or ldd_maj != 2
 
-    def fetch_releases(self, count: int = 100, page: int = 1) -> list[str]:
- 
-        """
-        List available releases
-        Return Type: str[]
-        """
-
-        return fetch_project_releases(self.CT_URL, self.rs, count=count, page=page)

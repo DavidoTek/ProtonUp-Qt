@@ -128,7 +128,7 @@ class CtInstaller(QObject):
 
         return (data, protondir)
 
-    def is_system_compatible(self):
+    def is_system_compatible(self) -> bool:
         """
         Are the system requirements met?
         Return Type: bool
