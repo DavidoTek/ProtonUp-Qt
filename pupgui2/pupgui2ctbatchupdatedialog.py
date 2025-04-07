@@ -1,7 +1,7 @@
 import pkgutil
 
 from PySide6.QtCore import Signal, Qt, QObject, QDataStream, QByteArray
-from PySide6.QtWidgets import QLabel, QFormLayout
+from PySide6.QtWidgets import QFormLayout, QLabel
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.steamutil import is_steam_running, steam_update_ctool
@@ -23,12 +23,12 @@ class PupguiCtBatchUpdateDialog(QObject):
         self.setup_ui(current_ctool_name)
         self.ui.show()
 
-    def load_ui(self):
+    def load_ui(self) -> None:
         data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_ctbatchupdatedialog.ui')
         ui_file = QDataStream(QByteArray(data))
         self.ui = QUiLoader().load(ui_file.device())
 
-    def setup_ui(self, current_ctool_name: str):
+    def setup_ui(self, current_ctool_name: str) -> None:
         # Doing ctool checks here instead of before showing the batch update button on ctinfo dialog covers case where
         # compatibility tool may have been available but then was removed (maybe manually?) -- Is potentially just more robust
         combobox_ctools = [ctool for ctool in self.ctools if 'Proton' in ctool and current_ctool_name not in ctool]
@@ -50,13 +50,13 @@ class PupguiCtBatchUpdateDialog(QObject):
         else:  # Spacer label
             self.ui.formLayout.addRow(QLabel())
 
-    def add_warning_message(self, msg: str, layout, stylesheet: str = 'QLabel { color: orange; }'):
+    def add_warning_message(self, msg: str, layout: QFormLayout, stylesheet: str = 'QLabel { color: orange; }'):
         """
         Add a QLabel warning message with a default Orange stylesheet to display a warning message in a Layout.
         """
 
         lblWarning = QLabel(msg)
-        lblWarning.setAlignment(Qt.AlignCenter)
+        lblWarning.setAlignment(Qt.AlignmentFlag.AlignCenter)
         lblWarning.setStyleSheet(stylesheet)
         layout.addRow(lblWarning)
 
