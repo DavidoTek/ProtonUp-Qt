@@ -9,7 +9,7 @@ import hashlib
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import fetch_project_releases, ghapi_rlcheck, extract_tar
+from pupgui2.util import fetch_project_releases, extract_tar
 from pupgui2.util import build_headers_with_authorization
 from pupgui2.networkutil import download_file
 
