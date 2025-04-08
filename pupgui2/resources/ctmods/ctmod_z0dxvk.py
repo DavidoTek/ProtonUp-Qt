@@ -21,20 +21,20 @@ CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_z0dxvk', ''
 
 class CtInstaller(QObject):
 
-    BUFFER_SIZE = 65536
-    CT_URL = 'https://api.github.com/repos/doitsujin/dxvk/releases'
-    CT_INFO_URL = 'https://github.com/doitsujin/dxvk/releases/tag/'
+    BUFFER_SIZE: int = 65536
+    CT_URL: str = 'https://api.github.com/repos/doitsujin/dxvk/releases'
+    CT_INFO_URL: str = 'https://github.com/doitsujin/dxvk/releases/tag/'
 
-    p_download_progress_percent = 0
-    download_progress_percent = Signal(int)
-    message_box_message = Signal((str, str, QMessageBox.Icon))
+    p_download_progress_percent: int = 0
+    download_progress_percent: Signal = Signal(int)
+    message_box_message: Signal = Signal((str, str, QMessageBox.Icon))
 
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
-        self.p_download_canceled = False
-        self.release_format = 'tar.gz'
+        self.p_download_canceled: bool = False
+        self.release_format: str = 'tar.gz'
 
-        self.rs = requests.Session()
+        self.rs: requests.Session = requests.Session()
         rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
         self.rs.headers.update(rs_headers)
 
@@ -95,37 +95,66 @@ class CtInstaller(QObject):
         """
         return True
 
-    def fetch_releases(self, count=100, page=1):
+    def fetch_releases(self, count: int = 100, page: int = 1):
         """
         List available releases
         Return Type: list[str]
         """
         return fetch_project_releases(self.CT_URL, self.rs, count=count, page=page)
 
-    def get_tool(self, version, install_dir, temp_dir):
+    def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
+
+        """
+        Get needed download data and path to extract directory.
+        Return Type: diple[dict | None, str | None]
+        """
+
+        data = self.__fetch_data(version)
+        if not data or 'download' not in data:
+            return (None, None)
+
+        dxvk_dir = self.get_extract_dir(install_dir)
+
+        return (data, dxvk_dir)
+
+    def __extract(self, archive_path: str, extract_dir: str) -> bool:
+
+        """
+        Extract the tool archive at the given path.
+        Return Type: bool
+        """
+
+        if not archive_path or not extract_dir:
+            return False
+        
+        # DXVK and DXVK Async are 'tar.gz'
+        tar_type = self.release_format.split('.')[-1]
+
+        return extract_tar(archive_path, extract_dir, mode=tar_type)
+
+    def get_tool(self, version: str, install_dir: str, temp_dir: str) -> bool:
         """
         Download and install the compatibility tool
         Return Type: bool
         """
 
-        data = self.__fetch_data(version)
-        if not data or 'download' not in data:
+        data, dxvk_dir = self.__get_data(version, install_dir)
+        if not data:
             return False
 
         # Should be updated to support Heroic, like ctmod_d8vk
-        dxvk_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
-        if not self.__download(url=data['download'], destination=dxvk_tar, known_size=data.get('size', 0)):
+        dxvk_archive: str = os.path.join(temp_dir, data['download'].split('/')[-1])
+        if not self.__download(url=data['download'], destination=dxvk_archive, known_size=data.get('size', 0)):
             return False
 
-        dxvk_dir = self.get_extract_dir(install_dir)
-        if not extract_tar(dxvk_tar, dxvk_dir, mode='gz'):
+        if not dxvk_dir or not self.__extract(dxvk_archive, dxvk_dir):
             return False
 
         self.__set_download_progress_percent(100)
 
         return True
 
-    def get_info_url(self, version):
+    def get_info_url(self, version: str) -> str:
         """
         Get link with info about version (eg. GitHub release page)
         Return Type: str
