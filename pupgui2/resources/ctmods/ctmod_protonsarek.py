@@ -2,11 +2,9 @@
 # pythonlover02's Proton-Sarek
 # Copyright (C) 2025 DavidoTek, partially based on AUNaseef's protonup
 
-import os
-
 from PySide6.QtCore import QCoreApplication
 
-from pupgui2.util import fetch_project_release_data, ghapi_rlcheck
+from pupgui2.util import fetch_project_release_data, fetch_project_releases
 
 from pupgui2.resources.ctmods.ctmod_00protonge import CtInstaller as GEProtonInstaller
 
@@ -36,21 +34,10 @@ class CtInstaller(GEProtonInstaller):
         Return Type: str[]
         """
 
-        tags: list[str] = []
-        for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={count}&page={page}').json()):
-            if not 'tag_name' in release:
-                continue
+        include_extra_asset = lambda release: release['tag_name'] + self.async_suffix if any(self.async_suffix in asset['name'] for asset in release['assets']) else None
+        return fetch_project_releases(self.CT_URL, self.rs, count=count, page=page, include_extra_asset=include_extra_asset)
 
-            tags.append(release['tag_name'])
-            if 'assets' not in release or len(release['assets']) <= 0:
-                continue
-
-            if any(self.async_suffix in asset['name'] for asset in release['assets']):
-                tags.append(release['tag_name'] + self.async_suffix)
-
-        return tags
-
-    def __fetch_github_data(self, tag: str, is_async: bool) -> dict:
+    def __fetch_github_data(self, tag: str) -> dict:
 
         """
         Fetch GitHub release information
@@ -60,30 +47,8 @@ class CtInstaller(GEProtonInstaller):
         """
 
         # Exclude async builds by default -- Maybe 'get_download_url_from_asset' needs to be stricter?
-        asset_condition = lambda asset: self.async_suffix not in asset['name']
-        if is_async:
-            asset_condition = lambda asset: self.async_suffix in asset['name']
-
-        return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, asset_condition=asset_condition)
-
-    def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
-
-        """
-        Get needed download data and path to extract directory.
-        Return Type: tuple[dict | None, str | None]
-        """
-
-        is_async = self.async_suffix in version
-        if is_async:
-            version = version.replace(self.async_suffix, '')
-
-        data = self.__fetch_github_data(version, is_async)
-        if not data or 'download' not in data:
-            return (None, None)
-
-        protondir = os.path.join(install_dir, data['version'])
-
-        return (data, protondir)
+        asset_condition = lambda asset: self.async_suffix in asset['name'] if self.async_suffix in tag else self.async_suffix not in asset['name']
+        return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag.replace(self.async_suffix, ''), asset_condition=asset_condition)
 
     def get_info_url(self, version: str) -> str:
 
