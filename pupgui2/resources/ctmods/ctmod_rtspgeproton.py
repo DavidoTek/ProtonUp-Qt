@@ -1,5 +1,5 @@
 # pupgui2 compatibility tools module
-# Roberta
+# SpookySkeleton's RTSP-GE-Proton
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
 from PySide6.QtCore import QCoreApplication
@@ -20,4 +20,3 @@ class CtInstaller(GEProtonInstaller):
 
     def __init__(self, main_window = None):
         super().__init__(main_window)
-
