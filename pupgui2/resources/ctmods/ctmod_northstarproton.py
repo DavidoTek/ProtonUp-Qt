@@ -4,7 +4,7 @@
 
 from PySide6.QtCore import QCoreApplication
 
-from pupgui2.util import fetch_project_release_data, fetch_project_releases
+from pupgui2.util import fetch_project_release_data
 
 from pupgui2.resources.ctmods.ctmod_00protonge import CtInstaller as GEProtonInstaller
 
@@ -25,14 +25,6 @@ class CtInstaller(GEProtonInstaller):
         super().__init__(main_window)
 
         self.release_format: str = 'tar.gz'
-
-    def fetch_releases(self, count: int = 100, page: int = 1) -> list[str]:
-        """
-        List available releases
-        Return Type: str[]
-        """
-
-        return fetch_project_releases(self.CT_URL, self.rs, count=count, page=page)
 
     def __fetch_github_data(self, tag: str) -> dict:
         """

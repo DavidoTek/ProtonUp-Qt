@@ -9,7 +9,7 @@ import hashlib
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import ghapi_rlcheck, extract_tar
+from pupgui2.util import fetch_project_releases, ghapi_rlcheck, extract_tar
 from pupgui2.util import build_headers_with_authorization
 from pupgui2.networkutil import download_file
 
@@ -128,19 +128,20 @@ class CtInstaller(QObject):
 
         return (data, protondir)
 
-    def is_system_compatible(self):
+    def is_system_compatible(self) -> bool:
         """
         Are the system requirements met?
         Return Type: bool
         """
         return True
 
-    def fetch_releases(self, count=100, page=1):
+    def fetch_releases(self, count: int = 100, page: int = 1) -> list[str]:
         """
         List available releases
         Return Type: str[]
         """
-        return [release['tag_name'] for release in ghapi_rlcheck(self.rs.get(f'{self.CT_URL}?per_page={count}&page={page}').json()) if 'tag_name' in release]
+
+        return fetch_project_releases(self.CT_URL, self.rs, count=count)
 
     def get_tool(self, version, install_dir, temp_dir):
         """
