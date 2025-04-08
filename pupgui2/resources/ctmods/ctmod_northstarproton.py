@@ -2,7 +2,7 @@
 # cyrv6737's NorthstarProton for TitanFall 2
 # Copyright (C) 2022 DavidoTek, partially based on AUNaseef's protonup
 
-from PySide6.QtCore import QObject, Signal, Property, QCoreApplication
+from PySide6.QtCore import QCoreApplication
 
 from pupgui2.util import fetch_project_release_data, fetch_project_releases
 
