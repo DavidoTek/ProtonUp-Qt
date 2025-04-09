@@ -668,8 +668,7 @@ def get_download_url_from_asset(release_url: str, asset: dict, release_format: s
     return ''
 
 
-# TODO in future if this is re-used for other ctmods other than DXVK and dxvk-async, try to parse more data i.e. checksum
-def fetch_project_release_data(release_url: str, release_format: str, rs: requests.Session, tag: str = '', asset_condition: Callable | None = None) -> dict:
+def fetch_project_release_data(release_url: str, release_format: str, rs: requests.Session, tag: str = '', checksum_suffix: str = '', asset_condition: Callable | None = None) -> dict:
 
     """
     Fetch information about a given release based on its tag, with an optional condition lambda.
@@ -699,7 +698,13 @@ def fetch_project_release_data(release_url: str, release_format: str, rs: reques
             values['download'] = asset_url
             values['size'] = asset.get('size', None)
 
-            break
+        if bool(checksum_suffix) and not 'checksum' in values:
+            checksum_url = get_download_url_from_asset(release_url, asset, release_format=checksum_suffix)
+
+            if not bool(checksum_url):
+                continue
+            
+            values['checksum'] = checksum_url
 
     return values
 
