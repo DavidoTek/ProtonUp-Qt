@@ -674,7 +674,7 @@ def fetch_project_release_data(release_url: str, release_format: str, rs: reques
     Fetch information about a given release based on its tag, with an optional condition lambda.
     Return Type: dict
     Content(s):
-        'version', 'date', 'download', 'size' (if available)
+        'version', 'date', 'download', 'size' (if available), 'checksum' (if available)
     """
 
     date_key: str = ''
