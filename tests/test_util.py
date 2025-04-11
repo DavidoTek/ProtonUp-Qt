@@ -42,36 +42,38 @@ def test_build_headers_with_authorization() -> None:
     assert github_token_call.get('User-Agent', '') == user_agent
 
 
-def test_get_dict_key_from_value() -> None:
+@pytest.mark.parametrize(
+    'test_dict, expected_type', [
+        pytest.param(
+            { 'steam': 'Steam', 'lutris': 'Lutris' },
+            str,
+            id = 'Get string launcher keys from dict'
+        ),
+        pytest.param(
+            { 2: 'two', 4: 'four' },
+            int,
+            id = 'Get integer keys from string value'
+        ),
+        pytest.param(
+            { Launcher.WINEZGUI: True, Launcher.HEROIC: False },
+            Launcher,
+            id = 'Get Enum (Launcher) keys from boolean value'
+        ),
+    ],
+)
+def test_get_dict_key_from_value(test_dict: dict[str | int | Launcher, str | str | bool], expected_type: str | int | Launcher) -> None:
 
     """
-    Test whether get_dict_key_from_value can retrieve the expected key from a dict by a value,
-    where the key and value can be of any type.
+    Test whether get_dict_key_from_value can retrieve the expected key of an expected type from a given dictionary,
+    where the key-value pair can be of any type.
     """
 
-    dict_with_str_keys: dict[str, str] = {
-        'steam': 'Steam',
-        'lutris': 'Lutris',
-    }
+    for key, value in test_dict.items():
 
-    dict_with_int_keys: dict[int, str] = {
-        2: 'two',
-        4: 'four'
-    }
+        retrieved_key: str | int | Launcher = get_dict_key_from_value(test_dict, value)
 
-    dict_with_enum_keys: dict[Launcher, bool] = {
-        Launcher.WINEZGUI: True,
-        Launcher.HEROIC: False
-    }
-
-    test_dicts: list[dict[Any, Any]] = [
-        dict_with_str_keys,
-        dict_with_int_keys,
-        dict_with_enum_keys,
-    ]
-
-    for test_dict in test_dicts:
-        assert all( get_dict_key_from_value(test_dict, value) == key for key, value in test_dict.items() )
+        assert retrieved_key == key
+        assert type(retrieved_key) is expected_type
 
 
 def test_get_launcher_from_installdir() -> None:
