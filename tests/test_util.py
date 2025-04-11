@@ -1,7 +1,13 @@
+import pytest
+import requests_mock
+
 from pupgui2.util import *
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher
+
+
+github_api_ratelimit_url: str = 'https://api.github.com/rate_limit/'
 
 
 def test_build_headers_with_authorization() -> None:
@@ -125,3 +131,27 @@ def test_get_random_game_name() -> None:
         assert get_random_game_name(steam_app) in names
         assert get_random_game_name(lutris_game) in names
         assert get_random_game_name(heroic_game) in names
+
+
+def test_is_online(requests_mock: requests_mock.Mocker) -> None:
+
+    """
+    Test that is_online will succeed when sending a GET request to the provided host returns success response.
+    """
+
+    timeout: int = 5
+
+    get_mock = requests_mock.get(github_api_ratelimit_url)
+
+    result: bool = is_online(host = github_api_ratelimit_url, timeout = timeout)
+
+    last_request = get_mock.last_request
+
+    assert result
+    assert get_mock.called_once
+
+    assert last_request is not None
+
+    assert last_request.method == 'GET'
+    assert last_request.url == github_api_ratelimit_url
+    assert last_request.timeout == timeout
