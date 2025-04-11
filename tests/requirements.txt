@@ -2,4 +2,4 @@ pytest
 pytest-md
 pytest-emoji
 
-requests-mock
+pytest-responses
