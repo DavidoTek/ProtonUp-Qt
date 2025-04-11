@@ -157,24 +157,19 @@ def test_is_online(requests_mock: requests_mock.Mocker) -> None:
     assert last_request.timeout == timeout
 
 
-def test_is_online_connection_error(requests_mock: requests_mock.Mocker) -> None:
+@pytest.mark.parametrize('expected_error', [
+    pytest.param(
+        requests.ConnectionError, id='ConnectionError'
+    ),
+        pytest.param(
+        requests.Timeout, id='Timeout'
+    )
+])
+def test_is_online_errors(requests_mock: requests_mock.Mocker, expected_error: requests.ConnectionError | requests.Timeout):
 
-    """ Test that is_online will return False when a ConnectionError is raised. """
+    """ Test that is_online will return False when an expected error is caught. """
 
-    connection_error_mock = requests_mock.register_uri('GET', github_api_ratelimit_url, exc=requests.ConnectionError)
-
-    result = is_online(host = github_api_ratelimit_url)
-
-    assert result == False
-
-    assert connection_error_mock.called_once
-
-
-def test_is_online_timeout_error(requests_mock: requests_mock.Mocker) -> None:
-
-    """ Test that is_online will return False when a Timeout error is raised. """
-
-    timeout_mock = requests_mock.register_uri('GET', github_api_ratelimit_url, exc=requests.Timeout)
+    timeout_mock = requests_mock.register_uri('GET', github_api_ratelimit_url, exc = expected_error)
 
     result = is_online(host = github_api_ratelimit_url)
 
