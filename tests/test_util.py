@@ -155,3 +155,16 @@ def test_is_online(requests_mock: requests_mock.Mocker) -> None:
     assert last_request.method == 'GET'
     assert last_request.url == github_api_ratelimit_url
     assert last_request.timeout == timeout
+
+
+def test_is_online_connection_error(requests_mock: requests_mock.Mocker) -> None:
+
+    """ Test that is_online will return False when a ConnectionError is raised. """
+
+    connection_error_mock = requests_mock.register_uri('GET', github_api_ratelimit_url, exc=requests.ConnectionError)
+
+    result = is_online(host = github_api_ratelimit_url)
+
+    assert result == False
+
+    assert connection_error_mock.called_once
