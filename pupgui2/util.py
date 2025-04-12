@@ -105,8 +105,11 @@ def apply_dark_theme(app: QApplication) -> None:
         app.setPalette(PALETTE_DARK())
     elif theme == 'steam':
         app.setPalette(PALETTE_STEAMUI())
-        stylesheet = pkgutil.get_data(__name__, 'resources/themes/steamdeck.qss')
-        app.setStyleSheet(stylesheet.decode('utf-8'))
+        stylesheet = pkgutil.get_data(__name__, 'resources/themes/steamdeck.qss').decode('utf-8')
+        stylesheet = stylesheet.replace('drop-down_placeholder', os.path.join(os.path.dirname(__file__), 'resources/themes/steamdeck_drop-down.svg'))
+        stylesheet = stylesheet.replace('up-arrow_placeholder', os.path.join(os.path.dirname(__file__), 'resources/themes/steamdeck_up-arrow.svg'))
+        stylesheet = stylesheet.replace('down-arrow_placeholder', os.path.join(os.path.dirname(__file__), 'resources/themes/steamdeck_down-arrow.svg'))
+        app.setStyleSheet(stylesheet)
     else:
         is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION', '')
         darkmode_enabled = False

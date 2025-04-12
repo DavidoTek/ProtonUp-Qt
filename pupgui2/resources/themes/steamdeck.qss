@@ -26,3 +26,72 @@ QPushButton::pressed {
 QPushButton::disabled {
     background-color: #1D2026;
 }
+
+QComboBox::drop-down {
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    padding: 2px;
+    padding-right: 4px;
+    border: none;
+    border-radius: 2px;
+    width: 16px;
+    image: url("drop-down_placeholder");
+}
+
+QScrollBar {
+    padding: 1px;
+    border-radius: 2px;
+    background-color: transparent;
+}
+QScrollBar:vertical {
+    margin: 19px 0px 19px 0px;
+    width: 19px;
+}
+QScrollBar:horizontal {
+    margin: 0px 19px 0px 19px;
+    height: 19px;
+}
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical,
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    margin: 1px;
+    border: none;
+    border-radius: 2px;
+    width: 17px;
+    height: 17px;
+    background-color: #282D36;
+}
+QScrollBar::add-line:vertical {
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+QScrollBar::add-line:horizontal {
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+QScrollBar::sub-line:horizontal {
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+QScrollBar::handle {
+    background-color: #282D36;
+    border-radius: 2px;
+    min-height: 30px;
+    min-width: 30px;
+}
+QScrollBar::up-arrow,
+QScrollBar::down-arrow {
+    width: 13px;
+    height: 13px;
+}
+QScrollBar::up-arrow {
+    image: url("up-arrow_placeholder");
+}
+QScrollBar::down-arrow {
+    image: url("down-arrow_placeholder");
+}
