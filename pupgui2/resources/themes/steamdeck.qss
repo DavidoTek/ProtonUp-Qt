@@ -4,7 +4,7 @@ QWidget {
     font-weight: 300;
 }
 
-QPushButton, QListWidget, QComboBox, QToolButton, QLineEdit {
+QPushButton, QListWidget, QComboBox, QToolButton, QLineEdit, QHeaderView::section {
     background-color: #282D36;
     border: none;
     border-radius: 2px;
@@ -25,6 +25,23 @@ QPushButton::pressed {
 
 QPushButton::disabled {
     background-color: #1D2026;
+}
+
+QHeaderView {
+    padding: 1px;
+}
+QHeaderView::section:horizontal {
+    padding: 4px;
+    margin-left: 0px;
+    margin-right: 2px;
+}
+QHeaderView::section:vertical {
+    padding: 4px;
+    margin-top: 0px;
+    margin-bottom: 2px;
+}
+QTableView::item {
+    margin-left: 1px;
 }
 
 QComboBox::drop-down {
