@@ -1,3 +1,5 @@
+import pytest
+
 from pupgui2.util import *
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS
@@ -125,3 +127,22 @@ def test_get_random_game_name() -> None:
         assert get_random_game_name(steam_app) in names
         assert get_random_game_name(lutris_game) in names
         assert get_random_game_name(heroic_game) in names
+
+
+@pytest.mark.parametrize(
+    'combobox_values, value, expected_index', [
+        pytest.param(['a', 'b', 'c', 'd', 'e'], 'c', 2),
+        pytest.param(['Steam', 'Lutris',' Heroic'], 'Lutris', 1),
+        pytest.param(['GE-Proton', 'Proton-tkg', 'SteamTinkerLaunch'], 'SteamTinkerLaunch', 2),
+    ]
+)
+def test_get_combobox_index_by_value(combobox_values: list[str], value: str, expected_index: int) -> None:
+
+    combobox: QComboBox = QComboBox()
+
+    combobox.addItems(combobox_values)
+
+    result: int = get_combobox_index_by_value(combobox, value)
+
+    assert combobox_values[result] == value
+    assert result == expected_index
