@@ -131,12 +131,14 @@ def test_get_random_game_name() -> None:
 
 @pytest.mark.parametrize(
     'combobox_values, value, expected_index', [
-        pytest.param(['a', 'b', 'c', 'd', 'e'], 'c', 2),
-        pytest.param(['Steam', 'Lutris',' Heroic'], 'Lutris', 1),
-        pytest.param(['GE-Proton', 'Proton-tkg', 'SteamTinkerLaunch'], 'SteamTinkerLaunch', 2),
+        pytest.param(['a', 'b', 'c', 'd', 'e'], 'c', 2, id = 'Simple list'),
+        pytest.param(['Steam', 'Lutris',' Heroic'], 'Lutris', 1, id = 'List of Launcher Names'),
+        pytest.param(['GE-Proton', 'Proton-tkg', 'SteamTinkerLaunch'], 'SteamTinkerLaunch', 2, id = 'List of Compatibility Tool names'),
     ]
 )
 def test_get_combobox_index_by_value(combobox_values: list[str], value: str, expected_index: int) -> None:
+
+    app = QApplication()
 
     combobox: QComboBox = QComboBox()
 
@@ -146,3 +148,5 @@ def test_get_combobox_index_by_value(combobox_values: list[str], value: str, exp
 
     assert combobox_values[result] == value
     assert result == expected_index
+
+    QApplication.shutdown(app)
