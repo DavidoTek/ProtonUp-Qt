@@ -1,6 +1,8 @@
+import pytest
+
 from pupgui2.util import *
 
-from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS
+from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, GITLAB_API, GITHUB_API
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher
 
 
@@ -125,3 +127,20 @@ def test_get_random_game_name() -> None:
         assert get_random_game_name(steam_app) in names
         assert get_random_game_name(lutris_game) in names
         assert get_random_game_name(heroic_game) in names
+
+
+@pytest.mark.parametrize(
+    'url, is_gitlab_api', [
+        *[pytest.param(api, True, id = api) for api in GITLAB_API],
+        pytest.param(GITHUB_API, False, id = GITHUB_API)
+    ]
+)
+def test_is_gitlab_instance(url: str, is_gitlab_api: bool) -> None:
+
+    """
+    Test that a given GitLab API URL is detected successfully.
+    """
+
+    result: bool = is_gitlab_instance(url)
+
+    assert result == is_gitlab_api
