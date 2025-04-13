@@ -262,3 +262,16 @@ def test_download_awacy_gamelist(responses: RequestsMock, fs: FakeFilesystem, mo
     assert os.path.exists(LOCAL_AWACY_GAME_LIST)
     assert file_content == get_mock.body
     assert is_online_mock.call_count == 1
+
+
+def test_download_awacy_gamelist_offline(mocker: MockerFixture) -> None:
+
+    is_online_mock = mocker.patch('pupgui2.util.is_online')
+    is_online_mock.return_value = False
+
+    download_awacy_gamelist()
+
+    assert not os.path.exists(LOCAL_AWACY_GAME_LIST)
+
+    assert is_online_mock.call_count == 1
+    assert is_online_mock.return_value == False
