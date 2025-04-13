@@ -1,0 +1,5 @@
+pytest
+pytest-md
+pytest-emoji
+
+pytest-responses
