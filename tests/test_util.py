@@ -1,5 +1,6 @@
 import pytest
 import pytest_responses
+
 from responses import BaseResponse, RequestsMock
 
 from pupgui2.util import *
