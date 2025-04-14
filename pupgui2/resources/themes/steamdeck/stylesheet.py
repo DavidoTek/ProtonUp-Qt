@@ -57,7 +57,10 @@ style.QPushButton.pressed.setValues(backgroundColor=background_color_pressed.nam
 style.QPushButton.disabled.setValues(backgroundColor=background_color_disabled.name())
 
 style.QHeaderView.setValues(padding=f"{padding_min}px")
-style.QHeaderView.section.setValues(padding=f"{padding_item}px")
+style.QHeaderView.section.setValues(
+    padding=f"{padding_item}px",
+    backgroundColor=background_color_item.darker(125).name(),
+)
 style.QHeaderView.section.horizontal.setValues(marginLeft="0px", marginRight="2px")
 style.QHeaderView.section.vertical.setValues(marginTop="0px", marginBottom="2px")
 style.QTableView.item.setValues(marginLeft="1px")
@@ -127,10 +130,10 @@ style.QScrollBar.downArrow.setValues(
 
 
 if __name__ == "__main__":
-    with open(os.path.join(os.path.dirname(__file__), "stylesheet.qss"), "w", encoding="utf-8") as qss:
-        qss.write(f'/* This file is auto-generated from "{os.path.basename(__file__)}" */\n')
-        qss.write(f'/* DO NOT EDIT!!! */\n\n')
-        qss.write(style.toString())
+    with open(os.path.join(os.path.dirname(__file__), "stylesheet.qss"), "w", encoding="utf-8") as stylesheet:
+        stylesheet.write(f'/* This file is auto-generated from "{os.path.basename(__file__)}" */\n')
+        stylesheet.write(f'/* DO NOT EDIT!!! */\n\n')
+        stylesheet.write(style.toString())
 
     qt_tool_wrapper(
         "rcc",

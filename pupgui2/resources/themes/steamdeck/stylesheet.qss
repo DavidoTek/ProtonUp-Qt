@@ -35,7 +35,7 @@ QHeaderView {
     padding: 1px;
 }
 QHeaderView::section {
-    background-color: #282d36;
+    background-color: #20242b;
     border-radius: 2px;
     padding: 4px;
 }

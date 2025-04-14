@@ -8,7 +8,6 @@ import webbrowser
 import requests
 import zipfile
 import tarfile
-import pkgutil
 import random
 
 import zstandard
@@ -25,7 +24,7 @@ from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
 from pupgui2.datastructures import HardwarePlatform
-from pupgui2.resources.themes import steamdeck
+import pupgui2.resources.themes
 from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
 
 
