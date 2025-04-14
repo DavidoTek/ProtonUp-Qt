@@ -52,7 +52,7 @@ QComboBox::drop-down {
     border: none;
     border-radius: 2px;
     width: 16px;
-    image: url("drop-down_placeholder");
+    image: url(":/resources/themes/steamdeck/icon-drop-down.svg");
 }
 
 QScrollBar {
@@ -107,8 +107,8 @@ QScrollBar::down-arrow {
     height: 13px;
 }
 QScrollBar::up-arrow {
-    image: url("up-arrow_placeholder");
+    image: url(":/resources/themes/steamdeck/icon-up-arrow.svg");
 }
 QScrollBar::down-arrow {
-    image: url("down-arrow_placeholder");
+    image: url(":/resources/themes/steamdeck/icon-down-arrow.svg");
 }
