@@ -1,114 +1,138 @@
+/* This file is auto-generated from "stylesheet.py" */
+/* DO NOT EDIT!!! */
+
 QWidget {
-    color: #EEEEEE;
-    background-color: #171D25;
+    color: #eeeeee;
+    background-color: #171d25;
     font-weight: 300;
 }
-
-QPushButton, QListWidget, QComboBox, QToolButton, QLineEdit, QHeaderView::section {
-    background-color: #282D36;
-    border: none;
+QPushButton {
+    background-color: #282d36;
     border-radius: 2px;
     padding: 8px;
 }
-
-QListWidget::item {
-    padding: 4px;
+QListWidget {
+    background-color: #282d36;
+    border-radius: 2px;
+    padding: 8px;
 }
-
-QPushButton:hover {
-    background-color: #464D58;
+QComboBox {
+    background-color: #282d36;
+    border-radius: 2px;
+    padding: 8px;
 }
-
-QPushButton::pressed {
-    background-color: #393F49;
+QToolButton {
+    background-color: #282d36;
+    border-radius: 2px;
+    padding: 8px;
 }
-
-QPushButton::disabled {
-    background-color: #1D2026;
+QLineEdit {
+    background-color: #282d36;
+    border-radius: 2px;
+    padding: 8px;
 }
-
 QHeaderView {
     padding: 1px;
 }
-QHeaderView::section:horizontal {
+QHeaderView::section {
+    background-color: #282d36;
+    border-radius: 2px;
     padding: 4px;
+}
+QListWidget::item {
+    padding: 4px;
+}
+QPushButton:hover {
+    background-color: #464d58;
+}
+QPushButton:pressed {
+    background-color: #393f49;
+}
+QPushButton:disabled {
+    background-color: #1d2026;
+}
+QHeaderView::section:horizontal {
     margin-left: 0px;
     margin-right: 2px;
 }
 QHeaderView::section:vertical {
-    padding: 4px;
     margin-top: 0px;
     margin-bottom: 2px;
 }
 QTableView::item {
     margin-left: 1px;
 }
-
 QComboBox::drop-down {
     subcontrol-origin: border;
     subcontrol-position: top right;
-    padding: 2px;
+    padding: 2.0px;
     padding-right: 4px;
-    border: none;
     border-radius: 2px;
     width: 16px;
     image: url(":/resources/themes/steamdeck/icon-drop-down.svg");
 }
-
 QScrollBar {
     padding: 1px;
     border-radius: 2px;
     background-color: transparent;
 }
 QScrollBar:vertical {
-    margin: 19px 0px 19px 0px;
+    margin: 19px 0px;
     width: 19px;
 }
 QScrollBar:horizontal {
-    margin: 0px 19px 0px 19px;
+    margin: 0px 19px;
     height: 19px;
 }
-QScrollBar::add-line:vertical,
-QScrollBar::sub-line:vertical,
-QScrollBar::add-line:horizontal,
-QScrollBar::sub-line:horizontal {
+QScrollBar::add-line:vertical {
     margin: 1px;
-    border: none;
     border-radius: 2px;
     width: 17px;
     height: 17px;
-    background-color: #282D36;
-}
-QScrollBar::add-line:vertical {
-    subcontrol-position: bottom;
+    background-color: #282d36;
     subcontrol-origin: margin;
+    subcontrol-position: bottom;
 }
 QScrollBar::sub-line:vertical {
-    subcontrol-position: top;
+    margin: 1px;
+    border-radius: 2px;
+    width: 17px;
+    height: 17px;
+    background-color: #282d36;
     subcontrol-origin: margin;
+    subcontrol-position: top;
 }
 QScrollBar::add-line:horizontal {
-    subcontrol-position: right;
+    margin: 1px;
+    border-radius: 2px;
+    width: 17px;
+    height: 17px;
+    background-color: #282d36;
     subcontrol-origin: margin;
+    subcontrol-position: right;
 }
 QScrollBar::sub-line:horizontal {
-    subcontrol-position: left;
+    margin: 1px;
+    border-radius: 2px;
+    width: 17px;
+    height: 17px;
+    background-color: #282d36;
     subcontrol-origin: margin;
+    subcontrol-position: left;
 }
 QScrollBar::handle {
-    background-color: #282D36;
+    background-color: #282d36;
     border-radius: 2px;
-    min-height: 30px;
     min-width: 30px;
-}
-QScrollBar::up-arrow,
-QScrollBar::down-arrow {
-    width: 13px;
-    height: 13px;
+    min-height: 30px;
 }
 QScrollBar::up-arrow {
+    width: 13px;
+    height: 13px;
     image: url(":/resources/themes/steamdeck/icon-up-arrow.svg");
 }
 QScrollBar::down-arrow {
+    width: 13px;
+    height: 13px;
     image: url(":/resources/themes/steamdeck/icon-down-arrow.svg");
 }
