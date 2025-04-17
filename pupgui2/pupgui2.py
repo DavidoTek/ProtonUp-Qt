@@ -242,9 +242,11 @@ class MainWindow(QObject):
         if install_loc.get('launcher') == 'lutris':
             dxvk_dir = os.path.join(install_directory(), '../../runtime/dxvk')
             vkd3d_dir = os.path.join(install_directory(), '../../runtime/vkd3d')
+            proton_dir = os.path.join(install_directory(), '../../runners/proton')
 
             self.get_installed_versions('dxvk', dxvk_dir)
             self.get_installed_versions('vkd3d', vkd3d_dir)
+            self.get_installed_versions('proton', proton_dir)
         # Launcher specific (Steam): Number of games using the compatibility tool
         elif install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
             steam_app_list = get_steam_app_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
