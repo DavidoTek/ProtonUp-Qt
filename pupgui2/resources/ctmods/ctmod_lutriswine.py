@@ -97,5 +97,7 @@ class CtInstaller(GEProtonInstaller):
         """
 
         # GE-Proton ctmod figures out if it needs to into a different folder
-        # Lutris-Wine can use default 'install_dir' always, so override to return unmodified 'install_dir'
+        #
+        # Lutris-Wine can use default 'install_dir' always because it is Wine and not Proton,
+        # so override to return unmodified 'install_dir'
         return install_dir

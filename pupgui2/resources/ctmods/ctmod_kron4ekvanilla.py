@@ -56,3 +56,15 @@ class CtInstaller(GEProtonInstaller):
         ldd_min = int(ldd_ver.split(b'.')[1])
         return False if ldd_maj < 2 else ldd_min >= 27 or ldd_maj != 2
 
+    def get_extract_dir(self, install_dir: str) -> str:
+
+        """
+        Return the directory to extract Lutris-Wine archive based on the current launcher
+        Return Type: str
+        """
+
+        # GE-Proton ctmod figures out if it needs to into a different folder
+        #
+        # kron4ek can use default 'install_dir' always because it is Wine and not Proton,
+        # so override to return unmodified 'install_dir'
+        return install_dir
