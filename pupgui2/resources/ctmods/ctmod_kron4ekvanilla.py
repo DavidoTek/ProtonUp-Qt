@@ -7,7 +7,7 @@ import subprocess
 from PySide6.QtCore import QCoreApplication
 
 from pupgui2.constants import IS_FLATPAK
-from pupgui2.util import fetch_project_release_data, fetch_project_releases
+from pupgui2.util import fetch_project_release_data
 
 from pupgui2.resources.ctmods.ctmod_00protonge import CtInstaller as GEProtonInstaller
 
