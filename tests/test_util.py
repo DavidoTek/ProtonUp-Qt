@@ -1,14 +1,21 @@
+import pytest
+
 from pupgui2.util import *
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher
 
 
-def test_build_headers_with_authorization() -> None:
+@pytest.mark.parametrize(
+    'token_type, token_prefix', [
+        pytest.param('github', 'token', id = 'GitHub Token Type'),
+        pytest.param('gitlab', 'Bearer', id = 'GitLab Token Type'),
+    ]
+)
+def test_build_headers_with_authorization(token_type: str, token_prefix: str) -> None:
 
     """
-    Test whether the expected Authorization Tokens get inserted into the returned headers dict,
-    that existing Authorization is replaced properly, and that all other existing headers are preserved.
+    Test that build_headers_with_authorization returns headers populated with the expected token for the given token_type.
     """
 
     user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'
@@ -25,20 +32,55 @@ def test_build_headers_with_authorization() -> None:
         'gitlab': 'glpat-zyx987wvu654',
     }
 
-    github_token_call: dict[str, Any] = build_headers_with_authorization(request_headers, authorization_tokens, 'github')
-    gitlab_token_call: dict[str, Any] = build_headers_with_authorization(request_headers, authorization_tokens, 'gitlab')
+    result: dict[str, Any] = build_headers_with_authorization(request_headers, authorization_tokens, token_type)
 
-    unknown_token_call: dict[str, Any] = build_headers_with_authorization(request_headers, authorization_tokens, '')
-    call_with_no_tokens: dict[str, Any] = build_headers_with_authorization(request_headers, {}, 'github')
+    assert result.get('Authorization', '') == f'{token_prefix} {authorization_tokens[token_type]}'
+    assert result.get('User-Agent', '') == user_agent
 
-    assert github_token_call.get('Authorization', '') == f'token {authorization_tokens["github"]}'
-    assert gitlab_token_call.get('Authorization', '') == f'Bearer {authorization_tokens["gitlab"]}'
 
-    assert unknown_token_call.get('Authorization', '') == ''
-    assert call_with_no_tokens.get('Authorization', '') == ''
+def test_build_headers_with_authorization_no_tokens() -> None:
 
-    assert github_token_call.get('User-Agent', '') == user_agent
+    """
+    Test that build_heaers_with_authorization returns a headers dict without authorization if no token dictionary was provided.
+    """
 
+    user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'
+
+    # Simulate existing headers with old Authentiation to be replaced, and a User-Agent that should remain untouched
+    request_headers: dict[str, Any] = {
+        'Authorization': 'ABC123',
+        'User-Agent': user_agent
+    }
+
+    result: dict[str, Any] = build_headers_with_authorization(request_headers, {}, 'github')
+
+    assert result.get('Authorization', '') == ''
+
+
+def test_build_headers_with_authorization_no_token_type() -> None:
+
+    """
+    Test that build_headers_with_authorization returns a headers dict without authorization if no token dictionary was provided,
+    even if tokens themselves are provided.
+    """
+
+    user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'
+
+    # Simulate existing headers with old Authentiation to be replaced, and a User-Agent that should remain untouched
+    request_headers: dict[str, Any] = {
+        'Authorization': 'ABC123',
+        'User-Agent': user_agent
+    }
+
+    # Simulate auth tokens that would normally come from the environment or config file
+    authorization_tokens: dict[str, str] = {
+        'github': 'gha_abc123daf456',
+        'gitlab': 'glpat-zyx987wvu654',
+    }
+
+    result: dict[str, Any] = build_headers_with_authorization(request_headers, authorization_tokens, '')
+
+    assert result.get('Authorization', '') == ''
 
 def test_get_dict_key_from_value() -> None:
 
