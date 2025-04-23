@@ -1,4 +1,3 @@
-from typing_extensions import LiteralString
 import pytest
 
 from pupgui2.util import *
@@ -121,7 +120,7 @@ def test_get_random_game_name(game_list: list[SteamApp] | list[LutrisGame] | lis
     """ Test whether get_random_game_name returns a valid game name for each launcher game type. """
 
     names: list[str] = ["game", "A super cool game", "A game with a very long name that is very long", "0123456789"]
-    bad_names: list[LiteralString] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor".split(',')
+    bad_names: list[str] = list("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor".split(','))
 
     for i, game in enumerate(game_list):
         setattr(game, game_name_attr, names[i])
