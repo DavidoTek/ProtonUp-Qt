@@ -38,15 +38,6 @@ def sample_file(fs: FakeFilesystem) -> Generator[TextIOWrapper]:
         yield example_response_file
 
 
-# TODO parametrize with different streams, buffer sizes, and mocked request headers?
-# TODO test buffer size expected behaviour
-#
-#
-# TODO test with other types of `progress_callbacks` (None and one that takes any number of arguments?)
-# TODO test with `stream` as argument and in headers as `True` and `False` in a Parametrize'd test
-# TODO test file_size as zero (can go in base test and test expected chunk count / calls to progress callback?)
-# TODO test buffer_size as zero  (can go in base test and test expected chunk count / calls to progress callback?)
-#
 # TODO test incorrect known_size of file? i.e. give 64 bytes but file is actually 128?
 #
 # TODO Want to test the print logs as well in various scenarios (should be separate test I think?)
