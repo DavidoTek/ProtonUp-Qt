@@ -36,12 +36,12 @@ def sample_file(fs: FakeFilesystem) -> Generator[TextIOWrapper]:
 
     with open(example_response_file_path, 'r') as example_response_file:
         yield example_response_file
-        
+
 
 # TODO parametrize with different streams, buffer sizes, and mocked request headers?
 # TODO test buffer size expected behaviour
 # Want to test the print logs as well
-def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs: FakeFilesystem):
+def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs: FakeFilesystem, mocker: MockerFixture):
 
     """
     Given a valid URL and destination,
@@ -55,6 +55,7 @@ def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs
     destination_file_path: str = os.path.join(TEMP_DIR, sample_file.file_object.name)
 
     progress_callback: Callable[[int], None] = lambda progress: print(f'Progress is {progress}')
+    progress_callback_spy = mocker.spy(progress_callback, '__call__')
 
     get_mock_body: str = sample_file.read()
     get_mock: BaseResponse = responses.get(
@@ -67,11 +68,19 @@ def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs
     result: bool = download_file(
         request_url,
         destination_file_path,
+        progress_callback = progress_callback_spy
     )
 
     file_content: str = ''
     with open(destination_file_path, 'r') as downloaded_file:
         file_content = downloaded_file.read()
+
+    # TODO predict chunk count to figure out how many times we'll loop in download_file and thus how many times progress_callback should be called
+    predicted_chunk_count = 1
+
+    progress_callback_calls = [ call(1) ]
+    for chunk in range(predicted_chunk_count - 1):
+        pass
 
     assert result
 
