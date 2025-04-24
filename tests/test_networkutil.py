@@ -1,4 +1,3 @@
-from io import TextIOWrapper
 import pathlib
 import requests
 
@@ -7,10 +6,14 @@ import pytest_responses
 
 from collections.abc import Generator
 
+from io import TextIOWrapper
+
 from responses import BaseResponse, RequestsMock
 
 from pyfakefs.fake_filesystem import FakeFilesystem
 from pyfakefs.fake_file import FakeFileWrapper
+
+from pytest_mock import MockerFixture
 
 from pupgui2.constants import PROTONUPQT_GITHUB_URL, TEMP_DIR
 from pupgui2.networkutil import *
@@ -34,8 +37,9 @@ def sample_file(fs: FakeFilesystem) -> Generator[TextIOWrapper]:
         
 
 # TODO parametrize with different streams, buffer sizes, and mocked request headers?
+# TODO test buffer size expected behaviour
 # Want to test the print logs as well
-def test_download_file(responses: RequestsMock, sample_file: FakeFileWrapper, fs: FakeFilesystem):
+def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs: FakeFilesystem):
 
     """
     Given a valid URL and destination,
@@ -43,6 +47,7 @@ def test_download_file(responses: RequestsMock, sample_file: FakeFileWrapper, fs
     It should successfully download and write the file to the given destination.
     """
 
+    # TODO a lto of this setup is going to be repeated, we should look to reduce it
     request_url: str = 'https://example.com'
 
     destination_file_path: str = os.path.join(TEMP_DIR, sample_file.file_object.name)
@@ -60,7 +65,6 @@ def test_download_file(responses: RequestsMock, sample_file: FakeFileWrapper, fs
     result: bool = download_file(
         request_url,
         destination_file_path,
-        buffer_size = 2
     )
 
     file_content: str = ''
@@ -108,7 +112,7 @@ def test_download_file_request_failed(responses: RequestsMock, expected_error: r
     assert get_file_mock.body == expected_error
 
 
-def test_download_file_cannot_create_destination(responses: RequestsMock, fs: FakeFilesystem) -> None:
+def test_download_file_cannot_create_destination(sample_file: FakeFileWrapper, responses: RequestsMock, fs: FakeFilesystem, mocker: MockerFixture) -> None:
 
     """
     Given that we have successfully fetched a file to download,
@@ -116,7 +120,38 @@ def test_download_file_cannot_create_destination(responses: RequestsMock, fs: Fa
     It should raise an `OSError`.
     """
 
-    pass
+    request_url: str = 'https://example.com'
+
+    destination_dir_path: str = os.path.join(TEMP_DIR, 'fakedir')
+    destination_file_path: str = os.path.join(destination_dir_path, sample_file.file_object.name)
+
+    progress_callback: Callable[[int], None] = lambda progress: print(f'Progress is {progress}')
+
+    get_mock_body: str = sample_file.read()
+    get_mock: BaseResponse = responses.get(
+        request_url,
+        body = get_mock_body,
+    )
+
+    fs.create_dir(TEMP_DIR)
+
+    os_makedirs_mock = mocker.patch('os.makedirs')
+    os_makedirs_mock.side_effect = OSError('OS Error')
+
+    with pytest.raises(OSError) as raised_exception:
+        _ = download_file(
+            request_url,
+            destination_file_path,
+        )
+
+    assert not os.path.isdir(destination_dir_path)
+    assert not os.path.isfile(destination_file_path)
+
+    os_makedirs_mock.assert_called_once()
+    os_makedirs_mock.assert_called_once_with(os.path.dirname(destination_file_path), exist_ok = True)
+
+    assert type(os_makedirs_mock.side_effect) == raised_exception.type
+    assert raised_exception.value.args[0] == os_makedirs_mock.side_effect.args[0]
 
 
 def test_download_file_download_cancelled() -> None:
