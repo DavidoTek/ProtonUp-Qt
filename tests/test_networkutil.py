@@ -40,8 +40,20 @@ def sample_file(fs: FakeFilesystem) -> Generator[TextIOWrapper]:
 
 # TODO parametrize with different streams, buffer sizes, and mocked request headers?
 # TODO test buffer size expected behaviour
-# Want to test the print logs as well
-def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs: FakeFilesystem, mocker: MockerFixture):
+#
+#
+# TODO test with other types of `progress_callbacks` (None and one that takes any number of arguments?)
+# TODO test with `stream` as argument and in headers as `True` and `False` in a Parametrize'd test
+# TODO test file_size as zero (can go in base test and test expected chunk count / calls to progress callback?)
+# TODO test buffer_size as zero  (can go in base test and test expected chunk count / calls to progress callback?)
+# 
+# TODO Want to test the print logs as well in various scenarios (should be separate test I think?)
+@pytest.mark.parametrize(
+    'buffer_size', [
+        pytest.param(65536, id = 'Happy Path Download')
+    ]
+)
+def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs: FakeFilesystem, mocker: MockerFixture, buffer_size: int):
 
     """
     Given a valid URL and destination,
@@ -68,19 +80,23 @@ def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs
     result: bool = download_file(
         request_url,
         destination_file_path,
-        progress_callback = progress_callback_spy
+        progress_callback = progress_callback_spy,
+        buffer_size = buffer_size
     )
 
     file_content: str = ''
     with open(destination_file_path, 'r') as downloaded_file:
         file_content = downloaded_file.read()
 
-    # TODO predict chunk count to figure out how many times we'll loop in download_file and thus how many times progress_callback should be called
-    predicted_chunk_count = 1
+    # Figure out the chunk count to know how many times progress_callback will be called and what it will be called with
+    expected_chunk_count = math.ceil(len(file_content) / buffer_size) or 1
+    expected_progress_callback_calls = [ call(1) ]
 
-    progress_callback_calls = [ call(1) ]
-    for chunk in range(predicted_chunk_count - 1):
-        pass
+    for chunk in range(1, expected_chunk_count + 1):
+        download_progress = int(min(chunk / expected_chunk_count * 98.0, 98.0))
+        expected_progress_callback_calls.append(call(download_progress))
+
+    expected_progress_callback_calls.append( call(99) )
 
     assert result
 
@@ -89,10 +105,9 @@ def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs
     assert get_mock.call_count == 1
     assert file_content == get_mock.body
 
-# TODO test with other types of `progress_callbacks` (None and one that takes any number of arguments?)
-# TODO test with `stream` as argument and in headers as `True` and `False` in a Parametrize'd test
-# TODO test file_size as zero (can go in base test and test expected chunk count / calls to progress callback?)
-# TODO test buffer_size as zero  (can go in base test and test expected chunk count / calls to progress callback?)
+    assert progress_callback_spy.call_count == len(expected_progress_callback_calls)
+    progress_callback_spy.assert_has_calls(expected_progress_callback_calls)
+
 
 @pytest.mark.parametrize(
     'expected_error', [
