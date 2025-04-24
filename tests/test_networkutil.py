@@ -8,6 +8,8 @@ from collections.abc import Generator
 
 from io import TextIOWrapper
 
+from unittest.mock import call
+
 from responses import BaseResponse, RequestsMock
 
 from pyfakefs.fake_filesystem import FakeFilesystem
@@ -125,8 +127,6 @@ def test_download_file_cannot_create_destination(sample_file: FakeFileWrapper, r
     destination_dir_path: str = os.path.join(TEMP_DIR, 'fakedir')
     destination_file_path: str = os.path.join(destination_dir_path, sample_file.file_object.name)
 
-    progress_callback: Callable[[int], None] = lambda progress: print(f'Progress is {progress}')
-
     get_mock_body: str = sample_file.read()
     get_mock: BaseResponse = responses.get(
         request_url,
@@ -154,7 +154,7 @@ def test_download_file_cannot_create_destination(sample_file: FakeFileWrapper, r
     assert raised_exception.value.args[0] == os_makedirs_mock.side_effect.args[0]
 
 
-def test_download_file_download_cancelled() -> None:
+def test_download_file_download_cancelled(sample_file: FakeFileWrapper, responses: RequestsMock, fs: FakeFilesystem, mocker: MockerFixture) -> None:
 
     """
     Given a file is successfully fetched and is being downloaded,
@@ -163,6 +163,30 @@ def test_download_file_download_cancelled() -> None:
     And return False.
     """
 
-    # TODO check that we return false
-    # TODO check that progress_callback is called last with '-2'
-    pass
+    request_url: str = 'https://example.com'
+
+    destination_file_path: str = os.path.join(TEMP_DIR, sample_file.file_object.name)
+
+    progress_callback: Callable[[int], None] = lambda progress: print(f'Progress is {progress}')
+    progress_callback_spy = mocker.spy(progress_callback, '__call__')
+
+    get_mock_body: str = sample_file.read()
+    _ = responses.get(
+        request_url,
+        body = get_mock_body,
+    )
+
+    fs.create_dir(TEMP_DIR)
+
+    result: bool = download_file(
+        request_url,
+        destination_file_path,
+        progress_callback = progress_callback_spy,
+        download_cancelled = Property(bool, False, None, None, "Download Cancelled")
+    )
+
+    assert not result
+
+    assert progress_callback_spy.call_count == 2
+
+    progress_callback_spy.assert_has_calls([ call(1), call(-2) ], any_order = False)
