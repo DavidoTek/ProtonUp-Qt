@@ -38,9 +38,6 @@ def sample_file(fs: FakeFilesystem) -> Generator[TextIOWrapper]:
         yield example_response_file
 
 
-# TODO test incorrect known_size of file? i.e. give 64 bytes but file is actually 128?
-#
-# TODO Want to test the print logs as well in various scenarios (should be separate test I think?)
 @pytest.mark.parametrize(
     'progress_callback, buffer_size, stream, known_size, headers', [
         pytest.param(
@@ -243,8 +240,6 @@ def test_download_file_request_failed(responses: RequestsMock, expected_error: r
 
     with pytest.raises(type(expected_error)) as raised_exception:
         _ = download_file(url = PROTONUPQT_GITHUB_URL, destination = '')
-
-    # TODO assert against the print response too
 
     assert raised_exception.type is type(expected_error)
     assert raised_exception.value.args[0] == expected_error.args[0]  # Check error message
