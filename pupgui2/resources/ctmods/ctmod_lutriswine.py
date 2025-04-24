@@ -76,7 +76,7 @@ class CtInstaller(GEProtonInstaller):
             return (None, None)
 
         # Overwrite the Proton installation directory as the format we need for Lutris Wine
-        protondir = protondir = f'{install_dir}wine-{data["version"].lower()}-x86_64'
+        protondir = f'{install_dir}wine-{data["version"].lower()}-x86_64'
 
         return (data, protondir)
 
