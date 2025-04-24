@@ -16,17 +16,17 @@ background_color_hover = QColor("#464D58")
 background_color_pressed = QColor("#393F49")
 background_color_disabled = QColor("#1D2026")
 
-border_radius_base = 2
+border_radius_base: int = 2
 
-margin_min = 1
+margin_min: int = 1
 
-padding_min = 1
-padding_base = 8
-padding_item = 4
+padding_min: int = 1
+padding_base: int = 8
+padding_item: int = 4
 
-subcontrol_width_base = 18
-subcontrol_width_sbar = subcontrol_width_base + padding_min
-subcontrol_width_sbar_control = subcontrol_width_base - padding_min
+subcontrol_width_base: int = 18
+subcontrol_width_sbar: int = subcontrol_width_base + padding_min
+subcontrol_width_sbar_control: int = subcontrol_width_base - padding_min
 
 style = qstylizer.style.StyleSheet()
 
@@ -74,6 +74,19 @@ style.QComboBox.dropDown.setValues(
     borderRadius=f"{border_radius_base}px",
     width=f"{subcontrol_width_base - 2}px",
     image='url(":/resources/themes/steamdeck/icon-drop-down.svg")',
+)
+
+style.QProgressBar.setValues(
+    backgroundColor=background_color_item.name(),
+    border=None,
+    borderRadius=f"{border_radius_base}px",
+    padding=f"{padding_item}px",
+    textAlign="center",
+)
+style.QProgressBar.chunk.setValues(
+    backgroundColor=background_color_item.lighter(150).name(),
+    borderWidth="0px",
+    width="2%",
 )
 
 style.QScrollBar.setValues(

@@ -71,6 +71,17 @@ QComboBox::drop-down {
     width: 16px;
     image: url(":/resources/themes/steamdeck/icon-drop-down.svg");
 }
+QProgressBar {
+    background-color: #282d36;
+    border-radius: 2px;
+    padding: 4px;
+    text-align: center;
+}
+QProgressBar::chunk {
+    background-color: #3c4451;
+    border-width: 0px;
+    width: 2%;
+}
 QScrollBar {
     padding: 1px;
     border-radius: 2px;
