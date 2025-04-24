@@ -46,14 +46,135 @@ def sample_file(fs: FakeFilesystem) -> Generator[TextIOWrapper]:
 # TODO test with `stream` as argument and in headers as `True` and `False` in a Parametrize'd test
 # TODO test file_size as zero (can go in base test and test expected chunk count / calls to progress callback?)
 # TODO test buffer_size as zero  (can go in base test and test expected chunk count / calls to progress callback?)
-# 
+#
+# TODO test incorrect known_size of file? i.e. give 64 bytes but file is actually 128?
+#
 # TODO Want to test the print logs as well in various scenarios (should be separate test I think?)
 @pytest.mark.parametrize(
-    'buffer_size', [
-        pytest.param(65536, id = 'Happy Path Download')
+    'progress_callback, buffer_size, stream, known_size, headers', [
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            True,
+            64,  # File is 64 bytes
+            { 'Content-Length': '64' },
+            id = 'Happy Path with All Normal Values'
+        ),
+
+        # Varying buffer sizes
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            4096,
+            True,
+            64,
+            { 'Content-Length': '64' },
+            id = 'buffer_size is 4096'
+        ),
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            0,
+            True,
+            64,
+            { 'Content-Length': '64' },
+            id = 'buffer_size is 0'
+        ),
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            0,
+            True,
+            -4096,
+            { 'Content-Length': '64' },
+            id = 'buffer_size is -4096'
+        ),
+
+        # Single value change
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            False,
+            64,
+            { 'Content-Length': '64' },
+            id = 'stream is False'
+        ),
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            True,
+            0,
+            { 'Content-Length': '64' },
+            id = 'known_size is 0'
+        ),
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            True,
+            64,
+            { 'Content-Length': '0' },
+            id = 'Content-Length in headers is 0'
+        ),
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            True,
+            64,
+            {},
+            id = 'headers is {}'
+        ),
+
+        # stream=False, known_size=0, varying Content-Length
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            False,
+            0,
+            { 'Content-Length': '64' },
+            id = 'stream is False, known_size is 0, Content-Length in headers is 64'
+        ),
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            False,
+            0,
+            { 'Content-Length': '0' },
+            id = 'stream is False, known_size is 0, Content-Length in headers is 0'
+        ),
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            False,
+            0,
+            {},
+            id = 'stream is False, known_size is 0, headers is {}'
+        ),
+
+        # stream=True, known_size=0, varying headers Content-Length
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            True,
+            0,
+            { 'Content-Length': '64' },
+            id = 'known_size is 0, Content-Length in headers is 64'
+        ),
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            True,
+            0,
+            { 'Content-Length': '0' },
+            id = 'known_size is 0, Content-Length in headers is 0'
+        ),
+        pytest.param(
+            lambda progress: print(f'Progress is {progress}'),
+            65536,
+            True,
+            0,
+            {},
+            id = 'known_size is 0, headers is {}'
+        ),
     ]
 )
-def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs: FakeFilesystem, mocker: MockerFixture, buffer_size: int):
+def test_download_file(progress_callback: Callable[[int], None] | Callable[..., None], buffer_size: int, stream: bool, known_size: int, headers: dict[str, str], sample_file: FakeFileWrapper, responses: RequestsMock, fs: FakeFilesystem, mocker: MockerFixture):
 
     """
     Given a valid URL and destination,
@@ -66,13 +187,13 @@ def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs
 
     destination_file_path: str = os.path.join(TEMP_DIR, sample_file.file_object.name)
 
-    progress_callback: Callable[[int], None] = lambda progress: print(f'Progress is {progress}')
     progress_callback_spy = mocker.spy(progress_callback, '__call__')
 
     get_mock_body: str = sample_file.read()
     get_mock: BaseResponse = responses.get(
         request_url,
         body = get_mock_body,
+        headers = headers
     )
 
     fs.create_dir(TEMP_DIR)
@@ -81,7 +202,9 @@ def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs
         request_url,
         destination_file_path,
         progress_callback = progress_callback_spy,
-        buffer_size = buffer_size
+        buffer_size = buffer_size,
+        stream = stream,
+        known_size = known_size
     )
 
     file_content: str = ''
@@ -89,7 +212,8 @@ def test_download_file(sample_file: FakeFileWrapper, responses: RequestsMock, fs
         file_content = downloaded_file.read()
 
     # Figure out the chunk count to know how many times progress_callback will be called and what it will be called with
-    expected_chunk_count = math.ceil(len(file_content) / buffer_size) or 1
+
+    expected_chunk_count = math.ceil(len(file_content) / (buffer_size or 65536)) or 1
     expected_progress_callback_calls = [ call(1) ]
 
     for chunk in range(1, expected_chunk_count + 1):
