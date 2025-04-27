@@ -144,3 +144,57 @@ def test_is_gitlab_instance(url: str, is_gitlab_api: bool) -> None:
     result: bool = is_gitlab_instance(url)
 
     assert result == is_gitlab_api
+
+
+@pytest.mark.parametrize(
+    'compat_tool_name, ctobjs, expected', [
+        pytest.param(
+            'GE-Proton9-27',
+            [
+                { 'name': 'Luxtorpeda' },
+                { 'name': 'GE-Proton8-16' },
+                { 'name': 'GE-Proton9-27' },
+                { 'name': 'Proton-GE-5-2' },
+                { 'name': 'Proton-tkg.10.6.a34b12f' }
+            ],
+            True,
+            id = 'GE-Proton9-27 should be found'
+        ),
+        pytest.param(
+            'Wine-tkg',
+            [
+                { 'name': 'Luxtorpeda' },
+                { 'name': 'GE-Proton8-16' },
+                { 'name': 'GE-Proton9-27' },
+                { 'name': 'Proton-GE-5-2' },
+                { 'name': 'Proton-tkg.10.6.a34b12f' }
+            ],
+            False,
+            id = 'Wine-tkg should not be found'
+        ),
+        pytest.param(
+            'GE-Proton9-2',
+            [
+                { 'name': 'Luxtorpeda' },
+                { 'name': 'GE-Proton8-16' },
+                { 'name': 'GE-Proton9-27' },
+                { 'name': 'Proton-GE-5-2' },
+                { 'name': 'Proton-tkg.10.6.a34b12f' }
+            ],
+            False,
+            id = 'GE-Proton9-2 should not be found'
+        ),
+        
+    ]
+)
+def test_compat_tool_available(compat_tool_name: str, ctobjs: list[dict[str, str]], expected: bool) -> None:
+
+    """
+    Given a list of dictionaries containing compatibility tools,
+    When the name of the compatibility tool is in the list of dictionaries,
+    Then it should return whether the given compatibility tool name is in the list of dictionaries
+    """
+
+    result: bool = compat_tool_available(compat_tool_name, ctobjs)
+
+    assert result == expected
