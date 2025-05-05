@@ -1,9 +1,14 @@
 import pytest
+import pytest_responses
+from responses import BaseResponse, RequestsMock
 
 from pupgui2.util import *
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, GITLAB_API, GITHUB_API
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher
+
+
+github_api_ratelimit_url: str = 'https://api.github.com/rate_limit/'
 
 
 def test_build_headers_with_authorization() -> None:
@@ -135,6 +140,54 @@ def test_get_random_game_name() -> None:
         assert get_random_game_name(steam_app) in names
         assert get_random_game_name(lutris_game) in names
         assert get_random_game_name(heroic_game) in names
+
+
+def test_is_online(responses: RequestsMock) -> None:
+
+    """
+    Test that is_online will succeed when sending a GET request to the provided host returns success response.
+    """
+
+    timeout: int = 5
+
+    get_mock: BaseResponse = responses.get(
+        github_api_ratelimit_url,
+        status = 200,
+    )
+
+    result: bool = is_online(host = github_api_ratelimit_url, timeout = timeout)
+
+    assert result
+
+    assert get_mock.call_count == 1
+    assert get_mock.method == 'GET'
+    assert get_mock.url == github_api_ratelimit_url
+    assert get_mock.status == 200
+
+
+@pytest.mark.parametrize('expected_error', [
+    pytest.param(
+        requests.ConnectionError('Connection Error'), id='ConnectionError'
+    ),
+    pytest.param(
+        requests.Timeout('Timeout Error'), id='Timeout'
+    )
+])
+def test_is_online_errors(responses: RequestsMock, expected_error: requests.ConnectionError | requests.Timeout):
+
+    """ Test that is_online will return False when an expected error is caught. """
+
+    get_mock: BaseResponse = responses.get(
+        github_api_ratelimit_url,
+        body=expected_error
+    )
+
+    result = is_online(host = github_api_ratelimit_url)
+
+    assert result == False
+
+    assert get_mock.call_count == 1
+    assert get_mock.body == expected_error
 
 
 @pytest.mark.parametrize(

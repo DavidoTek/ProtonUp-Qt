@@ -26,7 +26,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt install -y libegl1 libxkbcommon0
-        pip install pytest pytest-md pytest-emoji
+        pip install -r tests/requirements.txt
 
     - name: Install ProtonUp-Qt
       run: pip install -e .

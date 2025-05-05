@@ -594,7 +594,7 @@ def is_gitlab_instance(url: str) -> bool:
     return any(instance in url for instance in GITLAB_API)
 
 
-def is_online(host='https://api.github.com/rate_limit/', timeout=5) -> bool:
+def is_online(host: str = 'https://api.github.com/rate_limit/', timeout: int = 5) -> bool:
     """
     Attempts to ping a given host using `requests`.
     Returns False if `requests` raises a `ConnectionError` or `Timeout` exception, otherwise returns True 
