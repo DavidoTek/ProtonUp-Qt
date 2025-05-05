@@ -1,11 +1,10 @@
 import pytest
 import pytest_responses
-
 from responses import BaseResponse, RequestsMock
 
 from pupgui2.util import *
 
-from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS
+from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, GITLAB_API, GITHUB_API
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher
 
 
@@ -48,70 +47,78 @@ def test_build_headers_with_authorization() -> None:
     assert github_token_call.get('User-Agent', '') == user_agent
 
 
-def test_get_dict_key_from_value() -> None:
+@pytest.mark.parametrize(
+    'test_dict, expected_type', [
+        pytest.param(
+            { 'steam': 'Steam', 'lutris': 'Lutris' },
+            str,
+            id = 'Get string launcher keys from dict'
+        ),
+        pytest.param(
+            { 2: 'two', 4: 'four' },
+            int,
+            id = 'Get integer keys from string value'
+        ),
+        pytest.param(
+            { Launcher.WINEZGUI: True, Launcher.HEROIC: False },
+            Launcher,
+            id = 'Get Enum (Launcher) keys from boolean value'
+        ),
+    ],
+)
+def test_get_dict_key_from_value(test_dict: dict[str | int | Launcher, str | str | bool], expected_type: str | int | Launcher) -> None:
 
     """
-    Test whether get_dict_key_from_value can retrieve the expected key from a dict by a value,
-    where the key and value can be of any type.
+    Test whether get_dict_key_from_value can retrieve the expected key of an expected type from a given dictionary,
+    where the key-value pair can be of any type.
     """
 
-    dict_with_str_keys: dict[str, str] = {
-        'steam': 'Steam',
-        'lutris': 'Lutris',
-    }
+    for key, value in test_dict.items():
 
-    dict_with_int_keys: dict[int, str] = {
-        2: 'two',
-        4: 'four'
-    }
+        retrieved_key: str | int | Launcher = get_dict_key_from_value(test_dict, value)
 
-    dict_with_enum_keys: dict[Launcher, bool] = {
-        Launcher.WINEZGUI: True,
-        Launcher.HEROIC: False
-    }
+        assert retrieved_key == key
+        assert type(retrieved_key) is expected_type
 
-    test_dicts: list[dict[Any, Any]] = [
-        dict_with_str_keys,
-        dict_with_int_keys,
-        dict_with_enum_keys,
+
+@pytest.mark.parametrize(
+    'launcher_paths, expected_launcher', [
+        pytest.param(
+            [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'steam' ],
+            Launcher.STEAM,
+            id='Steam Launcher'
+        ),
+        pytest.param(
+            [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'lutris' ],
+            Launcher.LUTRIS,
+            id='Lutris Launcher'
+        ),
+        pytest.param(
+            [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] in ('heroicwine', 'heroicproton') ],
+            Launcher.HEROIC,
+            id='Heroic Wine / Heroic Proton Launcher'
+        ),
+        pytest.param(
+            [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'bottles' ],
+            Launcher.BOTTLES,
+            id='Bottles Launcher'
+        ),
+        pytest.param(
+            [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'winezgui' ],
+            Launcher.WINEZGUI,
+            id='WineZGUI Launcher'
+        ),
     ]
-
-    for test_dict in test_dicts:
-        assert all( get_dict_key_from_value(test_dict, value) == key for key, value in test_dict.items() )
-
-
-def test_get_launcher_from_installdir() -> None:
+)
+def test_get_launcher_from_installdir(launcher_paths: list[str], expected_launcher: Launcher) -> None:
 
     """
     Test whether get_laucher_from_installdir returns the correct Launcher type Enum from the installdir path.
     """
 
-    # All possible Steam paths
-    steam_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'steam' ]
-    steam_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(steam_path) for steam_path in steam_install_paths ]
+    launcher_from_installdir: list[Launcher] = [ get_launcher_from_installdir(launcher_path) for launcher_path in launcher_paths ]
 
-    # All possible Lutris paths
-    lutris_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'lutris' ]
-    lutris_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(lutris_path) for lutris_path in lutris_install_paths ]
-
-    # All possible Heroic paths
-    heroic_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] in ['heroicwine', 'heroicproton'] ]
-    heroic_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(heroic_path) for heroic_path in heroic_install_paths ]
-
-    # All possible Bottles paths
-    bottles_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'bottles' ]
-    bottles_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(bottles_path) for bottles_path in bottles_install_paths ]
-
-    # All possible WineZGUI paths
-    winezgui_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'winezgui' ]
-    winezgui_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(winezgui_path) for winezgui_path in winezgui_install_paths ]
-
-
-    assert all(launcher == Launcher.STEAM for launcher in steam_install_path_tests)
-    assert all(launcher == Launcher.LUTRIS for launcher in lutris_install_path_tests)
-    assert all(launcher == Launcher.HEROIC for launcher in heroic_install_path_tests)
-    assert all(launcher == Launcher.BOTTLES for launcher in bottles_install_path_tests)
-    assert all(launcher == Launcher.WINEZGUI for launcher in winezgui_install_path_tests)
+    assert all(launcher == expected_launcher for launcher in launcher_from_installdir)
 
 
 def test_get_random_game_name() -> None:
@@ -181,3 +188,20 @@ def test_is_online_errors(responses: RequestsMock, expected_error: requests.Conn
 
     assert get_mock.call_count == 1
     assert get_mock.body == expected_error
+
+
+@pytest.mark.parametrize(
+    'url, is_gitlab_api', [
+        *[pytest.param(api, True, id = api) for api in GITLAB_API],
+        pytest.param(GITHUB_API, False, id = GITHUB_API)
+    ]
+)
+def test_is_gitlab_instance(url: str, is_gitlab_api: bool) -> None:
+
+    """
+    Test that a given GitLab API URL is detected successfully.
+    """
+
+    result: bool = is_gitlab_instance(url)
+
+    assert result == is_gitlab_api

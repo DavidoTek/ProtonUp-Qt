@@ -128,17 +128,26 @@ def apply_dark_theme(app: QApplication) -> None:
                 app.setPalette(QStyleFactory.create('fusion').standardPalette())
 
 
-def read_update_config_value(option: str, value, section: str = 'pupgui2', config_file: str = CONFIG_FILE) -> str:
-
+def read_update_config_value(option: str, value = None, section: str = 'pupgui2', config_file: str = CONFIG_FILE) -> str | None:
     """
     Uses ConfigParser to read a value with a given option from a given section from a given config file.
     By default, will read a option and a value from the 'pupgui2' section in CONFIG_FILE path in constants.py.
+
+    Args:
+        option (str): The option to read from or update in the config file.
+        value (Any, optional): The value to write to the config file. If None, will read the value from the config file.
+        section (str, optional): The section to read from or update in the config file. Default is 'pupgui2'.
+        config_file (str, optional): The path to the config file. Default is CONFIG_FILE in constants.py.
+
+        
+    Returns:
+        str | None: The value read from the config file or None if the option does not exist.
     """
 
     config = ConfigParser()
 
     # Write value if given
-    if value:
+    if value != None:  # "!= None" is used to avoid false positives with empty strings
         config.read(config_file)
         if not config.has_section(section):
             config.add_section(section)
@@ -156,11 +165,11 @@ def read_update_config_value(option: str, value, section: str = 'pupgui2', confi
     return value
 
 
-def config_theme(theme=None) -> str:
+def config_theme(theme=None) -> str | None:
     """
     Read/update config for the theme
     Write theme to config or read if theme=None
-    Return Type: str
+    Return Type: str | None
     """
 
     return read_update_config_value('theme', theme, section='pupgui2')
@@ -173,25 +182,23 @@ def config_advanced_mode(advmode=None) -> str:
     Return Type: str
     """
 
-    return read_update_config_value('advancedmode', advmode, section='pupgui2')
+    return read_update_config_value('advancedmode', advmode, section='pupgui2') or ""
 
 
-def config_github_access_token(github_token=None):
-
+def config_github_access_token(github_token=None) -> str:
     """
     Read/update config for GitHub Access Token
     """
 
-    return read_update_config_value('github_api_token', github_token, section='pupgui2')
+    return read_update_config_value('github_api_token', github_token, section='pupgui2') or ""
 
 
-def config_gitlab_access_token(gitlab_token=None):
-
+def config_gitlab_access_token(gitlab_token=None) -> str:
     """
     Read/update config for GitLab Access Token
     """
 
-    return read_update_config_value('gitlab_api_token', gitlab_token, section='pupgui2')
+    return read_update_config_value('gitlab_api_token', gitlab_token, section='pupgui2') or ""
 
 
 def create_compatibilitytools_folder() -> None:
