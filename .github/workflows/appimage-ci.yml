@@ -25,11 +25,8 @@ jobs:
         appimage-builder
 
     - name: Upload AppImage
-      uses: "marvinpinto/action-automatic-releases@latest"
+      uses: actions/upload-artifact@v4
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "continuous"
-        prerelease: true
-        title: "Continuous Build"
-        files: |
-          ./ProtonUp-Qt*.AppImage*
+        name: ProtonUp-Qt
+        path: ProtonUp-Qt*.AppImage*
+        if-no-files-found: ignore
