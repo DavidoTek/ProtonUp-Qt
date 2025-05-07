@@ -32,6 +32,12 @@ class CtInstaller(ProtonGECtInstaller):
     CT_URL = 'https://api.github.com/repos/CachyOS/proton-cachyos/releases'
     CT_INFO_URL = 'https://github.com/CachyOS/proton-cachyos/releases/tag/'
 
+    def __init__(self, main_window = None) -> None:
+
+        super().__init__(main_window)
+
+        self.release_format = 'tar.xz'
+
     def __fetch_github_data(self, tag: str, arch: str) -> dict | None:
         """
         Fetch GitHub release information
@@ -91,49 +97,23 @@ class CtInstaller(ProtonGECtInstaller):
                         assets.append(name)
         return assets
 
-    def get_tool(self, version: str, install_dir: str, temp_dir: str):
+    def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
+
         """
-        Download and install the compatibility tool
-        Return Type: bool
+        Get needed download data and path to extract directory.
+        Return Type: tuple[dict | None, str | None]
         """
+
         major, minor, arch = version.split("-")
         tag = "-".join(('cachyos', major, minor, 'slr'))
         data = self.__fetch_github_data(tag, arch)
 
         if not data or 'download' not in data:
-            return False
+            return (None, None)
 
         protondir = os.path.join(install_dir, data['version'])
-        if not os.path.exists(protondir):
-            protondir = os.path.join(install_dir, 'proton-' + data['version'])
-        checksum_dir = f'{protondir}/sha512sum'
-        source_checksum = self.rs.get(data['checksum']).text if 'checksum' in data else None
-        local_checksum = open(checksum_dir).read() if os.path.exists(checksum_dir) else None
 
-        if os.path.exists(protondir):
-            if local_checksum and source_checksum:
-                if local_checksum in source_checksum:
-                    return False
-            else:
-                return False
-
-        proton_tar = os.path.join(temp_dir, data['download'].split('/')[-1])
-        if not self.__download(url=data['download'], destination=proton_tar, known_size=data.get('size', 0)):
-            return False
-
-        download_checksum = self.__sha512sum(proton_tar)
-        if source_checksum and (download_checksum not in source_checksum):
-            return False
-
-        if not extract_tar(proton_tar, install_dir, mode='xz'):
-            return False
-
-        if os.path.exists(checksum_dir):
-            open(checksum_dir, 'w').write(download_checksum)
-
-        self.__set_download_progress_percent(100)
-
-        return True
+        return (data, protondir)
 
     def get_info_url(self, version: str) -> str:
         """
