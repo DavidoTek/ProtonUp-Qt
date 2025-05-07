@@ -498,7 +498,7 @@ def download_awacy_gamelist() -> None:
     if not is_online():
         return
 
-    t = threading.Thread(target=_download_awacy_gamelist_thread)
+    t = threading.Thread(target = _download_awacy_gamelist_thread, name = '_download_awacy_gamelist')
     t.start()
 
 
