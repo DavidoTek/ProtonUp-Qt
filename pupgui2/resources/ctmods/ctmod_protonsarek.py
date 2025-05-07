@@ -13,7 +13,7 @@ from pupgui2.resources.ctmods.ctmod_00protonge import CtInstaller as GEProtonIns
 
 
 CT_NAME = 'Proton-Sarek'
-CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles', 'advmode']
+CT_LAUNCHERS = ['steam', 'lutris', 'heroicproton', 'bottles', 'advmode']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_protonsarek', '''A custom Proton build with <a href="https://github.com/pythonlover02/DXVK-Sarek">DXVK-Sarek</a> for users with GPUs that support Vulkan 1.1+ but not Vulkan 1.3, or for those with non-Vulkan support who want a plug-and-play option featuring personal patches.''')}
 
 
