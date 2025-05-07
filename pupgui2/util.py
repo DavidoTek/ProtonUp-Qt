@@ -609,7 +609,7 @@ def is_online(host: str = 'https://api.github.com/rate_limit/', timeout: int = 5
 
 
 # Only used for dxvk and dxvk-async right now, but is potentially useful to more ctmods?
-def fetch_project_releases(releases_url: str, rs: requests.Session, count: int = 100, page: int = 1, include_extra_asset: Callable | None = None) -> list[str]:
+def fetch_project_releases(releases_url: str, rs: requests.Session, count: int = 100, page: int = 1, include_extra_asset: Callable[..., list[str]] | None = None) -> list[str]:
 
     """
     List available releases for a given project URL hosted using requests.
@@ -639,8 +639,7 @@ def fetch_project_releases(releases_url: str, rs: requests.Session, count: int =
         if not include_extra_asset:
             continue
 
-        if extra_asset := include_extra_asset(release):
-            releases_list.append(extra_asset)
+        releases_list.extend([asset for asset in include_extra_asset(release)])
 
     return releases_list
 

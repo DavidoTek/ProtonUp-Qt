@@ -2,6 +2,9 @@
 # pythonlover02's Proton-Sarek
 # Copyright (C) 2025 DavidoTek, partially based on AUNaseef's protonup
 
+from typing import Callable
+
+
 from PySide6.QtCore import QCoreApplication
 
 from pupgui2.util import fetch_project_release_data, fetch_project_releases
@@ -28,13 +31,13 @@ class CtInstaller(GEProtonInstaller):
         self.async_suffix = '-async'
 
     def fetch_releases(self, count: int = 100, page: int = 1) -> list[str]:
-        
+
         """
         List available releases
         Return Type: str[]
         """
 
-        include_extra_asset = lambda release: release['tag_name'] + self.async_suffix if any(self.async_suffix in asset['name'] for asset in release['assets']) else None
+        include_extra_asset: Callable[..., list[str]] = lambda release: [str(release.get('tag_name', '')) + self.async_suffix for asset in release.get('assets', {}) if self.async_suffix in asset.get('name', '')]
         return fetch_project_releases(self.CT_URL, self.rs, count=count, page=page, include_extra_asset=include_extra_asset)
 
     def __fetch_github_data(self, tag: str) -> dict:
