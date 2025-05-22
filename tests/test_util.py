@@ -5,7 +5,7 @@ from responses import BaseResponse, RequestsMock
 from pupgui2.util import *
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, GITLAB_API, GITHUB_API
-from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher
+from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher, SteamUser
 
 
 github_api_ratelimit_url: str = 'https://api.github.com/rate_limit/'
@@ -121,25 +121,69 @@ def test_get_launcher_from_installdir(launcher_paths: list[str], expected_launch
     assert all(launcher == expected_launcher for launcher in launcher_from_installdir)
 
 
-def test_get_random_game_name() -> None:
+@pytest.mark.parametrize(
+    'game_list, game_name_attr', [
+        pytest.param([SteamApp() for _ in range(3)], 'game_name', id = 'Steam Games'),
+        pytest.param([LutrisGame() for _ in range(3)], 'name', id = 'Lutris Games'),
+        pytest.param([HeroicGame() for _ in range(3)], 'title', id = 'Heroic Games'),
+    ]
+)
+def test_get_random_game_name(game_list: list[SteamApp] | list[LutrisGame] | list[HeroicGame], game_name_attr: str) -> None:
 
     """ Test whether get_random_game_name returns a valid game name for each launcher game type. """
 
     names: list[str] = ["game", "A super cool game", "A game with a very long name that is very long", "0123456789"]
+    bad_names: list[str] = list("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor".split(','))
 
-    steam_app: list[SteamApp] = [SteamApp() for _ in range(len(names))]
-    lutris_game: list[LutrisGame] = [LutrisGame() for _ in range(len(names))]
-    heroic_game: list[HeroicGame] = [HeroicGame() for _ in range(len(names))]
+    for i, game in enumerate(game_list):
+        setattr(game, game_name_attr, names[i])
 
-    for i, name in enumerate(names):
-        steam_app[i].game_name = name
-        lutris_game[i].name = name
-        heroic_game[i].title = name
+    for i in range(len(names) * 2):
+        result: str = get_random_game_name(game_list)
 
-    for i in range(10):
-        assert get_random_game_name(steam_app) in names
-        assert get_random_game_name(lutris_game) in names
-        assert get_random_game_name(heroic_game) in names
+        assert isinstance(result, str)
+
+        assert result in names
+        assert result not in bad_names
+
+
+@pytest.mark.parametrize(
+    'game_list, game_name_attr', [
+        pytest.param([SteamApp() for _ in range(4)], 'game_name', id = 'Steam Games'),
+        pytest.param([LutrisGame() for _ in range(4)], 'name', id = 'Lutris Games'),
+        pytest.param([HeroicGame() for _ in range(4)], 'title', id = 'Heroic Games'),
+    ]
+)
+def test_get_random_game_name_returns_str(game_list: list[SteamApp] | list[LutrisGame] | list[HeroicGame], game_name_attr: str) -> None:
+
+    """ Test that get_random_game_name will always return a string. """
+
+    names: list[int | float] = [12, 3.14, [1, 734, 12112121][0], -85, 99999999999]
+    str_names: list[str] = [str(name) for name in names]
+
+    for i, game in enumerate(game_list):
+        setattr(game, game_name_attr, names[i])
+
+    for i in range(len(names) * 2):
+
+        result: str = get_random_game_name(game_list)
+
+        assert isinstance(result, str)
+        assert result in str_names
+
+
+@pytest.mark.parametrize(
+    'game_list', [
+        pytest.param([], id = 'Empty List'),
+        pytest.param((), id = 'Empty Tuple'),
+        pytest.param([[], []], id = 'Empty List of Lists'),
+        pytest.param([(), ()], id = 'Empty List of Tuples'),
+        pytest.param([SteamUser(), SteamUser()], id = 'Empty List of SteamUser object')
+    ]
+)
+def test_get_random_game_name_unknown(game_list) -> None:
+    """ Test that get_random_game_name returns an empty string when given a list that does not have a known game type. """
+    assert get_random_game_name(game_list) == ''
 
 
 def test_is_online(responses: RequestsMock) -> None:

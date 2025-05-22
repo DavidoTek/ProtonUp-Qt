@@ -953,7 +953,7 @@ def get_random_game_name(games: list[SteamApp] | list[LutrisGame] | list[HeroicG
     elif type(random_game) is HeroicGame:
         tooltip_game_name = random_game.title
     
-    return tooltip_game_name
+    return str(tooltip_game_name)
 
 
 def detect_platform() -> HardwarePlatform:
