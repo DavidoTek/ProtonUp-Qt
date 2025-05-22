@@ -303,3 +303,26 @@ def test_compat_tool_available(compat_tool_name: str, ctobjs: list[dict[str, str
     result: bool = compat_tool_available(compat_tool_name, ctobjs)
 
     assert result == expected
+
+
+@pytest.mark.parametrize(
+    'combobox_values, value, expected_index', [
+        pytest.param(['a', 'b', 'c', 'd', 'e'], 'c', 2, id = 'Simple list'),
+        pytest.param(['Steam', 'Lutris',' Heroic'], 'Lutris', 1, id = 'List of Launcher Names'),
+        pytest.param(['GE-Proton', 'Proton-tkg', 'SteamTinkerLaunch'], 'SteamTinkerLaunch', 2, id = 'List of Compatibility Tool names'),
+    ]
+)
+def test_get_combobox_index_by_value(combobox_values: list[str], value: str, expected_index: int) -> None:
+
+    app = QApplication()
+
+    combobox: QComboBox = QComboBox()
+
+    combobox.addItems(combobox_values)
+
+    result: int = get_combobox_index_by_value(combobox, value)
+
+    assert combobox_values[result] == value
+    assert result == expected_index
+
+    QApplication.shutdown(app)
