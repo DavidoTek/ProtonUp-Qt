@@ -9,7 +9,8 @@ import hashlib
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
-from pupgui2.util import fetch_project_releases, ghapi_rlcheck, extract_tar
+from pupgui2.datastructures import Launcher
+from pupgui2.util import fetch_project_releases, get_launcher_from_installdir, extract_tar
 from pupgui2.util import build_headers_with_authorization
 from pupgui2.networkutil import download_file
 
@@ -148,12 +149,17 @@ class CtInstaller(QObject):
         Download and install the compatibility tool
         Return Type: bool
         """
+
+        install_dir = self.get_extract_dir(install_dir)
+
         data, protondir = self.__get_data(version, install_dir)
         if not data:
             return False
 
+        # Note: protondir is only used for checksums
         if not protondir or  not os.path.exists(protondir):
-            protondir = os.path.join(install_dir, 'Proton-' + data['version'])
+            protondir = os.path.join(install_dir, 'Proton-' + data['version'])  # Check if we have an older Proton-GE folder name
+
         checksum_dir = f'{protondir}/sha512sum'
         source_checksum = self.rs.get(data['checksum']).text if 'checksum' in data else None
         local_checksum = open(checksum_dir).read() if os.path.exists(checksum_dir) else None
@@ -182,6 +188,26 @@ class CtInstaller(QObject):
         self.__set_download_progress_percent(100)
 
         return True
+
+    def get_extract_dir(self, install_dir: str) -> str:
+
+        """
+        Return the directory to extract GE-Proton archive based on the current launcher
+        Return Type: str
+        """
+
+        launcher = get_launcher_from_installdir(install_dir)
+        extract_dir: str = install_dir
+
+        if launcher == Launcher.LUTRIS:
+            # GE-Proton for Lutris needs to go into 'runners/proton' and not 'runners/wine'
+            extract_dir = os.path.abspath(os.path.join(install_dir, '../../runners/proton'))
+            
+            # Lutris may not be guaranteed to make this path, so ensure it exists
+            if not os.path.exists(extract_dir):
+                os.mkdir(extract_dir)
+
+        return extract_dir  # Default to install_dir
 
     def get_info_url(self, version: str) -> str:
         """

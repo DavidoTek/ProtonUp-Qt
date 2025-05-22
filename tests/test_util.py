@@ -1,9 +1,14 @@
 import pytest
+import pytest_responses
+from responses import BaseResponse, RequestsMock
 
 from pupgui2.util import *
 
-from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS
-from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher
+from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, GITLAB_API, GITHUB_API
+from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher, SteamUser
+
+
+github_api_ratelimit_url: str = 'https://api.github.com/rate_limit/'
 
 
 def test_build_headers_with_authorization() -> None:
@@ -42,91 +47,262 @@ def test_build_headers_with_authorization() -> None:
     assert github_token_call.get('User-Agent', '') == user_agent
 
 
-def test_get_dict_key_from_value() -> None:
+@pytest.mark.parametrize(
+    'test_dict, expected_type', [
+        pytest.param(
+            { 'steam': 'Steam', 'lutris': 'Lutris' },
+            str,
+            id = 'Get string launcher keys from dict'
+        ),
+        pytest.param(
+            { 2: 'two', 4: 'four' },
+            int,
+            id = 'Get integer keys from string value'
+        ),
+        pytest.param(
+            { Launcher.WINEZGUI: True, Launcher.HEROIC: False },
+            Launcher,
+            id = 'Get Enum (Launcher) keys from boolean value'
+        ),
+    ],
+)
+def test_get_dict_key_from_value(test_dict: dict[str | int | Launcher, str | str | bool], expected_type: str | int | Launcher) -> None:
 
     """
-    Test whether get_dict_key_from_value can retrieve the expected key from a dict by a value,
-    where the key and value can be of any type.
+    Test whether get_dict_key_from_value can retrieve the expected key of an expected type from a given dictionary,
+    where the key-value pair can be of any type.
     """
 
-    dict_with_str_keys: dict[str, str] = {
-        'steam': 'Steam',
-        'lutris': 'Lutris',
-    }
+    for key, value in test_dict.items():
 
-    dict_with_int_keys: dict[int, str] = {
-        2: 'two',
-        4: 'four'
-    }
+        retrieved_key: str | int | Launcher = get_dict_key_from_value(test_dict, value)
 
-    dict_with_enum_keys: dict[Launcher, bool] = {
-        Launcher.WINEZGUI: True,
-        Launcher.HEROIC: False
-    }
+        assert retrieved_key == key
+        assert type(retrieved_key) is expected_type
 
-    test_dicts: list[dict[Any, Any]] = [
-        dict_with_str_keys,
-        dict_with_int_keys,
-        dict_with_enum_keys,
+
+@pytest.mark.parametrize(
+    'launcher_paths, expected_launcher', [
+        pytest.param(
+            [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'steam' ],
+            Launcher.STEAM,
+            id='Steam Launcher'
+        ),
+        pytest.param(
+            [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'lutris' ],
+            Launcher.LUTRIS,
+            id='Lutris Launcher'
+        ),
+        pytest.param(
+            [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] in ('heroicwine', 'heroicproton') ],
+            Launcher.HEROIC,
+            id='Heroic Wine / Heroic Proton Launcher'
+        ),
+        pytest.param(
+            [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'bottles' ],
+            Launcher.BOTTLES,
+            id='Bottles Launcher'
+        ),
+        pytest.param(
+            [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'winezgui' ],
+            Launcher.WINEZGUI,
+            id='WineZGUI Launcher'
+        ),
     ]
-
-    for test_dict in test_dicts:
-        assert all( get_dict_key_from_value(test_dict, value) == key for key, value in test_dict.items() )
-
-
-def test_get_launcher_from_installdir() -> None:
+)
+def test_get_launcher_from_installdir(launcher_paths: list[str], expected_launcher: Launcher) -> None:
 
     """
     Test whether get_laucher_from_installdir returns the correct Launcher type Enum from the installdir path.
     """
 
-    # All possible Steam paths
-    steam_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'steam' ]
-    steam_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(steam_path) for steam_path in steam_install_paths ]
+    launcher_from_installdir: list[Launcher] = [ get_launcher_from_installdir(launcher_path) for launcher_path in launcher_paths ]
 
-    # All possible Lutris paths
-    lutris_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'lutris' ]
-    lutris_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(lutris_path) for lutris_path in lutris_install_paths ]
-
-    # All possible Heroic paths
-    heroic_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] in ['heroicwine', 'heroicproton'] ]
-    heroic_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(heroic_path) for heroic_path in heroic_install_paths ]
-
-    # All possible Bottles paths
-    bottles_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'bottles' ]
-    bottles_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(bottles_path) for bottles_path in bottles_install_paths ]
-
-    # All possible WineZGUI paths
-    winezgui_install_paths: list[str] = [ install_location['install_dir'] for install_location in POSSIBLE_INSTALL_LOCATIONS if install_location['launcher'] == 'winezgui' ]
-    winezgui_install_path_tests: list[Launcher] = [ get_launcher_from_installdir(winezgui_path) for winezgui_path in winezgui_install_paths ]
+    assert all(launcher == expected_launcher for launcher in launcher_from_installdir)
 
 
-    assert all(launcher == Launcher.STEAM for launcher in steam_install_path_tests)
-    assert all(launcher == Launcher.LUTRIS for launcher in lutris_install_path_tests)
-    assert all(launcher == Launcher.HEROIC for launcher in heroic_install_path_tests)
-    assert all(launcher == Launcher.BOTTLES for launcher in bottles_install_path_tests)
-    assert all(launcher == Launcher.WINEZGUI for launcher in winezgui_install_path_tests)
-
-
-def test_get_random_game_name() -> None:
+@pytest.mark.parametrize(
+    'game_list, game_name_attr', [
+        pytest.param([SteamApp() for _ in range(3)], 'game_name', id = 'Steam Games'),
+        pytest.param([LutrisGame() for _ in range(3)], 'name', id = 'Lutris Games'),
+        pytest.param([HeroicGame() for _ in range(3)], 'title', id = 'Heroic Games'),
+    ]
+)
+def test_get_random_game_name(game_list: list[SteamApp] | list[LutrisGame] | list[HeroicGame], game_name_attr: str) -> None:
 
     """ Test whether get_random_game_name returns a valid game name for each launcher game type. """
 
     names: list[str] = ["game", "A super cool game", "A game with a very long name that is very long", "0123456789"]
+    bad_names: list[str] = list("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor".split(','))
 
-    steam_app: list[SteamApp] = [SteamApp() for _ in range(len(names))]
-    lutris_game: list[LutrisGame] = [LutrisGame() for _ in range(len(names))]
-    heroic_game: list[HeroicGame] = [HeroicGame() for _ in range(len(names))]
+    for i, game in enumerate(game_list):
+        setattr(game, game_name_attr, names[i])
 
-    for i, name in enumerate(names):
-        steam_app[i].game_name = name
-        lutris_game[i].name = name
-        heroic_game[i].title = name
+    for i in range(len(names) * 2):
+        result: str = get_random_game_name(game_list)
 
-    for i in range(10):
-        assert get_random_game_name(steam_app) in names
-        assert get_random_game_name(lutris_game) in names
-        assert get_random_game_name(heroic_game) in names
+        assert isinstance(result, str)
+
+        assert result in names
+        assert result not in bad_names
+
+
+@pytest.mark.parametrize(
+    'game_list, game_name_attr', [
+        pytest.param([SteamApp() for _ in range(4)], 'game_name', id = 'Steam Games'),
+        pytest.param([LutrisGame() for _ in range(4)], 'name', id = 'Lutris Games'),
+        pytest.param([HeroicGame() for _ in range(4)], 'title', id = 'Heroic Games'),
+    ]
+)
+def test_get_random_game_name_returns_str(game_list: list[SteamApp] | list[LutrisGame] | list[HeroicGame], game_name_attr: str) -> None:
+
+    """ Test that get_random_game_name will always return a string. """
+
+    names: list[int | float] = [12, 3.14, [1, 734, 12112121][0], -85, 99999999999]
+    str_names: list[str] = [str(name) for name in names]
+
+    for i, game in enumerate(game_list):
+        setattr(game, game_name_attr, names[i])
+
+    for i in range(len(names) * 2):
+
+        result: str = get_random_game_name(game_list)
+
+        assert isinstance(result, str)
+        assert result in str_names
+
+
+@pytest.mark.parametrize(
+    'game_list', [
+        pytest.param([], id = 'Empty List'),
+        pytest.param((), id = 'Empty Tuple'),
+        pytest.param([[], []], id = 'Empty List of Lists'),
+        pytest.param([(), ()], id = 'Empty List of Tuples'),
+        pytest.param([SteamUser(), SteamUser()], id = 'Empty List of SteamUser object')
+    ]
+)
+def test_get_random_game_name_unknown(game_list) -> None:
+    """ Test that get_random_game_name returns an empty string when given a list that does not have a known game type. """
+    assert get_random_game_name(game_list) == ''
+
+
+def test_is_online(responses: RequestsMock) -> None:
+
+    """
+    Test that is_online will succeed when sending a GET request to the provided host returns success response.
+    """
+
+    timeout: int = 5
+
+    get_mock: BaseResponse = responses.get(
+        github_api_ratelimit_url,
+        status = 200,
+    )
+
+    result: bool = is_online(host = github_api_ratelimit_url, timeout = timeout)
+
+    assert result
+
+    assert get_mock.call_count == 1
+    assert get_mock.method == 'GET'
+    assert get_mock.url == github_api_ratelimit_url
+    assert get_mock.status == 200
+
+
+@pytest.mark.parametrize('expected_error', [
+    pytest.param(
+        requests.ConnectionError('Connection Error'), id='ConnectionError'
+    ),
+    pytest.param(
+        requests.Timeout('Timeout Error'), id='Timeout'
+    )
+])
+def test_is_online_errors(responses: RequestsMock, expected_error: requests.ConnectionError | requests.Timeout):
+
+    """ Test that is_online will return False when an expected error is caught. """
+
+    get_mock: BaseResponse = responses.get(
+        github_api_ratelimit_url,
+        body=expected_error
+    )
+
+    result = is_online(host = github_api_ratelimit_url)
+
+    assert result == False
+
+    assert get_mock.call_count == 1
+    assert get_mock.body == expected_error
+
+
+@pytest.mark.parametrize(
+    'url, is_gitlab_api', [
+        *[pytest.param(api, True, id = api) for api in GITLAB_API],
+        pytest.param(GITHUB_API, False, id = GITHUB_API)
+    ]
+)
+def test_is_gitlab_instance(url: str, is_gitlab_api: bool) -> None:
+
+    """
+    Test that a given GitLab API URL is detected successfully.
+    """
+
+    result: bool = is_gitlab_instance(url)
+
+    assert result == is_gitlab_api
+
+
+@pytest.mark.parametrize(
+    'compat_tool_name, ctobjs, expected', [
+        pytest.param(
+            'GE-Proton9-27',
+            [
+                { 'name': 'Luxtorpeda' },
+                { 'name': 'GE-Proton8-16' },
+                { 'name': 'GE-Proton9-27' },
+                { 'name': 'Proton-GE-5-2' },
+                { 'name': 'Proton-tkg.10.6.a34b12f' }
+            ],
+            True,
+            id = 'GE-Proton9-27 should be found'
+        ),
+        pytest.param(
+            'Wine-tkg',
+            [
+                { 'name': 'Luxtorpeda' },
+                { 'name': 'GE-Proton8-16' },
+                { 'name': 'GE-Proton9-27' },
+                { 'name': 'Proton-GE-5-2' },
+                { 'name': 'Proton-tkg.10.6.a34b12f' }
+            ],
+            False,
+            id = 'Wine-tkg should not be found'
+        ),
+        pytest.param(
+            'GE-Proton9-2',
+            [
+                { 'name': 'Luxtorpeda' },
+                { 'name': 'GE-Proton8-16' },
+                { 'name': 'GE-Proton9-27' },
+                { 'name': 'Proton-GE-5-2' },
+                { 'name': 'Proton-tkg.10.6.a34b12f' }
+            ],
+            False,
+            id = 'GE-Proton9-2 should not be found'
+        ),
+        
+    ]
+)
+def test_compat_tool_available(compat_tool_name: str, ctobjs: list[dict[str, str]], expected: bool) -> None:
+
+    """
+    Given a list of dictionaries containing compatibility tools,
+    When the name of the compatibility tool is in the list of dictionaries,
+    Then it should return whether the given compatibility tool name is in the list of dictionaries
+    """
+
+    result: bool = compat_tool_available(compat_tool_name, ctobjs)
+
+    assert result == expected
 
 
 @pytest.mark.parametrize(

@@ -76,7 +76,7 @@ class CtInstaller(GEProtonInstaller):
             return (None, None)
 
         # Overwrite the Proton installation directory as the format we need for Lutris Wine
-        protondir = protondir = f'{install_dir}wine-{data["version"].lower()}-x86_64'
+        protondir = f'{install_dir}wine-{data["version"].lower()}-x86_64'
 
         return (data, protondir)
 
@@ -88,3 +88,16 @@ class CtInstaller(GEProtonInstaller):
         """
 
         return super().get_info_url(version.replace('fshack-', ''))
+
+    def get_extract_dir(self, install_dir: str) -> str:
+
+        """
+        Return the directory to extract Lutris-Wine archive based on the current launcher
+        Return Type: str
+        """
+
+        # GE-Proton ctmod figures out if it needs to into a different folder
+        #
+        # Lutris-Wine can use default 'install_dir' always because it is Wine and not Proton,
+        # so override to return unmodified 'install_dir'
+        return install_dir
