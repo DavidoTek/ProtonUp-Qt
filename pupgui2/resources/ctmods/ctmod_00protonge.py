@@ -10,7 +10,8 @@ from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.datastructures import Launcher
-from pupgui2.util import fetch_project_release_data, fetch_project_releases, get_launcher_from_installdir, extract_tar
+from pupgui2.util import fetch_project_release_data, fetch_project_releases
+from pupgui2.util import get_launcher_from_installdir, extract_tar
 from pupgui2.util import build_headers_with_authorization
 from pupgui2.networkutil import download_file
 

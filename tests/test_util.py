@@ -5,7 +5,7 @@ from responses import BaseResponse, RequestsMock
 from pupgui2.util import *
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, GITLAB_API, GITHUB_API
-from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher
+from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher, SteamUser
 
 
 github_api_ratelimit_url: str = 'https://api.github.com/rate_limit/'
@@ -121,25 +121,69 @@ def test_get_launcher_from_installdir(launcher_paths: list[str], expected_launch
     assert all(launcher == expected_launcher for launcher in launcher_from_installdir)
 
 
-def test_get_random_game_name() -> None:
+@pytest.mark.parametrize(
+    'game_list, game_name_attr', [
+        pytest.param([SteamApp() for _ in range(3)], 'game_name', id = 'Steam Games'),
+        pytest.param([LutrisGame() for _ in range(3)], 'name', id = 'Lutris Games'),
+        pytest.param([HeroicGame() for _ in range(3)], 'title', id = 'Heroic Games'),
+    ]
+)
+def test_get_random_game_name(game_list: list[SteamApp] | list[LutrisGame] | list[HeroicGame], game_name_attr: str) -> None:
 
     """ Test whether get_random_game_name returns a valid game name for each launcher game type. """
 
     names: list[str] = ["game", "A super cool game", "A game with a very long name that is very long", "0123456789"]
+    bad_names: list[str] = list("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor".split(','))
 
-    steam_app: list[SteamApp] = [SteamApp() for _ in range(len(names))]
-    lutris_game: list[LutrisGame] = [LutrisGame() for _ in range(len(names))]
-    heroic_game: list[HeroicGame] = [HeroicGame() for _ in range(len(names))]
+    for i, game in enumerate(game_list):
+        setattr(game, game_name_attr, names[i])
 
-    for i, name in enumerate(names):
-        steam_app[i].game_name = name
-        lutris_game[i].name = name
-        heroic_game[i].title = name
+    for i in range(len(names) * 2):
+        result: str = get_random_game_name(game_list)
 
-    for i in range(10):
-        assert get_random_game_name(steam_app) in names
-        assert get_random_game_name(lutris_game) in names
-        assert get_random_game_name(heroic_game) in names
+        assert isinstance(result, str)
+
+        assert result in names
+        assert result not in bad_names
+
+
+@pytest.mark.parametrize(
+    'game_list, game_name_attr', [
+        pytest.param([SteamApp() for _ in range(4)], 'game_name', id = 'Steam Games'),
+        pytest.param([LutrisGame() for _ in range(4)], 'name', id = 'Lutris Games'),
+        pytest.param([HeroicGame() for _ in range(4)], 'title', id = 'Heroic Games'),
+    ]
+)
+def test_get_random_game_name_returns_str(game_list: list[SteamApp] | list[LutrisGame] | list[HeroicGame], game_name_attr: str) -> None:
+
+    """ Test that get_random_game_name will always return a string. """
+
+    names: list[int | float] = [12, 3.14, [1, 734, 12112121][0], -85, 99999999999]
+    str_names: list[str] = [str(name) for name in names]
+
+    for i, game in enumerate(game_list):
+        setattr(game, game_name_attr, names[i])
+
+    for i in range(len(names) * 2):
+
+        result: str = get_random_game_name(game_list)
+
+        assert isinstance(result, str)
+        assert result in str_names
+
+
+@pytest.mark.parametrize(
+    'game_list', [
+        pytest.param([], id = 'Empty List'),
+        pytest.param((), id = 'Empty Tuple'),
+        pytest.param([[], []], id = 'Empty List of Lists'),
+        pytest.param([(), ()], id = 'Empty List of Tuples'),
+        pytest.param([SteamUser(), SteamUser()], id = 'Empty List of SteamUser object')
+    ]
+)
+def test_get_random_game_name_unknown(game_list) -> None:
+    """ Test that get_random_game_name returns an empty string when given a list that does not have a known game type. """
+    assert get_random_game_name(game_list) == ''
 
 
 def test_is_online(responses: RequestsMock) -> None:
@@ -205,3 +249,80 @@ def test_is_gitlab_instance(url: str, is_gitlab_api: bool) -> None:
     result: bool = is_gitlab_instance(url)
 
     assert result == is_gitlab_api
+
+
+@pytest.mark.parametrize(
+    'compat_tool_name, ctobjs, expected', [
+        pytest.param(
+            'GE-Proton9-27',
+            [
+                { 'name': 'Luxtorpeda' },
+                { 'name': 'GE-Proton8-16' },
+                { 'name': 'GE-Proton9-27' },
+                { 'name': 'Proton-GE-5-2' },
+                { 'name': 'Proton-tkg.10.6.a34b12f' }
+            ],
+            True,
+            id = 'GE-Proton9-27 should be found'
+        ),
+        pytest.param(
+            'Wine-tkg',
+            [
+                { 'name': 'Luxtorpeda' },
+                { 'name': 'GE-Proton8-16' },
+                { 'name': 'GE-Proton9-27' },
+                { 'name': 'Proton-GE-5-2' },
+                { 'name': 'Proton-tkg.10.6.a34b12f' }
+            ],
+            False,
+            id = 'Wine-tkg should not be found'
+        ),
+        pytest.param(
+            'GE-Proton9-2',
+            [
+                { 'name': 'Luxtorpeda' },
+                { 'name': 'GE-Proton8-16' },
+                { 'name': 'GE-Proton9-27' },
+                { 'name': 'Proton-GE-5-2' },
+                { 'name': 'Proton-tkg.10.6.a34b12f' }
+            ],
+            False,
+            id = 'GE-Proton9-2 should not be found'
+        ),
+        
+    ]
+)
+def test_compat_tool_available(compat_tool_name: str, ctobjs: list[dict[str, str]], expected: bool) -> None:
+
+    """
+    Given a list of dictionaries containing compatibility tools,
+    When the name of the compatibility tool is in the list of dictionaries,
+    Then it should return whether the given compatibility tool name is in the list of dictionaries
+    """
+
+    result: bool = compat_tool_available(compat_tool_name, ctobjs)
+
+    assert result == expected
+
+
+@pytest.mark.parametrize(
+    'combobox_values, value, expected_index', [
+        pytest.param(['a', 'b', 'c', 'd', 'e'], 'c', 2, id = 'Simple list'),
+        pytest.param(['Steam', 'Lutris',' Heroic'], 'Lutris', 1, id = 'List of Launcher Names'),
+        pytest.param(['GE-Proton', 'Proton-tkg', 'SteamTinkerLaunch'], 'SteamTinkerLaunch', 2, id = 'List of Compatibility Tool names'),
+    ]
+)
+def test_get_combobox_index_by_value(combobox_values: list[str], value: str, expected_index: int) -> None:
+
+    app = QApplication()
+
+    combobox: QComboBox = QComboBox()
+
+    combobox.addItems(combobox_values)
+
+    result: int = get_combobox_index_by_value(combobox, value)
+
+    assert combobox_values[result] == value
+    assert result == expected_index
+
+    QApplication.shutdown(app)
