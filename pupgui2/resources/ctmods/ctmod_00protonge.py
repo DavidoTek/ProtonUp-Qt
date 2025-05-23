@@ -10,7 +10,8 @@ from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 
 from pupgui2.datastructures import Launcher
-from pupgui2.util import fetch_project_releases, get_launcher_from_installdir, extract_tar
+from pupgui2.util import fetch_project_release_data, fetch_project_releases
+from pupgui2.util import get_launcher_from_installdir, extract_tar
 from pupgui2.util import build_headers_with_authorization
 from pupgui2.networkutil import download_file
 
@@ -100,19 +101,8 @@ class CtInstaller(QObject):
         Content(s):
             'version', 'date', 'download', 'size', 'checksum'
         """
-        url = self.CT_URL + (f'/tags/{tag}' if tag else '/latest')
-        data = self.rs.get(url).json()
-        if 'tag_name' not in data:
-            return None
 
-        values = {'version': data['tag_name'], 'date': data['published_at'].split('T')[0]}
-        for asset in data['assets']:
-            if asset['name'].endswith('sha512sum'):
-                values['checksum'] = asset['browser_download_url']
-            elif asset['name'].endswith(self.release_format):
-                values['download'] = asset['browser_download_url']
-                values['size'] = asset['size']
-        return values
+        return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, checksum_suffix='.sha512sum')
 
     def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
 
