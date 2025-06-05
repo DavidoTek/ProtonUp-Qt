@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="105"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>Terdapat dependensi yang hilang!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="75"/>
@@ -14,7 +14,7 @@
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
         <source>Download Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Download Eror!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
@@ -24,7 +24,9 @@
         <source>Failed to download tool &apos;{CT_NAME}&apos;!
 
 Reason: {EXCEPTION}</source>
-        <translation type="unfinished"></translation>
+        <translation>Gagal mengunduh alat &apos;{CT_NAME}&apos;!
+
+Alasan: {EXCEPTION}</translation>
     </message>
 </context>
 <context>
@@ -32,7 +34,7 @@ Reason: {EXCEPTION}</source>
     <message>
         <location filename="../pupgui2/ctloader.py" line="52"/>
         <source>Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Eror!</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="54"/>
@@ -40,7 +42,10 @@ Reason: {EXCEPTION}</source>
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidak dapat memuat alat kompatibilitas berikut ini:
+{TOOL_LIST}
+
+Jika Anda yakin ini adalah eror, silakan laporkan bug di GitHub!</translation>
     </message>
 </context>
 <context>
@@ -48,32 +53,32 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
         <source>Configure Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Mengonfigurasi token akses Git</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
         <source>GitHub:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitHub:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Simpan</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutup</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
         <source>GitLab:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitLab:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialog ini memungkinkan Anda mengonfigurasi token akses untuk API GitHub/GitLab guna mencegah peringatan batas laju API.</translation>
     </message>
 </context>
 <context>
@@ -81,37 +86,37 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>unused</source>
-        <translation type="unfinished"></translation>
+        <translation>tidak digunakan</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="298"/>
         <source>Unused: {unused_ctools}</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidak digunakan: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="325"/>
         <source>Fetching releases...</source>
-        <translation type="unfinished"></translation>
+        <translation>Mengambil rilis...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="336"/>
         <source>Download canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unduhan dibatalkan.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="339"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidak dapat memasang {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="345"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Mengunduh {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="347"/>
