@@ -7,7 +7,9 @@ import glob
 import requests
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
+from PySide6.QtWidgets import QMessageBox
 
+from pupgui2.networkutil import download_file
 from pupgui2.util import ghapi_rlcheck, extract_tar, extract_zip, extract_tar_zst, remove_if_exists
 from pupgui2.util import build_headers_with_authorization
 
@@ -29,6 +31,7 @@ class CtInstaller(QObject):
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
+    message_box_message = Signal(str, str, QMessageBox.Icon)
 
     def __init__(self, main_window = None):
         super(CtInstaller, self).__init__()
@@ -52,39 +55,32 @@ class CtInstaller(QObject):
         self.p_download_progress_percent = value
         self.download_progress_percent.emit(value)
 
-    def __download(self, url, destination, f_size=None):
+    def __download(self, url: str, destination: str, known_size: int= 0) -> bool:
         """
         Download files from url to destination
         Return Type: bool
         """
         try:
-            if 'https://github.com' in url:
-                file = self.rs.get(url, stream=True)
-            else:
-                file = requests.get(url, stream=True)
-        except OSError:
-            return False
+            return download_file(
+                url=url,
+                destination=destination,
+                progress_callback=self.__set_download_progress_percent,
+                download_cancelled=self.download_canceled,
+                buffer_size=self.BUFFER_SIZE,
+                stream=True,
+                known_size=known_size or 0
+            )
+        except Exception as e:
+            print(f"Failed to download tool {CT_NAME} - Reason: {e}")
 
-        self.__set_download_progress_percent(1) # 1 download started
-        if not f_size:
-            f_size = int(file.headers.get('content-length'))
-        c_count = int(f_size / self.BUFFER_SIZE)
-        c_current = 1
-        destination = os.path.expanduser(destination)
-        os.makedirs(os.path.dirname(destination), exist_ok=True)
-        with open(destination, 'wb') as dest:
-            for chunk in file.iter_content(chunk_size=self.BUFFER_SIZE):
-                if self.download_canceled:
-                    self.download_canceled = False
-                    self.__set_download_progress_percent(-2) # -2 download canceled
-                    return False
-                if chunk:
-                    dest.write(chunk)
-                    dest.flush()
-                self.__set_download_progress_percent(int(min(c_current / c_count * 98.0, 98.0))) # 1-98, 100 after extract
-                c_current += 1
-        self.__set_download_progress_percent(99) # 99 download complete
-        return True
+            self.message_box_message.emit(
+                self.tr("Download Error!"),
+                self.tr(
+                    "Failed to download tool '{CT_NAME}'!\n\nReason: {EXCEPTION}".format(CT_NAME=CT_NAME, EXCEPTION=e)),
+                QMessageBox.Icon.Warning
+            )
+
+            return False
 
     def __get_artifact_from_id(self, commit):
         """
@@ -186,7 +182,7 @@ class CtInstaller(QObject):
             return False
 
         tkg_archive = os.path.abspath(os.path.join(temp_dir, data['download'].split('/')[-1]))
-        if not self.__download(url=data['download'], destination=tkg_archive, f_size=data.get("size")):
+        if not self.__download(url=data['download'], destination=tkg_archive, known_size=data.get("size", 0)):
             return False
 
         # Tkg Archive Format Reference:
