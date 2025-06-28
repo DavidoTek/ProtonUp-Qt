@@ -14,7 +14,7 @@
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
         <source>Download Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>பிழையைப் பதிவிறக்குங்கள்!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
@@ -24,7 +24,9 @@
         <source>Failed to download tool &apos;{CT_NAME}&apos;!
 
 Reason: {EXCEPTION}</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;{CT_NAME}&apos; கருவியைப் பதிவிறக்குவதில் தோல்வி! 
+
+காரணம்: {EXCEPTION}</translation>
     </message>
 </context>
 <context>
@@ -51,32 +53,32 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
         <source>Configure Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>GIT அணுகல் டோக்கன்களை உள்ளமைக்கவும்</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
         <source>GitHub:</source>
-        <translation type="unfinished"></translation>
+        <translation>கிதுபப்:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>சேமி</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation type="unfinished">மூடு</translation>
+        <translation>மூடு</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
         <source>GitLab:</source>
-        <translation type="unfinished"></translation>
+        <translation>கிட்லாப்:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>பநிஇ வீத வரம்பு எச்சரிக்கையைத் தடுக்க கிதுப்/கிட்லாப் ஏபிஐக்கான அணுகல் டோக்கன்களை உள்ளமைக்க இந்த உரையாடல் உங்களை அனுமதிக்கிறது.</translation>
     </message>
 </context>
 <context>
@@ -357,7 +359,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>   &lt;p&gt; ஒயின் மற்றும் புரோட்டான் அடிப்படையிலான பொருந்தக்கூடிய கருவிகளை நிறுவ/புதுப்பிப்பதற்கான GUI. html&amp;gt;&lt;/p&gt;</translation>
+        <translation>&lt;p&gt; ஒயின் மற்றும் புரோட்டான் அடிப்படையிலான பொருந்தக்கூடிய கருவிகளை நிறுவ/புதுப்பிப்பதற்கான GUI.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="97"/>
@@ -377,7 +379,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="157"/>
         <source>Edit Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>அறிவிலி அணுகல் டோக்கன்களைத் திருத்தவும்</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="182"/>
@@ -714,7 +716,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="450"/>
         <source>Verified for {compat_tool}</source>
-        <translation>{Compat_tool க்கு க்கு சரிபார்க்கப்பட்டது</translation>
+        <translation>{compat_tool} க்கு சரிபார்க்கப்பட்டது</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="409"/>
@@ -734,7 +736,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="230"/>
         <source>Install Date is Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>நிறுவப்பட்ட தேதி தெரியவில்லை</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
@@ -867,7 +869,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
         <source>Load more...</source>
-        <translation type="unfinished"></translation>
+        <translation>மேலும் ஏற்றவும் ...</translation>
     </message>
 </context>
 <context>
@@ -953,7 +955,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="22"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>வால்வின் இயல்புநிலை புரோட்டானில் மேம்பாடுகளுடன் சாளரங்கள் கேம்களை இயக்குவதற்கான நீராவி பொருந்தக்கூடிய கருவி.</translation>
+        <translation>வால்வின் இயல்புநிலை புரோட்டானில் மேம்பாடுகளுடன் சாளரங்கள் கேம்களை இயக்குவதற்கான நீராவி பொருந்தக்கூடிய கருவி.&lt;br&gt;&lt;br&gt;&lt;b&gt;எதைத் தேர்வு செய்வது என்று உங்களுக்குத் தெரியாதபோது இதைப் பயன்படுத்தவும்.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1046,7 +1048,14 @@ Trending: {trending}</source>
         &lt;br/&gt;
         * &lt;b&gt;x86_64_v3&lt;/b&gt;: For CPUs that support AVX2 and up
         </source>
-        <translation type="unfinished"></translation>
+        <translation>
+        சாளரங்கள் கேம்களை இயக்குவதற்கான கேச்சியோச் லினக்ச் விநியோகத்திலிருந்து நீராவி பொருந்தக்கூடிய கருவி 
+வால்வின் இயல்புநிலை புரோட்டானில் மேம்பாடுகளுடன். உங்கள் சிபியு உடன் தொடர்புடைய ஒன்றைத் தேர்வுசெய்க. 
+&lt;br&gt;&lt;br&gt; 
+* &lt;b&gt; x86_64 &lt;/b&gt;: எந்த x64_64 சிபியு இல் வேலை செய்கிறது 
+&lt;br&gt; 
+* &lt;b&gt; x86_64_V3 &lt;/b&gt;: AVX2 மற்றும் மேலே ஐ ஆதரிக்கும் சிபியு களுக்கு
+        </translation>
     </message>
 </context>
 <context>
@@ -1066,9 +1075,9 @@ Trending: {trending}</source>
 &lt;br/&gt;
 This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
         <translation>ஒயின்-டி.கே.சி பில்ட் சிச்டத்துடன் கட்டப்பட்ட சாளரங்கள் கேம்களை இயக்குவதற்கான தனிப்பயன் புரோட்டான் உருவாக்க.
- &lt;br&gt;
- &lt;br&gt;
- இந்த உருவாக்கம் &lt;b&gt; வைன் மாச்டர் &lt;/b&gt; ஐ அடிப்படையாகக் கொண்டது.</translation>
+&lt;br&gt;
+&lt;br&gt;
+இந்த உருவாக்கம் &lt;b&gt; வைன் மாச்டர் &lt;/b&gt; ஐ அடிப்படையாகக் கொண்டது.</translation>
     </message>
 </context>
 <context>
@@ -1104,7 +1113,7 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="15"/>
         <source>Fork of GE-Proton with enhanced Windows Media Foundation support.</source>
-        <translation type="unfinished"></translation>
+        <translation>மேம்பட்ட சாளரங்கள் மீடியா அறக்கட்டளை ஆதரவுடன் சி.இ-புரோட்டனின் ஃபோர்க்.</translation>
     </message>
 </context>
 <context>
@@ -1143,7 +1152,7 @@ SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which
 of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
         <translation>
 புரோட்டான் மற்றும் சொந்த லினக்ச் கேம்களுக்கான விளையாட்டு கருவிகளின் எளிதான வரைகலை உள்ளமைவை அனுமதிக்கும் நீராவி கிளையண்டுடன் பயன்படுத்த லினக்ச் ரேப்பர் கருவி.
- &lt;br&gt; &lt;br&gt;
+ &lt;br&gt;&lt;br&gt;
  &lt;b&gt; நீராவி டெக் &lt;/b&gt; இல், தொடர்புடைய சார்புகள் உங்களுக்காக நிறுவப்படும். நீங்கள் நீராவி டெக்கில் இல்லை என்றால், &lt;b&gt; பின்வரும் சார்புகள் நிறுவப்பட்டுள்ளன என்பதை உறுதிப்படுத்தவும் &lt;/b&gt;:
  &lt;ul&gt;
  &lt;li&gt; எடபல்யுகே (அல்லது gawk) &lt;/li&gt;
@@ -1159,9 +1168,9 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
  &lt;li&gt; xxd &lt;/li&gt;
  &lt;li&gt; yad&amp;gt; = &lt;b&gt; v7.2 &lt;/b&gt; &lt;/li&gt;
  &lt;/ul&gt;
- Steamtinkerlaunch நிறுவல் விக்கி பக்கத்தில் மேலும் தகவல்கள் கிடைக்கின்றன.
- &lt;br&gt; &lt;br&gt;
- SteamTinkerLaunch பல &lt;b&gt; விருப்பமான சார்புகள் &lt;/b&gt; ஐக் கொண்டுள்ளது, அவை கூடுதல் செயல்பாட்டிற்காக தனித்தனியாக நிறுவப்பட வேண்டும். விருப்ப சார்பு பகுதியைப் பார்க்கவும்
+ Steamtinkerlaunch நிறுவல் விக்கிப் பக்கத்தில் மேலும் தகவல்கள் கிடைக்கின்றன.
+ &lt;br&gt;&lt;br&gt;
+ SteamTinkerLaunch பல &lt;b&gt; விருப்பமான சார்புகள் &lt;/b&gt; ஐக் கொண்டுள்ளது, அவை கூடுதல் செயல்பாட்டிற்காகத் தனித்தனியாக நிறுவப்பட வேண்டும். விருப்ப சார்பு பகுதியைப் பார்க்கவும்
  அதன் அறிவிலிமையம் பக்கத்தில் ச்டீம்டின்கெர்லாஞ்ச் நிறுவல் வழிகாட்டியின்.</translation>
     </message>
     <message>
@@ -1260,9 +1269,9 @@ SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which
 of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
         <translation>
 &lt;b&gt; அறிவிலி வெளியீடு - நிலையற்றதாக இருக்கலாம் &lt;/b&gt;
- &lt;br&gt; &lt;br&gt;
+ &lt;br&gt;&lt;br&gt;
  புரோட்டான் மற்றும் சொந்த லினக்ச் கேம்களுக்கான விளையாட்டு கருவிகளின் எளிதான வரைகலை உள்ளமைவை அனுமதிக்கும் நீராவி கிளையண்டுடன் பயன்படுத்த லினக்ச் ரேப்பர் கருவி.
- &lt;br&gt; &lt;br&gt;
+ &lt;br&gt;&lt;br&gt;
  &lt;b&gt; நீராவி டெக் &lt;/b&gt; இல், தொடர்புடைய சார்புகள் உங்களுக்காக நிறுவப்படும். நீங்கள் நீராவி டெக்கில் இல்லை என்றால், &lt;b&gt; பின்வரும் சார்புகள் நிறுவப்பட்டுள்ளன என்பதை உறுதிப்படுத்தவும் &lt;/b&gt;:
  &lt;ul&gt;
  &lt;li&gt; எடபல்யுகே (அல்லது gawk) &lt;/li&gt;
@@ -1278,9 +1287,9 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
  &lt;li&gt; xxd &lt;/li&gt;
  &lt;li&gt; yad&amp;gt; = &lt;b&gt; v7.2 &lt;/b&gt; &lt;/li&gt;
  &lt;/ul&gt;
- Steamtinkerlaunch நிறுவல் விக்கி பக்கத்தில் மேலும் தகவல்கள் கிடைக்கின்றன.
- &lt;br&gt; &lt;br&gt;
- SteamTinkerLaunch பல &lt;b&gt; விருப்பமான சார்புகள் &lt;/b&gt; ஐக் கொண்டுள்ளது, அவை கூடுதல் செயல்பாட்டிற்காக தனித்தனியாக நிறுவப்பட வேண்டும். விருப்ப சார்பு பகுதியைப் பார்க்கவும்
+ Steamtinkerlaunch நிறுவல் விக்கிப் பக்கத்தில் மேலும் தகவல்கள் கிடைக்கின்றன.
+ &lt;br&gt;&lt;br&gt;
+ SteamTinkerLaunch பல &lt;b&gt; விருப்பமான சார்புகள் &lt;/b&gt; ஐக் கொண்டுள்ளது, அவை கூடுதல் செயல்பாட்டிற்காகத் தனித்தனியாக நிறுவப்பட வேண்டும். விருப்ப சார்பு பகுதியைப் பார்க்கவும்
  அதன் அறிவிலிமையம் பக்கத்தில் ச்டீம்டின்கெர்லாஞ்ச் நிறுவல் வழிகாட்டியின்.</translation>
     </message>
 </context>
@@ -1289,7 +1298,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dlutris.py" line="14"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Lutris Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>வல்கானின் மேல் (லூட்ரிச் வெளியீடு) மேல் முழு டைரக்ட் 3 டி 12 பநிஇ செயல்படுத்துவதை நோக்கமாகக் கொண்ட ஒயின் வி.கே.டி 3 டி.</translation>
+        <translation>வல்கானின் மேல் (லூட்ரிச் வெளியீடு) மேல் முழு டைரக்ட் 3 டி 12 பநிஇ செயல்படுத்துவதை நோக்கமாகக் கொண்ட ஒயின் வி.கே.டி 3 டி.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1297,7 +1306,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dproton.py" line="19"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Valve Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>வல்கானின் மேல் (வால்வு வெளியீடு) மேல் முழு டைரக்ட் 3 டி 12 பநிஇ செயல்படுத்துவதை நோக்கமாகக் கொண்ட ஒயின் வி.கே.டி 3 டி.</translation>
+        <translation>வல்கானின் மேல் (வால்வு வெளியீடு) மேல் முழு டைரக்ட் 3 டி 12 பநிஇ செயல்படுத்துவதை நோக்கமாகக் கொண்ட ஒயின் வி.கே.டி 3 டி.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1309,7 +1318,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system based on &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt; வால்வு ஒயின் இரத்தப்போக்கு_இடி &lt;/b&gt; ஐ அடிப்படையாகக் கொண்ட ஒயின்-டி.கே.சி பில்ட் சிச்டத்துடன் கட்டப்பட்ட சாளரங்கள் கேம்களை இயக்குவதற்கான தனிப்பயன் ஒயின் உருவாக்கம்.</translation>
     </message>
 </context>
 <context>
@@ -1321,7 +1330,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system (Ubuntu CI) based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt; ஒயின் மாச்டர் &lt;/b&gt; ஐ அடிப்படையாகக் கொண்ட ஒயின்-டி.கே.சி பில்ட் சிச்டம் (உபுண்டு சிஐ) உடன் கட்டப்பட்ட சாளரங்கள் கேம்களை இயக்குவதற்கான தனிப்பயன் ஒயின் உருவாக்கம்.</translation>
     </message>
 </context>
 <context>
@@ -1333,7 +1342,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="22"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>லினக்ச்/ஒயின் டைரக்ட் 3 டி 8, 9, 10, மற்றும் 11 இன் வல்கன் அடிப்படையிலான செயல்படுத்தல்.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1349,7 +1358,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>PH42ON க்குள் GPlasync பேட்சுடன் லினக்ச்/ஒயின் டைரக்ட் 3 டி 8, 9, 10, மற்றும் 11 ஐ வல்கன் அடிப்படையிலான செயல்படுத்தல். &lt;br&gt;&lt;br&gt;&lt;b&gt; எச்சரிக்கை: சிங்கிள் பிளேயர் கேம்களுடன் மட்டுமே பயன்படுத்தவும்!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1361,7 +1370,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>டி.எக்ச்.வி.கே (மாச்டர் கிளை) இன் இரவுப் பதிப்பு, லினக்ச்/ஒயின் டைரக்ட் 3 டி 8, 9, 10 மற்றும் 11 இன் வல்கன் அடிப்படையிலான செயல்படுத்தல். &lt;br&gt;&lt;br&gt;&lt;b&gt; எச்சரிக்கை: இரவுப் பதிப்பு நிலையற்றது, எச்சரிக்கையுடன் பயன்படுத்தவும்!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
