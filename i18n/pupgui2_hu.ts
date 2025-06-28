@@ -53,7 +53,7 @@ Ha úgy gondolod, hogy ez hiba, kérjük, jelentsd a hibát a GitHub-on kereszt�
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
         <source>Configure Git access tokens</source>
-        <translation>Git hozzáférési tokenek konfigurálása</translation>
+        <translation>Git hozzáférési tokenek beállítása</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
@@ -169,7 +169,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="460"/>
         <source>Install tool from Flathub</source>
-        <translation type="unfinished"></translation>
+        <translation>Eszköz letöltése a Flathubról</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="462"/>
