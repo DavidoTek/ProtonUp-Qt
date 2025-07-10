@@ -65,8 +65,8 @@ POSSIBLE_INSTALL_LOCATIONS = [
 POSSIBLE_INSTALL_LOCATIONS += [
     {'install_dir': '~/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/', 'display_name': 'Steam Flatpak', 'launcher': 'steam', 'type': 'flatpak', 'icon': 'steam', 'vdf_dir': '~/.var/app/com.valvesoftware.Steam/.local/share/Steam/config'},
     {'install_dir': '~/snap/steam/common/.steam/root/compatibilitytools.d/', 'display_name': 'Steam Snap', 'launcher': 'steam', 'type': 'snap', 'icon': 'steam', 'vdf_dir': '~/snap/steam/common/.steam/root/config'},
-    {'install_dir': '~/.local/share/lutris/runners/wine/', 'display_name': 'Lutris', 'launcher': 'lutris', 'type': 'native', 'icon': 'lutris', 'config_dir': '~/.config/lutris'},
-    {'install_dir': '~/.var/app/net.lutris.Lutris/data/lutris/runners/wine/', 'display_name': 'Lutris Flatpak', 'launcher': 'lutris', 'type': 'flatpak', 'icon': 'lutris', 'config_dir': '~/.var/app/net.lutris.Lutris/config/lutris'},
+    {'install_dir': '~/.local/share/lutris/runners/wine/', 'display_name': 'Lutris', 'launcher': 'lutris', 'type': 'native', 'icon': 'net.lutris.Lutris', 'config_dir': '~/.config/lutris'},
+    {'install_dir': '~/.var/app/net.lutris.Lutris/data/lutris/runners/wine/', 'display_name': 'Lutris Flatpak', 'launcher': 'lutris', 'type': 'flatpak', 'icon': 'net.lutris.Lutris', 'config_dir': '~/.var/app/net.lutris.Lutris/config/lutris'},
     {'install_dir': '~/.config/heroic/tools/wine/', 'display_name': 'Heroic Wine', 'launcher': 'heroicwine', 'type': 'native', 'icon': 'heroic'},
     {'install_dir': '~/.config/heroic/tools/proton/', 'display_name': 'Heroic Proton', 'launcher': 'heroicproton', 'type': 'native', 'icon': 'heroic'},
     {'install_dir': '~/.var/app/com.heroicgameslauncher.hgl/config/heroic/tools/wine/', 'display_name': 'Heroic Wine Flatpak', 'launcher': 'heroicwine', 'type': 'flatpak', 'icon': 'heroic'},
