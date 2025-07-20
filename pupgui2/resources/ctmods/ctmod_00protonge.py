@@ -132,7 +132,7 @@ class CtInstaller(QObject):
         Return Type: str[]
         """
 
-        return fetch_project_releases(self.CT_URL, self.rs, count=count)
+        return fetch_project_releases(self.CT_URL, self.rs, count=count, page=page)
 
     def get_tool(self, version, install_dir, temp_dir):
         """
