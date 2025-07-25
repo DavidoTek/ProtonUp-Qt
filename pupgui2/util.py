@@ -608,8 +608,7 @@ def is_online(host: str = 'https://api.github.com/rate_limit/', timeout: int = 5
         return False
 
 
-# Only used for dxvk and dxvk-async right now, but is potentially useful to more ctmods?
-def fetch_project_releases(releases_url: str, rs: requests.Session, count=100, page=1) -> list[str]:
+def fetch_project_releases(releases_url: str, rs: requests.Session, count: int = 100, page: int = 1, include_extra_asset: Callable[..., list[str]] | None = None) -> list[str]:
 
     """
     List available releases for a given project URL hosted using requests.
@@ -628,7 +627,20 @@ def fetch_project_releases(releases_url: str, rs: requests.Session, count=100, p
     else:
         return []  # Unknown API, cannot fetch releases!
 
-    return [release[tag_key] for release in releases if tag_key in release]
+    releases_list: list[str] = []
+    for release in releases:
+        if tag_key in release:
+            releases_list.append(release[tag_key])
+
+        if 'assets' not in release or len(release['assets']) <= 0:
+            continue
+
+        if not include_extra_asset:
+            continue
+
+        releases_list.extend([asset for asset in include_extra_asset(release)])
+
+    return releases_list
 
 
 def get_assets_from_release(release_url: str, release: dict) -> dict:
@@ -668,14 +680,13 @@ def get_download_url_from_asset(release_url: str, asset: dict, release_format: s
     return ''
 
 
-# TODO in future if this is re-used for other ctmods other than DXVK and dxvk-async, try to parse more data i.e. checksum
-def fetch_project_release_data(release_url: str, release_format: str, rs: requests.Session, tag: str = '', asset_condition: Callable | None = None) -> dict:
+def fetch_project_release_data(release_url: str, release_format: str, rs: requests.Session, tag: str = '', checksum_suffix: str = '', asset_condition: Callable | None = None) -> dict:
 
     """
     Fetch information about a given release based on its tag, with an optional condition lambda.
     Return Type: dict
     Content(s):
-        'version', 'date', 'download', 'size' (if available)
+        'version', 'date', 'download', 'size' (if available), 'checksum' (if available)
     """
 
     date_key: str = ''
@@ -699,7 +710,13 @@ def fetch_project_release_data(release_url: str, release_format: str, rs: reques
             values['download'] = asset_url
             values['size'] = asset.get('size', None)
 
-            break
+        if bool(checksum_suffix) and not 'checksum' in values:
+            checksum_url = get_download_url_from_asset(release_url, asset, release_format=checksum_suffix)
+
+            if not bool(checksum_url):
+                continue
+            
+            values['checksum'] = checksum_url
 
     return values
 
@@ -953,7 +970,7 @@ def get_random_game_name(games: list[SteamApp] | list[LutrisGame] | list[HeroicG
     elif type(random_game) is HeroicGame:
         tooltip_game_name = random_game.title
     
-    return tooltip_game_name
+    return str(tooltip_game_name)
 
 
 def detect_platform() -> HardwarePlatform:
