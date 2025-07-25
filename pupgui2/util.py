@@ -608,7 +608,6 @@ def is_online(host: str = 'https://api.github.com/rate_limit/', timeout: int = 5
         return False
 
 
-# Only used for dxvk and dxvk-async right now, but is potentially useful to more ctmods?
 def fetch_project_releases(releases_url: str, rs: requests.Session, count: int = 100, page: int = 1, include_extra_asset: Callable[..., list[str]] | None = None) -> list[str]:
 
     """
