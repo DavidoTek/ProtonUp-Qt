@@ -1,14 +1,37 @@
+import os
+import pathlib
+
 import pytest
 import pytest_responses
+
 from responses import BaseResponse, RequestsMock
 
-from pupgui2.util import *
+from pyfakefs.fake_filesystem import FakeFilesystem
+from pyfakefs.fake_file import FakeFileWrapper
 
-from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, GITLAB_API, GITHUB_API
+from pytest_mock import MockerFixture
+
+from pupgui2.util import *
+from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST, GITLAB_API, GITHUB_API
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher, SteamUser
 
 
 github_api_ratelimit_url: str = 'https://api.github.com/rate_limit/'
+
+
+@pytest.fixture(scope='function')
+def awacy_game_list(fs: FakeFilesystem):
+
+    """
+    Game List JSON for AreWeAntiCheatYet
+    """
+
+    awacy_game_list_fixture_path: str = f'{pathlib.Path(__file__).parent}/fixtures/util/awacy_game_list.json'
+
+    fs.add_real_file(awacy_game_list_fixture_path)
+
+    with open(awacy_game_list_fixture_path, 'r') as awacy_games_list:
+        yield awacy_games_list
 
 
 def test_build_headers_with_authorization() -> None:
@@ -249,6 +272,53 @@ def test_is_gitlab_instance(url: str, is_gitlab_api: bool) -> None:
     result: bool = is_gitlab_instance(url)
 
     assert result == is_gitlab_api
+
+
+def test_download_awacy_gamelist(responses: RequestsMock, fs: FakeFilesystem, mocker: MockerFixture, awacy_game_list: FakeFileWrapper) -> None:
+
+    """
+    Test that the AreWeAntiCheatYet game list JSON can be downloaded and written
+    to the expected location successfully.
+    """
+
+    is_online_mock = mocker.patch('pupgui2.util.is_online')
+    is_online_mock.return_value = True
+
+    get_mock_body = awacy_game_list.read()
+    get_mock: BaseResponse = responses.get(
+        AWACY_GAME_LIST_URL,
+        body=get_mock_body
+    )
+
+    fs.create_dir(TEMP_DIR)
+
+    download_awacy_gamelist()
+
+    # ensure the thread to write the gamelist to the file has finished
+    for thread in threading.enumerate():
+        if thread.name == '_download_awacy_gamelist':
+            thread.join()
+
+    file_content: str = ''
+    with open(LOCAL_AWACY_GAME_LIST, 'r') as awacy_file:
+        file_content = awacy_file.read()
+
+    assert os.path.exists(LOCAL_AWACY_GAME_LIST)
+    assert file_content == get_mock.body
+    assert is_online_mock.call_count == 1
+
+
+def test_download_awacy_gamelist_offline(mocker: MockerFixture) -> None:
+
+    is_online_mock = mocker.patch('pupgui2.util.is_online')
+    is_online_mock.return_value = False
+
+    download_awacy_gamelist()
+
+    assert not os.path.exists(LOCAL_AWACY_GAME_LIST)
+
+    assert is_online_mock.call_count == 1
+    assert is_online_mock.return_value == False
 
 
 @pytest.mark.parametrize(
