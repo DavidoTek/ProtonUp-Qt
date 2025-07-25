@@ -14,7 +14,7 @@ def test_ctmod_loader() -> None:
     """
     Test loading of ctmods using CtLoader.
     """
-    QApplication()
+    app = QApplication()
     
     dummy_main_window = DummyMainWindow({})
 
@@ -29,3 +29,5 @@ def test_ctmod_loader() -> None:
 
     # Ensure that no advanced mode ctmods are loaded when advanced_mode is False
     assert(all(["advmode" not in ctmod.CT_LAUNCHERS for ctmod in ct_loader.get_ctmods(launcher=None, advanced_mode=False)]))
+
+    QApplication.shutdown(app)

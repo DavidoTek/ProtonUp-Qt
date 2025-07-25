@@ -69,6 +69,18 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.13.0" date="2025-07-16">
+      <description>
+        <p>Changes/Improvements:</p>
+        <ul>
+          <li>Added the Protok-Tkg NTSYNC compatibility tool</li>
+          <li>Added the Proton-Sarek compatibility tool</li>
+          <li>Fixed GE-Proton for Lutris</li>
+          <li>Use correct Lutris icon/app id</li>
+        </ul>
+        <p>Various improvements and bug fixes. See GitHub for more details. Thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.12.0" date="2025-03-29">
       <description>
         <p>Changes/Improvements:</p>
