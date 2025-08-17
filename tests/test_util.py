@@ -7,12 +7,12 @@ import pytest_responses
 from responses import BaseResponse, RequestsMock
 
 from pyfakefs.fake_filesystem import FakeFilesystem
-from pyfakefs.fake_file import FakeFileWrapper
+from pyfakefs.fake_file import FakeFile, FakeFileWrapper
 
 from pytest_mock import MockerFixture
 
 from pupgui2.util import *
-from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST, GITLAB_API, GITHUB_API
+from pupgui2.constants import APP_THEMES, POSSIBLE_INSTALL_LOCATIONS, AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST, GITLAB_API, GITHUB_API
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher, SteamUser
 
 
@@ -436,3 +436,28 @@ def test_get_combobox_index_by_value(combobox_values: list[str], value: str, exp
     assert result == expected_index
 
     QApplication.shutdown(app)
+
+
+@pytest.mark.parametrize(
+    'theme', [
+        pytest.param(theme, id = str(theme).capitalize()) for theme in APP_THEMES if theme is not None
+    ] 
+)
+def test_config_theme(fs: FakeFilesystem, mocker: MockerFixture, theme: str) -> None:
+
+    """
+    Given a theme string,
+    When attempting to update the theme in the config file,
+    Then it should write out the new theme to the config file.
+    """
+
+    configparser_write_spy = mocker.spy(ConfigParser, 'write')
+
+    theme_write_value = config_theme(theme)
+    theme_read_value: str = str(config_theme())
+
+    assert theme_read_value == theme_write_value
+    assert theme_read_value == theme
+    assert theme_write_value == theme
+
+    assert configparser_write_spy.call_count == 1
