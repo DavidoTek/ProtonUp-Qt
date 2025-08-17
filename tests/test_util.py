@@ -436,3 +436,40 @@ def test_get_combobox_index_by_value(combobox_values: list[str], value: str, exp
     assert result == expected_index
 
     QApplication.shutdown(app)
+
+
+def test_create_compatibilitytools_folder(fs: FakeFilesystem, mocker: MockerFixture) -> None:
+
+    """
+    Given a list of launcher install locations and compatibility tool folders,
+    When the parent directory for a given launcher's compatibility tool folder exists,
+    Then it should create the compatibility tool directory for that launcher.
+    """
+
+    for loc in POSSIBLE_INSTALL_LOCATIONS:
+        parent_dir = os.path.abspath(os.path.join(os.path.expanduser(loc['install_dir']), os.pardir))
+
+        fs.makedirs(parent_dir, exist_ok = True)
+
+    os_mkdir_spy = mocker.spy(os, 'mkdir')
+
+    create_compatibilitytools_folder()
+
+    assert os_mkdir_spy.call_count == len(POSSIBLE_INSTALL_LOCATIONS)
+    assert all(os.path.isdir(os.path.expanduser(loc['install_dir'])) for loc in POSSIBLE_INSTALL_LOCATIONS)
+
+
+def test_create_compatibilitytools_folder_no_parent_directory(fs: FakeFilesystem, mocker: MockerFixture) -> None:
+
+    """
+    Given a list of launcher install locations and compatibility tool folders,
+    When the parent directroy for a given launcher's compatibility tool folder does not exist,
+    Then it should not create the compatibility tool directory for that launcher.
+    """
+
+    os_mkdir_spy = mocker.spy(os, 'mkdir')
+
+    create_compatibilitytools_folder()
+
+    assert os_mkdir_spy.call_count == 0
+    assert all(not os.path.isdir(os.path.expanduser(loc['install_dir'])) for loc in POSSIBLE_INSTALL_LOCATIONS)
