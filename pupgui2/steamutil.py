@@ -63,8 +63,6 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
         v = vdf_safe_load(libraryfolders_vdf_file)
         c = get_steam_vdf_compat_tool_mapping(vdf_safe_load(config_vdf_file))
 
-        start = perf_counter()
-
         libraryfolders = v.get('libraryfolders')
 
         for fid, libraryfolders_fid in libraryfolders.items():
@@ -100,10 +98,6 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
                     app.compat_tool = ct.get('name')
                 
                 apps.append(app)
-        
-        duration = perf_counter() - start
-
-        print(f'Took {duration:.3f} seconds')
 
         apps = update_steamapp_info(steam_config_folder, apps)
         apps = update_steamapp_awacystatus(apps)
