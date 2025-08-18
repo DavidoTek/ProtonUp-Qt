@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="105"></location>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>依存関係が不足しています！</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="75"></location>
@@ -14,7 +14,7 @@
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"></location>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"></location>
         <source>Download Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>ダウンロードエラー！</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"></location>
@@ -24,7 +24,9 @@
         <source>Failed to download tool &apos;{CT_NAME}&apos;!
 
 Reason: {EXCEPTION}</source>
-        <translation type="unfinished"></translation>
+        <translation>ツール &apos;{CT_NAME}&apos; のダウンロードに失敗しました！
+
+理由：{EXCEPTION}</translation>
     </message>
 </context>
 <context>
@@ -32,7 +34,7 @@ Reason: {EXCEPTION}</source>
     <message>
         <location filename="../pupgui2/ctloader.py" line="52"></location>
         <source>Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>エラー！</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="54"></location>
@@ -40,7 +42,10 @@ Reason: {EXCEPTION}</source>
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation type="unfinished"></translation>
+        <translation>次の互換性ツールを読み込めませんでした。
+{TOOL_LIST}
+
+これがエラーだと思われる場合は、GitHubでバグを報告してください！</translation>
     </message>
 </context>
 <context>
@@ -48,7 +53,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"></location>
         <source>Configure Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Gitアクセストークンの設定</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"></location>
@@ -58,12 +63,12 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"></location>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>保存</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"></location>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>閉じる</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"></location>
@@ -73,7 +78,7 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"></location>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>このダイアログでは、API レート制限の警告を防ぐために GitHub/GitLab API のアクセス トークンを設定できます。</translation>
     </message>
 </context>
 <context>
@@ -81,27 +86,27 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"></location>
         <source>unused</source>
-        <translation type="unfinished"></translation>
+        <translation>未使用</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"></location>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>グローバル</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="298"></location>
         <source>Unused: {unused_ctools}</source>
-        <translation type="unfinished"></translation>
+        <translation>未使用: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="325"></location>
         <source>Fetching releases...</source>
-        <translation type="unfinished"></translation>
+        <translation>リリースを取得中...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="336"></location>
         <source>Download canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>ダウンロードを中止しました。</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="339"></location>
