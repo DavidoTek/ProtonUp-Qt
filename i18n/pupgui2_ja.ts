@@ -111,12 +111,12 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="339"></location>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} をインストールできませんでした…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="345"></location>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name}をダウンロード中…</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="347"></location>
