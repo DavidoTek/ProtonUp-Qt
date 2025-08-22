@@ -128,7 +128,7 @@ def apply_dark_theme(app: QApplication) -> None:
                 app.setPalette(QStyleFactory.create('fusion').standardPalette())
 
 
-def read_update_config_value(option: str, value = None, section: str = 'pupgui2', config_file: str = CONFIG_FILE) -> str | None:
+def read_update_config_value(option: str, value: str | None = None, section: str = 'pupgui2', config_file: str = CONFIG_FILE) -> str | None:
     """
     Uses ConfigParser to read a value with a given option from a given section from a given config file.
     By default, will read a option and a value from the 'pupgui2' section in CONFIG_FILE path in constants.py.
