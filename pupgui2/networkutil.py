@@ -66,7 +66,7 @@ def download_file(url: str, destination: str, progress_callback: Callable[[int],
     #       Content-Length, or len(response.content) is 0), then then the progress bar will stall at 1% until
     #       the download finishes where it will jump to 99%, until extraction completes.
     try:
-        chunk_count = math.ceil(file_size / buffer_size)
+        chunk_count = math.ceil(file_size / buffer_size) or 1
     except ZeroDivisionError as e:
         print(f'Error: Could not calculate chunk_count, {e}')
         print('Defaulting to chunk count of 1')
