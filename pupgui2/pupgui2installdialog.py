@@ -102,7 +102,9 @@ class PupguiInstallDialog(QDialog):
             # Stops install dialog UI elements from being enabled when rate-limited to prevent switching/installing tools
             if len(vers) > 0:
                 self.ui.comboCompatToolVersion.addItems(vers)
-                self.ui.comboCompatToolVersion.setCurrentIndex(0)
+                # Only set current index to 0 on initial load, not when loading more
+                if self.loaded_page == 1:
+                    self.ui.comboCompatToolVersion.setCurrentIndex(0)
 
                 if self.more_releases_loadable:
                     self.ui.comboCompatToolVersion.addItem(self.tr('Load more...'))
