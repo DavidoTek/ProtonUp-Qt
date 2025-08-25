@@ -91,6 +91,8 @@ class PupguiInstallDialog(QDialog):
             if self.loaded_page == 1:
                 self.ui.comboCompatToolVersion.clear()
             else:
+                # Save the current selection before removing "Load more..."
+                current_index = self.ui.comboCompatToolVersion.currentIndex()
                 self.ui.comboCompatToolVersion.removeItem(self.ui.comboCompatToolVersion.count() - 1)
 
             vers = self.current_ct_obj['installer'].fetch_releases(count=RELEASES_PER_PAGE, page=self.loaded_page)
@@ -102,7 +104,11 @@ class PupguiInstallDialog(QDialog):
             # Stops install dialog UI elements from being enabled when rate-limited to prevent switching/installing tools
             if len(vers) > 0:
                 self.ui.comboCompatToolVersion.addItems(vers)
-                self.ui.comboCompatToolVersion.setCurrentIndex(0)
+                if self.loaded_page == 1:
+                    self.ui.comboCompatToolVersion.setCurrentIndex(0)
+                else:
+                    # Restore the previous selection after loading more
+                    self.ui.comboCompatToolVersion.setCurrentIndex(current_index)
 
                 if self.more_releases_loadable:
                     self.ui.comboCompatToolVersion.addItem(self.tr('Load more...'))
