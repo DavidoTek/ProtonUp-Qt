@@ -440,6 +440,81 @@ def test_get_combobox_index_by_value(combobox_values: list[str], value: str, exp
 
 
 @pytest.mark.parametrize(
+    'install_loc', [
+        pytest.param(install_loc, id = f'{install_loc["display_name"]} ({install_loc["install_dir"]})') for install_loc in POSSIBLE_INSTALL_LOCATIONS
+    ]
+)
+def test_get_install_location_from_directory_name(install_loc: dict[str, str]) -> None:
+
+    """
+    Given an install location string path,
+    When the path corresponds to a known `install_dir from `POSSIBLE_INSTALL_LOCATIONS`,
+    Then it should return the dictionary from `POSSIBLE_INSTALL_LOCATION`.
+    """
+
+    result: dict[str, str] = get_install_location_from_directory_name(install_loc['install_dir'])
+
+    assert result == install_loc
+
+
+def test_get_install_location_from_directory_name_custom_install_location(mocker: MockerFixture) -> None:
+
+    """
+    Given an install location string path,
+    When the path corresponds to a custom install location written out to the config file,
+    And given the custom install location has a valid launcher associated with it,
+    Then it should return the custom install location dictionary.
+    """
+
+    path: str = f'${HOME_DIR}/.local/share/custom_Steam'
+
+    config_custom_install_location_mock = mocker.patch('pupgui2.util.config_custom_install_location')
+    config_custom_install_location_mock.return_value = { 'install_dir': path, 'display_name': '', 'launcher': 'steam' }
+
+    result: dict[str, str] = get_install_location_from_directory_name(path)
+
+    assert result == config_custom_install_location_mock.return_value
+
+
+def test_get_install_location_from_directory_name_custom_install_location_no_launcher(mocker: MockerFixture) -> None:
+
+    """
+    Given an install location string path,
+    When the path corresponds to a custom install location written out to the config file,
+    And given the custom install location does not have a valid launcher associated with it,
+    Then it should return the default invalid path dictionary.
+    """
+
+    path: str = f'${HOME_DIR}/.local/share/custom_Steam'
+
+    config_custom_install_location_mock = mocker.patch('pupgui2.util.config_custom_install_location')
+    config_custom_install_location_mock.return_value = { 'install_dir': path, 'display_name': '' }
+
+    unknown_install_location_dict = {'install_dir': path, 'display_name': 'unknown', 'launcher': ''}
+
+    result: dict[str, str] = get_install_location_from_directory_name(path)
+
+    assert config_custom_install_location_mock.call_count == 1
+    assert result == unknown_install_location_dict
+
+
+def test_get_install_location_from_directory_name_unknown() -> None:
+
+    """
+    Given an install location string path,
+    When the path does not correspond to a known `install_dir` from `POSSIBLE_INSTALL_LOCATIONS` or a custom install location,
+    Then it should return the default invalid path dictionary.
+    """
+
+    path: str = f'/this/is/not/a/real/path'
+    unknown_install_location_dict = {'install_dir': path, 'display_name': 'unknown', 'launcher': ''}
+    
+    result: dict[str, str] = get_install_location_from_directory_name(path)
+
+    assert result == unknown_install_location_dict
+
+
+@pytest.mark.parametrize(
     'option, value, section, config_file', [
         pytest.param(
             'theme',
