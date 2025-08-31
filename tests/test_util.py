@@ -1,5 +1,6 @@
 import os
 import pathlib
+from pytest_mock.plugin import MockType
 
 import pytest
 import pytest_responses
@@ -511,3 +512,107 @@ def test_get_install_location_from_directory_name_unknown() -> None:
     result: dict[str, str] = get_install_location_from_directory_name(path)
 
     assert result == unknown_install_location_dict
+
+
+@pytest.mark.parametrize(
+    'option, value, section, config_file', [
+        pytest.param(
+            'theme',
+            'dark',
+            'pupgui2',
+            CONFIG_FILE,
+
+            id = f'Writing "theme = \"dark\" into the "pupgui2" section of {CONFIG_FILE}'
+        ),
+        pytest.param(
+            'foo',
+            "",
+            'foobar',
+            CONFIG_FILE,
+
+            id = f'Writing "" (empty string) into the "foobar" section of ${CONFIG_FILE}'
+        ),
+
+        pytest.param(
+            'theme',
+            'dark',
+            'pupgui2',
+            '/tmp/config.ini',
+
+            id = f'Writing "theme = \"dark\" into the "pupgui2" section of /tmp/config.ini'
+        ),
+        pytest.param(
+            'foo',
+            "",
+            'foobar',
+            '/tmp/another-config.ini',
+
+            id = f'Writing "" (empty string) into the "foobar" /tmp/another-config.ini'
+        ),
+    ]
+)
+def test_read_update_config_value(fs: FakeFilesystem, mocker: MockerFixture, option: str, value: str, section: str, config_file: str) -> None:
+
+    """
+    Given a variable to store in a given section of a given config file,
+    When attempting to write the value to the config file,
+    Then it should update the config file with the expected result.
+    """
+
+    configparser_write_spy = mocker.spy(ConfigParser, 'write')
+
+    config_file_exists_before_call = os.path.isfile(config_file)
+    write_result = read_update_config_value(option, value, section, config_file)
+    
+    config_file_exists_after_call = os.path.isfile(config_file)
+    read_result = read_update_config_value(option, None, section, config_file)
+
+    assert write_result == read_result
+
+    assert not config_file_exists_before_call
+    assert config_file_exists_after_call
+
+    assert configparser_write_spy.call_count == 1
+
+
+@pytest.mark.parametrize(
+    'option, value, section, expected_error_message', [
+        pytest.param(
+            None,
+            "foo",
+            "foo",
+            "option keys must be strings",
+
+            id = '"option" is None'
+        ),
+
+        pytest.param(
+            "foo",
+            "foo",
+            None,
+            "section names must be strings",
+
+            id = '"section" is None'
+        ),
+
+        pytest.param(
+            "foo",
+            10,
+            "foo",
+            "option values must be strings",
+
+            id = '"value" is int'
+        )
+    ]
+)
+def test_read_update_config_type_error(fs: FakeFilesystem, option: str | None, value: str | None, section: str | None, expected_error_message: str) -> None:
+
+    """
+    Given a variable to store in a given section of a given config file,
+    When the option, section key, or config file are None,
+    Or when the option value we attempt to write is not a string and is not None,
+    Then it should throw a TypeError.
+    """
+
+    with pytest.raises(TypeError, match=f'{expected_error_message}'):
+        result = read_update_config_value(option, value, section)
