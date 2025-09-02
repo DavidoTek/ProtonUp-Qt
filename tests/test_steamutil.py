@@ -66,7 +66,7 @@ def test_is_valid_steam_install_happy_path(fs: FakeFilesystem, steam_path: str) 
     pytest.param(
         os.path.join(HOME_DIR, '.steam/root'),
         os.path.join(HOME_DIR, '.local/share/Steam'),
-        id = '~/.steam/steam -> ~/.local/share/Steam'
+        id = '~/.steam/root -> ~/.local/share/Steam'
     )
   ]
 )
