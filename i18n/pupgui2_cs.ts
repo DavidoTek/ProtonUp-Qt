@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="105"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>Chybějící závislosti!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="75"/>
