@@ -1,5 +1,6 @@
 import os
 import pathlib
+from pytest_mock.plugin import MockType
 
 import pytest
 import pytest_responses
@@ -12,7 +13,7 @@ from pyfakefs.fake_file import FakeFileWrapper
 from pytest_mock import MockerFixture
 
 from pupgui2.util import *
-from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST, GITLAB_API, GITHUB_API
+from pupgui2.constants import HOME_DIR, POSSIBLE_INSTALL_LOCATIONS, AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST, GITLAB_API, GITHUB_API
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher, SteamUser
 
 
@@ -473,3 +474,182 @@ def test_create_compatibilitytools_folder_no_parent_directory(fs: FakeFilesystem
 
     assert os_mkdir_spy.call_count == 0
     assert all(not os.path.isdir(os.path.expanduser(loc['install_dir'])) for loc in POSSIBLE_INSTALL_LOCATIONS)
+
+
+@pytest.mark.parametrize(
+    'install_loc', [
+        pytest.param(install_loc, id = f'{install_loc["display_name"]} ({install_loc["install_dir"]})') for install_loc in POSSIBLE_INSTALL_LOCATIONS
+    ]
+)
+def test_get_install_location_from_directory_name(install_loc: dict[str, str]) -> None:
+
+    """
+    Given an install location string path,
+    When the path corresponds to a known `install_dir from `POSSIBLE_INSTALL_LOCATIONS`,
+    Then it should return the dictionary from `POSSIBLE_INSTALL_LOCATION`.
+    """
+
+    result: dict[str, str] = get_install_location_from_directory_name(install_loc['install_dir'])
+
+    assert result == install_loc
+
+
+def test_get_install_location_from_directory_name_custom_install_location(mocker: MockerFixture) -> None:
+
+    """
+    Given an install location string path,
+    When the path corresponds to a custom install location written out to the config file,
+    And given the custom install location has a valid launcher associated with it,
+    Then it should return the custom install location dictionary.
+    """
+
+    path: str = f'${HOME_DIR}/.local/share/custom_Steam'
+
+    config_custom_install_location_mock = mocker.patch('pupgui2.util.config_custom_install_location')
+    config_custom_install_location_mock.return_value = { 'install_dir': path, 'display_name': '', 'launcher': 'steam' }
+
+    result: dict[str, str] = get_install_location_from_directory_name(path)
+
+    assert result == config_custom_install_location_mock.return_value
+
+
+def test_get_install_location_from_directory_name_custom_install_location_no_launcher(mocker: MockerFixture) -> None:
+
+    """
+    Given an install location string path,
+    When the path corresponds to a custom install location written out to the config file,
+    And given the custom install location does not have a valid launcher associated with it,
+    Then it should return the default invalid path dictionary.
+    """
+
+    path: str = f'${HOME_DIR}/.local/share/custom_Steam'
+
+    config_custom_install_location_mock = mocker.patch('pupgui2.util.config_custom_install_location')
+    config_custom_install_location_mock.return_value = { 'install_dir': path, 'display_name': '' }
+
+    unknown_install_location_dict = {'install_dir': path, 'display_name': 'unknown', 'launcher': ''}
+
+    result: dict[str, str] = get_install_location_from_directory_name(path)
+
+    assert config_custom_install_location_mock.call_count == 1
+    assert result == unknown_install_location_dict
+
+
+def test_get_install_location_from_directory_name_unknown() -> None:
+
+    """
+    Given an install location string path,
+    When the path does not correspond to a known `install_dir` from `POSSIBLE_INSTALL_LOCATIONS` or a custom install location,
+    Then it should return the default invalid path dictionary.
+    """
+
+    path: str = f'/this/is/not/a/real/path'
+    unknown_install_location_dict = {'install_dir': path, 'display_name': 'unknown', 'launcher': ''}
+    
+    result: dict[str, str] = get_install_location_from_directory_name(path)
+
+    assert result == unknown_install_location_dict
+
+
+@pytest.mark.parametrize(
+    'option, value, section, config_file', [
+        pytest.param(
+            'theme',
+            'dark',
+            'pupgui2',
+            CONFIG_FILE,
+
+            id = f'Writing "theme = \"dark\" into the "pupgui2" section of {CONFIG_FILE}'
+        ),
+        pytest.param(
+            'foo',
+            "",
+            'foobar',
+            CONFIG_FILE,
+
+            id = f'Writing "" (empty string) into the "foobar" section of ${CONFIG_FILE}'
+        ),
+
+        pytest.param(
+            'theme',
+            'dark',
+            'pupgui2',
+            '/tmp/config.ini',
+
+            id = f'Writing "theme = \"dark\" into the "pupgui2" section of /tmp/config.ini'
+        ),
+        pytest.param(
+            'foo',
+            "",
+            'foobar',
+            '/tmp/another-config.ini',
+
+            id = f'Writing "" (empty string) into the "foobar" /tmp/another-config.ini'
+        ),
+    ]
+)
+def test_read_update_config_value(fs: FakeFilesystem, mocker: MockerFixture, option: str, value: str, section: str, config_file: str) -> None:
+
+    """
+    Given a variable to store in a given section of a given config file,
+    When attempting to write the value to the config file,
+    Then it should update the config file with the expected result.
+    """
+
+    configparser_write_spy = mocker.spy(ConfigParser, 'write')
+
+    config_file_exists_before_call = os.path.isfile(config_file)
+    write_result = read_update_config_value(option, value, section, config_file)
+    
+    config_file_exists_after_call = os.path.isfile(config_file)
+    read_result = read_update_config_value(option, None, section, config_file)
+
+    assert write_result == read_result
+
+    assert not config_file_exists_before_call
+    assert config_file_exists_after_call
+
+    assert configparser_write_spy.call_count == 1
+
+
+@pytest.mark.parametrize(
+    'option, value, section, expected_error_message', [
+        pytest.param(
+            None,
+            "foo",
+            "foo",
+            "option keys must be strings",
+
+            id = '"option" is None'
+        ),
+
+        pytest.param(
+            "foo",
+            "foo",
+            None,
+            "section names must be strings",
+
+            id = '"section" is None'
+        ),
+
+        pytest.param(
+            "foo",
+            10,
+            "foo",
+            "option values must be strings",
+
+            id = '"value" is int'
+        )
+    ]
+)
+def test_read_update_config_type_error(fs: FakeFilesystem, option: str | None, value: str | None, section: str | None, expected_error_message: str) -> None:
+
+    """
+    Given a variable to store in a given section of a given config file,
+    When the option, section key, or config file are None,
+    Or when the option value we attempt to write is not a string and is not None,
+    Then it should throw a TypeError.
+    """
+
+    with pytest.raises(TypeError, match=f'{expected_error_message}'):
+        result = read_update_config_value(option, value, section)
