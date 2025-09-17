@@ -793,7 +793,7 @@ def determine_most_recent_steam_user(steam_users: list[SteamUser]) -> SteamUser:
     return None
 
 
-def is_valid_steam_install(steam_path) -> bool:
+def is_valid_steam_install(steam_path: str) -> bool:
 
     """
     Return whether required Steam data files actually exist to determine if 'steam_path' is a valid Steam installation.
@@ -805,9 +805,10 @@ def is_valid_steam_install(steam_path) -> bool:
     config_vdf = os.path.join(ct_dir, 'config.vdf')
     libraryfolders_vdf = os.path.join(ct_dir, 'libraryfolders.vdf')
 
-    is_valid_steam_install = os.path.exists(config_vdf) and os.path.exists(libraryfolders_vdf)
+    is_valid_steam_install = os.path.isfile(config_vdf) and os.path.isfile(libraryfolders_vdf)
 
     return is_valid_steam_install
+
 
 def vdf_safe_load(vdf_file: str) -> dict:
     """
