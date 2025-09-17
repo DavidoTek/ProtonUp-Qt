@@ -1,3 +1,4 @@
+import builtins
 import os
 import pathlib
 from subprocess import CompletedProcess
@@ -14,7 +15,8 @@ from pyfakefs.fake_file import FakeFile, FakeFileWrapper
 from pytest_mock import MockerFixture
 
 from pupgui2.util import *
-from pupgui2.constants import APP_THEMES, HOME_DIR, POSSIBLE_INSTALL_LOCATIONS, AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST, GITLAB_API, GITHUB_API
+from pupgui2.constants import APP_THEMES, HOME_DIR, POSSIBLE_INSTALL_LOCATIONS, AWACY_GAME_LIST_URL
+from pupgui2.constants import LOCAL_AWACY_GAME_LIST, GITLAB_API, GITHUB_API, PROTONUPQT_GITHUB_URL
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher, SteamUser
 
 
@@ -740,3 +742,56 @@ def test_host_which_not_found(mocker: MockerFixture) -> None:
     assert result == None
 
     subprocess_run_mock.assert_called_once_with(completed_process_args, universal_newlines=True, stdout=subprocess.PIPE)
+
+
+@pytest.mark.parametrize(
+    'url', [
+        pytest.param(PROTONUPQT_GITHUB_URL, id = 'Regular URL'),
+        pytest.param('', id = 'Blank URL'),
+    ]
+)
+def test_open_webbrowser_thread(mocker: MockerFixture, url: str) -> None:
+
+    """
+    Given a string URL,
+    When the URL is opened,
+    Then it should spawn a thread to open the given URL
+    """
+
+    webbrowser_open_mock = mocker.patch('webbrowser.open')
+
+    open_webbrowser_thread(url)
+
+    for thread in threading.enumerate():
+        if thread.name == '_webbrowser_open':
+            thread.join()
+
+    webbrowser_open_mock.assert_called_once_with(url)
+
+
+def test_open_webbrowser_thread_failure(mocker: MockerFixture) -> None:
+
+    """
+    Given a string URL,
+    When the URL cannot be opened due to a failure,
+    Then the URL will not be opened,
+    And an error message should be printed.
+    """
+
+    url = PROTONUPQT_GITHUB_URL
+    expected_error_message = f'Could not open webbrowser url {url}'
+
+    webbrowser_open_mock = mocker.patch('webbrowser.open')
+
+    threading_mock = mocker.patch('threading.Thread.start')
+    threading_mock.side_effect = RuntimeError
+
+    print_mock = mocker.spy(builtins, 'print')
+
+    open_webbrowser_thread(url)
+
+    threading_mock.assert_called_once()
+
+    assert webbrowser_open_mock.call_count == 0
+
+    print_mock.assert_called_once_with(expected_error_message)

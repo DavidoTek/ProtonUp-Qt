@@ -421,7 +421,7 @@ def open_webbrowser_thread(url: str) -> None:
     Open the specified URL in the default webbrowser. Non-blocking (using Threads)
     """
     try:
-        t = threading.Thread(target=webbrowser.open, args=[url])
+        t = threading.Thread(target = webbrowser.open, args = [url], name = '_webbrowser_open')
         t.start()
     except:
         print(f'Could not open webbrowser url {url}')
