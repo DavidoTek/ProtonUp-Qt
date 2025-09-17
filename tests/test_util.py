@@ -1,5 +1,6 @@
 import os
 import pathlib
+from subprocess import CompletedProcess
 from pytest_mock.plugin import MockType
 
 import pytest
@@ -678,3 +679,64 @@ def test_config_theme(fs: FakeFilesystem, mocker: MockerFixture, theme: str) -> 
     assert theme_write_value == theme
 
     assert configparser_write_spy.call_count == 1
+
+
+@pytest.mark.parametrize(
+    'name', [
+        pytest.param('yad', id = 'Yad should be found'),
+        pytest.param(' git', id = 'Git should be found (spacing on left)'),
+        pytest.param('pgrep ', id = 'pgrep should be found (spacing on right)'),
+        pytest.param(' unzip ', id = 'unzip should be found (spacing on left and right)'),
+    ]
+)
+def test_host_which(name: str, mocker: MockerFixture) -> None:
+
+    """
+    Given the name of an executable on PATH,
+    When the executable is found,
+    Then it should return the stripped string name of the path to the executable.
+    """
+
+    completed_process_args = ['which', name]
+    subprocess_run_completed_process = CompletedProcess(
+        args = completed_process_args,
+        returncode = 0,
+        stdout = name
+    )
+
+    subprocess_run_mock = mocker.patch('subprocess.run')
+    subprocess_run_mock.return_value = subprocess_run_completed_process
+
+    result: str | None = host_which(name)
+
+    assert result == name.strip()
+    assert type(result) == str
+
+    subprocess_run_mock.assert_called_once_with(completed_process_args, universal_newlines=True, stdout=subprocess.PIPE)
+
+
+def test_host_which_not_found(mocker: MockerFixture) -> None:
+
+    """
+    Given the name of an executable on PATH,
+    When the executable is not found (empty string returned),
+    Then it should return None.
+    """
+
+    name: str = 'xrandr'
+
+    completed_process_args = ['which', name]
+    subprocess_run_completed_process = CompletedProcess(
+        args = completed_process_args,
+        returncode = 0,
+        stdout = ''
+    )
+
+    subprocess_run_mock = mocker.patch('subprocess.run')
+    subprocess_run_mock.return_value = subprocess_run_completed_process
+
+    result: str | None = host_which(name)
+
+    assert result == None
+
+    subprocess_run_mock.assert_called_once_with(completed_process_args, universal_newlines=True, stdout=subprocess.PIPE)
