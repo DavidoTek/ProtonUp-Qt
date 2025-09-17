@@ -14,7 +14,7 @@
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
         <source>Download Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Latausvirhe!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
@@ -24,7 +24,9 @@
         <source>Failed to download tool &apos;{CT_NAME}&apos;!
 
 Reason: {EXCEPTION}</source>
-        <translation type="unfinished"></translation>
+        <translation>Työkalun &apos;{CT_NAME}&apos; lataaminen epäonnistui!
+
+Syy: {EXCEPTION}</translation>
     </message>
 </context>
 <context>
@@ -51,32 +53,32 @@ Mikäli arvelet että kyseessä on virhe, ilmoitathan siitä GitHub:iin!</transl
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
         <source>Configure Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Muuta Git -sisäänpääsyn valtuuksia</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
         <source>GitHub:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitHub:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
         <source>Save</source>
-        <translation type="unfinished">Tallenna</translation>
+        <translation>Tallenna</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation type="unfinished">Sulje</translation>
+        <translation>Sulje</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
         <source>GitLab:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitLab:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä tietue sallii sisäänpääsyvaltuuksien muokkaamisen GitHubin/GitLabin sovellusohjelmointirajapinnoille (API) niiden rajavaroituksen estämiseksi.</translation>
     </message>
 </context>
 <context>
@@ -377,7 +379,7 @@ Käytössäsi oleva julkaisu on {APP_VERSION} mutta {newest_version} on saatavis
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="157"/>
         <source>Edit Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Muokkaa Git -sisäänpääsyn valtuuksia</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="182"/>
@@ -734,7 +736,7 @@ Tyyppi: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="230"/>
         <source>Install Date is Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Asennuspäivämäärä tuntematon</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
@@ -867,7 +869,7 @@ Trendaavuus: {trending}</translation>
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
         <source>Load more...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lataa lisää...</translation>
     </message>
 </context>
 <context>
@@ -1046,7 +1048,14 @@ Trendaavuus: {trending}</translation>
         &lt;br/&gt;
         * &lt;b&gt;x86_64_v3&lt;/b&gt;: For CPUs that support AVX2 and up
         </source>
-        <translation type="unfinished"></translation>
+        <translation>
+        Steam-yhteensopivuustyökalu CachyOS Linux-jakelusta Windows-pelien ajamista varten.
+        sisältää parannuksia Valven vakiolliseen Protoniin nähden. Valitse se, joka täsmää tietokoneesi suorittimen suhteen.
+        &lt;br&gt;&lt;br&gt;
+        * &lt;b&gt;x86_64&lt;/b&gt;: Toimii kaikilla x64_64 -suorittimilla
+        &lt;br&gt;
+        * &lt;b&gt;x86_64_v3&lt;/b&gt;: Suorittimille jotka tukevat AVX2:ta ja siitä ylöspäin
+        </translation>
     </message>
 </context>
 <context>
@@ -1104,7 +1113,7 @@ Tämä kokooma perustuu &lt;b&gt;Wine Master -haaraan&lt;/b&gt;.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="15"/>
         <source>Fork of GE-Proton with enhanced Windows Media Foundation support.</source>
-        <translation type="unfinished"></translation>
+        <translation>GE-Proton -haara johon on lisätty Windows Media Foundation -tuki.</translation>
     </message>
 </context>
 <context>
@@ -1308,7 +1317,7 @@ SteamTinkerLaunch:in asennusoppaassa sen GitHub-sivulla.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system based on &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Räätälöity Wine-kokooma jonka kautta ajetaan Windows-pelejä. Rakennettu Wine-tkg koontijärjestelmällä joka perustuu pohjaan &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1320,7 +1329,7 @@ SteamTinkerLaunch:in asennusoppaassa sen GitHub-sivulla.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system (Ubuntu CI) based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Räätälöity Wine-kokooma jonka kautta ajetaan Windows-pelejä. Rakennettu Wine-tkg koontijärjestelmällä (Ubuntu CI) joka perustuu pohjaan &lt;b&gt;Wine Master&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1332,7 +1341,7 @@ SteamTinkerLaunch:in asennusoppaassa sen GitHub-sivulla.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="22"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Vulkan-pohjainen Direct3D 8, 9, 10, ja 11 -toteutus Linux:ille/Wine:lle.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1348,7 +1357,7 @@ SteamTinkerLaunch:in asennusoppaassa sen GitHub-sivulla.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Vulkan-pohjainen Direct3D 8, 9, 10, ja 11 -toteutus Linux:ille/Wine:lle jossa mukana gplasync -paikka jonka teki Ph42oN.&lt;br&gt;&lt;br&gt;&lt;b&gt;Varoitus: käytä tätä vain yksinpelattavissa peleissä!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1360,7 +1369,7 @@ SteamTinkerLaunch:in asennusoppaassa sen GitHub-sivulla.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>DXVK:n varhainen (&quot;nightly&quot;) versio. Vulkan-pohjainen Direct3D 8, 9, 10, ja 11 -toteutus Linux:ille/Wine:lle.&lt;br&gt;&lt;br&gt;&lt;b&gt;Varoitus: varhaisversiot ovat epävakaita, käytä varauksella!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
