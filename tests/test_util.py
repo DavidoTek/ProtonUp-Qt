@@ -1,6 +1,7 @@
 import builtins
 import os
 import pathlib
+from subprocess import CompletedProcess
 from pytest_mock.plugin import MockType
 
 import pytest
@@ -9,12 +10,13 @@ import pytest_responses
 from responses import BaseResponse, RequestsMock
 
 from pyfakefs.fake_filesystem import FakeFilesystem
-from pyfakefs.fake_file import FakeFileWrapper
+from pyfakefs.fake_file import FakeFile, FakeFileWrapper
 
 from pytest_mock import MockerFixture
 
 from pupgui2.util import *
-from pupgui2.constants import HOME_DIR, POSSIBLE_INSTALL_LOCATIONS, AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST, GITLAB_API, GITHUB_API, PROTONUPQT_GITHUB_URL
+from pupgui2.constants import APP_THEMES, HOME_DIR, POSSIBLE_INSTALL_LOCATIONS, AWACY_GAME_LIST_URL
+from pupgui2.constants import LOCAL_AWACY_GAME_LIST, GITLAB_API, GITHUB_API, PROTONUPQT_GITHUB_URL
 from pupgui2.datastructures import SteamApp, LutrisGame, HeroicGame, Launcher, SteamUser
 
 
@@ -440,6 +442,43 @@ def test_get_combobox_index_by_value(combobox_values: list[str], value: str, exp
     QApplication.shutdown(app)
 
 
+def test_create_compatibilitytools_folder(fs: FakeFilesystem, mocker: MockerFixture) -> None:
+
+    """
+    Given a list of launcher install locations and compatibility tool folders,
+    When the parent directory for a given launcher's compatibility tool folder exists,
+    Then it should create the compatibility tool directory for that launcher.
+    """
+
+    for loc in POSSIBLE_INSTALL_LOCATIONS:
+        parent_dir = os.path.abspath(os.path.join(os.path.expanduser(loc['install_dir']), os.pardir))
+
+        fs.makedirs(parent_dir, exist_ok = True)
+
+    os_mkdir_spy = mocker.spy(os, 'mkdir')
+
+    create_compatibilitytools_folder()
+
+    assert os_mkdir_spy.call_count == len(POSSIBLE_INSTALL_LOCATIONS)
+    assert all(os.path.isdir(os.path.expanduser(loc['install_dir'])) for loc in POSSIBLE_INSTALL_LOCATIONS)
+
+
+def test_create_compatibilitytools_folder_no_parent_directory(fs: FakeFilesystem, mocker: MockerFixture) -> None:
+
+    """
+    Given a list of launcher install locations and compatibility tool folders,
+    When the parent directroy for a given launcher's compatibility tool folder does not exist,
+    Then it should not create the compatibility tool directory for that launcher.
+    """
+
+    os_mkdir_spy = mocker.spy(os, 'mkdir')
+
+    create_compatibilitytools_folder()
+
+    assert os_mkdir_spy.call_count == 0
+    assert all(not os.path.isdir(os.path.expanduser(loc['install_dir'])) for loc in POSSIBLE_INSTALL_LOCATIONS)
+
+
 @pytest.mark.parametrize(
     'install_loc', [
         pytest.param(install_loc, id = f'{install_loc["display_name"]} ({install_loc["install_dir"]})') for install_loc in POSSIBLE_INSTALL_LOCATIONS
@@ -617,6 +656,92 @@ def test_read_update_config_type_error(fs: FakeFilesystem, option: str | None, v
 
     with pytest.raises(TypeError, match=f'{expected_error_message}'):
         result = read_update_config_value(option, value, section)
+
+
+@pytest.mark.parametrize(
+    'theme', [
+        pytest.param(theme, id = str(theme).capitalize()) for theme in APP_THEMES if theme is not None
+    ] 
+)
+def test_config_theme(fs: FakeFilesystem, mocker: MockerFixture, theme: str) -> None:
+
+    """
+    Given a theme string,
+    When attempting to update the theme in the config file,
+    Then it should write out the new theme to the config file.
+    """
+
+    configparser_write_spy = mocker.spy(ConfigParser, 'write')
+
+    theme_write_value = config_theme(theme)
+    theme_read_value: str = str(config_theme())
+
+    assert theme_read_value == theme_write_value
+    assert theme_read_value == theme
+    assert theme_write_value == theme
+
+    assert configparser_write_spy.call_count == 1
+
+
+@pytest.mark.parametrize(
+    'name', [
+        pytest.param('yad', id = 'Yad should be found'),
+        pytest.param(' git', id = 'Git should be found (spacing on left)'),
+        pytest.param('pgrep ', id = 'pgrep should be found (spacing on right)'),
+        pytest.param(' unzip ', id = 'unzip should be found (spacing on left and right)'),
+    ]
+)
+def test_host_which(name: str, mocker: MockerFixture) -> None:
+
+    """
+    Given the name of an executable on PATH,
+    When the executable is found,
+    Then it should return the stripped string name of the path to the executable.
+    """
+
+    completed_process_args = ['which', name]
+    subprocess_run_completed_process = CompletedProcess(
+        args = completed_process_args,
+        returncode = 0,
+        stdout = name
+    )
+
+    subprocess_run_mock = mocker.patch('subprocess.run')
+    subprocess_run_mock.return_value = subprocess_run_completed_process
+
+    result: str | None = host_which(name)
+
+    assert result == name.strip()
+    assert type(result) == str
+
+    subprocess_run_mock.assert_called_once_with(completed_process_args, universal_newlines=True, stdout=subprocess.PIPE)
+
+
+def test_host_which_not_found(mocker: MockerFixture) -> None:
+
+    """
+    Given the name of an executable on PATH,
+    When the executable is not found (empty string returned),
+    Then it should return None.
+    """
+
+    name: str = 'xrandr'
+
+    completed_process_args = ['which', name]
+    subprocess_run_completed_process = CompletedProcess(
+        args = completed_process_args,
+        returncode = 0,
+        stdout = ''
+    )
+
+    subprocess_run_mock = mocker.patch('subprocess.run')
+    subprocess_run_mock.return_value = subprocess_run_completed_process
+
+    result: str | None = host_which(name)
+
+    assert result == None
+
+    subprocess_run_mock.assert_called_once_with(completed_process_args, universal_newlines=True, stdout=subprocess.PIPE)
 
 
 @pytest.mark.parametrize(

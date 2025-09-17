@@ -165,7 +165,7 @@ def read_update_config_value(option: str, value: str | None = None, section: str
     return value
 
 
-def config_theme(theme=None) -> str | None:
+def config_theme(theme: str | None = None) -> str | None:
     """
     Read/update config for the theme
     Write theme to config or read if theme=None
@@ -529,7 +529,7 @@ def get_installed_ctools(install_dir: str) -> list[BasicCompatTool]:
     return ctools
 
 
-def host_which(name: str) -> str:
+def host_which(name: str) -> str | None:
     """
     Runs 'which <name>' on the host system (either normal or using 'flatpak-spawn --host' when inside Flatpak)
     Return Type: str
