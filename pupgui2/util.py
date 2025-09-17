@@ -165,7 +165,7 @@ def read_update_config_value(option: str, value: str | None = None, section: str
     return value
 
 
-def config_theme(theme=None) -> str | None:
+def config_theme(theme: str | None = None) -> str | None:
     """
     Read/update config for the theme
     Write theme to config or read if theme=None
