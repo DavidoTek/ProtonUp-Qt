@@ -69,6 +69,16 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.14.0" date="2025-09-20">
+      <description>
+        <p>Changes/Improvements:</p>
+        <ul>
+          <li>Added the Proton-EM compatibility tool</li>
+          <li>Removed the NorthStar Proton compatibility tool</li>
+        </ul>
+        <p>Various improvements and bug fixes. See GitHub for more details. Thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.13.0" date="2025-07-16">
       <description>
         <p>Changes/Improvements:</p>
