@@ -456,10 +456,10 @@ def is_steam_running() -> bool:
 get_fish_user_paths = lambda mfile: ([line.strip() for line in mfile.readlines() if 'fish_user_paths' in line] or ['SETUVAR fish_user_paths:\\x1d'])[0].split('fish_user_paths:')[1:][0].split('\\x1e')
 
 
-def get_external_steamtinkerlaunch_intall(compat_folder):
+def get_external_steamtinkerlaunch_intall(compat_folder) -> str:
 
     symlink_path = os.path.join(compat_folder, 'steamtinkerlaunch')
-    return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and os.readlink(symlink_path) != os.path.join(STEAM_STL_INSTALL_PATH, 'prefix', 'steamtinkerlaunch') else None
+    return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and os.readlink(symlink_path) != os.path.join(STEAM_STL_INSTALL_PATH, 'prefix', 'steamtinkerlaunch') else ''
 
 
 def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=None) -> bool:
