@@ -38,7 +38,7 @@ class CtInstaller(GEProtonInstaller):
             'version', 'date', 'download', 'size'
         """
 
-        asset_condition = lambda asset: 'amd64' in asset.get('name', '') and 'staging' not in asset.get('name', '')
+        asset_condition = lambda asset: 'amd64' in asset.get('name', '') and not any(ignore in asset.get('name', '') for ignore in ['staging', 'wow64'])
         return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, asset_condition=asset_condition)
 
     def is_system_compatible(self) -> bool:
