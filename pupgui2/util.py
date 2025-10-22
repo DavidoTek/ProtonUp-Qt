@@ -8,7 +8,6 @@ import webbrowser
 import requests
 import zipfile
 import tarfile
-import pkgutil
 import random
 
 import zstandard
@@ -17,7 +16,7 @@ from configparser import ConfigParser
 from typing import Any, Callable
 
 import PySide6
-from PySide6.QtCore import QCoreApplication
+from PySide6.QtCore import QCoreApplication, QFile
 from PySide6.QtWidgets import QApplication, QComboBox, QStyleFactory, QMessageBox, QCheckBox
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, PALETTE_STEAMUI, TEMP_DIR, IS_FLATPAK
@@ -25,6 +24,7 @@ from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
 from pupgui2.datastructures import HardwarePlatform
+import pupgui2.resources.themes
 from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
 
 
@@ -105,8 +105,11 @@ def apply_dark_theme(app: QApplication) -> None:
         app.setPalette(PALETTE_DARK())
     elif theme == 'steam':
         app.setPalette(PALETTE_STEAMUI())
-        stylesheet = pkgutil.get_data(__name__, 'resources/themes/steamdeck.qss')
-        app.setStyleSheet(stylesheet.decode('utf-8'))
+        file = QFile(f":/resources/themes/steamdeck/stylesheet.qss")
+        file.open(QFile.OpenModeFlag.ReadOnly)
+        stylesheet = file.readAll().data().decode("utf-8")
+        file.close()
+        app.setStyleSheet(stylesheet)
     else:
         is_plasma = 'plasma' in os.environ.get('DESKTOP_SESSION', '')
         darkmode_enabled = False

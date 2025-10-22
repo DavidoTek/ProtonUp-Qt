@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="/resources/themes/steamdeck">
+    <file>icon-drop-down.svg</file>
+    <file>icon-down-arrow.svg</file>
+    <file>icon-up-arrow.svg</file>
+    <file>stylesheet.qss</file>
+  </qresource>
+</RCC>
