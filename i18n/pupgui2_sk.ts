@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="105"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>Chýbajúce závislosti!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="75"/>
@@ -14,7 +14,7 @@
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
         <source>Download Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba sťahovania!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
@@ -24,7 +24,9 @@
         <source>Failed to download tool &apos;{CT_NAME}&apos;!
 
 Reason: {EXCEPTION}</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba sťahovania nástroja &apos;{CT_NAME}&apos;!
+
+Dôvod: {EXCEPTION}</translation>
     </message>
 </context>
 <context>
@@ -32,7 +34,7 @@ Reason: {EXCEPTION}</source>
     <message>
         <location filename="../pupgui2/ctloader.py" line="52"/>
         <source>Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba!</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="54"/>
@@ -40,7 +42,10 @@ Reason: {EXCEPTION}</source>
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepodarilo sa načítať nástroj(e) kompatibility:
+{TOOL_LIST}
+
+Ak si myslíte že je to chyba aplikácie, prosím nahláste to na GitHub!</translation>
     </message>
 </context>
 <context>
@@ -48,32 +53,32 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
         <source>Configure Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastaviť prístupové tokeny Gitu</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
         <source>GitHub:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitHub:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložiť</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavrieť</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
         <source>GitLab:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitLab:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tento dialog umožňuje nastaviť prístupové tokeny pre API používané v GitHub/GitLab-e na reguláciu API prístupov.</translation>
     </message>
 </context>
 <context>
@@ -81,154 +86,156 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>unused</source>
-        <translation type="unfinished"></translation>
+        <translation>nepoužité</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>globálne</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="298"/>
         <source>Unused: {unused_ctools}</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepoužité: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="325"/>
         <source>Fetching releases...</source>
-        <translation type="unfinished"></translation>
+        <translation>Získavam vydania...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="336"/>
         <source>Download canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sťahovanie prerušené.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="339"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Inštalácia {current_compat_tool_name} sa nepodarila...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="345"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sťahujem {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="347"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozbaľujem {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="349"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Inštalujem {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="351"/>
         <source>Installed {current_compat_tool_name}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nainštalované {current_compat_tool_name}.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="377"/>
         <source>Remove compatibility tools?</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrániť nástroje kompatibility?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="377"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokúšate sa odstrániť nástroje kompatibility
+ktoré používajú hry {n}. Pokračovať?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="384"/>
         <source>Removed selected versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrané verzie boli odstránené.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="398"/>
         <source>Exit?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukončiť?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="398"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Na stiahnutie čakajú nejaké položky.
+Napriek tomu Prerušiť a Skončiť?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="411"/>
         <source>Changed install directory to {install_dir}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Priečinok na inštaláciu bol zmenený na {install_dir}.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="460"/>
         <source>Install tool from Flathub</source>
-        <translation type="unfinished"></translation>
+        <translation>Inštalovať nástroj z Flathubu</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="462"/>
         <source>Click to open your app store</source>
-        <translation type="unfinished"></translation>
+        <translation>Klikni pre otvorenie obchodu s aplikáciami</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
         <source>ProtonUp-Qt - Wine/Proton Installer</source>
-        <translation type="unfinished"></translation>
+        <translation>Inštalátor ProtonUp-Qt - Wine/Proton</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="48"/>
         <source>Install for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Inštalovať pre:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="68"/>
         <source>Active downloads:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktívne sťahovania:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation type="unfinished"></translation>
+        <translation>Pridať vlastný priečinok pre inštaláciu...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="103"/>
         <source>Installed compatibility tools:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nainštalované nástroje kompatibility:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
         <source>Add version</source>
-        <translation type="unfinished"></translation>
+        <translation>Pridať verziu</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="155"/>
         <source>Remove selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstrániť vybrané</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="162"/>
         <source>Show info</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraziť informácie</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
         <source>Get tools from Flathub</source>
-        <translation type="unfinished"></translation>
+        <translation>Získať nástroje z Flathubu</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="206"/>
         <source>Show game list</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraziť zoznam hier</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="213"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>O programe</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="220"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavrieť</translation>
     </message>
 </context>
 <context>
@@ -236,7 +243,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="20"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialóg</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="29"/>
