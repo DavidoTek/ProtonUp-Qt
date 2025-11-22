@@ -7,7 +7,7 @@ import subprocess
 from PySide6.QtCore import QCoreApplication
 
 from pupgui2.constants import IS_FLATPAK
-from pupgui2.util import fetch_project_release_data
+from pupgui2.util import fetch_project_release_data, ghapi_rlcheck
 
 from pupgui2.resources.ctmods.ctmod_00protonge import CtInstaller as GEProtonInstaller
 
@@ -38,7 +38,13 @@ class CtInstaller(GEProtonInstaller):
             'version', 'date', 'download', 'size'
         """
 
-        asset_condition = lambda asset: 'amd64' in asset.get('name', '') and not any(ignore in asset.get('name', '') for ignore in ['staging', 'wow64'])
+        is_wow64 = tag.endswith(' (wow64)')
+        if is_wow64:
+            tag = tag.replace(" (wow64)", "")
+            asset_condition = lambda asset: 'amd64-wow64' in asset.get('name', '') and 'staging' not in asset.get('name', '')
+        else:
+            asset_condition = lambda asset: 'amd64' in asset.get('name', '') and not any(ignore in asset.get('name', '') for ignore in ['staging', 'wow64'])
+
         return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, asset_condition=asset_condition)
 
     def is_system_compatible(self) -> bool:
@@ -68,3 +74,31 @@ class CtInstaller(GEProtonInstaller):
         # kron4ek can use default 'install_dir' always because it is Wine and not Proton,
         # so override to return unmodified 'install_dir'
         return install_dir
+
+    def fetch_releases(self, count: int = 100, page: int = 1) -> list[str]:
+
+        """
+        List available releases for both amd64 and amd64-wow64 builds
+        Return Type: str[]
+        """
+        
+        url = f'{self.CT_URL}?per_page={count}&page={page}'
+        response = self.rs.get(url)
+        releases_list = ghapi_rlcheck(response.json())
+
+        versions_to_display = []
+        
+        for release in releases_list:
+            if not 'tag_name' in release:
+                continue
+                
+            tag_name = release.get('tag_name')
+            versions_to_display.append(tag_name)          
+
+            # Check if there is wow64 build to add
+            for asset in release.get('assets', []):
+                asset_name = asset.get('name', '')              
+                if 'amd64-wow64' in asset_name and self.release_format in asset_name and 'staging' not in asset_name:
+                    versions_to_display.append(f"{tag_name} (wow64)")
+
+        return versions_to_display
