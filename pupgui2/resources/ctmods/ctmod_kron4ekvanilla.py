@@ -39,11 +39,16 @@ class CtInstaller(GEProtonInstaller):
         """
 
         is_wow64 = tag.endswith(' (wow64)')
+        is_amd64 = tag.endswith(' (amd64)')
         if is_wow64:
             tag = tag.replace(" (wow64)", "")
             asset_condition = lambda asset: 'amd64-wow64' in asset.get('name', '') and 'staging' not in asset.get('name', '')
-        else:
+        elif is_amd64:
+            tag = tag.replace(" (amd64)", "")
             asset_condition = lambda asset: 'amd64' in asset.get('name', '') and not any(ignore in asset.get('name', '') for ignore in ['staging', 'wow64'])
+        else:
+            print(f"ctmod_kron4ekvanilla: Invalid tag '{tag}'. Must contain amd64 or wow64")
+            return None
 
         return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, asset_condition=asset_condition)
 
@@ -92,13 +97,14 @@ class CtInstaller(GEProtonInstaller):
             if not 'tag_name' in release:
                 continue
                 
-            tag_name = release.get('tag_name')
-            versions_to_display.append(tag_name)          
+            tag_name = release.get('tag_name')         
 
             # Check if there is wow64 build to add
             for asset in release.get('assets', []):
-                asset_name = asset.get('name', '')              
+                asset_name = asset.get('name', '')
                 if 'amd64-wow64' in asset_name and self.release_format in asset_name and 'staging' not in asset_name:
                     versions_to_display.append(f"{tag_name} (wow64)")
+                elif 'amd64' in asset_name and self.release_format in asset_name and 'staging' not in asset_name:
+                    versions_to_display.append(f"{tag_name} (amd64)")
 
         return versions_to_display
