@@ -593,7 +593,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Anticheat</source>
-        <translation>Античіт</translation>
+        <translation>Анти-чит</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
@@ -766,7 +766,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="418"/>
         <source>Anti-Cheat stops game from running properly</source>
-        <translation>Античіт не дозволяє коректно запустити гру</translation>
+        <translation>Анти-чит не дозволяє коректно запустити гру</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="421"/>
@@ -776,7 +776,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="424"/>
         <source>Anti-Cheat status unknown</source>
-        <translation>Статус античіту невідомий</translation>
+        <translation>Статус анти-читу невідомий</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="355"/>
@@ -1029,7 +1029,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="20"/>
         <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>Спеціальна збірка Proton для запуску ігор Windows, створена за допомогою системи збірки Wine-tkg.</translation>
+        <translation>Спеціальна збірка Proton для запуску ігор для Windows, створена за допомогою системи збірки Wine-tkg.</translation>
     </message>
 </context>
 <context>
