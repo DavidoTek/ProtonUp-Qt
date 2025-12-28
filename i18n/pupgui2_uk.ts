@@ -546,7 +546,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="43"/>
         <source>Custom Install Directory</source>
-        <translation>Нетипова тека встановлення</translation>
+        <translation>Власна тека встановлення</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="92"/>
@@ -681,7 +681,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="396"/>
         <source>Install location does not exist!</source>
-        <translation>Місця встановлення не існує!</translation>
+        <translation>Теки встановлення не існує!</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="437"/>
@@ -766,7 +766,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="418"/>
         <source>Anti-Cheat stops game from running properly</source>
-        <translation>Античіт не дозволяє правильно запустити гру</translation>
+        <translation>Античіт не дозволяє коректно запустити гру</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="421"/>
@@ -826,7 +826,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="298"/>
         <source>Close</source>
-        <translation type="unfinished">Закрити</translation>
+        <translation>Закрити</translation>
     </message>
 </context>
 <context>
@@ -955,7 +955,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="22"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>Інструмент сумісності Steam для запуску ігор Windows із вдосконаленнями порівняно зі стандартним Proton від Valve. &lt;br&gt;&lt;br&gt;&lt;b&gt;Використовуйте його, якщо не знаєте, що вибрати.&lt;/b&gt;</translation>
+        <translation>Інструмент сумісності Steam для запуску ігор для Windows із вдосконаленнями порівняно зі стандартним Proton від Valve. &lt;br&gt;&lt;br&gt;&lt;b&gt;Використовуйте його, якщо не знаєте, що вибрати.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -963,7 +963,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="15"/>
         <source>Steam Play compatibility tool to run DOS games using native Linux DOSBox.</source>
-        <translation>Інструмент сумісності Steam Play для запуску ігор DOS за допомогою нативного Linux DOSBox.</translation>
+        <translation>Інструмент сумісності Steam Play для запуску ігор для DOS за допомогою нативного Linux DOSBox.</translation>
     </message>
 </context>
 <context>
@@ -971,7 +971,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_kron4ekvanilla.py" line="20"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.</source>
-        <translation>Інструмент сумісності &quot;Wine&quot; для запуску ігор Windows в Linux. Офіційна версія з джерел WineHQ, скомпільована Kron4ek.</translation>
+        <translation>Інструмент сумісності &quot;Wine&quot; для запуску ігор для Windows в Linux. Офіційна версія з джерел WineHQ, скомпільована Kron4ek.</translation>
     </message>
 </context>
 <context>
@@ -979,7 +979,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="17"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
-        <translation>Інструмент сумісності &quot;Wine&quot; для запуску ігор Windows в Linux. Вдосконалений Lutris для забезпечення кращої сумісності або продуктивності в певних іграх.</translation>
+        <translation>Інструмент сумісності &quot;Wine&quot; для запуску ігор для Windows в Linux. Вдосконалений Lutris для забезпечення кращої сумісності або продуктивності в певних іграх.</translation>
     </message>
 </context>
 <context>
@@ -1140,7 +1140,7 @@ Installation will be cancelled.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="207"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished">Залежності відсутні!</translation>
+        <translation>Залежності відсутні!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="239"/>
