@@ -1317,7 +1317,7 @@ The uninstallation will continue.</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="40"/>
         <source>Translated by DavidoTek</source>
-        <translation>Перекладено egot1st&apos;ом</translation>
+        <translation>Перекладено AndrijZyn та egot1st</translation>
     </message>
 </context>
 <context>
