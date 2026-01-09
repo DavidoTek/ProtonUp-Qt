@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="105"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>ნაკლული დამოკიდებულებები!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="75"/>
@@ -14,7 +14,7 @@
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
         <source>Download Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>გადმოწერის შეცდომა!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
@@ -32,7 +32,7 @@ Reason: {EXCEPTION}</source>
     <message>
         <location filename="../pupgui2/ctloader.py" line="52"/>
         <source>Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>შეცდომა!</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="54"/>
@@ -53,22 +53,22 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
         <source>GitHub:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitHub:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>შენახვა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>დახურვა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
         <source>GitLab:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitLab:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
@@ -81,27 +81,27 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>unused</source>
-        <translation type="unfinished"></translation>
+        <translation>გამოუყენებელია</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>გლობალური</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="298"/>
         <source>Unused: {unused_ctools}</source>
-        <translation type="unfinished"></translation>
+        <translation>გამოიყენებელია: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="325"/>
         <source>Fetching releases...</source>
-        <translation type="unfinished"></translation>
+        <translation>რელიზების გამოთხოვა...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="336"/>
         <source>Download canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>გადმოწერა გაუქმდა.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="339"/>
@@ -111,22 +111,22 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="345"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name}-ის გადმოწერა...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="347"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name}-ის გაშლა...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="349"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name}-ის დაყენება...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="351"/>
         <source>Installed {current_compat_tool_name}.</source>
-        <translation type="unfinished"></translation>
+        <translation>{current_compat_tool_name} დაყენებულია.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="377"/>
@@ -147,7 +147,7 @@ which are in use by {n} games. Continue?</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="398"/>
         <source>Exit?</source>
-        <translation type="unfinished"></translation>
+        <translation>გავიდე?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="398"/>
@@ -178,12 +178,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="48"/>
         <source>Install for:</source>
-        <translation type="unfinished"></translation>
+        <translation>დაყენება ვისთვის:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="68"/>
         <source>Active downloads:</source>
-        <translation type="unfinished"></translation>
+        <translation>აქტიური გადმოწერები:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
@@ -198,17 +198,17 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
         <source>Add version</source>
-        <translation type="unfinished"></translation>
+        <translation>ვერსიის დამატება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="155"/>
         <source>Remove selected</source>
-        <translation type="unfinished"></translation>
+        <translation>მონიშნულის წაშლა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="162"/>
         <source>Show info</source>
-        <translation type="unfinished"></translation>
+        <translation>ინფორმაციის ჩვენება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
@@ -223,12 +223,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="213"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>შესახებ</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="220"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>დახურვა</translation>
     </message>
 </context>
 <context>
@@ -236,7 +236,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="20"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>დიალოგი</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="29"/>
@@ -246,12 +246,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="41"/>
         <source>Directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>საქაღალდე:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="51"/>
         <source>Launcher:</source>
-        <translation type="unfinished"></translation>
+        <translation>გამშვები:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="85"/>
@@ -261,18 +261,18 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="88"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>ნაგულისხმევი</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="111"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>შენახვა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="20"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="105"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>პაკეტური განახლება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="29"/>
@@ -282,18 +282,18 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="41"/>
         <source>New Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>ახალი ვერსია:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="58"/>
         <source>Old Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>ძველი ვერსია:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="112"/>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="118"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>დახურვა</translation>
     </message>
 </context>
 <context>
@@ -301,12 +301,12 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>light</source>
-        <translation type="unfinished"></translation>
+        <translation>ღია</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>dark</source>
-        <translation type="unfinished"></translation>
+        <translation>მუქი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
@@ -320,7 +320,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="93"/>
         <source>Update available</source>
-        <translation type="unfinished"></translation>
+        <translation>განახლება ხელმისაწვდომია</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="94"/>
@@ -341,12 +341,12 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="103"/>
         <source>Added shortcut!</source>
-        <translation type="unfinished"></translation>
+        <translation>მალსახმობი დაემატა!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>დიალოგი</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
@@ -361,7 +361,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="128"/>
         <source>Color Theme:</source>
-        <translation type="unfinished"></translation>
+        <translation>ფერის თემა:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="145"/>
@@ -382,8 +382,8 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="202"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
-        <translation type="unfinished">Fügt eine Verknüpfung zu ProtonUp-Qt zur Steam Bibliothek hinzu.
-Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel entfernen&quot;.</translation>
+        <translation>ამატებს მალსახმობს ProtonUp-Qt-ის Steam-ის ბიბლიოთეკიდან გასაშვებად.
+მალსახმობის წასაშლელად გახსენით Steam და აირჩიეთ &quot;არა-Steam-ის თამაშის წაშლა ბიბლიოთეკიდან&quot;.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="206"/>
@@ -393,12 +393,12 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="213"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Qt-ის შესახებ</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="220"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>დახურვა</translation>
     </message>
 </context>
 <context>
@@ -440,17 +440,17 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="26"/>
         <source>Compatibility tool:</source>
-        <translation type="unfinished"></translation>
+        <translation>თავსებადობის პროგრამა:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="43"/>
         <source>Game Launcher:</source>
-        <translation type="unfinished"></translation>
+        <translation>თამაშის გამშვები:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="60"/>
         <source>Install directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>დაყენების საქაღალდე:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="88"/>
@@ -460,22 +460,22 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="115"/>
         <source>Refresh Games</source>
-        <translation type="unfinished"></translation>
+        <translation>თამაშების განახლება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="129"/>
         <source>Search games...</source>
-        <translation type="unfinished"></translation>
+        <translation>თამაშების ძებნა...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation type="unfinished"></translation>
+        <translation>თამაშების გარეშე</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>პაკეტური განახლება</translation>
     </message>
     <message>
         <source>Batch update</source>
@@ -494,33 +494,33 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="297"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>დახურვა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
         <source>AppID</source>
-        <translation type="unfinished"></translation>
+        <translation>აპლიკაციის ID</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>სახელი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
         <source>Slug</source>
-        <translation type="unfinished"></translation>
+        <translation>Slug</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="108"/>
         <source>Runner</source>
-        <translation type="unfinished"></translation>
+        <translation>გამშვები</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="108"/>
         <source>Game</source>
-        <translation type="unfinished"></translation>
+        <translation>თამაში</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="127"/>
@@ -530,7 +530,7 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="152"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>მაგ: {GAME_NAME}</translation>
     </message>
 </context>
 <context>
@@ -569,52 +569,52 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Game</source>
-        <translation type="unfinished"></translation>
+        <translation>თამაში</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Compatibility Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>თავსებადობის პროგრამა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Deck Compatibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Steam Deck-თან თავსებადობა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Anticheat</source>
-        <translation type="unfinished"></translation>
+        <translation>ანტიჩიტი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Runner</source>
-        <translation type="unfinished"></translation>
+        <translation>გამშვები</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Install Location</source>
-        <translation type="unfinished"></translation>
+        <translation>დაყენების მდებარეობა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <source>Installed Date</source>
-        <translation type="unfinished"></translation>
+        <translation>დაყენების თარიღი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="144"/>
         <source>click</source>
-        <translation type="unfinished"></translation>
+        <translation>წკაპი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="228"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="229"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="435"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>უცნობი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="224"/>
@@ -624,29 +624,31 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="264"/>
         <source>Name: {compat_item_text}</source>
-        <translation type="unfinished"></translation>
+        <translation>სახელი: {compat_item_text}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="266"/>
         <source>
 Path: {compat_tool_bin_path}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+ბილიკი: {compat_tool_bin_path}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="270"/>
         <source>
 Type: {wine_type}</source>
-        <translation type="unfinished"></translation>
+        <translation>
+ტიპი: {wine_type}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="273"/>
         <source>Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>ბრაუზერი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
         <source>Native</source>
-        <translation type="unfinished"></translation>
+        <translation>საკუთარი</translation>
     </message>
     <message>
         <source>Type: Native</source>
@@ -655,13 +657,13 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="323"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>მზადაა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="323"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="112"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>ძებნა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="393"/>
@@ -676,17 +678,17 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="437"/>
         <source>Unsupported</source>
-        <translation type="unfinished"></translation>
+        <translation>მხარდაუჭერელია</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="440"/>
         <source>Playable</source>
-        <translation type="unfinished"></translation>
+        <translation>დაკვრადი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="442"/>
         <source>Native (playable)</source>
-        <translation type="unfinished"></translation>
+        <translation>ადგილობრივი (შეგიძლიათ, ითამაშოთ)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="443"/>
@@ -696,12 +698,12 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="447"/>
         <source>Verified</source>
-        <translation type="unfinished"></translation>
+        <translation>გადამოწმებულია</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="449"/>
         <source>Native (verified)</source>
-        <translation type="unfinished"></translation>
+        <translation>ადგილობრივი (გადამოწმებულია)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="450"/>
@@ -731,7 +733,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
         <source>Type: {PLATFORM}</source>
-        <translation type="unfinished"></translation>
+        <translation>ტიპი: {PLATFORM}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="283"/>
@@ -741,7 +743,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="319"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>მაგ: {GAME_NAME}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="412"/>
@@ -778,7 +780,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
         <source>Game List</source>
-        <translation type="unfinished"></translation>
+        <translation>თამაშების სია</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="61"/>
@@ -798,23 +800,23 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="91"/>
         <source>Refresh Games</source>
-        <translation type="unfinished"></translation>
+        <translation>თამაშების განახლება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="105"/>
         <source>Shortcut Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>მალსახმობის რედაქტორი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="299"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="119"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>გადატარება</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="298"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>დახურვა</translation>
     </message>
 </context>
 <context>
@@ -827,37 +829,37 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="91"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>ინფორმაცია</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="98"/>
         <source>Install</source>
-        <translation type="unfinished"></translation>
+        <translation>დაყენება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="105"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>გაუქმება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="32"/>
         <source>Compatibility tool:</source>
-        <translation type="unfinished"></translation>
+        <translation>თავსებადობის პროგრამა:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="46"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>ვერსია:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="56"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>აღწერა:</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
         <source>Load more...</source>
-        <translation type="unfinished"></translation>
+        <translation>მეტის ჩატვირთვა...</translation>
     </message>
 </context>
 <context>
@@ -865,22 +867,22 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>App Name</source>
-        <translation type="unfinished"></translation>
+        <translation>აპის სახელი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Executable</source>
-        <translation type="unfinished"></translation>
+        <translation>შესრულებადი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Start Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>გაშვების საქაღალდე</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>ხატულა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="17"/>
@@ -895,7 +897,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="60"/>
         <source>Add new</source>
-        <translation type="unfinished"></translation>
+        <translation>ახლის დამატება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
@@ -905,12 +907,12 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="70"/>
         <source>Remove selected</source>
-        <translation type="unfinished">Auswahl löschen</translation>
+        <translation>მონიშნულის წაშლა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>მაგ: ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="80"/>
@@ -925,7 +927,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="90"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>შენახვა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
@@ -935,7 +937,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="100"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>დახურვა</translation>
     </message>
 </context>
 <context>
@@ -1147,7 +1149,7 @@ Installation will be cancelled.</source>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="207"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished"></translation>
+        <translation>ნაკლული დამოკიდებულებები!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="239"/>
@@ -1326,7 +1328,7 @@ The uninstallation will continue.</source>
     <message>
         <location filename="../pupgui2/util.py" line="370"/>
         <source>Uninstalling SteamTinkerLaunch</source>
-        <translation type="unfinished"></translation>
+        <translation>SteamTinkerLaunch-ის წაშლა</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="371"/>
@@ -1359,12 +1361,12 @@ See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 
     <message>
         <location filename="../pupgui2/util.py" line="923"/>
         <source>missing</source>
-        <translation type="unfinished"></translation>
+        <translation>აკლია</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="924"/>
         <source>found</source>
-        <translation type="unfinished"></translation>
+        <translation>აღმოჩენილია</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="926"/>
