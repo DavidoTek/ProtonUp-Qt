@@ -185,19 +185,7 @@ class CtInstaller(QObject):
         Return the directory to extract GE-Proton archive based on the current launcher
         Return Type: str
         """
-
-        launcher = get_launcher_from_installdir(install_dir)
-        extract_dir: str = install_dir
-
-        if launcher == Launcher.LUTRIS:
-            # GE-Proton for Lutris needs to go into 'runners/proton' and not 'runners/wine'
-            extract_dir = os.path.abspath(os.path.join(install_dir, '../../runners/proton'))
-            
-            # Lutris may not be guaranteed to make this path, so ensure it exists
-            if not os.path.exists(extract_dir):
-                os.mkdir(extract_dir)
-
-        return extract_dir  # Default to install_dir
+        return install_dir  # Default to install_dir
 
     def get_info_url(self, version: str) -> str:
         """
