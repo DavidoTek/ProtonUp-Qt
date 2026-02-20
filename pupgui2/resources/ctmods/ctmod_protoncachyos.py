@@ -10,7 +10,7 @@ from pupgui2.util import ghapi_rlcheck, extract_tar
 from .ctmod_00protonge import CtInstaller as ProtonGECtInstaller
 
 CT_NAME = 'Proton-CachyOS'
-CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles']
+CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles', 'lutris']
 CT_DESCRIPTION = {
     'en': QCoreApplication.instance().translate(
         'ctmod_protoncachyos',
