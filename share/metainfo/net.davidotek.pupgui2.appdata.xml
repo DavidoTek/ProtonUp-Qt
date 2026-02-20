@@ -69,6 +69,17 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.15.0" date="2026-02-20">
+      <description>
+        <p>Changes/Improvements:</p>
+        <ul>
+          <li>Added the dwproton compatibility tool</li>
+          <li>Fixed Kron4ek. Allows choosing between amd64 and wow64</li>
+          <li>Fixed the GE-Proton install directory for Lutris to runners/wine</li>
+        </ul>
+        <p>Various improvements and bug fixes. See GitHub for more details. Thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.14.0" date="2025-09-20">
       <description>
         <p>Changes/Improvements:</p>

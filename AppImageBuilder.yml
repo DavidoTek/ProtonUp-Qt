@@ -19,7 +19,7 @@ AppDir:
     id: net.davidotek.pupgui2
     name: ProtonUp-Qt
     icon: net.davidotek.pupgui2
-    version: 2.14.0
+    version: 2.15.0
     exec: usr/bin/python3
     exec_args: "-m pupgui2 $@"
 
