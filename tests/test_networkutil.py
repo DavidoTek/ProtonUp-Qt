@@ -8,7 +8,7 @@ from collections.abc import Generator
 
 from io import TextIOWrapper
 
-from unittest.mock import call
+from unittest.mock import call, MagicMock
 
 from responses import BaseResponse, RequestsMock
 
@@ -312,11 +312,15 @@ def test_download_file_download_cancelled(sample_file: FakeFileWrapper, response
 
     fs.create_dir(TEMP_DIR)
 
+    # Create a mock object that becomes truthy on first chunk to simulate cancellation
+    download_cancelled_mock = MagicMock()
+    download_cancelled_mock.__bool__.return_value = True
+
     result: bool = download_file(
         request_url,
         destination_file_path,
-        progress_callback = progress_callback_spy,
-        download_cancelled = Property(bool, False, None, None, "Download Cancelled")
+        progress_callback=progress_callback_spy,
+        download_cancelled=download_cancelled_mock,
     )
 
     assert not result
