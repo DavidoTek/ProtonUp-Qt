@@ -78,7 +78,7 @@ Nếu bạn cho rằng đây là lỗi, vui lòng báo lỗi trên GitHub!</tran
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hộp thoại này cho phép bạn cầu hình token truy cập cho API GitHub/Gitlab nhằm chống cảnh báo giới hạn yêu cầu API.</translation>
     </message>
 </context>
 <context>
@@ -86,42 +86,42 @@ Nếu bạn cho rằng đây là lỗi, vui lòng báo lỗi trên GitHub!</tran
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>unused</source>
-        <translation type="unfinished"></translation>
+        <translation>chưa dùng</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>toàn cục</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="298"/>
         <source>Unused: {unused_ctools}</source>
-        <translation type="unfinished"></translation>
+        <translation>Chưa dùng: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="325"/>
         <source>Fetching releases...</source>
-        <translation type="unfinished"></translation>
+        <translation>Đang tải danh sách bản phát hành...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="336"/>
         <source>Download canceled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Đã huỷ tải xuống.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="339"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Không thể cài đặt {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="345"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Đang tải xuống {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="347"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation type="unfinished"></translation>
+        <translation>Đang giản nén {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="349"/>
@@ -198,7 +198,7 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="103"/>
         <source>Installed compatibility tools:</source>
-        <translation type="unfinished"></translation>
+        <translation>Công cụ tương thích đã cài đặt:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
@@ -277,7 +277,7 @@ Cancel and exit anyway?</source>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="20"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="105"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cập nhật hàng loạt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="29"/>
@@ -351,7 +351,7 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Hộp thoại</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
@@ -398,12 +398,12 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="213"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Giới thiệu Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="220"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Đóng</translation>
     </message>
 </context>
 <context>
@@ -499,7 +499,7 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="297"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Đóng</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
@@ -510,7 +510,7 @@ Die Verknüpfung kann unter Steam entfernt werden: &quot;Steam-fremdes Spiel ent
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Tên</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
