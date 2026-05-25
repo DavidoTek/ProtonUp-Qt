@@ -22,7 +22,7 @@ from PySide6.QtWidgets import QApplication, QComboBox, QStyleFactory, QMessageBo
 
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, PALETTE_STEAMUI, TEMP_DIR, IS_FLATPAK
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
-from pupgui2.constants import GITHUB_API, GITLAB_API, GITLAB_API_RATELIMIT_TEXT
+from pupgui2.constants import GITHUB_API, GITLAB_API, CODEBERG_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
 from pupgui2.datastructures import HardwarePlatform
 from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
@@ -594,6 +594,15 @@ def is_gitlab_instance(url: str) -> bool:
     return any(instance in url for instance in GITLAB_API)
 
 
+def is_codeberg_instance(url: str) -> bool:
+    """
+    Check if a full API endpoint URL is a Codeberg API instance.
+    Return Type: bool
+    """
+
+    return CODEBERG_API in url
+
+
 def is_online(host: str = 'https://api.github.com/rate_limit/', timeout: int = 5) -> bool:
     """
     Attempts to ping a given host using `requests`.
@@ -614,16 +623,20 @@ def fetch_project_releases(releases_url: str, rs: requests.Session, count: int =
     List available releases for a given project URL hosted using requests.
     Return Type: list[str]
     """
-    releases_api_url: str = f'{releases_url}?per_page={count}&page={page}'
 
-    releases: dict = {}
     tag_key: str = ''
     if GITHUB_API in releases_url:
-        releases = ghapi_rlcheck(rs.get(releases_api_url).json())
+        releases_api_url: str = f'{releases_url}?per_page={count}&page={page}'
+        releases: dict = ghapi_rlcheck(rs.get(releases_api_url).json())
         tag_key = 'tag_name'
     elif is_gitlab_instance(releases_url):
-        releases = glapi_rlcheck(rs.get(releases_api_url).json())
+        releases_api_url: str = f'{releases_url}?per_page={count}&page={page}'
+        releases: dict = glapi_rlcheck(rs.get(releases_api_url).json())
         tag_key = 'name'
+    elif is_codeberg_instance(releases_url):
+        releases_api_url: str = f'{releases_url}?limit={count}&page={page}'
+        releases: list = rs.get(releases_api_url).json()
+        tag_key = 'tag_name'
     else:
         return []  # Unknown API, cannot fetch releases!
 
@@ -654,6 +667,8 @@ def get_assets_from_release(release_url: str, release: dict) -> dict:
         return release.get('assets', {})
     elif is_gitlab_instance(release_url):
         return release.get('assets', {}).get('links', {})
+    elif is_codeberg_instance(release_url):
+        return release.get('assets', [])
     else:
         return {}
 
@@ -671,6 +686,8 @@ def get_download_url_from_asset(release_url: str, asset: dict, release_format: s
         valid_asset = asset['browser_download_url']
     elif is_gitlab_instance(release_url) and asset.get('name', '').endswith(release_format):
         valid_asset = asset['url']
+    elif is_codeberg_instance(release_url) and asset.get('name', '').endswith(release_format):
+        valid_asset = asset['browser_download_url']
     else:
         return ''
 
@@ -692,13 +709,15 @@ def fetch_project_release_data(release_url: str, release_format: str, rs: reques
     date_key: str = ''
     api_tag = tag if tag else 'latest'
 
-    url: str = f'{release_url}/'
     if GITHUB_API in release_url:
-        url += f'tags/{api_tag}'
+        url: str = f'{release_url}/tags/{api_tag}'
         date_key = 'published_at'
     elif is_gitlab_instance(release_url):
-        url += api_tag
+        url: str = f'{release_url}/{api_tag}'
         date_key = 'released_at'
+    elif is_codeberg_instance(release_url):
+        url: str = f'{release_url}/tags/{api_tag}'
+        date_key = 'published_at'
     else:
         return {}  # Unknown API, cannot fetch data!
 
