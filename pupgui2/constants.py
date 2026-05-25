@@ -134,6 +134,8 @@ GITLAB_API = [
     'https://gitlab.com/api/'
 ]
 
+CODEBERG_API = 'https://codeberg.org/api/v1/'
+
 GITLAB_API_RATELIMIT_TEXT = [
     'Rate limit exceeded; see https://docs.gitlab.com/ee/user/gitlab_com/#gitlabcom-specific-rate-limits for more details',
     'Rate limit exceeded',

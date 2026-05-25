@@ -10,7 +10,7 @@ from PySide6.QtWidgets import QMessageBox
 
 from pupgui2.networkutil import download_file
 from pupgui2.util import extract_tar, write_tool_version, fetch_project_releases
-from pupgui2.util import fetch_project_release_data, build_headers_with_authorization
+from pupgui2.util import fetch_project_release_data
 from pupgui2.util import create_missing_dependencies_message
 
 
@@ -22,8 +22,8 @@ CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_luxtorpeda'
 class CtInstaller(QObject):
 
     BUFFER_SIZE = 65536
-    CT_URL = 'https://api.github.com/repos/luxtorpeda-dev/luxtorpeda/releases'
-    CT_INFO_URL = 'https://github.com/luxtorpeda-dev/luxtorpeda/releases/tag/'
+    CT_URL = 'https://codeberg.org/api/v1/repos/luxtorpeda/luxtorpeda/releases'
+    CT_INFO_URL = 'https://codeberg.org/luxtorpeda/luxtorpeda/releases/tag/'
 
     p_download_progress_percent = 0
     download_progress_percent = Signal(int)
@@ -39,8 +39,6 @@ class CtInstaller(QObject):
         self.release_format = 'tar.xz'
 
         self.rs = requests.Session()
-        rs_headers = build_headers_with_authorization({}, main_window.web_access_tokens, 'github')
-        self.rs.headers.update(rs_headers)
 
     def get_download_canceled(self):
         return self.p_download_canceled
@@ -81,9 +79,9 @@ class CtInstaller(QObject):
                 QMessageBox.Icon.Warning
             )
 
-    def __fetch_github_data(self, tag):
+    def __fetch_release_data(self, tag):
         """
-        Fetch GitHub release information
+        Fetch Codeberg release information
         Return Type: dict
         Content(s):
             'version', 'date', 'download', 'size'
@@ -122,7 +120,7 @@ class CtInstaller(QObject):
         Download and install the compatibility tool
         Return Type: bool
         """
-        data = self.__fetch_github_data(version)
+        data = self.__fetch_release_data(version)
 
         if not data or 'download' not in data:
             return False
