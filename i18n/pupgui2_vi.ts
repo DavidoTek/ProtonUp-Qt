@@ -696,27 +696,27 @@ Loại: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="442"/>
         <source>Native (playable)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gốc (chơi được)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="443"/>
         <source>Playable using {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Chơi được bằng {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="447"/>
         <source>Verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Đã xác minh</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="449"/>
         <source>Native (verified)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gốc (đã xác minh)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="450"/>
         <source>Verified for {compat_tool}</source>
-        <translation type="unfinished"></translation>
+        <translation>Được [compat_tool] xác minh</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="409"/>
@@ -788,7 +788,7 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
         <source>Game List</source>
-        <translation type="unfinished"></translation>
+        <translation>Danh sách game</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="61"/>
@@ -798,33 +798,33 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="68"/>
         <source>e.g. Team Fortress 2</source>
-        <translation type="unfinished"></translation>
+        <translation>ví dụ, Team Fortress 2</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="71"/>
         <source>Search for a game...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tìm game...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="91"/>
         <source>Refresh Games</source>
-        <translation type="unfinished"></translation>
+        <translation>Tải lại danh sách game</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="105"/>
         <source>Shortcut Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Chỉnh sửa lối tắt</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="299"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="119"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Áp dụng</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="298"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Đóng</translation>
     </message>
 </context>
 <context>
@@ -832,42 +832,42 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="20"/>
         <source>Install Compatibility Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Cài đặt công cụ tương thích</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="91"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Thông tin</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="98"/>
         <source>Install</source>
-        <translation type="unfinished"></translation>
+        <translation>Cài đặt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="105"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Huỷ</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="32"/>
         <source>Compatibility tool:</source>
-        <translation type="unfinished"></translation>
+        <translation>Công cụ tương thích:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="46"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Phiên bản:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="56"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mô tả:</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
         <source>Load more...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tải thêm...</translation>
     </message>
 </context>
 <context>
@@ -875,42 +875,42 @@ Trending: {trending}</source>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>App Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Tên ứng dụng</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp thực thi</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Start Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Thư mục khởi động</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Biểu tượng</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="17"/>
         <source>Steam Shortcut Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Chỉnh sửa lối tắt Steam</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="57"/>
         <source>Add a new shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Thêm lối tắt mới</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="60"/>
         <source>Add new</source>
-        <translation type="unfinished"></translation>
+        <translation>Thêm</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
         <source>Click on a row, then click here to remove a shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Nhấp vào một hàng, sau đó nhấp ở đây để xoá bỏ lối tắt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="70"/>
