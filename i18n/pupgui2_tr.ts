@@ -68,7 +68,7 @@ Bunun bir hata olduğunu düşünüyorsanız lütfen GitHub&apos;da bu hatayı b
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation type="unfinished">Kapat</translation>
+        <translation>Kapat</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
@@ -1048,7 +1048,14 @@ Trend: {trending}</translation>
         &lt;br/&gt;
         * &lt;b&gt;x86_64_v3&lt;/b&gt;: For CPUs that support AVX2 and up
         </source>
-        <translation type="unfinished"></translation>
+        <translation>
+        CachyOS Linux dağıtımına ait, Windows oyunlarını Valve&apos;ın varsayılan Proton sürümünden daha
+        yüksek performansla çalıştırmayı sağlayan Steam uyumluluk aracı. İşlemcinize uygun olanı seçin.
+        &lt;br&gt;&lt;br&gt;
+        * &lt;b&gt;x86_64&lt;/b&gt;: Tüm x86_64 işlemcilerde çalışır
+        &lt;br&gt;
+        * &lt;b&gt;x86_64_v3&lt;/b&gt;: AVX2 ve üzeri komut seti desteği olan işlemciler içindir
+        </translation>
     </message>
 </context>
 <context>
@@ -1106,7 +1113,7 @@ Bu yapı &lt;b&gt;Wine Master&lt;/b&gt;&apos;a dayanmaktadır.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="15"/>
         <source>Fork of GE-Proton with enhanced Windows Media Foundation support.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gelişmiş Windows Media Foundation desteğine sahip GE-Proton Çatalı.</translation>
     </message>
 </context>
 <context>
@@ -1311,7 +1318,7 @@ SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir diz
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system based on &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows oyunlarını çalıştırmak için &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt; sürümü temel alınarak Wine-tkg derleme sistemiyle oluşturulmuş özel Wine derlemesi.</translation>
     </message>
 </context>
 <context>
@@ -1323,7 +1330,7 @@ SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir diz
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system (Ubuntu CI) based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Wine Master&lt;/b&gt; temel alınarak Wine-tkg yapı sistemi (Ubuntu CI) ile oluşturulmuş, Windows oyunlarını çalıştırmak için özel Wine yapısı.</translation>
     </message>
 </context>
 <context>
@@ -1335,7 +1342,7 @@ SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir diz
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="22"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Linux/Wine için Direct3D 8, 9, 10 ve 11&apos;in Vulkan tabanlı uygulaması.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1351,7 +1358,7 @@ SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir diz
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Linux/Wine için Ph42oN&apos;un gplasync yamasıyla Direct3D 8, 9, 10 ve 11&apos;in Vulkan tabanlı uygulaması.&lt;br&gt;&lt;br&gt;&lt;b&gt;Uyarı: Yalnızca tek oyunculu oyunlarla kullanın!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1363,7 +1370,7 @@ SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir diz
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Linux/Wine için Direct3D 8, 9, 10 ve 11&apos;in Vulkan tabanlı uygulaması olan DXVK&apos;nin (ana dal) günlük geliştirme sürümü.&lt;br&gt;&lt;br&gt;&lt;b&gt;Uyarı: Günlük geliştirme sürümü kararsızdır, dikkatli kullanın!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
