@@ -5,6 +5,7 @@
 import os
 import requests
 import hashlib
+import platform
 
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
@@ -102,7 +103,19 @@ class CtInstaller(QObject):
             'version', 'date', 'download', 'size', 'checksum'
         """
 
-        return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, checksum_suffix='.sha512sum')
+        return fetch_project_release_data(self.CT_URL, self.release_format, self.rs, tag=tag, checksum_suffix='.sha512sum', asset_condition=self.__asset_condition, checksum_condition=self.__asset_condition)
+
+    def __asset_condition(self, asset):
+        # Proton-GE is only on Github so we short-circuit here
+        if not "browser_download_url" in asset:
+            return False
+
+        is_aarch64 = platform.machine().lower() in ("arm64", "aarch64")
+        if is_aarch64:
+            return "aarch64" in asset["browser_download_url"]
+
+        # x86_64 builds are nor marked as such
+        return "aarch64" not in asset["browser_download_url"]
 
     def __get_data(self, version: str, install_dir: str) -> tuple[dict | None, str | None]:
 
