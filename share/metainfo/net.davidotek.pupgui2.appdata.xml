@@ -69,6 +69,18 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.15.1" date="2026-06-24">
+      <description>
+        <p>Changes/Improvements:</p>
+        <ul>
+          <li>Download correct GE-Proton architecture (aarch64 on ARM, x86_64 otherwise)</li>
+          <li>Use new Luxtorpeda Codeberg repository</li>
+          <li>Removed Proton-Sarek. Use proton-cachyos instead</li>
+          <li>Enabled proton-cachyos for Lutris</li>
+        </ul>
+        <p>Various improvements and bug fixes. See GitHub for more details. Thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.15.0" date="2026-02-20">
       <description>
         <p>Changes/Improvements:</p>
