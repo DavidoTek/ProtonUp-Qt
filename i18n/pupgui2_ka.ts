@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="tr">
+<TS version="2.1" language="ka">
 <context>
     <name>CtInstaller</name>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="105"/>
         <source>Missing dependencies!</source>
-        <translation>Eksik bağımlılıklar!</translation>
+        <translation>ნაკლული დამოკიდებულებები!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="75"/>
@@ -14,7 +14,7 @@
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
         <source>Download Error!</source>
-        <translation>İndirme hatası!</translation>
+        <translation>გადმოწერის შეცდომა!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
@@ -24,9 +24,7 @@
         <source>Failed to download tool &apos;{CT_NAME}&apos;!
 
 Reason: {EXCEPTION}</source>
-        <translation>&apos;{CT_NAME}&apos; isimli araç indirilemedi!
-
-Sebep: {EXCEPTION}</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -34,7 +32,7 @@ Sebep: {EXCEPTION}</translation>
     <message>
         <location filename="../pupgui2/ctloader.py" line="52"/>
         <source>Error!</source>
-        <translation>Hata!</translation>
+        <translation>შეცდომა!</translation>
     </message>
     <message>
         <location filename="../pupgui2/ctloader.py" line="54"/>
@@ -42,10 +40,7 @@ Sebep: {EXCEPTION}</translation>
 {TOOL_LIST}
 
 If you believe this is an error, please report a bug on GitHub!</source>
-        <translation>Aşağıdaki uyumluluk aracı/araçları yüklenemedi:
-{TOOL_LIST}
-
-Bunun bir hata olduğunu düşünüyorsanız lütfen GitHub&apos;da bu hatayı bildirin!</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -53,7 +48,7 @@ Bunun bir hata olduğunu düşünüyorsanız lütfen GitHub&apos;da bu hatayı b
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
         <source>Configure Git access tokens</source>
-        <translation>Git erişim tokenlerini yapılandırın</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
@@ -63,12 +58,12 @@ Bunun bir hata olduğunu düşünüyorsanız lütfen GitHub&apos;da bu hatayı b
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
         <source>Save</source>
-        <translation>Kaydet</translation>
+        <translation>შენახვა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation>Kapat</translation>
+        <translation>დახურვა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
@@ -78,7 +73,7 @@ Bunun bir hata olduğunu düşünüyorsanız lütfen GitHub&apos;da bu hatayı b
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation>Bu iletişim kutusu, API oranı sınırı uyarısını önlemek için GitHub/GitLab API&apos;si için erişim tokenlerini yapılandırmanıza olanak tanır.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -86,164 +81,154 @@ Bunun bir hata olduğunu düşünüyorsanız lütfen GitHub&apos;da bu hatayı b
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>unused</source>
-        <translation>kullanılmamış</translation>
+        <translation>გამოუყენებელია</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>global</source>
-        <translation>küresel</translation>
+        <translation>გლობალური</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="298"/>
         <source>Unused: {unused_ctools}</source>
-        <translation>Kullanılmayan: {unused_ctools}</translation>
+        <translation>გამოიყენებელია: {unused_ctools}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="325"/>
         <source>Fetching releases...</source>
-        <translation>Yayınlamalar getiriliyor...</translation>
+        <translation>რელიზების გამოთხოვა...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="336"/>
         <source>Download canceled.</source>
-        <translation>İndirme iptal edildi.</translation>
+        <translation>გადმოწერა გაუქმდა.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="339"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} yüklenemedi...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="345"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} indiriliyor...</translation>
+        <translation>{current_compat_tool_name}-ის გადმოწერა...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="347"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} ayıklanıyor...</translation>
+        <translation>{current_compat_tool_name}-ის გაშლა...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="349"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation>{current_compat_tool_name} yükleniyor...</translation>
+        <translation>{current_compat_tool_name}-ის დაყენება...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="351"/>
         <source>Installed {current_compat_tool_name}.</source>
-        <translation>{current_compat_tool_name} yüklendi.</translation>
+        <translation>{current_compat_tool_name} დაყენებულია.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="377"/>
         <source>Remove compatibility tools?</source>
-        <translation>Uyumluluk araçları kaldırılsın mı?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="377"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
-        <translation>{n} oyunun kullandığı uyumluluk araçlarını
-kaldırmak üzeresiniz. Devam edilsin mi?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="384"/>
         <source>Removed selected versions.</source>
-        <translation>Seçilen sürümler kaldırıldı.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="398"/>
         <source>Exit?</source>
-        <translation>Çıkış yapılsın mı?</translation>
+        <translation>გავიდე?</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="398"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
-        <translation>Bekleyen indirmeler var.
-İptal edilip yine de çıkılsın mı?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="411"/>
         <source>Changed install directory to {install_dir}.</source>
-        <translation>Kurulum dizini {install_dir} olarak değiştirildi.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="460"/>
         <source>Install tool from Flathub</source>
-        <translation>Aracı Flathub&apos;dan yükle</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="462"/>
         <source>Click to open your app store</source>
-        <translation>Uygulama mağazanızı açmak için tıklayın</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="20"/>
         <source>ProtonUp-Qt - Wine/Proton Installer</source>
-        <translation>ProtonUp-Qt - Wine/Proton Yükleyici</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="48"/>
         <source>Install for:</source>
-        <translation>Yüklleme yeri:</translation>
+        <translation>დაყენება ვისთვის:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="68"/>
         <source>Active downloads:</source>
-        <translation>Etkin indirmeler:</translation>
-    </message>
-    <message>
-        <source>0</source>
-        <translation type="vanished">0</translation>
+        <translation>აქტიური გადმოწერები:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="89"/>
         <source>Add Custom Install Directory...</source>
-        <translation>Özel Kurulum Dizini Ekle...</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="103"/>
         <source>Installed compatibility tools:</source>
-        <translation>Yüklü uyumluluk araçları:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="148"/>
         <source>Add version</source>
-        <translation>Sürüm ekle</translation>
+        <translation>ვერსიის დამატება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="155"/>
         <source>Remove selected</source>
-        <translation>Seçileni kaldır</translation>
+        <translation>მონიშნულის წაშლა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="162"/>
         <source>Show info</source>
-        <translation>Bilgi göster</translation>
+        <translation>ინფორმაციის ჩვენება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="199"/>
         <source>Get tools from Flathub</source>
-        <translation>Flathub&apos;dan araçları edinin</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="206"/>
         <source>Show game list</source>
-        <translation>Oyun listesini göster</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="213"/>
         <source>About</source>
-        <translation>Hakkında</translation>
+        <translation>შესახებ</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_mainwindow.ui" line="220"/>
         <source>Close</source>
-        <translation>Kapat</translation>
+        <translation>დახურვა</translation>
     </message>
 </context>
 <context>
@@ -251,64 +236,64 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="20"/>
         <source>Dialog</source>
-        <translation>Diyalog</translation>
+        <translation>დიალოგი</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="29"/>
         <source>Specify a custom location for downloading and displaying a launcher&apos;s compatibility tools.</source>
-        <translation>Başlatıcının uyumluluk araçlarını indirmek ve görüntülemek için özel bir konum belirtin.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="41"/>
         <source>Directory:</source>
-        <translation>Dizin:</translation>
+        <translation>საქაღალდე:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="51"/>
         <source>Launcher:</source>
-        <translation>Başlatıcı:</translation>
+        <translation>გამშვები:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="85"/>
         <source>Reset the custom install directory back to default for this launcher</source>
-        <translation>Bu başlatıcı için özel yükleme dizinini varsayılana sıfırlayın</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="88"/>
         <source>Default</source>
-        <translation>Varsayılan</translation>
+        <translation>ნაგულისხმევი</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="111"/>
         <source>Save</source>
-        <translation>Kaydet</translation>
+        <translation>შენახვა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="20"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="105"/>
         <source>Batch Update</source>
-        <translation>Toplu Güncelleme</translation>
+        <translation>პაკეტური განახლება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="29"/>
         <source>Migrate games using the current compatibility tool to the one specified below.</source>
-        <translation>Mevcut uyumluluk aracını kullanarak oyunları aşağıda belirtilen araca taşıyın.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="41"/>
         <source>New Version:</source>
-        <translation>Yeni sürüm:</translation>
+        <translation>ახალი ვერსია:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="58"/>
         <source>Old Version:</source>
-        <translation>Eski Sürüm:</translation>
+        <translation>ძველი ვერსია:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="112"/>
         <location filename="../pupgui2/resources/ui/pupgui2_custominstalldirectorydialog.ui" line="118"/>
         <source>Close</source>
-        <translation>Kapat</translation>
+        <translation>დახურვა</translation>
     </message>
 </context>
 <context>
@@ -316,17 +301,17 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>light</source>
-        <translation>açık</translation>
+        <translation>ღია</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>dark</source>
-        <translation>koyu</translation>
+        <translation>მუქი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="61"/>
         <source>system (restart required)</source>
-        <translation>sistem (yeniden başlatma gerekli)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update Steam game list</source>
@@ -335,111 +320,110 @@ Cancel and exit anyway?</source>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="93"/>
         <source>Update available</source>
-        <translation>Güncelleme mevcut</translation>
+        <translation>განახლება ხელმისაწვდომია</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="94"/>
         <source>There is a newer version available.
 You are running {APP_VERSION} but {newest_version} is available.</source>
-        <translation>Daha yeni bir sürüm mevcut.
-{APP_VERSION} sürümünü çalıştırıyorsunuz ancak {newest_version} mevcut.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="98"/>
         <source>Up to date</source>
-        <translation>Güncel</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="98"/>
         <source>You are running the newest version!</source>
-        <translation>En güncel sürümü kullanıyorsunuz!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="103"/>
         <source>Added shortcut!</source>
-        <translation>Kısayol eklendi!</translation>
+        <translation>მალსახმობი დაემატა!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Diyalog</translation>
+        <translation>დიალოგი</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GUI for installing/updating Wine- and Proton-based compatibility tools.&lt;br/&gt;Inspired by/partly based on AUNaseef&apos;s protonup.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;p&gt;Wine ve Proton tabanlı uyumluluk araçlarını yüklemek ve güncellemek için GUI.&lt;br&gt;AUNaseef&apos;in protonup&apos;ından esinlenilmiştir ve kısmen buna dayalıdır.&lt;/p&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="97"/>
         <source>Support development on GitHub</source>
-        <translation>GitHub&apos;da geliştirmeyi destekleyin</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="128"/>
         <source>Color Theme:</source>
-        <translation>Renk teması:</translation>
+        <translation>ფერის თემა:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="145"/>
         <source>Enable advanced mode (show git-builds for compatibility tools etc.)</source>
-        <translation>Gelişmiş modu etkinleştir (uyumluluk araçları vb. için git-build&apos;leri gösterir)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="157"/>
         <source>Edit Git access tokens</source>
-        <translation>Git erişim tokenlerini düzenle</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="182"/>
         <source>Check for updates</source>
-        <translation>Güncellemeleri kontrol et</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="202"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
-        <translation>ProtonUp-Qt&apos;yi Steam kitaplığınızdan açmak için bir kısayol ekler.
-Kısayolu kaldırmak için Steam&apos;i açın ve &quot;Steam dışı oyunu kitaplığından kaldır&quot; seçeneğini seçin.</translation>
+        <translation>ამატებს მალსახმობს ProtonUp-Qt-ის Steam-ის ბიბლიოთეკიდან გასაშვებად.
+მალსახმობის წასაშლელად გახსენით Steam და აირჩიეთ &quot;არა-Steam-ის თამაშის წაშლა ბიბლიოთეკიდან&quot;.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="206"/>
         <source>Add Steam shortcut</source>
-        <translation>Steam kısayolu ekle</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="213"/>
         <source>About Qt</source>
-        <translation>Qt Hakkında</translation>
+        <translation>Qt-ის შესახებ</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="220"/>
         <source>Close</source>
-        <translation>Kapat</translation>
+        <translation>დახურვა</translation>
     </message>
 </context>
 <context>
     <name>PupguiCtBatchUpdateDialog</name>
     <message>
         <source>Batch update</source>
-        <translation type="vanished">Toplu güncelleme</translation>
+        <translation type="vanished">Batch Aktualisierung</translation>
     </message>
     <message>
         <source>New version:</source>
-        <translation type="vanished">Yeni sürüm:</translation>
+        <translation type="vanished">Neue Version:</translation>
     </message>
     <message>
         <source>Close the Steam client beforehand.</source>
-        <translation type="vanished">Öncelikle Steam istemcisini kapatın.</translation>
+        <translation type="vanished">Schließe den Steam Client vorher.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="47"/>
         <source>No supported compatibility tools found.</source>
-        <translation>Desteklenen uyumluluk aracı bulunamadı.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="49"/>
         <source>Warning: Close the Steam Client beforehand.</source>
-        <translation>Uyarı: Önce Steam istemcisini kapatın.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -451,77 +435,77 @@ Kısayolu kaldırmak için Steam&apos;i açın ve &quot;Steam dışı oyunu kita
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="14"/>
         <source>About compatibility tool</source>
-        <translation>Uyumluluk aracı hakkında</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="26"/>
         <source>Compatibility tool:</source>
-        <translation>Uyumluluk aracı:</translation>
+        <translation>თავსებადობის პროგრამა:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="43"/>
         <source>Game Launcher:</source>
-        <translation>Oyun başlatıcısı:</translation>
+        <translation>თამაშის გამშვები:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="60"/>
         <source>Install directory:</source>
-        <translation>Dizin yükle:</translation>
+        <translation>დაყენების საქაღალდე:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="88"/>
         <source>Games using compatibility tool:</source>
-        <translation>Uyumluluk aracını kullanan oyunlar:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="115"/>
         <source>Refresh Games</source>
-        <translation>Oyunları Yenile</translation>
+        <translation>თამაშების განახლება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="129"/>
         <source>Search games...</source>
-        <translation>Oyunları ara...</translation>
+        <translation>თამაშების ძებნა...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation>Oyun yok</translation>
+        <translation>თამაშების გარეშე</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
         <source>Batch Update</source>
-        <translation>Toplu Güncelleme</translation>
+        <translation>პაკეტური განახლება</translation>
     </message>
     <message>
         <source>Batch update</source>
-        <translation type="vanished">Toplu güncelleme</translation>
+        <translation type="vanished">Batch Aktualisierung</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="271"/>
         <source>e.g. Half-Life 3</source>
-        <translation>örn. Half-Life 3</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="274"/>
         <source>Search for a game...</source>
-        <translation>Oyun ara...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="297"/>
         <source>Close</source>
-        <translation>Kapat</translation>
+        <translation>დახურვა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
         <source>AppID</source>
-        <translation>AppID</translation>
+        <translation>აპლიკაციის ID</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
         <source>Name</source>
-        <translation>İsim</translation>
+        <translation>სახელი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
@@ -531,22 +515,22 @@ Kısayolu kaldırmak için Steam&apos;i açın ve &quot;Steam dışı oyunu kita
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="108"/>
         <source>Runner</source>
-        <translation>Runner</translation>
+        <translation>გამშვები</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="108"/>
         <source>Game</source>
-        <translation>Oyun</translation>
+        <translation>თამაში</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="127"/>
         <source>Tool is Global</source>
-        <translation>Araç Küresel</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="152"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation>örn. {GAME_NAME}</translation>
+        <translation>მაგ: {GAME_NAME}</translation>
     </message>
 </context>
 <context>
@@ -554,12 +538,12 @@ Kısayolu kaldırmak için Steam&apos;i açın ve &quot;Steam dışı oyunu kita
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="43"/>
         <source>Custom Install Directory</source>
-        <translation>Özel Kurulum Dizini</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2customiddialog.py" line="92"/>
         <source>Select Custom Install Directory — ProtonUp-Qt</source>
-        <translation>Özel Kurulum Dizinini Seçin — ProtonUp-Qt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Save</source>
@@ -585,252 +569,254 @@ Kısayolu kaldırmak için Steam&apos;i açın ve &quot;Steam dışı oyunu kita
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Game</source>
-        <translation>Oyun</translation>
+        <translation>თამაში</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Compatibility Tool</source>
-        <translation>Uyumluluk Aracı</translation>
+        <translation>თავსებადობის პროგრამა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Deck Compatibility</source>
-        <translation>Deck uyumluluğu</translation>
+        <translation>Steam Deck-თან თავსებადობა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="81"/>
         <source>Anticheat</source>
-        <translation>Anti-hile</translation>
+        <translation>ანტიჩიტი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Runner</source>
-        <translation>Runner</translation>
+        <translation>გამშვები</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="103"/>
         <source>Install Location</source>
-        <translation>Kurulum Konumu</translation>
+        <translation>დაყენების მდებარეობა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="93"/>
         <source>Installed Date</source>
-        <translation>Kurulum Tarihi</translation>
+        <translation>დაყენების თარიღი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="144"/>
         <source>click</source>
-        <translation>tıkla</translation>
+        <translation>წკაპი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="228"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="229"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="435"/>
         <source>Unknown</source>
-        <translation>Bilinmeyen</translation>
+        <translation>უცნობი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="224"/>
         <source>Installed at {DATE} ({TIME})</source>
-        <translation>{DATE} ({TIME}) tarihinde kuruldu</translation>
-    </message>
-    <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="230"/>
-        <source>Install Date is Unknown</source>
-        <translation>Kurulum Tarihi Bilinmiyor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="264"/>
         <source>Name: {compat_item_text}</source>
-        <translation>İsim: {compat_item_text}</translation>
+        <translation>სახელი: {compat_item_text}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="266"/>
         <source>
 Path: {compat_tool_bin_path}</source>
         <translation>
-Konum: {compat_tool_bin_path}</translation>
+ბილიკი: {compat_tool_bin_path}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="270"/>
         <source>
 Type: {wine_type}</source>
         <translation>
-Tür: {wine_type}</translation>
+ტიპი: {wine_type}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="273"/>
         <source>Browser</source>
-        <translation>Tarayıcı</translation>
+        <translation>ბრაუზერი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
         <source>Native</source>
-        <translation>Yerel</translation>
+        <translation>საკუთარი</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="319"/>
-        <source>e.g. {GAME_NAME}</source>
-        <translation>örn. {GAME_NAME}</translation>
+        <source>Type: Native</source>
+        <translation type="vanished">Typ: Nativ</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="323"/>
         <source>Done</source>
-        <translation>Bitti</translation>
+        <translation>მზადაა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="323"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="112"/>
         <source>Search</source>
-        <translation>Ara</translation>
+        <translation>ძებნა</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="393"/>
         <source>Double click to browse...</source>
-        <translation>Göz atmak için çift tıklayın...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="396"/>
         <source>Install location does not exist!</source>
-        <translation>Kurulum konumu mevcut değil!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="437"/>
         <source>Unsupported</source>
-        <translation>Desteklenmiyor</translation>
+        <translation>მხარდაუჭერელია</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="440"/>
         <source>Playable</source>
-        <translation>Oynanabilir</translation>
+        <translation>დაკვრადი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="442"/>
         <source>Native (playable)</source>
-        <translation>Yerel (oynanabilir)</translation>
+        <translation>ადგილობრივი (შეგიძლიათ, ითამაშოთ)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="443"/>
         <source>Playable using {compat_tool}</source>
-        <translation>{compat_tool} kullanılarak oynanabilir</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="447"/>
         <source>Verified</source>
-        <translation>Doğrulandı</translation>
+        <translation>გადამოწმებულია</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="449"/>
         <source>Native (verified)</source>
-        <translation>Yerel (doğrulandı)</translation>
+        <translation>ადგილობრივი (გადამოწმებულია)</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="450"/>
         <source>Verified for {compat_tool}</source>
-        <translation>{compat_tool} için doğrulandı</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="409"/>
         <source>Support was explicitly enabled / works out of the box</source>
-        <translation>Resmi olarak destekleniyor / sorunsuz çalışıyor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="63"/>
         <source>Game List for {LAUNCHER}</source>
-        <translation>{LAUNCHER} için Oyun Listesi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="66"/>
         <source>Installed games: {NO_INSTALLED}</source>
-        <translation>Yüklü oyunlar: {NO_INSTALLED}</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="230"/>
+        <source>Install Date is Unknown</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
         <source>Type: {PLATFORM}</source>
-        <translation>Tür: {PLATFORM}</translation>
+        <translation>ტიპი: {PLATFORM}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="283"/>
         <source>Double-click to open in browser</source>
-        <translation>Tarayıcıda açmak için çift tıklayın</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="319"/>
+        <source>e.g. {GAME_NAME}</source>
+        <translation>მაგ: {GAME_NAME}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="412"/>
         <source>Game plans to support Proton/Wine</source>
-        <translation>Proton/Wine&apos;ı destekleyecek oyun planları</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="415"/>
         <source>No official statement but runs fine (may require tinkering)</source>
-        <translation>Resmi bir açıklama yok ama iyi çalışıyor (düzeltme gerektirebilir)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="418"/>
         <source>Anti-Cheat stops game from running properly</source>
-        <translation>Anti-Hile oyunun düzgün çalışmasını engelliyor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="421"/>
         <source>Linux support was explicitly denied</source>
-        <translation>Linux desteği açıkça reddedildi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="424"/>
         <source>Anti-Cheat status unknown</source>
-        <translation>Anti-Hile durumu bilinmiyor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="355"/>
         <source>Confidence: {confidence}
 Score: {score}
 Trending: {trending}</source>
-        <translation>Güven: {confidence}
-Puan: {score}
-Trend: {trending}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
         <source>Game List</source>
-        <translation>Oyun Listesi</translation>
+        <translation>თამაშების სია</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="61"/>
         <source>Warning: Close the Steam client beforehand so that the changes can be applied!</source>
-        <translation>Uyarı: Değişikliklerin uygulanabilmesi için Steam istemcisini önceden kapatın!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="68"/>
         <source>e.g. Team Fortress 2</source>
-        <translation>örn. Team Fortress 2</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="71"/>
         <source>Search for a game...</source>
-        <translation>Oyun ara...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="91"/>
         <source>Refresh Games</source>
-        <translation>Oyunları Yenile</translation>
+        <translation>თამაშების განახლება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="105"/>
         <source>Shortcut Editor</source>
-        <translation>Kısayol Düzenleyici</translation>
+        <translation>მალსახმობის რედაქტორი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="299"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="119"/>
         <source>Apply</source>
-        <translation>Uygula</translation>
+        <translation>გადატარება</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="298"/>
         <source>Close</source>
-        <translation>Kapat</translation>
+        <translation>დახურვა</translation>
     </message>
 </context>
 <context>
@@ -838,42 +824,42 @@ Trend: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="20"/>
         <source>Install Compatibility Tool</source>
-        <translation>Uyumluluk Aracını Yükleyin</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="91"/>
         <source>Info</source>
-        <translation>Bilgi</translation>
+        <translation>ინფორმაცია</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="98"/>
         <source>Install</source>
-        <translation>Yükle</translation>
+        <translation>დაყენება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="105"/>
         <source>Cancel</source>
-        <translation>İptal</translation>
+        <translation>გაუქმება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="32"/>
         <source>Compatibility tool:</source>
-        <translation>Uyumluluk aracı:</translation>
+        <translation>თავსებადობის პროგრამა:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="46"/>
         <source>Version:</source>
-        <translation>Sürüm:</translation>
+        <translation>ვერსია:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="56"/>
         <source>Description:</source>
-        <translation>Açıklama:</translation>
+        <translation>აღწერა:</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
         <source>Load more...</source>
-        <translation>Daha fazla yükle...</translation>
+        <translation>მეტის ჩატვირთვა...</translation>
     </message>
 </context>
 <context>
@@ -881,77 +867,77 @@ Trend: {trending}</translation>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>App Name</source>
-        <translation>Uygulama ismi</translation>
+        <translation>აპის სახელი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Executable</source>
-        <translation>Çalıştırılabilir</translation>
+        <translation>შესრულებადი</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Start Directory</source>
-        <translation>Dizini Başlat</translation>
+        <translation>გაშვების საქაღალდე</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2shortcutdialog.py" line="83"/>
         <source>Icon</source>
-        <translation>Simge</translation>
+        <translation>ხატულა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="17"/>
         <source>Steam Shortcut Editor</source>
-        <translation>Steam Kısayol Düzenleyicisi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="57"/>
         <source>Add a new shortcut</source>
-        <translation>Yeni bir kısayol ekle</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="60"/>
         <source>Add new</source>
-        <translation>Yeni ekle</translation>
+        <translation>ახლის დამატება</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="67"/>
         <source>Click on a row, then click here to remove a shortcut</source>
-        <translation>Bir satıra tıklayın ve kısayolu kaldırmak için buraya tıklayın</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="70"/>
         <source>Remove selected</source>
-        <translation>Seçileni kaldır</translation>
+        <translation>მონიშნულის წაშლა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation>örn. ProtonUp-Qt</translation>
+        <translation>მაგ: ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="80"/>
         <source>Search for a game...</source>
-        <translation>Oyun ara...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
         <source>Save changes and delete marked shortcuts</source>
-        <translation>Değişiklikleri kaydedin ve işaretli kısayolları silin</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="90"/>
         <source>Save</source>
-        <translation>Kaydet</translation>
+        <translation>შენახვა</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="97"/>
         <source>Close without saving changes or deleting shortcuts</source>
-        <translation>Değişiklikleri kaydetmeden veya kısayolları silmeden kapatın</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="100"/>
         <source>Close</source>
-        <translation>Kapat</translation>
+        <translation>დახურვა</translation>
     </message>
 </context>
 <context>
@@ -959,14 +945,14 @@ Trend: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="22"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>Windows oyunlarını çalıştırmak için Valve&apos;ın varsayılan Proton&apos;una göre iyileştirmeler içeren Steam uyumluluk aracı.&lt;br&gt;&lt;br&gt;&lt;b&gt;Neyi seçeceğinizi bilmediğinizde bunu kullanın.&lt;/b&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_00winege</name>
     <message>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Based on Valve Proton Experimental&apos;s bleeding-edge Wine, built for Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation type="vanished">Windows oyunlarını Linux&apos;ta çalıştırmak için uyumluluk aracı &quot;Wine&quot;. Lutris için tasarlanan Valve Proton Experimental&apos;ın son teknoloji ürünü Wine&apos;ı temel alır.&lt;br&gt;&lt;br&gt;&lt;b&gt;Neyi seçeceğinizi bilmediğinizde bunu kullanın.&lt;/b&gt;</translation>
+        <translation type="vanished">Kompatibilitätstool &quot;Wine&quot; für Windows-Spiele unter Linux. Basiert auf der neusten Wine Version von Value Proton Experimental, für Lutris.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Verwende dies, wenn du dir nicht sicher bist.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -974,34 +960,34 @@ Trend: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="15"/>
         <source>Steam Play compatibility tool to run DOS games using native Linux DOSBox.</source>
-        <translation>DOSBox kullanarak DOS oyunlarını çalıştırmak için Steam Play uyumluluk aracı.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>missing</source>
-        <translation type="vanished">eksik</translation>
+        <translation type="vanished">fehlt</translation>
     </message>
     <message>
         <source>found</source>
-        <translation type="vanished">bulundu</translation>
+        <translation type="vanished">gefunden</translation>
     </message>
     <message>
         <source>Missing dependencies!</source>
-        <translation type="vanished">Eksik bağımlılıklar!</translation>
+        <translation type="vanished">Fehlende Abhängigkeiten!</translation>
     </message>
     <message>
         <source>You need dosbox, inotify-tools and timidity for Boxtron.</source>
-        <translation type="vanished">Boxtron için &quot;dosbox&quot;, &quot;inotify-tools&quot; ve &quot;timidity&quot; paketlerine ihtiyacınız var.</translation>
+        <translation type="vanished">Es werden dosbox, inotify-tools und timidity für Boxtron benötigt.</translation>
     </message>
     <message>
         <source>Will continue installing Boxtron anyway.</source>
-        <translation type="vanished">Yine de Boxtron yüklenmeye devam edilecek.</translation>
+        <translation type="vanished">Installation von Boxtron wird fortgesetzt.</translation>
     </message>
 </context>
 <context>
     <name>ctmod_d8vk</name>
     <message>
         <source>Vulkan-based implementation of Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="vanished">Direct3D&apos;nin Vulkan tabanlı uygulaması 8/9/10/11 (Nightly).&lt;br&gt;&lt;br&gt;&lt;b&gt;Uyarı: Nightly sürümü kararsız olduğundan dikkatli kullanın!&lt;/b&gt;</translation>
+        <translation type="vanished">Vulkan-basierte Implementierung von Direct3D 8/9/10/11 (Nightly).&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Achtung: Nightly Versionen sind instabil!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1009,7 +995,7 @@ Trend: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_kron4ekvanilla.py" line="20"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.</source>
-        <translation>Windows oyunlarını Linux&apos;ta çalıştırmak için uyumluluk aracı &quot;Wine&quot;. WineHQ kaynaklarından Kron4ek tarafından derlenen resmi sürüm.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1017,7 +1003,7 @@ Trend: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="17"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
-        <translation>Windows oyunlarını Linux&apos;ta çalıştırmak için uyumluluk aracı &quot;Wine&quot;. Belirli oyunlarda daha iyi uyumluluk veya performans sunmak için Lutris tarafından geliştirildi.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1025,15 +1011,19 @@ Trend: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="22"/>
         <source>Luxtorpeda provides Linux-native game engines for specific Windows-only games.</source>
-        <translation>Luxtorpeda, yalnızca Windows&apos;ta çalışan belirli oyunlar için Linux&apos;a özgü oyun motorları sağlar.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_northstarproton</name>
     <message>
+        <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</source>
+        <translation type="vanished">Proton Build auf Basis von TKGs Proton-tkg, um den Northstar Client + TitanFall 2 zu nutzen. Von cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Vor dem Fortfahren bitte folgendes lesen&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</translation>
+    </message>
+    <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="17"/>
         <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/R2NorthstarTools/NorthstarProton&quot;&gt;https://github.com/R2NorthstarTools/NorthstarProton&lt;/a&gt;</source>
-        <translation>Northstar istemcisini + TitanFall 2&apos;yi çalıştırmak için TKG&apos;nin proton-tkg&apos;sini temel alan proton yapısı. cyrv6737 tarafından hazırlanmıştır.&lt;br&gt;&lt;br&gt;&lt;b style=&quot;color:orange;&quot;&gt;Devam etmeden önce aşağıdakileri okuyun&lt;/b&gt;:&amp;lt; br/&amp;gt;&lt;a href=&quot;https://github.com/R2NorthstarTools/NorthstarProton&quot;&gt;https://github.com/R2NorthstarTools/NorthstarProton&lt;/a&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1048,14 +1038,7 @@ Trend: {trending}</translation>
         &lt;br/&gt;
         * &lt;b&gt;x86_64_v3&lt;/b&gt;: For CPUs that support AVX2 and up
         </source>
-        <translation>
-        CachyOS Linux dağıtımına ait, Windows oyunlarını Valve&apos;ın varsayılan Proton sürümünden daha
-        yüksek performansla çalıştırmayı sağlayan Steam uyumluluk aracı. İşlemcinize uygun olanı seçin.
-        &lt;br&gt;&lt;br&gt;
-        * &lt;b&gt;x86_64&lt;/b&gt;: Tüm x86_64 işlemcilerde çalışır
-        &lt;br&gt;
-        * &lt;b&gt;x86_64_v3&lt;/b&gt;: AVX2 ve üzeri komut seti desteği olan işlemciler içindir
-        </translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1063,7 +1046,7 @@ Trend: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="20"/>
         <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation>Windows oyunlarını çalıştırmak için Wine-tkg yapı sistemiyle oluşturulmuş özel Proton yapısı.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1074,10 +1057,7 @@ Trend: {trending}</translation>
 &lt;br/&gt;
 &lt;br/&gt;
 This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation>Windows oyunlarını çalıştırmak için Wine-tkg yapı sistemiyle oluşturulmuş özel Proton yapısı.
-&lt;br&gt;
-&lt;br&gt;
-Bu yapı &lt;b&gt;Wine Master&lt;/b&gt;&apos;a dayanmaktadır.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1085,27 +1065,27 @@ Bu yapı &lt;b&gt;Wine Master&lt;/b&gt;&apos;a dayanmaktadır.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="15"/>
         <source>Steam Play compatibility tool to run adventure games using native Linux ScummVM.</source>
-        <translation>ScummVM kullanarak macera oyunlarını çalıştıran Steam Play uyumluluk aracı.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>missing</source>
-        <translation type="vanished">eksik</translation>
+        <translation type="vanished">fehlt</translation>
     </message>
     <message>
         <source>found</source>
-        <translation type="vanished">bulundu</translation>
+        <translation type="vanished">gefunden</translation>
     </message>
     <message>
         <source>Missing dependencies!</source>
-        <translation type="vanished">Eksik bağımlılıklar!</translation>
+        <translation type="vanished">Fehlende Abhängigkeiten!</translation>
     </message>
     <message>
         <source>You need scummvm and inotify-tools for Roberta.</source>
-        <translation type="vanished">Roberta için &quot;scummvm&quot; ve &quot;inotify-tools&quot; paketlerine ihtiyacınız var.</translation>
+        <translation type="vanished">Es werden scummvm und inotify-tools für Roberta benötigt.</translation>
     </message>
     <message>
         <source>Will continue installing Roberta anyway.</source>
-        <translation type="vanished">Yine de Roberta yüklenmeye devam edilecek.</translation>
+        <translation type="vanished">Installation von Roberta wird fortgesetzt.</translation>
     </message>
 </context>
 <context>
@@ -1113,7 +1093,7 @@ Bu yapı &lt;b&gt;Wine Master&lt;/b&gt;&apos;a dayanmaktadır.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="15"/>
         <source>Fork of GE-Proton with enhanced Windows Media Foundation support.</source>
-        <translation>Gelişmiş Windows Media Foundation desteğine sahip GE-Proton Çatalı.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1121,7 +1101,7 @@ Bu yapı &lt;b&gt;Wine Master&lt;/b&gt;&apos;a dayanmaktadır.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="21"/>
         <source>Run Linux games as is, even if Valve recommends Proton for a game.&lt;br/&gt;Created by Scrumplex.&lt;br/&gt;&lt;br/&gt;Useful for Steam Deck.&lt;br/&gt;&lt;br/&gt;Note: The internal name has been changed from &lt;b&gt;none&lt;/b&gt; to &lt;b&gt;Steam-Play-None&lt;/b&gt;!</source>
-        <translation>Valve bir oyun için Proton&apos;u önerse bile Linux oyunlarını olduğu gibi çalıştırır.&lt;br&gt;Scrumplex tarafından oluşturulmuştur.&lt;br&gt;&lt;br&gt;Steam Deck için kullanışlıdır.&lt;br&gt;&lt;br&gt;Not: Dahili isim &lt;b&gt;none&lt;/b&gt; yerine &lt;b&gt;Steam-Play-None&lt;/b&gt; olarak değiştirildi!</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1150,56 +1130,31 @@ More information is available on the SteamTinkerLaunch Installation wiki page.
 &lt;br/&gt;&lt;br/&gt;
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
 of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
-        <translation>
-Proton ve yerel Linux oyunları için oyun araçlarının kolay grafiksel yapılandırılmasına olanak tanıyan, Steam istemcisiyle kullanmaya yönelik Linux aracı.
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;Steam Deck&lt;/b&gt;&apos;te sizin için ilgili bağımlılıklar yüklenecektir. Steam Deck&apos;te değilseniz, &lt;b&gt;aşağıdaki bağımlılıkların kurulu olduğundan emin olun&lt;/b&gt;:
-&lt;ul&gt;
-  &lt;li&gt;awk (veya gawk)&lt;/li&gt;
-  &lt;li&gt;bash&lt;/li&gt;
-  &lt;li&gt;git&lt;/li&gt;
-  &lt;li&gt;pgrep&lt;/li&gt;
-  &lt;li&gt;unzip&lt;/li&gt;
-  &lt;li&gt;wget&lt;/li&gt;
-  &lt;li&gt;xdotool&lt;/li&gt;
-  &lt;li&gt;xprop&lt;/li&gt;
-  &lt;li&gt;xrandr&lt;/li&gt;
-  &lt;li&gt;xwininfo&lt;/li&gt;
-  &lt;li&gt;xxd&lt;/li&gt;
-  &lt;li&gt;Yad &amp;gt;= &lt;b&gt;v7.2&lt;/b&gt;&lt;/li&gt;
-&lt;/ul&gt;
-Daha fazla bilgiyi SteamTinkerLaunch Kurulumu wiki sayfasında bulabilirsiniz.
-&lt;br&gt;&lt;br&gt;
-SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir dizi &lt;b&gt;İsteğe Bağlı Bağımlılık&lt;/b&gt;&apos;a sahiptir. Lütfen GitHub sayfasındaki SteamTinkerLaunch Kurulum kılavuzunun
-İsteğe Bağlı Bağımlılıklar bölümüne bakın.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="205"/>
         <source>You have several unmet dependencies for SteamTinkerLaunch.
 
 </source>
-        <translation>SteamTinkerLaunch için karşılanmamış birçok bağımlılığınız var.
-
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="207"/>
         <source>
 
 Installation will be cancelled.</source>
-        <translation>
-
-Kurulum iptal edilecek.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="207"/>
         <source>Missing dependencies!</source>
-        <translation>Eksik bağımlılıklar!</translation>
+        <translation>ნაკლული დამოკიდებულებები!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="239"/>
         <source>Existing SteamTinkerLaunch Installation</source>
-        <translation>Mevcut SteamTinkerLaunch Kurulumu</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="240"/>
@@ -1208,35 +1163,29 @@ Kurulum iptal edilecek.</translation>
 Reinstalling SteamTinkerLaunch with ProtonUp-Qt will move your installation folder to &apos;{STL_INSTALL_PATH}&apos;.
 
 You may also choose to remove your existing installation, if ProtonUp-Qt has write access to this folder. Do you want to continue installing SteamTinkerLaunch? (This will not affect any existing SteamTinkerLaunch configuration.)</source>
-        <translation>Görünüşe göre &quot;{EXTERNAL_INSTALL_PATH}&quot; adresinde ProtonUp-Qt tarafından kurulmamış mevcut bir SteamTinkerLaunch kurulumunuz var.
-
-SteamTinkerLaunch&apos;ı ProtonUp-Qt ile yeniden yüklemek, kurulum klasörünüzü &quot;{STL_INSTALL_PATH}&quot; konumuna taşıyacaktır.
-
-ProtonUp-Qt&apos;nin bu klasöre yazma erişimi varsa mevcut kurulumunuzu kaldırmayı da seçebilirsiniz. SteamTinkerLaunch&apos;ı yüklemeye devam etmek istiyor musunuz? (Bu, mevcut SteamTinkerLaunch yapılandırmalarını etkilemeyecektir.)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="241"/>
         <source>Remove existing SteamTinkerLaunch installation</source>
-        <translation>Mevcut SteamTinkerLaunch kurulumunu kaldırın</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="350"/>
         <source>Add SteamTinkerLaunch to PATH</source>
-        <translation>SteamTinkerLaunch&apos;ı PATH&apos;e ekleyin</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="351"/>
         <source>By default, ProtonUp-Qt will add SteamTinkerLaunch to all available Shell paths. This makes it easier to use with native Linux games. It also enables SteamTinkerLaunch commands from anywhere in the command line.
 
 Some users may not want this functionality. Do you want to continue installing SteamTinkerLaunch?</source>
-        <translation>Varsayılan olarak ProtonUp-Qt, SteamTinkerLaunch&apos;u mevcut tüm Kabuk yollarına ekleyecektir. Bu, yerel Linux oyunlarında kullanımı kolaylaştırır. Ayrıca komut satırının herhangi bir yerinden SteamTinkerLaunch komutlarını etkinleştirir.
-
-Bazı kullanıcılar bu işlevi istemeyebilir. SteamTinkerLaunch&apos;ı yüklemeye devam etmek istiyor musunuz?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="352"/>
         <source>Allow PATH modification</source>
-        <translation>YOL değişikliğine izin ver</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1267,30 +1216,7 @@ More information is available on the SteamTinkerLaunch Installation wiki page.
 &lt;br/&gt;&lt;br/&gt;
 SteamTinkerLaunch has a number of &lt;b&gt;Optional Dependencies&lt;/b&gt; which have to be installed separately for extra functionality. Please see the Optional Dependencies section
 of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
-        <translation>
-&lt;b&gt;Git sürümü - Kararsız olabilir&lt;/b&gt;
-&lt;br&gt;&lt;br&gt;
-Proton ve yerel Linux oyunları için oyun araçlarının kolay grafiksel yapılandırılmasına olanak tanıyan, Steam istemcisiyle kullanıma yönelik Linux sarmalayıcı aracı.
-&lt;br&gt;&lt;br&gt;
-&lt;b&gt;Steam Deck&lt;/b&gt;&apos;te sizin için ilgili bağımlılıklar yüklenecektir. Steam Deck&apos;te değilseniz &lt;b&gt;aşağıdaki bağımlılıkların kurulu olduğundan emin olun&lt;/b&gt;:
-&lt;ul&gt;
-  &lt;li&gt;awk (veya gawk)&lt;/li&gt;
-  &lt;li&gt;bash&lt;/li&gt;
-  &lt;li&gt;git&lt;/li&gt;
-  &lt;li&gt;pgrep&lt;/li&gt;
-  &lt;li&gt;unzip&lt;/li&gt;
-  &lt;li&gt;wget&lt;/li&gt;
-  &lt;li&gt;xdotool&lt;/li&gt;
-  &lt;li&gt;xprop&lt;/li&gt;
-  &lt;li&gt;xrandr&lt;/li&gt;
-  &lt;li&gt;xwininfo&lt;/li&gt;
-  &lt;li&gt;xxd&lt;/li&gt;
-  &lt;li&gt;Yad &amp;gt;= &lt;b&gt;v7.2&lt;/b&gt;&lt;/li&gt;
-&lt;/ul&gt;
-Daha fazla bilgiyi SteamTinkerLaunch Kurulumu wiki sayfasında bulabilirsiniz.
-&lt;br&gt;&lt;br&gt;
-SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir dizi &lt;b&gt;İsteğe Bağlı Bağımlılık&lt;/b&gt;&apos;a sahiptir. Lütfen GitHub sayfasındaki SteamTinkerLaunch Kurulum kılavuzunun
-İsteğe Bağlı Bağımlılıklar bölümüne bakın.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1298,7 +1224,7 @@ SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir diz
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dlutris.py" line="14"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Lutris Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>Direct3D 12 API&apos;sinin tamamını Vulkan&apos;ın (Lutris Sürümü) üzerinde uygulamayı amaçlayan Fork of Wine&apos;ın VKD3D&apos;si.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1306,71 +1232,67 @@ SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir diz
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dproton.py" line="19"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Valve Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>Direct3D 12 API&apos;sinin tamamını Vulkan&apos;ın (Valve Sürümü) üzerinde uygulamayı amaçlayan Wine VKD3D çatalı.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_winetkg_valve_otherdistro</name>
     <message>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation type="vanished">Windows oyunlarını çalıştırmak için Wine-tkg derleme sistemiyle oluşturulmuş özel Wine yapısı.</translation>
+        <translation type="vanished">Eigener Wine Build für Windows-Spiele, erstellt mit dem Wine-Tkg Buildsystem.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system based on &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</source>
-        <translation>Windows oyunlarını çalıştırmak için &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt; sürümü temel alınarak Wine-tkg derleme sistemiyle oluşturulmuş özel Wine derlemesi.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_winetkg_vanilla_ubuntu</name>
     <message>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system.</source>
-        <translation type="vanished">Windows oyunlarını çalıştırmak için Wine-tkg derleme sistemiyle oluşturulmuş özel Wine yapısı.</translation>
+        <translation type="vanished">Eigener Wine Build für Windows-Spiele, erstellt mit dem Wine-Tkg Buildsystem.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system (Ubuntu CI) based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation>&lt;b&gt;Wine Master&lt;/b&gt; temel alınarak Wine-tkg yapı sistemi (Ubuntu CI) ile oluşturulmuş, Windows oyunlarını çalıştırmak için özel Wine yapısı.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_z0dxvk</name>
     <message>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="vanished">Linux/Wine için Direct3D 9, 10 ve 11&apos;in Vulkan tabanlı uygulaması.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
+        <translation type="vanished">Vulkan-basierte Implementierung von Direct3D 9, 10 und 11 für Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="22"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation>Linux/Wine için Direct3D 8, 9, 10 ve 11&apos;in Vulkan tabanlı uygulaması.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_z1dxvkasync</name>
     <message>
         <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with async patch by Sporif.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="vanished">Linux/Wine için Sporif&apos;in hazırladığı async yamasıyla Vulkan tabanlı Direct3D 9, 10 ve 11 uygulaması.&lt;br&gt;&lt;br&gt;&lt;b&gt;Uyarı: Yalnızca tek oyunculu oyunlarda kullanın!&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="vanished">Linux/Wine için Ph42oN&apos;un gplasync yamasıyla Vulkan tabanlı Direct3D 9, 10 ve 11 uygulaması.&lt;br&gt;&lt;br&gt;&lt;b&gt;Uyarı: Yalnızca tek oyunculu oyunlarla kullanın!&lt;/b&gt;</translation>
+        <translation type="vanished">Vulkan-basierte Implementierung von Direct3D 9, 10 und 11 für Linux/Wine mit Sporifs Async Patch.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Achtung: Nur für Singleplayer Spiele geeignet!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation>Linux/Wine için Ph42oN&apos;un gplasync yamasıyla Direct3D 8, 9, 10 ve 11&apos;in Vulkan tabanlı uygulaması.&lt;br&gt;&lt;br&gt;&lt;b&gt;Uyarı: Yalnızca tek oyunculu oyunlarla kullanın!&lt;/b&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ctmod_z2dxvknightly</name>
     <message>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="vanished">Linux/Wine için Direct3D 9, 10 ve 11&apos;in Vulkan tabanlı uygulaması olan DXVK&apos;nin (master branch) Nightly sürümü.&lt;br&gt;&lt;br&gt;&lt;b&gt;Uyarı: Nightly sürüm kararsızdır, dikkatli kullanın!&lt;/b&gt;</translation>
+        <translation type="vanished">Nightly Version von DXVK (master branch), Vulkan-basierte Implementierung von Direct3D 9, 10 und 11 für Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Achtung: Nightly Versionen sind nicht stabil!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation>Linux/Wine için Direct3D 8, 9, 10 ve 11&apos;in Vulkan tabanlı uygulaması olan DXVK&apos;nin (ana dal) günlük geliştirme sürümü.&lt;br&gt;&lt;br&gt;&lt;b&gt;Uyarı: Günlük geliştirme sürümü kararsızdır, dikkatli kullanın!&lt;/b&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1378,16 +1300,14 @@ SteamTinkerLaunch, ekstra işlevsellik için ayrıca yüklenmesi gereken bir diz
     <message>
         <location filename="../pupgui2/steamutil.py" line="499"/>
         <source>Unable to Remove SteamTinkerLaunch</source>
-        <translation>SteamTinkerLaunch Kaldırılamıyor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/steamutil.py" line="502"/>
         <source>Access to SteamTinkerLaunch installation folder at &apos;{STL_SYMLINK_PATH}&apos; was denied, please remove this folder manually.
 
 The uninstallation will continue.</source>
-        <translation>&apos;{STL_SYMLINK_PATH}&apos; adresindeki SteamTinkerLaunch kurulum klasörüne erişim reddedildi, lütfen bu klasörü manuel olarak kaldırın.
-
-Kaldırma işlemi devam edecek.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1395,7 +1315,7 @@ Kaldırma işlemi devam edecek.</translation>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="40"/>
         <source>Translated by DavidoTek</source>
-        <translation>EMB tarafından çevrildi</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1403,53 +1323,50 @@ Kaldırma işlemi devam edecek.</translation>
     <message>
         <location filename="../pupgui2/util.py" line="369"/>
         <source>Delete SteamTinkerLaunch configuration</source>
-        <translation>SteamTinkerLaunch yapılandırmasını sil</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="370"/>
         <source>Uninstalling SteamTinkerLaunch</source>
-        <translation>SteamTinkerLaunch Kaldırılıyor</translation>
+        <translation>SteamTinkerLaunch-ის წაშლა</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="371"/>
         <source>SteamTinkerLaunch will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove SteamTinkerLaunch.
 Do you want the configuration to be removed?</source>
-        <translation>SteamTinkerLaunch sisteminizden kaldırılacaktır. Bu araç ProtonUp-Qt ile yüklendiyse bu aynı zamanda SteamTinkerLaunch&apos;ı kaldırmak için PATH&apos;inizi de güncelleyecektir.
-Yapılandırmanın kaldırılmasını istiyor musunuz?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="560"/>
         <source>Warning: GitHub API rate limit exceeded!</source>
-        <translation>Uyarı: GitHub API hız limiti aşıldı!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="561"/>
         <source>GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.
 
 See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.</source>
-        <translation>GitHub API hız limiti aşıldı. Bir süre beklemeniz veya varsa GitHub API anahtarı belirtmeniz gerekebilir.
-
-Ayrıntılar için https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 adresine bakın.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="574"/>
         <source>Warning: GitLab API rate limit exceeded!</source>
-        <translation>Uyarı: GitLab API hız limiti aşıldı!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="575"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
-        <translation>GitLab API hız limiti aşıldı. Bir süre beklemek veya varsa bu GitLab örneği için oluşturulan bir GitLab API anahtarı belirtmek isteyebilirsiniz.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="923"/>
         <source>missing</source>
-        <translation>eksik</translation>
+        <translation>აკლია</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="924"/>
         <source>found</source>
-        <translation>bulundu</translation>
+        <translation>აღმოჩენილია</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="926"/>
@@ -1458,11 +1375,7 @@ Ayrıntılar için https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomm
 {DEP_ENUM}
 
 Will continue the installation anyway.</source>
-        <translation>{CT_NAME} için aşağıdaki bağımlılıklara ihtiyacınız var:
-
-{DEP_ENUM}
-
-Yine de kuruluma devam edilecektir.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
