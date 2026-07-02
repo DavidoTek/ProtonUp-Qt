@@ -14,7 +14,7 @@
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
         <source>Download Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd pobierania!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
@@ -24,7 +24,9 @@
         <source>Failed to download tool &apos;{CT_NAME}&apos;!
 
 Reason: {EXCEPTION}</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się pobrać narzędzia &apos;{CT_NAME}&apos;!
+
+Powód: {EXCEPTION}</translation>
     </message>
 </context>
 <context>
@@ -51,32 +53,32 @@ Jeżeli uważasz to za błąd, proszę złożyć raport błędu na GitHub!</tran
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
         <source>Configure Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurowanie tokenów dostępu Git</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
         <source>GitHub:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitHub:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
         <source>Save</source>
-        <translation type="unfinished">Zapisz</translation>
+        <translation>Zapisz</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation type="unfinished">Zamknij</translation>
+        <translation>Zamknij</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
         <source>GitLab:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitLab:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>To okno dialogowe umożliwia skonfigurowanie tokenów dostępu do interfejsu API GitHub/GitLab, aby zapobiec wyświetlaniu ostrzeżenia o limicie przepustowości interfejsu API.</translation>
     </message>
 </context>
 <context>
@@ -377,7 +379,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="157"/>
         <source>Edit Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Edytuj tokeny dostępu Git</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="182"/>
@@ -388,7 +390,7 @@ Używasz {APP_VERSION}, ale {newest_version} jest dostępna.</translation>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="202"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
-        <translation>Dodaje skrót by otworzyć ProtonUp-QT z twojej biblioteki Steam.
+        <translation>Dodaje skrót by otworzyć ProtonUp-Qt z twojej biblioteki Steam.
 By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze swojej biblioteki&quot;.</translation>
     </message>
     <message>
@@ -471,7 +473,7 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="129"/>
         <source>Search games...</source>
-        <translation>Szukaj gry...</translation>
+        <translation>Szukaj gier...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
@@ -495,7 +497,7 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="274"/>
         <source>Search for a game...</source>
-        <translation>Szukaj gry...</translation>
+        <translation>Wyszukaj grę...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="297"/>
@@ -630,7 +632,7 @@ By usunąć ten skrót, otwórz Steam i wybierz &quot;usuń grę spoza Steam ze 
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="230"/>
         <source>Install Date is Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Data instalacji jest nieznana</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="264"/>
@@ -863,7 +865,7 @@ Popularność: {trending}</translation>
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
         <source>Load more...</source>
-        <translation type="unfinished"></translation>
+        <translation>Załaduj więcej...</translation>
     </message>
 </context>
 <context>
@@ -916,7 +918,7 @@ Popularność: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation>np. ProtonUp-QT</translation>
+        <translation>np. ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="80"/>
@@ -949,7 +951,7 @@ Popularność: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="22"/>
         <source>Steam compatibility tool for running Windows games with improvements over Valve&apos;s default Proton.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Use this when you don&apos;t know what to choose.&lt;/b&gt;</source>
-        <translation>Narzędzie kompatybilności Steam do uruchamiania Windowsowych gier z poprawkami nad Valve&apos;owym domyślnym Protonem.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Użyj tego, jeśli nie wiesz co wybrać.&lt;/b&gt;</translation>
+        <translation>Narzędzie do sprawdzania zgodności ze Steamem umożliwiające uruchamianie gier w systemie Windows, z udoskonaleniami w stosunku do domyślnego Protona firmy Valve.&lt;br&gt;&lt;br&gt;&lt;b&gt;Skorzystaj z niego, gdy nie wiesz, co wybrać.&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1018,7 +1020,14 @@ Popularność: {trending}</translation>
         &lt;br/&gt;
         * &lt;b&gt;x86_64_v3&lt;/b&gt;: For CPUs that support AVX2 and up
         </source>
-        <translation type="unfinished"></translation>
+        <translation>
+        Narzędzie do sprawdzania kompatybilności Steam z dystrybucji CachyOS Linux do uruchamiania gier Windows
+z ulepszeniami w stosunku do domyślnego Protona Valve. Wybierz to, które odpowiada Twojemu procesorowi.
+&lt;br&gt;&lt;br&gt;
+* &lt;b&gt;x86_64&lt;/b&gt;: Działa na każdym procesorze x64_64
+&lt;br&gt;
+* &lt;b&gt;x86_64_v3&lt;/b&gt;: Dla procesorów obsługujących AVX2 i nowsze
+        </translation>
     </message>
 </context>
 <context>
@@ -1056,7 +1065,7 @@ Ta kompilacja jest oparta na &lt;b&gt;Wine Master&lt;/b&gt;.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="15"/>
         <source>Fork of GE-Proton with enhanced Windows Media Foundation support.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fork GE-Proton z rozszerzoną obsługą Windows Media Foundation.</translation>
     </message>
 </context>
 <context>
@@ -1261,7 +1270,7 @@ przewodnika instalacji SteamTinkerLaunch na stronie GitHub.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system based on &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niestandardowa wersja Wine do uruchamiania gier dla systemu Windows, stworzona przy użyciu systemu Wine-tkg bazującego na &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1273,7 +1282,7 @@ przewodnika instalacji SteamTinkerLaunch na stronie GitHub.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system (Ubuntu CI) based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niestandardowa wersja Wine do uruchamiania gier dla systemu Windows, stworzona przy użyciu systemu Wine-tkg (Ubuntu CI) na podstawie &lt;b&gt;Wine Master&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1285,7 +1294,7 @@ przewodnika instalacji SteamTinkerLaunch na stronie GitHub.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="22"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Implementacja Direct3D 8, 9, 10 i 11 oparta na Vulkanie dla systemów Linux/Wine.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1301,7 +1310,7 @@ przewodnika instalacji SteamTinkerLaunch na stronie GitHub.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Implementacja Direct3D 8, 9, 10 i 11 oparta na Vulkanie dla systemów Linux/Wine z łatką gplasync autorstwa Ph42oN.&lt;br&gt;&lt;br&gt;&lt;b&gt;Ostrzeżenie: Używać tylko w grach dla jednego gracza!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1313,7 +1322,7 @@ przewodnika instalacji SteamTinkerLaunch na stronie GitHub.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Nocna wersja DXVK (gałąź główna), oparta na Vulkanie implementacja Direct3D 8, 9, 10 i 11 dla systemów Linux/Wine.&lt;br&gt;&lt;br&gt;&lt;b&gt;Ostrzeżenie: Nocna wersja jest niestabilna, należy ją stosować ostrożnie!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1338,7 +1347,7 @@ Dezinstalacja będzie kontynuowana.</translation>
     <message>
         <location filename="../pupgui2/pupgui2aboutdialog.py" line="40"/>
         <source>Translated by DavidoTek</source>
-        <translation>Przetłumaczone przez StarterX4 i ToRRent1812</translation>
+        <translation>Przetłumaczone przez DavidoTek</translation>
     </message>
 </context>
 <context>
