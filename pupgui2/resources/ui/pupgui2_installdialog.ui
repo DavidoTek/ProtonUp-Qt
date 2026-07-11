@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
+    <width>520</width>
     <height>280</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>320</width>
+    <width>520</width>
     <height>280</height>
    </size>
   </property>
@@ -67,6 +67,13 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkAdvancedMode">
+     <property name="text">
+      <string>Enable advanced mode (show git-builds for compatibility tools etc.)</string>
      </property>
     </widget>
    </item>
