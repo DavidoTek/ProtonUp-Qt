@@ -7,26 +7,33 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
-    - uses: actions/checkout@v1
-    
-    - name: Install required dependencies
-      run: sudo apt install -y binutils coreutils desktop-file-utils fakeroot fuse libgdk-pixbuf2.0-dev patchelf python3-pip python3-setuptools squashfs-tools strace util-linux zsync
-    
-    - name: Download AppImageBuilder etc.
-      run: |
-        pip3 install appimage-builder
-    
+    - uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v27
+
     - name: Build AppImage
       run: |
         sed -i "s/BUILD_INFO = .*/BUILD_INFO = 'Official AppImage by DavidoTek'/" pupgui2/constants.py
-        appimage-builder
+        nix build .#appimage --impure
 
-    - name: Upload AppImage
+    - name: Prepare AppImage for upload
+      run: |
+        version=$(grep -oP "APP_VERSION = '\K[^']+" pupgui2/constants.py)
+        cp result "ProtonUp-Qt-${version}-x86_64.AppImage"
+
+    - name: Upload AppImage to release
+      uses: softprops/action-gh-release@v2
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ProtonUp-Qt-*.AppImage
+
+    - name: Upload AppImage as artifact
       uses: actions/upload-artifact@v4
       with:
         name: ProtonUp-Qt
-        path: ProtonUp-Qt*.AppImage*
-        if-no-files-found: ignore
+        path: ProtonUp-Qt-*.AppImage
+        if-no-files-found: error
