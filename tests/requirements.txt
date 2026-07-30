@@ -1,8 +1,0 @@
-pytest
-pytest-md
-pytest-emoji
-
-pytest-responses
-pytest-mock
-
-pyfakefs
