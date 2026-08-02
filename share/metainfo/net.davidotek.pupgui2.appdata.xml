@@ -13,7 +13,7 @@
   <keywords>
     <keyword>Proton-GE</keyword>
     <keyword>GE-Proton</keyword>
-    <keyword>Steam Tinker Launch</keyword>
+    <keyword>TinkerGame</keyword>
   </keywords>
 
   <metadata_license>FSFAP</metadata_license>
@@ -35,7 +35,7 @@
     <p>Supported compatibility tools:</p>
     <ul>
       <li>GE-Proton</li>
-      <li>SteamTinkerLaunch</li>
+      <li>TinkerGame</li>
       <li>Proton-Tkg</li>
       <li>Luxtorpeda</li>
       <li>Boxtron</li>

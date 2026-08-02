@@ -13,8 +13,8 @@ from PySide6.QtWidgets import QProgressBar, QVBoxLayout, QSpacerItem, QSizePolic
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtDBus import QDBusConnection
 
-from pupgui2.constants import APP_NAME, APP_VERSION, APP_ID, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
-from pupgui2.constants import STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM, IS_FLATPAK
+from pupgui2.constants import APP_NAME, APP_VERSION, APP_ID, BUILD_INFO, TEMP_DIR, STEAM_TINKERGAME_INSTALL_PATH
+from pupgui2.constants import STEAM_BOXTRON_FLATPAK_APPSTREAM, IS_FLATPAK
 from pupgui2 import ctloader
 from pupgui2.datastructures import CTType, MsgBoxType, MsgBoxResult
 from pupgui2.gamepadinputworker import GamepadInputWorker
@@ -164,7 +164,7 @@ class MainWindow(QObject):
         QShortcut(QKeySequence('Ctrl+Shift+B'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Boxtron'))
         QShortcut(QKeySequence('Ctrl+Shift+L'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Luxtorpeda'))
         QShortcut(QKeySequence('Ctrl+Shift+T'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Proton Tkg'))
-        QShortcut(QKeySequence('Ctrl+Shift+S'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='SteamTinkerLaunch'))
+        QShortcut(QKeySequence('Ctrl+Shift+S'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='TinkerGame'))
         ## Lutris Compat Tool Shortcuts (Some overlap w/ Heroic)
         QShortcut(QKeySequence('Ctrl+Shift+D'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='DXVK'))
         QShortcut(QKeySequence('Ctrl+Shift+L'), self.ui).activated.connect(lambda: self.btn_add_version_clicked(compat_tool='Lutris-Wine'))
@@ -463,15 +463,12 @@ class MainWindow(QObject):
         iftdialog.setModal(True)
         lbl_description = QLabel(self.tr('Click to open your app store'))
         btn_dl_boxtron = QPushButton('Boxtron')
-        btn_dl_stl = QPushButton('Steam Tinker Launch')
         layout1 = QVBoxLayout()
         layout1.addWidget(lbl_description)
         layout1.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Expanding))
         layout1.addWidget(btn_dl_boxtron)
-        layout1.addWidget(btn_dl_stl)
         iftdialog.setLayout(layout1)
         btn_dl_boxtron.clicked.connect(lambda: os.system(f'xdg-open {STEAM_BOXTRON_FLATPAK_APPSTREAM}'))
-        btn_dl_stl.clicked.connect(lambda: os.system(f'xdg-open {STEAM_STL_FLATPAK_APPSTREAM}'))
         iftdialog.show()
 
     def press_virtual_key(self, key, mod):
@@ -604,9 +601,9 @@ def main():
     ret = app.exec()
     shutil.rmtree(TEMP_DIR, ignore_errors=True)
 
-    # Flatpak workaround: Delete STL dir if it isn't installed (folder is always created for sandbox access)
-    if IS_FLATPAK and len(os.listdir(STEAM_STL_INSTALL_PATH)) == 0:
-        subprocess.run(['flatpak-spawn', '--host', 'rm', '-r', STEAM_STL_INSTALL_PATH])
+    # Flatpak workaround: Delete TinkerGame dir if it isn't installed (folder is always created for sandbox access)
+    if IS_FLATPAK and len(os.listdir(STEAM_TINKERGAME_INSTALL_PATH)) == 0:
+        subprocess.run(['flatpak-spawn', '--host', 'rm', '-r', STEAM_TINKERGAME_INSTALL_PATH])
 
     _ = dbus_progress_message(-1, 0)  # Reset any previously set download information to be blank
     sys.exit(ret)

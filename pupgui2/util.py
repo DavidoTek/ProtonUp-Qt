@@ -25,7 +25,7 @@ from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, CODEBERG_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
 from pupgui2.datastructures import HardwarePlatform
-from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
+from pupgui2.steamutil import remove_tinkergame, is_valid_steam_install
 
 
 def create_msgbox(
@@ -370,15 +370,15 @@ def remove_ctool(ver: str, install_dir: str) -> bool:
     Return Type: bool
     """
     target = os.path.join(install_dir, ver.split(' - ')[0])
-    # Special case hack to remove SteamTinkerLaunch
-    if 'steamtinkerlaunch' in target.lower():
+    # Special case hack to remove TinkerGame
+    if 'tinkergame' in target.lower():
         mb = QMessageBox()
-        cb = QCheckBox(QCoreApplication.instance().translate('util.py', 'Delete SteamTinkerLaunch configuration'))
-        mb.setWindowTitle(QCoreApplication.instance().translate('util.py', 'Uninstalling SteamTinkerLaunch'))
-        mb.setText(QCoreApplication.instance().translate('util.py', 'SteamTinkerLaunch will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove SteamTinkerLaunch.\nDo you want the configuration to be removed?'))
+        cb = QCheckBox(QCoreApplication.instance().translate('util.py', 'Delete TinkerGame configuration'))
+        mb.setWindowTitle(QCoreApplication.instance().translate('util.py', 'Uninstalling TinkerGame'))
+        mb.setText(QCoreApplication.instance().translate('util.py', 'TinkerGame will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove TinkerGame.\nDo you want the configuration to be removed?'))
         mb.setCheckBox(cb)
         mb.exec()
-        return remove_steamtinkerlaunch(compat_folder=target, remove_config=cb.isChecked())
+        return remove_tinkergame(compat_folder=target, remove_config=cb.isChecked())
     elif os.path.exists(target):
         shutil.rmtree(target)
         return True
@@ -395,7 +395,7 @@ def sort_compatibility_tool_names(unsorted: list[str], reverse=False) -> list[st
     for i, ver in enumerate(unsorted, start=1):
         if ver.startswith('GE-Proton'):
             ver_dict[100+i] = ver
-        elif 'SteamTinkerLaunch' in ver:
+        elif 'TinkerGame' in ver:
             ver_dict[100+i] = ver
         elif 'Proton-' in ver:
             try:
@@ -1003,7 +1003,7 @@ def detect_platform() -> HardwarePlatform:
 
     os_release_content = ""
 
-    # Detect SteamOS: https://github.com/sonic2kk/steamtinkerlaunch/wiki/Steam-Deck#setup
+    # Detect SteamOS: https://github.com/360900/tinkergame/wiki/Steam-Deck#setup
     if IS_FLATPAK:
         cmd = ["flatpak-spawn", "--host", "cat", "/etc/os-release"]
         try:
