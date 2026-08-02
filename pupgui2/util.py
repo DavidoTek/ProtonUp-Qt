@@ -25,7 +25,7 @@ from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, CODEBERG_API, GITLAB_API_RATELIMIT_TEXT
 from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
 from pupgui2.datastructures import HardwarePlatform
-from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
+from pupgui2.steamutil import remove_steamtinkerlaunch, remove_tinkergame, is_valid_steam_install
 
 
 def create_msgbox(
@@ -379,6 +379,15 @@ def remove_ctool(ver: str, install_dir: str) -> bool:
         mb.setCheckBox(cb)
         mb.exec()
         return remove_steamtinkerlaunch(compat_folder=target, remove_config=cb.isChecked())
+    # TinkerGame mirror of the SteamTinkerLaunch removal special case
+    if 'tinkergame' in target.lower():
+        mb = QMessageBox()
+        cb = QCheckBox(QCoreApplication.instance().translate('util.py', 'Delete TinkerGame configuration'))
+        mb.setWindowTitle(QCoreApplication.instance().translate('util.py', 'Uninstalling TinkerGame'))
+        mb.setText(QCoreApplication.instance().translate('util.py', 'TinkerGame will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove TinkerGame.\nDo you want the configuration to be removed?'))
+        mb.setCheckBox(cb)
+        mb.exec()
+        return remove_tinkergame(compat_folder=target, remove_config=cb.isChecked())
     elif os.path.exists(target):
         shutil.rmtree(target)
         return True
