@@ -128,7 +128,12 @@ class CtInstaller(QObject):
         if not data or 'download' not in data:
             return (None, None)
 
-        protondir = os.path.join(install_dir, data['version'])
+        # Since GE-Proton11-4 the archive's top-level directory name is the asset filename
+        # without the extension, including an architecture suffix, e.g. 'GE-Proton11-5-x86_64'.
+        # Deriving the path from the asset name keeps the 'already installed' check working.
+        asset_name = data['download'].split('/')[-1]
+        proton_dirname = asset_name.removesuffix(f'.{self.release_format}')
+        protondir = os.path.join(install_dir, proton_dirname)
 
         return (data, protondir)
 
@@ -183,6 +188,7 @@ class CtInstaller(QObject):
             return False
 
         if not extract_tar(proton_tar, install_dir, mode=self.release_format.split('.')[-1]):
+            self.__set_download_progress_percent(-1)
             return False
 
         if os.path.exists(checksum_dir):
