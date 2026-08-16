@@ -1,6 +1,9 @@
 import builtins
+import io
 import os
 import pathlib
+import tarfile
+import zipfile
 from subprocess import CompletedProcess
 from pytest_mock.plugin import MockType
 
@@ -795,3 +798,93 @@ def test_open_webbrowser_thread_failure(mocker: MockerFixture) -> None:
     assert webbrowser_open_mock.call_count == 0
 
     print_mock.assert_called_once_with(expected_error_message)
+
+
+def _create_test_tar(tar_path: str) -> None:
+
+    """
+    Create a tar.gz archive at tar_path containing a tool directory with read-only files (mode 444/555),
+    similar to the file modes shipped in GE-Proton archives.
+    """
+
+    with tarfile.open(tar_path, 'w:gz') as tf:
+        for name, content, mode in [
+            ('tool/readonly.txt', b'new content', 0o444),
+            ('tool/executable.sh', b'#!/bin/sh\n', 0o555),
+        ]:
+            info = tarfile.TarInfo(name)
+            info.size = len(content)
+            info.mode = mode
+            tf.addfile(info, io.BytesIO(content))
+
+
+def _create_test_zip(zip_path: str) -> None:
+
+    """
+    Create a zip archive at zip_path containing a tool directory.
+    """
+
+    with zipfile.ZipFile(zip_path, 'w') as zf:
+        zf.writestr('tool/readonly.txt', b'new content')
+        zf.writestr('tool/executable.sh', b'#!/bin/sh\n')
+
+
+def test_remove_existing_archive_entries(fs: FakeFilesystem) -> None:
+
+    """
+    Test that remove_existing_archive_entries removes existing top-level archive entries,
+    handles './' prefixed names, and skips '.', '..' and '' entries.
+    """
+
+    extract_path = '/tmp/compatibilitytools.d'
+    fs.create_dir(extract_path)
+    fs.create_file(os.path.join(extract_path, 'tool/readonly.txt'), contents=b'old')
+    fs.create_file(os.path.join(extract_path, 'other/stuff.txt'), contents=b'old')
+    fs.create_file(os.path.join(extract_path, 'keep/file.txt'), contents=b'old')
+
+    remove_existing_archive_entries(['tool/readonly.txt', './other/stuff.txt', '.', '..', ''], extract_path)
+
+    assert not os.path.exists(os.path.join(extract_path, 'tool'))
+    assert not os.path.exists(os.path.join(extract_path, 'other'))
+    assert os.path.exists(os.path.join(extract_path, 'keep'))
+
+
+def test_extract_tar_overwrites_readonly_files(fs: FakeFilesystem) -> None:
+
+    """
+    Test that extract_tar can re-extract an archive over a previous installation
+    whose files were created read-only (mode 444/555).
+    """
+
+    tar_path = '/tmp/test_tool.tar.gz'
+    extract_path = '/tmp/compatibilitytools.d'
+    fs.create_dir(extract_path)
+
+    _create_test_tar(tar_path)
+
+    assert extract_tar(tar_path, extract_path, mode='gz') is True
+    assert os.path.isfile(os.path.join(extract_path, 'tool/readonly.txt'))
+
+    assert extract_tar(tar_path, extract_path, mode='gz') is True
+    with open(os.path.join(extract_path, 'tool/readonly.txt'), 'rb') as f:
+        assert f.read() == b'new content'
+
+
+def test_extract_zip_overwrites_existing_files(fs: FakeFilesystem) -> None:
+
+    """
+    Test that extract_zip can re-extract an archive over existing files.
+    """
+
+    zip_path = '/tmp/test_tool.zip'
+    extract_path = '/tmp/compatibilitytools.d'
+    fs.create_dir(extract_path)
+
+    _create_test_zip(zip_path)
+
+    assert extract_zip(zip_path, extract_path) is True
+    assert os.path.isfile(os.path.join(extract_path, 'tool/readonly.txt'))
+
+    assert extract_zip(zip_path, extract_path) is True
+    with open(os.path.join(extract_path, 'tool/readonly.txt'), 'rb') as f:
+        assert f.read() == b'new content'

@@ -851,6 +851,32 @@ def extract_paths_exist(archive_path: str, extract_path: str) -> bool:
     return archive_path_exists and extract_path_exists
 
 
+def remove_existing_archive_entries(archive_names: list[str], extract_path: str) -> None:
+
+    """
+    Remove existing files or directories at extract_path whose name matches a top-level entry in the archive,
+    so that re-extracting an archive over a previous installation does not fail with PermissionError when
+    read-only files (e.g. mode 444/555) need to be overwritten.
+
+    Return Type: None
+    """
+
+    top_level_names: set[str] = set()
+    for entry in archive_names:
+        name: str = entry[2:] if entry.startswith('./') else entry
+        top_level_names.add(name.split('/')[0])
+
+    for name in top_level_names:
+        if name in ('.', '..', ''):
+            continue
+        target: str = os.path.join(extract_path, name)
+        if os.path.lexists(target):
+            if os.path.isdir(target) and not os.path.islink(target):
+                shutil.rmtree(target)
+            else:
+                os.remove(target)
+
+
 def extract_zip(zip_path: str, extract_path: str) -> bool:
 
     """
@@ -864,6 +890,7 @@ def extract_zip(zip_path: str, extract_path: str) -> bool:
 
     try:
         with zipfile.ZipFile(zip_path) as zf:
+            remove_existing_archive_entries(zf.namelist(), extract_path)
             zf.extractall(extract_path)
         return True
     except zipfile.BadZipFile:
@@ -891,6 +918,7 @@ def extract_tar(tar_path: str, extract_path: str, mode: str = 'r:') -> bool:
             mode = f'r:{mode}'
 
         with tarfile.open(tar_path, mode) as tf:
+            remove_existing_archive_entries(tf.getnames(), extract_path)
             tf.extractall(extract_path)
         return True
     except tarfile.ReadError:
@@ -914,7 +942,15 @@ def extract_tar_zst(zst_path: str, extract_path: str) -> bool:
         with open(zst_path, 'rb') as zf:
             zf_data = zstandard.ZstdDecompressor().stream_reader(zf)
             with tarfile.open(zst_path, 'r|', fileobj=zf_data) as tf:
-                tf.extractall(extract_path)
+                # Stream mode cannot seek, so remove existing targets member-by-member instead of
+                # inspecting all members upfront (which would consume the file data).
+                for member in tf:
+                    name: str = member.name[2:] if member.name.startswith('./') else member.name
+                    if name not in ('.', '..', ''):
+                        target: str = os.path.join(extract_path, member.name)
+                        if os.path.lexists(target) and not (os.path.isdir(target) and not os.path.islink(target)):
+                            os.remove(target)
+                    tf.extract(member, extract_path)
 
         return True
     except zstandard.ZstdError as zste:  # Error reading Zst file
