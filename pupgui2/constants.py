@@ -125,6 +125,13 @@ STEAM_STL_DATA_PATH = os.path.join(HOME_DIR, '.local', 'share', 'steamtinkerlaun
 STEAM_STL_SHELL_FILES = [ '.bashrc', '.zshrc', '.kshrc' ]
 STEAM_STL_FISH_VARIABLES = os.path.join(HOME_DIR, '.config/fish/fish_variables')
 
+STEAM_TG_INSTALL_PATH = os.path.join(HOME_DIR, 'tg')
+STEAM_TG_CONFIG_PATH = os.path.join(HOME_DIR, '.config', 'tinkergame')
+STEAM_TG_CACHE_PATH = os.path.join(HOME_DIR, '.cache', 'tinkergame')
+STEAM_TG_DATA_PATH = os.path.join(HOME_DIR, '.local', 'share', 'tinkergame')
+STEAM_TG_SHELL_FILES = [ '.bashrc', '.zshrc', '.kshrc' ]
+STEAM_TG_FISH_VARIABLES = os.path.join(HOME_DIR, '.config/fish/fish_variables')
+
 LUTRIS_WEB_URL = 'https://lutris.net/games/'
 EPIC_STORE_URL = 'https://store.epicgames.com/p/'
 

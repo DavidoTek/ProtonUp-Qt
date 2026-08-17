@@ -16,6 +16,7 @@ from pupgui2.constants import APP_NAME, APP_ID, APP_ICON_FILE
 from pupgui2.constants import PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID, PROTON_NEXT_APPID, STEAMLINUXRUNTIME_APPID, STEAMLINUXRUNTIME_SOLDIER_APPID, STEAMLINUXRUNTIME_SNIPER_APPID
 from pupgui2.constants import LOCAL_AWACY_GAME_LIST, PROTONDB_API_URL
 from pupgui2.constants import STEAM_STL_INSTALL_PATH, STEAM_STL_CONFIG_PATH, STEAM_STL_SHELL_FILES, STEAM_STL_FISH_VARIABLES, HOME_DIR, IS_FLATPAK
+from pupgui2.constants import STEAM_TG_INSTALL_PATH, STEAM_TG_CONFIG_PATH, STEAM_TG_SHELL_FILES, STEAM_TG_FISH_VARIABLES
 from pupgui2.datastructures import SteamApp, AWACYStatus, BasicCompatTool, CTType, SteamUser, RuntimeType
 
 
@@ -561,6 +562,111 @@ def remove_steamtinkerlaunch(compat_folder='', remove_config=True, ctmod_object=
         return True
     except IOError as e:
         print('Something went wrong trying to uninstall SteamTinkerLaunch. Aborting...', e)
+        return False
+
+
+def get_external_tinkergame_intall(compat_folder):
+
+    symlink_path = os.path.join(compat_folder, 'tinkergame')
+    return os.path.dirname(os.readlink(symlink_path)) if os.path.exists(symlink_path) and os.readlink(symlink_path) != os.path.join(STEAM_TG_INSTALL_PATH, 'prefix', 'tinkergame') else None
+
+
+def remove_tinkergame(compat_folder='', remove_config=True, ctmod_object=None) -> bool:
+    """
+    Removes TinkerGame from system by removing the download, removing from path
+    removing config files at `$HOME/.config/tinkergame`.
+
+    Returns True if successfully removed.
+    Return Type: bool
+    """
+
+    try:
+        os.chdir(HOME_DIR)
+
+        # If the Steam Deck/ProtonUp-Qt installation path doesn't exist
+        # Adding `prefix` to path to be especially sure the user didn't just make a `tg` folder
+        #
+        # TinkerGame script is always named `tinkergame`
+        tg_symlink_path = get_external_tinkergame_intall(compat_folder)
+
+        if os.path.exists(compat_folder):
+            print('Removing TinkerGame compatibility tool...')
+            shutil.rmtree(compat_folder)
+            if shutil.which('tinkergame'):
+                subprocess.run(['tinkergame', 'compat', 'del'])
+
+        print('Removing TinkerGame installation...')
+        if tg_symlink_path:
+            # If TinkerGame symlink isn't a regular install, try to remove if we can write to its install folder
+            if os.access(tg_symlink_path, os.W_OK):
+                shutil.rmtree(tg_symlink_path)
+                print('Removed TinkerGame installation folder pointed to by symlink')
+            else:
+                # If we can't remove the actual installation folder, tell the user to remove it themselves and continue with the rest of the uninstallation
+                mb_title = QApplication.instance().translate('steamutil.py', 'Unable to Remove TinkerGame')
+                mb_text = QApplication.instance().translate(
+                    'steamutil.py',
+                    'Access to TinkerGame installation folder at \'{TG_SYMLINK_PATH}\' was denied, please remove this folder manually.\n\nThe uninstallation will continue.'
+                ).format(TG_SYMLINK_PATH=tg_symlink_path)
+                if ctmod_object and hasattr(ctmod_object, 'message_box_message'):
+                    ctmod_object.message_box_message.emit(mb_title, mb_text, QMessageBox.Icon.Warning)
+                else:
+                    mb = QMessageBox()
+                    mb.setWindowTitle(mb_title)
+                    mb.setText(mb_text)
+                    mb.exec()
+
+                print(f'Error: TinkerGame is installed to {tg_symlink_path}, ProtonUp-Qt cannot modify this folder. Folder must be removed manually.')
+        elif os.path.exists(STEAM_TG_INSTALL_PATH):
+            # Regular Steam Deck/ProtonUp-Qt installation structure
+            if IS_FLATPAK:
+                if os.path.exists(os.path.join(STEAM_TG_INSTALL_PATH, 'prefix')):
+                    shutil.rmtree(os.path.join(STEAM_TG_INSTALL_PATH, 'prefix'))
+            else:
+                shutil.rmtree(STEAM_TG_INSTALL_PATH)
+
+        # Remove User config folder if the user requested it
+        if os.path.exists(STEAM_TG_CONFIG_PATH) and remove_config:
+            print('Removing TinkerGame configuration folder...')
+            shutil.rmtree(STEAM_TG_CONFIG_PATH)
+
+        # Remove the TinkerGame path modification that ProtonUp-Qt may have added during installation from Shell paths
+        present_shell_files = [
+            os.path.join(HOME_DIR, f) for f in os.listdir(HOME_DIR) if os.path.isfile(os.path.join(HOME_DIR, f)) and f in STEAM_TG_SHELL_FILES
+        ]
+        if os.path.exists(STEAM_TG_FISH_VARIABLES) or shutil.which('fish'):
+            present_shell_files.append(STEAM_TG_FISH_VARIABLES)
+
+        print('Removing TinkerGame from path...')
+
+        for shell_file in present_shell_files:
+            with open(shell_file, 'r+') as mfile:
+                # Get all Shell file lines that are not the ProtonUp-Qt added TinkerGame path lines
+                mfile_lines = list(filter(lambda l: 'protonup-qt' not in l.lower() and STEAM_TG_INSTALL_PATH.lower() not in l.lower(), list(mfile.readlines())))
+                if len(mfile_lines) == 0:
+                    continue
+                mfile_lines = mfile_lines[:-1] if len(mfile_lines[-1].strip()) == 0 else mfile_lines
+
+                # Preserve any existing Fish user paths
+                if 'fish' in mfile.name:
+                    mfile.seek(0)
+                    curr_fish_user_paths = list(filter(lambda path: STEAM_TG_INSTALL_PATH not in path, list(get_fish_user_paths(mfile))))
+                    updated_fish_user_paths = '\\x1e'.join(curr_fish_user_paths)
+                    mfile_lines.append(f'SETUVAR fish_user_paths:{updated_fish_user_paths}')
+
+                # Write out changes while preserving Shell file newlines
+                mfile.seek(0)
+                prev_line = ''
+                for line in mfile_lines:
+                    if len(line.strip()) != 0 or len(prev_line.strip()) != 0:
+                        mfile.write(line)
+                    prev_line = line
+                mfile.truncate()
+
+        print('Successfully uninstalled TinkerGame!')
+        return True
+    except IOError as e:
+        print('Something went wrong trying to uninstall TinkerGame. Aborting...', e)
         return False
 
 
