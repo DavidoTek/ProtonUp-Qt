@@ -21,8 +21,9 @@ class PupguiInstallDialog(QDialog):
     def __init__(self, install_location, ct_loader, parent=None):
         super(PupguiInstallDialog, self).__init__(parent)
         self.install_location = install_location
+        self.ct_loader = ct_loader
         advanced_mode = (config_advanced_mode() == 'enabled')
-        self.ct_objs = ct_loader.get_ctobjs(self.install_location, advanced_mode=advanced_mode)
+        self.ct_objs = self.ct_loader.get_ctobjs(self.install_location, advanced_mode=advanced_mode)
         self.current_ct_obj = None
         self.loaded_page = 1
         self.more_releases_loadable = True  # Set to False when no more versions are available
@@ -58,6 +59,9 @@ class PupguiInstallDialog(QDialog):
         combobox_style = 'QComboBox { combobox-popup: 0; } QComboBox QAbstractItemView::item { padding: 3px; }'
         self.ui.comboCompatTool.setStyleSheet(combobox_style)
         self.ui.comboCompatToolVersion.setStyleSheet(combobox_style)
+
+        self.ui.checkAdvancedMode.setChecked(config_advanced_mode() == 'enabled')
+        self.ui.checkAdvancedMode.stateChanged.connect(self.check_advanced_mode_state_changed)
 
         self.ui.comboCompatTool.addItems([ctobj['name'] for ctobj in self.ct_objs])
 
@@ -154,3 +158,19 @@ class PupguiInstallDialog(QDialog):
             index = get_combobox_index_by_value(self.ui.comboCompatTool, ctool_name)
             if index >= 1:
                 self.ui.comboCompatTool.setCurrentIndex(index)
+
+    def check_advanced_mode_state_changed(self, state: int):
+        config_advanced_mode('enabled' if state > 0 else 'disabled')
+        self.refresh_ctobjs()
+
+    def refresh_ctobjs(self):
+        advanced_mode = (config_advanced_mode() == 'enabled')
+        self.ct_objs = self.ct_loader.get_ctobjs(self.install_location, advanced_mode=advanced_mode)
+        self.current_ct_obj = None
+        self.loaded_page = 1
+        self.more_releases_loadable = True
+
+        self.ui.comboCompatTool.clear()
+        self.ui.comboCompatToolVersion.clear()
+        self.ui.txtDescription.clear()
+        self.ui.comboCompatTool.addItems([ctobj['name'] for ctobj in self.ct_objs])

@@ -11,7 +11,7 @@ from pupgui2.constants import APP_NAME, APP_VERSION, APP_ID, APP_GHAPI_URL, ABOU
 from pupgui2.constants import DAVIDOTEK_KOFI_URL, PROTONUPQT_GITHUB_URL
 from pupgui2.pupgui2gitaccesstokendialog import PupguiGitAccessTokenDialog
 from pupgui2.steamutil import install_steam_library_shortcut
-from pupgui2.util import config_theme, apply_dark_theme, config_advanced_mode
+from pupgui2.util import config_theme, apply_dark_theme
 from pupgui2.util import open_webbrowser_thread
 from pupgui2.util import install_directory
 
@@ -66,9 +66,7 @@ class PupguiAboutDialog(QObject):
         self.ui.btnCheckForUpdates.clicked.connect(self.btn_check_for_updates_clicked)
         self.ui.comboColorTheme.currentIndexChanged.connect(self.combo_color_theme_current_index_changed)
 
-        self.ui.checkAdvancedMode.setChecked(config_advanced_mode() == 'enabled')
-        self.ui.checkAdvancedMode.stateChanged.connect(self.check_advanced_mode_state_changed)
-        self.ui.layoutAdvancedOptions.setVisible(config_advanced_mode() == 'enabled')
+        self.ui.layoutAdvancedOptions.setVisible(True)
 
         self.ui.btnEditGitAccessTokens.clicked.connect(self.btn_edit_git_access_tokens_clicked)
 
@@ -102,10 +100,6 @@ class PupguiAboutDialog(QObject):
         if result != 1:
             self.ui.btnAddSteamShortcut.setText(self.tr('Added shortcut!'))
             self.ui.btnAddSteamShortcut.setEnabled(False)
-
-    def check_advanced_mode_state_changed(self, state: int):
-        config_advanced_mode('enabled' if state > 0 else 'disabled')
-        self.ui.layoutAdvancedOptions.setVisible(bool(state))
 
     def btn_edit_git_access_tokens_clicked(self):
         PupguiGitAccessTokenDialog(self.ui)
