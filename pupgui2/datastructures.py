@@ -144,7 +144,7 @@ class BasicCompatTool:
 
     def get_internal_name(self) -> str:
         """
-        Returns the internal name if available, e.g. Proton-stl.
+        Returns the internal name if available, e.g. Proton-tg.
         If unavailable, returns the displayname
         """
         compat_tool_vdf_path = os.path.join(self.install_dir, self.install_folder, 'compatibilitytool.vdf')

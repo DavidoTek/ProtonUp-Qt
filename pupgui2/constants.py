@@ -116,14 +116,13 @@ PROTONDB_API_URL = 'https://www.protondb.com/api/v1/reports/summaries/{game_id}.
 PROTONDB_APP_PAGE_URL = 'https://protondb.com/app/'
 
 STEAM_BOXTRON_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.CompatibilityTool.Boxtron'
-STEAM_STL_FLATPAK_APPSTREAM = 'appstream://com.valvesoftware.Steam.Utility.steamtinkerlaunch'
 
-STEAM_STL_INSTALL_PATH = os.path.join(HOME_DIR, 'stl')
-STEAM_STL_CONFIG_PATH = os.path.join(HOME_DIR, '.config', 'steamtinkerlaunch')
-STEAM_STL_CACHE_PATH = os.path.join(HOME_DIR, '.cache', 'steamtinkerlaunch')
-STEAM_STL_DATA_PATH = os.path.join(HOME_DIR, '.local', 'share', 'steamtinkerlaunch')
-STEAM_STL_SHELL_FILES = [ '.bashrc', '.zshrc', '.kshrc' ]
-STEAM_STL_FISH_VARIABLES = os.path.join(HOME_DIR, '.config/fish/fish_variables')
+STEAM_TINKERGAME_INSTALL_PATH = os.path.join(HOME_DIR, 'tinkergame')
+STEAM_TINKERGAME_CONFIG_PATH = os.path.join(HOME_DIR, '.config', 'tinkergame')
+STEAM_TINKERGAME_CACHE_PATH = os.path.join(HOME_DIR, '.cache', 'tinkergame')
+STEAM_TINKERGAME_DATA_PATH = os.path.join(HOME_DIR, '.local', 'share', 'tinkergame')
+STEAM_TINKERGAME_SHELL_FILES = [ '.bashrc', '.zshrc', '.kshrc' ]
+STEAM_TINKERGAME_FISH_VARIABLES = os.path.join(HOME_DIR, '.config/fish/fish_variables')
 
 LUTRIS_WEB_URL = 'https://lutris.net/games/'
 EPIC_STORE_URL = 'https://store.epicgames.com/p/'

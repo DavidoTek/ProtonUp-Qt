@@ -112,7 +112,7 @@ class PupguiGameListDialog(QObject):
     def update_game_list_steam(self, cached=True):
         """ update the game list for the Steam launcher """
         self.games: list[SteamApp] = get_steam_game_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=cached)
-        ctools = [c if c != 'SteamTinkerLaunch' else 'Proton-stl' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True)]
+        ctools = [c if c != 'TinkerGame' else 'Proton-tg' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True)]
         ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=True))
 
         self.ui.tableGames.setRowCount(len(self.games))
