@@ -2,7 +2,13 @@
 # SteamTinkerLaunch
 # Copyright (C) 2021 DavidoTek, partially based on AUNaseef's protonup
 
-import datetime, locale, os, requests, shutil, subprocess, tarfile
+import datetime
+import locale
+import os
+import requests
+import shutil
+import subprocess
+import tarfile
 
 from PySide6.QtCore import QObject, QCoreApplication, Signal, Property
 from PySide6.QtWidgets import QMessageBox
@@ -71,23 +77,23 @@ class CtInstaller(QObject):
             proc_prefix + ['cat', '/etc/lsb-release', '/etc/os-release'],
             universal_newlines=True,
             stdout=subprocess.PIPE
-            ).stdout.strip().lower()
+        ).stdout.strip().lower()
 
     def get_download_canceled(self):
         return self.p_download_canceled
 
-    def set_download_canceled(self, val):
+    def set_download_canceled(self, val: int):
         self.p_download_canceled = val
 
     download_canceled = Property(bool, get_download_canceled, set_download_canceled)
 
-    def __set_download_progress_percent(self, value : int):
+    def __set_download_progress_percent(self, value: int | float):
         if self.p_download_progress_percent == value:
             return
         self.p_download_progress_percent = value
         self.download_progress_percent.emit(value)
 
-    def __download(self, url, destination):
+    def __download(self, url: str, destination: str) -> bool:
         """
         Download files from url to destination
         Return Type: bool
@@ -166,44 +172,55 @@ class CtInstaller(QObject):
 
         return True
 
-    def is_system_compatible(self):
+    def is_system_compatible(self) -> bool:
         """
         Are the system requirements met?
         Return Type: bool
         """
-        # Possibly excuse some of these if not on Steam Deck and ignore if Flatpak
-        proc_prefix = ['flatpak-spawn', '--host'] if constants.IS_FLATPAK else []
-        yad_exe = host_which('yad')
-        if yad_exe:
-            try:
-                yad_vers = subprocess.run(proc_prefix + ['yad', '--version'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().split(' ')[0].split('.')
-                yad_ver = float(f'{yad_vers[0]}.{yad_vers[1]}')
-            except Exception as e:
-                print('STL is_system_compatible Could not parse yad version:', e)
-                yad_ver = 0.0
 
-        # Don't check dependencies on Steam Deck, STL will manage dependencies itself in that case
-        deps_met = {}
-        if "steamos" not in self.distinfo:
-            deps_met = {
-                'awk-gawk': host_which('awk') or host_which('gawk'),
-                'git': host_which('git'),
-                'pgrep': host_which('pgrep'),
-                'unzip': host_which('unzip'),
-                'wget': host_which('wget'),
-                'xdotool': host_which('xdotool'),
-                'xprop': host_which('xprop'),
-                'xrandr': host_which('xrandr'),
-                'xxd': host_which('xxd'),
-                'xwininfo': host_which('xwininfo'),
-                'yad >= 7.2': yad_exe and yad_ver >= 7.2
-            }
+        # Don't check dependencies on SteamOS
+        if 'steamos' in self.distinfo:
+            return True
+
+        # Possibly excuse some of these if not on Steam Deck and ignore if Flatpak
+        proc_prefix: list[str] = ['flatpak-spawn', '--host'] if constants.IS_FLATPAK else []
+        yad_exe: str = host_which('yad')
+
+        try:
+            if not yad_exe:
+                raise Exception(f'Could not find Yad binary, yad_exe is {yad_exe}')
+
+            yad_vers: list[str] = subprocess.run(proc_prefix + ['yad', '--version'], universal_newlines=True, stdout=subprocess.PIPE).stdout.strip().split(' ')[0].split('.')
+            yad_ver = float(f'{yad_vers[0]}.{yad_vers[1]}')
+        except Exception as e:
+            print('STL is_system_compatible Could not parse yad version:', e)
+            yad_ver = 0.0
+
+        deps_met: dict[str, str | bool] = {
+            'awk-gawk': host_which('awk') or host_which('gawk'),
+            'git': host_which('git'),
+            'pgrep': host_which('pgrep'),
+            'unzip': host_which('unzip'),
+            'wget': host_which('wget'),
+            'xdotool': host_which('xdotool'),
+            'xprop': host_which('xprop'),
+            'xrandr': host_which('xrandr'),
+            'xxd': host_which('xxd'),
+            'xwininfo': host_which('xwininfo'),
+            'yad >= 7.2': yad_exe and yad_ver >= 7.2
+        }
 
         if all(deps_met.values()):
             return True
+
+        # Display dialog with which dependencies are found and which aren't by displaying 'found'
+        # if the value in the 'deps_met' dict is truthy and 'missing' if it is falsey
         msg = QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'You have several unmet dependencies for SteamTinkerLaunch.\n\n')
-        msg += '\n'.join([f'{dep_name}: {"found" if is_dep_met else "missing"}' for (dep_name, is_dep_met) in deps_met.items()])
+        msg += '\n'.join([
+            f'{dep_name}: { "found" if is_dep_met else "missing" }' for ( dep_name, is_dep_met ) in deps_met.items()
+        ])
         msg += QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', '\n\nInstallation will be cancelled.')
+
         self.message_box_message.emit(QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'Missing dependencies!'), msg, QMessageBox.Warning)
 
         return False  # Installation would fail without dependencies.
@@ -223,7 +240,7 @@ class CtInstaller(QObject):
 
         return branches
 
-    def get_tool(self, version, install_dir, temp_dir):
+    def get_tool(self, version: str, install_dir: str, temp_dir: str) -> bool:
         """
         Download and install the compatibility tool
         Return Type: bool
@@ -231,9 +248,10 @@ class CtInstaller(QObject):
 
         has_existing_install = False
 
+        ## Check for and handle any external SteamTinkerLaunch installations
         # If there's an existing STL installation that isn't installed by ProtonUp-Qt, ask the user if they still want to install
         has_external_install = get_external_steamtinkerlaunch_intall(os.path.join(install_dir, 'SteamTinkerLaunch'))
-        if has_external_install:
+        if os.path.exists(has_external_install):
             print('Non-ProtonUp-Qt installation of SteamTinkerLaunch detected. Asking the user what they want to do...')
             self.question_box_message.emit(
                 QCoreApplication.instance().translate('ctmod_steamtinkerlaunch', 'Existing SteamTinkerLaunch Installation'),
@@ -259,8 +277,8 @@ class CtInstaller(QObject):
                 print('User opted to not continue installing SteamTinkerLaunch. Aborting...')
                 return False
 
+        ## Download SteamTinkerLaunch tool
         print('Downloading SteamTinkerLaunch...')
-
         data = self.__fetch_github_data(version)
         if not data or 'download' not in data:
             return False
@@ -272,6 +290,7 @@ class CtInstaller(QObject):
         if not self.__download(url=data['download'], destination=destination):
             return False
 
+        ## Extract SteamTinkerLaunnch
         with tarfile.open(destination, "r:gz") as tar:
             print('Extracting SteamTinkerLaunch...')
             if os.path.exists(constants.STEAM_STL_INSTALL_PATH) and len(os.listdir(constants.STEAM_STL_INSTALL_PATH)) > 0:
@@ -286,61 +305,62 @@ class CtInstaller(QObject):
 
             tarname = tar.getnames()[0]
             
-            # Location of SteamTinkerLaunch script to add to path later
-            old_stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, tarname)
+        # Location of SteamTinkerLaunch script to add to path later
+        old_stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, tarname)
+        stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, 'prefix')
+
+        # Rename folder ~/stl/<tarname> to ~/stl/prefix
+        os.rename(old_stl_path, stl_path)
+        os.chdir(stl_path)
+
+        # ProtonUp-Qt Flatpak: Run STL on host system
+        stl_proc_prefix: list[str] = ['flatpak-spawn', '--host'] if constants.IS_FLATPAK else []
+
+        ## Run any required SteamTinkerLaunch installation steps (e.g. execute script on SteamOS, configure locale, etc)
+        # If on Steam Deck, run script for initial Steam Deck config
+        # On Steam Deck, STL is installed to "/home/deck/stl/prefix"
+        self.__set_download_progress_percent(99.5) # 99.5 installing tool
+        print('Setting up SteamTinkerLaunch...')
+        if "steamos" in self.distinfo:
+            subprocess.run(['chmod', '+x', 'steamtinkerlaunch'])
+            subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch'])
+
+            # Change location of STL script to add to path as this is different on Steam Deck 
             stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, 'prefix')
 
-            # Rename folder ~/stl/<tarname> to ~/stl/prefix
-            os.rename(old_stl_path, stl_path)
+            # Change to STL prefix dir on Steam Deck so that the compatibility tool is symlinked correctly
             os.chdir(stl_path)
+        else:
+            # Get STL language and default to 'en_US' if the language is not available
+            # This step should not be necessary on Steam Deck
+            syslang: str = locale.getdefaultlocale()[0] or 'en_US'
+            stl_langs: dict[str, str] = {
+                'de_DE': 'german.txt',
+                'en_GB': 'englishUK.txt',
+                'en_US': 'english.txt',
+                'fr_FR': 'french.txt',
+                'il_IL': 'italian.txt',
+                'nl_NL': 'dutch.txt',
+                'pl_PL': 'polish.txt',
+                'ru_RU': 'russian.txt',
+                'zh_CN': 'chinese.txt',
+            }
+            stl_lang = stl_langs[syslang] if syslang in stl_langs else stl_langs['en_US']
+            stl_lang_path = os.path.join(constants.STEAM_STL_CONFIG_PATH, 'lang')
 
-            # ProtonUp-Qt Flatpak: Run STL on host system
-            stl_proc_prefix = ['flatpak-spawn', '--host'] if constants.IS_FLATPAK else []
-
-            # If on Steam Deck, run script for initial Steam Deck config
-            # On Steam Deck, STL is installed to "/home/deck/stl/prefix"
-            self.__set_download_progress_percent(99.5) # 99.5 installing tool
-            print('Setting up SteamTinkerLaunch...')
-            if "steamos" in self.distinfo:
-                subprocess.run(['chmod', '+x', 'steamtinkerlaunch'])
-                subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch'])
-
-                # Change location of STL script to add to path as this is different on Steam Deck 
-                stl_path = os.path.join(constants.STEAM_STL_INSTALL_PATH, 'prefix')
-
-                # Change to STL prefix dir on Steam Deck so that the compatibility tool is symlinked correctly
-                os.chdir(stl_path)
-            else:
-                # Get STL language and default to 'en_US' if the language is not available
-                # This step should not be necessary on Steam Deck
-                syslang = locale.getdefaultlocale()[0] or 'en_US'
-                stl_langs = {
-                    'de_DE': 'german.txt',
-                    'en_GB': 'englishUK.txt',
-                    'en_US': 'english.txt',
-                    'fr_FR': 'french.txt',
-                    'il_IL': 'italian.txt',
-                    'nl_NL': 'dutch.txt',
-                    'pl_PL': 'polish.txt',
-                    'ru_RU': 'russian.txt',
-                    'zh_CN': 'chinese.txt',
-                }
-                stl_lang = stl_langs[syslang] if syslang in stl_langs else stl_langs['en_US']
-                stl_lang_path = os.path.join(constants.STEAM_STL_CONFIG_PATH, 'lang')
-
-                # Generate config file structure and copy relevant lang file
-                os.makedirs(stl_lang_path, exist_ok=True)
-                if not os.path.isfile(os.path.join(stl_lang_path, 'english.txt')):
-                    shutil.copyfile('lang/english.txt', os.path.join(stl_lang_path, 'english.txt'))
-                if not os.path.isfile(os.path.join(stl_lang_path, stl_lang)):
-                    shutil.copyfile(f'lang/{stl_lang}', os.path.join(stl_lang_path, stl_lang))
-                subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch', f'lang={stl_lang.replace(".txt", "")}'])
-                self.__stl_config_change_language(constants.STEAM_STL_CONFIG_PATH, stl_lang)
+            ## Generate config file structure and copy relevant lang file
+            os.makedirs(stl_lang_path, exist_ok=True)
+            if not os.path.isfile(os.path.join(stl_lang_path, 'english.txt')):
+                shutil.copyfile('lang/english.txt', os.path.join(stl_lang_path, 'english.txt'))
+            if not os.path.isfile(os.path.join(stl_lang_path, stl_lang)):
+                shutil.copyfile(f'lang/{stl_lang}', os.path.join(stl_lang_path, stl_lang))
+            subprocess.run(stl_proc_prefix + ['./steamtinkerlaunch', f'lang={stl_lang.replace(".txt", "")}'])
+            self.__stl_config_change_language(constants.STEAM_STL_CONFIG_PATH, stl_lang)
 
             # Add SteamTinkerLaunch to all available shell paths (native Linux)
             # Dialog warning - Only warn on new installs or overwritten manual installs
             # For background see this issue: https://github.com/DavidoTek/ProtonUp-Qt/issues/127
-            should_show_shellmod_dialog = has_external_install or not has_existing_install
+            should_show_shellmod_dialog = bool(has_external_install or not has_existing_install)
             should_add_path = True
 
             # Checkbox is only shown to users who have ProtonUp-Qt Advanced mode enalbed
@@ -361,7 +381,7 @@ class CtInstaller(QObject):
                     should_add_path = False  # Shouldn't matter since installation will end here, but setting for completeness
                     remove_steamtinkerlaunch(remove_config=False, ctmod_object=self)  # shouldn't need compat_folder arg     -     (compat_folder=os.path.join(install_dir, 'SteamTinkerLaunch'))
                     self.__set_download_progress_percent(-2)
-                    return
+                    return False
                 elif not shellmod_msgbox_result.is_checked and shellmod_msgbox_result.button_clicked == MsgBoxResult.BUTTON_OK:
                     # Continue installation but skip adding to PATH
                     print('User asked not to add SteamTinkerLaunch to shell paths, skipping...')
@@ -383,21 +403,23 @@ class CtInstaller(QObject):
                 for shell_file in present_shell_files:
                     with open(shell_file, 'r+') as mfile:
                         stl_already_in_path = constants.STEAM_STL_INSTALL_PATH in [line for line in mfile.readlines()]
-                        if not stl_already_in_path:
-                            # Add Fish user path, preserving any existing paths 
-                            if 'fish' in mfile.name:
-                                mfile.seek(0)
-                                curr_fish_user_paths = get_fish_user_paths(mfile)
-                                curr_fish_user_paths.insert(0, stl_path)
-                                updated_fish_user_paths = '\\x1e'.join(curr_fish_user_paths)
-                                pup_stl_path_line = f'SETUVAR fish_user_paths:{updated_fish_user_paths}'
+                        if stl_already_in_path:
+                            continue
 
-                                mfile.seek(0)
-                                new_fish_contents = ''.join([line for line in mfile.readlines() if 'fish_user_paths:' not in line])
-                                mfile.seek(0)
-                                mfile.write(new_fish_contents)
-                            
-                            mfile.write(f'\n{pup_stl_path_date}\n{pup_stl_path_line}\n')
+                        # Add Fish user path, preserving any existing paths
+                        if 'fish' in mfile.name:
+                            mfile.seek(0)
+                            curr_fish_user_paths = get_fish_user_paths(mfile)
+                            curr_fish_user_paths.insert(0, stl_path)
+                            updated_fish_user_paths = '\\x1e'.join(curr_fish_user_paths)
+                            pup_stl_path_line = f'SETUVAR fish_user_paths:{updated_fish_user_paths}'
+
+                            mfile.seek(0)
+                            new_fish_contents = ''.join([line for line in mfile.readlines() if 'fish_user_paths:' not in line])
+                            mfile.seek(0)
+                            mfile.write(new_fish_contents)
+
+                        mfile.write(f'\n{pup_stl_path_date}\n{pup_stl_path_line}\n')
 
             # Install Compatibility Tool (Proton games)
             print('Adding SteamTinkerLaunch as a compatibility tool...')
@@ -405,9 +427,8 @@ class CtInstaller(QObject):
 
             os.chdir(constants.HOME_DIR)
 
-        protondir = os.path.join(install_dir, 'SteamTinkerLaunch')
-
         # We can't use the version arg to this method because we need to list the PROGVERS stored by the SteamTinkerLaunch script
+        protondir: str = os.path.join(install_dir, 'SteamTinkerLaunch')
         if os.path.exists(protondir):
             # Get PROGVERS from STL script
             stl_filename = 'steamtinkerlaunch'
@@ -434,7 +455,7 @@ class CtInstaller(QObject):
         print('Successfully installed SteamTinkerLaunch!')
         return True
     
-    def get_info_url(self, version):
+    def get_info_url(self, version: str) -> str:
         """
         Return link with GitHub release page.
         If SteamTinkerLaunch-git, returns the project homepage.
