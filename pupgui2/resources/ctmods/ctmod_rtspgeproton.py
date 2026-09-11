@@ -4,15 +4,15 @@
 
 from PySide6.QtCore import QCoreApplication
 
-from pupgui2.resources.ctmods.ctmod_00protonge import CtInstaller as ProtonGECTInstaller
+from pupgui2.resources.ctmods.ctmod_00protonge import CtInstaller as GEProtonInstaller
 
 
 CT_NAME = 'Proton-RTSP'
-CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles', 'lutris']
+CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles', 'lutris', 'advmode']
 CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_rtspgeproton', '''Compatibility tool for Steam Play based on Wine and additional components.''')}
 
 
-class CtInstaller(ProtonGECTInstaller):
+class CtInstaller(GEProtonInstaller):
 
     BUFFER_SIZE = 4096
     CT_URL = 'https://api.github.com/repos/SpookySkeletons/proton-rtsp/releases'
