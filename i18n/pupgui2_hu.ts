@@ -4,22 +4,26 @@
 <context>
     <name>CtInstaller</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="105"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="102"/>
         <source>Missing dependencies!</source>
         <translation>Hiányzó függőségek!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="75"/>
-        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="79"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="78"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="77"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="77"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dproton.py" line="72"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
         <source>Download Error!</source>
         <translation>Letöltési hiba!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
-        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="80"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="80"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="78"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="79"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="70"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dproton.py" line="73"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="76"/>
         <source>Failed to download tool &apos;{CT_NAME}&apos;!
 
@@ -37,7 +41,7 @@ Ok: {EXCEPTION}</translation>
         <translation>Hiba!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/ctloader.py" line="54"/>
+        <location filename="../pupgui2/ctloader.py" line="53"/>
         <source>Couldn&apos;t load the following compatibility tool(s):
 {TOOL_LIST}
 
@@ -84,95 +88,95 @@ Ha úgy gondolod, hogy ez hiba, kérjük, jelentsd a hibát a GitHub-on kereszt�
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="277"/>
+        <location filename="../pupgui2/pupgui2.py" line="279"/>
         <source>unused</source>
         <translation>nem használt</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="277"/>
+        <location filename="../pupgui2/pupgui2.py" line="279"/>
         <source>global</source>
         <translation>globális</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="298"/>
+        <location filename="../pupgui2/pupgui2.py" line="300"/>
         <source>Unused: {unused_ctools}</source>
         <translation>Nem használt: {unused_ctools}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="325"/>
+        <location filename="../pupgui2/pupgui2.py" line="327"/>
         <source>Fetching releases...</source>
         <translation>A kiadások letöltése...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="336"/>
+        <location filename="../pupgui2/pupgui2.py" line="338"/>
         <source>Download canceled.</source>
         <translation>Letöltés megszakítva.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="339"/>
+        <location filename="../pupgui2/pupgui2.py" line="341"/>
         <source>Could not install {current_compat_tool_name}...</source>
         <translation>Nem tudtam telepíteni {current_compat_tool_name}...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="345"/>
+        <location filename="../pupgui2/pupgui2.py" line="347"/>
         <source>Downloading {current_compat_tool_name}...</source>
         <translation>{current_compat_tool_name} letöltése...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="347"/>
+        <location filename="../pupgui2/pupgui2.py" line="349"/>
         <source>Extracting {current_compat_tool_name}...</source>
         <translation>{current_compat_tool_name} kibontása...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="349"/>
+        <location filename="../pupgui2/pupgui2.py" line="351"/>
         <source>Installing {current_compat_tool_name}...</source>
         <translation>{current_compat_tool_name} telepítése...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="351"/>
+        <location filename="../pupgui2/pupgui2.py" line="353"/>
         <source>Installed {current_compat_tool_name}.</source>
         <translation>{current_compat_tool_name} telepítve.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="377"/>
+        <location filename="../pupgui2/pupgui2.py" line="379"/>
         <source>Remove compatibility tools?</source>
         <translation>Eltávolítod a kompatibilitási eszközöket?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="377"/>
+        <location filename="../pupgui2/pupgui2.py" line="379"/>
         <source>You are trying to remove compatibility tools
 which are in use by {n} games. Continue?</source>
         <translation>Megpróbálod eltávolítani azt a kompatibilitási eszközt
 amelyet {n} játék használ. Folytassam?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="384"/>
+        <location filename="../pupgui2/pupgui2.py" line="386"/>
         <source>Removed selected versions.</source>
         <translation>Eltávolítottad a kiválasztott verziókat.</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="398"/>
+        <location filename="../pupgui2/pupgui2.py" line="400"/>
         <source>Exit?</source>
         <translation>Kilépsz az alkalmazásból?</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="398"/>
+        <location filename="../pupgui2/pupgui2.py" line="400"/>
         <source>There are pending downloads.
 Cancel and exit anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="411"/>
+        <location filename="../pupgui2/pupgui2.py" line="413"/>
         <source>Changed install directory to {install_dir}.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="460"/>
+        <location filename="../pupgui2/pupgui2.py" line="462"/>
         <source>Install tool from Flathub</source>
         <translation>Eszköz letöltése a Flathubról</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2.py" line="462"/>
+        <location filename="../pupgui2/pupgui2.py" line="464"/>
         <source>Click to open your app store</source>
         <translation type="unfinished"></translation>
     </message>
@@ -324,28 +328,28 @@ Cancel and exit anyway?</source>
         <translation type="vanished">Erneuere Steamliste</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="93"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="91"/>
         <source>Update available</source>
         <translation>Frissítés elérhető</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="94"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="92"/>
         <source>There is a newer version available.
 You are running {APP_VERSION} but {newest_version} is available.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="98"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
         <source>Up to date</source>
         <translation>Naprakész</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="98"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="96"/>
         <source>You are running the newest version!</source>
         <translation>A legújabb verziót használod!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="103"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="101"/>
         <source>Added shortcut!</source>
         <translation>Parancsikon hozzáadva!</translation>
     </message>
@@ -370,38 +374,33 @@ You are running {APP_VERSION} but {newest_version} is available.</source>
         <translation>Téma színe:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="145"/>
-        <source>Enable advanced mode (show git-builds for compatibility tools etc.)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="157"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="150"/>
         <source>Edit Git access tokens</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="182"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="175"/>
         <source>Check for updates</source>
         <translation>Ellenőrizd a frissítéseket</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="202"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="195"/>
         <source>Adds a shortcut to open ProtonUp-Qt from your Steam library.
 To remove the shortcut, open Steam and select &quot;remove non-Steam game from your library&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="206"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="199"/>
         <source>Add Steam shortcut</source>
         <translation>Steam parancsikon létrehozás</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="213"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="206"/>
         <source>About Qt</source>
         <translation>A QT -ről</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="220"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="213"/>
         <source>Close</source>
         <translation>Bezár</translation>
     </message>
@@ -502,38 +501,38 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <translation>Bezár</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="83"/>
         <source>AppID</source>
         <translation>Alkalmazás azonosítója</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="85"/>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="83"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="96"/>
         <source>Name</source>
         <translation>Név</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="98"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="96"/>
         <source>Slug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="108"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="106"/>
         <source>Runner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="108"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="106"/>
         <source>Game</source>
         <translation>Játék</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="127"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="125"/>
         <source>Tool is Global</source>
         <translation>Az eszköz globális</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="152"/>
+        <location filename="../pupgui2/pupgui2ctinfodialog.py" line="150"/>
         <source>e.g. {GAME_NAME}</source>
         <translation>pl.: {GAME_NAME}</translation>
     </message>
@@ -615,9 +614,9 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="227"/>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="228"/>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="229"/>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="435"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="434"/>
         <source>Unknown</source>
         <translation>Ismeretlen</translation>
     </message>
@@ -651,7 +650,7 @@ Típus: {wine_type}</translation>
         <translation>Böngésző</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="273"/>
         <source>Native</source>
         <translation>Natív</translation>
     </message>
@@ -671,27 +670,27 @@ Típus: {wine_type}</translation>
         <translation>Keresés</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="393"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="392"/>
         <source>Double click to browse...</source>
         <translation>Kattints duplán a böngészéshez...</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="396"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="394"/>
         <source>Install location does not exist!</source>
         <translation>Telepítési hely nem található!</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="437"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="436"/>
         <source>Unsupported</source>
         <translation>Nem támogatott</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="440"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="439"/>
         <source>Playable</source>
         <translation>Játszható</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="442"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="441"/>
         <source>Native (playable)</source>
         <translation>Natív (játszható)</translation>
     </message>
@@ -701,12 +700,12 @@ Típus: {wine_type}</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="447"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="446"/>
         <source>Verified</source>
         <translation>Ellenőrzött</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="449"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="448"/>
         <source>Native (verified)</source>
         <translation>Natív (ellenőrzött)</translation>
     </message>
@@ -716,7 +715,7 @@ Típus: {wine_type}</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="409"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="408"/>
         <source>Support was explicitly enabled / works out of the box</source>
         <translation type="unfinished"></translation>
     </message>
@@ -731,7 +730,7 @@ Típus: {wine_type}</translation>
         <translation>Telepített játékok: {NO_INSTALLED}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="230"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="229"/>
         <source>Install Date is Unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -751,32 +750,32 @@ Típus: {wine_type}</translation>
         <translation>pl.: {GAME_NAME}</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="412"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="411"/>
         <source>Game plans to support Proton/Wine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="415"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="414"/>
         <source>No official statement but runs fine (may require tinkering)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="418"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="417"/>
         <source>Anti-Cheat stops game from running properly</source>
         <translation>Az Anti-Cheat megállítja a játék megfelelő futását</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="421"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="420"/>
         <source>Linux support was explicitly denied</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="424"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="423"/>
         <source>Anti-Cheat status unknown</source>
         <translation>Anti-Cheat állapot ismeretlen</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="355"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="354"/>
         <source>Confidence: {confidence}
 Score: {score}
 Trending: {trending}</source>
@@ -815,7 +814,7 @@ Trend: {trending}</translation>
         <translation>Parancsikon szerkesztő</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="299"/>
+        <location filename="../pupgui2/pupgui2gamelistdialog.py" line="298"/>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="119"/>
         <source>Apply</source>
         <translation>Alkalmaz</translation>
@@ -834,17 +833,22 @@ Trend: {trending}</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="91"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="76"/>
+        <source>Enable advanced mode (show git-builds for compatibility tools etc.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="98"/>
         <source>Info</source>
         <translation>Információ</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="98"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="105"/>
         <source>Install</source>
         <translation>Telepítés</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="105"/>
+        <location filename="../pupgui2/resources/ui/pupgui2_installdialog.ui" line="112"/>
         <source>Cancel</source>
         <translation>Mégsem</translation>
     </message>
@@ -864,7 +868,7 @@ Trend: {trending}</translation>
         <translation>Leírás:</translation>
     </message>
     <message>
-        <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
+        <location filename="../pupgui2/pupgui2installdialog.py" line="112"/>
         <source>Load more...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -958,7 +962,7 @@ Trend: {trending}</translation>
 <context>
     <name>ctmod_boxtron</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="15"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_boxtron.py" line="12"/>
         <source>Steam Play compatibility tool to run DOS games using native Linux DOSBox.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -984,9 +988,17 @@ Trend: {trending}</translation>
     </message>
 </context>
 <context>
+    <name>ctmod_dwproton</name>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_dwproton.py" line="16"/>
+        <source>Dawn Winery&apos;s custom Proton fork with fixes for various games :xdd:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ctmod_kron4ekvanilla</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_kron4ekvanilla.py" line="20"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_kron4ekvanilla.py" line="17"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Official version from the WineHQ sources, compiled by Kron4ek.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -994,7 +1006,7 @@ Trend: {trending}</translation>
 <context>
     <name>ctmod_lutriswine</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="17"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_lutriswine.py" line="14"/>
         <source>Compatibility tool &quot;Wine&quot; to run Windows games on Linux. Improved by Lutris to offer better compatibility or performance in certain games.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1002,7 +1014,7 @@ Trend: {trending}</translation>
 <context>
     <name>ctmod_luxtorpeda</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="22"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="19"/>
         <source>Luxtorpeda provides Linux-native game engines for specific Windows-only games.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1013,16 +1025,11 @@ Trend: {trending}</translation>
         <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</source>
         <translation type="vanished">Proton Build auf Basis von TKGs Proton-tkg, um den Northstar Client + TitanFall 2 zu nutzen. Von cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Vor dem Fortfahren bitte folgendes lesen&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/cyrv6737/NorthstarProton&quot;&gt;https://github.com/cyrv6737/NorthstarProton&lt;/a&gt;</translation>
     </message>
-    <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_northstarproton.py" line="17"/>
-        <source>Proton build based on TKG&apos;s proton-tkg to run the Northstar client + TitanFall 2. By cyrv6737.&lt;br/&gt;&lt;br/&gt;&lt;b style=&quot;color:orange;&quot;&gt;Read the following before proceeding&lt;/b&gt;:&lt;br/&gt;&lt;a href=&quot;https://github.com/R2NorthstarTools/NorthstarProton&quot;&gt;https://github.com/R2NorthstarTools/NorthstarProton&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ctmod_protoncachyos</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_protoncachyos.py" line="29"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_protoncachyos.py" line="15"/>
         <source>
         Steam compatibility tool from the CachyOS Linux distribution for running Windows games
         with improvements over Valve&apos;s default Proton. Choose the one corresponding to your CPU.
@@ -1035,9 +1042,17 @@ Trend: {trending}</translation>
     </message>
 </context>
 <context>
+    <name>ctmod_protonem</name>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_protonem.py" line="13"/>
+        <source>Fork of Valve&apos;s Proton with Wine-Wayland and AMD FidelityFX Super Resolution 4 patches.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ctmod_protontkg</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="20"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_protontkg.py" line="19"/>
         <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1045,7 +1060,7 @@ Trend: {trending}</translation>
 <context>
     <name>ctmod_protontkg_winemaster</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_protontkg_winemaster.py" line="18"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_protontkg_winemaster.py" line="12"/>
         <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.
 &lt;br/&gt;
 &lt;br/&gt;
@@ -1054,9 +1069,20 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
     </message>
 </context>
 <context>
+    <name>ctmod_protontkg_winemaster_ntsync</name>
+    <message>
+        <location filename="../pupgui2/resources/ctmods/ctmod_protontkg_ntsync.py" line="12"/>
+        <source>Custom Proton build for running Windows games, built with the Wine-tkg build system.
+&lt;br/&gt;
+&lt;br/&gt;
+This build is based on &lt;b&gt;Wine Master&lt;/b&gt; and includes the &lt;b&gt;NTSYNC&lt;/b&gt; patches (Requires a Kernel with NTSYNC support).</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ctmod_roberta</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="15"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_roberta.py" line="12"/>
         <source>Steam Play compatibility tool to run adventure games using native Linux ScummVM.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1084,7 +1110,7 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
 <context>
     <name>ctmod_rtspgeproton</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="15"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="12"/>
         <source>Fork of GE-Proton with enhanced Windows Media Foundation support.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1092,7 +1118,7 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
 <context>
     <name>ctmod_steamplaynone</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="21"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="18"/>
         <source>Run Linux games as is, even if Valve recommends Proton for a game.&lt;br/&gt;Created by Scrumplex.&lt;br/&gt;&lt;br/&gt;Useful for Steam Deck.&lt;br/&gt;&lt;br/&gt;Note: The internal name has been changed from &lt;b&gt;none&lt;/b&gt; to &lt;b&gt;Steam-Play-None&lt;/b&gt;!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1100,7 +1126,7 @@ This build is based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
 <context>
     <name>ctmod_steamtinkerlaunch</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="44"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="20"/>
         <source>
 Linux wrapper tool for use with the Steam client which allows for easy graphical configuration of game tools for Proton and native Linux games.
 &lt;br/&gt;&lt;br/&gt;
@@ -1126,14 +1152,14 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="205"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="204"/>
         <source>You have several unmet dependencies for SteamTinkerLaunch.
 
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="207"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch.py" line="206"/>
         <source>
 
 Installation will be cancelled.</source>
@@ -1184,7 +1210,7 @@ Some users may not want this functionality. Do you want to continue installing S
 <context>
     <name>ctmod_steamtinkerlaunch_git</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch_git.py" line="38"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_steamtinkerlaunch_git.py" line="12"/>
         <source>
 &lt;b&gt;Git release - May be unstable&lt;/b&gt;
 &lt;br/&gt;&lt;br/&gt;
@@ -1215,7 +1241,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
 <context>
     <name>ctmod_vkd3d-lutris</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dlutris.py" line="14"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dlutris.py" line="12"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Lutris Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1223,7 +1249,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
 <context>
     <name>ctmod_vkd3d-proton</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dproton.py" line="19"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_vkd3dproton.py" line="20"/>
         <source>Fork of Wine&apos;s VKD3D which aims to implement the full Direct3D 12 API on top of Vulkan (Valve Release).&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1231,7 +1257,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
 <context>
     <name>ctmod_winetkg_valve_otherdistro</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="12"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system based on &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1239,7 +1265,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
 <context>
     <name>ctmod_winetkg_vanilla_ubuntu</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="15"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="12"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system (Ubuntu CI) based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1247,7 +1273,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
 <context>
     <name>ctmod_z0dxvk</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="22"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="19"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1259,7 +1285,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
         <translation type="vanished">Vulkan-basierte Implementierung von Direct3D 9, 10 und 11 für Linux/Wine mit Sporifs Async Patch.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Achtung: Nur für Singleplayer Spiele geeignet!&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="13"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1267,7 +1293,7 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
 <context>
     <name>ctmod_z2dxvknightly</name>
     <message>
-        <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
+        <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="16"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1275,12 +1301,12 @@ of the SteamTinkerLaunch Installation guide on its GitHub page.</source>
 <context>
     <name>steamutil.py</name>
     <message>
-        <location filename="../pupgui2/steamutil.py" line="499"/>
+        <location filename="../pupgui2/steamutil.py" line="497"/>
         <source>Unable to Remove SteamTinkerLaunch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/steamutil.py" line="502"/>
+        <location filename="../pupgui2/steamutil.py" line="498"/>
         <source>Access to SteamTinkerLaunch installation folder at &apos;{STL_SYMLINK_PATH}&apos; was denied, please remove this folder manually.
 
 The uninstallation will continue.</source>
@@ -1290,7 +1316,7 @@ The uninstallation will continue.</source>
 <context>
     <name>translator-text</name>
     <message>
-        <location filename="../pupgui2/pupgui2aboutdialog.py" line="40"/>
+        <location filename="../pupgui2/pupgui2aboutdialog.py" line="38"/>
         <source>Translated by DavidoTek</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1298,55 +1324,55 @@ The uninstallation will continue.</source>
 <context>
     <name>util.py</name>
     <message>
-        <location filename="../pupgui2/util.py" line="369"/>
+        <location filename="../pupgui2/util.py" line="376"/>
         <source>Delete SteamTinkerLaunch configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="370"/>
+        <location filename="../pupgui2/util.py" line="377"/>
         <source>Uninstalling SteamTinkerLaunch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="371"/>
+        <location filename="../pupgui2/util.py" line="378"/>
         <source>SteamTinkerLaunch will be removed from your system. If this tool was installed with ProtonUp-Qt, this will also update your PATH to remove SteamTinkerLaunch.
 Do you want the configuration to be removed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="560"/>
+        <location filename="../pupgui2/util.py" line="567"/>
         <source>Warning: GitHub API rate limit exceeded!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="561"/>
+        <location filename="../pupgui2/util.py" line="568"/>
         <source>GitHub API rate limit exceeded. You may need to wait a while or specify a GitHub API key if you have one.
 
 See https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080 for details.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="574"/>
+        <location filename="../pupgui2/util.py" line="581"/>
         <source>Warning: GitLab API rate limit exceeded!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="575"/>
+        <location filename="../pupgui2/util.py" line="582"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="923"/>
+        <location filename="../pupgui2/util.py" line="965"/>
         <source>missing</source>
         <translation>hiányzó</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="924"/>
+        <location filename="../pupgui2/util.py" line="966"/>
         <source>found</source>
         <translation>megtalált</translation>
     </message>
     <message>
-        <location filename="../pupgui2/util.py" line="926"/>
+        <location filename="../pupgui2/util.py" line="967"/>
         <source>You need following dependencies for {CT_NAME}:
 
 {DEP_ENUM}
