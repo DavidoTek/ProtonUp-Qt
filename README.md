@@ -29,16 +29,25 @@ https://aur.archlinux.org/packages/protonup-qt (Maintained by yochananmarqos)
 https://aur.archlinux.org/packages/protonup-qt-bin (Maintained by R1yuu)
 
 ## Run from source
-### Install dependencies
-`pip3 install -r ./requirements.txt`
-### Run ProtonUp-Qt
-`python3 -m pupgui2`
 
-## Build AppImage
-### Install dependencies
-1. Install appimage-builder: https://appimage-builder.readthedocs.io/en/latest/intro/install.html  
-### Build AppImage
-`appimage-builder`
+### Install dependencies with uv
+
+```bash
+uv sync
+```
+
+### Run ProtonUp-Qt
+
+```bash
+uv run protonup-qt
+```
+
+## Build AppImage with Nix
+
+### Build
+```bash
+nix build .#appimage --impure
+```
 
 ## Translate ProtonUp-Qt
 **Recommended: You can translate ProtonUp-Qt on Weblate: https://hosted.weblate.org/projects/protonup-qt/**

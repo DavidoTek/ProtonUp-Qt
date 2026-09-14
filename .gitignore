@@ -132,3 +132,6 @@ dmypy.json
 AppDir/
 appimage-builder-cache/
 appimage-build/
+
+# Nix build result symlink
+result
