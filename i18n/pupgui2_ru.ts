@@ -109,27 +109,27 @@ If you believe this is an error, please report a bug on GitHub!</source>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="339"/>
         <source>Could not install {current_compat_tool_name}...</source>
-        <translation>Не удалось установить</translation>
+        <translation>Не удалось установить {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="345"/>
         <source>Downloading {current_compat_tool_name}...</source>
-        <translation>Загрузка</translation>
+        <translation>Загрузка {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="347"/>
         <source>Extracting {current_compat_tool_name}...</source>
-        <translation>Извлечение</translation>
+        <translation>Извлечение {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="349"/>
         <source>Installing {current_compat_tool_name}...</source>
-        <translation>Установка</translation>
+        <translation>Установка {current_compat_tool_name}...</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="351"/>
         <source>Installed {current_compat_tool_name}.</source>
-        <translation>Установка</translation>
+        <translation>Установлен {current_compat_tool_name}.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="377"/>
@@ -629,7 +629,7 @@ To remove the shortcut, open Steam and select &quot;remove non-Steam game from y
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="224"/>
         <source>Installed at {DATE} ({TIME})</source>
-        <translation>Установлено в {ДАТА} ({ВРЕМЯ})</translation>
+        <translation>Установлено в {DATE} ({TIME})</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="264"/>
@@ -647,7 +647,7 @@ Path: {compat_tool_bin_path}</source>
         <source>
 Type: {wine_type}</source>
         <translation>
-Тип (тип wine)</translation>
+Тип: {wine_type}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="273"/>
@@ -702,7 +702,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="443"/>
         <source>Playable using {compat_tool}</source>
-        <translation>Воспроизводится с помощью {compat_tool}</translation>
+        <translation>Играбельно с использованием {compat_tool}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="447"/>
@@ -742,7 +742,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
         <source>Type: {PLATFORM}</source>
-        <translation>Тип (платформы)</translation>
+        <translation>Тип: {PLATFORM}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="283"/>
@@ -752,7 +752,7 @@ Type: {wine_type}</source>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="319"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>напр. {GAME_NAME}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="412"/>
@@ -784,9 +784,9 @@ Type: {wine_type}</source>
         <source>Confidence: {confidence}
 Score: {score}
 Trending: {trending}</source>
-        <translation>Уверенность: {уверенность}
-Оценка: {оценка}
-Тенденция: {trending}</translation>
+        <translation>Уверенность: {confidence}
+Оценка: {score}
+Рейтинг: {trending}</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gamelistdialog.ui" line="17"/>
