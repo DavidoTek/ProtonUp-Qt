@@ -55,6 +55,7 @@ class PupguiGameListDialog(QObject):
             self.setup_heroic_list_ui()
 
         self.ui.btnShortcutEditor.setVisible(self.launcher == 'steam')
+        self.ui.btnUpgradeGEProton.setVisible(self.launcher == 'steam')
 
         self.ui.btnSearch.setVisible(False)
         self.ui.searchBox.setVisible(False)  # Hide searchbox by default
@@ -70,6 +71,7 @@ class PupguiGameListDialog(QObject):
         self.ui.btnSearch.clicked.connect(self.btn_search_clicked)
         self.ui.btnRefreshGames.clicked.connect(self.btn_refresh_games_clicked)
         self.ui.btnShortcutEditor.clicked.connect(self.btn_shortcut_editor_clicked)
+        self.ui.btnUpgradeGEProton.clicked.connect(self.btn_upgrade_ge_proton_clicked)
         self.ui.searchBox.textChanged.connect(self.search_gamelist_games)
 
         # Hide Search button and disable shortcut if no games
@@ -331,6 +333,47 @@ class PupguiGameListDialog(QObject):
     def btn_shortcut_editor_clicked(self):
         self.ui.close()
         PupguiShortcutDialog(self.install_loc.get('vdf_dir'), self.game_property_changed, self.ui)
+
+    def btn_upgrade_ge_proton_clicked(self):
+        """ Queue all games using any GE-Proton version to switch to the latest installed GE-Proton """
+        installed = list_installed_ctools(self.install_dir, without_version=True)
+        ge_proton_tools = [t for t in installed if t.startswith('GE-Proton')]
+        if not ge_proton_tools:
+            return
+
+        latest = sort_compatibility_tool_names(ge_proton_tools, reverse=True)[0]
+
+        # Map app_id (int) -> SteamApp so we can resolve the game for any visual row order
+        app_id_to_game = {game.app_id: game for game in self.games}
+
+        for row in range(self.ui.tableGames.rowCount()):
+            combo = self.ui.tableGames.cellWidget(row, 1)
+            if combo is None:
+                continue
+            current_text = combo.currentText()
+            if not current_text.startswith('GE-Proton') or current_text == latest:
+                continue
+
+            name_item = self.ui.tableGames.item(row, 0)
+            if name_item is None:
+                continue
+            url = name_item.data(Qt.UserRole)
+            if not isinstance(url, str):
+                continue
+            app_id_str = url.rsplit('/', 1)[-1]
+            game = app_id_to_game.get(int(app_id_str)) if app_id_str.isdigit() else None
+            if game is None:
+                continue
+
+            self.queued_changes[game] = latest
+            combo.blockSignals(True)
+            combo.setCurrentText(latest)
+            combo.blockSignals(False)
+            item = self.ui.tableGames.item(row, 1)
+            if item:
+                item.setData(Qt.DisplayRole, latest)
+
+        self.set_apply_btn_text()
 
     def search_gamelist_games(self, text):
         for row in range(self.ui.tableGames.rowCount()):
