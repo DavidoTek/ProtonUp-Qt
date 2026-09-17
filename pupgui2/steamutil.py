@@ -9,6 +9,8 @@ import pkgutil
 import binascii
 from steam.utils.appcache import parse_appinfo
 
+from time import perf_counter
+
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QMessageBox, QApplication
 
@@ -61,30 +63,42 @@ def get_steam_app_list(steam_config_folder: str, cached=False, no_shortcuts=Fals
         v = vdf_safe_load(libraryfolders_vdf_file)
         c = get_steam_vdf_compat_tool_mapping(vdf_safe_load(config_vdf_file))
 
-        for fid in v.get('libraryfolders'):
-            if 'apps' not in v.get('libraryfolders').get(fid):
+        libraryfolders = v.get('libraryfolders')
+
+        for fid, libraryfolders_fid in libraryfolders.items():
+            if 'apps' not in libraryfolders_fid:
                 continue
-            fid_path = v.get('libraryfolders').get(fid).get('path')
-            fid_libraryfolder_path = fid_path
+
+            fid_path = libraryfolders_fid.get('path')
+            fid_steamapps_path = os.path.join(fid_path, 'steamapps')  # e.g. /home/gaben/Games/steamapps
+            fid_steamapps_common_path = os.path.join(fid_steamapps_path, 'common')
+
             if fid == '0':
-                fid_path = os.path.join(fid_path, 'steamapps', 'common')
-            for appid in v.get('libraryfolders').get(fid).get('apps'):
-                # Skip if app isn't installed to `/path/to/steamapps/common` - Skips soundtracks
-                fid_steamapps_path = os.path.join(fid_libraryfolder_path, 'steamapps')  # e.g. /home/gaben/Games/steamapps
+                fid_path = fid_steamapps_common_path
+
+            for appid in libraryfolders_fid.get('apps'):
                 appmanifest_path = os.path.join(fid_steamapps_path, f'appmanifest_{appid}.acf')
-                if os.path.isfile(appmanifest_path):
-                    appmanifest_install_path = vdf_safe_load(appmanifest_path).get('AppState', {}).get('installdir', None)
-                    if not appmanifest_install_path or not os.path.isdir(os.path.join(fid_steamapps_path, 'common', appmanifest_install_path)):
-                        continue
+                
+                if not os.path.isfile(appmanifest_path):
+                    continue
+                
+                # Skip if app isn't installed to `/path/to/steamapps/common` - Skips soundtracks
+                appmanifest_data = vdf_safe_load(appmanifest_path)
+                appmanifest_install_path = appmanifest_data.get('AppState', {}).get('installdir', None)
+                if not appmanifest_install_path or not os.path.isdir(os.path.join(fid_steamapps_common_path, appmanifest_install_path)):
+                    continue
 
                 app = SteamApp()
                 app.app_id = int(appid)
                 app.libraryfolder_id = fid
                 app.libraryfolder_path = fid_path
                 app.anticheat_runtimes = { RuntimeType.EAC: False, RuntimeType.BATTLEYE: False }  # Have to initialize as False here for some reason...
+
                 if ct := c.get(appid):
                     app.compat_tool = ct.get('name')
+                
                 apps.append(app)
+
         apps = update_steamapp_info(steam_config_folder, apps)
         apps = update_steamapp_awacystatus(apps)
     except Exception as e:
