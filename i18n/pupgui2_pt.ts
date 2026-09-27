@@ -6,7 +6,7 @@
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_luxtorpeda.py" line="105"/>
         <source>Missing dependencies!</source>
-        <translation type="unfinished">Dependências faltando!</translation>
+        <translation>Dependências faltam!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="75"/>
@@ -14,7 +14,7 @@
         <location filename="../pupgui2/resources/ctmods/ctmod_steamplaynone.py" line="69"/>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="75"/>
         <source>Download Error!</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro na descarga!</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_00protonge.py" line="77"/>
@@ -24,7 +24,9 @@
         <source>Failed to download tool &apos;{CT_NAME}&apos;!
 
 Reason: {EXCEPTION}</source>
-        <translation type="unfinished"></translation>
+        <translation>Falha ao descarregar a ferramenta &apos;{CT_NAME}&apos;!
+
+Motivo: {EXCEPTION}</translation>
     </message>
 </context>
 <context>
@@ -51,32 +53,32 @@ Se acredita que é um erro, faça favor relatar um bug no GitHub!</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="20"/>
         <source>Configure Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar tokens de acesso Git</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="29"/>
         <source>GitHub:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitHub:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="51"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Gravar</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="58"/>
         <source>Close</source>
-        <translation type="unfinished">Fechar</translation>
+        <translation>Fechar</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="70"/>
         <source>GitLab:</source>
-        <translation type="unfinished"></translation>
+        <translation>GitLab:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_gitaccesstokendialog.ui" line="93"/>
         <source>This dialog allows you to configure access tokens for the GitHub/GitLab API to prevent the API rate limit warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta caixa de diálogo permite configurar tokens de acesso para a API do GitHub/GitLab para evitar o aviso de limite de requisições à API.</translation>
     </message>
 </context>
 <context>
@@ -89,7 +91,7 @@ Se acredita que é um erro, faça favor relatar um bug no GitHub!</translation>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="277"/>
         <source>global</source>
-        <translation type="unfinished"></translation>
+        <translation>global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2.py" line="298"/>
@@ -277,22 +279,22 @@ Cancelar e sair mesmo assim?</translation>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="20"/>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="105"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Atualização em Lote</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="29"/>
         <source>Migrate games using the current compatibility tool to the one specified below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Migre jogos usando a ferramenta de compatibilidade atual para a especificada abaixo.</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="41"/>
         <source>New Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nova Versão:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="58"/>
         <source>Old Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versão Antiga:</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctbatchupdatedialog.ui" line="112"/>
@@ -377,7 +379,7 @@ Usa a versão {APP_VERSION}, mas a versão {newest_version} está disponível.</
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="157"/>
         <source>Edit Git access tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar tokens de acesso Git</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_aboutdialog.ui" line="182"/>
@@ -424,12 +426,12 @@ Para remover este atalho, abra a Steam e selecione &quot;remover jogo não-Steam
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="47"/>
         <source>No supported compatibility tools found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhuma ferramenta de compatibilidade suportada foi encontrada.</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctbatchupdatedialog.py" line="49"/>
         <source>Warning: Close the Steam Client beforehand.</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenção: Feche o Cliente Steam com antecedência.</translation>
     </message>
 </context>
 <context>
@@ -476,12 +478,12 @@ Para remover este atalho, abra a Steam e selecione &quot;remover jogo não-Steam
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="248"/>
         <source>No games</source>
-        <translation type="unfinished"></translation>
+        <translation>Sem jogos</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_ctinfodialog.ui" line="264"/>
         <source>Batch Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Atualização em Lote</translation>
     </message>
     <message>
         <source>Batch update</source>
@@ -531,12 +533,12 @@ Para remover este atalho, abra a Steam e selecione &quot;remover jogo não-Steam
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="127"/>
         <source>Tool is Global</source>
-        <translation type="unfinished"></translation>
+        <translation>Ferramenta é Global</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2ctinfodialog.py" line="152"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>e.g. {GAME_NAME}</translation>
     </message>
 </context>
 <context>
@@ -734,7 +736,7 @@ Tipo: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="230"/>
         <source>Install Date is Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Data de Instalação Desconhecida</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="274"/>
@@ -749,7 +751,7 @@ Tipo: {wine_type}</translation>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="319"/>
         <source>e.g. {GAME_NAME}</source>
-        <translation type="unfinished"></translation>
+        <translation>e.g. {GAME_NAME}</translation>
     </message>
     <message>
         <location filename="../pupgui2/pupgui2gamelistdialog.py" line="412"/>
@@ -867,7 +869,7 @@ Tendência: {trending}</translation>
     <message>
         <location filename="../pupgui2/pupgui2installdialog.py" line="108"/>
         <source>Load more...</source>
-        <translation type="unfinished"></translation>
+        <translation>Carregar mais...</translation>
     </message>
 </context>
 <context>
@@ -920,12 +922,12 @@ Tendência: {trending}</translation>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="77"/>
         <source>e.g. ProtonUp-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>p.ex. ProtonUp-Qt</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="80"/>
         <source>Search for a game...</source>
-        <translation type="unfinished">Buscar um jogo...</translation>
+        <translation>Pesquisar um jogo...</translation>
     </message>
     <message>
         <location filename="../pupgui2/resources/ui/pupgui2_shortcutdialog.ui" line="87"/>
@@ -1046,7 +1048,14 @@ Tendência: {trending}</translation>
         &lt;br/&gt;
         * &lt;b&gt;x86_64_v3&lt;/b&gt;: For CPUs that support AVX2 and up
         </source>
-        <translation type="unfinished"></translation>
+        <translation>
+        Ferramenta de compatibilidade do Steam da distribuição Linux CachyOS para executar jogos do Windows
+        com melhorias em relação ao Proton padrão da Valve. Escolha a versão correspondente à sua CPU.
+        &lt;br&gt;&lt;br&gt;
+        * &lt;b&gt;x86_64&lt;/b&gt;: Funciona em qualquer CPU x64_64
+        &lt;br&gt;
+        * &lt;b&gt;x86_64_v3&lt;/b&gt;: Para CPUs que supportam AVX2 e acima
+        </translation>
     </message>
 </context>
 <context>
@@ -1104,7 +1113,7 @@ Essa compilação é baseada no &lt;b&gt;Wine Master&lt;/b&gt;.</translation>
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_rtspgeproton.py" line="15"/>
         <source>Fork of GE-Proton with enhanced Windows Media Foundation support.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fork do GE-Proton com apoio aprimorado para o Windows Media Foundation.</translation>
     </message>
 </context>
 <context>
@@ -1309,7 +1318,7 @@ no guia de Instalação do SteamTinkerLaunch na sua página Github...</translati
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_valve_otherdistro.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system based on &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Versão personalizada do Wine para executar jogos do Windows, criada com o sistema de compilação Wine-tkg baseado na versão mais recente do &lt;b&gt;Valve Wine bleeding_edge&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1321,7 +1330,7 @@ no guia de Instalação do SteamTinkerLaunch na sua página Github...</translati
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_winetkg_winemaster.py" line="15"/>
         <source>Custom Wine build for running Windows games, built with the Wine-tkg build system (Ubuntu CI) based on &lt;b&gt;Wine Master&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Versão personalizada do Wine para executar jogos do Windows, criada com o sistema de compilação Wine-tkg (Ubuntu CI) baseado no &lt;b&gt;Wine Master&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1333,7 +1342,7 @@ no guia de Instalação do SteamTinkerLaunch na sua página Github...</translati
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z0dxvk.py" line="22"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</source>
-        <translation type="unfinished"></translation>
+        <translation>Implementação baseada em Vulkan do Direct3D 8, 9, 10 e 11 para Linux/Wine.&lt;br&gt;&lt;br&gt;https://github.com/lutris/docs/blob/master/HowToDXVK.md</translation>
     </message>
 </context>
 <context>
@@ -1345,7 +1354,7 @@ no guia de Instalação do SteamTinkerLaunch na sua página Github...</translati
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z1dxvkasync.py" line="16"/>
         <source>Vulkan based implementation of Direct3D 8, 9, 10, and 11 for Linux/Wine with gplasync patch by Ph42oN.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Use only with singleplayer games!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Implementação baseada em Vulkan do Direct3D 8, 9, 10 e 11 para Linux/Wine com patch gplasync por Ph42oN.&lt;br&gt;&lt;br&gt;&lt;b&gt;Aviso: Use apenas para jogos singleplayer!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1357,7 +1366,7 @@ no guia de Instalação do SteamTinkerLaunch na sua página Github...</translati
     <message>
         <location filename="../pupgui2/resources/ctmods/ctmod_z2dxvknightly.py" line="19"/>
         <source>Nightly version of DXVK (master branch), a Vulkan based implementation of Direct3D 8, 9, 10 and 11 for Linux/Wine.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Warning: Nightly version is unstable, use with caution!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Versão Nightly do DXVK (branch master), uma implementação baseada em Vulkan do Direct3D 8, 9, 10 e 11 para Linux/Wine.&lt;br&gt;&lt;br&gt;&lt;b&gt;Aviso: A versão Nightly é instável, use com cautela!&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1421,22 +1430,22 @@ Veja https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080
     <message>
         <location filename="../pupgui2/util.py" line="574"/>
         <source>Warning: GitLab API rate limit exceeded!</source>
-        <translation type="unfinished"></translation>
+        <translation>Aviso: Limite de taxa de API do GitLab excedido!</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="575"/>
         <source>GitLab API rate limite exceeded. You may want to wait a while or specify a GitLab API key generated for this GitLab instance if you have one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite de taxa de API do GitLab excedido. Talvez queira esperar um pouco ou especificar uma chave de API do GitLab gerada para esta instância do GitLab, se tiver uma.</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="923"/>
         <source>missing</source>
-        <translation type="unfinished">falta</translation>
+        <translation>falta</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="924"/>
         <source>found</source>
-        <translation type="unfinished">encontrado</translation>
+        <translation>encontrado</translation>
     </message>
     <message>
         <location filename="../pupgui2/util.py" line="926"/>
@@ -1445,7 +1454,11 @@ Veja https://github.com/DavidoTek/ProtonUp-Qt/issues/161#issuecomment-1358200080
 {DEP_ENUM}
 
 Will continue the installation anyway.</source>
-        <translation type="unfinished"></translation>
+        <translation>Precisa das seguintes dependências para {CT_NAME}:
+
+{DEP_ENUM}
+
+A instalação continuará de qualquer maneira.</translation>
     </message>
 </context>
 </TS>
