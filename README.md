@@ -45,9 +45,12 @@ uv run protonup-qt
 ## Build AppImage with Nix
 
 ### Build
+
 ```bash
-nix build .#appimage --impure
+nix build .#appimage
 ```
+
+The AppImage and its `.zsync` file are placed in `result/`. The AppImage is built from the PyPI wheels in `uv.lock` (which bundle Qt) and a relocatable [python-build-standalone](https://github.com/astral-sh/python-build-standalone) interpreter, so it does not depend on `/nix/store` and runs on distributions with glibc 2.34 or newer.
 
 ## Translate ProtonUp-Qt
 **Recommended: You can translate ProtonUp-Qt on Weblate: https://hosted.weblate.org/projects/protonup-qt/**

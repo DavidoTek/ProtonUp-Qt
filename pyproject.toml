@@ -42,8 +42,12 @@ test = [
 protonup-qt = "pupgui2.pupgui2:main"
 
 [tool.setuptools]
-packages = { find = {} }
 include-package-data = true
+
+# Explicit allowlist: an unrestricted find would turn every top-level directory
+# (tests/, nix/, i18n/, share/) into an installed namespace package.
+[tool.setuptools.packages.find]
+include = ["pupgui2*"]
 
 [tool.setuptools.package-data]
 pupgui2 = ["resources/**/*"]
