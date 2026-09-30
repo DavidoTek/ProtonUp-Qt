@@ -2,7 +2,65 @@
 requires = ["setuptools>=42"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "ProtonUp-Qt"
+version = "2.15.1"
+description = "Install Wine- and Proton-based compatibility tools"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "GPL-3.0" }
+authors = [{ name = "DavidoTek" }]
+urls = { Homepage = "https://github.com/DavidoTek/ProtonUp-Qt", "Bug Tracker" = "https://github.com/DavidoTek/ProtonUp-Qt/issues" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: POSIX :: Linux",
+]
+
+dependencies = [
+    "PySide6-Essentials>=6.3.0",
+    "requests>=2.27.0",
+    "vdf @ git+https://github.com/solsticegamestudios/vdf.git@v4.0",
+    "inputs==0.5",
+    "pyxdg>=0.27",
+    "steam @ git+https://github.com/solsticegamestudios/steam.git@v1.6.1",
+    "PyYAML>=6.0",
+    "zstandard>=0.19.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-md",
+    "pytest-emoji",
+    "pytest-responses",
+    "pytest-mock",
+    "pyfakefs",
+]
+
+[project.gui-scripts]
+protonup-qt = "pupgui2.pupgui2:main"
+
+[tool.setuptools]
+include-package-data = true
+
+# Explicit allowlist: an unrestricted find would turn every top-level directory
+# (tests/, nix/, i18n/, share/) into an installed namespace package.
+[tool.setuptools.packages.find]
+include = ["pupgui2*"]
+
+[tool.setuptools.package-data]
+pupgui2 = ["resources/**/*"]
+
 [tool.pytest.ini_options]
-pythonpath = [
-  "."
+pythonpath = ["."]
+
+[dependency-groups]
+test = [
+    "pytest",
+    "pytest-md",
+    "pytest-emoji",
+    "pytest-responses",
+    "pytest-mock",
+    "pyfakefs",
 ]
