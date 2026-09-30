@@ -23,7 +23,7 @@ dependencies = [
     "vdf @ git+https://github.com/solsticegamestudios/vdf.git@v4.0",
     "inputs==0.5",
     "pyxdg>=0.27",
-    "steam @ git+https://github.com/solsticegamestudios/steam.git@v1.6.1",
+    "steam @ git+https://github.com/solsticegamestudios/steam.git@v2.0.0-alpha1",
     "PyYAML>=6.0",
     "zstandard>=0.19.0",
 ]
