@@ -100,6 +100,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="btnUpgradeGEProton">
+       <property name="toolTip">
+        <string>Update all GE-Proton games to the latest installed GE-Proton version</string>
+       </property>
+       <property name="text">
+        <string>Upgrade GE-Proton</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btnShortcutEditor">
        <property name="text">
         <string>Shortcut Editor</string>
