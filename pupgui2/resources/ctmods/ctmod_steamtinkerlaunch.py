@@ -13,6 +13,7 @@ from pupgui2.steamutil import get_fish_user_paths, remove_steamtinkerlaunch, get
 from pupgui2.util import host_which, config_advanced_mode
 from pupgui2.util import ghapi_rlcheck
 from pupgui2.util import build_headers_with_authorization
+from pupgui2.util import TAR_EXTRACT_FILTER
 
 
 CT_NAME = 'SteamTinkerLaunch'
@@ -282,7 +283,7 @@ class CtInstaller(QObject):
                 os.mkdir(constants.STEAM_STL_INSTALL_PATH)
             os.chdir(constants.STEAM_STL_INSTALL_PATH)
 
-            tar.extractall(constants.STEAM_STL_INSTALL_PATH)
+            tar.extractall(constants.STEAM_STL_INSTALL_PATH, **TAR_EXTRACT_FILTER)
 
             tarname = tar.getnames()[0]
             

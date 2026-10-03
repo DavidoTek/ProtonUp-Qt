@@ -28,6 +28,11 @@ from pupgui2.datastructures import HardwarePlatform
 from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
 
 
+# Python 3.12+ warns when extracting tars without a filter (3.14 defaults to 'data').
+# 'tar' blocks path traversal but keeps symlinks as-is. Older Pythons lack the filter argument.
+TAR_EXTRACT_FILTER: dict[str, str] = {'filter': 'tar'} if hasattr(tarfile, 'tar_filter') else {}
+
+
 def create_msgbox(
     title: str,
     text: str,
@@ -919,7 +924,7 @@ def extract_tar(tar_path: str, extract_path: str, mode: str = 'r:') -> bool:
 
         with tarfile.open(tar_path, mode) as tf:
             remove_existing_archive_entries(tf.getnames(), extract_path)
-            tf.extractall(extract_path)
+            tf.extractall(extract_path, **TAR_EXTRACT_FILTER)
         return True
     except tarfile.ReadError:
         print(f'Could not read tar file \'{tar_path}\'!')
@@ -950,7 +955,7 @@ def extract_tar_zst(zst_path: str, extract_path: str) -> bool:
                         target: str = os.path.join(extract_path, member.name)
                         if os.path.lexists(target) and not (os.path.isdir(target) and not os.path.islink(target)):
                             os.remove(target)
-                    tf.extract(member, extract_path)
+                    tf.extract(member, extract_path, **TAR_EXTRACT_FILTER)
 
         return True
     except zstandard.ZstdError as zste:  # Error reading Zst file

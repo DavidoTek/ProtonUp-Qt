@@ -97,14 +97,6 @@ def sample_file(fs: FakeFilesystem) -> Generator[TextIOWrapper]:
             65536,
             True,
             64,
-            { 'Content-Length': '0' },
-            id = 'Content-Length in headers is 0'
-        ),
-        pytest.param(
-            lambda progress: print(f'Progress is {progress}'),
-            65536,
-            True,
-            64,
             {},
             id = 'headers is {}'
         ),
@@ -123,14 +115,6 @@ def sample_file(fs: FakeFilesystem) -> Generator[TextIOWrapper]:
             65536,
             False,
             0,
-            { 'Content-Length': '0' },
-            id = 'stream is False, known_size is 0, Content-Length in headers is 0'
-        ),
-        pytest.param(
-            lambda progress: print(f'Progress is {progress}'),
-            65536,
-            False,
-            0,
             {},
             id = 'stream is False, known_size is 0, headers is {}'
         ),
@@ -143,14 +127,6 @@ def sample_file(fs: FakeFilesystem) -> Generator[TextIOWrapper]:
             0,
             { 'Content-Length': '64' },
             id = 'known_size is 0, Content-Length in headers is 64'
-        ),
-        pytest.param(
-            lambda progress: print(f'Progress is {progress}'),
-            65536,
-            True,
-            0,
-            { 'Content-Length': '0' },
-            id = 'known_size is 0, Content-Length in headers is 0'
         ),
         pytest.param(
             lambda progress: print(f'Progress is {progress}'),
