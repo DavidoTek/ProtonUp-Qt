@@ -18,8 +18,8 @@ def get_heroic_game_list(heroic_path: str) -> list[HeroicGame]:
         return []
 
     # "Nile" refers to Amazon Games
-    store_paths: list[str] = [ os.path.join(heroic_path, 'sideload_apps', 'library.json'), os.path.join(heroic_path, 'gog_store', 'library.json'), os.path.join(heroic_path, 'store_cache', 'nile_library.json') ]
-    legendary_path: str = os.path.abspath(os.path.join(heroic_path, '..', 'legendary', 'installed.json'))
+    store_paths: list[str] = [ os.path.join(heroic_path, 'sideload_apps', 'library.json'), os.path.join(heroic_path, 'store_cache', 'gog_library.json'), os.path.join(heroic_path, 'store_cache', 'nile_library.json') ]
+    legendary_path: str = os.path.join(heroic_path, 'legendaryConfig', 'legendary', 'installed.json')
 
     games_json: list[dict[str, Any]] = []
     for sp in store_paths:
