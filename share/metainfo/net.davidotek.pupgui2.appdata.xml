@@ -69,6 +69,19 @@
   <content_rating type="oars-1.0" />
 
   <releases>
+    <release version="2.16.0" date="2026-10-11">
+      <description>
+        <p>Changes/Improvements:</p>
+        <ul>
+          <li>Added the proton-wineland compatibility tool</li>
+          <li>Fixed the GE-Proton install directory since GE-Proton11-4</li>
+          <li>Fixed Proton-RTSP installation</li>
+          <li>Fixed the Heroic game list for GOG and Epic games</li>
+          <li>Switched to uv and Nix for building the AppImage</li>
+        </ul>
+        <p>Various improvements and bug fixes. See GitHub for more details. Thanks to sonic2kk and the other contributers!</p>
+      </description>
+    </release>
     <release version="2.15.1" date="2026-06-24">
       <description>
         <p>Changes/Improvements:</p>

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ProtonUp-Qt"
-version = "2.15.1"
+version = "2.16.0"
 description = "Install Wine- and Proton-based compatibility tools"
 readme = "README.md"
 requires-python = ">=3.10"
