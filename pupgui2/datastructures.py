@@ -264,6 +264,10 @@ class Launcher(Enum):
     HEROIC = 4
     WINEZGUI = 5
 
+class HeroicCompatTool:
+    displayname = ''
+    ct_dir = ''
+    ct_type = '' 
 
 class HardwarePlatform(Enum):
     """ Hardware platform. Used by util.py#detect_platform() """

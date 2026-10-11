@@ -1,10 +1,12 @@
 import os
 import json
 import re
+import tempfile
 
 from typing import Any
 
 from pupgui2.datastructures import HeroicGame
+from pupgui2.datastructures import HeroicCompatTool
 from pupgui2.constants import EPIC_STORE_URL
 
 
@@ -89,6 +91,86 @@ def is_heroic_launcher(launcher: str) -> bool:
 
     return any(hero in launcher for hero in ['heroicwine', 'heroicproton'])
 
+def get_heroic_ctool_list(heroic_path: str) -> list[str]:
+    """
+    Returns the names of installed compatibility tools for Heroic at 'heroic_path' (e.g., '~/.config/heroic', '~/.var/app/com.heroicgameslauncher.hgl/config/heroic')
+    Searches '<heroic_path>/tools/proton' and '<heroic_path>/tools/wine'
+    """
+
+    runners_path: list[str] = [os.path.join(heroic_path, 'tools', 'proton'), os.path.join(heroic_path, 'tools', 'wine') ]
+
+    ctools: list[str] = []
+    for c in dict.fromkeys(runners_path):  # de-duplicate, keep order
+        if os.path.isdir(c):
+            ctools.extend(d for d in os.listdir(c) if os.path.isdir(os.path.join(c, d)))
+
+    return ctools
+
+def heroic_build_tool_tree(runner: str, heroic_path: str) -> HeroicCompatTool:
+    """
+    Search for specific compatibility tool in proton and wine directory, pull data from the heroic installation directory and return them
+    """
+    
+    tool = HeroicCompatTool()
+    tool.displayname = runner
+    base = os.path.join(os.path.realpath(os.path.expanduser(heroic_path)), 'tools')
+    for ct_type in ('proton', 'wine'): 
+        candidate = os.path.join(base, ct_type, runner)
+        if os.path.isdir(candidate):
+            tool.ct_dir = candidate
+            tool.ct_type = ct_type
+            break
+
+    return tool
+
+def heroic_update_ctool(game: HeroicGame, new_ctool: str, heroic_path='') -> bool:
+    """
+    Change compatibility tool from 'InternalHeroicAppID.json' to 'new_ctool' and respect proton
+    and wine attribute differences. Changes will be applied to <heroic_dir>/GameConfigs/App.json
+    """
+
+    new_ct: HeroicCompatTool = heroic_build_tool_tree(new_ctool, heroic_path) # Build the necessary information of a proton version 
+    
+    # if the reported runner is proton then use Heroic's proton layout (e.g. bin/name/type) 
+    # if the runner is wine (like wine tkg) however set more attributes
+    if new_ct.ct_type == 'proton': 
+        wine_version = {
+            'bin': os.path.join(new_ct.ct_dir, 'proton'),
+            'name': new_ct.displayname,
+            'type': 'proton',
+        }
+    else:
+        lib64 = os.path.join(new_ct.ct_dir, 'lib64')
+        lib32 = os.path.join(new_ct.ct_dir, 'lib')
+        wine_version = {
+            'bin': os.path.join(new_ct.ct_dir, 'bin', 'wine'),
+            'name': new_ct.displayname,
+            'type': 'wine',
+            'lib': lib64 if os.path.isdir(lib64) else '',
+            'lib32': lib32 if os.path.isdir(lib32) else '',
+            'wineserver': os.path.join(new_ct.ct_dir, 'bin', 'wineserver'),
+        }
+
+    # e.g. '<heroic_dir>/GamesConfig/<InternalAppID>.json'
+    config_path = os.path.join( os.path.realpath(os.path.expanduser(heroic_path)), 'GamesConfig', f'{game.app_name}.json')
+
+    try:
+        with open(config_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        # Replace the whole wine Version section, so leftover keys such as
+        # lib/lib32/wineserver from a previous wine runner are cleaned up
+        data.setdefault(game.app_name, {})['wineVersion'] = wine_version
+
+        fd, tmp = tempfile.mkstemp(dir=os.path.dirname(config_path), suffix='.tmp') # write changes to .tmp file before migrating them to the actual config
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+        os.replace(tmp, config_path)
+    except (OSError, json.JSONDecodeError) as e:
+        print(f'[ERROR] Could not update Heroic config {config_path}: {e}')
+        return False
+
+    return True
 
 # `is_installed` for GOG games is not always set properly
 def is_gog_game_installed(game: HeroicGame) -> bool:
