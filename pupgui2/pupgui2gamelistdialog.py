@@ -17,7 +17,7 @@ from pupgui2.pupgui2shortcutdialog import PupguiShortcutDialog
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
 from pupgui2.steamutil import get_protondb_status
-from pupgui2.heroicutil import get_heroic_game_list, is_heroic_launcher
+from pupgui2.heroicutil import get_heroic_game_list, get_heroic_ctool_list, is_heroic_launcher, heroic_update_ctool
 from pupgui2.epicutil import get_epic_game_list, is_epic_launcher, get_epic_dir_from_install_dir
 from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names, open_webbrowser_thread
 from pupgui2.util import get_install_location_from_directory_name, get_random_game_name
@@ -262,6 +262,8 @@ class PupguiGameListDialog(QObject):
         heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
         self.games: list[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
 
+        ctools_heroic = get_heroic_ctool_list(heroic_dir)
+
         self.ui.tableGames.setRowCount(len(self.games))
 
         for i, game in enumerate(self.games):
@@ -277,7 +279,7 @@ class PupguiGameListDialog(QObject):
             compat_item = QTableWidgetItem()
             # Wine games
             if game.platform.lower() == 'windows':
-                compat_item_text = game.wine_info.get('name', '').split('-', 1)[1].strip()
+                compat_item_text = game.wine_info.get('name', '').strip() # Don't trim the proton runner
                 compat_tool_bin_path = game.wine_info.get('bin', '')
 
                 compat_tool_tooltip = self.tr('Name: {compat_item_text}').format(compat_item_text=compat_item_text)
@@ -287,11 +289,25 @@ class PupguiGameListDialog(QObject):
                     compat_tool_folder = os.path.join(compat_tool_bin_path.split(compat_item_text)[0], compat_item_text)  # wine_info name is always "<tool_type> - <tool_folder_name>", compat_text_item is always "<tool_folder_name>" if we have the path
                     compat_item.setData(Qt.UserRole, lambda path: os.system(f'xdg-open "{compat_tool_folder}"'))
                 compat_tool_tooltip += self.tr('\nType: {wine_type}').format(wine_type=game.wine_info.get("type", "").capitalize()) if game.wine_info.get('type', '') else ''
+                
+                # Compatibility runner selection
+                if game.runner in ('sideload', 'gog', 'legendary'): # limit proton selection until further testing
+                    combo = QComboBox()
+                    combo.addItems(ctools_heroic)
+                    if compat_item_text and compat_item_text not in ctools_heroic:
+                        combo.addItem(compat_item_text)  # keep the game's current tool selectable
+
+                    combo.setCurrentText(compat_item_text if compat_item_text else '-')
+                    combo.setToolTip(compat_tool_tooltip)
+                    combo.currentTextChanged.connect(lambda text, game=game: self.queue_ctool_change_heroic(text, game, heroic_dir))
+
+                    compat_item.setData(Qt.DisplayRole, combo.currentText())  # used for sorting
+                    self.ui.tableGames.setCellWidget(i, 1, combo)                
             else:
                 # Linux/Browser games
                 compat_item_text = self.tr('Browser') if game.platform.lower() == 'browser' else self.tr('Native')
                 compat_tool_tooltip = self.tr('Type: {PLATFORM}').format(PLATFORM=game.platform)
-
+                
             compat_item.setText(compat_item_text)
             compat_item.setToolTip(compat_tool_tooltip)
             compat_item.setTextAlignment(Qt.AlignCenter)
@@ -430,6 +446,10 @@ class PupguiGameListDialog(QObject):
         if len(self.queued_changes) > 0:
             steam_update_ctools(self.queued_changes, steam_config_folder=self.install_loc.get('vdf_dir'))
             self.game_property_changed.emit(True)
+
+    def queue_ctool_change_heroic(self, ctool_name: str, game: HeroicGame, heroic_dir: str):
+        """ basic implementation to update single game in Heroic. No batch/queue support yet """
+        heroic_update_ctool(game, ctool_name, heroic_dir)
 
     def item_doubleclick_action(self, item):
         """ open link attached for QTableWidgetItem in browser """
