@@ -1,5 +1,6 @@
 import os
 import pkgutil
+import subprocess
 
 from typing import Callable
 from datetime import datetime
@@ -10,13 +11,14 @@ from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL, IS_FLATPAK
-from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum, LutrisGame, HeroicGame
+from pupgui2.datastructures import AWACYStatus, SteamApp, SteamDeckCompatEnum, LutrisGame, HeroicGame, EpicGame
 from pupgui2.lutrisutil import get_lutris_game_list, is_lutris_game_using_runner
 from pupgui2.pupgui2shortcutdialog import PupguiShortcutDialog
 from pupgui2.steamutil import steam_update_ctools, get_steam_game_list
 from pupgui2.steamutil import is_steam_running, get_steam_ctool_list
 from pupgui2.steamutil import get_protondb_status
 from pupgui2.heroicutil import get_heroic_game_list, is_heroic_launcher
+from pupgui2.epicutil import get_epic_game_list, is_epic_launcher, get_epic_dir_from_install_dir
 from pupgui2.util import list_installed_ctools, sort_compatibility_tool_names, open_webbrowser_thread
 from pupgui2.util import get_install_location_from_directory_name, get_random_game_name
 
@@ -31,7 +33,7 @@ class PupguiGameListDialog(QObject):
         self.install_dir = install_dir
         self.parent = parent
         self.queued_changes = {}
-        self.games: list[SteamApp | LutrisGame | HeroicGame] = []
+        self.games: list[SteamApp | LutrisGame | HeroicGame | EpicGame] = []
 
         self.install_loc = get_install_location_from_directory_name(install_dir)
         self.launcher = self.install_loc.get('launcher', '')
@@ -53,6 +55,8 @@ class PupguiGameListDialog(QObject):
             self.setup_lutris_list_ui()
         elif is_heroic_launcher(self.launcher):
             self.setup_heroic_list_ui()
+        elif is_epic_launcher(self.launcher):
+            self.setup_epic_list_ui()
 
         self.ui.btnShortcutEditor.setVisible(self.launcher == 'steam')
 
@@ -60,7 +64,12 @@ class PupguiGameListDialog(QObject):
         self.ui.searchBox.setVisible(False)  # Hide searchbox by default
 
         self.set_apply_btn_text()
-        self.ui.setWindowTitle(self.tr('Game List for {LAUNCHER}').format(LAUNCHER=self.launcher.capitalize() if not is_heroic_launcher(self.launcher) else 'Heroic'))
+        launcher_name = self.launcher.capitalize()
+        if is_heroic_launcher(self.launcher):
+            launcher_name = 'Heroic'
+        elif is_epic_launcher(self.launcher):
+            launcher_name = 'Epic Games'
+        self.ui.setWindowTitle(self.tr('Game List for {LAUNCHER}').format(LAUNCHER=launcher_name))
 
         self.ui.lblSteamRunningWarning.setVisible(self.should_show_steam_warning)  # Only show warning if Steam is running, and make it grey if we're running in Flatpak
         self.ui.tableGames.horizontalHeaderItem(0).setToolTip(self.tr('Installed games: {NO_INSTALLED}').format(NO_INSTALLED=str(len(self.games))))
@@ -107,6 +116,16 @@ class PupguiGameListDialog(QObject):
         self.ui.tableGames.setColumnWidth(1, 170)
         self.ui.tableGames.setColumnWidth(2, 250)
         self.ui.tableGames.setColumnWidth(3, 40)
+        self.ui.tableGames.setColumnHidden(4, True)
+
+    def setup_epic_list_ui(self):
+        self.ui.tableGames.setHorizontalHeaderLabels([self.tr('Game'), self.tr('Compatibility Tool'), self.tr('Install Location'), self.tr('Platform'), ''])
+        self.update_game_list_epic()
+
+        self.ui.tableGames.setColumnWidth(0, 270)
+        self.ui.tableGames.setColumnWidth(1, 170)
+        self.ui.tableGames.setColumnWidth(2, 250)
+        self.ui.tableGames.setColumnWidth(3, 70)
         self.ui.tableGames.setColumnHidden(4, True)
 
     def update_game_list_steam(self, cached=True):
@@ -292,6 +311,43 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 2, install_path_item)
             self.ui.tableGames.setItem(i, 3, runner_item)
 
+    def update_game_list_epic(self):
+        epic_dir = get_epic_dir_from_install_dir(self.install_loc.get('install_dir'))
+        self.games: list[EpicGame] = get_epic_game_list(epic_dir)
+
+        self.ui.tableGames.setRowCount(len(self.games))
+
+        for i, game in enumerate(self.games):
+            title_item = QTableWidgetItem(game.title)
+            title_item.setToolTip(f'{game.title} ({game.executable})' if game.executable else game.title)
+
+            compat_item = QTableWidgetItem()
+            if game.is_windows():
+                compat_item_text = game.compat_tool or self.tr('Unknown')
+                compat_tool_tooltip = self.tr('Proton runtime managed by the Epic Games Launcher')
+                prefix_path = game.get_prefix_path()
+                if os.path.isdir(prefix_path):
+                    compat_tool_tooltip += self.tr('\nPrefix: {PREFIX}').format(PREFIX=prefix_path)
+                    compat_item.setData(Qt.UserRole, lambda _, path=prefix_path: subprocess.Popen(['xdg-open', path]))
+            else:
+                compat_item_text = self.tr('Native')
+                compat_tool_tooltip = self.tr('Type: {PLATFORM}').format(PLATFORM=game.platform)
+
+            compat_item.setText(compat_item_text)
+            compat_item.setToolTip(compat_tool_tooltip)
+            compat_item.setTextAlignment(Qt.AlignCenter)
+
+            install_path_item = QTableWidgetItem(game.install_path)
+            self.set_item_data_directory(install_path_item, game.install_path)
+
+            platform_item = QTableWidgetItem(game.platform)
+            platform_item.setTextAlignment(Qt.AlignCenter)
+
+            self.ui.tableGames.setItem(i, 0, title_item)
+            self.ui.tableGames.setItem(i, 1, compat_item)
+            self.ui.tableGames.setItem(i, 2, install_path_item)
+            self.ui.tableGames.setItem(i, 3, platform_item)
+
     def set_apply_btn_text(self):
         """ Set text for Apply button to 'Close' if the games list is empty, if the current launcher is not Steam or if there are no queued changes."""
 
@@ -310,6 +366,8 @@ class PupguiGameListDialog(QObject):
             self.update_game_list_lutris()
         elif is_heroic_launcher(self.launcher):
             self.update_game_list_heroic()
+        elif is_epic_launcher(self.launcher):
+            self.update_game_list_epic()
 
         self.update_tooltip()
 

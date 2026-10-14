@@ -23,7 +23,7 @@ from PySide6.QtWidgets import QApplication, QComboBox, QStyleFactory, QMessageBo
 from pupgui2.constants import POSSIBLE_INSTALL_LOCATIONS, CONFIG_FILE, PALETTE_DARK, PALETTE_STEAMUI, TEMP_DIR, IS_FLATPAK
 from pupgui2.constants import AWACY_GAME_LIST_URL, LOCAL_AWACY_GAME_LIST
 from pupgui2.constants import GITHUB_API, GITLAB_API, CODEBERG_API, GITLAB_API_RATELIMIT_TEXT
-from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame
+from pupgui2.datastructures import BasicCompatTool, CTType, Launcher, SteamApp, LutrisGame, HeroicGame, EpicGame
 from pupgui2.datastructures import HardwarePlatform
 from pupgui2.steamutil import remove_steamtinkerlaunch, is_valid_steam_install
 
@@ -985,6 +985,8 @@ def get_launcher_from_installdir(install_dir: str) -> Launcher:
         return Launcher.BOTTLES
     elif 'winezgui/runners' in install_dir.lower():
         return Launcher.WINEZGUI
+    elif 'com.epicgames.eglv2/compat/runtime' in install_dir.lower():
+        return Launcher.EPIC
     else:
         return Launcher.UNKNOWN
 
@@ -1015,19 +1017,19 @@ def create_missing_dependencies_message(ct_name: str, dependencies: list[str]) -
     return tr_msg, False
 
 
-def get_random_game_name(games: list[SteamApp] | list[LutrisGame] | list[HeroicGame]) -> str:
-    """ Return a random game name from list of SteamApp, LutrisGame, or HeroicGame """
+def get_random_game_name(games: list[SteamApp] | list[LutrisGame] | list[HeroicGame] | list[EpicGame]) -> str:
+    """ Return a random game name from list of SteamApp, LutrisGame, HeroicGame, or EpicGame """
 
     if len(games) <= 0:
         return ''
     
     tooltip_game_name: str = ''
-    random_game: SteamApp | LutrisGame | HeroicGame = random.choice(games)
+    random_game: SteamApp | LutrisGame | HeroicGame | EpicGame = random.choice(games)
     if type(random_game) is SteamApp:
         tooltip_game_name = random_game.game_name
     elif type(random_game) is LutrisGame:
         tooltip_game_name = random_game.name
-    elif type(random_game) is HeroicGame:
+    elif type(random_game) in (HeroicGame, EpicGame):
         tooltip_game_name = random_game.title
     
     return str(tooltip_game_name)
