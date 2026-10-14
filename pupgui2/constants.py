@@ -73,6 +73,7 @@ POSSIBLE_INSTALL_LOCATIONS += [
     {'install_dir': '~/.var/app/com.heroicgameslauncher.hgl/config/heroic/tools/proton/', 'display_name': 'Heroic Proton Flatpak', 'launcher': 'heroicproton', 'type': 'flatpak', 'icon': 'heroic'},
     {'install_dir': '~/.local/share/bottles/runners/', 'display_name': 'Bottles', 'launcher': 'bottles', 'type': 'native', 'icon': 'com.usebottles.bottles'},
     {'install_dir': '~/.var/app/com.usebottles.bottles/data/bottles/runners/', 'display_name': 'Bottles Flatpak', 'launcher': 'bottles', 'type': 'flatpak', 'icon': 'com.usebottles.bottles'},
+    {'install_dir': '~/.local/share/com.epicgames.eglv2/compat/runtime/', 'display_name': 'Epic Games Launcher', 'launcher': 'epicgames', 'type': 'native', 'icon': 'EpicGamesLauncher'},
     {'install_dir': '~/.local/share/winezgui/Runners/', 'display_name': 'WineZGUI', 'launcher': 'winezgui', 'type': 'native', 'icon': 'io.github.fastrizwaan.WineZGUI'},
     {'install_dir': '~/.var/app/io.github.fastrizwaan.WineZGUI/data/winezgui/Runners/', 'display_name': 'WineZGUI Flatpak', 'launcher': 'winezgui', 'type': 'flatpak', 'icon': 'io.github.fastrizwaan.WineZGUI'}
 ]

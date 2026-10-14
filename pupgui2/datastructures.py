@@ -256,6 +256,30 @@ class HeroicGame:
             return json.load(gcf).get(self.app_name, {})
 
 
+# Information for games installed by the Epic Games Launcher (v2) is stored in '<epic_dir>/installations.jsonl'
+# Game titles are stored in the catalog cache at '<epic_dir>/cache/prod/catalog-cache.json'
+class EpicGame:
+    installation_id: str  # e.g. '47954A6D608DF84ED0342F0EE9349302'
+    namespace: str  # Sandbox id of the game
+    item_id: str  # Catalog item id, used to look up the title
+    artifact_id: str  # Internal app name, also used as name for the Proton prefix in 'compat/compatdata'
+    title: str  # Real name for game, falls back to the install folder name if not cached
+    install_path: str  # Path to game folder, e.g. '/home/Gaben/Games/Half-Life 3'
+    platform: str  # 'Windows' or 'Linux'
+    executable: str  # Game executable relative to install_path, e.g. 'Among Us.exe'
+    version: str  # Build version
+    epic_dir: str  # e.g. '~/.local/share/com.epicgames.eglv2'
+    compat_tool: str  # Proton runtime used to run the game, empty for native games or if it cannot be determined
+
+    def is_windows(self) -> bool:
+        """ Returns True if the game is run with Proton """
+        return self.platform.lower() == 'windows'
+
+    def get_prefix_path(self) -> str:
+        """ Returns the path to the Proton prefix of the game. The prefix may not exist if the game was never started. """
+        return os.path.join(self.epic_dir, 'compat', 'compatdata', self.artifact_id, 'pfx')
+
+
 class Launcher(Enum):
     UNKNOWN = 0
     STEAM = 1
@@ -263,6 +287,7 @@ class Launcher(Enum):
     BOTTLES = 3
     HEROIC = 4
     WINEZGUI = 5
+    EPIC = 6
 
 class HeroicCompatTool:
     displayname = ''

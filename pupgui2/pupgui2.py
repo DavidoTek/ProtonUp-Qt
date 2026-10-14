@@ -26,6 +26,7 @@ from pupgui2.pupgui2gamelistdialog import PupguiGameListDialog
 from pupgui2.pupgui2installdialog import PupguiInstallDialog
 from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_steam_ct_game_map, get_steam_global_ctool_name, ctool_is_runtime_for_app
 from pupgui2.heroicutil import is_heroic_launcher, get_heroic_game_list
+from pupgui2.epicutil import is_epic_launcher, get_epic_game_list, get_epic_pinned_runtime, get_epic_runtimes, get_epic_dir_from_install_dir
 from pupgui2.dbusutil import dbus_progress_message
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
@@ -274,6 +275,24 @@ class MainWindow(QObject):
             vkd3d_dir = os.path.join(install_directory(), '../vkd3d')
             self.get_installed_versions('dxvk', dxvk_dir)
             self.get_installed_versions('vkd3d', vkd3d_dir)
+        # Launcher specific (Epic Games): All Windows games use the Proton runtime pinned by the launcher
+        elif is_epic_launcher(install_loc.get('launcher')):
+            epic_dir = get_epic_dir_from_install_dir(install_loc.get('install_dir'))
+            pinned_runtime = get_epic_pinned_runtime(epic_dir)
+            epic_runtimes = get_epic_runtimes(epic_dir)
+            no_windows_games = len([game for game in get_epic_game_list(epic_dir, pinned_runtime=pinned_runtime, with_titles=False) if game.is_windows()])
+
+            # Only list Proton runtimes, other folders (e.g. staging) are managed by the launcher
+            self.compat_tool_index_map = [ct for ct in self.compat_tool_index_map if ct.get_install_folder() in epic_runtimes]
+            for ct in self.compat_tool_index_map:
+                if ct.get_install_folder() == pinned_runtime:
+                    ct.no_games = no_windows_games
+                    ct.set_global()
+                    self.compat_tool_index_map.insert(0, self.compat_tool_index_map.pop(self.compat_tool_index_map.index(ct)))
+                elif not pinned_runtime:
+                    ct.no_games = no_windows_games  # Unknown which runtime is used, assume it could be any of them
+                else:
+                    ct.no_games = 0
 
         for ct in self.compat_tool_index_map:
             self.ui.listInstalledVersions.addItem(ct.get_displayname(unused_tr=self.tr('unused'), global_tr=self.tr('global')))
@@ -293,6 +312,8 @@ class MainWindow(QObject):
         elif install_loc.get('launcher') == 'lutris':
            self.ui.btnShowGameList.setVisible(True)
         elif is_heroic_launcher(install_loc.get('launcher')):
+            self.ui.btnShowGameList.setVisible(True)
+        elif is_epic_launcher(install_loc.get('launcher')):
             self.ui.btnShowGameList.setVisible(True)
         else:
             self.ui.btnShowGameList.setVisible(False)
@@ -359,6 +380,8 @@ class MainWindow(QObject):
     def btn_add_version_clicked(self, compat_tool: str = ''):
         advanced_mode = (config_advanced_mode() == 'enabled')
         install_loc = get_install_location_from_directory_name(install_directory())
+        if is_epic_launcher(install_loc.get('launcher', '')):
+            return
 
         if not compat_tool or compat_tool_available(compat_tool, self.ct_loader.get_ctobjs(install_loc, advanced_mode=advanced_mode)):
             dialog = PupguiInstallDialog(install_loc, self.ct_loader, parent=self.ui)
@@ -423,6 +446,10 @@ class MainWindow(QObject):
         self.ui.btnSteamFlatpakCtools.setVisible(
             'steam' in install_loc.get('launcher', '') and 'Flatpak' in install_loc.get('display_name', '')
             )
+        # The Epic Games Launcher downloads and manages its Proton runtime itself and ignores other versions
+        is_epic = is_epic_launcher(install_loc.get('launcher', ''))
+        self.ui.btnAddVersion.setEnabled(not is_epic)
+        self.ui.btnAddVersion.setToolTip(self.tr('The Epic Games Launcher manages its Proton version itself') if is_epic else '')
     
     def list_installed_versions_item_double_clicked(self, item):
         """ Show info about compatibility tool when double clicked in list """
