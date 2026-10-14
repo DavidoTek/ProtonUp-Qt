@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=42"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,12 +8,12 @@ version = "2.16.0"
 description = "Install Wine- and Proton-based compatibility tools"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "GPL-3.0" }
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
 authors = [{ name = "DavidoTek" }]
 urls = { Homepage = "https://github.com/DavidoTek/ProtonUp-Qt", "Bug Tracker" = "https://github.com/DavidoTek/ProtonUp-Qt/issues" }
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: POSIX :: Linux",
 ]
 
