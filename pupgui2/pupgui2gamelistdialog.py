@@ -4,6 +4,7 @@ import subprocess
 
 from typing import Callable
 from datetime import datetime
+from contextlib import contextmanager
 
 from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
 from PySide6.QtGui import QPixmap, QBrush, QColor, QKeySequence, QShortcut
@@ -34,6 +35,7 @@ class PupguiGameListDialog(QObject):
         self.parent = parent
         self.queued_changes = {}
         self.games: list[SteamApp | LutrisGame | HeroicGame | EpicGame] = []
+        self.protondb_items: dict[SteamApp, QTableWidgetItem] = {}  # ProtonDB cell of each game in the current list
 
         self.install_loc = get_install_location_from_directory_name(install_dir)
         self.launcher = self.install_loc.get('launcher', '')
@@ -49,14 +51,15 @@ class PupguiGameListDialog(QObject):
         self.ui = QUiLoader().load(ui_file.device())
 
     def setup_ui(self):
-        if self.launcher == 'steam':
-            self.setup_steam_list_ui()
-        elif self.launcher == 'lutris':
-            self.setup_lutris_list_ui()
-        elif is_heroic_launcher(self.launcher):
-            self.setup_heroic_list_ui()
-        elif is_epic_launcher(self.launcher):
-            self.setup_epic_list_ui()
+        with self.gamelist_sorting_suspended():
+            if self.launcher == 'steam':
+                self.setup_steam_list_ui()
+            elif self.launcher == 'lutris':
+                self.setup_lutris_list_ui()
+            elif is_heroic_launcher(self.launcher):
+                self.setup_heroic_list_ui()
+            elif is_epic_launcher(self.launcher):
+                self.setup_epic_list_ui()
 
         self.ui.btnShortcutEditor.setVisible(self.launcher == 'steam')
 
@@ -135,6 +138,7 @@ class PupguiGameListDialog(QObject):
         ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=True))
 
         self.ui.tableGames.setRowCount(len(self.games))
+        self.protondb_items = {}
 
         game_id_table_lables = []
         for i, game in enumerate(self.games):
@@ -151,10 +155,10 @@ class PupguiGameListDialog(QObject):
                 combo.addItem(game.compat_tool)
 
             combo.setCurrentText('-' if game.compat_tool is None else game.compat_tool)
-            combo.currentTextChanged.connect(lambda text,game=game: self.queue_ctool_change_steam(text, game))
 
             compat_item = QTableWidgetItem()
             compat_item.setData(Qt.DisplayRole, combo.currentText())
+            combo.currentTextChanged.connect(lambda text, game=game, item=compat_item: self.queue_ctool_change_steam(text, game, item))
 
             self.ui.tableGames.setItem(i, 1, compat_item)
             self.ui.tableGames.setCellWidget(i, 1, combo)
@@ -163,7 +167,9 @@ class PupguiGameListDialog(QObject):
             btn_fetch_protondb = QPushButton(self.tr('click'))
             btn_fetch_protondb.clicked.connect(lambda checked=False, game=game: get_protondb_status(game, self.protondb_status_fetched))
 
-            self.ui.tableGames.setItem(i, 4, QTableWidgetItem())
+            pdb_item = QTableWidgetItem()
+            self.protondb_items[game] = pdb_item
+            self.ui.tableGames.setItem(i, 4, pdb_item)
             self.ui.tableGames.setCellWidget(i, 4, btn_fetch_protondb)
 
             # Steam Deck compatibility 
@@ -376,15 +382,18 @@ class PupguiGameListDialog(QObject):
 
     def btn_refresh_games_clicked(self):
         self.queued_changes = {}
-        if self.launcher == 'steam':
-            self.update_game_list_steam(cached=False)
-        elif self.launcher == 'lutris':
-            self.update_game_list_lutris()
-        elif is_heroic_launcher(self.launcher):
-            self.update_game_list_heroic()
-        elif is_epic_launcher(self.launcher):
-            self.update_game_list_epic()
+        with self.gamelist_sorting_suspended():
+            if self.launcher == 'steam':
+                self.update_game_list_steam(cached=False)
+            elif self.launcher == 'lutris':
+                self.update_game_list_lutris()
+            elif is_heroic_launcher(self.launcher):
+                self.update_game_list_heroic()
+            elif is_epic_launcher(self.launcher):
+                self.update_game_list_epic()
 
+        # Refilling the table un-hides all rows, re-apply the active search (after sorting so rows are in their final place)
+        self.search_gamelist_games(self.ui.searchBox.text() if self.ui.searchBox.isVisible() else '')
         self.update_tooltip()
 
     def update_tooltip(self):
@@ -406,6 +415,21 @@ class PupguiGameListDialog(QObject):
         self.ui.close()
         PupguiShortcutDialog(self.install_loc.get('vdf_dir'), self.game_property_changed, self.ui)
 
+    @contextmanager
+    def gamelist_sorting_suspended(self):
+        """ Disable Qt sorting of the gamelist and empty it while it is filled from scratch. Sorting is restored even if loading fails """
+        gamelist = self.ui.tableGames
+
+        # Sorting must be off while filling the table, otherwise setItem() re-sorts
+        # and the row moves away from index i before the other columns are written
+        is_sorted = gamelist.isSortingEnabled()
+        gamelist.setSortingEnabled(False)
+        gamelist.setRowCount(0)  # drop stale items from the previous load
+        try:
+            yield
+        finally:
+            gamelist.setSortingEnabled(is_sorted)  # Qt re-applies the sort currently shown in the header
+
     def search_gamelist_games(self, text):
         for row in range(self.ui.tableGames.rowCount()):
             should_hide: bool = not text.lower() in self.ui.tableGames.item(row, 0).text().lower()
@@ -419,9 +443,10 @@ class PupguiGameListDialog(QObject):
             return
         pdb_tier = game.protondb_summary.get('tier', '?')
 
-        if self.games.index(game) != None:
-            # Use QTableWidgetItem to replace Button widget
-            pdb_item = self.ui.tableGames.item(self.ui.tableGames.currentRow(), 4)
+        # Game may be gone if the list was refreshed while fetching
+        if (pdb_item := self.protondb_items.get(game)) is not None:
+            # Use QTableWidgetItem to replace Button widget (remove it first, setting the data may re-sort the row)
+            self.ui.tableGames.removeCellWidget(self.ui.tableGames.row(pdb_item), 4)
             pdb_item.setData(Qt.DisplayRole, pdb_tier)
             pdb_item.setData(Qt.UserRole, f'{PROTONDB_APP_PAGE_URL}{game.app_id}')  # e.g. https://www.protondb.com/app/412830
             pdb_item.setForeground(QBrush(QColor(PROTONDB_COLORS.get(pdb_tier))))
@@ -430,15 +455,14 @@ class PupguiGameListDialog(QObject):
                         score=game.protondb_summary.get('score', '?'),
                         trending=game.protondb_summary.get('trendingTier', '?')))
 
-            self.ui.tableGames.removeCellWidget(self.ui.tableGames.currentRow(), 4)
             pdb_item.setSelected(False)
 
-    def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp):
+    def queue_ctool_change_steam(self, ctool_name: str, game: SteamApp, compat_item: QTableWidgetItem):
         """ add compatibility tool changes to queue (Steam) """
         ctool_name = None if ctool_name in {'-', ''} else ctool_name
 
         self.queued_changes[game] = ctool_name
-        self.ui.tableGames.item(self.ui.tableGames.currentRow(), 1).setData(Qt.DisplayRole, ctool_name)
+        compat_item.setData(Qt.DisplayRole, ctool_name)
         self.set_apply_btn_text()
 
     def update_queued_ctools_steam(self):
