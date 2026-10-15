@@ -134,7 +134,7 @@ class PupguiGameListDialog(QObject):
         ctools = [c if c != 'SteamTinkerLaunch' else 'Proton-stl' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True)]
         ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=True))
 
-        is_sorting = self.gamelist_disable_sort(len(self.games))
+        qt_sort = self.gamelist_disable_sort(len(self.games))
 
         self.ui.tableGames.setRowCount(len(self.games))
 
@@ -197,7 +197,7 @@ class PupguiGameListDialog(QObject):
 
             game_id_table_lables.append(game.app_id)
 
-        self.gamelist_enable_sort(is_sorting)
+        self.gamelist_enable_sort(qt_sort)
 
     def update_game_list_lutris(self):
         """ update the game list for the Lutris launcher """
