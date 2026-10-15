@@ -134,6 +134,8 @@ class PupguiGameListDialog(QObject):
         ctools = [c if c != 'SteamTinkerLaunch' else 'Proton-stl' for c in sort_compatibility_tool_names(list_installed_ctools(self.install_dir, without_version=True), reverse=True)]
         ctools.extend(t.ctool_name for t in get_steam_ctool_list(steam_config_folder=self.install_loc.get('vdf_dir'), cached=True))
 
+        is_sorting = self.gamelist_disable_sort(len(self.games))
+
         self.ui.tableGames.setRowCount(len(self.games))
 
         game_id_table_lables = []
@@ -195,11 +197,15 @@ class PupguiGameListDialog(QObject):
 
             game_id_table_lables.append(game.app_id)
 
+        self.gamelist_enable_sort(is_sorting)
+
     def update_game_list_lutris(self):
         """ update the game list for the Lutris launcher """
         # Filter blank runners and Steam games, because we can't change any compat tool options for Steam games via Lutris
         # Steam games can be seen from the Steam games list, so no need to duplicate it here
         self.games: list[LutrisGame] = [game for game in get_lutris_game_list(self.install_loc) if self.is_valid_lutris_gameslist_game(game)]
+
+        qt_sort = self.gamelist_disable_sort(len(self.games))
 
         self.ui.tableGames.setRowCount(len(self.games))
 
@@ -257,10 +263,14 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 1, runner_item)
             self.ui.tableGames.setItem(i, 2, install_dir_item)
             self.ui.tableGames.setItem(i, 3, install_date_item)
+        
+        self.gamelist_enable_sort(qt_sort)
 
     def update_game_list_heroic(self):
         heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
         self.games: list[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
+
+        qt_sort = self.gamelist_disable_sort(len(self.games))
 
         ctools_heroic = get_heroic_ctool_list(heroic_dir)
 
@@ -327,9 +337,13 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 2, install_path_item)
             self.ui.tableGames.setItem(i, 3, runner_item)
 
+        self.gamelist_enable_sort(qt_sort)
+
     def update_game_list_epic(self):
         epic_dir = get_epic_dir_from_install_dir(self.install_loc.get('install_dir'))
         self.games: list[EpicGame] = get_epic_game_list(epic_dir)
+
+        qt_sort = self.gamelist_disable_sort(len(self.games))
 
         self.ui.tableGames.setRowCount(len(self.games))
 
@@ -363,6 +377,8 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 1, compat_item)
             self.ui.tableGames.setItem(i, 2, install_path_item)
             self.ui.tableGames.setItem(i, 3, platform_item)
+
+        self.gamelist_enable_sort(qt_sort)
 
     def set_apply_btn_text(self):
         """ Set text for Apply button to 'Close' if the games list is empty, if the current launcher is not Steam or if there are no queued changes."""
@@ -405,6 +421,23 @@ class PupguiGameListDialog(QObject):
     def btn_shortcut_editor_clicked(self):
         self.ui.close()
         PupguiShortcutDialog(self.install_loc.get('vdf_dir'), self.game_property_changed, self.ui)
+
+    def gamelist_disable_sort(self, row_count: int) -> bool:
+        """ Disable Qt sorting of a gamelist temporarily and empty the gamelist to generate a fresh list from scratch. Needs to be enabled later on with <gamelist_enable_sort> """
+        gamelist = self.ui.tableGames
+
+        # Sorting must be off while filling the table, otherwise setItem() re-sorts
+        # and the row moves away from index i before the other columns are written
+        is_sorted = gamelist.isSortingEnabled()
+        gamelist.setSortingEnabled(False)
+        gamelist.setRowCount(0)  # drop stale items from the previous load
+        gamelist.setRowCount(row_count)
+
+        return is_sorted
+
+    def gamelist_enable_sort(self, is_sorted: bool):
+        """ Restore the Qt sorting state; Qt re-applies the sort currently shown in the header """
+        self.ui.tableGames.setSortingEnabled(is_sorted) 
 
     def search_gamelist_games(self, text):
         for row in range(self.ui.tableGames.rowCount()):
