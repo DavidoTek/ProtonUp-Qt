@@ -494,7 +494,7 @@ class PupguiGameListDialog(QObject):
         """ update the compatibility tools for all queued games (Heroic) """
         heroic_dir = self.get_heroic_dir()
         for game, ctool_name in self.queued_changes.values():
-            heroic_update_ctool(self.queued_changes, game, ctool_name, heroic_dir)
+            heroic_update_ctool(game, ctool_name, heroic_dir)
 
         if len(self.queued_changes) > 0:
             self.queued_changes = {}
