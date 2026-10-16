@@ -371,7 +371,7 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 3, platform_item)
 
     def set_apply_btn_text(self):
-        """ Set text for Apply button to 'Close' if the games list is empty, if the current launcher is not Steam or if there are no queued changes."""
+        """ Set text for Apply button to 'Close' if the games list is empty, if the current launcher is not set for queue support or if there are no queued changes."""
 
         has_queue_support = self.launcher == 'steam' or is_heroic_launcher(self.launcher) # Add support for a supported queue store here; self.launcher needs to be set
         txt = self.tr('Close') if len(self.games) <= 0 or not has_queue_support or len(self.queued_changes) <= 0 else self.tr('Apply')
@@ -476,13 +476,12 @@ class PupguiGameListDialog(QObject):
             self.game_property_changed.emit(True)
 
     def get_heroic_dir(self) -> str:
-        """ returns the path of the current installed Heroic instance """
         return os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
 
     def queue_ctool_change_heroic(self, ctool_name: str, game: HeroicGame, compat_item: QTableWidgetItem, original_ctool_name: str):
         """ add compatibility tool changes to queue (Heroic) """
-        key = id(game) # create an unique key for each change
-        if ctool_name == original_ctool_name: # original tools was selected and nothing changes           
+        key = id(game) # create unique keys for each item
+        if ctool_name == original_ctool_name: # original tool was selected and nothing changes         
             self.queued_changes.pop(key, None)
         else:
             self.queued_changes[key] = (game, ctool_name) # add current game to queue
