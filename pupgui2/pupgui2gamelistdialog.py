@@ -395,7 +395,7 @@ class PupguiGameListDialog(QObject):
                 self.update_game_list_heroic()
             elif is_epic_launcher(self.launcher):
                 self.update_game_list_epic()
-        
+        self.set_apply_btn_text()  # queue was cleared, so send the button back to 'Close'
         # Refilling the table un-hides all rows, re-apply the active search (after sorting so rows are in their final place)
         self.search_gamelist_games(self.ui.searchBox.text() if self.ui.searchBox.isVisible() else '')
         self.update_tooltip()
