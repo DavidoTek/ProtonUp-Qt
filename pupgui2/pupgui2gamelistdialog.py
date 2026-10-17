@@ -8,7 +8,7 @@ from contextlib import contextmanager
 
 from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
 from PySide6.QtGui import QPixmap, QBrush, QColor, QKeySequence, QShortcut
-from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
+from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem, QMessageBox
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL, IS_FLATPAK
@@ -43,7 +43,7 @@ class PupguiGameListDialog(QObject):
 
         self.load_ui()
         self.setup_ui()
-        self.ui.show()
+        self.ui.show()        
 
     def load_ui(self):
         data = pkgutil.get_data(__name__, 'resources/ui/pupgui2_gamelistdialog.ui')
@@ -265,7 +265,7 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 3, install_date_item)
 
     def update_game_list_heroic(self):
-        heroic_dir = os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
+        heroic_dir = self.get_heroic_dir()
         self.games: list[HeroicGame] = list(filter(lambda heroic_game: (heroic_game.is_installed and len(heroic_game.runner) > 0 and not heroic_game.is_dlc), get_heroic_game_list(heroic_dir)))
 
         ctools_heroic = get_heroic_ctool_list(heroic_dir)
@@ -305,7 +305,7 @@ class PupguiGameListDialog(QObject):
 
                     combo.setCurrentText(compat_item_text if compat_item_text else '-')
                     combo.setToolTip(compat_tool_tooltip)
-                    combo.currentTextChanged.connect(lambda text, game=game: self.queue_ctool_change_heroic(text, game, heroic_dir))
+                    combo.currentTextChanged.connect(lambda text, game=game, item=compat_item, orig=combo.currentText(): self.queue_ctool_change_heroic(text, game, item, orig))
 
                     compat_item.setData(Qt.DisplayRole, combo.currentText())  # used for sorting
                     self.ui.tableGames.setCellWidget(i, 1, combo)                
@@ -371,13 +371,17 @@ class PupguiGameListDialog(QObject):
             self.ui.tableGames.setItem(i, 3, platform_item)
 
     def set_apply_btn_text(self):
-        """ Set text for Apply button to 'Close' if the games list is empty, if the current launcher is not Steam or if there are no queued changes."""
+        """ Set text for Apply button to 'Close' if the games list is empty, if the current launcher is not set for queue support or if there are no queued changes."""
 
-        txt = self.tr('Close') if len(self.games) <= 0 or self.launcher != 'steam' or len(self.queued_changes) <= 0 else self.tr('Apply')
+        has_queue_support = self.launcher == 'steam' or is_heroic_launcher(self.launcher) # Add support for a supported queue store here; self.launcher needs to be set
+        txt = self.tr('Close') if len(self.games) <= 0 or not has_queue_support or len(self.queued_changes) <= 0 else self.tr('Apply')
         self.ui.btnApply.setText(txt)
 
     def btn_apply_clicked(self):
-        self.update_queued_ctools_steam()
+        if self.launcher == 'steam':
+           self.update_queued_ctools_steam()
+        elif is_heroic_launcher(self.launcher):
+           self.update_queued_ctools_heroic()
         self.ui.close()
 
     def btn_refresh_games_clicked(self):
@@ -471,9 +475,31 @@ class PupguiGameListDialog(QObject):
             steam_update_ctools(self.queued_changes, steam_config_folder=self.install_loc.get('vdf_dir'))
             self.game_property_changed.emit(True)
 
-    def queue_ctool_change_heroic(self, ctool_name: str, game: HeroicGame, heroic_dir: str):
-        """ basic implementation to update single game in Heroic. No batch/queue support yet """
-        heroic_update_ctool(game, ctool_name, heroic_dir)
+    def get_heroic_dir(self) -> str:
+        return os.path.join(os.path.expanduser(self.install_loc.get('install_dir')), '../..')
+
+    def queue_ctool_change_heroic(self, ctool_name: str, game: HeroicGame, compat_item: QTableWidgetItem, original_ctool_name: str):
+        """ add compatibility tool changes to queue (Heroic) """
+        key = id(game) # create unique keys for each item
+        if ctool_name == original_ctool_name: # original tool was selected and nothing changes         
+            self.queued_changes.pop(key, None)
+        else:
+            self.queued_changes[key] = (game, ctool_name) # add current game to queue
+
+        compat_item.setData(Qt.DisplayRole, ctool_name)
+        self.set_apply_btn_text()
+
+    def update_queued_ctools_heroic(self):
+        """ update the compatibility tools for all queued games (Heroic) """
+        heroic_dir = self.get_heroic_dir()
+        failed_games = [game.title for game, ctool_name in self.queued_changes.values() if not heroic_update_ctool(game, ctool_name, heroic_dir)]
+
+        if len(self.queued_changes) > 0:
+            self.queued_changes = {}
+            self.game_property_changed.emit(True)
+
+        if failed_games:
+            QMessageBox.warning(self.ui, self.tr('Error'), self.tr('Could not update the compatibility tool for the following games:\n{GAMES}').format(GAMES='\n'.join(failed_games)))
 
     def item_doubleclick_action(self, item):
         """ open link attached for QTableWidgetItem in browser """
