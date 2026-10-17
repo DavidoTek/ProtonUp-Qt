@@ -8,7 +8,7 @@ from contextlib import contextmanager
 
 from PySide6.QtCore import QObject, Signal, Slot, QDataStream, QByteArray, Qt
 from PySide6.QtGui import QPixmap, QBrush, QColor, QKeySequence, QShortcut
-from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem
+from PySide6.QtWidgets import QLabel, QComboBox, QPushButton, QTableWidgetItem, QMessageBox
 from PySide6.QtUiTools import QUiLoader
 
 from pupgui2.constants import PROTONDB_COLORS, STEAM_APP_PAGE_URL, AWACY_WEB_URL, PROTONDB_APP_PAGE_URL, LUTRIS_WEB_URL, IS_FLATPAK
@@ -305,7 +305,7 @@ class PupguiGameListDialog(QObject):
 
                     combo.setCurrentText(compat_item_text if compat_item_text else '-')
                     combo.setToolTip(compat_tool_tooltip)
-                    combo.currentTextChanged.connect(lambda text, game=game, item=compat_item, orig=compat_item_text: self.queue_ctool_change_heroic(text, game, item, orig))
+                    combo.currentTextChanged.connect(lambda text, game=game, item=compat_item, orig=combo.currentText(): self.queue_ctool_change_heroic(text, game, item, orig))
 
                     compat_item.setData(Qt.DisplayRole, combo.currentText())  # used for sorting
                     self.ui.tableGames.setCellWidget(i, 1, combo)                
@@ -492,11 +492,14 @@ class PupguiGameListDialog(QObject):
     def update_queued_ctools_heroic(self):
         """ update the compatibility tools for all queued games (Heroic) """
         heroic_dir = self.get_heroic_dir()
-        for game, ctool_name in self.queued_changes.values():
-            heroic_update_ctool(game, ctool_name, heroic_dir)
+        failed_games = [game.title for game, ctool_name in self.queued_changes.values() if not heroic_update_ctool(game, ctool_name, heroic_dir)]
 
         if len(self.queued_changes) > 0:
             self.queued_changes = {}
+            self.game_property_changed.emit(True)
+
+        if failed_games:
+            QMessageBox.warning(self.ui, self.tr('Error'), self.tr('Could not update the compatibility tool for the following games:\n{GAMES}').format(GAMES='\n'.join(failed_games)))
 
     def item_doubleclick_action(self, item):
         """ open link attached for QTableWidgetItem in browser """
