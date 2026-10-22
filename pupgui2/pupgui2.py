@@ -14,7 +14,7 @@ from PySide6.QtUiTools import QUiLoader
 from PySide6.QtDBus import QDBusConnection
 
 from pupgui2.constants import APP_NAME, APP_VERSION, APP_ID, BUILD_INFO, TEMP_DIR, STEAM_STL_INSTALL_PATH
-from pupgui2.constants import STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM, IS_FLATPAK
+from pupgui2.constants import STEAM_BOXTRON_FLATPAK_APPSTREAM, STEAM_STL_FLATPAK_APPSTREAM, IS_FLATPAK, POSSIBLE_INSTALL_LOCATIONS
 from pupgui2 import ctloader
 from pupgui2.datastructures import CTType, MsgBoxType, MsgBoxResult
 from pupgui2.gamepadinputworker import GamepadInputWorker
@@ -30,8 +30,8 @@ from pupgui2.epicutil import is_epic_launcher, get_epic_game_list, get_epic_pinn
 from pupgui2.dbusutil import dbus_progress_message
 from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
-from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online, config_advanced_mode, config_github_access_token, config_gitlab_access_token, compat_tool_available
-
+from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online, config_advanced_mode, config_github_access_token, config_gitlab_access_token, compat_tool_available, is_valid_launcher_installation
+from pupgui2.lutrisutil import get_lutris_game_list, get_lutris_game_count_for_ctool
 
 class InstallWineThread(QThread):
 
@@ -250,12 +250,17 @@ class MainWindow(QObject):
             self.get_installed_versions('proton', proton_dir)
         # Launcher specific (Steam): Number of games using the compatibility tool
         elif install_loc.get('launcher') == 'steam' and 'vdf_dir' in install_loc:
+            list_game = []
+            for loc in POSSIBLE_INSTALL_LOCATIONS:
+                if "lutris" == loc['launcher'] and is_valid_launcher_installation(loc):
+                    list_game += get_lutris_game_list(loc)
             steam_app_list = get_steam_app_list(install_loc.get('vdf_dir'), cached=False)  # update app list cache
             global_ctool_name: str = get_steam_global_ctool_name(install_loc.get('vdf_dir'))
             self.compat_tool_index_map += get_steam_acruntime_list(install_loc.get('vdf_dir'), cached=True)
             ct_game_map = get_steam_ct_game_map(install_loc.get('vdf_dir'), self.compat_tool_index_map, cached=True)
             for ct in self.compat_tool_index_map:
                 ct.no_games = len(ct_game_map.get(ct, []))
+                ct.no_games += get_lutris_game_count_for_ctool(list_game, ct.get_install_folder())
                 ct_name = ct.get_internal_name()
                 if ct_name == global_ctool_name:
                     ct.set_global()  # Set (global) text
