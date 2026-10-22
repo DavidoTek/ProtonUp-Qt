@@ -58,7 +58,7 @@ class PupguiCtInfoDialog(QObject):
     def update_game_list(self, cached=True):
         if self.install_loc.get('launcher') == 'steam' and 'vdf_dir' in self.install_loc:
             self.update_game_list_steam(cached=cached)
-            if 'Proton' in self.ctool.displayname and self.ctool.ct_type == CTType.CUSTOM:  # 'batch update' option for Proton-GE
+            if 'proton' in self.ctool.displayname.lower() and self.ctool.ct_type == CTType.CUSTOM:  # 'batch update' option for Proton-GE
                 self.is_batch_update_available = True
                 self.ui.btnBatchUpdate.setVisible(not self.ui.searchBox.isVisible())
                 self.ui.btnBatchUpdate.clicked.connect(self.btn_batch_update_clicked)
