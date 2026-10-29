@@ -6,7 +6,6 @@ from pupgui2.datastructures import LutrisGame
 
 LUTRIS_PGA_GAMELIST_QUERY = 'SELECT slug, name, runner, installer_slug, installed_at, directory FROM games'
 
-
 def get_lutris_game_list(install_loc) -> list[LutrisGame]:
     """
     Returns a list of installed games in Lutris
@@ -29,7 +28,7 @@ def get_lutris_game_list(install_loc) -> list[LutrisGame]:
             lg.runner = g[2]
             lg.installer_slug = g[3]
             lg.installed_at = g[4]
-            
+
             # Lutris database file will only store some fields for games installed via an installer and not if it was manually added
             # If a game doesn't have an install dir (e.g. it was manually added to Lutris), try to use the following for the install dir:
             # - Working directory (may not be specified)
@@ -78,3 +77,21 @@ def is_lutris_game_using_wine(game: LutrisGame, wine_version: str = '') -> bool:
         is_using_wine_version = True
 
     return is_using_wine and is_using_wine_version
+
+def get_lutris_game_count_for_ctool(list_game: list[LutrisGame], ct_folder: str) -> int:
+
+    """ Determine the number of Lutris games using a steam compatibility tool"""
+
+    # Tools without an install folder (e.g. Steam anti-cheat runtimes) can't be used by Lutris
+    # An empty wine_version would also make is_lutris_game_using_wine match every wine game
+    if not ct_folder:
+        return 0
+
+    count = 0
+    for l in list_game:
+        try:
+            if l.install_dir and is_lutris_game_using_wine(l, ct_folder):
+                count += 1
+        except Exception as e:
+            print(f'Error: Could not read Lutris game config for {l.name}:', e)
+    return count
