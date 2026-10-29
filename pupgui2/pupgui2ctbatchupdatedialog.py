@@ -31,7 +31,7 @@ class PupguiCtBatchUpdateDialog(QObject):
     def setup_ui(self, current_ctool_name: str) -> None:
         # Doing ctool checks here instead of before showing the batch update button on ctinfo dialog covers case where
         # compatibility tool may have been available but then was removed (maybe manually?) -- Is potentially just more robust
-        combobox_ctools = [ctool for ctool in self.ctools if 'Proton' in ctool and current_ctool_name not in ctool]
+        combobox_ctools = [ctool for ctool in self.ctools if 'proton' in ctool.lower() and current_ctool_name not in ctool]
         self.ui.comboNewCtool.addItems(combobox_ctools)
         self.ui.oldVersionText.setText(f' {current_ctool_name}')
 
