@@ -82,8 +82,16 @@ def get_lutris_game_count_for_ctool(list_game: list[LutrisGame], ct_folder: str)
 
     """ Determine the number of Lutris games using a steam compatibility tool"""
 
+    # Tools without an install folder (e.g. Steam anti-cheat runtimes) can't be used by Lutris
+    # An empty wine_version would also make is_lutris_game_using_wine match every wine game
+    if not ct_folder:
+        return 0
+
     count = 0
     for l in list_game:
-        if l.install_dir and is_lutris_game_using_wine(l, ct_folder):
-            count += 1
+        try:
+            if l.install_dir and is_lutris_game_using_wine(l, ct_folder):
+                count += 1
+        except Exception as e:
+            print(f'Error: Could not read Lutris game config for {l.name}:', e)
     return count
