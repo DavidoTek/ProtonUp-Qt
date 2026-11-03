@@ -28,7 +28,7 @@ from pupgui2.steamutil import get_steam_acruntime_list, get_steam_app_list, get_
 from pupgui2.heroicutil import is_heroic_launcher, get_heroic_game_list
 from pupgui2.epicutil import is_epic_launcher, get_epic_game_list, get_epic_pinned_runtime, get_epic_runtimes, get_epic_dir_from_install_dir
 from pupgui2.dbusutil import dbus_progress_message
-from pupgui2.util import apply_dark_theme, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
+from pupgui2.util import apply_dark_theme, check_config_file, create_compatibilitytools_folder, get_installed_ctools, remove_ctool
 from pupgui2.util import install_directory, available_install_directories, get_install_location_from_directory_name
 from pupgui2.util import print_system_information, single_instance, download_awacy_gamelist, is_online, config_advanced_mode, config_github_access_token, config_gitlab_access_token, compat_tool_available, is_valid_launcher_installation
 from pupgui2.lutrisutil import get_lutris_game_list, get_lutris_game_count_for_ctool
@@ -628,6 +628,9 @@ def main():
     qtTranslator = QTranslator()
     if qtTranslator.load(QLocale(), 'qt', '_', QLibraryInfo.location(QLibraryInfo.TranslationsPath)):
         app.installTranslator(qtTranslator)
+
+    if not check_config_file():
+        return
 
     apply_dark_theme(app)
 
