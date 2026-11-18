@@ -206,6 +206,44 @@ def config_gitlab_access_token(gitlab_token=None) -> str:
     return read_update_config_value('gitlab_api_token', gitlab_token, section='pupgui2') or ""
 
 
+def config_window_geometry(window_name: str, geometry: dict[str, int | bool] | None = None, config_file: str = CONFIG_FILE) -> dict[str, int | bool]:
+    """
+    Read/update the saved size, position and maximized state of a window.
+    Write geometry to the 'window_<window_name>' section of config_file, or read it if geometry is None.
+    Return Type: dict
+        Contents: 'posx', 'posy', 'width', 'height' (int) and 'maximized' (bool), only the options that are stored
+    """
+
+    config = ConfigParser()
+    section = f'window_{window_name}'
+
+    if geometry is not None:
+        config.read(config_file)
+        if not config.has_section(section):
+            config.add_section(section)
+        for option, value in geometry.items():
+            config[section][option] = str(value)
+        os.makedirs(os.path.dirname(config_file), exist_ok=True)
+        with open(config_file, 'w') as file:
+            config.write(file)
+    elif os.path.exists(config_file):
+        config.read(config_file)
+
+    if not config.has_section(section):
+        return {}
+
+    stored: dict[str, int | bool] = {}
+    for option in ('posx', 'posy', 'width', 'height', 'maximized'):
+        if not config.has_option(section, option):
+            continue
+        try:
+            stored[option] = config.getboolean(section, option) if option == 'maximized' else config.getint(section, option)
+        except ValueError:  # skip a hand-edited or corrupted value instead of failing at startup
+            pass
+
+    return stored
+
+
 def create_compatibilitytools_folder() -> None:
     """
     Create compatibilitytools folder if launcher is installed but compatibilitytools folder doesn't exist

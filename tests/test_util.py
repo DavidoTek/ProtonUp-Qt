@@ -686,6 +686,41 @@ def test_config_theme(fs: FakeFilesystem, mocker: MockerFixture, theme: str) -> 
     assert configparser_write_spy.call_count == 1
 
 
+def test_config_window_geometry(fs: FakeFilesystem) -> None:
+
+    """
+    Given the size, position and maximized state of a window,
+    When writing it to the config file and reading it back,
+    Then it should return the same values with their types,
+    And other windows and a missing config file should give an empty dict.
+    """
+
+    assert config_window_geometry('main') == {}
+
+    geometry: dict[str, int | bool] = {'posx': 120, 'posy': -40, 'width': 900, 'height': 640, 'maximized': True}
+    write_result = config_window_geometry('main', geometry)
+    read_result = config_window_geometry('main')
+
+    assert write_result == geometry
+    assert read_result == geometry
+    assert isinstance(read_result['maximized'], bool)
+
+    assert config_window_geometry('gamelist') == {}
+
+
+def test_config_window_geometry_skips_invalid_values(fs: FakeFilesystem) -> None:
+
+    """
+    Given a config file where a window option was edited by hand to an invalid value,
+    When reading the window geometry,
+    Then it should leave out that option and return the valid ones.
+    """
+
+    fs.create_file(CONFIG_FILE, contents='[window_main]\nwidth = wide\nheight = 640\nmaximized = maybe\n')
+
+    assert config_window_geometry('main') == {'height': 640}
+
+
 @pytest.mark.parametrize(
     'name', [
         pytest.param('yad', id = 'Yad should be found'),
