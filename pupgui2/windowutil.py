@@ -41,7 +41,7 @@ def restore_window_geometry(window: QWidget, window_name: str) -> None:
     if QGuiApplication.platformName() == 'xcb' and 'posx' in stored and 'posy' in stored:
         position = QPoint(stored['posx'], stored['posy'])
         position_screen = QGuiApplication.screenAt(position)
-        if position_screen:
+        if position_screen is not None:
             screen = position_screen
         else:  # skip positions on a monitor that is gone
             position = None
@@ -53,7 +53,7 @@ def restore_window_geometry(window: QWidget, window_name: str) -> None:
             width, height = min(width, available.width()), min(height, available.height())
         window.resize(width, height)
 
-    if position:
+    if position is not None:
         window.move(position)
 
     if stored.get('maximized'):

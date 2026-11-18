@@ -96,6 +96,26 @@ def test_restore_window_geometry_x11(mocker: MockerFixture) -> None:
     window.setWindowState.assert_not_called()
 
 
+def test_restore_window_geometry_x11_origin(mocker: MockerFixture) -> None:
+
+    """
+    Given a stored position at the top left corner (0, 0),
+    When restoring it on X11,
+    Then it should still move the window there.
+    """
+
+    mocker.patch('pupgui2.windowutil.config_window_geometry', return_value={'posx': 0, 'posy': 0, 'width': 800, 'height': 600})
+    qguiapplication_mock = mocker.patch('pupgui2.windowutil.QGuiApplication')
+    qguiapplication_mock.platformName.return_value = 'xcb'
+    qguiapplication_mock.screenAt.return_value = mock_screen(mocker, 1920, 1080)
+
+    window = mocker.MagicMock()
+
+    restore_window_geometry(window, 'main')
+
+    window.move.assert_called_once_with(QPoint(0, 0))
+
+
 def test_restore_window_geometry_x11_screen_gone(mocker: MockerFixture) -> None:
 
     """
