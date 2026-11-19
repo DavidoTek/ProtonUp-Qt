@@ -9,7 +9,7 @@ from pupgui2.resources.ctmods.ctmod_00protonge import CtInstaller as GEProtonIns
 
 CT_NAME = 'Proton-RTSP'
 CT_LAUNCHERS = ['steam', 'heroicproton', 'bottles', 'lutris', 'advmode']
-CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_rtspgeproton', '''Compatibility tool for Steam Play based on Wine and additional components.''')}
+CT_DESCRIPTION = {'en': QCoreApplication.instance().translate('ctmod_rtspgeproton', '''Proton build for VRChat with livestream (RTSP) and media playback support, based on Proton Experimental.<br/><br/><b>Steam: after installing, open steam://unlockh264/ once, otherwise most videos will fail to play.</b> Run <i>steam steam://unlockh264/</i>, or <i>flatpak run com.valvesoftware.Steam steam://unlockh264/</i> for Flatpak Steam.<br/><br/>If YouTube videos still fail, try VRCVideoCacher.''')}
 
 
 class CtInstaller(GEProtonInstaller):
