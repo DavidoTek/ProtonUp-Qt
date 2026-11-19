@@ -53,6 +53,11 @@
   </description>
   
   <launchable type="desktop-id">net.davidotek.pupgui2.desktop</launchable>
+  <categories>
+    <category>Game</category>
+    <category>Utility</category>
+    <category>GameTool</category>
+  </categories>
 
   <screenshots>
     <screenshot type="default">
