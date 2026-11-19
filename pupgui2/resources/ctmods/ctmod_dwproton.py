@@ -117,6 +117,7 @@ class CtInstaller(GEProtonInstaller):
 
         download_checksum = self.__sha512sum(proton_tar)
         if source_checksum and (download_checksum not in source_checksum):
+            self.__checksum_mismatch(proton_tar)
             return False
 
         if not extract_tar(proton_tar, install_dir, mode=self.release_format.split('.')[-1]):

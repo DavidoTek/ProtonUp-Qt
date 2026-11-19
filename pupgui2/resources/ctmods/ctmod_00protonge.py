@@ -81,6 +81,17 @@ class CtInstaller(QObject):
                 QMessageBox.Icon.Warning
             )
 
+    def __checksum_mismatch(self, filename: str):
+        print(f"Checksum mismatch for {filename}")
+
+        self.message_box_message.emit(
+            self.tr("Download Error!"),
+            self.tr("The downloaded file '{FILENAME}' does not match its checksum.\n\nPlease try again.").format(
+                FILENAME=os.path.basename(filename)),
+            QMessageBox.Icon.Warning
+        )
+        self.__set_download_progress_percent(-1)
+
     def __sha512sum(self, filename):
         """
         Get SHA512 checksum of a file
@@ -185,6 +196,7 @@ class CtInstaller(QObject):
 
         download_checksum = self.__sha512sum(proton_tar)
         if source_checksum and (download_checksum not in source_checksum):
+            self.__checksum_mismatch(proton_tar)
             return False
 
         if not extract_tar(proton_tar, install_dir, mode=self.release_format.split('.')[-1]):
