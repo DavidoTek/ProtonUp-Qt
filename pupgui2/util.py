@@ -13,7 +13,7 @@ import random
 
 import zstandard
 
-from configparser import ConfigParser
+from configparser import ConfigParser, Error as ConfigParserError
 from typing import Any, Callable
 
 import PySide6
@@ -131,6 +131,43 @@ def apply_dark_theme(app: QApplication) -> None:
                 app.setPalette(PALETTE_DARK())
             else:
                 app.setPalette(QStyleFactory.create('fusion').standardPalette())
+
+
+def get_config_file_error(config_file: str = CONFIG_FILE) -> str:
+    """
+    Check whether the config file can be parsed, e.g. after an option was added twice by hand
+    Return Type: str, the parser's error message, or '' if the file is valid or doesn't exist
+    """
+    try:
+        ConfigParser().read(config_file)
+    except ConfigParserError as e:
+        return str(e)
+    return ''
+
+
+def check_config_file(config_file: str = CONFIG_FILE) -> bool:
+    """
+    If the config file can't be parsed, offer to delete it or to exit and fix it by hand
+    Return Type: bool, False if ProtonUp-Qt should exit
+    """
+    error = get_config_file_error(config_file)
+    if not error:
+        return True
+
+    print(f'Error: Could not read config file: {error}')
+    mb = QMessageBox()
+    mb.setIcon(QMessageBox.Icon.Warning)
+    mb.setWindowTitle(QCoreApplication.instance().translate('util.py', 'Invalid configuration file'))
+    mb.setText(QCoreApplication.instance().translate('util.py', 'The configuration file could not be read:\n\n{error}\n\nDelete it and start with the default settings, or exit and fix it yourself?').format(error=error))
+    btn_delete = mb.addButton(QCoreApplication.instance().translate('util.py', 'Delete config'), QMessageBox.ButtonRole.AcceptRole)
+    mb.addButton(QCoreApplication.instance().translate('util.py', "Exit, I'll fix it myself"), QMessageBox.ButtonRole.RejectRole)
+    mb.setDefaultButton(btn_delete)
+    mb.exec()
+
+    if mb.clickedButton() != btn_delete:
+        return False
+    os.remove(config_file)
+    return True
 
 
 def read_update_config_value(option: str, value: str | None = None, section: str = 'pupgui2', config_file: str = CONFIG_FILE) -> str | None:

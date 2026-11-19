@@ -619,6 +619,35 @@ def test_read_update_config_value(fs: FakeFilesystem, mocker: MockerFixture, opt
 
 
 @pytest.mark.parametrize(
+    'config_contents, expected_error_parts', [
+        pytest.param(None, [], id = 'Missing config file'),
+        pytest.param('[pupgui]\ninstalldir = /tmp/\n\n[pupgui2]\ntheme = dark\n', [], id = 'Valid config file'),
+        pytest.param('[pupgui]\ngithub_api_token = a\ngithub_api_token = b\n', ["'github_api_token'", "'pupgui'", '/tmp/config.ini'], id = 'Duplicate option'),
+        pytest.param('[pupgui2]\ntheme = dark\n[pupgui2]\n', ["'pupgui2'", '/tmp/config.ini'], id = 'Duplicate section'),
+        pytest.param('theme = dark\n', ['no section headers'], id = 'Missing section header'),
+    ]
+)
+def test_get_config_file_error(fs: FakeFilesystem, config_contents: str | None, expected_error_parts: list[str]) -> None:
+
+    """
+    Given a config file that is missing, valid, or that ConfigParser can't parse,
+    When checking it for errors,
+    Then it should return '' for a missing or valid file, and otherwise the error naming what is wrong.
+    """
+
+    config_file = '/tmp/config.ini'
+    if config_contents is not None:
+        fs.create_file(config_file, contents=config_contents)
+
+    result = get_config_file_error(config_file)
+
+    if expected_error_parts:
+        assert all(part in result for part in expected_error_parts)
+    else:
+        assert result == ''
+
+
+@pytest.mark.parametrize(
     'option, value, section, expected_error_message', [
         pytest.param(
             None,
