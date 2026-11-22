@@ -239,6 +239,31 @@ def get_steam_acruntime_list(steam_config_folder: str, cached=False) -> list[Bas
     return runtimes
 
 
+def _load_steam_appinfo(steam_config_folder: str):
+    appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
+    appinfo_file = os.path.realpath(appinfo_file)
+    appinfo_dir = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo')
+    appinfo_dir = os.path.realpath(appinfo_dir)
+
+    if os.path.exists(appinfo_dir) and os.path.isdir(appinfo_dir):
+        for shard in range(0, 256):
+            appinfo_shard = os.path.join(appinfo_dir, f'appinfo_{shard:02x}.vdf')
+            if not (os.path.exists(appinfo_shard) and os.path.isfile(appinfo_shard)):
+                continue
+
+            with open(appinfo_shard, 'rb') as f:
+                _, apps = parse_appinfo(f, mapper=dict)
+                for steam_app in apps:
+                    yield steam_app
+        return
+
+    if os.path.exists(appinfo_file) and os.path.isfile(appinfo_file):
+        with open(appinfo_file, 'rb') as f:
+            _, apps = parse_appinfo(f, mapper=dict)
+            for steam_app in apps:
+                yield steam_app
+
+
 def _get_steam_ctool_info(steam_config_folder: str) -> dict[str, dict[str, str]]:
     """
     Returns a dict that maps the compatibility tool appid to tool info (name e.g. 'proton_7' and from_oslist)
@@ -250,18 +275,13 @@ def _get_steam_ctool_info(steam_config_folder: str) -> dict[str, dict[str, str]]
     if _cached_steam_ctool_id_map is not None:
         return _cached_steam_ctool_id_map
 
-    appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
-    appinfo_file = os.path.realpath(appinfo_file)
-
     ctool_map = {}
     compat_tools = {}
     try:
-        with open(appinfo_file, 'rb') as f:
-            header, apps = parse_appinfo(f, mapper=dict)
-            for steam_app in apps:
-                if steam_app.get('appid') == 891390:
-                    compat_tools = steam_app.get('data').get('appinfo').get('extended').get('compat_tools')
-                    break
+        for steam_app in _load_steam_appinfo(steam_config_folder):
+            if steam_app.get('appid') == 891390:
+                compat_tools = steam_app.get('data').get('appinfo').get('extended').get('compat_tools')
+                break
     except Exception as e:
         print('Error getting ctool map from appinfo.vdf:', e)
     else:
@@ -277,49 +297,45 @@ def update_steamapp_info(steam_config_folder: str, steamapp_list: list[SteamApp]
     Get Steam game names and information for provided SteamApps
     Return Type: list[SteamApp]
     """
-    appinfo_file = os.path.join(os.path.expanduser(steam_config_folder), '../appcache/appinfo.vdf')
-    appinfo_file = os.path.realpath(appinfo_file)
     sapps: dict[str, SteamApp] = {app.get_app_id_str(): app for app in steamapp_list}
     len_sapps = len(sapps)
     cnt = 0
     try:
         ctool_map: dict[str, dict[str, str]] = _get_steam_ctool_info(steam_config_folder)
-        with open(appinfo_file, 'rb') as f:
-            _, apps = parse_appinfo(f, mapper=dict)
-            for steam_app in apps:
-                appid_str = str(steam_app.get('appid'))
-                if a := sapps.get(appid_str):
-                    app_appinfo = steam_app.get('data', {}).get('appinfo', {})
-                    app_appinfo_common = app_appinfo.get('common', {})
+        for steam_app in _load_steam_appinfo(steam_config_folder):
+            appid_str = str(steam_app.get('appid'))
+            if a := sapps.get(appid_str):
+                app_appinfo = steam_app.get('data', {}).get('appinfo', {})
+                app_appinfo_common = app_appinfo.get('common', {})
 
-                    # Dictionary of Dictionaries with dependency info, primarily Proton anti-cheat runtimes
-                    # Example: {'0': {'src_os': 'windows', 'dest_os': 'linux', 'appid': 1826330, 'comment': 'EAC runtime'}}
-                    app_additional_dependencies = app_appinfo.get('extended', {}).get('additional_dependencies', {})
+                # Dictionary of Dictionaries with dependency info, primarily Proton anti-cheat runtimes
+                # Example: {'0': {'src_os': 'windows', 'dest_os': 'linux', 'appid': 1826330, 'comment': 'EAC runtime'}}
+                app_additional_dependencies = app_appinfo.get('extended', {}).get('additional_dependencies', {})
 
-                    a.game_name = str(app_appinfo_common.get('name', ''))
-                    a.deck_compatibility = app_appinfo_common.get('steam_deck_compatibility', {})
-                    for dep in app_additional_dependencies.values():
-                        a.anticheat_runtimes[RuntimeType.EAC] = dep.get('appid', -1) == PROTON_EAC_RUNTIME_APPID
-                        a.anticheat_runtimes[RuntimeType.BATTLEYE] = dep.get('appid', -1) == PROTON_BATTLEYE_RUNTIME_APPID
+                a.game_name = str(app_appinfo_common.get('name', ''))
+                a.deck_compatibility = app_appinfo_common.get('steam_deck_compatibility', {})
+                for dep in app_additional_dependencies.values():
+                    a.anticheat_runtimes[RuntimeType.EAC] = dep.get('appid', -1) == PROTON_EAC_RUNTIME_APPID
+                    a.anticheat_runtimes[RuntimeType.BATTLEYE] = dep.get('appid', -1) == PROTON_BATTLEYE_RUNTIME_APPID
 
-                    # Configure app types
-                    if a.app_id in [PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID]:
-                        a.app_type = 'acruntime'
-                    elif a.app_id in [STEAMLINUXRUNTIME_APPID, STEAMLINUXRUNTIME_SOLDIER_APPID, STEAMLINUXRUNTIME_SNIPER_APPID]:
-                        a.app_type = 'runtime'
-                    elif 'Steamworks' in a.game_name:
-                        a.app_type = 'steamworks'
-                    elif steam_app.get('appid') in ctool_map:
-                        ct = ctool_map.get(steam_app.get('appid'))
-                        a.ctool_name = ct.get('name')
-                        a.ctool_from_oslist = ct.get('from_oslist')
-                    elif a.app_id == PROTON_NEXT_APPID:  # see https://github.com/DavidoTek/ProtonUp-Qt/pull/280
-                        a.app_type = 'useless-proton-next'
-                    else:
-                        a.app_type = 'game'
-                    cnt += 1
-                if cnt == len_sapps:
-                    break
+                # Configure app types
+                if a.app_id in [PROTON_EAC_RUNTIME_APPID, PROTON_BATTLEYE_RUNTIME_APPID]:
+                    a.app_type = 'acruntime'
+                elif a.app_id in [STEAMLINUXRUNTIME_APPID, STEAMLINUXRUNTIME_SOLDIER_APPID, STEAMLINUXRUNTIME_SNIPER_APPID]:
+                    a.app_type = 'runtime'
+                elif 'Steamworks' in a.game_name:
+                    a.app_type = 'steamworks'
+                elif steam_app.get('appid') in ctool_map:
+                    ct = ctool_map.get(steam_app.get('appid'))
+                    a.ctool_name = ct.get('name')
+                    a.ctool_from_oslist = ct.get('from_oslist')
+                elif a.app_id == PROTON_NEXT_APPID:  # see https://github.com/DavidoTek/ProtonUp-Qt/pull/280
+                    a.app_type = 'useless-proton-next'
+                else:
+                    a.app_type = 'game'
+                cnt += 1
+            if cnt == len_sapps:
+                break
     except Exception as e:
         print('Error updating SteamApp info from appinfo.vdf:', e)
     return list(sapps.values())
