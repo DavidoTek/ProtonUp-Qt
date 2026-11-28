@@ -90,8 +90,11 @@ class CtInstaller(ProtonGECtInstaller):
             for asset in release['assets']:
                 name = asset["name"]
                 if name.endswith(".tar.xz"):
-                    name = name.strip(".tar.xz")
-                    _, _, major, minor, _, arch = name.split("-")
+                    name = name.removesuffix(".tar.xz")
+                    parts = name.split("-")
+                    if len(parts) != 6:
+                        continue
+                    _, _, major, minor, _, arch = parts
                     name = "-".join((major, minor, arch))
                     if arch in hwcaps and name not in assets:
                         assets.append(name)
